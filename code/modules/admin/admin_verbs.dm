@@ -91,7 +91,8 @@ var/list/admin_verbs_senior_admin = list(
 	/client/proc/send_space_ninja,
 	/client/proc/make_sound,
 	/client/proc/toggle_random_events,
-	/datum/admins/proc/set_admin_notice /*announcement all clients see when joining the server.*/
+	/datum/admins/proc/set_admin_notice, /*announcement all clients see when joining the server.*/
+	/client/proc/zombie_verb
 	)
 
 var/list/admin_verbs_ban = list(
