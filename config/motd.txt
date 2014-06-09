@@ -1,5 +1,20 @@
-<!-- Most valid html will work in here, excluding images. -->
+<CENTER><h1><FONT COLOR="#3B3B3B">Welcome to</FONT> <FONT COLOR="#8C1717">Liberty Station 13!</FONT></h1>
+<br>
+<FONT COLOR="#3B3B3B"><i>This server is running a <FONT COLOR="#FF0000">*MODIFIED*</FONT> /tg/station13 SVN build.</i></FONT>
+<br>
+<FONT COLOR="#708090">Please report any bugs or suggestions at the following address: http://www.assembla.com/spaces/LLAbugs/support/tickets</FONT>
+<br>
+<br>
+<FONT COLOR="#708090">Check the changelog for information regarding new updates and additions!</FONT>
+<br>
+<FONT COLOR="#3B3B3B">We are individual from the other SS13 servers and we have our own separate rules. Not knowing the rules isn't an excuse to break them. Review them, please.</FONT>
+<br>
+<br>
+<FONT COLOR="#708090">Post any complaints or issues with our administration team here: 
+<br>
+http://www.llagaming.net/forums/forums/abuse-report.29/ 
+<br>
+Admin abuse is something we take very seriously here. </FONT>
+<br>
 
-<h1>Welcome to Space Station 13!</h1>
 
-<i>This server is running a /tg/station 13 Git build.</i>
