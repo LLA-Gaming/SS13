@@ -1,25 +1,30 @@
-##############################################################################################################
-# ADMIN RANK DEFINES                                                                                         #
-# The format of this is very simple. Rank name goes first.                                                   #
-# Rank is CASE-SENSITIVE, all punctuation save for '-', '_' and '@' will be stripped so spaces don't matter. #
-# You can then define permissions for each rank by adding a '=' followed by keywords                         #
-# These keywords represent groups of verbs and abilities.                                                    #
-# keywords are preceded by either a '+' or a '-', + adds permissions, - takes them away.                     #
-# +@ (or +prev) is a special shorthand which adds all the rights of the rank above it.                       #
-# You can also specify verbs like so +/client/proc/some_added_verb or -/client/proc/some_restricted_verb     #
-# Ranks with no keywords will just be given the most basic verbs and abilities                ~Carn          #
-##############################################################################################################
+########################################################################################
+# ADMIN RANK DEFINES                                                                   #
+# The format of this is very simple. Rank name goes first.                             #
+# Rank is CASE-SENSITIVE, all punctuation will be stripped so spaces don't matter.     #
+# Each rank is then followed by keywords with the prefix "+".                          #
+# These keywords represent groups of verbs and abilities which are given to that rank. #
+# +@ (or +prev) is a special shorthand which adds all the rights of the rank above it. #
+# Ranks with no keywords will just be given the most basic verbs and abilities   ~Carn #
+########################################################################################
 # PLEASE NOTE: depending on config options, some abilities will be unavailable regardless if you have permission to use them!
+# ALSO NOTE: this is a WorkInProgress at the moment. Most of this is just arbitrarily thrown in whatever group because LoadsaWork2Do+LittleTime.
+#            I'll be doing more moving around as feedback comes in. So be sure to check the notes after updates.
 
 # KEYWORDS:
-# +ADMIN = general admin tools, verbs etc
-# +FUN = events, other event-orientated actions. Access to the fun secrets in the secrets panel.
+# +TRIAL = Player Panel, Toggle OOC, Toggle OOC for dead people, check AI laws, check antag, jump-to-mob, jump-to-key.
+# +SECONDARYADMIN =  Announce, Subtle message, check contents, jump to co-ords, jump to turf, direct narrate, centcom report, unban panel, jobban panel, bans, ban offline player, gibself, view attack/server logs.
+# +ADMIN = Early start, delay, restart, play local sound, play global sound, game panel, access news network, rejuvinate, respawn, get mob, get key, invismin, toggle entry, toggle guests, spawning.
+# +PRIMARYADMIN =  Call shuttle, cancel shuttle, world narrate, check cultist words, repair map, one click antag, add freeform law, add random law, make sound, immediate reboot, random apperance, toggle AI, admin delete, change view range, toggle random events, something to do with setting OOC, admin dress, possess + release.
+# +SENIORADMIN = object talk, delete all, toggle something, toggle admin spawning, toggle admin jumping, toggle admin banning, get ALL server logs (spans over a few days), drop bomb, cinematic, spawn spess ninja.
+
+# +FUN = Access to the fun secrets in the secrets panel + other small things from similar panels.
 # +BAN = the ability to ban, jobban and fullban
 # +STEALTH = the ability to stealthmin (make yourself appear with a fake name to everyone but other admins
 # +POSSESS = the ability to possess objects
 # +REJUV (or +REJUVINATE) = the ability to heal, respawn, modify damage and use godmode
 # +BUILD (or +BUILDMODE) = the ability to use buildmode
-# +SERVER = higher-risk admin verbs and abilities, such as those which affect the server configuration.
+# +SERVER = Access to certain higher-risk abilities within menus, such as a delete-all and changing the bomb cap.
 # +DEBUG = debug tools used for diagnosing and fixing problems. It's useful to give this to coders so they can investigate problems on a live server.
 # +VAREDIT = everyone may view viewvars/debugvars/whatever you call it. This keyword allows you to actually EDIT those variables.
 # +RIGHTS (or +PERMISSIONS) = allows you to promote and/or demote people.
@@ -27,14 +32,14 @@
 # +SPAWN (or +CREATE) = mob transformations, spawning of most atoms including mobs (high-risk atoms, e.g. blackholes, will require the +FUN flag too)
 # +EVERYTHING (or +HOST or +ALL) = Simply gives you everything without having to type every flag
 
-Admin Observer
-Moderator		= +ADMIN
-Admin Candidate	= +@
-Trial Admin		= +@ +SPAWN +REJUV +VAREDIT +BAN
-Badmin			= +@ +POSSESS +BUILDMODE +SERVER +FUN
-Game Admin		= +@ +STEALTH +SOUNDS +DEBUG
-Game Master		= +EVERYTHING
+Admin Observer			=
+Trial Admin				= +TRIAL
+Secondary Admin			= +@ +SECONDARYADMIN +BAN
+Administrator			= +@ +ADMIN +SPAWN +REJUV +STEALTH
+Primary Administrator	= +@ +POSSESS +PRIMARYADMIN +VAREDIT +FUN +SERVER +SOUND
+Senior Admin			= +@ +SENIORADMIN +PERMISSIONS +SPAWN +BUILD
+Head of Staff			= +@ +DEBUG
 
-Host			= +EVERYTHING
-
-Coder			= +DEBUG +VAREDIT +SERVER +SPAWN
+Coder					= +EVERYTHING
+Game Master				= +EVERYTHING
+Host					= +EVERYTHING

@@ -20,18 +20,22 @@
 
 //Please don't edit these values without speaking to Errorage first	~Carn
 //Admin Permissions
-#define R_BUILDMODE		1
-#define R_ADMIN			2
-#define R_BAN			4
-#define R_FUN			8
-#define R_SERVER		16
-#define R_DEBUG			32
-#define R_POSSESS		64
-#define R_PERMISSIONS	128
-#define R_STEALTH		256
-#define R_REJUVINATE	512
-#define R_VAREDIT		1024
-#define R_SOUNDS		2048
-#define R_SPAWN			4096
+#define R_BUILDMODE			1
+#define R_TRIALADMIN		2
+#define R_SECONDARYADMIN 	4
+#define R_ADMIN				8
+#define R_PRIMARYADMIN		16
+#define R_SENIORADMIN		32
+#define R_BAN				64
+#define R_DEBUG				128
+#define R_POSSESS			256
+#define R_PERMISSIONS		512
+#define R_STEALTH			1024
+#define R_REJUVINATE		2048
+#define R_VAREDIT			4096
+#define R_SOUNDS			8192
+#define R_SPAWN				16384
+#define R_FUN				32768
+#define R_SERVER			65536
 
-#define R_MAXPERMISSION 4096 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 16384 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.

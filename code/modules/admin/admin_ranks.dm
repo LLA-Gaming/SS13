@@ -22,19 +22,23 @@ var/list/admin_ranks = list()								//list of all admin_rank datums
 	var/flag = 0
 	switch(ckey(word))
 		if("buildmode","build")			flag = R_BUILDMODE
+		if("trialadmin")				flag = R_TRIALADMIN
+		if("secondaryadmin")			flag = R_SECONDARYADMIN
 		if("admin")						flag = R_ADMIN
+		if("primaryadmin")				flag = R_PRIMARYADMIN
+		if("senioradmin")				flag = R_SENIORADMIN
 		if("ban")						flag = R_BAN
-		if("fun")						flag = R_FUN
-		if("server")					flag = R_SERVER
 		if("debug")						flag = R_DEBUG
-		if("permissions","rights")		flag = R_PERMISSIONS
 		if("possess")					flag = R_POSSESS
+		if("permissions","rights")		flag = R_PERMISSIONS
 		if("stealth")					flag = R_STEALTH
 		if("rejuv","rejuvinate")		flag = R_REJUVINATE
 		if("varedit")					flag = R_VAREDIT
-		if("everything","host","all")	flag = 65535
 		if("sound","sounds")			flag = R_SOUNDS
 		if("spawn","create")			flag = R_SPAWN
+		if("fun")						flag = R_FUN
+		if("server")					flag = R_SERVER
+		if("everything","host","all")	flag = 131071
 		if("@","prev")					flag = previous_rights
 		else
 			//isn't a keyword so maybe it's a verbpath?
