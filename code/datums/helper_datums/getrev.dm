@@ -31,7 +31,7 @@ var/global/datum/getrev/revdata = new()
 		showinfo += "*unknown*"
 	showinfo += "<p>-<A href='?src=\ref[src];new_issue_open=1'>Report Bugs Here-</A><br><i>Please provide as much info as possible<br>Copy/paste the revision date and hash into your issue report if possible, thanks</i> :)</p>"
 
-	world.log << "Running /tg/ revision:"
+	world.log << "Running Liberty revision:"
 	world.log << date
 	world.log << revision
 	return
