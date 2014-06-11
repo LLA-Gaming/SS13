@@ -28,6 +28,9 @@
 	var/picture_state		// icon_state of alert picture, if not displaying text/numbers
 	var/list/obj/machinery/targets = list()
 
+	var/crime = "No Crime."
+	var/prisoner = "No Prisoner."
+
 	maptext_height = 26
 	maptext_width = 32
 
@@ -56,7 +59,6 @@
 			return
 		return
 
-
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
 // if it's less than 0, open door, reset timer
 // update the door_timer window and the icon
@@ -73,13 +75,11 @@
 			timer_end()
 		return
 
-
 // has the door power sitatuation changed, if so update icon.
 	power_change()
 		..()
 		update_icon()
 		return
-
 
 // open/closedoor checks if door_timer has power, if so it checks if the
 // linked door is open/closed (by density) then opens it/closes it.
@@ -98,7 +98,6 @@
 			C.icon_state = C.icon_locked
 		return 1
 
-
 	proc/timer_end()
 		if(stat & (NOPOWER|BROKEN))	return 0
 
@@ -115,12 +114,10 @@
 
 		return 1
 
-
 	proc/timeleft()
 		. = (timing ? (releasetime-world.time) : timelength)/10
 		if(. < 0)
 			. = 0
-
 
 	proc/timeset(var/seconds)
 		if(timing)
@@ -132,7 +129,6 @@
 //Allows AIs to use door_timer, see human attack_hand function below
 	attack_ai(var/mob/user as mob)
 		return src.attack_hand(user)
-
 
 //Allows humans to use door_timer
 //Opens dialog window when someone clicks on door timer
@@ -155,6 +151,9 @@
 		dat += "Time Left: [(minute ? text("[minute]:") : null)][second] <br/>"
 		dat += "<a href='?src=\ref[src];tp=-60'>-</a> <a href='?src=\ref[src];tp=-1'>-</a> <a href='?src=\ref[src];tp=1'>+</a> <A href='?src=\ref[src];tp=60'>+</a><br/>"
 
+		dat += "<br>Crime: <a href='byond://?src=\ref[src];crime=1'>[crime ? crime : "No Crime."]</a><br>"
+		dat += "Prisoner: <a href='byond://?src=\ref[src];prisoner=1'>[prisoner ? prisoner : "No Prisoner."]</a><br>"
+
 		for(var/obj/machinery/flasher/F in targets)
 			if(F.last_flash && (F.last_flash + 150) > world.time)
 				dat += "<br/><A href='?src=\ref[src];fc=1'>Flash Charging</A>"
@@ -167,13 +166,19 @@
 		onclose(user, "computer")
 		return
 
-
 //Function for using door_timer dialog input, checks if user has permission
 // href_list to
 //  "timing" turns on timer
 //  "tp" value to modify timer
 //  "fc" activates flasher
 // Also updates dialog window and timer icon
+
+	examine()
+		..()
+		usr << "The [src] reads:"
+		usr << "Current Crime: [crime]."
+		usr << "Current Prisoner: [prisoner]."
+
 	Topic(href, href_list)
 		if(..())
 			return
@@ -190,13 +195,34 @@
 			var/timeleft = timeleft()
 			var/tp = text2num(href_list["tp"])
 			timeleft += tp
-			timeleft = min(max(round(timeleft), 0), 600)
+			timeleft = min(max(round(timeleft), 0), 3599)
 			timeset(timeleft)
 			//src.timing = 1
 			//src.closedoor()
 		else if(href_list["fc"])
 			for(var/obj/machinery/flasher/F in targets)
 				F.flash()
+		else if(href_list["crime"])
+			var/_crime = input("Please enter the crime.", "Crime") as text
+			if(_crime)
+				if(length(_crime) > 100)
+					usr << "<div class='warning'>Error: Crime too long.</div>"
+					return
+				log_game("BRIG: [key_name(usr)] edited the [src]'s crime to: [_crime].")
+				crime = _crime
+			else
+				crime = "No Crime."
+		else if(href_list["prisoner"])
+			var/_prisoner = input("Who is in the cell?", "Prisoner") as text
+			if(_prisoner)
+				if(length(_prisoner) > 24)
+					usr << "<div class='warning'>Error: Prisoner Name too long.</div>"
+					return
+				log_game("BRIG: [key_name(usr)] edited the [src]'s prisoner to: [_prisoner].")
+				prisoner = _prisoner
+			else
+				prisoner = "No Prisoner."
+
 		src.add_fingerprint(usr)
 		src.updateUsrDialog()
 		src.update_icon()
