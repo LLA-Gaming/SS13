@@ -571,7 +571,7 @@ var/list/slot_equipment_priority = list( \
 /mob/Stat()
 	..()
 
-	if(client && client.holder)
+	if(client && client.holder && (client.prefs.toggles & STATPANEL))
 
 		if(statpanel("Status"))	//not looking at that panel
 			stat(null,"Location:\t([x], [y], [z])")

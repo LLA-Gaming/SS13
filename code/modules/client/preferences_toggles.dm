@@ -156,3 +156,12 @@ var/list/ghost_forms = list("ghost","ghostking","ghostian2","ghost_red","ghost_b
 		prefs.save_preferences()
 		if(istype(mob,/mob/dead/observer))
 			mob.icon_state = new_form
+
+/client/proc/toggle_statpanel()
+	set name = "Toggle Statpanel Information"
+	set category = "Preferences"
+	set desc = "Hides debug information in the statpanel."
+
+	prefs.toggles ^= STATPANEL
+	prefs.save_preferences()
+	src << "You will [(prefs.toggles & STATPANEL) ? "now" : "no longer"] see statpanel information."

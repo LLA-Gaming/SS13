@@ -209,6 +209,7 @@ datum/preferences
 				dat += "<b>Ghost ears:</b> <a href='?_src_=prefs;preference=ghost_ears'>[(toggles & CHAT_GHOSTEARS) ? "Nearest Creatures" : "All Speech"]</a><br>"
 				dat += "<b>Ghost sight:</b> <a href='?_src_=prefs;preference=ghost_sight'>[(toggles & CHAT_GHOSTSIGHT) ? "Nearest Creatures" : "All Emotes"]</a><br>"
 				dat += "<b>Pull requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(toggles & CHAT_PULLR) ? "Yes" : "No"]</a><br>"
+				dat += "<b>Statpanel Info</b> <a href='?_src_=prefs;preference=statpanel'>[(toggles & STATPANEL) ? "Yes" : "No"]</a><br>"
 
 				if(config.allow_Metadata)
 					dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'> Edit </a><br>"
@@ -704,6 +705,8 @@ datum/preferences
 					if("tab")
 						if (href_list["tab"])
 							current_tab = text2num(href_list["tab"])
+					if("statpanel")
+						toggles ^= STATPANEL
 
 		ShowChoices(user)
 		return 1
