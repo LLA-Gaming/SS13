@@ -584,7 +584,7 @@
 // The src mob is trying to strip an item from someone
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 var/list/slotTakeOffTime = list(slot_back = 80, slot_wear_mask = 40, slot_handcuffed = 60, slot_l_hand = 40, slot_r_hand = 40, slot_belt = 80, slot_wear_id = 60, slot_ears = 40,
-								slot_glasses = 30, slot_gloves = 50, slot_head = 80, slot_shoes = 80, slot_wear_suit = 100, slot_w_uniform = 100, slot_l_store = 50, slot_r_store = 50,
+								slot_glasses = 30, slot_gloves = 50, slot_head = 30, slot_shoes = 60, slot_wear_suit = 100, slot_w_uniform = 100, slot_l_store = 50, slot_r_store = 50,
 								slot_s_store = 60, slot_in_backpack = 80, slot_legcuffed = 60)
 
 /mob/living/stripPanelUnequip(mob/who, obj/item/what, where)
