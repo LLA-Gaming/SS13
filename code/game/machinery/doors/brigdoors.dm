@@ -188,7 +188,7 @@
 		usr.set_machine(src)
 		if(href_list["timing"]) //switch between timing and not timing
 			var/timeleft = timeleft()
-			timeleft = min(max(round(timeleft), 0), 600)
+			timeleft = min(max(round(timeleft), 0), 3599)
 			timing = text2num(href_list["timing"])
 			timeset(timeleft)
 		else if(href_list["tp"]) //adjust timer
