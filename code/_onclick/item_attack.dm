@@ -8,7 +8,10 @@
 	return
 /atom/movable/attackby(obj/item/W, mob/user)
 	if(W && !(W.flags&NOBLUDGEON))
-		visible_message("<span class='danger'>[src] has been hit by [user] with [W].</span>")
+		var/msg_to_send = "<span class='danger'>[src] has been hit by [user] with [W].</span>"
+
+		W << msg_to_send
+		W << output(msg_to_send, "ic")
 
 /mob/living/attackby(obj/item/I, mob/user)
 	user.changeNext_move(8)
