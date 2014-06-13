@@ -46,6 +46,7 @@ var/list/admin_verbs_secondary_admin = list(
 	)
 
 var/list/admin_verbs_admin = list(
+	/client/proc/stealth,
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
 	/datum/admins/proc/delay,
@@ -215,7 +216,6 @@ var/list/admin_verbs_hideable = list(
 		if(rights & R_DEBUG)			verbs += admin_verbs_debug
 		if(rights & R_POSSESS)			verbs += admin_verbs_possess
 		if(rights & R_PERMISSIONS)		verbs += admin_verbs_permissions
-		if(rights & R_STEALTH)			verbs += /client/proc/stealth
 		if(rights & R_SOUNDS)			verbs += admin_verbs_sounds
 		if(rights & R_SPAWN)			verbs += admin_verbs_spawn
 

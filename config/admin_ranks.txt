@@ -20,9 +20,7 @@
 
 # +FUN = Access to the fun secrets in the secrets panel + other small things from similar panels.
 # +BAN = the ability to ban, jobban and fullban
-# +STEALTH = the ability to stealthmin (make yourself appear with a fake name to everyone but other admins
 # +POSSESS = the ability to possess objects
-# +REJUV (or +REJUVINATE) = the ability to heal, respawn, modify damage and use godmode
 # +BUILD (or +BUILDMODE) = the ability to use buildmode
 # +SERVER = Access to certain higher-risk abilities within menus, such as a delete-all and changing the bomb cap.
 # +DEBUG = debug tools used for diagnosing and fixing problems. It's useful to give this to coders so they can investigate problems on a live server.
@@ -35,7 +33,7 @@
 Admin Observer			=
 Trial Admin				= +TRIALADMIN
 Secondary Admin			= +@ +SECONDARYADMIN +BAN
-Administrator			= +@ +ADMIN +SPAWN +REJUV +STEALTH
+Administrator			= +@ +ADMIN +SPAWN
 Primary Administrator	= +@ +POSSESS +PRIMARYADMIN +VAREDIT +FUN +SERVER +SOUND
 Senior Admin			= +@ +SENIORADMIN +PERMISSIONS +SPAWN +BUILD
 Head of Staff			= +@ +DEBUG

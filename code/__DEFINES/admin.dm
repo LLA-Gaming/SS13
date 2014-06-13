@@ -30,12 +30,10 @@
 #define R_DEBUG				128
 #define R_POSSESS			256
 #define R_PERMISSIONS		512
-#define R_STEALTH			1024
-#define R_REJUVINATE		2048
-#define R_VAREDIT			4096
-#define R_SOUNDS			8192
-#define R_SPAWN				16384
-#define R_FUN				32768
-#define R_SERVER			65536
+#define R_VAREDIT			1024
+#define R_SOUNDS			2048
+#define R_SPAWN				4096
+#define R_FUN				8192
+#define R_SERVER			16384
 
-#define R_MAXPERMISSION 16384 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 65535 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
