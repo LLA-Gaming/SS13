@@ -1270,15 +1270,17 @@
 			if(MALE,FEMALE)	gender_description = "[M.gender]"
 			else			gender_description = "<font color='red'><b>[M.gender]</b></font>"
 
-		var/msg_to_send = "<b>Info about [M.name]:</b> "
-		msg_to_send += "<BR>Mob type = [M.type]; Gender = [gender_description] Damage = [health_description]"
-		msg_to_send += "<BR>Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;"
-		msg_to_send += "<BR>Location = [location_description];"
-		msg_to_send += "<BR>[special_role_description]"
-		msg_to_send += "<BR>(<a href='?priv_msg=[M.ckey]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservejump=\ref[M]'>JMP</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)"
+		var/msg_to_send = {"
+		<b>Info about [M.name]:</b>
+		<BR>Mob type = [M.type]; Gender = [gender_description] Damage = [health_description]
+		<BR>Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;
+		<BR>Location = [location_description];
+		<BR>[special_role_description]
+		<BR>(<a href='?priv_msg=[M.ckey]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) (<A HREF='?src=\ref[src];adminplayerobservejump=\ref[M]'>JMP</A>) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)
+		"}
 
 		src.owner << msg_to_send
-		src.owner << output(msg_to_send, "ahelp")
+		src.owner.send_text_to_tab(msg_to_send, "ahelp")
 
 	else if(href_list["adminspawncookie"])
 		if(!check_rights(R_ADMIN|R_FUN))	return

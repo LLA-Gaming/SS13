@@ -66,13 +66,10 @@ var/next_mob_id = 0
 					return
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS || sleeping > 0)
-		src << "<I>... You can almost hear someone talking ...</I>"
-		spawn(1)
-			src << output(msg, "IC")
-	else
-		src << msg
-		spawn(1)
-			src << output(msg, "IC")
+		msg = "<I>... You can almost hear someone talking ...</I>"
+
+	src << msg
+	src.send_text_to_tab(msg, "ic")
 	return
 
 // Show a message to all mobs in sight of this one

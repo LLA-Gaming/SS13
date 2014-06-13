@@ -69,22 +69,17 @@
 		if(!msg)	return
 
 	if(C.holder)
+		var/shown_to_receiver = "<font color='red'>Reply PM from-<b>[key_name(src, C, 1)]</b>: [msg]</font>"
+		var/shown_to_sender = ""
 		if(holder)	//both are admins
-			var/response =  "<font color='red'>Admin PM from-<b>[key_name(src, C, 1)]</b>: [msg]</font>"
-			C << response
-
-			C << output(response, "ahelp")
-			var/to_send = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
-			src << to_send
-			src << output(to_send,"ahelp")
-
+			shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
 		else		//recipient is an admin but sender is not
-			var/response = "<font color='red'>Reply PM from-<b>[key_name(src, C, 1)]</b>: [msg]</font>"
-			C << response
-			C << output(response, "ahelp")
-			var/to_send = "<font color='blue'>PM to-<b>Admins</b>: [msg]</font>"
-			src << to_send
-			src << output(to_send,"ahelp")
+			shown_to_sender = "<font color='blue'>PM to-<b>Admins</b>: [msg]</font>"
+
+		C << shown_to_receiver
+		C.send_text_to_tab(shown_to_receiver, "ahelp")
+		src << shown_to_sender
+		src.send_text_to_tab(shown_to_sender, "ahelp")
 
 		//play the recieving admin the adminhelp sound (if they have them enabled)
 		if(C.prefs.toggles & SOUND_ADMINHELP)
@@ -92,20 +87,20 @@
 
 	else
 		if(holder)	//sender is an admin but recipient is not. Do BIG RED TEXT
-			var/response = "<font color='red' size='4'><b>-- Administrator private message --</b></font>"
-			response += "<BR><font color='red'>Admin PM from-<b>[key_name(src, C, 0)]</b>: [msg]</font>"
-			response += "<BR><font color='red'><i>Click on the administrator's name to reply.</i></font>"
-			C << response
+			var/shown_to_receiver = {"
+			<font color='red' size='4'><b>-- Administrator private message --</b></font>
+			<BR><font color='red'>Admin PM from-<b>[key_name(src, C, 0)]</b>: [msg]</font>
+			<BR><font color='red'><i>Click on the administrator's name to reply.</i></font>
+			"}
 
-			spawn(1)
-				C << output(response, "ahelp")
-				C << output(response, "ic")
-				C << output(response, "ooc")
+			var/shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
 
-			var/to_send = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
-			src << to_send
-
-			src << output(to_send, "ahelp")
+			C << shown_to_receiver
+			C.send_text_to_tab(shown_to_receiver, "ahelp")
+			C.send_text_to_tab(shown_to_receiver, "ic")
+			C.send_text_to_tab(shown_to_receiver, "ooc")
+			src << shown_to_sender
+			src.send_text_to_tab(shown_to_sender, "ahelp")
 
 			//always play non-admin recipients the adminhelp sound
 			C << 'sound/effects/adminhelp.ogg'
