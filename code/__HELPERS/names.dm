@@ -48,8 +48,6 @@ var/religion_name = null
 		return station_name
 
 	if(events)
-		var/short_name = pick("Liberty Station")
-
 		station_name = new_station_name()
 
 		if (config && config.server_name)
