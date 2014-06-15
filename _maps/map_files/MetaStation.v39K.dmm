@@ -1235,7 +1235,7 @@
 "axM" = (/obj/structure/disposalpipe/segment{dir = 1; icon_state = "pipe-c"},/turf/simulated/floor/plating,/area/maintenance/fpmaint2{name = "Port Maintenance"})
 "axN" = (/obj/structure/disposalpipe/segment{dir = 2; icon_state = "pipe-c"},/obj/machinery/atmospherics/pipe/simple/supply/hidden,/obj/structure/cable/yellow{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/maintenance/fore)
 "axO" = (/turf/simulated/wall/r_wall,/area/security/nuke_storage)
-"axP" = (/obj/machinery/door/airlock/shuttle{name = "Labor Shuttle Airlock"; req_access_txt = "2"},/turf/simulated/shuttle/floor{icon = 'icons/turf/floors.dmi'; icon_state = "dark"},/area/shuttle/laborcamp/station)
+"axP" = (/obj/machinery/door/airlock/shuttle{id_tag = "prisonshuttle"; name = "Labor Shuttle Airlock"; req_access_txt = "2"},/turf/simulated/shuttle/floor{icon = 'icons/turf/floors.dmi'; icon_state = "dark"},/area/shuttle/laborcamp/station)
 "axQ" = (/turf/simulated/shuttle/wall,/area/shuttle/laborcamp/station)
 "axR" = (/obj/machinery/mineral/stacking_machine/laborstacker{input_dir = 2; output_dir = 1},/turf/simulated/shuttle/floor{icon = 'icons/turf/floors.dmi'; icon_state = "dark"},/area/shuttle/laborcamp/station)
 "axS" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 8},/obj/structure/window/reinforced{dir = 1},/turf/simulated/floor/plating,/area/security/brig)
