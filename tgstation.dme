@@ -6,9 +6,6 @@
 
 // BEGIN_FILE_DIR
 #define FILE_DIR .
-#define FILE_DIR "code"
-#define FILE_DIR "code/modules"
-#define FILE_DIR "code/modules/Raptorblaze"
 #define FILE_DIR "html"
 #define FILE_DIR "icons"
 #define FILE_DIR "icons/ass"
@@ -58,7 +55,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include "_maps\tgstation2.dm"
+#include "_maps\metastation.dm"
 #include "_maps\map_files\tgstation.2.1.3.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
@@ -1188,6 +1185,7 @@
 #include "code\modules\projectiles\projectile\energy.dm"
 #include "code\modules\projectiles\projectile\magic.dm"
 #include "code\modules\projectiles\projectile\special.dm"
+#include "code\modules\Raptorblaze\Bong.dm"
 #include "code\modules\reagents\bluespace_launcher.dm"
 #include "code\modules\reagents\Chemistry-Colours.dm"
 #include "code\modules\reagents\Chemistry-Holder.dm"
