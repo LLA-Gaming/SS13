@@ -127,7 +127,7 @@
 		. = ..()
 		switch(mode)
 			if(1,2,4)
-				usr << output("The display says:<br>\t<xmp>[message1]</xmp><br>\t<xmp>[message2]</xmp>", "ic")
+				usr.send_text_to_tab("The display says:<br>\t<xmp>[message1]</xmp><br>\t<xmp>[message2]</xmp>", "ic")
 				usr << "The display says:<br>\t<xmp>[message1]</xmp><br>\t<xmp>[message2]</xmp>"
 
 

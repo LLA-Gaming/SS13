@@ -163,7 +163,7 @@
 
 	examine()
 		if(src in usr)
-			usr << output("<span class='notice'>There are [amount] units of package wrap left.</span>", "ic")
+			usr.send_text_to_tab("<span class='notice'>There are [amount] units of package wrap left.</span>", "ic")
 			usr << "<span class='notice'>There are [amount] units of package wrap left.</span>"
 		..()
 		return

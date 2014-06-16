@@ -115,13 +115,13 @@
 	if(bitecount == 0)
 		return
 	else if(bitecount == 1)
-		usr << output("[src] was bitten by someone!", "ic")
+		usr.send_text_to_tab("[src] was bitten by someone!", "ic")
 		usr << "[src] was bitten by someone!"
 	else if(bitecount <= 3)
-		usr << output("[src] was bitten [bitecount] times!", "ic")
+		usr.send_text_to_tab("[src] was bitten [bitecount] times!", "ic")
 		usr << "[src] was bitten [bitecount] times!"
 	else
-		usr << output("[src] was bitten multiple times!", "ic")
+		usr.send_text_to_tab("[src] was bitten multiple times!", "ic")
 		usr << "[src] was bitten multiple times!"
 
 

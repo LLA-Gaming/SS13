@@ -24,7 +24,7 @@
 	set src in usr
 	..()
 	for(var/datum/reagent/R in reagents.reagent_list)
-		usr << output("[round(R.volume)] units of [R.name] left.", "ic")
+		usr.send_text_to_tab("[round(R.volume)] units of [R.name] left.", "ic")
 		usr << "[round(R.volume)] units of [R.name] left."
 	return
 

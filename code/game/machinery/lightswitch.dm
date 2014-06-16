@@ -40,7 +40,7 @@
 	set src in oview(1)
 	..()
 	if(usr && !usr.stat)
-		usr << output("It is [on? "on" : "off"].", "ic")
+		usr.send_text_to_tab("It is [on? "on" : "off"].", "ic")
 		usr << "It is [on? "on" : "off"]."
 
 

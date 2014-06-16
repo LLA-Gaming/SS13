@@ -84,7 +84,7 @@
 	set src in view(3)
 	..()
 
-	usr << output(status(), "ic")
+	usr.send_text_to_tab(status(), "ic")
 	usr << status()
 
 

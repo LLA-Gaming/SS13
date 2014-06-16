@@ -17,7 +17,7 @@
 		..()
 		if(!(usr in view(2)) && usr != loc)
 			return
-		usr << output("[grenades] / [max_grenades] grenades.", "ic")
+		usr.send_text_to_tab("[grenades] / [max_grenades] grenades.", "ic")
 		usr << "[grenades] / [max_grenades] grenades."
 
 	attackby(obj/item/I as obj, mob/user as mob)

@@ -62,10 +62,10 @@
 		..()
 		if ((in_range(src, usr) || src.loc == usr))
 			if (src.secured)
-				usr << output("\The [src] is ready!", "ic")
+				usr.send_text_to_tab("\The [src] is ready!", "ic")
 				usr << "\The [src] is ready!"
 			else
-				usr << output("\The [src] can be attached!", "ic")
+				usr.send_text_to_tab("\The [src] can be attached!", "ic")
 				usr << "\The [src] can be attached!"
 		return
 

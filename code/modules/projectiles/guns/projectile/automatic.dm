@@ -75,7 +75,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/attack_self(mob/user as mob)
 	cover_open = !cover_open
-	user << output("<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>", "ic")
+	user.send_text_to_tab("<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>", "ic")
 	user << "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>"
 	update_icon()
 
@@ -86,7 +86,7 @@
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
 	if(cover_open)
-		user << output("<span class='notice'>[src]'s cover is open! Close it before firing!</span>", "ic")
+		user.send_text_to_tab("<span class='notice'>[src]'s cover is open! Close it before firing!</span>", "ic")
 		user << "<span class='notice'>[src]'s cover is open! Close it before firing!</span>"
 	else
 		..()
@@ -106,13 +106,13 @@
 		user.put_in_hands(magazine)
 		magazine = null
 		update_icon()
-		user << output("<span class='notice'>You remove the magazine from [src].</span>", "ic")
+		user.send_text_to_tab("<span class='notice'>You remove the magazine from [src].</span>", "ic")
 		user << "<span class='notice'>You remove the magazine from [src].</span>"
 
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw/attackby(var/obj/item/A as obj, mob/user as mob)
 	if(!cover_open)
-		user << output("<span class='notice'>[src]'s cover is closed! You can't insert a new mag!</span>", "ic")
+		user.send_text_to_tab("<span class='notice'>[src]'s cover is closed! You can't insert a new mag!</span>", "ic")
 		user << "<span class='notice'>[src]'s cover is closed! You can't insert a new mag!</span>"
 		return
 	..()

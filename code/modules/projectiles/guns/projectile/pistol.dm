@@ -87,7 +87,7 @@
 			if(user.l_hand != src && user.r_hand != src)
 				..()
 				return
-			user << output("<span class='notice'>You unscrew [silenced] from [src].</span>", "ic")
+			user.send_text_to_tab("<span class='notice'>You unscrew [silenced] from [src].</span>", "ic")
 			user << "<span class='notice'>You unscrew [silenced] from [src].</span>"
 			user.put_in_hands(silenced)
 			var/obj/item/weapon/silencer/S = silenced
@@ -102,11 +102,11 @@
 /obj/item/weapon/gun/projectile/automatic/pistol/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/weapon/silencer))
 		if(user.l_hand != src && user.r_hand != src)	//if we're not in his hands
-			user << output("<span class='notice'>You'll need [src] in your hands to do that.</span>", "ic")
+			user.send_text_to_tab("<span class='notice'>You'll need [src] in your hands to do that.</span>", "ic")
 			user << "<span class='notice'>You'll need [src] in your hands to do that.</span>"
 			return
 		user.drop_item()
-		user << output("<span class='notice'>You screw [I] onto [src].</span>", "ic")
+		user.send_text_to_tab("<span class='notice'>You screw [I] onto [src].</span>", "ic")
 		user << "<span class='notice'>You screw [I] onto [src].</span>"
 		silenced = I	//dodgy?
 		var/obj/item/weapon/silencer/S = I

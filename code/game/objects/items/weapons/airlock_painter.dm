@@ -45,7 +45,7 @@
 	examine()
 		..()
 		if(!ink)
-			usr << output("<span class='notice'>It doesn't have a toner cardridge installed.</span>", "ic")
+			usr.send_text_to_tab("<span class='notice'>It doesn't have a toner cardridge installed.</span>", "ic")
 			usr << "<span class='notice'>It doesn't have a toner cardridge installed.</span>"
 			return
 		var/ink_level = "high"
@@ -55,7 +55,7 @@
 			ink_level = "low"
 		else if((ink.charges/ink.max_charges) > 1) //Over 100% (admin var edit)
 			ink_level = "dangerously high"
-		usr << output("<span class='notice'>Its ink levels look [ink_level].</span>", "ic")
+		usr.send_text_to_tab("<span class='notice'>Its ink levels look [ink_level].</span>", "ic")
 		usr << "<span class='notice'>Its ink levels look [ink_level].</span>"
 
 	attackby(obj/item/weapon/W, mob/user)

@@ -23,9 +23,9 @@ var/const/SAFETY_COOLDOWN = 100
 	set src in view()
 	..()
 
-	usr << output("The power light is [(stat & NOPOWER) ? "off" : "on"].", "ic")
-	usr << output("The safety-mode light is [safety_mode ? "on" : "off"].", "ic")
-	usr << output("The safety-sensors status light is [emagged ? "off" : "on"].", "ic")
+	usr.send_text_to_tab("The power light is [(stat & NOPOWER) ? "off" : "on"].", "ic")
+	usr.send_text_to_tab("The safety-mode light is [safety_mode ? "on" : "off"].", "ic")
+	usr.send_text_to_tab("The safety-sensors status light is [emagged ? "off" : "on"].", "ic")
 
 	usr << "The power light is [(stat & NOPOWER) ? "off" : "on"]."
 	usr << "The safety-mode light is [safety_mode ? "on" : "off"]."

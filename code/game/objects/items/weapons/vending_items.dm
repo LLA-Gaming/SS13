@@ -24,10 +24,10 @@
 	set src in usr
 	..()
 	if(charges)
-		usr << output("It can restock [charges] item(s).", "ic")
+		usr.send_text_to_tab("It can restock [charges] item(s).", "ic")
 		usr << "It can restock [charges] item(s)."
 	else
-		usr << output("It's empty!", "ic")
+		usr.send_text_to_tab("It's empty!", "ic")
 		usr << "It's empty!"
 
 //NOTE I decided to go for about 1/3 of a machine's capacity

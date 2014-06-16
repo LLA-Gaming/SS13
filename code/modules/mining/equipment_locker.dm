@@ -297,7 +297,7 @@
 
 /obj/item/weapon/card/mining_point_card/examine()
 	..()
-	usr << output("There's [points] points on the card.", "ic")
+	usr.send_text_to_tab("There's [points] points on the card.", "ic")
 	usr << "There's [points] points on the card."
 
 /**********************Jaunter**********************/
@@ -442,7 +442,7 @@
 
 /obj/item/clothing/mask/facehugger/toy/examine()//So that giant red text about probisci doesn't show up.
 	if(desc)
-		usr << output(desc, "ic")
+		usr.send_text_to_tab(desc, "ic")
 		usr << desc
 
 /obj/item/clothing/mask/facehugger/toy/Die()

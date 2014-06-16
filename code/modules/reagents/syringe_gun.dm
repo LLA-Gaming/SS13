@@ -41,7 +41,7 @@
 
 /obj/item/weapon/gun/syringe/examine()
 	..()
-	usr << output("Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining.", "ic")
+	usr.send_text_to_tab("Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining.", "ic")
 	usr << "Can hold [max_syringes] syringe\s. Has [syringes.len] syringe\s remaining."
 	return
 

@@ -47,13 +47,13 @@ var/const/MAX_ACTIVE_TIME = 400
 	..()
 	switch(stat)
 		if(DEAD,UNCONSCIOUS)
-			usr << output("\red \b [src] is not moving.", "ic")
+			usr.send_text_to_tab("\red \b [src] is not moving.", "ic")
 			usr << "\red \b [src] is not moving."
 		if(CONSCIOUS)
-			usr << output("\red \b [src] seems to be active.", "ic")
+			usr.send_text_to_tab("\red \b [src] seems to be active.", "ic")
 			usr << "\red \b [src] seems to be active."
 	if (sterile)
-		usr << output("\red \b It looks like the proboscis has been removed.", "ic")
+		usr.send_text_to_tab("\red \b It looks like the proboscis has been removed.", "ic")
 		usr << "\red \b It looks like the proboscis has been removed."
 	return
 

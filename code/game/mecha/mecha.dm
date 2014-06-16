@@ -173,25 +173,25 @@
 	var/integrity = health/initial(health)*100
 	switch(integrity)
 		if(85 to 100)
-			usr << output("It's fully intact.", "ic")
+			usr.send_text_to_tab("It's fully intact.", "ic")
 			usr << "It's fully intact."
 		if(65 to 85)
-			usr << output("It's slightly damaged.", "ic")
+			usr.send_text_to_tab("It's slightly damaged.", "ic")
 			usr << "It's slightly damaged."
 		if(45 to 65)
-			usr << output("It's badly damaged.", "ic")
+			usr.send_text_to_tab("It's badly damaged.", "ic")
 			usr << "It's badly damaged."
 		if(25 to 45)
-			usr << output("It's heavily damaged.", "ic")
+			usr.send_text_to_tab("It's heavily damaged.", "ic")
 			usr << "It's heavily damaged."
 		else
-			usr << output("It's falling apart.", "ic")
+			usr.send_text_to_tab("It's falling apart.", "ic")
 			usr << "It's falling apart."
 	if(equipment && equipment.len)
 		usr << "It's equipped with:"
-		usr << output("It's equipped with:", "ic")
+		usr.send_text_to_tab("It's equipped with:", "ic")
 		for(var/obj/item/mecha_parts/mecha_equipment/ME in equipment)
-			usr << output("\icon[ME] [ME]", "ic")
+			usr.send_text_to_tab("\icon[ME] [ME]", "ic")
 			usr << "\icon[ME] [ME]"
 	return
 

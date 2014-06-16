@@ -176,9 +176,9 @@
 	examine()
 		..()
 
-		usr << output("The [src] reads:", "ic")
-		usr << output("Current Crime: [crime].", "ic")
-		usr << output("Current Prisoner: [prisoner].", "ic")
+		usr.send_text_to_tab("The [src] reads:", "ic")
+		usr.send_text_to_tab("Current Crime: [crime].", "ic")
+		usr.send_text_to_tab("Current Prisoner: [prisoner].", "ic")
 
 		usr << "The [src] reads:"
 		usr << "Current Crime: [crime]."

@@ -49,7 +49,7 @@
 /obj/item/weapon/gun/projectile/shotgun/examine()
 	..()
 	if (chambered)
-		usr << output("A [chambered.BB ? "live" : "spent"] one is in the chamber.", "ic")
+		usr.send_text_to_tab("A [chambered.BB ? "live" : "spent"] one is in the chamber.", "ic")
 		usr << "A [chambered.BB ? "live" : "spent"] one is in the chamber."
 
 /obj/item/weapon/gun/projectile/shotgun/combat

@@ -154,7 +154,7 @@
 /obj/item/weapon/weldingtool/examine()
 	set src in usr
 	..()
-	usr << output("It contains [get_fuel()]/[max_fuel] units of fuel!", "ic")
+	usr.send_text_to_tab("It contains [get_fuel()]/[max_fuel] units of fuel!", "ic")
 	usr << "It contains [get_fuel()]/[max_fuel] units of fuel!"
 
 

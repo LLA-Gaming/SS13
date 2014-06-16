@@ -61,7 +61,7 @@
 			usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info]<HR>[stamps]</BODY></HTML>", "window=[name]")
 			onclose(usr, "[name]")
 	else
-		usr << output("<span class='notice'>It is too far away.</span>", "ic")
+		usr.send_text_to_tab("<span class='notice'>It is too far away.</span>", "ic")
 		usr << "<span class='notice'>It is too far away.</span>"
 
 

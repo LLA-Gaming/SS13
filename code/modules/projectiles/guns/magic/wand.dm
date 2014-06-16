@@ -19,7 +19,7 @@
 
 /obj/item/weapon/gun/magic/wand/examine()
 	..()
-	usr << output("Has [charges] charge\s remaining.", "ic")
+	usr.send_text_to_tab("Has [charges] charge\s remaining.", "ic")
 	usr << "Has [charges] charge\s remaining."
 	return
 

@@ -90,10 +90,10 @@ display round(lastgen) and plasmatank amount
 	set src in oview(1)
 	..()
 	if(active)
-		usr << output("It is running.", "ic")
+		usr.send_text_to_tab("It is running.", "ic")
 		usr << "It is running."
 	else
-		usr << output("It isn't running.", "ic")
+		usr.send_text_to_tab("It isn't running.", "ic")
 		usr << "It isn't running."
 
 /obj/machinery/power/port_gen/pacman
@@ -148,10 +148,10 @@ display round(lastgen) and plasmatank amount
 
 /obj/machinery/power/port_gen/pacman/examine()
 	..()
-	usr << output("\blue The generator has [sheets] units of [sheet_name] fuel left, producing [power_gen] per cycle.", "ic")
+	usr.send_text_to_tab("\blue The generator has [sheets] units of [sheet_name] fuel left, producing [power_gen] per cycle.", "ic")
 	usr << "\blue The generator has [sheets] units of [sheet_name] fuel left, producing [power_gen] per cycle."
 	if(crit_fail)
-		usr << output("\red The generator seems to have broken down.", "ic")
+		usr.send_text_to_tab("\red The generator seems to have broken down.", "ic")
 		usr << "\red The generator seems to have broken down."
 
 /obj/machinery/power/port_gen/pacman/HasFuel()

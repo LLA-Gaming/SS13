@@ -150,7 +150,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 		set src in view(2)
 
 		if(!iscultist(usr))
-			usr << output("A strange collection of symbols drawn in blood.", "ic")
+			usr.send_text_to_tab("A strange collection of symbols drawn in blood.", "ic")
 			usr << "A strange collection of symbols drawn in blood."
 			return
 			/* Explosions... really?
@@ -161,10 +161,10 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 				qdel(src)
 			*/
 		if(!desc)
-			usr << output("A spell circle drawn in blood. It reads: <i>[word1] [word2] [word3]</i>.", "ic")
+			usr.send_text_to_tab("A spell circle drawn in blood. It reads: <i>[word1] [word2] [word3]</i>.", "ic")
 			usr << "A spell circle drawn in blood. It reads: <i>[word1] [word2] [word3]</i>."
 		else
-			usr << output("Explosive Runes inscription in blood. It reads: <i>[desc]</i>.", "ic")
+			usr.send_text_to_tab("Explosive Runes inscription in blood. It reads: <i>[desc]</i>.", "ic")
 			usr << "Explosive Runes inscription in blood. It reads: <i>[desc]</i>."
 
 		return
@@ -697,7 +697,7 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 			for(var/entry in words)
 				words[entry] = T.words[entry]
 
-			user << output("You copy the translation notes from your tome.", "ic")
+			user.send_text_to_tab("You copy the translation notes from your tome.", "ic")
 			user << "You copy the translation notes from your tome."
 
 

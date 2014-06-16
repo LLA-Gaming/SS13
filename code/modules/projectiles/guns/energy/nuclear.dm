@@ -51,19 +51,19 @@
 			if (prob(src.reliability))
 				for (var/mob/living/M in range(0,src)) //Only a minor failure, enjoy your radiation if you're in the same tile or carrying it
 					if (src in M.contents)
-						M << output("\red Your gun feels pleasantly warm for a moment.", "ic")
+						M.send_text_to_tab("\red Your gun feels pleasantly warm for a moment.", "ic")
 						M << "\red Your gun feels pleasantly warm for a moment."
 					else
-						M << output("\red You feel a warm sensation.", "ic")
+						M.send_text_to_tab("\red You feel a warm sensation.", "ic")
 						M << "\red You feel a warm sensation."
 					M.apply_effect(rand(3,120), IRRADIATE)
 				lightfail = 1
 			else
 				for (var/mob/living/M in range(rand(1,4),src)) //Big failure, TIME FOR RADIATION BITCHES
 					if (src in M.contents)
-						M << output("\red Your gun's reactor overloads!", "ic")
+						M.send_text_to_tab("\red Your gun's reactor overloads!", "ic")
 						M << "\red Your gun's reactor overloads!"
-					M << output("\red You feel a wave of heat wash over you.", "ic")
+					M.send_text_to_tab("\red You feel a wave of heat wash over you.", "ic")
 					M << "\red You feel a wave of heat wash over you."
 					M.apply_effect(300, IRRADIATE)
 				crit_fail = 1 //break the gun so it stops recharging

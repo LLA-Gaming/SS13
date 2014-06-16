@@ -42,7 +42,7 @@
 
 /obj/machinery/computer/telescience/examine()
 	..()
-	usr << output("There are [crystals.len ? crystals.len : "no"] bluespace crystals in the crystal slots.", "ic")
+	usr.send_text_to_tab("There are [crystals.len ? crystals.len : "no"] bluespace crystals in the crystal slots.", "ic")
 	usr << "There are [crystals.len ? crystals.len : "no"] bluespace crystals in the crystal slots."
 
 /obj/machinery/computer/telescience/initialize()

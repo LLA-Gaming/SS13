@@ -88,7 +88,7 @@
 /obj/item/weapon/disk/data/examine()
 	set src in oview(5)
 	..()
-	usr << output("The write-protect tab is set to [src.read_only ? "protected" : "unprotected"].", "ic")
+	usr.send_text_to_tab("The write-protect tab is set to [src.read_only ? "protected" : "unprotected"].", "ic")
 	usr << "The write-protect tab is set to [src.read_only ? "protected" : "unprotected"]."
 	return
 

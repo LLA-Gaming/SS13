@@ -30,7 +30,7 @@
 	examine()
 		set src in oview(1)
 		..()
-		usr << output("The service panel is [src.open ? "open" : "closed"].", "ic")
+		usr.send_text_to_tab("The service panel is [src.open ? "open" : "closed"].", "ic")
 		usr << text("The service panel is [src.open ? "open" : "closed"].")
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)

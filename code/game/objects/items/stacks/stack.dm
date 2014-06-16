@@ -31,16 +31,16 @@
 	..()
 	if(src.singular_name)
 		if(src.amount>1)
-			usr << output("There are [src.amount] [src.singular_name]\s in the stack.", "ic")
+			usr.send_text_to_tab("There are [src.amount] [src.singular_name]\s in the stack.", "ic")
 			usr << "There are [src.amount] [src.singular_name]\s in the stack."
 		else
-			usr << output("There is [src.amount] [src.singular_name] in the stack.", "ic")
+			usr.send_text_to_tab("There is [src.amount] [src.singular_name] in the stack.", "ic")
 			usr << "There is [src.amount] [src.singular_name] in the stack."
 	else if(src.amount>1)
-		usr << output("There are [src.amount] in the stack.", "ic")
+		usr.send_text_to_tab("There are [src.amount] in the stack.", "ic")
 		usr << "There are [src.amount] in the stack."
 	else
-		usr << output("There is [src.amount] in the stack.", "ic")
+		usr.send_text_to_tab("There is [src.amount] in the stack.", "ic")
 		usr << "There is [src.amount] in the stack."
 	return
 

@@ -41,6 +41,6 @@
 		if(DEAD)			msg += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>\n"
 	msg += "*---------*</span>"
 
-	usr << output(msg, "ic")
+	usr.send_text_to_tab(msg, "ic")
 	usr << msg
 	return

@@ -27,7 +27,7 @@
 /obj/item/device/taperecorder/examine()
 	set src in view(1)
 	..()
-	usr << output("The wire panel is [open_panel ? "opened" : "closed"].", "ic")
+	usr.send_text_to_tab("The wire panel is [open_panel ? "opened" : "closed"].", "ic")
 	usr << "The wire panel is [open_panel ? "opened" : "closed"]."
 
 

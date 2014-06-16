@@ -29,10 +29,10 @@
 /obj/machinery/cell_charger/examine()
 	set src in oview(5)
 	..()
-	usr << output("There's [charging ? "a" : "no"] cell in the charger.", "ic")
+	usr.send_text_to_tab("There's [charging ? "a" : "no"] cell in the charger.", "ic")
 	usr << "There's [charging ? "a" : "no"] cell in the charger."
 	if(charging)
-		usr << output("Current charge: [charging.charge]", "ic")
+		usr.send_text_to_tab("Current charge: [charging.charge]", "ic")
 		usr << "Current charge: [charging.charge]"
 
 /obj/machinery/cell_charger/attackby(obj/item/weapon/W, mob/user)

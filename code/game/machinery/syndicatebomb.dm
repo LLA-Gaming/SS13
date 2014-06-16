@@ -43,7 +43,7 @@
 
 /obj/machinery/syndicatebomb/examine()
 	..()
-	usr << output("A digital display on it reads \"[timer]\".", "ic")
+	usr.send_text_to_tab("A digital display on it reads \"[timer]\".", "ic")
 	usr << "A digital display on it reads \"[timer]\"."
 
 /obj/machinery/syndicatebomb/update_icon()
