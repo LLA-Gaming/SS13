@@ -1187,7 +1187,6 @@
 #include "code\modules\projectiles\projectile\magic.dm"
 #include "code\modules\projectiles\projectile\special.dm"
 #include "code\modules\Raptorblaze\Bong.dm"
-#include "code\modules\reagents\bluespace_launcher.dm"
 #include "code\modules\reagents\Chemistry-Colours.dm"
 #include "code\modules\reagents\Chemistry-Holder.dm"
 #include "code\modules\reagents\Chemistry-Machinery.dm"
