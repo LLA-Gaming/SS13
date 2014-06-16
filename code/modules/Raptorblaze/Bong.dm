@@ -2,8 +2,8 @@
 /obj/item/weapon/reagent_containers/spacebong
     name = "Space Bong"
     desc = "a filtration device/apparatus generally used for smoking perfectly legal herbal substances."
-    icon = 'icons/obj/items.dmi'
-    icon_state = "spacebong_empty"
+    icon = 'icons/obj/Spacebong.dmi'
+    icon_state = "Spacebong_empty"
     w_class = 2.0
     amount_per_transfer_from_this = 0
     possible_transfer_amounts = list()
@@ -14,6 +14,10 @@
 
 /obj/item/weapon/reagent_containers/spacebong/attackby(var/obj/item/weapon/O as obj, var/mob/user as mob)
 	..()
+	if(src.reagents.has_reagent("water",10)
+		icon_state = "Spacebong_full"
+	else
+		icon_state = "Spacebong_empty"
 	if(istype(O, /obj/item/weapon/reagent_containers/))
 		if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/grown/))
 			if((O.reagents.total_volume + src.reagents.total_volume) > src.volume)
