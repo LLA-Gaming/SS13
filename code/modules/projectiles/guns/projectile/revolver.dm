@@ -32,8 +32,10 @@
 		CB.update_icon()
 		num_unloaded++
 	if (num_unloaded)
+		user << output("<span class = 'notice'>You unload [num_unloaded] shell\s from [src].</span>", "ic")
 		user << "<span class = 'notice'>You unload [num_unloaded] shell\s from [src].</span>"
 	else
+		user << output("<span class='notice'>[src] is empty.</span>", "ic")
 		user << "<span class='notice'>[src] is empty.</span>"
 
 /obj/item/weapon/gun/projectile/revolver/get_ammo(var/countchambered = 0, var/countempties = 1)
@@ -61,6 +63,7 @@
 	if(magazine.caliber == initial(magazine.caliber))
 		return 1
 	if(prob(70 - (magazine.ammo_count() * 10)))	//minimum probability of 10, maximum of 60
+		M << output("<span class='danger'>[src] blows up in your face!</span>", "ic")
 		M << "<span class='danger'>[src] blows up in your face!</span>"
 		M.take_organ_damage(0,20)
 		M.drop_item()
@@ -78,6 +81,7 @@
 
 	if(src && input && !M.stat && in_range(M,src))
 		name = input
+		M << output("You name the gun [input]. Say hello to your new friend.", "ic")
 		M << "You name the gun [input]. Say hello to your new friend."
 		return 1
 
@@ -97,6 +101,7 @@
 
 	if(src && choice && !M.stat && in_range(M,src))
 		icon_state = options[choice]
+		M << output("Your gun is now skinned as [choice]. Say hello to your new friend.", "ic")
 		M << "Your gun is now skinned as [choice]. Say hello to your new friend."
 		return 1
 
@@ -104,6 +109,7 @@
 	..()
 	if(istype(A, /obj/item/weapon/screwdriver))
 		if(magazine.caliber == "38")
+			user << output("<span class='notice'>You begin to reinforce the barrel of [src].</span>", "ic")
 			user << "<span class='notice'>You begin to reinforce the barrel of [src].</span>"
 			if(magazine.ammo_count())
 				afterattack(user, user)	//you know the drill
@@ -111,12 +117,14 @@
 				return
 			if(do_after(user, 30))
 				if(magazine.ammo_count())
+					user << output("<span class='notice'>You can't modify it!</span>", "ic")
 					user << "<span class='notice'>You can't modify it!</span>"
 					return
 				magazine.caliber = "357"
 				desc = "The barrel and chamber assembly seems to have been modified."
 				user << "<span class='warning'>You reinforce the barrel of [src]! Now it will fire .357 rounds.</span>"
 		else
+			user << output("<span class='notice'>You begin to revert the modifications to [src].</span>", "ic")
 			user << "<span class='notice'>You begin to revert the modifications to [src].</span>"
 			if(magazine.ammo_count())
 				afterattack(user, user)	//and again
@@ -124,10 +132,12 @@
 				return
 			if(do_after(user, 30))
 				if(magazine.ammo_count())
+					user << output("<span class='notice'>You can't modify it!</span>", "ic")
 					user << "<span class='notice'>You can't modify it!</span>"
 					return
 				magazine.caliber = "38"
 				desc = initial(desc)
+				user << output("<span class='warning'>You remove the modifications on [src]! Now it will fire .38 rounds.</span>", "ic")
 				user << "<span class='warning'>You remove the modifications on [src]! Now it will fire .38 rounds.</span>"
 
 
@@ -187,8 +197,10 @@
 			CB.update_icon()
 			num_unloaded++
 		if (num_unloaded)
+			user << output("<span class = 'notice'>You unload [num_unloaded] shell\s from [src]!</span>", "ic")
 			user << "<span class = 'notice'>You unload [num_unloaded] shell\s from [src]!</span>"
 		else
+			user << output("<span class='notice'>[src] is empty.</span>", "ic")
 			user << "<span class='notice'>[src] is empty.</span>"
 
 /obj/item/weapon/gun/projectile/revolver/russian/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)
