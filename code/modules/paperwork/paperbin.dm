@@ -78,8 +78,10 @@
 	set src in oview(1)
 	..()
 	if(amount)
+		usr << output("It contains " + (amount > 1 ? "[amount] papers" : " one paper")+".", "ic")
 		usr << "It contains " + (amount > 1 ? "[amount] papers" : " one paper")+"."
 	else
+		usr << output("It doesn't contain anything.", "ic")
 		usr << "It doesn't contain anything."
 
 

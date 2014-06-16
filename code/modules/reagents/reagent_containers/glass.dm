@@ -38,8 +38,10 @@
 		if(!(usr in view(2)) && usr != loc)
 			return
 		if(reagents && reagents.reagent_list.len)
+			usr << output("It contains:", "ic")
 			usr << "It contains:"
 			for(var/datum/reagent/R in reagents.reagent_list)
+				usr << output("[R.volume] units of [R.name]", "ic")
 				usr << "[R.volume] units of [R.name]"
 
 	afterattack(obj/target, mob/user, proximity)

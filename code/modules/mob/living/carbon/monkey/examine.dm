@@ -47,5 +47,6 @@
 
 	msg += "*---------*</span>"
 
+	usr << output(msg, "ic")
 	usr << msg
 	return

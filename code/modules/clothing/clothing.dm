@@ -199,14 +199,19 @@ BLIND     // can't see anything
 	..()
 	switch(src.sensor_mode)
 		if(0)
+			usr << output("Its sensors appear to be disabled.", "ic")
 			usr << "Its sensors appear to be disabled."
 		if(1)
+			usr << output("Its binary life sensors appear to be enabled.", "ic")
 			usr << "Its binary life sensors appear to be enabled."
 		if(2)
+			usr << output("Its vital tracker appears to be enabled.", "ic")
 			usr << "Its vital tracker appears to be enabled."
 		if(3)
+			usr << output("Its vital tracker and tracking beacon appear to be enabled.", "ic")
 			usr << "Its vital tracker and tracking beacon appear to be enabled."
 	if(hastie)
+		usr << output("\A [hastie] is attached to it.", "ic")
 		usr << "\A [hastie] is attached to it."
 
 atom/proc/generate_uniform(index,t_color)

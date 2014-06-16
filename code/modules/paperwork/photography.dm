@@ -51,8 +51,10 @@
 
 	if(in_range(usr, src))
 		show(usr)
+		usr << output(desc, "ic")
 		usr << desc
 	else
+		usr << output("<span class='notice'>It is too far away.</span>", "ic")
 		usr << "<span class='notice'>It is too far away.</span>"
 
 
@@ -147,6 +149,7 @@
 
 /obj/item/device/camera/examine()
 	..()
+	usr << output("It has [pictures_left] photos left.", "ic")
 	usr << "It has [pictures_left] photos left."
 
 

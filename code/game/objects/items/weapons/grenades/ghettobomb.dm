@@ -90,4 +90,5 @@
 	set src in usr
 	..()
 	if(assembled == 3)
+		usr << output("You can't tell when it will explode!", "ic")
 		usr << "You can't tell when it will explode!"

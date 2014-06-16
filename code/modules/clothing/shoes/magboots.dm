@@ -31,6 +31,7 @@
 /obj/item/clothing/shoes/magboots/examine()
 	set src in view()
 	..()
+	usr << output("Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"].", "ic")
 	usr << "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"]."
 
 

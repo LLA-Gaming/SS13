@@ -47,8 +47,10 @@
 	..()
 	if (src.health < maxhealth)
 		if (src.health > maxhealth/3)
+			usr << output("<span class='warning'>[src]'s parts look loose.</span>", "ic")
 			usr << "<span class='warning'>[src]'s parts look loose.</span>"
 		else
+			usr << output("<span class='danger'>[src]'s parts look very loose!</span>", "ic")
 			usr << "<span class='danger'>[src]'s parts look very loose!</span>"
 	return
 

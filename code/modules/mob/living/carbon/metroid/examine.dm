@@ -33,5 +33,7 @@
 				msg += "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>\n"
 
 	msg += "*---------*</span>"
+
+	usr << output(msg, "ic")
 	usr << msg
 	return

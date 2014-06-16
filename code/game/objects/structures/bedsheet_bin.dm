@@ -166,11 +166,14 @@ LINEN BINS
 /obj/structure/bedsheetbin/examine()
 	..()
 	if(amount < 1)
+		usr << output("There are no bed sheets in the bin.", "ic")
 		usr << "There are no bed sheets in the bin."
 		return
 	if(amount == 1)
+		usr << output("There is one bed sheet in the bin.", "ic")
 		usr << "There is one bed sheet in the bin."
 		return
+	usr << output("There are [amount] bed sheets in the bin.", "ic")
 	usr << "There are [amount] bed sheets in the bin."
 
 

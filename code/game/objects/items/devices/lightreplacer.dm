@@ -69,6 +69,7 @@
 /obj/item/device/lightreplacer/examine()
 	set src in view(2)
 	..()
+	usr << output("It has [uses] lights remaining.", "ic")
 	usr << "It has [uses] lights remaining."
 
 /obj/item/device/lightreplacer/attackby(obj/item/W, mob/user)

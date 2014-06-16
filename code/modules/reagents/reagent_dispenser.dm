@@ -43,11 +43,14 @@
 	set src in view()
 	..()
 	if (!(usr in view(2)) && usr!=src.loc) return
+	usr << output("\blue It contains:", "ic")
 	usr << "\blue It contains:"
 	if(reagents && reagents.reagent_list.len)
 		for(var/datum/reagent/R in reagents.reagent_list)
+			usr << output("\blue [R.volume] units of [R.name]", "ic")
 			usr << "\blue [R.volume] units of [R.name]"
 	else
+		usr << output("\blue Nothing.", "ic")
 		usr << "\blue Nothing."
 
 /obj/structure/reagent_dispensers/verb/set_APTFT() //set amount_per_transfer_from_this

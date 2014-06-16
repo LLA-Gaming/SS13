@@ -190,24 +190,32 @@
 	if(usr /*&& !usr.stat*/)
 		..()
 		if(stat & BROKEN)
+			usr << output("Looks broken.", "ic")
 			usr << "Looks broken."
 			return
 		if(opened)
 			if(has_electronics && terminal)
+				usr << output("The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"].", "ic")
 				usr << "The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"]."
 			else if (!has_electronics && terminal)
+				usr << output("There are some wires but no any electronics.", "ic")
 				usr << "There are some wires but no any electronics."
 			else if (has_electronics && !terminal)
+				usr << output("Electronics installed but not wired.", "ic")
 				usr << "Electronics installed but not wired."
 			else /* if (!has_electronics && !terminal) */
+				usr << output("There is no electronics nor connected wires.", "ic")
 				usr << "There is no electronics nor connected wires."
 
 		else
 			if (stat & MAINT)
+				usr << output("The cover is closed. Something wrong with it: it doesn't work.", "ic")
 				usr << "The cover is closed. Something wrong with it: it doesn't work."
 			else if (malfhack)
+				usr << output("The cover is broken. It may be hard to force it open.", "ic")
 				usr << "The cover is broken. It may be hard to force it open."
 			else
+				usr << output("The cover is closed.", "ic")
 				usr << "The cover is closed."
 
 

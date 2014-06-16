@@ -10,6 +10,7 @@
 	examine()
 		..()
 		if(armed)
+			usr << output("It looks like it's armed.", "ic")
 			usr << "It looks like it's armed."
 
 	activate()

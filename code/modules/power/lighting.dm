@@ -90,12 +90,15 @@
 	if (!(usr in view(2))) return
 	switch(src.stage)
 		if(1)
+			usr << output("It's an empty frame.", "ic")
 			usr << "It's an empty frame."
 			return
 		if(2)
+			usr << output("It's wired.", "ic")
 			usr << "It's wired."
 			return
 		if(3)
+			usr << output("The casing is closed.", "ic")
 			usr << "The casing is closed."
 			return
 
@@ -315,12 +318,16 @@
 	if(usr && !usr.stat)
 		switch(status)
 			if(LIGHT_OK)
+				usr << output("It is turned [on? "on" : "off"].", "ic")
 				usr << "It is turned [on? "on" : "off"]."
 			if(LIGHT_EMPTY)
+				usr << output("The [fitting] has been removed.", "ic")
 				usr << "The [fitting] has been removed."
 			if(LIGHT_BURNED)
+				usr << output("The [fitting] is burnt out.", "ic")
 				usr << "The [fitting] is burnt out."
 			if(LIGHT_BROKEN)
+				usr << output("The [fitting] has been smashed.", "ic")
 				usr << "The [fitting] has been smashed."
 
 

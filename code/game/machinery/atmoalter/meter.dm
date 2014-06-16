@@ -83,6 +83,8 @@
 /obj/machinery/meter/examine()
 	set src in view(3)
 	..()
+
+	usr << output(status(), "ic")
 	usr << status()
 
 

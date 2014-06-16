@@ -105,14 +105,19 @@
 		..()
 		if (!(usr in range(0)) && usr!=src.loc) return
 		if(!reagents || reagents.total_volume==0)
+			usr << output("\blue \The [src] is empty!", "ic")
 			usr << "\blue \The [src] is empty!"
 		else if (reagents.total_volume<=src.volume/4)
+			usr << output("\blue \The [src] is almost empty!", "ic")
 			usr << "\blue \The [src] is almost empty!"
 		else if (reagents.total_volume<=src.volume*0.66)
+			usr << output("\blue \The [src] is half full!", "ic")
 			usr << "\blue \The [src] is half full!"
 		else if (reagents.total_volume<=src.volume*0.90)
+			usr << output("\blue \The [src] is almost full!", "ic")
 			usr << "\blue \The [src] is almost full!"
 		else
+			usr << output("\blue \The [src] is full!", "ic")
 			usr << "\blue \The [src] is full!"
 
 

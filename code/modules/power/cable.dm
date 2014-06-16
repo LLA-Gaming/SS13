@@ -516,10 +516,13 @@ obj/structure/cable/proc/avail()
 	set src in view(1)
 
 	if(amount == 1)
+		usr << output("A short piece of power cable.", "ic")
 		usr << "A short piece of power cable."
 	else if(amount == 2)
+		usr << output("A piece of power cable.", "ic")
 		usr << "A piece of power cable."
 	else
+		usr << output("A coil of power cable. There are [amount] lengths of cable in the coil.", "ic")
 		usr << "A coil of power cable. There are [amount] lengths of cable in the coil."
 
 

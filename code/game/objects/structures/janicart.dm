@@ -23,6 +23,7 @@
 /obj/structure/janitorialcart/examine()
 	set src in usr
 	..()
+	usr << output("It contains [reagents.total_volume] unit\s of liquid!", "ic")
 	usr << "It contains [reagents.total_volume] unit\s of liquid!"
 	//everything else is visible, so doesn't need to be mentioned
 

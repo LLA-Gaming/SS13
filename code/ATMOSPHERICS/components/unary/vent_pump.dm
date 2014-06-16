@@ -305,6 +305,7 @@
 		set src in oview(1)
 		..()
 		if(welded)
+			usr << output("It seems welded shut.", "ic")
 			usr << "It seems welded shut."
 
 	power_change()

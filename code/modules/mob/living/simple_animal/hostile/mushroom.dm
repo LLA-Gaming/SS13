@@ -33,8 +33,10 @@
 /mob/living/simple_animal/hostile/mushroom/examine()
 	..()
 	if(health >= maxHealth)
+		usr << output("<span class='info'>It looks healthy.</span>", "ic")
 		usr << "<span class='info'>It looks healthy.</span>"
 	else
+		usr << output("<span class='info'>It looks like it's been roughed up.</span>", "ic")
 		usr << "<span class='info'>It looks like it's been roughed up.</span>"
 
 /mob/living/simple_animal/hostile/mushroom/Life()

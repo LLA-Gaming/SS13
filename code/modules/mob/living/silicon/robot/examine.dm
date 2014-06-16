@@ -41,5 +41,6 @@
 		if(DEAD)			msg += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>\n"
 	msg += "*---------*</span>"
 
+	usr << output(msg, "ic")
 	usr << msg
 	return

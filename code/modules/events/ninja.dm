@@ -2250,14 +2250,20 @@ ________________________________________________________________________________
 	if(s_initialized)
 		var/mob/living/carbon/human/U = affecting
 		if(s_control)
+			U << output("All systems operational. Current energy capacity: <B>[cell.charge]</B>.", "ic")
 			U << "All systems operational. Current energy capacity: <B>[cell.charge]</B>."
 			if(!kamikaze)
+				U << output("The CLOAK-tech device is <B>[s_active?"active":"inactive"]</B>.", "ic")
 				U << "The CLOAK-tech device is <B>[s_active?"active":"inactive"]</B>."
 			else
+				U << output("\red KAMIKAZE MODE ENGAGED!", "ic")
 				U << "\red KAMIKAZE MODE ENGAGED!"
+			U << output("There are <B>[s_bombs]</B> smoke bombs remaining.", "ic")
+			U << output("There are <B>[a_boost]</B> adrenaline boosters remaining.", "ic")
 			U << "There are <B>[s_bombs]</B> smoke bombs remaining."
 			U << "There are <B>[a_boost]</B> adrenaline boosters remaining."
 		else
+			U << output("�rr�R �a��a�� No-�-� f��N� 3RR�r", "ic")
 			U <<  "�rr�R �a��a�� No-�-� f��N� 3RR�r"
 
 /*
@@ -2508,6 +2514,7 @@ ________________________________________________________________________________
 	..()
 	if(flags & NODROP)
 		var/mob/living/carbon/human/U = loc
+		U << output("The energy drain mechanism is: <B>[candrain?"active":"inactive"]</B>.", "ic")
 		U << "The energy drain mechanism is: <B>[candrain?"active":"inactive"]</B>."
 
 /*
@@ -2622,6 +2629,9 @@ ________________________________________________________________________________
 			mode = "Thermal Scanner"
 		if(3)
 			mode = "Meson Scanner"
+
+	usr << output("<B>[mode]</B> is active.", "ic")
+	usr << output("Voice mimicking algorithm is set <B>[!vchange?"inactive":"active"]</B>.", "ic")
 	usr << "<B>[mode]</B> is active."//Leaving usr here since it may be on the floor or on a person.
 	usr << "Voice mimicking algorithm is set <B>[!vchange?"inactive":"active"]</B>."
 

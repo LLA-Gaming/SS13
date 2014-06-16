@@ -50,8 +50,10 @@
 	..()
 	if(display_timer)
 		if(det_time > 1)
+			usr << output("The timer is set to [det_time/10] seconds.", "ic")
 			usr << "The timer is set to [det_time/10] seconds."
 		else
+			usr << output("\The [src] is set for instant detonation.", "ic")
 			usr << "\The [src] is set for instant detonation."
 
 

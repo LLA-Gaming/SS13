@@ -61,6 +61,7 @@
 	else
 		descriptive = "furiously hot"
 
+	usr << output("\blue It feels [descriptive]", "ic")
 	usr << "\blue It feels [descriptive]"
 
 	return

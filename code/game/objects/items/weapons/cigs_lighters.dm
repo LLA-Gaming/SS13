@@ -559,4 +559,5 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/weapon/rollingpaperpack/examine()
 	..()
+	usr << output("There are [src.papers] left", "ic")
 	usr << "There are [src.papers] left"

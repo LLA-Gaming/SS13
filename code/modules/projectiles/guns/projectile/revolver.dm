@@ -46,6 +46,7 @@
 
 /obj/item/weapon/gun/projectile/revolver/examine()
 	..()
+	usr << output("[get_ammo(0,0)] of those are live rounds.", "ic")
 	usr << "[get_ammo(0,0)] of those are live rounds."
 
 /obj/item/weapon/gun/projectile/revolver/detective
