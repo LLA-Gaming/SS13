@@ -37,7 +37,6 @@ eclipse2020 = Administrator
 doodeeda = Administrator
 legato_frio = Administrator
 lichling = Administrator
-raptorblaze = Administrator
 idwmno = Administrator
 flavoredcactus = Administrator
 kokojo = Administrator
