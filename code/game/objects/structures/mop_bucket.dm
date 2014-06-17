@@ -16,6 +16,7 @@
 /obj/structure/mopbucket/examine()
 	set src in usr
 	..()
+	usr.send_text_to_tab("It contains [reagents.total_volume] unit\s of water!", "ic")
 	usr << "It contains [reagents.total_volume] unit\s of water!"
 
 /obj/structure/mopbucket/attackby(obj/item/I, mob/user)

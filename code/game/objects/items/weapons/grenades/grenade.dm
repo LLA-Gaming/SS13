@@ -50,8 +50,10 @@
 	..()
 	if(display_timer)
 		if(det_time > 1)
+			usr.send_text_to_tab("The timer is set to [det_time/10] seconds.", "ic")
 			usr << "The timer is set to [det_time/10] seconds."
 		else
+			usr.send_text_to_tab("\The [src] is set for instant detonation.", "ic")
 			usr << "\The [src] is set for instant detonation."
 
 

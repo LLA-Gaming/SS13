@@ -54,8 +54,10 @@
 	set src in view(1)
 	..()
 	if(usr /*&& !usr.stat*/)
+		usr.send_text_to_tab("This cell has a power rating of [maxcharge], and you should not swallow it.\nThe charge meter reads [round(src.percent() )]%.", "ic")
 		usr << "This cell has a power rating of [maxcharge], and you should not swallow it.\nThe charge meter reads [round(src.percent() )]%."
 	if(crit_fail)
+		usr.send_text_to_tab("\red This power cell seems to be faulty.", "ic")
 		usr << "\red This power cell seems to be faulty."
 
 /obj/item/weapon/stock_parts/cell/attack_self(mob/user as mob)

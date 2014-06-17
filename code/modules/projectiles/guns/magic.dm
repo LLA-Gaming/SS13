@@ -23,6 +23,7 @@
 	if(no_den_usage)
 		var/area/A = get_area(user)
 		if(istype(A, /area/wizard_station))
+			user.send_text_to_tab("<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].<span>", "ic")
 			user << "<span class='warning'>You know better than to violate the security of The Den, best wait until you leave to use [src].<span>"
 			return
 		else
@@ -58,5 +59,6 @@
 	return
 
 /obj/item/weapon/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)
+	user.send_text_to_tab("<span class='warning'>The [name] whizzles quietly.<span>", "ic")
 	user << "<span class='warning'>The [name] whizzles quietly.<span>"
 	return

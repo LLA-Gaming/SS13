@@ -29,6 +29,7 @@
 	return 1
 
 /obj/item/weapon/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
+	user.send_text_to_tab("<span class='warning'>*click*</span>", "ic")
 	user << "<span class='warning'>*click*</span>"
 	return
 
@@ -63,12 +64,14 @@
 		if(istype(user, /mob/living))
 			var/mob/living/M = user
 			if ((CLUMSY in M.mutations) && prob(40))
+				M.send_text_to_tab("<span class='danger'>You shoot yourself in the foot with \the [src]!</span>", "ic")
 				M << "<span class='danger'>You shoot yourself in the foot with \the [src]!</span>"
 				afterattack(user, user)
 				M.drop_item()
 				return
 
 	if (!user.IsAdvancedToolUser())
+		user.send_text_to_tab("<span class='notice'>You don't have the dexterity to do this!</span>", "ic")
 		user << "<span class='notice'>You don't have the dexterity to do this!</span>"
 		return
 
@@ -76,11 +79,13 @@
 		if(istype(user, /mob/living))
 			var/mob/living/M = user
 			if (HULK in M.mutations)
+				M.send_text_to_tab("<span class='notice'>Your meaty finger is much too large for the trigger guard!</span>", "ic")
 				M << "<span class='notice'>Your meaty finger is much too large for the trigger guard!</span>"
 				return
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(H.dna && H.dna.mutantrace == "adamantine")
+				user.send_text_to_tab("<span class='notice'>Your metal fingers don't fit in the trigger guard!</span>", "ic")
 				user << "<span class='notice'>Your metal fingers don't fit in the trigger guard!</span>"
 				return
 

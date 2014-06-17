@@ -28,10 +28,13 @@
 	set src in oview(1)
 	..()
 	if(contents.len <= 0)
+		usr.send_text_to_tab("There are no [src.icon_type]s left in the box.", "ic")
 		usr << "There are no [src.icon_type]s left in the box."
 	else if(contents.len == 1)
+		usr.send_text_to_tab("There is one [src.icon_type] left in the box.", "ic")
 		usr << "There is one [src.icon_type] left in the box."
 	else
+		usr.send_text_to_tab("There are [src.contents.len] [src.icon_type]s in the box.", "ic")
 		usr << "There are [src.contents.len] [src.icon_type]s in the box."
 
 	return

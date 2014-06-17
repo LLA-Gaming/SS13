@@ -118,9 +118,11 @@
 		determiner = "This is"
 		pronoun = "It is"
 
+	usr.send_text_to_tab("\icon[src][determiner] [f_name]. [pronoun] a [size] item.", "ic")
 	usr << "\icon[src][determiner] [f_name]. [pronoun] a [size] item." //e.g. These are some gloves. They are a small item. or This is a toolbox. It is a bulky item.
 
 	if(src.desc)
+		usr.send_text_to_tab(src.desc, "ic")
 		usr << src.desc
 	return
 

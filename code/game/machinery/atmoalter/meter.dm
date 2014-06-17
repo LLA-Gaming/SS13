@@ -83,6 +83,8 @@
 /obj/machinery/meter/examine()
 	set src in view(3)
 	..()
+
+	usr.send_text_to_tab(status(), "ic")
 	usr << status()
 
 

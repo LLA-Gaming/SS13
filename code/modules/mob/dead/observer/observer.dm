@@ -106,6 +106,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/examine()
 	if(usr)
+		usr.send_text_to_tab(desc, "ic")
 		usr << desc
 
 /mob/dead/observer/can_use_hands()	return 0

@@ -39,6 +39,7 @@
 /obj/item/weapon/extinguisher/examine()
 	set src in usr
 	..()
+	usr.send_text_to_tab("It contains [src.reagents.total_volume] units of water!", "ic")
 	usr << "It contains [src.reagents.total_volume] units of water!"
 	return
 

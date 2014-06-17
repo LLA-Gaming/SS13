@@ -197,6 +197,7 @@
 	set src in view(2)
 	..()
 	if (bullets)
+		usr.send_text_to_tab("\blue It is loaded with [bullets] foam darts!", "ic")
 		usr << "\blue It is loaded with [bullets] foam darts!"
 
 /obj/item/toy/crossbow/attackby(obj/item/I as obj, mob/user as mob)
@@ -822,6 +823,7 @@ obj/item/toy/cards/singlecard/examine()
 		if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
 			cardUser.visible_message("<span class='notice'>[cardUser] checks \his card.</span>", "<span class='notice'>The card reads: [src.cardname]</span>")
 		else
+			cardUser.send_text_to_tab("<span class='notice'>You need to have the card in your hand to check it.</span>", "ic")
 			cardUser << "<span class='notice'>You need to have the card in your hand to check it.</span>"
 
 

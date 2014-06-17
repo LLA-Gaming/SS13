@@ -27,6 +27,7 @@
 		set src in usr
 		..()
 		if(air_contents.oxygen < 10)
+			usr.send_text_to_tab("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>", "ic")
 			usr << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
 			playsound(usr, 'sound/effects/alert.ogg', 50, 1)
 
@@ -73,6 +74,7 @@
 		set src in usr
 		..()
 		if(air_contents.oxygen < 1 && loc==usr)
+			usr.send_text_to_tab("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>", "ic")
 			usr << "\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"
 			usr << sound('sound/effects/alert.ogg')
 
@@ -143,6 +145,7 @@
 		set src in usr
 		..()
 		if(air_contents.oxygen < 0.2 && loc==usr)
+			usr.send_text_to_tab("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>", "ic")
 			usr << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
 			usr << sound('sound/effects/alert.ogg')
 

@@ -33,10 +33,13 @@
 			return
 		..()
 
+		usr.send_text_to_tab("The heater is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"].", "ic")
 		usr << "The heater is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"]."
 		if(open)
+			usr.send_text_to_tab("The power cell is [cell ? "installed" : "missing"].", "ic")
 			usr << "The power cell is [cell ? "installed" : "missing"]."
 		else
+			usr.send_text_to_tab("The charge meter reads [cell ? round(cell.percent(),1) : 0]%", "ic")
 			usr << "The charge meter reads [cell ? round(cell.percent(),1) : 0]%"
 		return
 

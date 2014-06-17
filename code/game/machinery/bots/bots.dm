@@ -47,8 +47,10 @@
 	..()
 	if (src.health < maxhealth)
 		if (src.health > maxhealth/3)
+			usr.send_text_to_tab("<span class='warning'>[src]'s parts look loose.</span>", "ic")
 			usr << "<span class='warning'>[src]'s parts look loose.</span>"
 		else
+			usr.send_text_to_tab("<span class='danger'>[src]'s parts look very loose!</span>", "ic")
 			usr << "<span class='danger'>[src]'s parts look very loose!</span>"
 	return
 

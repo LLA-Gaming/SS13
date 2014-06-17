@@ -46,7 +46,9 @@
 	else if(istype(whom,/client))
 		C = whom
 	if(!C)
-		if(holder)	src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
+		if(holder)
+			src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
+			src.send_text_to_tab("<font color='red'>Error: Admin-PM: Client not found.</font>", "ahelp")
 		else		adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
 
@@ -56,7 +58,9 @@
 
 		if(!msg)	return
 		if(!C)
-			if(holder)	src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
+			if(holder)
+				src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
+				src.send_text_to_tab("<font color='red'>Error: Admin-PM: Client not found.</font>", "ahelp")
 			else		adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
 
@@ -131,4 +135,4 @@
 
 			X << to_other_admins
 			spawn(1)
-				X << output(to_other_admins, "ahelp")
+				X.send_text_to_tab(to_other_admins, "ahelp")

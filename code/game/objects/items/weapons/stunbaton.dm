@@ -56,8 +56,10 @@
 	set src in view(1)
 	..()
 	if(bcell)
+		usr.send_text_to_tab("<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>", "ic")
 		usr <<"<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>"
 	if(!bcell)
+		usr.send_text_to_tab("<span class='warning'>The baton does not have a power source installed.</span>", "ic")
 		usr <<"<span class='warning'>The baton does not have a power source installed.</span>"
 
 /obj/item/weapon/melee/baton/attackby(obj/item/weapon/W, mob/user)

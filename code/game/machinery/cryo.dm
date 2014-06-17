@@ -89,14 +89,18 @@
 	..()
 
 	if(in_range(usr, src))
+		usr.send_text_to_tab("You can just about make out some loose objects floating in the murk:", "ic")
 		usr << "You can just about make out some loose objects floating in the murk:"
 		for(var/obj/O in src)
 			if(O != beaker)
+				usr.send_text_to_tab(O.name, "ic")
 				usr << O.name
 		for(var/mob/M in src)
 			if(M != occupant)
+				usr.send_text_to_tab(M.name, "ic")
 				usr << M.name
 	else
+		usr.send_text_to_tab("<span class='notice'>Too far away to view contents.</span>", "ic")
 		usr << "<span class='notice'>Too far away to view contents.</span>"
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)

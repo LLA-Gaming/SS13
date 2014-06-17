@@ -61,6 +61,7 @@
 	else
 		descriptive = "furiously hot"
 
+	usr.send_text_to_tab("\blue It feels [descriptive]", "ic")
 	usr << "\blue It feels [descriptive]"
 
 	return

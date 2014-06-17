@@ -6,6 +6,10 @@
 
 // BEGIN_FILE_DIR
 #define FILE_DIR .
+#define FILE_DIR "code"
+#define FILE_DIR "code/WorkInProgress"
+#define FILE_DIR "code/WorkInProgress/Comp 3"
+#define FILE_DIR "code/WorkInProgress/Comp 3/NTOS"
 #define FILE_DIR "html"
 #define FILE_DIR "icons"
 #define FILE_DIR "icons/ass"

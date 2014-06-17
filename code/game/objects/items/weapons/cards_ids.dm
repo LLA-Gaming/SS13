@@ -82,6 +82,7 @@
 /obj/item/weapon/card/id/examine()
 	..()
 	if(mining_points)
+		usr.send_text_to_tab("There's [mining_points] mining equipment redemption points loaded onto this card.", "ic")
 		usr << "There's [mining_points] mining equipment redemption points loaded onto this card."
 
 /obj/item/weapon/card/id/GetAccess()

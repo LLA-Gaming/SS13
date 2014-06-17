@@ -51,8 +51,10 @@
 
 	if(in_range(usr, src))
 		show(usr)
+		usr.send_text_to_tab(desc, "ic")
 		usr << desc
 	else
+		usr.send_text_to_tab("<span class='notice'>It is too far away.</span>", "ic")
 		usr << "<span class='notice'>It is too far away.</span>"
 
 
@@ -147,6 +149,7 @@
 
 /obj/item/device/camera/examine()
 	..()
+	usr.send_text_to_tab("It has [pictures_left] photos left.", "ic")
 	usr << "It has [pictures_left] photos left."
 
 

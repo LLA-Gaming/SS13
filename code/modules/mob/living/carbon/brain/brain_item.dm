@@ -39,8 +39,10 @@
 
 	..()
 	if(brainmob && brainmob.client)
+		usr.send_text_to_tab("You can feel the small spark of life still left in this one.", "ic")
 		usr << "You can feel the small spark of life still left in this one."
 	else
+		usr.send_text_to_tab("This one seems particularly lifeless. Perhaps it will regain some of it's luster later..", "ic")
 		usr << "This one seems particularly lifeless. Perhaps it will regain some of it's luster later.."
 
 

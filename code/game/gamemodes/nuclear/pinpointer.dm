@@ -58,6 +58,7 @@
 		..()
 		for(var/obj/machinery/nuclearbomb/bomb in world)
 			if(bomb.timing)
+				usr.send_text_to_tab("Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]", "ic")
 				usr << "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
 
 

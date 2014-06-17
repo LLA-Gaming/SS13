@@ -305,6 +305,7 @@
 		set src in oview(1)
 		..()
 		if(welded)
+			usr.send_text_to_tab("It seems welded shut.", "ic")
 			usr << "It seems welded shut."
 
 	power_change()

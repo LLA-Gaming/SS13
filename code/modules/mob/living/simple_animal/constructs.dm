@@ -54,6 +54,7 @@
 		msg += "</span>"
 	msg += "*---------*</span>"
 
+	usr.send_text_to_tab(msg, "ic")
 	usr << msg
 	return
 

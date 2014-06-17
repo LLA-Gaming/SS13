@@ -559,4 +559,5 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/weapon/rollingpaperpack/examine()
 	..()
+	usr.send_text_to_tab("There are [src.papers] left", "ic")
 	usr << "There are [src.papers] left"

@@ -69,6 +69,7 @@
 
 /obj/item/weapon/gun/projectile/examine()
 	..()
+	usr.send_text_to_tab("Has [get_ammo()] round\s remaining.", "ic")
 	usr << "Has [get_ammo()] round\s remaining."
 	return
 
