@@ -8,399 +8,383 @@
 # All main usergroups should be registered. Secondary ones should    #
 # reflect whatever role they have on the team.                 -LWS  #  
 ######################################################################
-lonewolfsyndrome - Game Master
+lonewolfsyndrome = Game Master
+
+gamercad = Coder
+hattrickredeyes = Head of Staff
+#Rebel -america = Head of Staff               
+
+rawrtaicho = Coder
+thedrachex1 = Coder
+
+sishio = Senior Admin
+johnmancer = Senior Admin
+sgtkumar = Senior Admin
+vimes13 = Senior Admin
+wellingtonthe3rd = Senior Admin
+cannibalcrow = Senior Admin
+youdontknow1 = Senior Admin
+politicalpikachu = Senior Admin
+#Eman -ban = Senior Admin
+ancientv25 = Senior Admin
 
+magoca = Primary Administrator
+narwhaljones = Primary Administrator
+cyliz = Primary Administrator
+raptorblaze = Primary Administrator
 
+eclipse2020 = Administrator
+doodeeda = Administrator
+legato_frio = Administrator
+lichling = Administrator
+raptorblaze = Administrator
+idwmno = Administrator
+flavoredcactus = Administrator
+kokojo = Administrator
+capt_ironblood = Administrator
 
-gamercad - Head of Staff
-hattrickredeyes - Head of Staff
-rebelamerica - Head Admin               
+zt107 = Secondary Admin
+paladinguy = Secondary Admin
+muldermunrow = Secondary Admin
+coolpres = Secondary Admin
+toxed = Secondary Admin
+robertust = Secondary Admin
+jariahtoadsage = Secondary Admin
 
+dothal = Admin Observer
+shiningsoul32 = Admin Observer
 
-rawrtaicho - Coder
-thedrachex1 - Coder
+#******************
+#Positions of Honor
 
+zombie8891 = Host
+LLADonZombie = Host
+bones580 = Senior Admin
+llapsychoshark = Head of Staff
 
+#******************
 
-sishio - Senior Admin
-johnmancer - Senior Admin
-sgtkumar - Senior Admin
-vimes13 - Senior Admin
-wellingtonthe3rd - Senior Admin
-cannibalcrow - Senior Admin
-youdontknow1 - Senior Admin
-politicalpikachu - Senior Admin
-emanban - Senior Admin
-ancientv25 - Senior Admin
 
+#Vex on vacation until he feels ready
+#Yamishi moderated July 22nd ((end of steam sale D: ))
+#Magoca mod july 24th
 
-magoca - Primary Administrator
-narwhaljones - Primary Administrator
-cyliz - Primary Administrator
-raptorblaze - Primary Administrator
+#Spessy promoted to admin Jun 19th
+#brysch and shadowrider to mod on Jun 20th
+#semtex and arith to secondary admin on Jun 22th
+#wrecker to admin jun 29th
 
+#Adam prom to admin july 15th
+#narwhall prom to sec admin july 21st
+#rebel promoted to Primary Admin july 23rd
 
-eclipse2020 - Administrator
-doodeeda - Administrator
-legato_frio - Administrator
-lichling - Administrator
-idwmno - Administrator
-flavoredcactus - Administrator
-kokojo - Administrator
-capt_ironblood - Administrator
 
+#brysch quit july 10th ish
+#IDWmo put on AO off for inactivity and popping up just for bussing
+#Armor and Joe put on AO for inactivity july 4th
 
 
-paladinguy - Secondary Admin
-muldermunrow - Secondary Admin
-coolpres - Secondary Admin
-toxed - Secondary Admin
-robertust - Secondary Admin
-jariahtoadsage - Secondary Admin
+#Eman:Yami taking a break from Oct/10/2012
+#Rebel taking break Oct 20-2012
 
+#LWS - Removed Gravy, Grifter, Florodude, Mancer, Veekro, Eternal, shadowrider1 on Sept 28, 2012.
 
+#Toxed: Wolfman to SA 19/10/2012
+#       Sem to PA 19/10/2012
 
+#LWS - Removed Toxed on 10/26/2012.
 
+#AD: Removed Sanprince, Majorapplesauce, Eigoi, Godlynewt, Kodaki21, Joequabla, Armorplated, IDWmo removed from Admin Observer and arithmetics from Secondary Admin on 10/29/2012
 
+#AD: Yatablitzkrieg removed from Tertiary Admin on 11/02/2012
 
-dothal - Admin Observer
-shiningsoul32 - Admin Observer
+#AD: RawrTaicho re-added as Primary Administrator on 11/10/2012. TheGrifter removed from Primary Administrator on 11/10/2012. Natalie15 resigned from Secondary Admin on 11/10/2012. Tom32123 removed from Tertiary Admin on 11/10/2012.
 
+#AD: Mintkiller promoted to Secondary Admin from Tertiary Admin on 11/20/2012. 
+#    05rhardy removed from Tertiary Admin on 11/20/2012. 
+#    AquaDraco re-assigned as Head of Staff from Senior Admin on 11/20/2012. 
+#    Hattrickredeyes re-assigned as Head of Staff from Senior Admin on 11/20/2012. 
+#    GamerCad re-assigned as Head of Staff from Senior Admin on 11/20/2012. 
+#    Vimes13 promoted to Administrator from Secondary Admin on 11/20/2012. 
+#    Azianpowah promoted to Administrator from Secondary Admin on 11/20/2012. 
+#    Cydney promoted to Administrator from Secondary Admin on 11/20/2012. 
+#    Wolfmanhowl promoted to Administrator from Secondary Admin on 11/20/2012. 
+#    Magoca promoted to Primary Administrator from Administrator on 11/20/2012. 
+#    Aceuk666 promoted to Senior Admin from Primary Administrator on 11/20/2012. 
+#    Sishio promoted to Senior Admin from Primary Administrator on 11/20/2012. 
+#    RawrTaicho added as Coder on this roster on 11/20/2012. 
+#    Absynth added as a Coder on 11/20/2012. 
+#    Keyword22 promoted to Secondary Admin from Tertiary Admin on 11/20/2012. 
+#    Legato_Frio added as Tertiary Admin on 11/20/2012.
 
+#AD: CannibalCrow promoted to Senior Admin from Primary Administrator on 11/21/2012. 
+#    RawrTaicho promoted to Senior Admin from Primary Administrator on 11/21/2012.
 
-***
-Positions of Honor
+#AD: Chaznoodles added as Tertiary Admin on 12/25/2012. 
+#    Cron222 added as Teritary Admin on 12/25/2012.
 
-zombie8891 - Game Master
-bones580 - Senior Admin
-llapsychoshark - Head of Staff
+#AD: Brysch added as Tertiary Admin on 12/29/2012.
 
+#AD: Youdontknow1 added as Senior Admin and Coder on 12/30/2012.
 
+#AD: Legato promoted to Secondary Admin from Tertiary Admin on 01/02/2013.
 
-Vex on vacation until he feels ready
-Yamishi moderated July 22nd ((end of steam sale D: ))
-Magoca mod july 24th
+#AD: Wrecker013 quit on 12/23/2012. Removed from Administrator on 01/19/2013.
 
-Spessy promoted to admin Jun 19th
-brysch and shadowrider to mod on Jun 20th
-semtex and arith to secondary admin on Jun 22th
-wrecker to admin jun 29th
+#AD: Chaznoodles promoted to Secondary Admin from Tertiary Admin on 01/21/2013.
 
-Adam prom to admin july 15th
-narwhall prom to sec admin july 21st
-rebel promoted to Primary Admin july 23rd
+#AD: Pepsibluefan promoted to Administrator from Secondary Admin on 01/22/2013.
 
+#AD: Ancientv25 promoted to Administrator from Secondary Admin on 02/02/2013. 
+#    Cron promoted to Secondary Admin from Tertiary Admin on 02/02/2013.
 
-brysch quit july 10th ish
-IDWmo put on AO off for inactivity and popping up just for bussing
-Armor and Joe put on AO for inactivity july 4th
+#AD: John_Mancer re-added as Primary Administrator on 02/05/2013.
 
+#AD: Cron222 removed from Secondary Administrator on 02/19/2013. Narwhaljones put on hiatus as Secondary Admin on 02/19/2013. Semtex7 put on hiatus as Primary Administrator on 02/19/2013. Cody522 promoted to Senior Admin from Primary Administrator on 02/19/2013. Rebelamerica promoted to Senior Admin from Primary Administrator on 02/19/2013.
 
-Eman:Yami taking a break from Oct/10/2012
-Rebel taking break Oct 20-2012
+#LWS - 2/20/2013 - AD fired from Head Admin for inept actions in his position. 
+#                  Wolfmanhowl removed for inactivity. 
+#                  Ather removed for inactivity.
+#                  Azian removed for inactivity.
+#                  Corus removed for inactivity.
+#                  Kumar removed for inactivity.
+#                  ShiningSoul32 removed for inactivity.  
 
-LWS - Removed Gravy, Grifter, Florodude, Mancer, Veekro, Eternal, shadowrider1 on Sept 28, 2012.
+#LWS - 2/22/2013   Magishadow trialed.
 
-Toxed: Wolfman to SA 19/10/2012
-       Sem to PA 19/10/2012
+#LWS - 2/28/2013   Semtex7 returned to full admin status.
+#                  Brysch returned, resumed trial.
 
-LWS - Removed Toxed on 10/26/2012.
+#LWS - 3/3/2013    Tacomaster returned, trialed.
 
-AD: Removed Sanprince, Majorapplesauce, Eigoi, Godlynewt, Kodaki21, Joequabla, Armorplated, IDWmo removed from Admin Observer and arithmetics from Secondary Admin on 10/29/2012
+#LWS - 3/5/2013    Narwhal returned. 
 
-AD: Yatablitzkrieg removed from Tertiary Admin on 11/02/2012
+#LWS - 3/8/2013    PaladinGuy trialed.
+#                  PepsiBlueFan resigned due to life not giving him the time to admin. He was at Administrator rank.
+#                  Magishadow promoted to Secondary Admin
+#                  Mintkiller promoted to Administrator
+#                  Keyword promoted to Administrator
+#                  AquaDraco promoted to Senior Admin
 
-AD: RawrTaicho re-added as Primary Administrator on 11/10/2012. TheGrifter removed from Primary Administrator on 11/10/2012. Natalie15 resigned from Secondary Admin on 11/10/2012. Tom32123 removed from Tertiary Admin on 11/10/2012.
+#LWS - 3/11/2013   Kumar readded as SrA
 
-AD: Mintkiller promoted to Secondary Admin from Tertiary Admin on 11/20/2012. 
-    05rhardy removed from Tertiary Admin on 11/20/2012. 
-    AquaDraco re-assigned as Head of Staff from Senior Admin on 11/20/2012. 
-    Hattrickredeyes re-assigned as Head of Staff from Senior Admin on 11/20/2012. 
-    GamerCad re-assigned as Head of Staff from Senior Admin on 11/20/2012. 
-    Vimes13 promoted to Administrator from Secondary Admin on 11/20/2012. 
-    Azianpowah promoted to Administrator from Secondary Admin on 11/20/2012. 
-    Cydney promoted to Administrator from Secondary Admin on 11/20/2012. 
-    Wolfmanhowl promoted to Administrator from Secondary Admin on 11/20/2012. 
-    Magoca promoted to Primary Administrator from Administrator on 11/20/2012. 
-    Aceuk666 promoted to Senior Admin from Primary Administrator on 11/20/2012. 
-    Sishio promoted to Senior Admin from Primary Administrator on 11/20/2012. 
-    RawrTaicho added as Coder on this roster on 11/20/2012. 
-    Absynth added as a Coder on 11/20/2012. 
-    Keyword22 promoted to Secondary Admin from Tertiary Admin on 11/20/2012. 
-    Legato_Frio added as Tertiary Admin on 11/20/2012.
+#LWS - 3/23/2013   Magoca on leave. (PA)
+#                  Brysch made full admin.
 
-AD: CannibalCrow promoted to Senior Admin from Primary Administrator on 11/21/2012. 
-    RawrTaicho promoted to Senior Admin from Primary Administrator on 11/21/2012.
+#LWS - 3/24/2013   Wellingtonthe3rd trialed.
 
-AD: Chaznoodles added as Tertiary Admin on 12/25/2012. 
-    Cron222 added as Teritary Admin on 12/25/2012.
+#LWS - 3/26/2013   Chaz removed due to inability to admin to the standards we hold.
 
-AD: Brysch added as Tertiary Admin on 12/29/2012.
+#LWS - 4/4/2013    PaladinGuy promoted to SA.
 
-AD: Youdontknow1 added as Senior Admin and Coder on 12/30/2012.
+#LWS - 4/13/2013   Tacomaster trial ended due to inactivity.
 
-AD: Legato promoted to Secondary Admin from Tertiary Admin on 01/02/2013.
-
-AD: Wrecker013 quit on 12/23/2012. Removed from Administrator on 01/19/2013.
-
-AD: Chaznoodles promoted to Secondary Admin from Tertiary Admin on 01/21/2013.
-
-AD: Pepsibluefan promoted to Administrator from Secondary Admin on 01/22/2013.
-
-AD: Ancientv25 promoted to Administrator from Secondary Admin on 02/02/2013. 
-    Cron promoted to Secondary Admin from Tertiary Admin on 02/02/2013.
-
-AD: John_Mancer re-added as Primary Administrator on 02/05/2013.
-
-AD: Cron222 removed from Secondary Administrator on 02/19/2013. Narwhaljones put on hiatus as Secondary Admin on 02/19/2013. Semtex7 put on hiatus as Primary Administrator on 02/19/2013. Cody522 promoted to Senior Admin from Primary Administrator on 02/19/2013. Rebelamerica promoted to Senior Admin from Primary Administrator on 02/19/2013.
-
-LWS - 2/20/2013 - AD fired from Head Admin for inept actions in his position. 
-                  Wolfmanhowl removed for inactivity. 
-                  Ather removed for inactivity.
-                  Azian removed for inactivity.
-                  Corus removed for inactivity.
-                  Kumar removed for inactivity.
-                  ShiningSoul32 removed for inactivity.  
-
-LWS - 2/22/2013   Magishadow trialed.
-
-LWS - 2/28/2013   Semtex7 returned to full admin status.
-                  Brysch returned, resumed trial.
-
-LWS - 3/3/2013    Tacomaster returned, trialed.
-
-LWS - 3/5/2013    Narwhal returned. 
-
-LWS - 3/8/2013    PaladinGuy trialed.
-                  PepsiBlueFan resigned due to life not giving him the time to admin. He was at Administrator rank.
-                  Magishadow promoted to Secondary Admin
-                  Mintkiller promoted to Administrator
-                  Keyword promoted to Administrator
-                  AquaDraco promoted to Senior Admin
-
-LWS - 3/11/2013   Kumar readded as SrA
-
-LWS - 3/23/2013   Magoca on leave. (PA)
-                  Brysch made full admin.
-
-LWS - 3/24/2013   Wellingtonthe3rd trialed.
-
-LWS - 3/26/2013   Chaz removed due to inability to admin to the standards we hold.
-
-LWS - 4/4/2013    PaladinGuy promoted to SA.
-
-LWS - 4/13/2013   Tacomaster trial ended due to inactivity.
-
-LWS - 4/26/2013   Semtex removed due to inactivity.
-                  Vimes removed due to inactivity.
-                  Cydney removed due to inactivity.
-                  Mintkiller removed due to inactivity.
-                  Brysch removed due to inactivity.
-                  CannibalCrow removed due to inactivity.
-                  AceUK666 removed due to inactivity.
-                  Kumar removed due to inactivity.
+#LWS - 4/26/2013   Semtex removed due to inactivity.
+#                  Vimes removed due to inactivity.
+#                  Cydney removed due to inactivity.
+#                  Mintkiller removed due to inactivity.
+#                  Brysch removed due to inactivity.
+#                  CannibalCrow removed due to inactivity.
+#                  AceUK666 removed due to inactivity.
+#                  Kumar removed due to inactivity.
                    
-                  RebelAmerica Promoted to Senior Admin
-                  Wellington made full admin (SA)
-                  MagiShadow promoted to Admin
+#                 RebelAmerica Promoted to Senior Admin
+#                  Wellington made full admin (SA)
+#                  MagiShadow promoted to Admin
 
-Eman - 4/27/2013 - Keyword moved to inactive due to time constraints, will keep in touch if his time opens up a bit more
+#Eman - 4/27/2013 - Keyword moved to inactive due to time constraints, will keep in touch if his time opens up a bit more
 
-LWS - 4/29/2013 - Mindly_Anarch trialed.
-                  Infernus44 trialed.
+#LWS - 4/29/2013 - Mindly_Anarch trialed.
+#                  Infernus44 trialed.
 
-LWS - 5/2/2013 - CannibalCrow given AO rank.
+#LWS - 5/2/2013 - CannibalCrow given AO rank.
 
-LWS - 5/22/2013 - Infernus promoted to full admin. Mindly declined leaving trial status. 
+#LWS - 5/22/2013 - Infernus promoted to full admin. Mindly declined leaving trial status. 
                 
-LWS - 5/25/2013 - Doodeeda given AO to help him decide if he wants to admin or not.
+#LWS - 5/25/2013 - Doodeeda given AO to help him decide if he wants to admin or not.
 
-LWS - 5/27/2013 - Mindly trial accepted.
-                  Zt107 trialed.
-                  YDK moved back to Coder status
+#LWS - 5/27/2013 - Mindly trial accepted.
+#                  Zt107 trialed.
+#                  YDK moved back to Coder status
 
-LWS - 5/28/2013 - Mindly resigned after being told not to bus so heavily.
+#LWS - 5/28/2013 - Mindly resigned after being told not to bus so heavily.
 
-LWS - 5/29/2013 - Doodeeda added as trial admin.
+#LWS - 5/29/2013 - Doodeeda added as trial admin.
 
-LWS - 6/14/2013 - Wellington promoted to admin.
-                  Paladin promoted to admin.
-                  Vimes promoted to Primary Admin.
-                  Mancer to Senior Admin.
-                  Eman to EmanaBananaDingDong
+#LWS - 6/14/2013 - Wellington promoted to admin.
+#                  Paladin promoted to admin.
+#                  Vimes promoted to Primary Admin.
+#                  Mancer to Senior Admin.
+#                  Eman to EmanaBananaDingDong
 
-LWS - 6/17/2013 - AD resigned.
-                  Mintkiller returned to admin status.
+#LWS - 6/17/2013 - AD resigned.
+#                  Mintkiller returned to admin status.
 
-LWS - 6/19/2013 - CannibalCrow added due to the team having computer issues.
+#LWS - 6/19/2013 - CannibalCrow added due to the team having computer issues.
 
-LWS - 6/20/2013 - Magoca resumed duty.
+#LWS - 6/20/2013 - Magoca resumed duty.
 
-LWS - 6/24/2013 - PepsiBlue returned.
-                  Cron222 returned.
+#LWS - 6/24/2013 - PepsiBlue returned.
+#                  Cron222 returned.
 
-LWS - 6/25/2013 - Doodeeda accepted as full admin.
+#LWS - 6/25/2013 - Doodeeda accepted as full admin.
 
-LWS - 6/28/2013 - Aceuk666 returned as a Primary Admin
-                  Zetasniper trialed.
+#LWS - 6/28/2013 - Aceuk666 returned as a Primary Admin
+#                  Zetasniper trialed.
 
-LWS - 7/5/2013  - Theodysseygamer trialed.
+#LWS - 7/5/2013  - Theodysseygamer trialed.
 
-LWS - 7/9/2013  - ZT107 resigned due to work.
+#LWS - 7/9/2013  - ZT107 resigned due to work.
 
-LWS - 7/24/2013 - Zeta resigned from trialship.
+#LWS - 7/24/2013 - Zeta resigned from trialship.
 
-LWS - 8/1/2013  - Odyseeygamer promoted to secondary
+#LWS - 8/1/2013  - Odyseeygamer promoted to secondary
 
-LWS - 8/2/2013  - Frio promoted to primary.
+#LWS - 8/2/2013  - Frio promoted to primary.
 
-Eman - 8/05/2013 - Kumar in as PA
+#Eman - 8/05/2013 - Kumar in as PA
 
-LWS - 8/23/2013 - RebelAmerica appointed Head Admin.
+#LWS - 8/23/2013 - RebelAmerica appointed Head Admin.
 
-Rebel - 8/23/2013 - Pepsi promoted to PA
+#Rebel - 8/23/2013 - Pepsi promoted to PA
 
-Rebel - 8/28/2013 - Jones re-added as Administrator
+#Rebel - 8/28/2013 - Jones re-added as Administrator
 
-LWS - 9/1/2013    - VisualJ/Cron/Carl Rifter removed. (Please don't rehire, no matter what words he convinces you with.)
+#LWS - 9/1/2013    - VisualJ/Cron/Carl Rifter removed. (Please don't rehire, no matter what words he convinces you with.)
 
-Rebel - 9/3/2013 - IDWMno added as Trial Admin
+#Rebel - 9/3/2013 - IDWMno added as Trial Admin
                   
-Rebel - 9/3/2013 - ShiningSoul32 added as Trial Admin
+#Rebel - 9/3/2013 - ShiningSoul32 added as Trial Admin
 
-Rebel - 9/4/2013 - Paladinguy removed for inactivty, rank was admin.
+#Rebel - 9/4/2013 - Paladinguy removed for inactivty, rank was admin.
 
-Rebel - 9/11/2013 - Semtex7 added as Trial Admin
+#Rebel - 9/11/2013 - Semtex7 added as Trial Admin
 
-Rebel - 9/12/2013 - MiziBooBoo given AO so he can see what being an admin is like.
+#Rebel - 9/12/2013 - MiziBooBoo given AO so he can see what being an admin is like.
 
-Eman - 9/16/2013 - Eternal Added as trial admin
+#Eman - 9/16/2013 - Eternal Added as trial admin
 
-Rebel - 9/21/2013 - Shining promoted to SA, 
-                    Mint promoted to PA, 
-                    Ancient promoted to PA, 
-                    Ace removed for inactivity.
-                    Chair removed for inactivity.
+#Rebel - 9/21/2013 - Shining promoted to SA, 
+#                    Mint promoted to PA, 
+#                    Ancient promoted to PA, 
+#                    Ace removed for inactivity.
+#                    Chair removed for inactivity.
 
-Rebel - 9/29/2013 - Cyliz added as Trial Admin
+#Rebel - 9/29/2013 - Cyliz added as Trial Admin
 
-Rebel - 9/30/2013 - YDK removed from Coder status due to being inactive, given AO.
+#Rebel - 9/30/2013 - YDK removed from Coder status due to being inactive, given AO.
 
-Rebel - 10/1/2013 - Eternal248 promoted to full admin.
-                    IDWMno promoted to full admin.
+#Rebel - 10/1/2013 - Eternal248 promoted to full admin.
+#                    IDWMno promoted to full admin.
 
-Rebel - 10/2/2013 - Eclipse added as Trial Admin
+#Rebel - 10/2/2013 - Eclipse added as Trial Admin
 
-Rebel - 10/4/2013 - Mizi removed.
+#Rebel - 10/4/2013 - Mizi removed.
 
-Rebel - 10/13/2013 - Removed Semtex7 for inactivity.
-                     Promoted WellingtonThe3rd to Primary Admin.
-		     Promoted Infernus44 to Admin.
+#Rebel - 10/13/2013 - Removed Semtex7 for inactivity.
+#                     Promoted WellingtonThe3rd to Primary Admin.
+#			     	  Promoted Infernus44 to Admin.
 
-Rebel - 10/15/2013 - Kadingir added as Trial Admin				 
+#Rebel - 10/15/2013 - Kadingir added as Trial Admin				 
 
-Rebel - 10/19/2013 - Dothal added as Trial Admin
+#Rebel - 10/19/2013 - Dothal added as Trial Admin
 
-Rebel - 10/25/2013 - Tacomaster added as Trial Admin
+#Rebel - 10/25/2013 - Tacomaster added as Trial Admin
 
-Rebel - 10/28/2013 - Eclipse added as full admin.
+#Rebel - 10/28/2013 - Eclipse added as full admin.
 
-LWS   - 11/9/2-13  - Legato Frio returned to adminship.
+#LWS   - 11/9/2-13  - Legato Frio returned to adminship.
 
-Eman per Adam - 11-21-2013 - kadingir , Cyliz and Dothal all promoted from Trial To SA. 
-			     Tacomaster removed for inactivity.
+#Eman - per Adam - 11-21-2013 - kadingir , Cyliz and Dothal all promoted from Trial To SA. 
+#			     Tacomaster removed for inactivity.
 
-Rebel - 12/8/2013 - Lichling added as Trial Admin
+#Rebel - 12/8/2013 - Lichling added as Trial Admin
 
-Rebel - 12/12/2013 - Shining promoted to Admin
-		     IDW promoted to Admin
-		     Dood promoted to Admin
-		     Kumar promoted to SnR
-                     Drache given AO
+#Rebel - 12/12/2013 - Shining promoted to Admin
+#		     IDW promoted to Admin
+#		     Dood promoted to Admin
+#		     Kumar promoted to SnR
+#                     Drache given AO
 
-Rebel - 12/19/2013 - Kojo given Trial Admin
+#Rebel - 12/19/2013 - Kojo given Trial Admin
 
-Rebel - 12/20/2013 - Drache given Trial Admin
+#Rebel - 12/20/2013 - Drache given Trial Admin
 
-Rebel - 1/1/2014 - Lichling given SA.
+#Rebel - 1/1/2014 - Lichling given SA.
 
-Eman - 1/12/14 - Raptorblaze made an A/O. Infernus Resigned
+#Eman - 1/12/14 - Raptorblaze made an A/O. Infernus Resigned
 
-Rebel - 1/21/14 - Magishadow put on hiatus, Crow put on hiatus until life situations sorted.
+#Rebel - 1/21/14 - Magishadow put on hiatus, Crow put on hiatus until life situations sorted.
 
-Rebel - 1/22/14 - Cody522 resigned, Eternal248 put on hiatus(Back), OdysseyGamer put on hiatus(Removed)
+#Rebel - 1/22/14 - Cody522 resigned, Eternal248 put on hiatus(Back), OdysseyGamer put on hiatus(Removed)
 
-Eman - 1/30/14 - Raptor Made SA
+#Eman - 1/30/14 - Raptor Made SA
 
-Eman  - 2/5/14 - Dothal to AO at her request
+#Eman -  - 2/5/14 - Dothal to AO at her request
 
-Rebel - 2/7/14 - Crow returned to PA, Dothal to Trial at her request, IDW put on hiatus, Kad and Eclipse promoted to Administrator.
+#Rebel - 2/7/14 - Crow returned to PA, Dothal to Trial at her request, IDW put on hiatus, Kad and Eclipse promoted to Administrator.
 
-Rebel - 2/8/14 - Jayce made an AO.
+#Rebel - 2/8/14 - Jayce made an AO.
 
-Rebel - 2/14/14 - Dothal resigned, Dothal made AO(Make sure she never gets past this)
+#Rebel - 2/14/14 - Dothal resigned, Dothal made AO(Make sure she never gets past this)
 
-Rebel - 2/17/14 - Zt107 made an AO, cactus promoted to SA
+#Rebel - 2/17/14 - Zt107 made an AO, cactus promoted to SA
 
-Rebel - 2/20/14 - Wellington promoted to SnR, ShiningSoul32 resigned, Shining made AO
+#Rebel - 2/20/14 - Wellington promoted to SnR, ShiningSoul32 resigned, Shining made AO
 
-Rebel - 2/23/14 - Frio demoted to Administrator, he requested to be demoted to AO, Crow promoted to SnR
+#Rebel - 2/23/14 - Frio demoted to Administrator, he requested to be demoted to AO, Crow promoted to SnR
 
-Rebel - 2/24/14 - Zt107 made Trial Admin, Jayce(CaptIronblood) made Trial Admin
+#Rebel - 2/24/14 - Zt107 made Trial Admin, Jayce(CaptIronblood) made Trial Admin
 
-Rebel - 2/26/14 - Mint changed his key to PoliticalPikachu
+#Rebel - 2/26/14 - Mint changed his key to PoliticalPikachu
 
-Rebel - 3/1/14 - Frio removed from the team. 
+#Rebel - 3/1/14 - Frio removed from the team. 
 
-Rebel - 3/3/14 - Frio reinstated as Administrator after talking to him a bit. 
+#Rebel - 3/3/14 - Frio reinstated as Administrator after talking to him a bit. 
 
-Eman - 3/6/14 -  Raptor and Lich to Administrator
+#Eman - 3/6/14 -  Raptor and Lich to Administrator
 
-Eman - 3/7/14 - Pepsibluefan Quit without notice, Kadigner Left, IDWmon readded as an admin
+#Eman - 3/7/14 - Pepsibluefan Quit without notice, Kadigner Left, IDWmon readded as an admin
 
-Eman - 3/15/14 - New Admin Rank HeadAdmin given to adam
+#Eman - 3/15/14 - New Admin Rank HeadAdmin given to adam
 
-Rebel - 3/15/14 - Zt107 and Jayce promoted to SA
+#Rebel - 3/15/14 - Zt107 and Jayce promoted to SA
 
-Rebel - 3/19/14 - Coolpress made Trial Admin
+#Rebel - 3/19/14 - Coolpress made Trial Admin
 
-Rebel - 3/26/14 - MulderMonrow made Trial Admin, Robert Ust made AO
+#Rebel - 3/26/14 - MulderMonrow made Trial Admin, Robert Ust made AO
 
-Rebel - 3/30/14 - Toxed made Trial Admin, Paladinguy reinstated as SA.
+#Rebel - 3/30/14 - Toxed made Trial Admin, Paladinguy reinstated as SA.
 
-Rebel - 4/2/14 - FlavoredCactus promoted to Admin
-		 Cyliz promoted to PA
-		 Kokojo promoted to Admin
-		 Drache promoted to Admin
+#Rebel - 4/2/14 - FlavoredCactus promoted to Admin
+#		 Cyliz promoted to PA
+#		 Kokojo promoted to Admin
+#		 Drache promoted to Admin
 
-Rebel - 4/3/14 - OhPistolPete added as AO
+#Rebel - 4/3/14 - OhPistolPete added as AO
 
-Eman - 4/7/14 - Drache Moved to coder at DZs request
+#Eman - 4/7/14 - Drache Moved to coder at DZs request
 
-Rebel - 4/11/14 - Rob moved to Trial
+#Rebel - 4/11/14 - Rob moved to Trial
 
-Rebel - 4/14/14 - Tilus(Rocco Ward) added as AO, Pete resigned as AO, MulderMunrow promoted to SA
+#Rebel - 4/14/14 - Tilus(Rocco Ward) added as AO, Pete resigned as AO, MulderMunrow promoted to SA
 
-Rebel - 4/17/14 - Eternal removed due to inactivity. 
+#Rebel - 4/17/14 - Eternal removed due to inactivity. 
 
-Rebel - 4/19/14 - Coolpress promoted to SA
+#Rebel - 4/19/14 - Coolpress promoted to SA
 
-Rebel - 4/20/14 - YDK reinstated as SnR
+#Rebel - 4/20/14 - YDK reinstated as SnR
 
-Rebel - 4/27/14 - Toxed promoted to SA, Jariahtoadsage made Trial Admin
+#Rebel - 4/27/14 - Toxed promoted to SA, Jariahtoadsage made Trial Admin
 
-Rebel - 5/1-14 - Mint promoted to SnR
+#Rebel - 5/1-14 - Mint promoted to SnR
 
-Eman - 5/2/14 - Tilius to Trial admin
+#Eman - 5/2/14 - Tilius to Trial admin
 
-Rebel - 5/4/14 - Jayce promoted to Administrator, Rob promoted to SA
+#Rebel - 5/4/14 - Jayce promoted to Administrator, Rob promoted to SA
 
-Rebel - 5/7/14 - Tilus resigned from Trial due to life.
+#Rebel - 5/7/14 - Tilus resigned from Trial due to life.
 
-Rebel - 5/10/14 - Jariah accepted as SA.
+#Rebel - 5/10/14 - Jariah accepted as SA.
 
-Rebel - 6/2/14 - Raptorblaze promoted to PA, Ancient promoted to SnR
-
-NA - NA - Eman demoted to SnR sometime or another, don't remember the date. 
-
-
+#Rebel - 6/2/14 - Raptorblaze promoted to PA, Ancient promoted to SnR
