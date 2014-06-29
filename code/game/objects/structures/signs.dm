@@ -136,3 +136,13 @@
 	name = "\improper HYDROPONICS"
 	desc = "A warning sign which reads 'HYDROPONICS'"
 	icon_state = "hydro1"
+
+/obj/structure/sign/clown
+	name = "\improper Honk! Poster"
+	desc = "A poster about Clowns. Honk."
+	icon_state = "clown"
+
+/obj/structure/sign/mime
+	name = "\improper Mime poster"
+	desc = "A poster about the silencious but strong."
+	icon_state = "mime"

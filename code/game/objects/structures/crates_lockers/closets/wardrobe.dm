@@ -338,3 +338,37 @@
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/clothing/shoes/sneakers/white(src)
 	return
+
+/obj/structure/closet/wardrobe/clown
+	name = "Honk wardrobe"
+	desc = "A closet for clowns. Open at your own risks."
+	icon_state = "clownclosed"
+	icon_closed = "clownclosed"
+	icon_opened = "clownopen"
+
+/obj/structure/closet/wardrobe/clown/New()
+	new /obj/item/weapon/storage/backpack/clown(src)
+	new /obj/item/clothing/under/rank/clown(src)
+	new /obj/item/clothing/gloves/rainbow/clown(src)
+	new /obj/item/clothing/mask/gas/clown_hat(src)
+	new /obj/item/clothing/shoes/clown_shoes(src)
+	new /obj/item/weapon/coin/clown(src)
+	return
+
+/obj/structure/closet/wardrobe/mime
+	name = "Silent wardrobe"
+	desc = "A closet for mimes. Nearly invisible."
+	icon_state = "mimeclosed"
+	icon_closed = "mimeclosed"
+	icon_opened = "mimeopen"
+
+/obj/structure/closet/wardrobe/mime/New()
+	new /obj/item/weapon/storage/backpack/mime(src)
+	new /obj/item/clothing/under/mime(src)
+	new /obj/item/clothing/suit/suspenders
+	new /obj/item/clothing/head/beret(src)
+	new /obj/item/clothing/mask/gas/mime(src)
+	new /obj/item/clothing/shoes/sneakers/mime(src)
+	new /obj/item/clothing/gloves/white
+	new /obj/item/toy/crayon/mime(src)
+	return

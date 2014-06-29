@@ -756,6 +756,14 @@ proc/process_ghost_teleport_locs()
  	name = "\improper Library"
  	icon_state = "library"
 
+/area/clown
+ 	name = "\improper Clown's Office"
+ 	icon_state = "clown"
+
+/area/mime
+ 	name = "\improper Mime's Office"
+ 	icon_state = "mime"
+
 /area/chapel/main
 	name = "\improper Chapel"
 	icon_state = "chapel"
@@ -1439,22 +1447,25 @@ proc/process_ghost_teleport_locs()
 
 //Misc
 
-
+/area/wreck
+	name = "\improper Prototype station"
+	icon_state = "storage"
+	has_gravity = 1
 
 /area/wreck/ai
-	name = "\improper AI Chamber"
-	icon_state = "ai"
+	name = "\improper Prototype Botany"
+	icon_state = "hydro"
 
 /area/wreck/main
-	name = "\improper Wreck"
+	name = "\improper Prototype Hall"
 	icon_state = "storage"
 
 /area/wreck/engineering
-	name = "\improper Power Room"
+	name = "\improper Prototype Engineering"
 	icon_state = "engine"
 
 /area/wreck/bridge
-	name = "\improper Bridge"
+	name = "\improper Prototype Bridge"
 	icon_state = "bridge"
 
 /area/generic

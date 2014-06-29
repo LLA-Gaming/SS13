@@ -1,7 +1,7 @@
 
 //########################## CONTRABAND ;3333333333333333333 -Agouri ###################################################
 
-#define NUM_OF_POSTER_DESIGNS 21
+#define NUM_OF_POSTER_DESIGNS 22
 
 /obj/item/weapon/contraband
 	name = "contraband item"
@@ -146,6 +146,9 @@ obj/structure/sign/poster/New(serial)
 		if(21)
 			name += " - Borg Fancy v2"
 			desc += " Borg Fancy, Now only taking the most fancy."
+		if(22)
+			name += " - The silence of the mimes"
+			desc += " ..."
 		else
 			name = "This shit just bugged. Report it to Agouri - polyxenitopalidou@gmail.com"
 			desc = "Why are you still here?"

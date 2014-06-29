@@ -324,3 +324,71 @@
 
 /obj/machinery/disposal/deliveryChute/process()
 	return PROCESS_KILL
+
+
+
+/obj/machinery/disposal/deliveryhole
+	name = "Loser holder"
+	desc = "A chute to hold people, especially losers on a laser tag match."
+	density = 1
+	icon_state = "hole"
+
+	var/start_flush = 0
+	var/c_mode = 0
+
+/obj/machinery/disposal/deliveryhole/New()
+	..()
+	spawn(5)
+		trunk = locate() in loc
+		if(trunk)
+			trunk.linked = src	// link the pipe trunk to self
+
+/obj/machinery/disposal/deliveryhole/interact()
+	return
+
+/obj/machinery/disposal/deliveryhole/update()
+	return
+
+/obj/machinery/disposal/deliveryhole/Bumped(var/atom/movable/AM) //Go straight into the chute
+	if(istype(AM, /obj/item/projectile))	return
+	if(istype(AM, /obj))
+		var/obj/O = AM
+		O.loc = src
+	else if(istype(AM, /mob))
+		var/mob/M = AM
+		M.loc = src
+	flush()
+
+/obj/machinery/disposal/deliveryhole/flush()
+	flushing = 1
+	var/deliveryCheck = 0
+	var/obj/structure/disposalholder/H = new()	// virtual holder object which actually
+												// travels through the pipes.
+/*		for(var/obj/structure/bigDelivery/O in src)
+		deliveryCheck = 1
+		if(O.sortTag == 0)						//This auto-sorts package wrapped objects to disposals
+			O.sortTag = 1						//Cargo techs can do this themselves with their taggers
+	for(var/obj/item/smallDelivery/O in src)	//With this disabled packages will loop back round and come out the mail chute
+		deliveryCheck = 1
+		if(O.sortTag == 0)
+			O.sortTag = 1						*/
+	if(deliveryCheck == 0)
+		H.destinationTag = 1
+
+	sleep(10)
+	if((start_flush + 15) < world.time)
+		start_flush = world.time
+		playsound(src, 'sound/machines/disposalflush.ogg', 20, 0, 0)
+	sleep(5) // wait for animation to finish
+
+	H.init(src)	// copy the contents of disposer to holder
+	air_contents = new()		// new empty gas resv.
+
+	H.start(src) // start the holder processing movement
+	flushing = 0
+	// now reset disposal state
+	flush = 0
+	if(mode == 2)	// if was ready,
+		mode = 1	// switch to charging
+	update()
+	return
