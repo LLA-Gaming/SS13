@@ -404,6 +404,20 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
+/obj/item/toy/mimekatana
+	name = "Invisible sword"
+	desc = "So thin it looks invisible to the eye. Then again it might be invisible."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "mkatana"
+	item_state = "mkatana"
+	flags = CONDUCT
+	slot_flags = SLOT_BELT | SLOT_BACK
+	force = 0
+	throwforce = 1
+	w_class = 3
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
+	hitsound = 'sound/weapons/bladeslice.ogg'
+
 /*
  * Crayons
  */
