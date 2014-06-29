@@ -138,6 +138,12 @@
 	item_state = "lampgreen"
 	brightness_on = 5
 
+// the mimelamp
+/obj/item/device/flashlight/lamp/mime
+	desc = "A nearly invisible lamp."
+	icon_state = "mimelamp"
+	item_state = "mimelamp"
+	brightness_on = 5
 
 /obj/item/device/flashlight/lamp/verb/toggle_light()
 	set name = "Toggle light"

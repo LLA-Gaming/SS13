@@ -154,6 +154,19 @@
 		..()
 		reagents.add_reagent("water",500)
 
+/obj/structure/reagent_dispensers/honk_cooler
+	name = "Honk-Cooler"
+	desc = "A machine that dispenses banana juice."
+	amount_per_transfer_from_this = 5
+	icon = 'icons/obj/vending.dmi'
+	icon_state = "banana_cooler"
+	possible_transfer_amounts = null
+	anchored = 1
+	var/cups = 50
+	New()
+		..()
+		reagents.add_reagent("banana",200)
+
 /obj/structure/reagent_dispensers/water_cooler/attack_hand(var/mob/living/carbon/human/user)
 	if((!istype(user)) || (user.stat))
 		return
