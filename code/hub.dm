@@ -2,7 +2,7 @@
 
 	hub = "Exadv1.spacestation13"
 	hub_password = "kMZy3U5jJHSiBQjr"
-	name = "Liberty Station 13 [Official LLA Main]"
+	name = "Liberty Station 13 \[Official LLA Main\]"
 
 /*
 This is for any host that would like their server to appear on the main SS13 hub.
