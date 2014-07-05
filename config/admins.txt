@@ -12,7 +12,7 @@ lonewolfsyndrome = Game Master
 
 gamercad = Coder
 hattrickredeyes = Head of Staff
-#Rebel -america = Head of Staff               
+Rebelamerica = Head of Staff               
 
 rawrtaicho = Coder
 thedrachex1 = Coder
@@ -25,7 +25,7 @@ wellingtonthe3rd = Senior Admin
 cannibalcrow = Senior Admin
 youdontknow1 = Senior Admin
 politicalpikachu = Senior Admin
-#Eman -ban = Senior Admin
+Emanban = Senior Admin
 ancientv25 = Senior Admin
 
 magoca = Primary Administrator
