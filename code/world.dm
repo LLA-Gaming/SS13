@@ -84,6 +84,7 @@
 		master_controller.setup()
 		lighting_controller.Initialize()
 
+	src.update_world_name()
 	src.update_status()
 
 	process_teleport_locs()			//Sets up the wizard teleport locations
@@ -232,6 +233,13 @@
 	// apply some settings from config..
 	abandon_allowed = config.respawn
 
+/world/proc/update_world_name()
+	var/worldname = ""
+	if (config && config.server_name)
+		worldname += "[config.server_name]:"
+	worldname += station_name
+
+	world.name = worldname
 
 /world/proc/update_status()
 	var/s = ""
