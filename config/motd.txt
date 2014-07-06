@@ -1,8 +1,8 @@
 <CENTER><h1><FONT COLOR="#3B3B3B">Welcome to</FONT> <FONT COLOR="#8C1717">Liberty Station 13!</FONT></h1>
 <br>
-<FONT COLOR="#3B3B3B"><i>This server is running a <FONT COLOR="#FF0000">*MODIFIED*</FONT> /tg/station13 SVN build.</i></FONT>
+<FONT COLOR="#3B3B3B"><i>This server is running a <FONT COLOR="#FF0000">*MODIFIED*</FONT> /tg/station13 build.</i></FONT>
 <br>
-<FONT COLOR="#708090">Please report any bugs or suggestions at the following address: http://www.assembla.com/spaces/LLAbugs/support/tickets</FONT>
+<FONT COLOR="#708090">Please report any bugs or suggestions at the following address: https://github.com/Spoffy/LLA-Station-13/issues</FONT>
 <br>
 <br>
 <FONT COLOR="#708090">Check the changelog for information regarding new updates and additions!</FONT>
