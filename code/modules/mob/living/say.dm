@@ -114,11 +114,8 @@ var/list/department_radio_keys = list(
 	var/message_range = null
 	var/message_mode = null
 
-	if (getBrainLoss() >= 60 && prob(50))
-		if (ishuman(src))
-			message_mode = "headset"
 	// Special message handling
-	else if (copytext(message, 1, 2) == ";")
+	if (copytext(message, 1, 2) == ";")
 		if (ishuman(src))
 			message_mode = "headset"
 		else if(ispAI(src) || isrobot(src))
@@ -143,6 +140,8 @@ var/list/department_radio_keys = list(
 	// :downs:
 	if (getBrainLoss() >= 60)
 		message = derpspeech(message, stuttering)
+		if(prob(50))
+			message_mode = "headset"
 
 	if (stuttering)
 		message = stutter(message)
