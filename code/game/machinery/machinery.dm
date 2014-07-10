@@ -223,7 +223,7 @@ Class Procs:
 		return
 	if(!in_range(M, src))
 		return
-	if(!isturf(M.loc) && M.loc != src)
+	if(!isturf(M.loc) && get(M.loc, src.type) != src)
 		return
 	return 1
 
