@@ -326,6 +326,29 @@ proc/process_ghost_teleport_locs()
 /area/centcom/holding
 	name = "\improper Holding Facility"
 
+/area/centcom/larryoffice
+	name = "\improper Larry's Office"
+
+/area/centcom/mainhall
+	name = "\improper Centcom Main Area"
+
+/area/centcom/research
+	name = "\improper Centcom Research"
+
+/area/centcom/medbay
+	name = "\improper Centcom Medbay"
+
+/area/centcom/brig
+	name = "\improper Centcom Brig"
+
+/area/centcom/offices
+	name = "\improper Centcom Offices"
+
+/area/centcom/Creed
+	name = "\improper Creeds Office"
+
+
+
 //SYNDICATES
 
 /area/syndicate_mothership

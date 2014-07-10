@@ -201,7 +201,7 @@
 	name = "Potted plant"
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "plant-01"
-	density = 1
+	density = 0
 
 /obj/structure/flora/kirbyplants/dead
 	name = "RD's potted plant"
