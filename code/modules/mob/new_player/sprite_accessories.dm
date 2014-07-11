@@ -333,12 +333,14 @@
 /////////////////////////////
 /datum/sprite_accessory/facial_hair
 	icon = 'icons/mob/human_face.dmi'
-	gender = MALE // barf (unless you're a dorf, dorfs dig chix w/ beards :P)
+	gender = NEUTER //Changed by request. Trannies r hawt
+	// gender = MALE // barf (unless you're a dorf, dorfs dig chix w/ beards :P)
 
 	shaved
 		name = "Shaved"
 		icon_state = null
-		gender = NEUTER
+		//gender = NEUTER
+		// No longer needed due to changed default value
 
 	watson
 		name = "Watson Mustache"
