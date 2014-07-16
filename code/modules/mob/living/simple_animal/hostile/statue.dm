@@ -14,8 +14,8 @@
 	response_disarm = "pushes"
 
 	speed = -1
-	maxHealth = 50000
-	health = 50000
+	maxHealth = 1000
+	health = 1000
 
 	harm_intent_damage = 70
 	melee_damage_lower = 68
