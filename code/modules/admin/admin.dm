@@ -466,6 +466,7 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsfun=quickpower'>Power all SMES</A><BR>
 			<A href='?src=\ref[src];secretsfun=tripleAI'>Triple AI mode (needs to be used in the lobby)</A><BR>
 			<A href='?src=\ref[src];secretsfun=traitor_all'>Everyone is the traitor</A><BR>
+			<A href='?src=\ref[src];secretsfun=striketeam'>Send in DEATH SQUAD</A><BR>
 			<A href='?src=\ref[src];secretsfun=guns'>Summon Guns</A><BR>
 			<A href='?src=\ref[src];secretsfun=magic'>Summon Magic</A><BR>
 			<A href='?src=\ref[src];secretsfun=onlyone'>There can only be one!</A><BR>

@@ -121,6 +121,7 @@ var/global/sent_strike_team = 0
 	new_commando.equip_death_commando(leader_selected)
 	return new_commando
 
+
 /mob/living/carbon/human/proc/equip_death_commando(leader_selected = 0)
 
 	var/obj/item/device/radio/R = new /obj/item/device/radio/headset(src)

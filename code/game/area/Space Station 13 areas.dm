@@ -320,6 +320,12 @@ proc/process_ghost_teleport_locs()
 /area/centcom/ferry
 	name = "\improper Centcom Transport Shuttle"
 
+/area/shuttle/specops/centcom
+	name = "\improper Special Operations Shuttle Centcom"
+
+/area/shuttle/specops/station
+	name = "\improper Special Operations Shuttle Station"
+
 /area/centcom/prison
 	name = "\improper Admin Prison"
 
@@ -659,6 +665,11 @@ proc/process_ghost_teleport_locs()
 
 /area/bridge/meeting_room
 	name = "\improper Heads of Staff Meeting Room"
+	icon_state = "meeting"
+	music = null
+
+/area/bridge/break_room
+	name = "\improper Heads of Staff Break Room"
 	icon_state = "meeting"
 	music = null
 
@@ -1441,35 +1452,6 @@ proc/process_ghost_teleport_locs()
 
 /area/turret_protected/NewAIMain
 	name = "\improper AI Main New"
-	icon_state = "storage"
-
-
-
-//Misc
-
-/area/wreck
-	name = "\improper Prototype station"
-	icon_state = "storage"
-	has_gravity = 1
-
-/area/wreck/ai
-	name = "\improper Prototype Botany"
-	icon_state = "hydro"
-
-/area/wreck/main
-	name = "\improper Prototype Hall"
-	icon_state = "storage"
-
-/area/wreck/engineering
-	name = "\improper Prototype Engineering"
-	icon_state = "engine"
-
-/area/wreck/bridge
-	name = "\improper Prototype Bridge"
-	icon_state = "bridge"
-
-/area/generic
-	name = "Unknown"
 	icon_state = "storage"
 
 
