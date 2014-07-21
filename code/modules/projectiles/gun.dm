@@ -51,12 +51,21 @@
 	for(var/obj/O in contents)
 		O.emp_act(severity)
 
-/obj/item/weapon/gun/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params)//TODO: go over this
+/obj/item/weapon/gun/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params, var/nextBurst = 1)//TODO: go over this
 	if(flag) //It's adjacent, is the user, or is on the user's person
 		if(istype(target, /mob/) && target != user && !(target in user.contents)) //We make sure that it is a mob, it's not us or part of us.
 			if(user.a_intent == "harm") //Flogging action
 				return
 		else
+			return
+
+	if(locked)
+		if(!user.check_contents_for(locked))
+			var/datum/effect/effect/system/spark_spread/S = new/datum/effect/effect/system/spark_spread(get_turf(src))
+			S.set_up(3, 0, get_turf(src))
+			S.start()
+			usr << "<div class='warning'>The [src] shocks you.</div>"
+			usr.AdjustWeakened(2)
 			return
 
 	//Exclude lasertag guns from the CLUMSY check.
@@ -91,9 +100,14 @@
 
 	add_fingerprint(user)
 
+	var/burst = 0
+	var/burst_delay = 0
+
 	if(!special_check(user))
 		return
 	if(chambered)
+		burst = chambered.burst
+		burst_delay = chambered.burst_delay
 		if(!chambered.fire(target, user, params, , silenced))
 			shoot_with_empty_chamber(user)
 		else
@@ -110,6 +124,13 @@
 		user.update_inv_l_hand(0)
 	else
 		user.update_inv_r_hand(0)
+
+	if(burst && nextBurst)
+		for(var/i = 0, i < burst, i++)
+			sleep(burst_delay*10)
+			spawn(0)
+				src.afterattack(target, user, flag, params, 0)
+
 
 /obj/item/weapon/gun/attack(mob/M as mob, mob/user)
 	if(user.a_intent == "harm") //Flogging

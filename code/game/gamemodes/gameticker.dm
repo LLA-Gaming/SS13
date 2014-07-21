@@ -294,6 +294,7 @@ var/round_start_time = 0
 			auto_toggle_ooc(1) // Turn it on
 			spawn
 				declare_completion()
+				logPerseusMissions()
 
 			spawn(50)
 				if (mode.station_was_nuked)
@@ -377,5 +378,18 @@ var/round_start_time = 0
 	log_game("Antagonists at round end were...")
 	for(var/i in total_antagonists)
 		log_game("[i]s[total_antagonists[i]].")
+
+	world << "<b>Perseus Missions at the end:</b>"
+	var/number = 1
+	for(var/datum/perseus_mission/P in perseusMissions)
+		world << "<b>Mission #[number]:</b> [P.mission] ([P.checkCompletion() ? "<font color='green'>Success!</font>" : "<font color='red'>Failed.</font>"])"
+
+		var/numberPrint = ""
+		for(var/mob/living/M in P.associatedUnits)
+			numberPrint += "#[pnumbers[M.ckey]] "
+
+		world << "Assigned Numbers: [numberPrint]"
+
+	logPerseusMissions()
 
 	return 1

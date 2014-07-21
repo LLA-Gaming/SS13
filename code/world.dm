@@ -42,6 +42,7 @@
 	LoadBansjob()
 	if(config.usewhitelist)
 		load_whitelist()
+	loadPerseusList()
 	jobban_loadbanfile()
 	appearance_loadbanfile()
 	jobban_updatelegacybans()

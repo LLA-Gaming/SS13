@@ -365,6 +365,9 @@ datum/preferences
 
 		HTML += "</center></table>"
 
+		if(perseusList[user.ckey])
+			HTML += "<center>Start as Perseus: <a href='?_src_=prefs;preference=job;task=perseus'>[(user.ckey in assignPerseus) ? "Yes" : "No"]</a></center><br>"
+
 		HTML += "<center><br><a href='?_src_=prefs;preference=job;task=random'>[userandomjob ? "Get random job if preferences unavailable" : "Be an Assistant if preference unavailable"]</a></center>"
 		HTML += "<center><a href='?_src_=prefs;preference=job;task=reset'>Reset Preferences</a></center>"
 
@@ -523,6 +526,13 @@ datum/preferences
 					SetChoices(user)
 				if("setJobLevel")
 					UpdateJobPreference(user, href_list["text"], text2num(href_list["level"]))
+				if("perseus")
+					if(perseusList[user.ckey])
+						if(user.ckey in assignPerseus)
+							assignPerseus -= user.ckey
+						else
+							assignPerseus += user.ckey
+					SetChoices(user)
 				else
 					SetChoices(user)
 			return 1

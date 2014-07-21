@@ -15,6 +15,7 @@
 	var/atom/target = null
 	var/open_panel = 0
 	var/image_overlay = null
+	var/explosion_size = list(-1, -1, 4, 4)
 
 /obj/item/weapon/plastique/New()
 	wires = new(src)
@@ -94,7 +95,7 @@
 	if(!target)
 		target = src
 	if(location)
-		explosion(location, -1, -1, 4, 4)
+		explosion(location, explosion_size[1], explosion_size[2], explosion_size[3], explosion_size[4])
 
 	if(target)
 		if (istype(target, /turf/simulated/wall))

@@ -256,6 +256,9 @@
 		character.loc = pick(latejoin)
 		character.lastarea = get_area(loc)
 
+		if(character.mind.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander"))
+			character.loc = locate("start*[character.mind.assigned_role == "Perseus Security Enforcer" ? "Perseus Security Enforcer" : "Perseus Security Commander"]")
+
 		if(character.mind.assigned_role != "Cyborg")
 			data_core.manifest_inject(character)
 			ticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
@@ -311,7 +314,23 @@
 				if (job.title in command_positions)
 					position_class = "commandPosition"
 				dat += "<a class='[position_class]' href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions])</a><br>"
-		dat += "</div></div>"
+		if(perseusList[ckey])
+			dat += "</div><br><hr>"
+			var/rank = perseusList[ckey]
+			var/list/iteratedJobs = list() //no idea why, but apparently it loops through the jobs twice each, so easy fix here.
+			for(var/datum/job/job in job_master.persjobs)
+				if(job.title in iteratedJobs)	continue
+				iteratedJobs += job.title
+				if(job.title == "Perseus Security Enforcer" && (rank == "Enforcer" || rank == "Commander"))
+					dat += "<center><a class='otherPosition' href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions])</a></center><br>"
+					continue
+				if(job.title == "Perseus Security Commander" && rank == "Commander")
+					dat += "<center><a class='commandPosition' href='byond://?src=\ref[src];SelectedJob=[job.title]'>[job.title] ([job.current_positions])</a></center><br>"
+					continue
+			dat += "</div>"
+
+		else
+			dat += "</div></div>"
 
 		// Removing the old window method but leaving it here for reference
 		//src << browse(dat, "window=latechoices;size=300x640;can_close=1")
@@ -342,7 +361,9 @@
 		if(mind)
 			mind.active = 0					//we wish to transfer the key manually
 			mind.transfer_to(new_character)					//won't transfer key since the mind is not active
-
+			if(mind.assigned_role == "Perseus Security Enforcer" || mind.assigned_role == "Perseus Security Commander")
+				if(mycenae_at_centcom)
+					move_mycenae()
 		new_character.name = real_name
 
 		ready_dna(new_character, client.prefs.blood_type)

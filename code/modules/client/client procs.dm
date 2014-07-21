@@ -304,5 +304,10 @@ var/next_external_rsc = 0
 		'icons/stamp_icons/large_stamp-rd.png',
 		'icons/stamp_icons/large_stamp-cap.png',
 		'icons/stamp_icons/large_stamp-qm.png',
-		'icons/stamp_icons/large_stamp-law.png'
+		'icons/stamp_icons/large_stamp-law.png',
+		'icons/pda_icons/pda_perseus_p.png',
+		'icons/pda_icons/pda_perseus_bd.png',
+		'icons/pda_icons/pda_perseus_i.png',
+		'icons/pda_icons/pda_perseus_c.png',
+		'icons/pda_icons/pda_perseus_m.png'
 		)

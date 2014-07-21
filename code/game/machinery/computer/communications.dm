@@ -308,6 +308,33 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			message_admins("[key_name_admin(usr)] disabled emergency maintenance access.")
 			src.aistate = STATE_DEFAULT
 
+		if("perseus_mission")
+			var/list/availableMissions = getAvailablePerseusMissions()
+			var/selectedMission = input("Select a mission.", "Input") as anything in availableMissions
+			if(!selectedMission)	return
+			var/missionType = availableMissions[selectedMission]
+			if(!missionType)	return
+			if(selectedMission in list("Protect", "Detain"))
+				var/mob/living/target
+				var/list/names = list()
+				for(var/datum/data/record/R in data_core.general)
+					names += R.fields["name"]
+				var/selectedName = input("Select") as anything in names
+				if(!selectedName)	return
+				for(var/mob/living/L in world)
+					if(L.real_name == selectedName)
+						target = L
+						break
+				if(!names.len)
+					usr << "\red Error: No data core entries found."
+					return
+				if(!target)	return
+
+				new missionType(usr, 1, "[selectedMission] [target.real_name], the [target.job]", 1, target)
+			else
+				new missionType(usr, 1, "[selectedMission]", 1)
+		 	usr << "\blue Mission created."
+
 	src.updateUsrDialog()
 
 /obj/machinery/computer/communications/attackby(var/obj/I as obj, var/mob/user as mob)
@@ -369,6 +396,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 						dat += "<BR>\[ <A HREF='?src=\ref[src];operation=callshuttle'>Call Emergency Shuttle</A> \]"
 
 				dat += "<BR>\[ <A HREF='?src=\ref[src];operation=status'>Set Status Display</A> \]"
+				dat += "<br>\[ <a href='?src=\ref[src];operation=perseus_mission'>Create Perseus Missions</a> \]"
 				if (src.authenticated==2)
 					dat += "<BR><BR><B>Captain Functions</B>"
 					dat += "<BR>\[ <A HREF='?src=\ref[src];operation=announce'>Make a Captain's Announcement</A> \]"

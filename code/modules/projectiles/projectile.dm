@@ -49,6 +49,7 @@
 	var/drowsy = 0
 	var/forcedodge = 0
 
+	var/bump_at_ttile = 0
 
 	proc/delete()
 		// Garbage collect the projectiles
@@ -148,6 +149,9 @@
 				return
 			step_towards(src, current)
 			sleep(1)
+			if(loc == original && bump_at_ttile)
+				Bump(loc)
+				sleep(1)
 			if(!bumped && ((original && original.layer>=2.75) || ismob(original)))
 				if(loc == get_turf(original))
 					if(!(original in permutated))

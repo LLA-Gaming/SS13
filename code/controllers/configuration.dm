@@ -175,6 +175,10 @@
 			switch(name)
 				if("admin_legacy_system")
 					config.admin_legacy_system = 1
+				if("perseus_legacy_system")
+					config.perseus_legacy_system = 1
+				if("mycenae_starts_at_centcom")
+					config.mycenae_starts_at_centcom = 1
 				if("ban_legacy_system")
 					config.ban_legacy_system = 1
 				if("use_age_restriction_for_jobs")
