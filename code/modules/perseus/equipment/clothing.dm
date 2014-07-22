@@ -152,7 +152,7 @@
 	name = "perseus commander beret"
 	desc = "Only given to the elite of the Perseus elite."
 	icon_state = "persberet"
-
+	flags = HEADCOVERSEYES | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
 /*
 * Perseus Helmet
 */

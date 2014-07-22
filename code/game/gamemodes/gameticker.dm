@@ -382,6 +382,10 @@ var/round_start_time = 0
 	world << "<b>Perseus Missions at the end:</b>"
 	var/number = 1
 	for(var/datum/perseus_mission/P in perseusMissions)
+		if(!P.associatedUnits.len)
+			continue
+		if(P.status == "Denied")
+			continue
 		world << "<b>Mission #[number]:</b> [P.mission] ([P.checkCompletion() ? "<font color='green'>Success!</font>" : "<font color='red'>Failed.</font>"])"
 
 		var/numberPrint = ""
@@ -389,6 +393,7 @@ var/round_start_time = 0
 			numberPrint += "#[pnumbers[M.ckey]] "
 
 		world << "Assigned Numbers: [numberPrint]"
+		number++
 
 	logPerseusMissions()
 

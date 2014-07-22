@@ -71,6 +71,8 @@
 	damage_type = BURN
 	flag = "energy"
 
+	bump_at_ttile = 1
+
 	on_hit(var/atom/target, var/blocked = 0)
 		for(var/turf/T in range(1, target))
 			new /obj/effect/effect/sparks(get_turf(T))
@@ -182,7 +184,7 @@
 	ammo_type = /obj/item/ammo_casing/fiveseven
 	caliber = "5.7x28mm"
 	max_ammo = 20
-	multiple_sprites = 1
+	multiple_sprites = 0
 
 /obj/item/weapon/gun/projectile/automatic/fiveseven
 	name = "five-seven"

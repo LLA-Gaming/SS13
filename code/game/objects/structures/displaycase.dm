@@ -60,9 +60,9 @@
 
 /obj/structure/displaycase/update_icon()
 	if(src.destroyed)
-		src.icon_state = "[initial(icon_state)][src.occupied]"
+		src.icon_state = "glassboxb[src.occupied]"
 	else
-		src.icon_state = "[initial(icon_state)][src.occupied]"
+		src.icon_state = "glassbox[src.occupied]"
 	return
 
 

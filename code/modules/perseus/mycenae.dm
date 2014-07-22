@@ -10,7 +10,12 @@
 	lighting_use_dynamic = 0
 	requires_power = 0
 	has_gravity = 1
+	power_equip = 1
 
+	New()
+		..()
+		spawn(5)
+			power_equip = 1
 /*
 * Decal Nameplate
 */
@@ -158,9 +163,7 @@
 
 var/mycenae_at_centcom = 1
 
-/proc/move_mycenae()
-	if(!config.mycenae_starts_at_centcom)
-		return
+/proc/move_mycenae(var/ignore = 0)
 	if(mycenae_at_centcom)
 		mycenae_at_centcom = 0
 		var/area/start_location = locate(/area/security/perseus/mycenae_centcom)

@@ -124,6 +124,9 @@ proc/isorgan(A)
 	for(var/obj/item/weapon/implant/loyalty/L in A)
 		if(L && L.implanted)
 			return 1
+	for(var/obj/item/weapon/implant/enforcer/E in A)
+		if(E && E.implanted)
+			return 1
 	return 0
 
 /proc/check_zone(zone)

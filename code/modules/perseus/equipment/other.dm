@@ -252,3 +252,7 @@
 	name = "EMERGENCY ONLY Case"
 	icon_state = "pglassbox1"
 	spawnPath = /obj/item/weapon/gun/projectile/automatic/fiveseven
+	density = 0
+
+	update_icon()
+		icon_state = "pglassbox[destroyed ? "b" : ""][occupied]"

@@ -2,6 +2,9 @@
 
 var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 
+var/lastPerseusMission = 0
+var/perseusMissionCooldown = 3000
+
 // The communications computer
 /obj/machinery/computer/communications
 	name = "communications console"
@@ -309,6 +312,9 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			src.aistate = STATE_DEFAULT
 
 		if("perseus_mission")
+			if(lastPerseusMission + perseusMissionCooldown > world.time && (perseusMissions.len))
+				usr << "\red You have to wait before creating another mission."
+				return
 			var/list/availableMissions = getAvailablePerseusMissions()
 			var/selectedMission = input("Select a mission.", "Input") as anything in availableMissions
 			if(!selectedMission)	return
@@ -330,9 +336,12 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 					return
 				if(!target)	return
 
-				new missionType(usr, 1, "[selectedMission] [target.real_name], the [target.job]", 1, target)
+				new missionType(usr, 0, "[selectedMission] [target.real_name], the [target.job]", 1, target)
 			else
-				new missionType(usr, 1, "[selectedMission]", 1)
+				new missionType(usr, 0, "[selectedMission]", 1)
+
+			lastPerseusMission = world.time
+
 		 	usr << "\blue Mission created."
 
 	src.updateUsrDialog()
