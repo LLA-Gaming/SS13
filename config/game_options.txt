@@ -38,15 +38,15 @@ OOC_DURING_ROUND
 
 ## These modify the run/walk speed of all mobs before the mob-specific modifiers are applied. 
 RUN_DELAY 0
-WALK_DELAY 4
+WALK_DELAY 2
 
 ## The variables below affect the movement of specific mob types.
 HUMAN_DELAY 0
-ROBOT_DELAY 0
-MONKEY_DELAY 0
+ROBOT_DELAY 1
+MONKEY_DELAY 1
 ALIEN_DELAY 0
-SLIME_DELAY 0
-ANIMAL_DELAY 0
+SLIME_DELAY 1
+ANIMAL_DELAY 1
 
 
 ### NAMES ###
