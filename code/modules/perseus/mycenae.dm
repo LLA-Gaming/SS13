@@ -163,7 +163,7 @@
 
 var/mycenae_at_centcom = 1
 
-/proc/move_mycenae(var/ignore = 0)
+/proc/move_mycenae()
 	if(mycenae_at_centcom)
 		mycenae_at_centcom = 0
 		var/area/start_location = locate(/area/security/perseus/mycenae_centcom)

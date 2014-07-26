@@ -13,6 +13,9 @@
 	flags = NOSLIP
 	armor = list(melee = 80, bullet = 60, laser = 50,energy = 25, bomb = 50, bio = 10, rad = 0)
 	var/obj/item/weapon/stun_knife/knife
+	cold_protection = FEET
+	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
+
 
 	attack_hand(var/mob/living/M)
 		if(knife)
@@ -86,6 +89,7 @@
 	icon_state = "persarmour"
 	item_state = "persarmour"
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 
 /*
 * BlackPack
