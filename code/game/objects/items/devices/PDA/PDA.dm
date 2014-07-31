@@ -486,6 +486,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if(mode<=9)
 					mode = 0
 				else
+					if(mode in list(51, 52, 53))
+						mode = 0
+						return
 					mode = round(mode/10)
 					if(mode==4)//Fix for cartridges. Redirects to hub.
 						mode = 0

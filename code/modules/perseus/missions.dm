@@ -2,6 +2,7 @@ var/list/perseusMissions = list()
 
 /datum/perseus_mission
 	var/mob/living/creator = 0 //ref to the mob that created the mission.
+	var/creatorName = 0
 	var/adminCreated = 0
 	var/mission = 0
 	var/timeCreated = 0
@@ -15,6 +16,7 @@ var/list/perseusMissions = list()
 		..()
 		if(_creator && _mission)
 			creator = _creator
+			creatorName = _creator.real_name
 			mission = _mission
 			adminCreated = _adminCreated
 			status = "Pending"

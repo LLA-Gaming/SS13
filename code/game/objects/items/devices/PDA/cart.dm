@@ -650,12 +650,16 @@ Code:
 
 			if(53)
 				menu = "<br>"
+				var/index = 1
 				for(var/datum/perseus_mission/P in perseusMissions)
-					menu += "<b>Mission</b>: [P.mission]<br>"
-					menu += "<b>Creator:</b> [P.creator ? P.creator.real_name : "ERROR."] [P.adminCreated ? "<b>(Centcom Official)</b>" : ""]<br>"
+					menu += "<b>Mission #[index]</b>: [P.mission]<br>"
+					menu += "<b>Creator:</b> [P.creatorName ? P.creatorName : "Error: creatorName is null. (report this)"] [P.adminCreated ? "<b>(Centcom Official)</b>" : ""]<br>"
 					menu += "<b>Status:</b>: "
 					menu += "<a href='byond://?src=\ref[src];choice=perseus_mission;what=change_setting;mission=\ref[P]'>[P.status]</a><br>"
 					menu += "<center>------------------------------</center><br>"
+					index++
+				if(!perseusMissions.len)
+					menu = "<b>No Missions Found.</b>"
 
 /obj/item/weapon/cartridge/Topic(href, href_list)
 	..()
