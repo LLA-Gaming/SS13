@@ -1579,12 +1579,11 @@
 					spawn(0)
 						H.corgize()
 				ok = 1
-/* DEATH SQUADS
+// DEATH SQUADS
 			if("striketeam")
 				if(usr.client.strike_team())
 					feedback_inc("admin_secrets_fun_used",1)
 					feedback_add_details("admin_secrets_fun_used","Strike")
-*/
 			if("tripleAI")
 				usr.client.triple_ai()
 				feedback_inc("admin_secrets_fun_used",1)
