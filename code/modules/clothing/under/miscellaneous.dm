@@ -119,13 +119,6 @@
 	icon_state = "johnny"
 	item_color = "johnny"
 
-/obj/item/clothing/under/rainbow
-	name = "rainbow"
-	desc = "rainbow"
-	icon_state = "rainbow"
-	item_state = "rainbow"
-	item_color = "rainbow"
-
 /obj/item/clothing/under/cloud
 	name = "cloud"
 	desc = "cloud"
