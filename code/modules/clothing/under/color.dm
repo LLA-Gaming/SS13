@@ -141,3 +141,10 @@
 	desc = "darkred"
 	icon_state = "darkred"
 	item_color = "darkred"
+
+/obj/item/clothing/under/color/rainbow
+	name = "rainbow"
+	desc = "rainbow"
+	icon_state = "rainbow"
+	item_state = "rainbow"
+	item_color = "rainbow"
