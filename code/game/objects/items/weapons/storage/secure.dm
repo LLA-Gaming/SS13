@@ -211,3 +211,32 @@
 /obj/item/weapon/storage/secure/safe/HoS/New()
 	..()
 	//new /obj/item/weapon/storage/lockbox/clusterbang(src) This item is currently broken... and probably shouldnt exist to begin with (even though it's cool)
+
+
+// -----------------------------
+//        SPECIAL CENTCOM SAFE REQUESTED BY A SPECIAL SOMEONE
+// -----------------------------
+
+/obj/item/weapon/storage/secure/safe/burt
+	name = "secure safe"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "safe"
+	icon_opened = "safe0"
+	icon_locking = "safeb"
+	icon_sparking = "safespark"
+	force = 8.0
+	w_class = 8.0
+	max_w_class = 8
+	anchored = 1.0
+	density = 0
+	l_set = 1
+	l_code = "11337"
+	can_hold = list(/obj/item/weapon/paper/)
+
+	New()
+		..()
+		var/obj/item/weapon/paper/W = new(src)
+		W.name = "Pictures of Steve Nanotransen and a young woman"
+		W.desc = "These are pictures of Steve Nanotransen in a very intimate setting with a young asian woman, not his wife."
+		W.icon = 'icons/obj/items.dmi'
+		W.icon_state = "photo"

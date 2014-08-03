@@ -50,7 +50,7 @@
 		return
 
 				//high dirt - 1/3
-	if(istype(A, /area/toxins/test_area) || istype(A, /area/mine/production) || istype(A, /area/mine/living_quarters) || istype(A, /area/mine/north_outpost) || istype(A, /area/mine/west_outpost) || istype(A, /area/wreck) || istype(A, /area/derelict) || istype(A, /area/djstation))
+	if(istype(A, /area/toxins/test_area) || istype(A, /area/mine/production) || istype(A, /area/mine/living_quarters) || istype(A, /area/mine/north_outpost) || istype(A, /area/mine/west_outpost) || istype(A, /area/derelict) || istype(A, /area/djstation))
 		new /obj/effect/decal/cleanable/dirt(src)	//vanilla, but it works
 		return
 

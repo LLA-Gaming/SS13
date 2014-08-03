@@ -146,3 +146,13 @@
 	name = "\improper Mime poster"
 	desc = "A poster about the silencious but strong."
 	icon_state = "mime"
+
+/obj/structure/sign/ambrosia
+	name = "\improper Ambrosia poster"
+	desc = "Just a reminder of the only thing you love"
+	icon_state = "ambrosia"
+
+/obj/structure/sign/burtlancaster
+	name = "\improper Portrait of Burt Lancaster"
+	desc = "This is a portrait of Burt Lancaster.  He's never actually been here.  It looks very nice."
+	icon_state = "burt"

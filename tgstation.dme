@@ -60,7 +60,7 @@
 
 // BEGIN_INCLUDE
 #include "_maps\metastation.dm"
-#include "_maps\map_files\MetaStation.v39K.dmm"
+#include "_maps\map_files\MetaStation.v39L.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
@@ -275,6 +275,8 @@
 #include "code\game\area\ai_monitored.dm"
 #include "code\game\area\areas.dm"
 #include "code\game\area\Space Station 13 areas.dm"
+#include "code\game\deathsquad\specops.dm"
+#include "code\game\deathsquad\specops_shuttle.dm"
 #include "code\game\gamemodes\antag_spawner.dm"
 #include "code\game\gamemodes\events.dm"
 #include "code\game\gamemodes\factions.dm"
