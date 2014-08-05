@@ -257,7 +257,7 @@
 		character.lastarea = get_area(loc)
 
 		if(character.mind.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander"))
-			character.loc = locate("start*[character.mind.assigned_role == "Perseus Security Enforcer" ? "Perseus Security Enforcer" : "Perseus Security Commander"]")
+			character.loc = pick(percSpawnTurfs)
 
 		if(character.mind.assigned_role != "Cyborg")
 			data_core.manifest_inject(character)

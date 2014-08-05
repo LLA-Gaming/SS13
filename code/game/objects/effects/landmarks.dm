@@ -5,6 +5,8 @@
 	anchored = 1.0
 	unacidable = 1
 
+var/list/percSpawnTurfs = list()
+
 /obj/effect/landmark/New()
 
 	..()
@@ -76,6 +78,8 @@
 /obj/effect/landmark/start/New()
 	..()
 	tag = "start*[name]"
+	if(name == "Perseus Security Enforcer")
+		percSpawnTurfs += get_turf(src)
 	invisibility = 101
 
 	return 1
