@@ -8386,7 +8386,7 @@
 "dfn" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4; layer = 2.9},/obj/structure/window/reinforced{dir = 8; layer = 2.9},/obj/structure/window/reinforced{dir = 1; layer = 2.9},/obj/structure/window/reinforced,/turf/simulated/floor/plating,/area/security/perseus/mycenae_centcom)
 "dfo" = (/obj/structure/table/reinforced,/obj/machinery/door/window/brigdoor,/turf/simulated/floor,/area/security/perseus/mycenae_centcom)
 "dfp" = (/obj/machinery/door/airlock/glass_security{name = "Cell 2"; req_access_txt = "66"},/turf/simulated/floor,/area/security/perseus/mycenae_centcom)
-"dfq" = (/obj/machinery/requests_console{name = "Perseus Requests Console"; pixel_y = 32},/turf/simulated/floor,/area/security/perseus/mycenae_centcom)
+"dfq" = (/obj/machinery/requests_console{department = "Perseus"; departmentType = 1; name = "Perseus Requests Console"; pixel_y = 32},/turf/simulated/floor,/area/security/perseus/mycenae_centcom)
 "dfr" = (/turf/simulated/floor{dir = 1; icon_state = "warning"},/area/security/perseus/mycenae_centcom)
 "dfs" = (/obj/machinery/newscaster/security_unit{pixel_y = 32},/turf/simulated/floor,/area/security/perseus/mycenae_centcom)
 "dft" = (/obj/machinery/computer/perseus_shuttle_computer{perseus_type = 1},/turf/simulated/floor,/area/security/perseus/mycenae_centcom)

@@ -186,10 +186,12 @@ var/mycenae_at_centcom = 1
 /area/shuttle/prison/station
 	name = "Prison Shuttle"
 	icon_state = "shuttle"
+	has_gravity = 1
 
 /area/shuttle/prison/prison
 	name = "Prison Shuttle"
 	icon_state = "shuttle2"
+	has_gravity = 1
 
 var/perseusShuttleAtMycenae = 0
 var/perseusShuttleMoving = 0
