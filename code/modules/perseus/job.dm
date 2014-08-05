@@ -156,7 +156,6 @@ var/const/COMMANDER = (1<<1)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/specops(H), slot_gloves)
 		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/wiki/security_space_law(H), slot_l_hand)
-		H.equip_to_slot_or_del(new /obj/item/device/pda/perseus(H), slot_belt)
 
 		var/obj/item/weapon/implant/commander/implant = new /obj/item/weapon/implant/commander(H)
 		implant.imp_in = H
@@ -171,7 +170,14 @@ var/const/COMMANDER = (1<<1)
 		id.access = get_access(title)
 		id.registered_name ="Perseus Security Commander #[pnumbers[H.ckey] ? pnumbers[H.ckey] : "00[rand(0,9)]"]"
 		id.name = id.registered_name
-		H.equip_to_slot_or_del(id, slot_wear_id)
+
+		var/obj/item/device/pda/perseus/P = new /obj/item/device/pda/perseus(H)
+		P.id = id
+		P.owner = id.registered_name
+		P.ownjob = id.assignment
+		P.name = "PDA-[P.owner] ([P.ownjob])"
+
+		H.equip_to_slot_or_del(P, slot_wear_id)
 
 /*
 * Hivemind Talk

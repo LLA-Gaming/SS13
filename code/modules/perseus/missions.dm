@@ -24,7 +24,9 @@ var/list/perseusMissions = list()
 
 			for(var/mob/living/carbon/human/H in world)
 				if(H.job in list("Perseus Security Enforcer", "Perseus Security Commander"))
-					if(H.client)	associatedUnits += H
+					if(H.client)
+						H << "<i><span class='game say'>Hivemind: <b><font color='black'>New Mission</font></b></span></i>"
+						associatedUnits += H
 
 			if(addToList)
 				perseusMissions += src
