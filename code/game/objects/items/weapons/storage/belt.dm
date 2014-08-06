@@ -63,6 +63,11 @@
 	new /obj/item/stack/cable_coil(src,30,pick("red","yellow","orange"))
 
 
+/obj/item/weapon/storage/belt/utility/full/multitool/New()
+	..()
+	new /obj/item/device/multitool(src)
+
+
 /obj/item/weapon/storage/belt/utility/atmostech/New()
 	..()
 	new /obj/item/weapon/screwdriver(src)

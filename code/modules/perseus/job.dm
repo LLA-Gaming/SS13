@@ -156,6 +156,7 @@ var/const/COMMANDER = (1<<1)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/specops(H), slot_gloves)
 		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/wiki/security_space_law(H), slot_l_hand)
+		H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/lightarmor(H), slot_wear_suit)
 
 		var/obj/item/weapon/implant/commander/implant = new /obj/item/weapon/implant/commander(H)
 		implant.imp_in = H

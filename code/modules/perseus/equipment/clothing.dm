@@ -16,11 +16,10 @@
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 
-
 	attack_hand(var/mob/living/M)
 		if(knife)
 			knife.loc = get_turf(src)
-			if(M.put_in_any_hand_if_possible(knife))
+			if(M.put_in_active_hand(knife))
 				M << "<div class='notice'>You slide the [knife] out of the [src].</div>"
 				knife = 0
 				update_icon()
@@ -67,6 +66,7 @@
 	item_state = "gas_alt"
 	locked = /obj/item/weapon/implant/enforcer
 	permeability_coefficient = 0
+	alloweat = 1
 
 /*
 * Riot Vest

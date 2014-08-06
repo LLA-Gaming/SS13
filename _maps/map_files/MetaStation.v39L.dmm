@@ -8344,7 +8344,7 @@
 "dex" = (/turf/simulated/floor{dir = 10; icon_state = "warning"},/area/security/perseus/mycenae_centcom)
 "dey" = (/obj/machinery/telecomms/relay/preset/mining{id = "Perseus Relay"},/turf/simulated/floor{icon_state = "warning"},/area/security/perseus/mycenae_centcom)
 "dez" = (/turf/simulated/floor{dir = 6; icon_state = "warning"},/area/security/perseus/mycenae_centcom)
-"deA" = (/obj/item/weapon/storage/belt/utility/full,/turf/simulated/floor/bluegrid,/area/security/perseus/mycenae_centcom)
+"deA" = (/obj/item/weapon/storage/belt/utility/full/multitool,/turf/simulated/floor/bluegrid,/area/security/perseus/mycenae_centcom)
 "deB" = (/obj/structure/grille,/obj/machinery/door/poddoor{id = "prisonship"},/obj/structure/window/reinforced{dir = 4; layer = 2.9},/obj/structure/window/reinforced{dir = 5; health = 1e+007},/turf/simulated/floor/plating,/area/security/perseus/mycenae_centcom)
 "deC" = (/turf/simulated/shuttle/wall{tag = "icon-percwall (EAST)"; icon_state = "percwall"; dir = 4},/area/security/perseus/mycenae_centcom)
 "deD" = (/obj/structure/closet/secure_closet/freezer/meat,/turf/simulated/floor{icon_state = "freezerfloor"},/area/security/perseus/mycenae_centcom)
