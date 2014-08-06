@@ -197,3 +197,4 @@ var/const/COMMANDER = (1<<1)
 		if(!S.stat)
 			if(S.check_contents_for(/obj/item/weapon/implant/enforcer))
 				S << rendered
+				S.send_text_to_tab(rendered, "ic")

@@ -653,7 +653,7 @@ Code:
 				var/index = 1
 				for(var/datum/perseus_mission/P in perseusMissions)
 					menu += "<b>Mission #[index]</b>: [P.mission]<br>"
-					menu += "<b>Creator:</b> [P.creatorName ? P.creatorName : "Error: creatorName is null. (report this)"] [P.adminCreated ? "<b>(Centcom Official)</b>" : ""]<br>"
+					menu += "<b>Creator:</b> [P.creatorName && !P.adminCreated ? P.creatorName : ""] [P.adminCreated ? "<b>(Centcom Official)</b>" : ""]<br>"
 					menu += "<b>Status:</b>: "
 					menu += "<a href='byond://?src=\ref[src];choice=perseus_mission;what=change_setting;mission=\ref[P]'>[P.status]</a><br>"
 					menu += "<center>------------------------------</center><br>"

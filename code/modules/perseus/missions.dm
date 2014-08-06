@@ -69,11 +69,11 @@ var/list/perseusMissions = list()
 
 			checkCompletion()
 				for(var/obj/item/clothing/mask/facehugger/F in world)
-					if(F.z == 1)
+					if(F.z == 1 && (F.stat == CONSCIOUS))
 						return 0
 
 				for(var/mob/living/carbon/alien/humanoid/H in world)
-					if(H.z == 1)
+					if(H.z == 1 && (H.stat))
 						return 0
 
 				return 1
@@ -82,7 +82,7 @@ var/list/perseusMissions = list()
 
 			checkCompletion()
 				for(var/mob/living/simple_animal/hostile/carp/C in world)
-					if(C.z == 1)
+					if(C.z == 1 && (C.stat))
 						return 0
 
 				return 1
@@ -92,7 +92,7 @@ var/list/perseusMissions = list()
 
 			checkCompletion()
 				for(var/mob/living/simple_animal/hostile/giant_spider/G in world)
-					if(G.z == 1)
+					if(G.z == 1 && (G.stat))
 						return 0
 
 				return 1
@@ -102,7 +102,7 @@ var/list/perseusMissions = list()
 
 			checkCompletion()
 				for(var/mob/living/simple_animal/slime/S in world)
-					if(S.z == 1)
+					if(S.z == 1 && (S.stat))
 						return 0
 
 				return 1
