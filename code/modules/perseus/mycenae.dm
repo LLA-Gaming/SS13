@@ -76,6 +76,7 @@
 
 	New()
 		..()
+		new /obj/item/clothing/under/perseus_fatigues(src)
 		new /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey(src)
 		new /obj/item/clothing/head/helmet/space/persberet(src)
 		new /obj/item/clothing/shoes/combat(src)
