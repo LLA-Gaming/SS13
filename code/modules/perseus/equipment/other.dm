@@ -142,8 +142,8 @@
 /obj/item/weapon/tank/jetpack/oxygen/perctech
 	name = "PercTech jet harness (oxygen)"
 	desc = "A lightweight tactical harness, used by those who don't want to be weighed down by traditional jetpacks and adapted by Perseus Quartermasters for PMC use."
-	icon_state = "perc-mini"
-	item_state = "perc-mini"
+	icon_state = "perc-jet"
+	item_state = "perc-jet"
 	volume = 35
 	throw_range = 7
 	w_class = 3
