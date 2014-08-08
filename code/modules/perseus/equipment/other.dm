@@ -284,7 +284,7 @@
 	anchored = 1
 
 /obj/structure/perseusreminder/attack_hand(user as mob)
-	var/dat = "<B>Prisoner Transfer Proceedures:</B><BR>"
+	var/dat = "<B>Prisoner Transfer Procedures:</B><BR>"
 
 	dat += {"<html>THIS DOCUMENT WILL DESCRIBE THE PROPER AND MOST EFFICIENT METHOD OF TRANSFERRING AND PROCESSING OF PRISONERS BETWEEN THE STATION AND THE MYCENAE III.</p>
 <p style="padding-left:30px;"><span style="text-decoration:underline;"><strong>SECURING</strong></span>: FIRSTLY YOU MUST ENSURE THE PRISONER IS SECURE, AND OTHERWISE UNABLE TO INFLICT HARM ON THE TRANSFERRING OFFICER YOU MUST;<br />            </p>
