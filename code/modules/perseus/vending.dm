@@ -59,7 +59,7 @@
 	/obj/item/weapon/tank/perseus = 8, /obj/item/weapon/tank/oxygen = 4,/obj/item/weapon/storage/fancy/cigarettes/perc = 5,
 	/obj/item/weapon/storage/box/matches = 5, /obj/item/weapon/plastique/breach = 5, /obj/item/clothing/mask/cigarette/cigar/victory = 6)
 
-	contraband = list(/obj/item/weapon/tank/jetpack/oxygen/harness = 2, /obj/item/weapon/storage/fancy/donut_box = 2)
+	contraband = list(/obj/item/weapon/tank/jetpack/oxygen/perctech = 2, /obj/item/weapon/storage/fancy/donut_box = 2)
 
 /*
 * Perseus Booze-O-Mat

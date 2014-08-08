@@ -123,7 +123,7 @@
 
 /obj/item/weapon/tank/perseus
 	name = "PercTech branded emergency oxygen tank"
-	desc = "PercTech brand emergency oxygen tank. For all your oxygen needs."
+	desc = "PercTech brand emergency oxygen tank. For all your oxygen needs "
 	icon_state = "perseus"
 	volume = 3
 	w_class = 2.0
@@ -134,6 +134,19 @@
 	New()
 		..()
 		src.air_contents.oxygen = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+
+/*
+* Jet harness
+*/
+
+/obj/item/weapon/tank/jetpack/oxygen/perctech
+	name = "PercTech jet harness (oxygen)"
+	desc = "A lightweight tactical harness, used by those who don't want to be weighed down by traditional jetpacks and adapted by Perseus Quartermasters for PMC use."
+	icon_state = "perc-mini"
+	item_state = "perc-mini"
+	volume = 35
+	throw_range = 7
+	w_class = 3
 
 /*
 * Stimpack
