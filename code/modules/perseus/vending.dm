@@ -22,7 +22,7 @@
 	/obj/item/weapon/reagent_containers/food/snacks/cherrypie = 3, /obj/item/weapon/reagent_containers/food/snacks/xenomeat = 3,
 	/obj/item/weapon/reagent_containers/food/snacks/sliceable/store/chocolatecake = 3)
 
-	product_ads = "Oui Oui!;Bon appetit!;Oh putain! Qu'est-ce que c'est ça? Ça c’est dégueulasse!;Profitez de votre crasse cochon!"
+	product_ads = "Oui Oui!;Bon appetit!;Oh putain! Qu'est-ce que c'est Ã§a? Ã‡a câ€™est dÃ©gueulasse!;Profitez de votre crasse cochon!"
 	contraband = list(/obj/item/weapon/reagent_containers/food/snacks/wishsoup = 1)
 	req_access_txt = "66"
 
@@ -59,7 +59,7 @@
 	/obj/item/weapon/tank/perseus = 8, /obj/item/weapon/tank/oxygen = 4,/obj/item/weapon/storage/fancy/cigarettes/perc = 5,
 	/obj/item/weapon/storage/box/matches = 5, /obj/item/weapon/plastique/breach = 5, /obj/item/clothing/mask/cigarette/cigar/victory = 6)
 
-	contraband = list(/obj/item/weapon/tank/jetpack = 2, /obj/item/weapon/storage/fancy/donut_box = 2)
+	contraband = list(/obj/item/weapon/tank/jetpack/oxygen/harness = 2, /obj/item/weapon/storage/fancy/donut_box = 2)
 
 /*
 * Perseus Booze-O-Mat
