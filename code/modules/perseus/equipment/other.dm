@@ -123,7 +123,7 @@
 
 /obj/item/weapon/tank/perseus
 	name = "PercTech branded emergency oxygen tank"
-	desc = "PercTech brand emergency oxygen tank. For all your oxygen needs "
+	desc = "PercTech brand emergency oxygen tank. For all your oxygen needs."
 	icon_state = "perseus"
 	volume = 3
 	w_class = 2.0
@@ -290,7 +290,7 @@
 <p style="padding-left:30px;"><span style="text-decoration:underline;"><strong>SECURING</strong></span>: FIRSTLY YOU MUST ENSURE THE PRISONER IS SECURE, AND OTHERWISE UNABLE TO INFLICT HARM ON THE TRANSFERRING OFFICER YOU MUST;<br />            </p>
 <p style="padding-left:60px;"><strong>A</strong>: ENSURE THE PRISONER IS HANDCUFFED AND IN YOUR GRIP BEFORE BEGINNING TRANSFER.</p>
 <p style="padding-left:60px;"><strong>B</strong>: THERE ARE NO EXTERIOR THREATS IN THE PROXIMITY, THIS INCLUDES PERSONS WHOM MAY ATTEMPT TO RETRIEVE THE PRISONER FROM YOUR CUSTODY.</p>
-<p style="padding-left:60px;"><strong>C</strong>: BE WARY OF FREEDOM IMPLANTS, THE SYNDICATE MAY PROVIDE ONE OF THEIR AGENTS WITH A DEVICE KNOWN AS A “FREEDOM IMPLANT” THIS ALLOWS THE AGENT TO ESCAPE FROM HANDCUFFS BY PERFORMING A MOTION SUCH AS A “WINK” OR A “SHRUG”.</p>
+<p style="padding-left:60px;"><strong>C</strong>: BE WARY OF FREEDOM IMPLANTS, THE SYNDICATE MAY PROVIDE ONE OF THEIR AGENTS WITH A DEVICE KNOWN AS A Â“FREEDOM IMPLANTÂ” THIS ALLOWS THE AGENT TO ESCAPE FROM HANDCUFFS BY PERFORMING A MOTION SUCH AS A Â“WINKÂ” OR A Â“SHRUGÂ”.</p>
 <p>           </p>
 <p style="padding-left:30px;"><span style="text-decoration:underline;"><strong>TRANSFER</strong></span>: MOVEMENT OF THE PRISONER BETWEEN THE STATION AND THE MYCENAE WILL BE PERFORMED AS FOLLOWING;</p>
 <p>           </p>
