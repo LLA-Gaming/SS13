@@ -1,6 +1,6 @@
 /datum/configuration/var/perseus_legacy_system = 0
 
-/var/const/access_pcommander = 65
+/var/const/access_pcommander = 67
 /var/const/access_penforcer = 66
 
 var/list/
