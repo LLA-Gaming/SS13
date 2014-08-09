@@ -136,6 +136,17 @@
 	item_color = "pers_blue"
 
 /*
+* Commander Fatigues
+*/
+
+/obj/item/clothing/under/perseus_fatigues
+	name = "Commander's Fatigues"
+	desc = "Casual clothing for a commanding officer."
+	icon_state = "persjumpsuit"
+	item_state = "bl_suit"
+	item_color = "persfatigues"
+
+/*
 * Riot Shield
 */
 
