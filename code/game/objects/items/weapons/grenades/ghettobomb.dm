@@ -59,7 +59,7 @@
 			overlays += image('icons/obj/grenade.dmi', icon_state = "improvised_grenade_wired")
 			name = "improvised explosive"
 			active = 0
-			det_time = rand(30,80)
+			det_time = rand(1,80)
 
 /obj/item/weapon/grenade/iedcasing/attack_self(mob/user as mob) //
 	if(!active)
