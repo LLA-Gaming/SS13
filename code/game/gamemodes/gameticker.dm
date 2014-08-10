@@ -384,7 +384,7 @@ var/round_start_time = 0
 	for(var/datum/perseus_mission/P in perseusMissions)
 		if(!P.associatedUnits.len)
 			continue
-		if(P.status == "Denied")
+		if(P.status == "Denied" || P.status == "Pending")
 			continue
 		world << "<b>Mission #[number]:</b> [P.mission] ([P.checkCompletion() ? "<font color='green'>Success!</font>" : "<font color='red'>Failed.</font>"])"
 
