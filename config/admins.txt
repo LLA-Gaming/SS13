@@ -12,47 +12,40 @@ lonewolfsyndrome = Game Master
 
 gamercad = Coder
 hattrickredeyes = Head of Staff
-Rebelamerica = Head of Staff               
+rawrtaicho = Head of Staff
+wellingtonthe3rd = Head of Staff
 
-rawrtaicho = Coder
 thedrachex1 = Coder
 
 sishio = Senior Admin
 johnmancer = Senior Admin
-sgtkumar = Senior Admin
 vimes13 = Senior Admin
-wellingtonthe3rd = Senior Admin
 cannibalcrow = Senior Admin
-youdontknow1 = Senior Admin
 politicalpikachu = Senior Admin
 Emanban = Senior Admin
 ancientv25 = Senior Admin
+Rebelamerica = Senior Admin 
 
 magoca = Primary Administrator
 narwhaljones = Primary Administrator
 cyliz = Primary Administrator
 raptorblaze = Primary Administrator
+flavoredcactus = Primary Administrator
+lichling = Primary Administrator
 
-eclipse2020 = Administrator
-doodeeda = Administrator
 legato_frio = Administrator
-lichling = Administrator
-raptorblaze = Administrator
-idwmno = Administrator
-flavoredcactus = Administrator
-kokojo = Administrator
-capt_ironblood = Administrator
+muldermunrow = Administrator
+paladinguy = Administrator
 
-zt107 = Secondary Admin
-paladinguy = Secondary Admin
-muldermunrow = Secondary Admin
 coolpres = Secondary Admin
-toxed = Secondary Admin
-robertust = Secondary Admin
 jariahtoadsage = Secondary Admin
+lemonsoup = Secondary Admin
+
+thejuicyfruit = Trial Admin
 
 dothal = Admin Observer
 shiningsoul32 = Admin Observer
+toxed = Admin Observer
 
 #******************
 #Positions of Honor
@@ -95,12 +88,9 @@ llapsychoshark = Head of Staff
 #LWS - Removed Toxed on 10/26/2012.
 
 #AD: Removed Sanprince, Majorapplesauce, Eigoi, Godlynewt, Kodaki21, Joequabla, Armorplated, IDWmo removed from Admin Observer and arithmetics from Secondary Admin on 10/29/2012
-
-#AD: Yatablitzkrieg removed from Tertiary Admin on 11/02/2012
-
-#AD: RawrTaicho re-added as Primary Administrator on 11/10/2012. TheGrifter removed from Primary Administrator on 11/10/2012. Natalie15 resigned from Secondary Admin on 11/10/2012. Tom32123 removed from Tertiary Admin on 11/10/2012.
-
-#AD: Mintkiller promoted to Secondary Admin from Tertiary Admin on 11/20/2012. 
+#	 Yatablitzkrieg removed from Tertiary Admin on 11/02/2012
+#	 RawrTaicho re-added as Primary Administrator on 11/10/2012. TheGrifter removed from Primary Administrator on 11/10/2012. Natalie15 resigned from Secondary Admin on 11/10/2012. Tom32123 removed from Tertiary Admin on 11/10/2012.
+#	 Mintkiller promoted to Secondary Admin from Tertiary Admin on 11/20/2012. 
 #    05rhardy removed from Tertiary Admin on 11/20/2012. 
 #    AquaDraco re-assigned as Head of Staff from Senior Admin on 11/20/2012. 
 #    Hattrickredeyes re-assigned as Head of Staff from Senior Admin on 11/20/2012. 
@@ -118,29 +108,23 @@ llapsychoshark = Head of Staff
 #    Legato_Frio added as Tertiary Admin on 11/20/2012.
 
 #AD: CannibalCrow promoted to Senior Admin from Primary Administrator on 11/21/2012. 
-#    RawrTaicho promoted to Senior Admin from Primary Administrator on 11/21/2012.
-
-#AD: Chaznoodles added as Tertiary Admin on 12/25/2012. 
-#    Cron222 added as Teritary Admin on 12/25/2012.
-
-#AD: Brysch added as Tertiary Admin on 12/29/2012.
-
-#AD: Youdontknow1 added as Senior Admin and Coder on 12/30/2012.
-
-#AD: Legato promoted to Secondary Admin from Tertiary Admin on 01/02/2013.
-
-#AD: Wrecker013 quit on 12/23/2012. Removed from Administrator on 01/19/2013.
-
-#AD: Chaznoodles promoted to Secondary Admin from Tertiary Admin on 01/21/2013.
-
-#AD: Pepsibluefan promoted to Administrator from Secondary Admin on 01/22/2013.
-
-#AD: Ancientv25 promoted to Administrator from Secondary Admin on 02/02/2013. 
-#    Cron promoted to Secondary Admin from Tertiary Admin on 02/02/2013.
-
-#AD: John_Mancer re-added as Primary Administrator on 02/05/2013.
-
-#AD: Cron222 removed from Secondary Administrator on 02/19/2013. Narwhaljones put on hiatus as Secondary Admin on 02/19/2013. Semtex7 put on hiatus as Primary Administrator on 02/19/2013. Cody522 promoted to Senior Admin from Primary Administrator on 02/19/2013. Rebelamerica promoted to Senior Admin from Primary Administrator on 02/19/2013.
+#	RawrTaicho promoted to Senior Admin from Primary Administrator on 11/21/2012.
+#	Chaznoodles added as Tertiary Admin on 12/25/2012. 
+#	Cron222 added as Teritary Admin on 12/25/2012.
+#	Brysch added as Tertiary Admin on 12/29/2012.
+#	Youdontknow1 added as Senior Admin and Coder on 12/30/2012.
+#	Legato promoted to Secondary Admin from Tertiary Admin on 01/02/2013.
+#	Wrecker013 quit on 12/23/2012. Removed from Administrator on 01/19/2013.
+#	Chaznoodles promoted to Secondary Admin from Tertiary Admin on 01/21/2013.
+#	Pepsibluefan promoted to Administrator from Secondary Admin on 01/22/2013.
+#	Ancientv25 promoted to Administrator from Secondary Admin on 02/02/2013. 
+#	Cron promoted to Secondary Admin from Tertiary Admin on 02/02/2013.
+#	John_Mancer re-added as Primary Administrator on 02/05/2013.
+#	Cron222 removed from Secondary Administrator on 02/19/2013. 
+#	Narwhaljones put on hiatus as Secondary Admin on 02/19/2013. 
+#	Semtex7 put on hiatus as Primary Administrator on 02/19/2013. 
+#	Cody522 promoted to Senior Admin from Primary Administrator on 02/19/2013. 
+#	Rebelamerica promoted to Senior Admin from Primary Administrator on 02/19/2013.
 
 #LWS - 2/20/2013 - AD fired from Head Admin for inept actions in his position. 
 #                  Wolfmanhowl removed for inactivity. 
@@ -149,15 +133,11 @@ llapsychoshark = Head of Staff
 #                  Corus removed for inactivity.
 #                  Kumar removed for inactivity.
 #                  ShiningSoul32 removed for inactivity.  
-
-#LWS - 2/22/2013   Magishadow trialed.
-
-#LWS - 2/28/2013   Semtex7 returned to full admin status.
+#	     		   Magishadow trialed. - 2/22/2013 
+#	               Semtex7 returned to full admin status. - 2/28/2013 
 #                  Brysch returned, resumed trial.
-
-#LWS - 3/3/2013    Tacomaster returned, trialed.
-
-#LWS - 3/5/2013    Narwhal returned. 
+#	               Tacomaster returned, trialed. - 3/3/2013
+				   Narwhal returned. - 3/5/2013
 
 #LWS - 3/8/2013    PaladinGuy trialed.
 #                  PepsiBlueFan resigned due to life not giving him the time to admin. He was at Administrator rank.
@@ -388,3 +368,18 @@ llapsychoshark = Head of Staff
 #Rebel - 5/10/14 - Jariah accepted as SA.
 
 #Rebel - 6/2/14 - Raptorblaze promoted to PA, Ancient promoted to SnR
+
+Rebel - 7/6/14 - Ironblood promoted to PA, Lichling promoted to PA, Munrow promoted to SA.
+
+Rebel - 7/15/14 - Kokojo removed from the admin team due to poor administration, Eclipse2020 resigned, YDK1 placed on inactive hiatus. 
+
+Rebel - 7/18/14 - Rob Ust placed on inactive hiatus, Doodeeda placed on inactive hiatus. 
+
+Rebel - 8/2/14 - Lemonsoup added as Trial Admin, Wise resigned due to life. 
+
+Rebel - 8/9/14 - TheJuicyFruit(AnalLove) added as Trial Admin
+
+Taicho
+		8/21/14 - Wellington shifted to Head of Staff whilst serving as Deputy Headmin. Adam lowered back down to Senior.
+		8/22/14 - Toxed lowered to Admin Observer on the grounds of inactivity until he can return. 
+				- IDW and Kumar removed for inactivity without explanation.
