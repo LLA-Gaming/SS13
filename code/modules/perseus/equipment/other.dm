@@ -305,3 +305,67 @@
 
 	user << browse("<HEAD><TITLE>Notices</TITLE></HEAD>[dat]","window=percboard")
 	onclose(user, "percboard")
+
+/*
+* Telescience Disruptor
+*/
+
+/obj/machinery/tdisruptor
+	name = "telescience disruptor"
+	icon_state = "broadcaster_off"
+
+	power_channel = EQUIP
+	active_power_usage = 500
+	idle_power_usage = 10
+
+	var/area/protected = 0
+	var/on = 0
+
+	process()
+		update()
+
+	update_icon()
+		if(stat & (BROKEN|NOPOWER) || !on)
+			icon_state = "broadcaster_off"
+		else if(on)
+			icon_state = "broadcaster"
+
+	proc/update()
+		if(stat & (BROKEN|NOPOWER))
+			on = 0
+
+		if(on)
+			var/area/A = get_area(src)
+			if(!A)	return
+			protected = A
+			anchored = 1
+		else
+			protected = 0
+			anchored = 0
+
+		update_icon()
+
+	attack_hand(var/mob/living/L)
+		on = !on
+		L << "<div class='alert'>You turn the [src] [on ? "on" : "off"].</div>"
+
+	emp_act(var/level = 0)
+		if(level <= 2)
+			if(prob(75))
+				stat ^= BROKEN
+				var/turf/T = get_turf(src)
+				T.visible_message("<div class='warning'>[src] shuts down.</div>", 1)
+
+	ex_act(var/level = 0)
+		if(level <= 2)
+			if(prob(75))
+				stat ^= BROKEN
+			else
+				qdel(src)
+
+/proc/isDisruptedArea(area/A)
+	for(var/obj/machinery/tdisruptor/T in A)
+		if(T)
+			if(T.on && T.protected == A)
+				return 1
+	return 0
