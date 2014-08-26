@@ -124,6 +124,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/ep90_single, /obj/item/ammo_casing/energy/ep90_aoe, /obj/item/ammo_casing/energy/ep90_burst_3, /obj/item/ammo_casing/energy/ep90_burst_5)
 	fire_sound = 'sound/weapons/ep90.ogg'
 	locked = /obj/item/weapon/implant/enforcer
+	var/emagged = 0
 
 	attack_self(var/mob/living/user as mob)
 		select_fire(user)
@@ -160,7 +161,18 @@
 			power_supply = I
 			M << "<div class='notice'>You insert the [I] into the [src].</div>"
 			update_icon()
+		if(istype(I, /obj/item/weapon/card/emag) && !emagged)
+			locked = null
+			emagged = 1
+			M << "<div class='notice'>You emag the [src].</div>"
+			var/datum/effect/effect/system/spark_spread/system = new()
+			system.set_up(3, 0, get_turf(src))
+			system.start()
 		..()
+
+	examine()
+		..()
+		usr << "\blue It's locking mechanism looks fried."
 
 /*
 * Five Seven
@@ -193,9 +205,24 @@
 	mag_type = /obj/item/ammo_box/magazine/fiveseven
 	locked = /obj/item/weapon/implant/enforcer
 	force = 10
+	var/emagged = 0
 
 	update_icon()
 		return
+
+	examine()
+		..()
+		usr << "\blue It's locking mechanism looks fried."
+
+	attackby(var/obj/item/I, var/mob/living/M)
+		if(istype(I, /obj/item/weapon/card/emag) && !emagged)
+			locked = null
+			emagged = 1
+			M << "<div class='notice'>You emag the [src].</div>"
+			var/datum/effect/effect/system/spark_spread/system = new()
+			system.set_up(3, 0, get_turf(src))
+			system.start()
+		..()
 
 /*
 * Stun Knife
