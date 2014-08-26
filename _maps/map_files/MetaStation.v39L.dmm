@@ -8382,7 +8382,7 @@
 "dfj" = (/obj/machinery/door/poddoor{id = "prisonship"},/turf/simulated/floor,/area/security/perseus/mycenae_centcom)
 "dfk" = (/obj/structure/table/reinforced,/obj/machinery/vending/percmed{density = 0; pixel_y = 32},/obj/item/weapon/stimpack/perseus,/obj/item/weapon/stimpack/perseus,/obj/item/weapon/stimpack/perseus,/turf/simulated/floor{icon_state = "white"},/area/security/perseus/mycenae_centcom)
 "dfl" = (/obj/structure/optable,/turf/simulated/floor{icon_state = "white"},/area/security/perseus/mycenae_centcom)
-"dfm" = (/obj/structure/table,/obj/structure/stimtank/perseus,/turf/simulated/floor{icon_state = "white"},/area/security/perseus/mycenae_centcom)
+"dfm" = (/obj/structure/table,/obj/structure/stimtank/perseus{name = "Perseus StimTank"},/turf/simulated/floor{icon_state = "white"},/area/security/perseus/mycenae_centcom)
 "dfn" = (/obj/structure/table/woodentable,/obj/machinery/computer/security/telescreen/entertainment{pixel_y = -32},/obj/item/weapon/book/manual/sop,/turf/simulated/floor/carpet,/area/security/perseus/mycenae_centcom)
 "dfo" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/snacks/chips,/obj/item/weapon/lighter/zippo/perc{pixel_x = 5; pixel_y = 4},/turf/simulated/floor/carpet,/area/security/perseus/mycenae_centcom)
 "dfp" = (/obj/structure/stool/bed/chair/comfy/brown{dir = 8},/turf/simulated/floor,/area/security/perseus/mycenae_centcom)
