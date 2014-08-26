@@ -54,6 +54,19 @@ var/savefile/Banlist
 				return .
 	return 0
 
+/proc/ban_record_complete(var/ckey, var/id)
+	if(!ckey) return
+	Banlist.cd = "/base"
+	for(var/A in Banlist.dir)
+		Banlist.cd = "/base/[A]"
+		if(Banlist["key"] == ckey || Banlist["id"] == id)
+			if(Banlist["id"] == "OfflineBanned")
+				return 0
+			else
+				return 1
+	//This message should only appear if it fails to find the ckey in the ban list, however
+	//it /should/ be in there. Indicates an error.
+
 /proc/UpdateTime() //No idea why i made this a proc.
 	CMinutes = (world.realtime / 10) / 60
 	return 1
@@ -102,7 +115,7 @@ var/savefile/Banlist
 		bantimestamp = CMinutes + minutes
 
 	Banlist.cd = "/base"
-	if ( Banlist.dir.Find("[ckey][computerid]") )
+	if ( Banlist.dir.Find("[ckey][computerid]") || Banlist.dir.Find("[ckey]OfflineBanned"))
 		usr << text("\red Ban already exists.")
 		return 0
 	else
@@ -141,7 +154,7 @@ var/savefile/Banlist
 		usr.client.holder.DB_ban_unban( ckey(key), BANTYPE_ANY_FULLBAN)
 	for (var/A in Banlist.dir)
 		Banlist.cd = "/base/[A]"
-		if (key == Banlist["key"] /*|| id == Banlist["id"]*/)
+		if (key == Banlist["key"] || (id == Banlist["id"] && id != "OfflineBanned"))
 			Banlist.cd = "/base"
 			Banlist.dir.Remove(A)
 			continue
@@ -225,3 +238,42 @@ var/savefile/Banlist
 	for (var/A in Banlist.dir)
 		RemoveBan(A)
 
+/proc/Ban_Offline_Player(var/key as text)
+	set category = "Admin"
+	set name = "Ban Offline Player"
+	if(!key) return
+	var/player_ckey = ckey(key)
+	if(player_ckey in admins)
+		alert("Error: You cannot offline ban other admins.","Security Block")
+		return 0
+	switch(alert("Temporary Ban?",,"Yes","No", "Cancel"))
+		if("Yes")
+			var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
+			if(!mins)
+				return
+			if(mins >= 525600) mins = 525599
+			var/reason = input(usr,"Reason?","reason","Griefer") as text|null
+			if(!reason)
+				return
+			AddBan(player_ckey, "OfflineBanned", reason, usr.ckey, 1, mins)
+			ban_unban_log_save("[usr.client.ckey] has banned [key]. - Reason: [reason] - This will be removed in [mins] minutes.")
+			feedback_inc("ban_tmp",1)
+			feedback_inc("ban_tmp_mins",mins)
+			log_admin("[usr.client.ckey] has banned [key].\nReason: [reason]\nThis will be removed in [mins] minutes.")
+			message_admins("\blue[usr.client.ckey] has offline banned [key].\nReason: [reason]\nThis will be removed in [mins] minutes.")
+
+			//del(M)	// See no reason why to delete mob. Important stuff can be lost. And ban can be lifted before round ends.
+		if("No")
+			var/reason = input(usr,"Reason?","reason","Griefer") as text|null
+			if(!reason)
+				return
+			AddBan(player_ckey, "OfflineBanned", reason, usr.ckey, 0, 0)
+			var/log_text="[usr.client.ckey] has banned [key].\nReason: [reason]\nThis is a permanent ban."
+			log_admin(log_text)
+			log_admin("[usr.client.ckey] has banned [key].\nReason: [reason]\nThis is a permanent ban.")
+			message_admins("\blue[usr.client.ckey] has offline banned [key].\nReason: [reason]\nThis is a permanent ban.")
+			feedback_inc("ban_perma",1)
+
+			//del(M)
+		if("Cancel")
+			return

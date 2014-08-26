@@ -41,7 +41,9 @@ var/list/admin_verbs_secondary_admin = list(
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/cmd_admin_gib_self,
 	/datum/admins/proc/view_txt_log,	/*shows the server log (diary) for today*/
-	/datum/admins/proc/view_atk_log	/*shows the server combat-log, doesn't do anything presently*/
+	/datum/admins/proc/view_atk_log,	/*shows the server combat-log, doesn't do anything presently*/
+
+	/datum/admins/proc/unprison
 	//+BANS
 	)
 
@@ -59,7 +61,8 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/datum/admins/proc/show_player_panel,	/*shows an interface for individual players, with various links (links require additional flags*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
-	/client/proc/createPerseusMission
+	/client/proc/createPerseusMission,
+	/proc/Ban_Offline_Player
 	//+Sound
 	)
 
