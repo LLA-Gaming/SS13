@@ -13,6 +13,8 @@
 	var/pellets = 0								//Pellets for spreadshot
 	var/variance = 0							//Variance for inaccuracy fundamental to the casing
 
+	var/burst = 0								//how many times to burst after the shot has been fired.
+	var/burst_delay = 0.2 						//time in seconds before firing the next shot.
 
 /obj/item/ammo_casing/New()
 	..()

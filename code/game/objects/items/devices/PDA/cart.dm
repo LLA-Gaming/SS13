@@ -612,7 +612,54 @@ Code:
 				else
 					menu += "ERROR: Unable to determine current location."
 				menu += "<br><br><A href='byond://?src=\ref[src];choice=49'>Refresh GPS Locator</a>"
+			if(51)
+				var/blastdoors = 1
+				for(var/obj/machinery/door/poddoor/M in world)
+					if(M.id == "prisonship")
+						if(M.density)
+							blastdoors = 1
+						else
+							blastdoors = 0
+				menu += "<i>Blast doors are: [blastdoors ? "Closed" : "Opened"]</i>"
 
+			if(52)
+				var/penum = 1
+				var/pcnum = 1
+				menu = "<h3><font color=\"#232D45\"> Perseus Implant Tracker </font></h3><br>"
+				for(var/obj/item/weapon/implant/enforcer/PE in world)
+					var/turf/T = get_turf(PE)
+					var/mob/M = PE.imp_in
+					menu += "Implant <b>[penum]</b>: <br>"
+					menu += "Area: <b>[get_area(T)]</b><br>"
+					menu += "Coordinates: <b>(X: [T.x] Y: [T.y] Z: [T.z])</b><br>"
+					menu += "Holder: <b>[ismob(M) ? M.name : "Error."]</b><br>"
+					menu += "********************************<br>"
+					penum++
+				menu += "<b><i> Total Enforcer Implants: [penum - 1]</b><br>"
+				menu += "<hr><br>"
+				for(var/obj/item/weapon/implant/commander/PC in world)
+					var/turf/T = get_turf(PC)
+					var/mob/M = PC.imp_in
+					menu += "Implant <b>[pcnum]</b>: <br>"
+					menu += "Area: <b>[get_area(T)]</b><br>"
+					menu += "Coordinates: <b>(X: [T.x] Y: [T.y] Z: [T.z])</b><br>"
+					menu += "Holder: <b>[ismob(M) ? M.name : "Error."]</b><br>"
+					menu += "********************************<br>"
+					pcnum++
+				menu += "<b><i> Total Commander Implants: [pcnum - 1]<br>"
+
+			if(53)
+				menu = "<br>"
+				var/index = 1
+				for(var/datum/perseus_mission/P in perseusMissions)
+					menu += "<b>Mission #[index]</b>: [P.mission]<br>"
+					menu += "<b>Creator:</b> [P.creatorName && !P.adminCreated ? P.creatorName : ""] [P.adminCreated ? "<b>(Centcom Official)</b>" : ""]<br>"
+					menu += "<b>Status:</b>: "
+					menu += "<a href='byond://?src=\ref[src];choice=perseus_mission;what=change_setting;mission=\ref[P]'>[P.status]</a><br>"
+					menu += "<center>------------------------------</center><br>"
+					index++
+				if(!perseusMissions.len)
+					menu = "<b>No Missions Found.</b>"
 
 /obj/item/weapon/cartridge/Topic(href, href_list)
 	..()
@@ -675,6 +722,14 @@ Code:
 			powmonitor = powermonitors[pnum]
 			loc:mode = 433
 			mode = 433
+		if("perseus_mission")
+			if(href_list["what"] == "change_setting")
+				var/toWhat = input("What do you want to change it to?", "Input") as anything in list("Pending", "Accepted", "Denied", "Successful", "Failed")
+				var/datum/perseus_mission/P = locate(href_list["mission"])
+				if(!P)	return
+				P.status = toWhat
+
+
 
 	generate_menu()
 	print_to_host(menu)

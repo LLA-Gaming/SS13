@@ -58,7 +58,8 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
 	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
 	/datum/admins/proc/show_player_panel,	/*shows an interface for individual players, with various links (links require additional flags*/
-	/datum/admins/proc/announce		/*priority announce something to all clients.*/
+	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
+	/client/proc/createPerseusMission
 	//+Sound
 	)
 

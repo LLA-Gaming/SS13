@@ -243,7 +243,17 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	return
 
 //NOTE: graphic resources are loaded on client login
-/obj/item/device/pda/attack_self(mob/user as mob)
+/obj/item/device/pda/attack_self(mob/living/user as mob)
+
+	if(cartridge)
+		if(cartridge.locked)
+			if(!user.check_contents_for(cartridge.locked))
+				var/datum/effect/effect/system/spark_spread/S = new/datum/effect/effect/system/spark_spread(get_turf(src))
+				S.set_up(3, 0, get_turf(src))
+				S.start()
+				user << "<div class='warning'>The [src] shocks you.</div>"
+				user.AdjustWeakened(2)
+				return
 
 	user.set_machine(src)
 
@@ -307,6 +317,17 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						dat += "<h4>Security Functions</h4>"
 						dat += "<ul>"
 						dat += "<li><a href='byond://?src=\ref[src];choice=45'><img src=pda_cuffs.png> Security Records</A></li>"
+						dat += "</ul>"
+					if(cartridge.access_perseus)
+						dat += "<h4>PercTech</h4>"
+						dat += "<ul>"
+						dat += "<li><a href='byond://?src=\ref[src];choice=51'><img src=pda_perseus_bd.png> Blast Door Status</A></li>"
+						dat += "<li><a href='byond://?src=\ref[src];choice=52'><img src=pda_perseus_i.png> Implant Status</A></li>"
+						var/obj/machinery/computer/perseus_shuttle_computer/P = locate() in world
+						if(P)
+							dat += "<li><a href='byond://?src=\ref[src];choice=Toggle Prison Shuttle'><img src=pda_perseus_c.png> Toggle Prison Shuttle Lock - [P.locked ? "<b>Locked</b>" : "<b>Unlocked</b>"]</A></li>"
+						dat += "<li><a href='byond://?src=\ref[src];choice=53'><img src=pda_perseus_m.png> Missions</A></li>"
+						dat += "</ul>"
 					if(istype(cartridge.radio, /obj/item/radio/integrated/beepsky))
 						dat += "<li><a href='byond://?src=\ref[src];choice=46'><img src=pda_cuffs.png> Security Bot Access</a></li>"
 						dat += "</ul>"
@@ -465,6 +486,9 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if(mode<=9)
 					mode = 0
 				else
+					if(mode in list(51, 52, 53))
+						mode = 0
+						return
 					mode = round(mode/10)
 					if(mode==4)//Fix for cartridges. Redirects to hub.
 						mode = 0
@@ -651,6 +675,10 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					U.unset_machine()
 					U << browse(null, "window=pda")
 					return
+
+			if("Toggle Prison Shuttle")
+				if(cartridge && cartridge.access_perseus)
+					toggle_prison_shuttle_lock()
 
 //pAI FUNCTIONS===================================
 			if("pai")

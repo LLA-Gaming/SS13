@@ -400,6 +400,8 @@
 						P = new/obj/item/weapon/reagent_containers/pill(src.loc)
 					if(!name) name = reagents.get_master_reagent_name()
 					P.name = "[name] pill"
+					if(findtext(P.name, "'", 1, 0))
+						P.name = replacetext(P.name, "'", "")
 					P.pixel_x = rand(-7, 7) //random position
 					P.pixel_y = rand(-7, 7)
 					reagents.trans_to(P,vol_each)

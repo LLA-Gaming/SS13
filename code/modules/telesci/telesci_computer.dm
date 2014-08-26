@@ -189,6 +189,12 @@
 		var/turf/target = locate(trueX, trueY, z_co)
 		last_target = target
 		var/area/A = get_area(target)
+
+		if(isDisruptedArea(A))
+			temp_msg = "That function is not possible."
+			new /obj/effect/effect/harmless_smoke(get_turf(telepad))
+			return
+
 		flick("pad-beam", telepad)
 
 		if(spawn_time > 15) // 1.5 seconds

@@ -16,6 +16,8 @@
 /datum/surgery_step/extract_implant/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	for(var/obj/item/weapon/implant/W in target)
 		if(W.imp_in == target)	//Checking that it's actually implanted, not just in his pocket
+			if(istype(W, /obj/item/weapon/implant/enforcer) || istype(W, /obj/item/weapon/implant/commander))
+				continue
 			I = W
 			break
 	if(I)

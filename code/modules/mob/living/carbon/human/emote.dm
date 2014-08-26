@@ -318,6 +318,14 @@
 		if ("help") //This can stay at the bottom.
 			src << "Help for human emotes. You can use these emotes with say \"*emote\":\n\naflap, airguitar, blink, blink_r, blush, bow-(none)/mob, burp, choke, chuckle, clap, collapse, cough, cry, custom, dance, dap, deathgasp, drool, eyebrow, faint, frown, flap, gasp, giggle, glare-(none)/mob, grin, groan, grumble, handshake, hug-(none)/mob, johnny, jump, laugh, look-(none)/mob, me, moan, mumble, nod, pale, point-(atom), raise, salute, scream, shake, shiver, shrug, sigh, signal-#1-10, smile, sneeze, sniff, snore, stare-(none)/mob, tremble, twitch, twitch_s, wave, whimper, wink, yawn"
 
+		if ("pdoor")
+			if(src.check_contents_for(/obj/item/weapon/implant/enforcer))
+				for(var/obj/machinery/door/poddoor/M in world)
+					if(M.id == "prisonship")
+						if(M.density)
+							spawn(0)	M.open()
+						else
+							spawn(0)	M.close()
 		else
 			..(act)
 

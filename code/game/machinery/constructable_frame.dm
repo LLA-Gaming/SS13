@@ -534,3 +534,15 @@ obj/item/weapon/circuitboard/rdserver
 							"/obj/item/weapon/stock_parts/subspace/filter" = 1,
 							"/obj/item/weapon/stock_parts/subspace/crystal" = 1,
 							"/obj/item/weapon/stock_parts/micro_laser/high" = 2)
+
+/obj/item/weapon/circuitboard/tdisruptor
+	name = "circuit board (Telescience Disruptor)"
+	build_path = /obj/machinery/tdisruptor
+	board_type = "machine"
+	origin_tech = "programming=2;bluespace=2;magnets=2"
+	req_components = list(
+							"/obj/item/weapon/stock_parts/subspace/ansible" = 1,
+							"/obj/item/weapon/stock_parts/subspace/filter" = 2,
+							"/obj/item/weapon/stock_parts/subspace/amplifier" = 1,
+							"/obj/item/weapon/stock_parts/manipulator/nano" = 3,
+							"/obj/item/weapon/stock_parts/scanning_module/adv" = 1)

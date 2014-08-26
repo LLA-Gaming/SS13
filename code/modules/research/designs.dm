@@ -66,6 +66,15 @@ datum/design/proc/CalcReliability(var/list/temp_techs)
 
 ///////////////////Computer Boards///////////////////////////////////
 
+/datum/design/disruptorboard
+	name = "Computer Design (Telescience Disruptor)"
+	desc = "This machine will prevent telescience teleportation."
+	id = "tdisruptor"
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/tdisruptor
+	req_tech = list("programming" = 2, "magnets" = 4, "bluespace" = 2)
+
 datum/design/seccamera
 	name = "Computer Design (Security)"
 	desc = "Allows for the construction of circuit boards used to build security camera computers."
@@ -1827,7 +1836,7 @@ datum/design/security_hud
 	build_type = PROTOLATHE
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/clothing/glasses/hud/security
-	
+
 datum/design/security_hud_night
 	name = "Night Vision Security HUD"
 	desc = "A heads-up display which provides id data and vision in complete darkness."

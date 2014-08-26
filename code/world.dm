@@ -42,6 +42,11 @@
 	LoadBansjob()
 	if(config.usewhitelist)
 		load_whitelist()
+	loadPerseusList()
+
+	if(!config.mycenae_starts_at_centcom)
+		move_mycenae()
+
 	jobban_loadbanfile()
 	appearance_loadbanfile()
 	jobban_updatelegacybans()

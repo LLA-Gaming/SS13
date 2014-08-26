@@ -9,13 +9,14 @@
 	var/health = 30
 	var/occupied = 1
 	var/destroyed = 0
+	var/spawnPath = /obj/item/weapon/gun/energy/laser/captain
 
 /obj/structure/displaycase/ex_act(severity)
 	switch(severity)
 		if (1)
 			new /obj/item/weapon/shard( src.loc )
 			if (occupied)
-				new /obj/item/weapon/gun/energy/laser/captain( src.loc )
+				new spawnPath( src.loc )
 				occupied = 0
 			qdel(src)
 		if (2)
@@ -40,7 +41,7 @@
 	if (prob(75))
 		new /obj/item/weapon/shard( src.loc )
 		if (occupied)
-			new /obj/item/weapon/gun/energy/laser/captain( src.loc )
+			new spawnPath( src.loc )
 			occupied = 0
 		qdel(src)
 
@@ -78,7 +79,7 @@
 /obj/structure/displaycase/attack_hand(mob/user as mob)
 	user.changeNext_move(8)
 	if (src.destroyed && src.occupied)
-		new /obj/item/weapon/gun/energy/laser/captain( src.loc )
+		new spawnPath( src.loc )
 		user << "\b You deactivate the hover field built into the case."
 		src.occupied = 0
 		src.add_fingerprint(user)

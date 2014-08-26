@@ -115,10 +115,15 @@
 /mob/living/carbon/human/GetVoice()
 	if(istype(src.wear_mask, /obj/item/clothing/mask/gas/voice))
 		var/obj/item/clothing/mask/gas/voice/V = src.wear_mask
-		if(V.vchange)
-			return V.voice
-		else
-			return name
+		var/changeVoice = 0
+		if(V.locked)
+			if(src.check_contents_for(V.locked))
+				changeVoice = 1
+		if(!V.locked || changeVoice)
+			if(V.vchange)
+				return V.voice
+			else
+				return name
 	if(mind && mind.changeling && mind.changeling.mimicing)
 		return mind.changeling.mimicing
 	if(GetSpecialVoice())

@@ -8,6 +8,8 @@ var/global/datum/controller/occupations/job_master
 		//Debug info
 	var/list/job_debug = list()
 
+	var/list/persjobs = list()
+
 
 /datum/controller/occupations/proc/SetupOccupations(var/faction = "Station")
 	occupations = list()
@@ -19,6 +21,8 @@ var/global/datum/controller/occupations/job_master
 	for(var/J in all_jobs)
 		var/datum/job/job = new J()
 		if(!job)	continue
+		if(job.faction == "Perseus Military Corporation")
+			persjobs += job
 		if(job.faction != faction)	continue
 		if(!job.config_check()) continue
 		occupations += job
@@ -37,6 +41,9 @@ var/global/datum/controller/occupations/job_master
 	for(var/datum/job/J in occupations)
 		if(!J)	continue
 		if(J.title == rank)	return J
+	for(var/datum/job/J in persjobs)
+		if(!J) continue
+		if(J.title == rank) return J
 	return null
 
 /datum/controller/occupations/proc/AssignRole(var/mob/new_player/player, var/rank, var/latejoin = 0)
@@ -222,6 +229,14 @@ var/global/datum/controller/occupations/job_master
 	// New job giving system by Donkie
 	// This will cause lots of more loops, but since it's only done once it shouldn't really matter much at all.
 	// Hopefully this will add more randomness and fairness to job giving.
+
+
+	for(var/mob/new_player/player in unassigned)
+		if(player.ckey in assignPerseus)
+			if(perseusList[player.ckey] == "Commander")
+				if(AssignRole(player, "Perseus Security Commander"))	continue
+			else if(perseusList[player.ckey] == "Enforcer")
+				if(AssignRole(player, "Perseus Security Enforcer"))	continue
 
 	// Loop through all levels from high to low
 	var/list/shuffledoccupations = shuffle(occupations)

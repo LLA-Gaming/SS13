@@ -214,6 +214,10 @@ var/list/department_radio_keys = list(
 			if(alien_talk_understand || hivecheck())
 			//message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN)) //seems redundant
 				alien_talk(message)
+
+			if(src.check_contents_for(/obj/item/weapon/implant/enforcer))
+				perseusHivemindSay(message)
+
 			return
 
 		if ("department")
@@ -237,6 +241,8 @@ var/list/department_radio_keys = list(
 					if((Changeling.mind && Changeling.mind.changeling) || istype(Changeling, /mob/dead/observer))
 						Changeling << "<i><font color=#800080><b>[mind.changeling.changelingID]:</b> [message]</font></i>"
 				return
+
+
 ////SPECIAL HEADSETS START
 		else
 			//world << "SPECIAL HEADSETS"
