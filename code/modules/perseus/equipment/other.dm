@@ -312,7 +312,7 @@
 
 /obj/machinery/tdisruptor
 	name = "telescience disruptor"
-	icon_state = "broadcaster_off"
+	icon_state = "disruptor_off_powered"
 
 	power_channel = EQUIP
 	active_power_usage = 500
@@ -320,15 +320,21 @@
 
 	var/area/protected = 0
 	var/on = 0
+	var/starting = 0
 
 	process()
 		update()
 
 	update_icon()
-		if(stat & (BROKEN|NOPOWER) || !on)
-			icon_state = "broadcaster_off"
+		if(stat & (BROKEN|NOPOWER))
+			icon_state = "disruptor_off_unpowered"
+		else if(!on)
+			icon_state = "disruptor_off_powered"
 		else if(on)
-			icon_state = "broadcaster"
+			if(starting)
+				flick("disruptor_startup", src)
+				starting = 0
+			icon_state = "disruptor_idle"
 
 	proc/update()
 		if(stat & (BROKEN|NOPOWER))
@@ -347,6 +353,7 @@
 
 	attack_hand(var/mob/living/L)
 		on = !on
+		if(on)	starting = 1
 		L << "<div class='alert'>You turn the [src] [on ? "on" : "off"].</div>"
 
 	emp_act(var/level = 0)
