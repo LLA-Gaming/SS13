@@ -144,7 +144,7 @@ var/list/perseusMissions = list()
 		var/numberPrint = ""
 		for(var/mob/living/L in P.associatedUnits)
 			numberPrint += "[pnumbers[L.ckey]];"
-		var/insertQuery = "INSERT INTO perseus_missions (creatorname, creatorckey, createdby, creatorjob, time, mission, success, numbers, ic_success, type) VALUES ('[sanitizeSQL(P.creator.real_name)]', '[sanitizeSQL(P.creator.ckey)]', '[P.adminCreated ? "ADMIN" : "PLAYER"]', '[sanitizeSQL(P.creator.job)]', '[time2text(P.timeCreated, "YYYY-MM-DD hh:mm:ss")]', '[sanitizeSQL(P.mission)]', '[P.checkCompletion() ? "SUCESS" : "FAILURE"]', '[sanitizeSQL(numberPrint)]', '[P.status]', '[P.type]')"
+		var/insertQuery = "INSERT INTO perseus_missions (creatorname, creatorckey, createdby, creatorjob, time, mission, success, numbers, ic_success, type) VALUES ('[sanitizeSQL(P.creator.real_name)]', '[sanitizeSQL(P.creator.ckey)]', '[P.adminCreated ? "ADMIN" : "PLAYER"]', '[sanitizeSQL(P.creator.job)]', '[time2text(P.timeCreated, "YYYY-MM-DD hh:mm:ss")]', '[sanitizeSQL(P.mission)]', '[P.checkCompletion() ? "SUCCESS" : "FAILURE"]', '[sanitizeSQL(numberPrint)]', '[P.status]', '[P.type]')"
 		var/DBQuery/query = dbcon.NewQuery(insertQuery)
 		if(!query.Execute())
 			var/err = query.ErrorMsg()

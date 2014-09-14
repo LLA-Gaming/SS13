@@ -154,7 +154,7 @@
 
 /obj/item/weapon/stimpack
 	desc = "A single use rapid injection unit containing various chemicals."
-	name = "Stimpack"
+	name = "stim tank"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "stimpack_1"
 	slot_flags = SLOT_BELT
