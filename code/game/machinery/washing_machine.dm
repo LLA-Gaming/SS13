@@ -78,7 +78,7 @@
 					new_jumpsuit_item_state = J.item_state
 					new_jumpsuit_name = J.name
 					qdel(J)
-					//world << "DEBUG: YUP! [new_icon_state] and [new_item_state]"
+					//world << "DEBUG: YUP! [new_jumpsuit_icon_state] and [new_jumpsuit_item_state]"
 					break
 				qdel(J)
 			for(var/T in typesof(/obj/item/clothing/gloves))
