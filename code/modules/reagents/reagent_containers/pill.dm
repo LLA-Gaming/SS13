@@ -45,7 +45,7 @@
 			M.visible_message("<span class='danger'>[user] forces [M] to swallow [src].</span>", \
 								"<span class='userdanger'>[user] forces [M] to swallow [src].</span>")
 
-			add_logs(user, M, "fed", object="[reagentlist(src)] created by ckey = [src.maker]")
+			add_logs(user, M, "fed", object="[reagentlist(src)]", addition="Creator: [src.maker]")
 
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
