@@ -239,8 +239,7 @@ Please contact me on #coderbus IRC. ~Carnie x
 
 
 	if(socks)
-		if(get_num_limbs_of_state(LEG_RIGHT,ORGAN_FINE) >= 2)
-			var/datum/sprite_accessory/socks/U3 = socks_list[socks]
+		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
 			if(U3)
 				standing	+= image("icon"=U3.icon, "icon_state"="[U3.icon_state]_s", "layer"=-BODY_LAYER)
 
