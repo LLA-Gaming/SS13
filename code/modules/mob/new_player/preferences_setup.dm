@@ -6,6 +6,8 @@ datum/preferences
 		else
 			gender = pick(MALE,FEMALE)
 		underwear = random_underwear(gender)
+		undershirt = random_undershirt(gender)
+		socks = random_socks(gender)
 		skin_tone = random_skin_tone()
 		hair_style = random_hair_style(gender)
 		facial_hair_style = random_facial_hair_style(gender)
@@ -33,6 +35,16 @@ datum/preferences
 
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "eyes_s")
 		eyes_s.Blend("#[eye_color]", ICON_MULTIPLY)
+
+		if(undershirt)
+			S = undershirt_list[undershirt]
+			if(S)
+				preview_icon.Blend(new /icon(S.icon, "[S.icon_state]_s"), ICON_OVERLAY)
+
+		if(socks)
+			S = socks_list[socks]
+			if(S)
+				preview_icon.Blend(new /icon(S.icon, "[S.icon_state]_s"), ICON_OVERLAY)
 
 		S = hair_styles_list[hair_style]
 		if(S)
