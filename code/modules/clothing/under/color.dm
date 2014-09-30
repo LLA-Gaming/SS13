@@ -155,3 +155,10 @@
 	desc = "A light pink jumpsuit"
 	icon_state = "lightpink"
 	item_color = "lightpink"
+
+/obj/item/clothing/under/color/rainbow
+	name = "rainbow"
+	desc = "rainbow"
+	icon_state = "rainbow"
+	item_state = "rainbow"
+	item_color = "rainbow"
