@@ -77,6 +77,42 @@ BLIND     // can't see anything
 	body_parts_covered = HEAD
 	slot_flags = SLOT_MASK
 	var/alloweat = 0
+	var/can_flip = null
+	var/is_flipped = 1
+	var/ignore_flip = 0
+
+	/obj/item/clothing/mask/verb/togglemask()
+		set name = "Toggle Mask"
+		set category = "Object"
+		set src in usr
+		if(ignore_flip)
+			return
+		else
+			if(!usr.canmove || usr.stat || usr.restrained())
+				return
+			if(!can_flip)
+				usr << "You try pushing \the [src] out of the way, but it is very uncomfortable and you look like a fool. You push it back into place."
+				return
+			if(src.is_flipped == 2)
+				src.icon_state = initial(icon_state)
+				gas_transfer_coefficient = initial(gas_transfer_coefficient)
+				permeability_coefficient = initial(permeability_coefficient)
+				flags = initial(flags)
+				flags_inv = initial(flags_inv)
+				usr << "You push \the [src] back into place."
+				src.is_flipped = 1
+			else
+				src.icon_state += "_up"
+				usr << "You push \the [src] out of the way."
+				gas_transfer_coefficient = null
+				permeability_coefficient = null
+				flags = null
+				flags_inv = null
+				src.is_flipped = 2
+			usr.update_inv_wear_mask()
+
+/obj/item/clothing/mask/attack_self()
+	togglemask()
 
 
 //Override this to modify speech like luchador masks.
@@ -106,6 +142,10 @@ BLIND     // can't see anything
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
+	var/can_toggle = 1
+	var/is_toggled = 0
+	var/has_hood = null
+	var/coat_color = null
 
 //Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
@@ -161,6 +201,9 @@ BLIND     // can't see anything
 		2 = Report detailed damages
 		3 = Report location
 		*/
+	var/can_roll = 1
+	var/rolled_down = 1
+	var/suit_color = null
 	var/obj/item/clothing/tie/hastie = null
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user)
@@ -221,31 +264,75 @@ atom/proc/generate_uniform(index,t_color)
 	female_uniform_icon 			= fcopy_rsc(female_uniform_icon)
 	female_uniform_icons[index] = female_uniform_icon
 
+/obj/item/clothing/under/proc/set_sensors(mob/usr as mob)
+	var/mob/M = usr
+	if (istype(M, /mob/dead/)) return
+	if (usr.stat || usr.restrained()) return
+	if(has_sensor >= 2)
+		usr << "The controls are locked."
+		return 0
+	if(has_sensor <= 0)
+		usr << "This suit does not have any sensors."
+		return 0
+
+	var/list/modes = list("Off", "Binary vitals", "Exact vitals", "Exact vitals + Tracking beacon")
+	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
+	if(get_dist(usr, src) > 1)
+		usr << "You have moved too far away."
+		return
+	sensor_mode = modes.Find(switchMode) - 1
+
+	if (src.loc == usr)
+		switch(sensor_mode)
+			if(0)
+				usr << "You disable your suit's remote sensing equipment."
+			if(1)
+				usr << "Your suit will now only report whether you are alive or dead."
+			if(2)
+				usr << "Your suit will now only report your exact vital lifesigns."
+			if(3)
+				usr << "Your suit will now report your exact vital lifesigns as well as your coordinate position."
+	else if (istype(src.loc, /mob))
+		switch(sensor_mode)
+			if(0)
+				for(var/mob/V in viewers(usr, 1))
+					V.show_message("\red [usr] disables [src.loc]'s remote sensing equipment.", 1)
+			if(1)
+				for(var/mob/V in viewers(usr, 1))
+					V.show_message("[usr] turns [src.loc]'s remote sensors to binary.", 1)
+			if(2)
+				for(var/mob/V in viewers(usr, 1))
+					V.show_message("[usr] sets [src.loc]'s sensors to track exact vitals.", 1)
+			if(3)
+				for(var/mob/V in viewers(usr, 1))
+					V.show_message("[usr] sets [src.loc]'s sensors to maximum.", 1)
+
 /obj/item/clothing/under/verb/toggle()
 	set name = "Toggle Suit Sensors"
 	set category = "Object"
 	set src in usr
-	var/mob/M = usr
-	if (istype(M, /mob/dead/)) return
-	if (usr.stat) return
-	if(src.has_sensor >= 2)
-		usr << "The controls are locked."
-		return 0
-	if(src.has_sensor <= 0)
-		usr << "This suit does not have any sensors."
-		return 0
-	src.sensor_mode += 1
-	if(src.sensor_mode > 3)
-		src.sensor_mode = 0
-	switch(src.sensor_mode)
-		if(0)
-			usr << "You disable your suit's remote sensing equipment."
-		if(1)
-			usr << "Your suit will now report whether you are live or dead."
-		if(2)
-			usr << "Your suit will now report your vital lifesigns."
-		if(3)
-			usr << "Your suit will now report your vital lifesigns as well as your coordinate position."
+	set_sensors(usr)
+	..()
+
+/obj/item/clothing/under/verb/rolldown()
+	set name = "Roll Down Jumpsuit"
+	set category = "Object"
+	set src in usr
+	if(usr.stat)
+		return
+	if(!can_roll)
+		usr << "You cannot roll down this suit."
+		return
+	if(src.rolled_down == 2)
+		src.item_color = initial(item_color)
+		src.item_color = src.suit_color //colored jumpsuits are shit and break without this
+		usr << "You put your arms through the sleeves and zip up the jumpsuit."
+		src.rolled_down = 1
+	else
+		src.item_color += "_d"
+		usr << "You unzip and roll down the jumpsuit."
+		src.rolled_down = 2
+	usr.update_inv_w_uniform()
 	..()
 
 /obj/item/clothing/under/verb/removetie()
@@ -268,9 +355,12 @@ atom/proc/generate_uniform(index,t_color)
 			var/mob/living/carbon/human/H = loc
 			H.update_inv_w_uniform(0)
 
-/obj/item/clothing/under/rank/New()
+/obj/item/clothing/under/New()
 	sensor_mode = pick(0,1,2,3)
+	rolled_down = 1
+	suit_color = item_color
 	..()
+
 
 /obj/item/clothing/proc/weldingvisortoggle()			//Malk: proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(usr.canmove && !usr.stat && !usr.restrained())

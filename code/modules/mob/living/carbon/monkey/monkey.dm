@@ -10,6 +10,18 @@
 	update_icon = 0		///no need to call regenerate_icon
 	ventcrawler = 1
 
+/mob/living/carbon/monkey/thedon
+	name = "The Don"
+	voice_name = "monkey"
+	voice_message = "chimpers"
+	say_message = "chimpers"
+	icon = 'icons/mob/monkey.dmi'
+	icon_state = "thedon1"
+	gender = NEUTER
+	pass_flags = PASSTABLE
+	update_icon = 0		///no need to call regenerate_icon
+	ventcrawler = 1
+
 /mob/living/carbon/monkey/New()
 	create_reagents(1000)
 	verbs += /mob/living/proc/mob_sleep
