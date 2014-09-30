@@ -3,6 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/weapon/reagent_containers/pill
 	name = "pill"
+	var/maker = null
 	desc = "A tablet or capsule."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = null
@@ -44,7 +45,7 @@
 			M.visible_message("<span class='danger'>[user] forces [M] to swallow [src].</span>", \
 								"<span class='userdanger'>[user] forces [M] to swallow [src].</span>")
 
-			add_logs(user, M, "fed", object="[reagentlist(src)]")
+			add_logs(user, M, "fed", object="[reagentlist(src)]", addition="Creator: [src.maker]")
 
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
