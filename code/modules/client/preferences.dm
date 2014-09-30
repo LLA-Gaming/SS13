@@ -47,6 +47,8 @@ datum/preferences
 	var/age = 30						//age of character
 	var/blood_type = "A+"				//blood type (not-chooseable)
 	var/underwear = "Nude"				//underwear type
+	var/undershirt = "Nude"				//undershirt type
+	var/socks = "None"				//socks type
 	var/backbag = 2						//backpack type
 	var/hair_style = "Bald"				//Hair type
 	var/hair_color = "000"				//Hair color
@@ -172,6 +174,8 @@ datum/preferences
 				dat += "<b>Blood Type:</b> [blood_type]<BR>"
 				dat += "<b>Skin Tone:</b><BR><a href='?_src_=prefs;preference=s_tone;task=input'>[skin_tone]</a><BR>"
 				dat += "<b>Underwear:</b><BR><a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
+				dat += "<b>Undershirt:</b><BR><a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
+				dat += "<b>Socks:</b><BR><a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
 				dat += "<b>Backpack:</b><BR><a href ='?_src_=prefs;preference=bag;task=input'>[backbaglist[backbag]]</a><BR>"
 
 
@@ -180,6 +184,7 @@ datum/preferences
 				dat += "<h3>Hair Style</h3>"
 
 				dat += "<a href='?_src_=prefs;preference=hair_style;task=input'>[hair_style]</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=previous_hair_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_hair_style;task=input'>&gt;</a><BR>"
 				dat += "<span style='border:1px solid #161616; background-color: #[hair_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=hair;task=input'>Change</a><BR>"
 
 
@@ -188,6 +193,7 @@ datum/preferences
 				dat += "<h3>Facial Hair Style</h3>"
 
 				dat += "<a href='?_src_=prefs;preference=facial_hair_style;task=input'>[facial_hair_style]</a><BR>"
+				dat += "<a href='?_src_=prefs;preference=previous_facehair_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_facehair_style;task=input'>&gt;</a><BR>"
 				dat += "<span style='border: 1px solid #161616; background-color: #[facial_hair_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=facial;task=input'>Change</a><BR>"
 
 
@@ -259,7 +265,7 @@ datum/preferences
 		dat += "</center>"
 
 		//user << browse(dat, "window=preferences;size=560x560")
-		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 580, 600)
+		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 600, 700)
 		popup.set_content(dat)
 		popup.open(0)
 
@@ -554,6 +560,10 @@ datum/preferences
 						facial_hair_style = random_facial_hair_style(gender)
 					if("underwear")
 						underwear = random_underwear(gender)
+					if("undershirt")
+						undershirt = random_undershirt(gender)
+					if("socks")
+						socks = random_socks(gender)
 					if("eyes")
 						eye_color = random_eye_color()
 					if("s_tone")
@@ -602,6 +612,18 @@ datum/preferences
 						if(new_hair_style)
 							hair_style = new_hair_style
 
+					if("next_hair_style")
+						if (gender == MALE)
+							hair_style = next_list_item(hair_style, hair_styles_male_list)
+						else
+							hair_style = next_list_item(hair_style, hair_styles_female_list)
+
+					if("previous_hair_style")
+						if (gender == MALE)
+							hair_style = previous_list_item(hair_style, hair_styles_male_list)
+						else
+							hair_style = previous_list_item(hair_style, hair_styles_female_list)
+
 					if("facial")
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference") as null|color
 						if(new_facial)
@@ -616,6 +638,18 @@ datum/preferences
 						if(new_facial_hair_style)
 							facial_hair_style = new_facial_hair_style
 
+					if("next_facehair_style")
+						if (gender == MALE)
+							facial_hair_style = next_list_item(facial_hair_style, facial_hair_styles_male_list)
+						else
+							facial_hair_style = next_list_item(facial_hair_style, facial_hair_styles_female_list)
+
+					if("previous_facehair_style")
+						if (gender == MALE)
+							facial_hair_style = previous_list_item(facial_hair_style, facial_hair_styles_male_list)
+						else
+							facial_hair_style = previous_list_item(facial_hair_style, facial_hair_styles_female_list)
+
 					if("underwear")
 						var/new_underwear
 						if(gender == MALE)
@@ -624,6 +658,24 @@ datum/preferences
 							new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in underwear_f
 						if(new_underwear)
 							underwear = new_underwear
+
+					if("undershirt")
+						var/new_undershirt
+						if(gender == MALE)
+							new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_m
+						else
+							new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_f
+						if(new_undershirt)
+							undershirt = new_undershirt
+
+					if("socks")
+						var/new_socks
+						if(gender == MALE)
+							new_socks = input(user, "Choose your character's socks:", "Character Preference") as null|anything in socks_m
+						else
+							new_socks = input(user, "Choose your character's socks:", "Character Preference") as null|anything in socks_f
+						if(new_socks)
+							socks = new_socks
 
 					if("eyes")
 						var/new_eyes = input(user, "Choose your character's eye colour:", "Character Preference") as color|null
@@ -660,6 +712,8 @@ datum/preferences
 						else
 							gender = MALE
 						underwear = random_underwear(gender)
+						undershirt = random_undershirt(gender)
+						socks = random_socks(gender)
 						facial_hair_style = random_facial_hair_style(gender)
 						hair_style = random_hair_style(gender)
 
@@ -753,6 +807,8 @@ datum/preferences
 		character.hair_style = hair_style
 		character.facial_hair_style = facial_hair_style
 		character.underwear = underwear
+		character.undershirt = undershirt
+		character.socks = socks
 
 		if(backbag > 3 || backbag < 1)
 			backbag = 1 //Same as above
