@@ -408,6 +408,7 @@
 					P.pixel_x = rand(-7, 7) //random position
 					P.pixel_y = rand(-7, 7)
 					P.icon_state = "pill"+pillsprite
+					P.maker = key_name(usr)
 					reagents.trans_to(P,vol_each)
 			else
 				var/name = reject_bad_text(input(usr,"Name:","Name your bag!",reagents.get_master_reagent_name()))
