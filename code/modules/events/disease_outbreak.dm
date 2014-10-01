@@ -26,6 +26,8 @@
 			continue
 		if(T.z != 1)
 			continue
+		if(!(H.dna))
+			continue
 		var/foundAlready = 0	// don't infect someone that already has the virus
 		for(var/datum/disease/D in H.viruses)
 			foundAlready = 1
