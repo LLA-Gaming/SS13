@@ -56,7 +56,7 @@ Please contact me on #coderbus IRC. ~Carnie x
 */
 
 //Human Overlays Indexes/////////
-#define BODY_LAYER				22		//underwear, eyes, lips(makeup)
+#define BODY_LAYER				22		//underwear, undershirts, socks, eyes, lips(makeup)
 #define MUTATIONS_LAYER			21		//Tk headglows etc.
 #define AUGMENTS_LAYER			20
 #define DAMAGE_LAYER			19		//damage indicators (cuts and burns)
@@ -232,6 +232,16 @@ Please contact me on #coderbus IRC. ~Carnie x
 		if(U)
 			standing	+= image("icon"=U.icon, "icon_state"="[U.icon_state]_s", "layer"=-BODY_LAYER)
 
+	if(undershirt)
+		var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
+		if(U2)
+			standing	+= image("icon"=U2.icon, "icon_state"="[U2.icon_state]_s", "layer"=-BODY_LAYER)
+
+
+	if(socks)
+		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
+		if(U3)
+			standing	+= image("icon"=U3.icon, "icon_state"="[U3.icon_state]_s", "layer"=-BODY_LAYER)
 
 	if(standing.len)
 		overlays_standing[BODY_LAYER]	= standing

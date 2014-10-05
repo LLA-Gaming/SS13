@@ -78,7 +78,7 @@
 					new_jumpsuit_item_state = J.item_state
 					new_jumpsuit_name = J.name
 					qdel(J)
-					//world << "DEBUG: YUP! [new_jumpsuit_icon_state] and [new_jumpsuit_item_state]"
+					//world << "DEBUG: YUP! [new_icon_state] and [new_item_state]"
 					break
 				qdel(J)
 			for(var/T in typesof(/obj/item/clothing/gloves))
@@ -130,6 +130,7 @@
 					J.item_color = wash_color
 					J.name = new_jumpsuit_name
 					J.desc = new_desc
+					J.suit_color = wash_color
 			if(new_glove_icon_state && new_glove_item_state && new_glove_name)
 				for(var/obj/item/clothing/gloves/G in contents)
 					//world << "DEBUG: YUP! FOUND IT!"
