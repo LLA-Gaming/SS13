@@ -232,6 +232,10 @@
 		name = "Emo"
 		icon_state = "hair_emo"
 
+	jen
+		name = "Jen"
+		icon_state = "hair_jen"
+
 	longemo
 		name = "Long Emo"
 		icon_state = "hair_longemo"
