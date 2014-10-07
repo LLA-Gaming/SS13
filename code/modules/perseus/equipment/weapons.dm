@@ -2,8 +2,7 @@
 * All weapon related code goes here.
 */
 
-
-#define EP_STUNTIME_SINGLE 6.25
+#define EP_STUNTIME_SINGLE 2
 #define EP_STUNTIME_AOE 3
 
 #define SKNIFE_STUNTIME 7.5
@@ -172,7 +171,8 @@
 
 	examine()
 		..()
-		usr << "\blue It's locking mechanism looks fried."
+		if(emagged)
+			usr << "\blue It's locking mechanism looks fried."
 
 /*
 * Five Seven
@@ -212,7 +212,8 @@
 
 	examine()
 		..()
-		usr << "\blue It's locking mechanism looks fried."
+		if(emagged)
+			usr << "\blue It's locking mechanism looks fried."
 
 	attackby(var/obj/item/I, var/mob/living/M)
 		if(istype(I, /obj/item/weapon/card/emag) && !emagged)
