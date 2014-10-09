@@ -76,6 +76,7 @@ for reference:
 				return
 			return
 		else
+			user.changeNext_move(8)
 			switch(W.damtype)
 				if("fire")
 					src.health -= W.force * 1
@@ -199,6 +200,7 @@ for reference:
 				return
 			return
 		else
+			user.changeNext_move(8)
 			switch(W.damtype)
 				if("fire")
 					src.health -= W.force * 0.75

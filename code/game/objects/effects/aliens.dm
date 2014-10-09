@@ -113,6 +113,7 @@
 /obj/structure/alien/resin/attack_alien(mob/user)
 	if(islarva(user))
 		return
+	user.changeNext_move(8)
 	user.visible_message("<span class='danger'>[user] claws at the resin!</span>")
 	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
 	health -= 50
@@ -122,6 +123,7 @@
 
 
 /obj/structure/alien/resin/attackby(obj/item/I, mob/user)
+	user.changeNext_move(8)
 	health -= I.force
 	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
 	healthcheck()

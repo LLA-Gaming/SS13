@@ -131,6 +131,7 @@
 			user << "You finished digging."
 			Dismantle()
 	else if(istype(W,/obj/item/weapon)) //not sure, can't not just weapons get passed to this proc?
+		user.changeNext_move(8)
 		hardness -= W.force/100
 		user << "You hit the [name] with your [W.name]!"
 		CheckHardness()
