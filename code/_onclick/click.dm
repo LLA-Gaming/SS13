@@ -111,7 +111,6 @@
 
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
 	if(isturf(A) || isturf(A.loc) || (A.loc && isturf(A.loc.loc)))
-		changeNext_move(9)
 		if(A.Adjacent(src)) // see adjacent.dm
 			if(W)
 				// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
@@ -119,6 +118,10 @@
 				if(!resolved && A && W)
 					W.afterattack(A,src,1,params) // 1: clicking something Adjacent
 			else
+				if(ismob(A))
+					changeNext_move(8)
+				if(isobj(A))
+					changeNext_move(10)
 				UnarmedAttack(A, 1)
 			return
 		else // non-adjacent click
