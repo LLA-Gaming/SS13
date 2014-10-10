@@ -569,3 +569,8 @@
 	name = "box"
 	desc = "Put your cream pies in your honk box."
 	icon_state = "box_honk"
+
+/obj/item/weapon/storage/box/lunch
+	name = "box"
+	desc = "Fresh food ready to eat."
+	icon_state = "box_burger"

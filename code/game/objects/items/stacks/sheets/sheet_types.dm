@@ -130,6 +130,7 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list ( \
 	new/datum/stack_recipe("box (label: survival)", /obj/item/weapon/storage/box/survival), \
 	new/datum/stack_recipe("box (label: first-aid)", /obj/item/weapon/storage/box/aid), \
 	new/datum/stack_recipe("box (label: gift)", /obj/item/weapon/storage/box/gift), \
+	new/datum/stack_recipe("box (label: lunch)", /obj/item/weapon/storage/box/lunch), \
 	new/datum/stack_recipe("box (label: light tubes)", /obj/item/weapon/storage/box/lights/tubes), \
 	new/datum/stack_recipe("box (label: light bulbs)", /obj/item/weapon/storage/box/lights/bulbs), \
 	new/datum/stack_recipe("box (label: mouse trap)", /obj/item/weapon/storage/box/mousetraps), \
