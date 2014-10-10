@@ -126,9 +126,24 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
  */
 var/global/list/datum/stack_recipe/cardboard_recipes = list ( \
 	new/datum/stack_recipe("box", /obj/item/weapon/storage/box), \
-	new/datum/stack_recipe("light tubes", /obj/item/weapon/storage/box/lights/tubes), \
-	new/datum/stack_recipe("light bulbs", /obj/item/weapon/storage/box/lights/bulbs), \
-	new/datum/stack_recipe("mouse traps", /obj/item/weapon/storage/box/mousetraps), \
+	new/datum/stack_recipe("box (label: tools)", /obj/item/weapon/storage/box/tools), \
+	new/datum/stack_recipe("box (label: survival)", /obj/item/weapon/storage/box/survival), \
+	new/datum/stack_recipe("box (label: first-aid)", /obj/item/weapon/storage/box/aid), \
+	new/datum/stack_recipe("box (label: gift)", /obj/item/weapon/storage/box/gift), \
+	new/datum/stack_recipe("box (label: light tubes)", /obj/item/weapon/storage/box/lights/tubes), \
+	new/datum/stack_recipe("box (label: light bulbs)", /obj/item/weapon/storage/box/lights/bulbs), \
+	new/datum/stack_recipe("box (label: mouse trap)", /obj/item/weapon/storage/box/mousetraps), \
+	new/datum/stack_recipe("box (label: winking man)", /obj/item/weapon/storage/box/winkingman), \
+	new/datum/stack_recipe("box (label: weapon)", /obj/item/weapon/storage/box/weapon), \
+	new/datum/stack_recipe("box (label: flash)", /obj/item/weapon/storage/box/flashes), \
+	new/datum/stack_recipe("box (label: handcuffs)", /obj/item/weapon/storage/box/handcuffs), \
+	new/datum/stack_recipe("box (label: flashbangs)", /obj/item/weapon/storage/box/flashbangs), \
+	new/datum/stack_recipe("box (label: special)", /obj/item/weapon/storage/box/balloon), \
+	new/datum/stack_recipe("box (label: toy box)", /obj/item/weapon/storage/box/toys), \
+	new/datum/stack_recipe("box (label: AI)", /obj/item/weapon/storage/box/AI), \
+	new/datum/stack_recipe("box (label: borg)", /obj/item/weapon/storage/box/borg), \
+	new/datum/stack_recipe("box (label: radiation)", /obj/item/weapon/storage/box/rads), \
+	new/datum/stack_recipe("box (label: clown)", /obj/item/weapon/storage/box/honk), \
 	new/datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3), \
 	new/datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg), \
 	new/datum/stack_recipe("pizza box", /obj/item/pizzabox), \

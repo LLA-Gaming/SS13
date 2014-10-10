@@ -51,6 +51,7 @@
 
 
 /obj/item/weapon/storage/box/survival
+	icon_state = "box_survival"
 	New()
 		..()
 		contents = list()
@@ -172,7 +173,7 @@
 /obj/item/weapon/storage/box/flashes
 	name = "box of flashbulbs"
 	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
-	icon_state = "flashbang"
+	icon_state = "box_flash"
 
 	New()
 		..()
@@ -511,3 +512,60 @@
 		new /obj/item/weapon/light/tube(src)
 	for(var/i = 0; i < 7; i++)
 		new /obj/item/weapon/light/bulb(src)
+
+//Cosmetic boxes
+
+/obj/item/weapon/storage/box/tools
+	name = "box"
+	desc = "For when you can't find a toolbelt."
+	icon_state = "box_screwdriver"
+
+/obj/item/weapon/storage/box/aid
+	name = "box"
+	desc = "For when you can't find a Medibelt"
+	icon_state = "box_aid"
+
+/obj/item/weapon/storage/box/gift
+	name = "box"
+	desc = "Have a special someone in mind?"
+	icon_state = "box_gift"
+
+/obj/item/weapon/storage/box/winkingman
+	name = "box"
+	desc = "For when you need to spice up that boring assistant life."
+	icon_state = "box_winkingman"
+
+/obj/item/weapon/storage/box/weapon
+	name = "box"
+	desc = "For storing your smaller, totally legal weapons."
+	icon_state = "box_weapon"
+
+/obj/item/weapon/storage/box/balloon
+	name = "box"
+	desc = "Security might mistake this box for a evil balloon."
+	icon_state = "box_special"
+
+/obj/item/weapon/storage/box/toys
+	name = "toy box"
+	desc = "A toybox for your winnings!"
+	icon_state = "box_singulo"
+
+/obj/item/weapon/storage/box/AI
+	name = "box"
+	desc = "A happy silicon box."
+	icon_state = "box_ai"
+
+/obj/item/weapon/storage/box/borg
+	name = "box"
+	desc = "beep."
+	icon_state = "box_borg"
+
+/obj/item/weapon/storage/box/rads
+	name = "box"
+	desc = "This box looks hazardous."
+	icon_state = "box_rads"
+
+/obj/item/weapon/storage/box/honk
+	name = "box"
+	desc = "Put your cream pies in your honk box."
+	icon_state = "box_honk"
