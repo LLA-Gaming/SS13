@@ -49,7 +49,7 @@
 			if(holder)
 				if(!holder.fakekey || C.holder)
 					if(check_rights_for(src, R_TRIALADMIN))
-						to_tab = "<font color=[config.allow_admin_ooccolor ? prefs.ooccolor :"#b83d00" ]><b><span class='prefix'>OOC:</span> <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message'>[msg]</span></b></font>"
+						to_tab = "<font color=[config.allow_admin_ooccolor ? prefs.ooccolor :"#b82e00" ]><b><span class='prefix'>OOC:</span> <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message'>[msg]</span></b></font>"
 					else
 						to_tab = "<span class='adminobserverooc'><span class='prefix'>OOC:</span> <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message'>[msg]</span></span>"
 				else
@@ -71,7 +71,7 @@
 	if(!config.ooc_during_round && ooc_allowed != on)
 		toggle_ooc()
 
-var/global/normal_ooc_colour = "#2e78d9"
+var/global/normal_ooc_colour = "#002eb8"
 
 /client/proc/set_ooc(newColor as color)
 	set name = "Set Player OOC Colour"
