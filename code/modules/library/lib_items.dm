@@ -265,9 +265,6 @@
 			var/obj/item/weapon/storage/book/B = new
 			B.name = src.name
 			B.title = src.title
-			B.icon_state = src.icon_state
-			B.icon = src.icon
-			B.desc = src.desc
 			if(user.l_hand == src || user.r_hand == src)
 				qdel(src)
 				user.put_in_hands(B)

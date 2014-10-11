@@ -4,6 +4,7 @@
 	area = /area
 	view = "15x15"
 	cache_lifespan = 1
+	fps = 60
 
 #define RECOMMENDED_VERSION 495
 

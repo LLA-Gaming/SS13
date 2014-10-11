@@ -63,7 +63,7 @@
 
 //Detective
 /obj/item/clothing/suit/det_suit
-	name = "coat"
+	name = "trenchcoat"
 	desc = "An 18th-century multi-purpose trenchcoat. Someone who wears this means serious business."
 	icon_state = "detective"
 	item_state = "det_suit"
@@ -73,6 +73,12 @@
 	armor = list(melee = 50, bullet = 10, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
+
+/obj/item/clothing/suit/det_suit/grey
+	name = "grey trenchcoat"
+	desc = "A hard-boiled private investigator's grey trenchcoat."
+	icon_state = "greydet"
+	item_state = "greydet"
 
 //Engineering
 /obj/item/clothing/suit/hazardvest
@@ -145,3 +151,15 @@
 	desc = "A sterile blue surgical apron."
 	icon_state = "surgical"
 	allowed = list(/obj/item/weapon/scalpel, /obj/item/weapon/surgical_drapes, /obj/item/weapon/cautery, /obj/item/weapon/hemostat, /obj/item/weapon/retractor)
+
+
+//Janijacket
+/obj/item/clothing/suit/hazardvest/denim
+	name = "denim jacket"
+	desc = "A denim jacket designed for janitorial use.."
+	icon_state = "denim_jacket"
+	item_state = "denim_jacket"
+	body_parts_covered = CHEST|ARMS
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency_oxygen,/obj/item/device/t_scanner,)
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+
