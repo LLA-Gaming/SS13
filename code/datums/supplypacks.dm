@@ -1096,7 +1096,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "crate"	//let's keep it subtle, eh?
 	contraband = 1
 
-/datum/supply_packs/misc/randomised/salivatingarnies
+/datum/supply_packs/misc/randomised/surplusclothing
 	num_contained = 10
 	contains = list(/obj/item/clothing/head/beanie,
 					/obj/item/clothing/head/flatcap,

@@ -201,7 +201,7 @@ BLIND     // can't see anything
 		2 = Report detailed damages
 		3 = Report location
 		*/
-	var/can_roll = 1
+	var/can_roll = 0
 	var/rolled_down = 1
 	var/suit_color = null
 	var/obj/item/clothing/tie/hastie = null

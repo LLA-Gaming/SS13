@@ -8,7 +8,7 @@
 	item_state = "g_suit"
 	item_color = "director"
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
-	can_roll = 0
+
 
 /obj/item/clothing/under/rank/research_director/alt
 	desc = "Maybe you'll engineer your own half-man, half-pig creature some day. Its fabric provides minor protection from biological contaminants."
@@ -17,6 +17,7 @@
 	item_state = "rdwhimsy"
 	item_color = "rdwhimsy"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	can_roll = 1
 
 /obj/item/clothing/under/rank/research_director/ema
 	desc = "This is amazing! Just FEEL the power of science flowing through you!"
@@ -34,6 +35,7 @@
 	item_color = "toxinswhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 10, bio = 0, rad = 0)
+	can_roll = 1
 
 
 /obj/item/clothing/under/rank/chemist
@@ -44,6 +46,7 @@
 	item_color = "chemistrywhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	can_roll = 1
 
 /*
  * Medical
@@ -56,6 +59,7 @@
 	item_color = "cmo"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	can_roll = 1
 
 /obj/item/clothing/under/rank/geneticist
 	desc = "It's made of a special fiber that gives special protection against biohazards. It has a genetics rank stripe on it."
@@ -65,6 +69,7 @@
 	item_color = "geneticswhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	can_roll = 1
 
 /obj/item/clothing/under/rank/virologist
 	desc = "It's made of a special fiber that gives special protection against biohazards. It has a virologist rank stripe on it."
@@ -74,6 +79,7 @@
 	item_color = "virologywhite"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	can_roll = 1
 
 /obj/item/clothing/under/rank/nursesuit
 	desc = "It's a jumpsuit commonly worn by nursing staff in the medical department."
@@ -84,7 +90,7 @@
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 	fitted = 0
-	can_roll = 0
+
 
 /obj/item/clothing/under/rank/medical
 	desc = "It's made of a special fiber that provides minor protection against biohazards. It has a cross on the chest denoting that the wearer is trained medical personnel."
@@ -94,6 +100,7 @@
 	item_color = "medical"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	can_roll = 1
 
 /obj/item/clothing/under/rank/medical/blue
 	name = "blue medical scrubs"
@@ -102,6 +109,7 @@
 	item_color = "scrubsblue"
 	can_roll = 0
 
+
 /obj/item/clothing/under/rank/medical/green
 	name = "green medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in dark green."
@@ -109,12 +117,14 @@
 	item_color = "scrubsgreen"
 	can_roll = 0
 
+
 /obj/item/clothing/under/rank/medical/purple
 	name = "purple medical scrubs"
 	desc = "It's made of a special fiber that provides minor protection against biohazards. This one is in deep purple."
 	icon_state = "scrubspurple"
 	item_color = "scrubspurple"
 	can_roll = 0
+
 
 
 

@@ -6,6 +6,7 @@
 	icon_state = "ba_suit"
 	item_state = "ba_suit"
 	item_color = "ba_suit"
+	can_roll = 1
 
 
 /obj/item/clothing/under/rank/captain //Alright, technically not a 'civilian' but its better then giving a .dm file for a single define.
@@ -14,7 +15,7 @@
 	icon_state = "captain"
 	item_state = "caparmor"
 	item_color = "captain"
-
+	can_roll = 1
 
 /obj/item/clothing/under/rank/cargo
 	name = "quartermaster's jumpsuit"
@@ -22,6 +23,7 @@
 	icon_state = "qm"
 	item_state = "lb_suit"
 	item_color = "qm"
+	can_roll = 1
 
 
 /obj/item/clothing/under/rank/cargotech
@@ -30,6 +32,7 @@
 	icon_state = "cargotech"
 	item_state = "lb_suit"
 	item_color = "cargo"
+	can_roll = 1
 
 
 /obj/item/clothing/under/rank/chaplain
@@ -38,6 +41,7 @@
 	icon_state = "chaplain"
 	item_state = "bl_suit"
 	item_color = "chapblack"
+	can_roll = 1
 
 
 /obj/item/clothing/under/rank/chef
@@ -45,6 +49,7 @@
 	name = "chef's uniform"
 	icon_state = "chef"
 	item_color = "chef"
+	can_roll = 1
 
 
 /obj/item/clothing/under/rank/clown
@@ -62,6 +67,7 @@
 	icon_state = "hop"
 	item_state = "b_suit"
 	item_color = "hop"
+	can_roll = 1
 
 
 /obj/item/clothing/under/rank/hydroponics
@@ -71,6 +77,7 @@
 	item_state = "g_suit"
 	item_color = "hydroponics"
 	permeability_coefficient = 0.50
+	can_roll = 1
 
 
 /obj/item/clothing/under/rank/janitor
@@ -79,29 +86,34 @@
 	icon_state = "janitor"
 	item_color = "janitor"
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+	can_roll = 1
 
 
 /obj/item/clothing/under/lawyer
 	desc = "Slick threads."
 	name = "Lawyer suit"
+	can_roll = 1
 
 
 /obj/item/clothing/under/lawyer/black
 	icon_state = "lawyer_black"
 	item_state = "lawyer_black"
 	item_color = "lawyer_black"
+	can_roll = 0
 
 
 /obj/item/clothing/under/lawyer/female
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
 	item_color = "black_suit_fem"
+	can_roll = 0
 
 
 /obj/item/clothing/under/lawyer/red
 	icon_state = "lawyer_red"
 	item_state = "lawyer_red"
 	item_color = "lawyer_red"
+	can_roll = 0
 
 
 /obj/item/clothing/under/lawyer/blue
@@ -145,6 +157,7 @@
 	icon_state = "mime"
 	item_state = "mime"
 	item_color = "mime"
+	can_roll = 1
 
 /obj/item/clothing/under/rank/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
@@ -152,3 +165,4 @@
 	icon_state = "miner"
 	item_state = "miner"
 	item_color = "miner"
+	can_roll = 1

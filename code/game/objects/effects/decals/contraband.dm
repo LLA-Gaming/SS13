@@ -25,10 +25,9 @@
 	if(given_serial == 0)
 		if(subtype == 0)
 			serial_number = rand(1, NUM_OF_POSTER_DESIGNS)
-			resulting_poster = new(serial_number,subtype)
 		if(subtype == 1)
 			serial_number = rand(1, NUM_OF_POSTER_DESIGNS_LEGIT)
-			resulting_poster = new(serial_number,subtype)
+		resulting_poster = new(serial_number,subtype)
 	else
 		serial_number = given_serial
 		//We don't give it a resulting_poster because if we called it with a given_serial it means that we're rerolling an already used poster.

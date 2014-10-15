@@ -1,3 +1,5 @@
+/* Uncomment this when you guys feel like having hazard tape :x ~Flavo
+
 #define MAX_TAPE_RANGE 3
 //The max length of a line of hazard tape by tile range, this is
 

@@ -52,7 +52,7 @@
 	item_color = "pers_skinsuit"
 	desc = "Standard issue to Perseus Security personnel in space assignments. Maintains a safe internal atmosphere for the user."
 	w_class = 3
-	can_roll = 0
+
 
 /*
 * Voice Mask
@@ -135,7 +135,7 @@
 	icon_state = "pers_blue"
 	item_state = "bl_suit"
 	item_color = "pers_blue"
-	can_roll = 0
+
 
 /*
 * Commander Fatigues
@@ -147,7 +147,7 @@
 	icon_state = "persjumpsuit"
 	item_state = "bl_suit"
 	item_color = "persfatigues"
-	can_roll = 0
+
 
 /*
 * Riot Shield
