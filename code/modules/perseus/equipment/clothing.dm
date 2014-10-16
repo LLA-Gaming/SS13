@@ -53,6 +53,7 @@
 	desc = "Standard issue to Perseus Security personnel in space assignments. Maintains a safe internal atmosphere for the user."
 	w_class = 3
 
+
 /*
 * Voice Mask
 */
@@ -135,6 +136,7 @@
 	item_state = "bl_suit"
 	item_color = "pers_blue"
 
+
 /*
 * Commander Fatigues
 */
@@ -145,6 +147,7 @@
 	icon_state = "persjumpsuit"
 	item_state = "bl_suit"
 	item_color = "persfatigues"
+
 
 /*
 * Riot Shield

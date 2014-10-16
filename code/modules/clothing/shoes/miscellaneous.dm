@@ -12,6 +12,14 @@
 	icon_state = "mime"
 	item_color = "mime"
 
+/obj/item/clothing/shoes/boots
+	name = "warm boots"
+	desc = "A nice pair of boots to keep your feet toasty."
+	icon_state = "warmboots"
+	item_color = "warmboots"
+	cold_protection = FEET
+	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
+
 /obj/item/clothing/shoes/swat
 	name = "\improper SWAT shoes"
 	desc = "When you want to turn up the heat."
@@ -72,10 +80,17 @@
 
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
-	desc = "Nanotrasen-issue Security combat boots for combat scenarios or combat situations. All combat, all the time."
+	desc = "Nanotrasen-issue Security laceless combat boots for combat scenarios or combat situations. All combat, all the time."
 	icon_state = "jackboots"
 	item_state = "jackboots"
 	item_color = "hosred"
+
+/obj/item/clothing/shoes/steeltoe
+	name = "steel-toed boots"
+	desc = "Nanotrasen-issue lace-up boots with metal toe lining for first responders."
+	icon_state = "steeltoe"
+	item_color = "steeltoe"
+	permeability_coefficient = 0.01
 
 /obj/item/clothing/shoes/cult
 	name = "boots"

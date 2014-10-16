@@ -5,12 +5,14 @@
 	item_color = "red_pyjamas"
 	item_state = "w_suit"
 
+
 /obj/item/clothing/under/pj/blue
 	name = "blue pj's"
 	desc = "Sleepwear."
 	icon_state = "blue_pyjamas"
 	item_color = "blue_pyjamas"
 	item_state = "w_suit"
+
 
 /obj/item/clothing/under/scratch
 	name = "white suit"
@@ -19,11 +21,13 @@
 	item_state = "scratch"
 	item_color = "scratch"
 
+
 /obj/item/clothing/under/sl_suit
 	desc = "It's a very amish looking suit."
 	name = "amish suit"
 	icon_state = "sl_suit"
 	item_color = "sl_suit"
+
 
 /obj/item/clothing/under/roman
 	name = "roman armor"
@@ -33,12 +37,14 @@
 	item_state = "armor"
 	armor = list(melee = 25, bullet = 0, laser = 25, energy = 10, bomb = 10, bio = 0, rad = 0)
 
+
 /obj/item/clothing/under/waiter
 	name = "waiter's outfit"
 	desc = "It's a very smart uniform with a special pocket for tip."
 	icon_state = "waiter"
 	item_state = "waiter"
 	item_color = "waiter"
+
 
 /obj/item/clothing/under/rank/mailman
 	name = "mailman's jumpsuit"
@@ -55,12 +61,14 @@
 	item_color = "sexyclown"
 	fitted = 0
 
+
 /obj/item/clothing/under/rank/vice
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."
 	icon_state = "vice"
 	item_state = "gy_suit"
 	item_color = "vice"
+
 
 /obj/item/clothing/under/rank/centcom_officer
 	desc = "It's a jumpsuit worn by Centcom Officers."
@@ -69,12 +77,14 @@
 	item_state = "g_suit"
 	item_color = "officer"
 
+
 /obj/item/clothing/under/rank/centcom_commander
 	desc = "It's a jumpsuit worn by Centcom's highest-tier Commanders."
 	name = "\improper Centcom officer's jumpsuit"
 	icon_state = "centcom"
 	item_state = "dg_suit"
 	item_color = "centcom"
+
 
 /obj/item/clothing/under/space
 	name = "\improper NASA jumpsuit"
@@ -91,6 +101,7 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 
+
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
 	icon_state = "syndicate"
@@ -106,6 +117,7 @@
 	heat_protection = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 
+
 /obj/item/clothing/under/owl
 	name = "owl uniform"
 	desc = "A jumpsuit with owl wings. Photorealistic owl feathers! Twooooo!"
@@ -113,11 +125,13 @@
 	item_color = "owl"
 	fitted = 0
 
+
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"
 	desc = "Johnny~~"
 	icon_state = "johnny"
 	item_color = "johnny"
+
 
 /obj/item/clothing/under/rainbow
 	name = "rainbow"
@@ -126,11 +140,13 @@
 	item_state = "rainbow"
 	item_color = "rainbow"
 
+
 /obj/item/clothing/under/cloud
 	name = "cloud"
 	desc = "cloud"
 	icon_state = "cloud"
 	item_color = "cloud"
+
 
 /obj/item/clothing/under/gimmick/rank/captain/suit
 	name = "captain's suit"
@@ -139,12 +155,14 @@
 	item_state = "dg_suit"
 	item_color = "green_suit"
 
+
 /obj/item/clothing/under/gimmick/rank/head_of_personnel/suit
 	name = "head of personnel's suit"
 	desc = "A teal suit and yellow necktie. An authoritative yet tacky ensemble."
 	icon_state = "teal_suit"
 	item_state = "g_suit"
 	item_color = "teal_suit"
+
 
 /obj/item/clothing/under/suit_jacket
 	name = "black suit"
@@ -153,12 +171,14 @@
 	item_state = "bl_suit"
 	item_color = "black_suit"
 
+
 /obj/item/clothing/under/suit_jacket/really_black
 	name = "executive suit"
 	desc = "A formal black suit and red tie, intended for the station's finest."
 	icon_state = "really_black_suit"
 	item_state = "bl_suit"
 	item_color = "black_suit"
+
 
 /obj/item/clothing/under/suit_jacket/female
 	name = "executive suit"
@@ -167,12 +187,14 @@
 	item_state = "black_suit_fem"
 	item_color = "black_suit_fem"
 
+
 /obj/item/clothing/under/suit_jacket/red
 	name = "red suit"
 	desc = "A red suit and blue tie. Somewhat formal."
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	item_color = "red_suit"
+
 
 /obj/item/clothing/under/suit_jacket/charcoal
 	name = "charcoal suit"
@@ -181,12 +203,14 @@
 	item_state = "charcoal_suit"
 	item_color = "charcoal_suit"
 
+
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
 	desc = "A navy suit and red tie, intended for the station's finest."
 	icon_state = "navy_suit"
 	item_state = "navy_suit"
 	item_color = "navy_suit"
+
 
 /obj/item/clothing/under/suit_jacket/burgundy
 	name = "burgundy suit"
@@ -195,6 +219,7 @@
 	item_state = "burgundy_suit"
 	item_color = "burgundy_suit"
 
+
 /obj/item/clothing/under/suit_jacket/checkered
 	name = "checkered suit"
 	desc = "That's a very nice suit you have there. Shame if something were to happen to it, eh?"
@@ -202,12 +227,14 @@
 	item_state = "checkered_suit"
 	item_color = "checkered_suit"
 
+
 /obj/item/clothing/under/suit_jacket/tan
 	name = "tan suit"
 	desc = "A tan suit with a yellow tie. Smart, but casual."
 	icon_state = "tan_suit"
 	item_state = "tan_suit"
 	item_color = "tan_suit"
+
 
 /obj/item/clothing/under/blackskirt
 	name = "black skirt"
@@ -217,8 +244,9 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = 0
 
+
 /obj/item/clothing/under/schoolgirl
-	name = "schoolgirl uniform"
+	name = "blue schoolgirl uniform"
 	desc = "It's just like one of my Japanese animes!"
 	icon_state = "schoolgirl"
 	item_state = "schoolgirl"
@@ -226,12 +254,48 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = 0
 
+
+/obj/item/clothing/under/schoolgirl/red
+	name = "red schoolgirl uniform"
+	icon_state = "schoolgirlred"
+	item_state = "schoolgirlred"
+	item_color = "schoolgirlred"
+
+/obj/item/clothing/under/schoolgirl/green
+	name = "green schoolgirl uniform"
+	icon_state = "schoolgirlgreen"
+	item_state = "schoolgirlgreen"
+	item_color = "schoolgirlgreen"
+
+/obj/item/clothing/under/schoolgirl/orange
+	name = "orange schoolgirl uniform"
+	icon_state = "schoolgirlorange"
+	item_state = "schoolgirlorange"
+	item_color = "schoolgirlorange"
+
 /obj/item/clothing/under/overalls
 	name = "laborer's overalls"
 	desc = "A set of durable overalls for getting the job done."
 	icon_state = "overalls"
 	item_state = "lb_suit"
 	item_color = "overalls"
+	can_roll = 1
+
+/obj/item/clothing/under/color/brownoveralls
+	name = "brown overalls"
+	desc = "A set of old brown overalls for getting the job done."
+	icon_state = "b-overalls"
+	item_state = "lb_suit"
+	item_color = "b-overalls"
+
+
+/obj/item/clothing/under/redoveralls
+	name = "red overalls"
+	desc = "A set of tough red overalls for getting the job done."
+	icon_state = "r-overalls"
+	item_state = "lb_suit"
+	item_color = "r-overalls"
+
 
 /obj/item/clothing/under/pirate
 	name = "pirate outfit"
@@ -240,6 +304,7 @@
 	item_state = "pirate"
 	item_color = "pirate"
 
+
 /obj/item/clothing/under/soviet
 	name = "soviet uniform"
 	desc = "For the Motherland!"
@@ -247,12 +312,14 @@
 	item_state = "soviet"
 	item_color = "soviet"
 
+
 /obj/item/clothing/under/redcoat
 	name = "redcoat uniform"
 	desc = "Looks old."
 	icon_state = "redcoat"
 	item_state = "redcoat"
 	item_color = "redcoat"
+
 
 /obj/item/clothing/under/kilt
 	name = "kilt"
@@ -263,6 +330,7 @@
 	body_parts_covered = CHEST|GROIN|FEET
 	fitted = 0
 
+
 /obj/item/clothing/under/sexymime
 	name = "sexy mime outfit"
 	desc = "The only time when you DON'T enjoy looking at someone's rack."
@@ -271,6 +339,7 @@
 	item_color = "sexymime"
 	body_parts_covered = CHEST|GROIN|LEGS
 	fitted = 0
+
 
 /obj/item/clothing/under/gladiator
 	name = "gladiator uniform"
@@ -281,6 +350,7 @@
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = 0
 
+
 /obj/item/clothing/under/sundress
 	name = "sundress"
 	desc = "Makes you want to frolic in a field of daisies."
@@ -290,6 +360,7 @@
 	body_parts_covered = CHEST|GROIN
 	fitted = 0
 
+
 /obj/item/clothing/under/captainformal
 	name = "captain's formal uniform"
 	desc = "A captain's formal-wear, for special occasions."
@@ -297,12 +368,14 @@
 	item_state = "by_suit"
 	item_color = "captain_formal"
 
+
 /obj/item/clothing/under/hosformalmale
 	name = "head of security's formal uniform"
 	desc = "A male head of security's formal-wear, for special occasions."
 	icon_state = "hos_formal_male"
 	item_state = "r_suit"
 	item_color = "hos_formal_male"
+
 
 /obj/item/clothing/under/hosformalfem
 	name = "head of security's formal uniform"
@@ -312,12 +385,14 @@
 	item_color = "hos_formal_fem"
 	fitted = 0
 
+
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"
 	desc = "An assistant's formal-wear. Why an assistant needs formal-wear is still unknown."
 	icon_state = "assistant_formal"
 	item_state = "gy_suit"
 	item_color = "assistant_formal"
+
 
 /obj/item/clothing/under/blacktango
 	name = "black tango dress"
@@ -326,3 +401,68 @@
 	item_state = "wcoat"
 	item_color = "black_tango"
 	fitted = 0
+
+
+/obj/item/clothing/under/maid
+	name = "maid costume"
+	desc = "Maid in China."
+	icon_state = "maid"
+	item_state = "maid"
+	item_color = "maid"
+	body_parts_covered = CHEST|GROIN
+	fitted = 0
+
+
+/obj/item/clothing/under/janimaid
+	name = "maid uniform"
+	desc = "A simple maid uniform for housekeeping."
+	icon_state = "janimaid"
+	item_state = "janimaid"
+	item_color = "janimaid"
+	body_parts_covered = CHEST|GROIN
+	fitted = 0
+
+
+/obj/item/clothing/under/jeans
+	name = "jeans"
+	desc = "A pair of tough blue jeans."
+	icon_state = "jeans"
+	item_state = "jeans"
+	item_color = "jeans"
+	gender = PLURAL
+	body_parts_covered = GROIN|LEGS
+	fitted = 0
+
+
+/obj/item/clothing/under/trackpants
+	name = "track pants"
+	desc = "A pair of track pants, for the athletic."
+	icon_state = "trackpants"
+	item_state = "trackpants"
+	item_color = "trackpants"
+	gender = PLURAL
+	body_parts_covered = GROIN|LEGS
+	fitted = 0
+
+
+/obj/item/clothing/under/khaki
+	name = "khaki pants"
+	desc = "A pair of dust beige khaki pants."
+	icon_state = "khaki"
+	item_state = "khaki"
+	item_color = "khaki"
+	gender = PLURAL
+	body_parts_covered = GROIN|LEGS
+	fitted = 0
+
+
+/obj/item/clothing/under/camo
+	name = "camouflage pants"
+	desc = "A pair of woodland camouflage pants, not good for camouflage in this enviornment."
+	icon_state = "camopants"
+	item_state = "camopants"
+	item_color = "camopants"
+	gender = PLURAL
+	body_parts_covered = GROIN|LEGS
+	fitted = 0
+
