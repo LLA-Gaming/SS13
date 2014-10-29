@@ -20,6 +20,11 @@
 		return 1
 	return 0
 
+/proc/iswerewolf(A)
+	if(istype(A, /mob/living/carbon/werewolf))
+		return 1
+	return 0
+
 /proc/isalienadult(A)
 	if(istype(A, /mob/living/carbon/alien/humanoid))
 		return 1

@@ -960,6 +960,13 @@
 
 			CheckStamina()
 
+			//Werewolf
+			if(mind && mind.special_role == "Werewolf")
+				if(world.time > ((WEREWOLF_HUMAN_COOLDOWN * 60) * 10) + LastTransformation)
+					if(prob(5))
+						var/mob/living/carbon/werewolf/W = new /mob/living/carbon/werewolf(src.loc)
+						W.Initiate(src)
+
 		return 1
 
 	proc/handle_regular_hud_updates()

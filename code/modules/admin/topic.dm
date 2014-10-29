@@ -1153,6 +1153,25 @@
 		message_admins("\red Admin [key_name_admin(usr)] AIized [key_name_admin(H)]!", 1)
 		log_admin("[key_name(usr)] AIized [key_name(H)]")
 		H.AIize()
+	else if(href_list["makewerewolf"])
+		if(!check_rights(R_SPAWN))	return
+
+		var/mob/living/carbon/human/H = locate(href_list["makewerewolf"])
+		if(!istype(H))
+			usr << "This can only be used on instances of type /mob/living/carbon/human"
+			return
+
+		message_admins("\red Admin [key_name_admin(usr)] turned [key_name_admin(H)] into a werewolf!", 1)
+		log_admin("[key_name(usr)] turned [key_name(H)] into a werewolf")
+		var/mob/living/carbon/werewolf/W = new(get_turf(H))
+		W.Initiate(H)
+
+		if(W.mind)
+			W.mind.store_memory("<B><font size=3 color=red>You are the Werewolf.</font></B>")
+		W << "<B><font size=3 color=red>You are the Werewolf.</font></B>"
+		W << {"<font size=2 color=red>As a werewolf, you will sporadically transform between your human form and werewolf form. <br><b>Be aware of this at all times!</b></font>
+			<br><b>You are also able to fling people by clicking on them while clicking ALT(GR), and knocking them down (including borgs) with middle mouse click.</b>
+			"}
 
 	else if(href_list["makealien"])
 		if(!check_rights(R_SPAWN))	return
@@ -1480,6 +1499,25 @@
 	else if(href_list["create_mob"])
 		if(!check_rights(R_SPAWN))	return
 		return create_mob(usr)
+
+	else if(href_list["changeahelpstatus"])
+		if(!check_rights(R_TRIALADMIN))	return
+
+		var/datum/adminhelp/A = locate(href_list["ahelp"])
+		if(!A)	return
+
+		var/newStatus = input("New Status?", "Input") in list("Waiting", "Taken", "Finished", "Cancel")
+		if(newStatus == "Cancel")	return
+
+		switch(newStatus)
+			if("Waiting")
+				A.status = AHELP_WAITING
+			if("Taken")
+				A.status = AHELP_TAKEN
+			if("Finished")
+				A.status = AHELP_FINISHED
+
+		message_admins("[key_name(src)] changed the status of adminhelp '[A]' to '[newStatus]'")
 
 	else if(href_list["object_list"])			//this is the laggiest thing ever
 		if(!check_rights(R_SPAWN))	return

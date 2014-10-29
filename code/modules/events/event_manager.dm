@@ -25,6 +25,18 @@ var/datum/controller/event/events
 		control += E				//add it to the list of all events (controls)
 	reschedule()
 	getHoliday()
+	handleSchedule(holiday)
+
+/*
+*				  Added by Drache~
+*	Added so you can independently change something based
+*	on the holiday it currently is.
+*/
+
+/datum/controller/event/proc/handleSchedule(var/_holiday)
+	if(_holiday == "Halloween")
+		//Make sure Halloween starts after 5 minutes exactly.
+		scheduled = 3000
 
 //This is called by the MC every MC-tick (*neatfreak*).
 /datum/controller/event/proc/process()

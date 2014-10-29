@@ -626,14 +626,8 @@ datum/reagent/zed
 /obj/effect/landmark/holiday
 	name = "landmark"
 
-
-///client/update_admins(var/rank)
-//	..()
-//	if(rank == "Game Master" || rank == "Head of Staff" || rank == "Primary Administrator" /*|| rank == "Administrator"*/)
-//		src.verbs += /client/proc/zombie_verb
-
 /client/proc/zombie_verb()
-	set category = "Zombie"
+	set category = "Fun" //Changed to Fun because why do we need an entire category for one verb? ~Drache
 	set name = "Spawn Zombies"
 	zombie_event(1)
 

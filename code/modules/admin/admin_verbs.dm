@@ -62,7 +62,8 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/show_player_panel,	/*shows an interface for individual players, with various links (links require additional flags*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
 	/client/proc/createPerseusMission,
-	/proc/Ban_Offline_Player
+	/proc/Ban_Offline_Player,
+	/client/proc/spawncostume
 	//+Sound
 	)
 
