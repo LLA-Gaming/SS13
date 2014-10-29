@@ -1500,7 +1500,7 @@
 		if(!check_rights(R_SPAWN))	return
 		return create_mob(usr)
 
-	else if(href_list["changeahelpstatus"])
+/*	else if(href_list["changeahelpstatus"])
 		if(!check_rights(R_TRIALADMIN))	return
 
 		var/datum/adminhelp/A = locate(href_list["ahelp"])
@@ -1517,7 +1517,7 @@
 			if("Finished")
 				A.status = AHELP_FINISHED
 
-		message_admins("[key_name(src)] changed the status of adminhelp '[A]' to '[newStatus]'")
+		message_admins("[key_name(src)] changed the status of adminhelp '[A]' to '[newStatus]'")*/
 
 	else if(href_list["object_list"])			//this is the laggiest thing ever
 		if(!check_rights(R_SPAWN))	return
