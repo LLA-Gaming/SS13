@@ -92,8 +92,8 @@
 
 			// Award medal for participating in halloween events.
 			// @MEDAL
-			if(H.client)
-				H.client.AwardMedal("halloween2014")
+			//if(H.client)
+			//	H.client.AwardMedal("halloween2014")
 
 			//Give people candy bags
 			var/obj/item/weapon/storage/hallooween/B = new(get_turf(H))
