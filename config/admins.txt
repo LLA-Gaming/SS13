@@ -10,38 +10,39 @@
 ######################################################################
 lonewolfsyndrome = Game Master
 
-gamercad = Coder
 hattrickredeyes = Head of Staff
 rawrtaicho = Head of Staff
-wellingtonthe3rd = Head of Staff
 
 thedrachex1 = Coder
+gamercad = Coder
 
+wellingtonthe3rd = Senior Admin
 sishio = Senior Admin
 johnmancer = Senior Admin
 vimes13 = Senior Admin
 cannibalcrow = Senior Admin
 politicalpikachu = Senior Admin
-Emanban = Senior Admin
 ancientv25 = Senior Admin
 Rebelamerica = Senior Admin 
 
+capt_ironblood = Primary Administrator
 magoca = Primary Administrator
 narwhaljones = Primary Administrator
 cyliz = Primary Administrator
-raptorblaze = Primary Administrator
-flavoredcactus = Primary Administrator
+flavoredcactus = Primary Administrator 
 lichling = Primary Administrator
+muldermunrow = Primary Administrator
+sgtkumar = Primary Administrator
 
 legato_frio = Administrator
-muldermunrow = Administrator
 paladinguy = Administrator
+coolpres = Administrator
 
-coolpres = Secondary Admin
 jariahtoadsage = Secondary Admin
 lemonsoup = Secondary Admin
 
-thejuicyfruit = Trial Admin
+Chaznoodles = Trial Admin
+
 
 dothal = Admin Observer
 shiningsoul32 = Admin Observer
@@ -383,3 +384,6 @@ Taicho
 		8/21/14 - Wellington shifted to Head of Staff whilst serving as Deputy Headmin. Adam lowered back down to Senior.
 		8/22/14 - Toxed lowered to Admin Observer on the grounds of inactivity until he can return. 
 				- IDW and Kumar removed for inactivity without explanation.
+		9/14/14 - Emanban removed from the team for misconduct. 
+		9/28/14 - Raptor removed for consistently displaying an attitude that was completely distasteful. Gunned for another member of the team to the point 
+				  where he refused to perform his duties if it meant interacting or otherwise helping that individual.
