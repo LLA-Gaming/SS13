@@ -9,8 +9,14 @@
 /datum/round_event/spooky/
 	var/minWerewolfAmt = 1
 	var/maxWerewolfAmt = 4
+	var/werewolfMinPlayers = 20
 
 	proc/PickWerewolves()
+
+		if(!(clients.len >= werewolfMinPlayers))
+			log_game("Not enough players for werewolf, aborting.")
+			return
+
 		var/scale = round(length(clients) / 8)
 		var/amount = max(1, scale > maxWerewolfAmt ? maxWerewolfAmt : scale)
 		var/picked = 0

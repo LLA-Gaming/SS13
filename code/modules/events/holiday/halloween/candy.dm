@@ -78,8 +78,8 @@
 				return
 			M << "\red You can't eat this."
 			return
-		..(M, user, def_zone)
-		eaten(M)
+		if(..(M, user, def_zone))
+			eaten(M)
 
 /*
 * Candies
