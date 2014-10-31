@@ -467,6 +467,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //		mob_list.Add(M)
 //	for(var/mob/living/silicon/hive_mainframe/M in world)
 //		mob_list.Add(M)
+	for(var/mob/living/carbon/werewolf/WW in sortmob)
+		moblist.Add(WW)
 	return moblist
 
 //E = MC^2

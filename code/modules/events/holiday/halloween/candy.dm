@@ -253,9 +253,9 @@
 	* Peppermint Pattie
 	*/
 
-	pepperment_pattie/
+	/*pepperment_pattie/
 		name = "Zork Peppermint Pattie"
-		icon_state = "placeholder"
+		icon_state = "placeholder"*/
 
 	/*
 	* Lollipops
