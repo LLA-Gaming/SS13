@@ -362,6 +362,9 @@
 		set category = "Werewolf"
 		set name = "Howl"
 
+		if(stat != 0)
+			return
+
 		if(world.time < lastHowl + ((howlCooldown*10)))
 			src << "<div class='warning'>You can't do that yet!</div>"
 			return
