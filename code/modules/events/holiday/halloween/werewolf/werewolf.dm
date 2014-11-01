@@ -331,6 +331,7 @@
 					src << "<div class='info'>You feed from [M].</div>"
 					T.visible_message("<div class='warning'>[src] fed from [M].</div>")
 
+				/*
 				// Devour instead, if they're already dead.
 
 				else
@@ -342,6 +343,7 @@
 					else
 						new /obj/effect/decal/remains/human(get_turf(M))
 					qdel(M)
+				*/
 
 	Stat()
 		..()
