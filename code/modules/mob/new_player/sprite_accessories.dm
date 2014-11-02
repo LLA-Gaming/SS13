@@ -848,12 +848,12 @@
 
 	commie_shirt
 		name = "Question Shirt"
-		icon_state = "watshirt"
+		icon_state = "commie"
 		gender = NEUTER
 
 	nano_shirt
 		name = "Nanotrasen Shirt"
-		icon_state = "skullshirt"
+		icon_state = "nano"
 		gender = NEUTER
 
 ///////////////////////
