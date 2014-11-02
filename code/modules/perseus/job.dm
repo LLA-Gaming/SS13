@@ -6,7 +6,8 @@
 var/list/
 	perseusList = list() //ckey - rank
 	pnumbers = list() //ckey - number
-	pmeta = list() //ckey - metarank
+	pmeta = list() //ckey - metasquadnumber
+	pmetarank = list() //ckey - metarank
 	assignPerseus = list() //used for job assigning
 
 #define PERSEUS_WHITELIST_FILE "config/perseuslist.txt"
@@ -46,14 +47,17 @@ var/list/
 				var/ckeyPos = findtext(line, " - ", 1, 0)
 				var/rankPos = findtext(line, " # ", 1, 0)
 				var/metaPos = findtext(line, " + ", 1, 0)
+				var/metarankPos = findtext(line, " = ", 1, 0)
 				if(ckeyPos)
 					var/ckey = copytext(line, 1, ckeyPos)
 					var/rank = copytext(line, ckeyPos + 3, rankPos)
 					perseusList[ckey] = rank
 					var/number = copytext(line, rankPos + 3, metaPos)
 					pnumbers[ckey] = number
-					var/meta = copytext(line, metaPos + 3, length(line) + 1)
+					var/meta = copytext(line, metaPos + 3, metarankPos)
 					pmeta[ckey] = meta
+					var/metarank = copytext(line, metarankPos + 3, length(line) + 1)
+					pmetarank[ckey] = metarank
 
 #undef PERSEUS_WHITELIST_FILE
 
@@ -122,7 +126,7 @@ var/const/COMMANDER = (1<<1)
 		id.assignment = title
 		id.access = get_access(title)
 
-		var/name = "Perseus Security Enforcer #[pnumbers[H.ckey] ? pnumbers[H.ckey] : rand(100, 999)]-[pmeta[H.ckey] ? pmeta[H.ckey] : ""]"
+		var/name = "Perseus Security [pmetarank[H.ckey] ? pmetarank[H.ckey] : "Enforcer"] #[pnumbers[H.ckey] ? pnumbers[H.ckey] : rand(100, 999)]-[pmeta[H.ckey] ? pmeta[H.ckey] : ""]"
 
 		id.registered_name = name
 		id.name = name
@@ -174,7 +178,7 @@ var/const/COMMANDER = (1<<1)
 		var/obj/item/weapon/card/id/perseus/id = new /obj/item/weapon/card/id/perseus(H)
 		id.assignment = title
 		id.access = get_access(title)
-		id.registered_name ="Perseus Security Commander #[pnumbers[H.ckey] ? pnumbers[H.ckey] : "00[rand(0,9)]"]-[pmeta[H.ckey] ? pmeta[H.ckey] : ""]"
+		id.registered_name ="Perseus Security [pmetarank[H.ckey] ? pmetarank[H.ckey] : "Commander"] #[pnumbers[H.ckey] ? pnumbers[H.ckey] : "00[rand(0,9)]"]-[pmeta[H.ckey] ? pmeta[H.ckey] : ""]"
 		id.name = id.registered_name
 
 		var/obj/item/device/pda/perseus/P = new /obj/item/device/pda/perseus(H)
