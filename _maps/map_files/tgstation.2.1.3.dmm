@@ -1919,7 +1919,7 @@
 "aKU" = (/obj/machinery/door/airlock{name = "Theatre Backstage"; req_access_txt = "46"},/turf/simulated/floor,/area/crew_quarters/theatre)
 "aKV" = (/obj/machinery/atmospherics/pipe/simple{pipe_color = "blue"; icon_state = "intact-b-f"; level = 1; name = "pipe"},/turf/simulated/wall,/area/crew_quarters/theatre)
 "aKW" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/turf/simulated/wall,/area/crew_quarters/theatre)
-"aKX" = (/obj/machinery/door/airlock/maintenance{name = "Bar Maintenance"; req_access_txt = "12"},/obj/structure/disposalpipe/segment,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/turf/simulated/floor/plating,/area/maintenance/fsmaint2)
+"aKX" = (/obj/structure/disposalpipe/segment,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/door/airlock/maintenance{name = "Maintenance Access"; req_access_txt = "0"; req_one_access_txt = "12;25;46;22;35;37"},/turf/simulated/floor/plating,/area/maintenance/fsmaint2)
 "aKY" = (/turf/simulated/wall,/area/crew_quarters/bar)
 "aKZ" = (/obj/machinery/atmospherics/pipe/simple{pipe_color = "blue"; icon_state = "intact-b-f"; level = 1; name = "pipe"},/obj/item/weapon/reagent_containers/food/drinks/shaker,/obj/item/weapon/gun/projectile/revolver/doublebarrel,/obj/structure/table/woodentable,/turf/simulated/floor/wood,/area/crew_quarters/bar)
 "aLa" = (/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/turf/simulated/floor/wood,/area/crew_quarters/bar)
