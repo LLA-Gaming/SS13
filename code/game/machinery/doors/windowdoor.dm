@@ -59,6 +59,17 @@
 	return
 
 /obj/machinery/door/window/bumpopen(mob/user as mob)
+	if(operating)	return
+	src.add_fingerprint(user)
+	if(!src.requiresID())
+		user = null
+
+	if(density && !emagged)
+		if(allowed(user) || src.emergency == 1)	open_and_close()
+		else				flick(text("[]deny", src.base_state), src)
+	return
+//Why the below doesn't work, I am too tired to figure out. According to Flavo it was allowing percs who didn't have armory access into the armory. Let me go back to the hot tub already. - Raptorblaze
+/*
 	if( operating || !src.density )
 		return
 	src.add_fingerprint(user)
@@ -70,7 +81,7 @@
 	else
 		flick(text("[]deny", src.base_state), src)
 	return
-
+*/
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
@@ -241,7 +252,7 @@
 		open()
 		emagged = 1
 		return 1
-	
+
 	//If windoor is unpowered, crowbar, fireaxe and armblade can force it.
 	if(istype(I, /obj/item/weapon/crowbar) || istype(I, /obj/item/weapon/twohanded/fireaxe) || istype(I, /obj/item/weapon/melee/arm_blade) )
 		if(stat & NOPOWER)
@@ -260,7 +271,7 @@
 		if(I.damtype == BURN || I.damtype == BRUTE)
 			take_damage(aforce)
 		return
-	
+
 	src.add_fingerprint(user)
 	if (!src.requiresID())
 		//don't care who they are or what they have, act as if they're NOTHING
