@@ -29,10 +29,13 @@ var/list/
 		while(query.NextRow())
 			var/ckey = sanitizeSQL(ckey(query.item[2]))
 			var/number = sanitizeSQL(query.item[3])
+			if(!number)	number = rand(100, 999)
 			var/rank = sanitizeSQL(query.item[4])
-			if(ckey && number && rank)
+			var/squad = sanitizeSQL(query.item[5])
+			if(ckey && number && rank && squad)
 				pnumbers[ckey] = number
 				perseusList[ckey] = rank
+				pmeta[ckey] = squad
 	else
 		var/file = file2text(PERSEUS_WHITELIST_FILE)
 		if(!file)
