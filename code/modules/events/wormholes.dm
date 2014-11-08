@@ -63,15 +63,14 @@
 
 	if(istype(M, /atom/movable))
 		var/turf/target
-		var/list/valid_portals = list()
+		var/obj/effect/portal/P
 		if(portals.len)
-			for (var/obj/effect/portal/P in portals) //Loop to check all potential portals for validity
-				if(P && isturf(P.loc))
-					if(P.z == 1) // only allow portals in Z=1 to be warped to
-						valid_portals += P
-				continue
-			var/obj/effect/portal/P = pick(valid_portals)
-			target = P.loc
-
+			for (var/i = 0, i<400, i++)
+				P = pick(portals)
+				if(P && isturf(P.loc) && (P.z == 1))
+					target = P.loc
+					break
+				else
+					continue
 		if(!target)	return
 		do_teleport(M, target, 1, 1, 0, 0) ///You will appear adjacent to the beacon
