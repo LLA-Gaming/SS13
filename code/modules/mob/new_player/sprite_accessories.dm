@@ -687,174 +687,344 @@
 		gender = NEUTER
 
 	black_shirt
-		name = "Black Shirt"
+		name = "Mens Black Shirt"
 		icon_state = "bl_shirt"
-		gender = NEUTER
+		gender = MALE
+
+	black_shirt_fem
+		name = "Ladies Black Shirt"
+		icon_state = "bl_shirt_fem"
+		gender = FEMALE
 
 	black_shirt2
-		name = "Black Shirt 2"
+		name = "Mens Black Shirt 2"
 		icon_state = "bl_shirt2"
-		gender = NEUTER
+		gender = MALE
+
+	black_shirt2_fem
+		name = "Ladies Black Shirt 2"
+		icon_state = "bl_shirt2_fem"
+		gender = FEMALE
 
 	white_shirt
-		name = "White Shirt"
+		name = "Mens White Shirt"
 		icon_state = "wt_shirt"
-		gender = NEUTER
+		gender = MALE
+
+	white_shirt_fem
+		name = "Ladies White Shirt"
+		icon_state = "wt_shirt_fem"
+		gender = FEMALE
 
 	white_shirt2
-		name = "White Shirt 2"
+		name = "Mens White Shirt 2"
 		icon_state = "wt_shirt2"
-		gender = NEUTER
+		gender = MALE
+
+	white_shirt2_fem
+		name = "Ladies White Shirt 2"
+		icon_state = "wt_shirt2_fem"
+		gender = FEMALE
 
 	black_tank_top
-		name = "Black Tank Top"
+		name = "Mens Black Tank Top"
 		icon_state = "bl_ttop"
-		gender = NEUTER
+		gender = MALE
+
+	black_tank_top_fem
+		name = "Ladies Black Tank Top"
+		icon_state = "bl_ttop_fem"
+		gender = FEMALE
 
 	white_tank_top
-		name = "White Tank Top"
+		name = "Mens White Tank Top"
 		icon_state = "wt_ttop"
-		gender = NEUTER
+		gender = MALE
+
+	white_tank_top_fem
+		name = "Ladies White Tank Top"
+		icon_state = "wt_ttop_fem"
+		gender = FEMALE
 
 	atmos_tank
-		name = "Atmos Tank Top"
+		name = "Mens Atmos Tank Top"
 		icon_state = "atmostank"
-		gender = NEUTER
+		gender = MALE
+
+	atmos_tank_fem
+		name = "Ladies Atmos Tank Top"
+		icon_state = "atmostank_fem"
+		gender = FEMALE
 
 	botany_tank
-		name = "Botany Tank Top"
+		name = "Mens Botany Tank Top"
 		icon_state = "botanytank"
-		gender = NEUTER
+		gender = MALE
+
+	botany_tank_fem
+		name = "Ladies Botany Tank Top"
+		icon_state = "botanytank_fem"
+		gender = FEMALE
 
 	engi_tank
-		name = "Engineering Tank Top"
+		name = "Mens Engineering Tank Top"
 		icon_state = "engitank"
-		gender = NEUTER
+		gender = MALE
+
+	engi_tank_fem
+		name = "Ladies Engineering Tank Top"
+		icon_state = "engitank_fem"
+		gender = FEMALE
 
 	sci_tank
-		name = "Science Tank Top"
+		name = "Mens Science Tank Top"
 		icon_state = "scitank"
-		gender = NEUTER
+		gender = MALE
+
+	sci_tank_fem
+		name = "Ladies Science Tank Top"
+		icon_state = "scitank_fem"
+		gender = FEMALE
 
 	mine_tank
-		name = "Mining Tank Top"
+		name = "Mens Mining Tank Top"
 		icon_state = "minetank"
-		gender = NEUTER
+		gender = MALE
+
+	mine_tank_fem
+		name = "Ladies Mining Tank Top"
+		icon_state = "minetank_fem"
+		gender = FEMALE
 
 	jani_tank
-		name = "Janitorial Tank Top"
+		name = "Mens Janitorial Tank Top"
 		icon_state = "janitank"
-		gender = NEUTER
+		gender = MALE
+
+	jani_tank_fem
+		name = "Ladies Janitorial Tank Top"
+		icon_state = "janitank_fem"
+		gender = FEMALE
 
 	med_tank
-		name = "Medical Tank Top"
+		name = "Mens Medical Tank Top"
 		icon_state = "medtank"
-		gender = NEUTER
+		gender = MALE
+
+	med_tank_fem
+		name = "Ladies Medical Tank Top"
+		icon_state = "medtank"
+		gender = FEMALE
 
 	robo_tank
-		name = "Robotics Tank Top"
+		name = "Mens Robotics Tank Top"
 		icon_state = "robotank"
-		gender = NEUTER
+		gender = MALE
+
+	robo_tank_fem
+		name = "Ladies Robotics Tank Top"
+		icon_state = "robotank_fem"
+		gender = FEMALE
 
 	sec_tank
-		name = "Security Tank Top"
+		name = "Mens Security Tank Top"
 		icon_state = "sectank"
-		gender = NEUTER
+		gender = MALE
+
+	sec_tank_fem
+		name = "Ladies Security Tank Top"
+		icon_state = "sectank_fem"
+		gender = FEMALE
 
 	rainbow_tank
-		name = "Rainbow Tank Top"
+		name = "Mens Rainbow Tank Top"
 		icon_state = "rainbowtank"
-		gender = NEUTER
+		gender = MALE
+
+	rainbow_tank_fem
+		name = "Ladies Rainbow Tank Top"
+		icon_state = "rainbowtank_fem"
+		gender = FEMALE
 
 	happy_tank
-		name = "Happy Tank Top"
+		name = "Mens Happy Tank Top"
 		icon_state = "happytank"
-		gender = NEUTER
+		gender = MALE
+
+	happy_tank_fem
+		name = "Ladies Happy Tank Top"
+		icon_state = "happytank_fem"
+		gender = FEMALE
 
 	neutral_tank
-		name = "Neutral Tank Top"
+		name = "Mens Neutral Tank Top"
 		icon_state = "neutraltank"
-		gender = NEUTER
+		gender = MALE
+
+	neutral_tank_fem
+		name = "Ladies Neutral Tank Top"
+		icon_state = "neutraltank_fem"
+		gender = FEMALE
 
 	sad_tank
-		name = "Sad Tank Top"
+		name = "Mens Sad Tank Top"
 		icon_state = "sadtank"
-		gender = NEUTER
+		gender = MALE
+
+	sad_tank_fem
+		name = "Ladies Sad Tank Top"
+		icon_state = "sadtank_fem"
+		gender = FEMALE
 
 	assistant_tank
-		name = "Assistant Tank Top"
+		name = "Mens Assistant Tank Top"
 		icon_state = "assistanttank"
-		gender = NEUTER
+		gender = MALE
+
+	assistant_tank_fem
+		name = "Ladies Assistant Tank Top"
+		icon_state = "assistanttank_fem"
+		gender = FEMALE
 
 	dorf_tank
-		name = "Dwarf Tank Top"
+		name = "Mens Dwarf Tank Top"
 		icon_state = "dorftank"
-		gender = NEUTER
+		gender = MALE
+
+	dorf_tank_fem
+		name = "Ladies Dwarf Tank Top"
+		icon_state = "dorftank_fem"
+		gender = FEMALE
 
 	monkey_tank
-		name = "Monkey Tank Top"
+		name = "Mens Monkey Tank Top"
 		icon_state = "monkeytank"
-		gender = NEUTER
+		gender = MALE
+
+	monkey_tank_fem
+		name = "Ladies Monkey Tank Top"
+		icon_state = "monkeytank_fem"
+		gender = FEMALE
 
 	praise_the_sun_tank
-		name = "Praise The Sun Tank Top" //Looks a tad shit all capitalised
+		name = "Mens Praise The Sun Tank Top" //Looks a tad shit all capitalised
 		icon_state = "praisethesuntank"
-		gender = NEUTER
+		gender = MALE
+
+	praise_the_sun_tank_fem
+		name = "Ladies Praise The Sun Tank Top" //Looks a tad shit all capitalised
+		icon_state = "praisethesuntank_fem"
+		gender = FEMALE
 
 	treehugger_tank
-		name = "Treehugger Tank Top"
+		name = "Mens Treehugger Tank Top"
 		icon_state = "treehuggertank"
-		gender = NEUTER
+		gender = MALE
+
+	treehugger_tank_fem
+		name = "Ladies Treehugger Tank Top"
+		icon_state = "treehuggertank_fem"
+		gender = FEMALE
 
 	skull_tank
-		name = "Skull Tank Top"
+		name = "Mens Skull Tank Top"
 		icon_state = "skull_ttop"
-		gender = NEUTER
+		gender = MALE
+
+	skull_tank_fem
+		name = "Ladies Skull Tank Top"
+		icon_state = "skull_ttop_fem"
+		gender = FEMALE
 
 	rus_shirt
-		name = "Telnyashka Shirt"
+		name = "Mens Telnyashka Shirt"
 		icon_state = "rus_shirt"
-		gender = NEUTER
+		gender = MALE
+
+	rus_shirt_fem
+		name = "Ladies Telnyashka Shirt"
+		icon_state = "rus_shirt_fem"
+		gender = FEMALE
 
 	rus_tank
-		name = "Telnyashka Tank Top"
+		name = "Mens Telnyashka Tank Top"
 		icon_state = "rus_ttop"
-		gender = NEUTER
+		gender = MALE
+
+	rus_tank_fem
+		name = "Ladies Telnyashka Tank Top"
+		icon_state = "rus_ttop_fem"
+		gender = FEMALE
 
 	ss13_shirt
-		name = "Space Station 13 Shirt"
+		name = "Mens Space Station 13 Shirt"
 		icon_state = "ss13shirt"
-		gender = NEUTER
+		gender = MALE
+
+	ss13_shirt_fem
+		name = "Ladies Space Station 13 Shirt"
+		icon_state = "ss13shirt_fem"
+		gender = FEMALE
 
 	bleed_shirt
-		name = "Wound Shirt"
+		name = "Mens Wound Shirt"
 		icon_state = "bleedshirt"
-		gender = NEUTER
+		gender = MALE
+
+	bleed_shirt_fem
+		name = "Ladies Wound Shirt"
+		icon_state = "bleedshirt_fem"
+		gender = FEMALE
 
 	ian_shirt
-		name = "Corgi Shirt"
+		name = "Mens Corgi Shirt"
 		icon_state = "ianshirt"
-		gender = NEUTER
+		gender = MALE
+
+	ian_shirt_fem
+		name = "Ladies Corgi Shirt"
+		icon_state = "ianshirt_fem"
+		gender = FEMALE
 
 	wat_shirt
-		name = "Question Shirt"
+		name = "Mens Question Shirt"
 		icon_state = "watshirt"
-		gender = NEUTER
+		gender = MALE
+
+	wat_shirt_fem
+		name = "Ladies Question Shirt"
+		icon_state = "watshirt_fem"
+		gender = FEMALE
 
 	skull_shirt
-		name = "Skull Shirt"
+		name = "Mens Skull Shirt"
 		icon_state = "skullshirt"
-		gender = NEUTER
+		gender = MALE
+
+	skull_shirt_fem
+		name = "Ladies Skull Shirt"
+		icon_state = "skullshirt_fem"
+		gender = FEMALE
 
 	commie_shirt
-		name = "Question Shirt"
+		name = "Mens Commie Shirt"
 		icon_state = "commie"
-		gender = NEUTER
+		gender = MALE
+
+	commie_shirt_fem
+		name = "Ladies Commie Shirt"
+		icon_state = "commie_fem"
+		gender = FEMALE
 
 	nano_shirt
-		name = "Nanotrasen Shirt"
+		name = "Mens Nanotrasen Shirt"
 		icon_state = "nano"
-		gender = NEUTER
+		gender = MALE
+
+	nano_shirt_fem
+		name = "Ladies Nanotrasen Shirt"
+		icon_state = "nano_fem"
+		gender = FEMALE
 
 ///////////////////////
 // Socks Definitions //
