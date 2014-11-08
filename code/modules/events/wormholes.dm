@@ -63,9 +63,14 @@
 
 	if(istype(M, /atom/movable))
 		var/turf/target
+		var/obj/effect/portal/P
 		if(portals.len)
-			var/obj/effect/portal/P = pick(portals)
-			if(P && isturf(P.loc))
-				target = P.loc
+			for (var/i = 0, i<400, i++)
+				P = pick(portals)
+				if(P && isturf(P.loc) && (P.z == 1))
+					target = P.loc
+					break
+				else
+					continue
 		if(!target)	return
 		do_teleport(M, target, 1, 1, 0, 0) ///You will appear adjacent to the beacon
