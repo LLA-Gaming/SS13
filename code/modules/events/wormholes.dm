@@ -64,8 +64,8 @@
 	if(istype(M, /atom/movable))
 		var/turf/target
 		if(portals.len)
-			var/obj/effect/portal/P = pick(portals)
+			var/obj/effect/portal/wormhole/P = locate() in shuffle(portals)
 			if(P && isturf(P.loc))
-				target = P.loc
+				target = get_turf(P)
 		if(!target)	return
 		do_teleport(M, target, 1, 1, 0, 0) ///You will appear adjacent to the beacon
