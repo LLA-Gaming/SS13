@@ -69,6 +69,9 @@
 			var/new_sheet_name = ""
 			var/new_softcap_icon_state = ""
 			var/new_softcap_name = ""
+			var/new_balaclava_icon_state = ""
+			var/new_balaclava_item_state = ""
+			var/new_balaclava_name = ""
 			var/new_desc = "The colors are a bit dodgy."
 			for(var/T in typesof(/obj/item/clothing/under/color))
 				var/obj/item/clothing/under/color/J = new T
@@ -122,6 +125,17 @@
 					//world << "DEBUG: YUP! [new_icon_state] and [new_item_state]"
 					break
 				qdel(H)
+			for(var/T in typesof(/obj/item/clothing/mask/balaclava))
+				var/obj/item/clothing/under/color/A = new T
+				world << "DEBUG: [wash_color] == [A.item_color]"
+				if(wash_color == A.item_color)
+					new_balaclava_icon_state = A.icon_state
+					new_balaclava_item_state = A.item_state
+					new_balaclava_name = A.name
+					qdel(A)
+					world << "DEBUG: YUP! [new_balaclava_icon_state] and [new_balaclava_item_state]"
+					break
+				qdel(A)
 			if(new_jumpsuit_icon_state && new_jumpsuit_item_state && new_jumpsuit_name)
 				for(var/obj/item/clothing/under/color/J in contents)
 					//world << "DEBUG: YUP! FOUND IT!"
@@ -164,6 +178,14 @@
 					H.item_color = wash_color
 					H.name = new_softcap_name
 					H.desc = new_desc
+			if(new_balaclava_icon_state && new_balaclava_item_state && new_balaclava_name)
+				for(var/obj/item/clothing/mask/balaclava/A in contents)
+					world << "DEBUG: YUP! FOUND IT!"
+					A.item_state = new_balaclava_item_state
+					A.icon_state = new_balaclava_icon_state
+					A.item_color = wash_color
+					A.name = new_balaclava_name
+					A.desc = new_desc
 		qdel(crayon)
 		crayon = null
 
