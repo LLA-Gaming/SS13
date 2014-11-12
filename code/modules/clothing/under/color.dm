@@ -1,3 +1,6 @@
+/obj/item/clothing/under/color
+	dye_path = /obj/item/clothing/under/color
+
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
 	icon_state = "black"

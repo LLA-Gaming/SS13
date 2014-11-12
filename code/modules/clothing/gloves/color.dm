@@ -1,3 +1,6 @@
+/obj/item/clothing/gloves
+	dye_path = /obj/item/clothing/gloves
+
 /obj/item/clothing/gloves/yellow
 	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"
