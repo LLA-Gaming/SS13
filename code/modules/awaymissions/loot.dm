@@ -183,5 +183,4 @@
 				/obj/item/device/assembly/voice = 1,
 				/obj/item/weapon/razor = 1,
 				/obj/item/weapon/wirerod = 1,
-				/obj/item/weapon/paint/anycolor = 1
 				)
