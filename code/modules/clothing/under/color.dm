@@ -1,5 +1,5 @@
-/obj/item/clothing/under/color
-	dye_path = /obj/item/clothing/under/color
+/obj/item/clothing/under/
+	dye_path = /obj/item/clothing/under/
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
