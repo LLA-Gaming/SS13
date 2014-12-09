@@ -4,63 +4,48 @@
 	icon_state = "balaclava"
 	item_state = "balaclava"
 	item_color = "black"
+	dye_path = /obj/item/clothing/mask/balaclava
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	w_class = 2
 
 //New dyed balaclavas, complements of Lichling and Raptorblaze
 /obj/item/clothing/mask/balaclava/red
-	name = "balaclava"
-	desc = "LOADSAMONEY"
 	icon_state = "balaclava_red"
 	item_state = "balaclava_red"
 	item_color = "red"
 
 /obj/item/clothing/mask/balaclava/orange
-	name = "balaclava"
-	desc = "LOADSAMONEY"
 	icon_state = "balaclava_orange"
 	item_state = "balaclava_orange"
 	item_color = "orange"
 
 /obj/item/clothing/mask/balaclava/yellow
-	name = "balaclava"
-	desc = "LOADSAMONEY"
 	icon_state = "balaclava_yellow"
 	item_state = "balaclava_yellow"
 	item_color = "yellow"
 
 /obj/item/clothing/mask/balaclava/green
-	name = "balaclava"
-	desc = "LOADSAMONEY"
 	icon_state = "balaclava_green"
 	item_state = "balaclava_green"
 	item_color = "green"
 
 /obj/item/clothing/mask/balaclava/blue
-	name = "balaclava"
-	desc = "LOADSAMONEY"
 	icon_state = "balaclava_blue"
 	item_state = "balaclava_blue"
 	item_color = "blue"
 
 /obj/item/clothing/mask/balaclava/purple
-	name = "balaclava"
-	desc = "LOADSAMONEY"
 	icon_state = "balaclava_purple"
 	item_state = "balaclava_purple"
 	item_color = "purple"
 
 /obj/item/clothing/mask/balaclava/rainbow
-	name = "balaclava"
-	desc = "LOADSAMONEY"
 	icon_state = "balaclava_rainbow"
 	item_state = "balaclava_rainbow"
 	item_color = "rainbow"
 
 /obj/item/clothing/mask/balaclava/mime
-	name = "balaclava"
-	desc = "LOADSAMONEY"
 	icon_state = "balaclava_mime"
 	item_state = "balaclava_mime"
 	item_color = "mime"

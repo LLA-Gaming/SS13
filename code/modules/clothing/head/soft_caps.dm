@@ -4,6 +4,7 @@
 	icon_state = "cargosoft"
 	item_state = "helmet"
 	item_color = "cargo"
+	dye_path = /obj/item/clothing/head/soft
 	var/flipped = 0
 
 	dropped()

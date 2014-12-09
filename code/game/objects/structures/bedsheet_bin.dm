@@ -17,6 +17,7 @@ LINEN BINS
 	throw_range = 2
 	w_class = 1.0
 	item_color = "white"
+	var/dye_path = /obj/item/weapon/bedsheet //Yes I know this isn't the perfect way to make it dyable, but having a random weapon be dyable isn't perfect either. - Raptorblaze
 
 
 /obj/item/weapon/bedsheet/attack(mob/living/M, mob/user)

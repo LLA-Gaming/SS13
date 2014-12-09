@@ -26,6 +26,7 @@
 	set name = "Start Washing"
 	set category = "Object"
 	set src in oview(1)
+	var/wash_color
 
 	if( state != 4 )
 		usr << "The washing machine cannot run in this state."
@@ -37,18 +38,8 @@
 		state = 5
 	update_icon()
 	sleep(200)
-	for(var/atom/A in contents)
-		A.clean_blood()
-
-	//Tanning!
-	for(var/obj/item/stack/sheet/hairlesshide/HH in contents)
-		var/obj/item/stack/sheet/wetleather/WL = new(src)
-		WL.amount = HH.amount
-		qdel(HH)
-
 
 	if(crayon)
-		var/wash_color
 		if(istype(crayon,/obj/item/toy/crayon))
 			var/obj/item/toy/crayon/CR = crayon
 			wash_color = CR.colourName
@@ -56,139 +47,18 @@
 			var/obj/item/weapon/stamp/ST = crayon
 			wash_color = ST.item_color
 
+	for(var/atom/A in contents)
+		A.clean_blood()
 		if(wash_color)
-			var/new_jumpsuit_icon_state = ""
-			var/new_jumpsuit_item_state = ""
-			var/new_jumpsuit_name = ""
-			var/new_glove_icon_state = ""
-			var/new_glove_item_state = ""
-			var/new_glove_name = ""
-			var/new_shoe_icon_state = ""
-			var/new_shoe_name = ""
-			var/new_sheet_icon_state = ""
-			var/new_sheet_name = ""
-			var/new_softcap_icon_state = ""
-			var/new_softcap_name = ""
-			var/new_balaclava_icon_state = ""
-			var/new_balaclava_item_state = ""
-			var/new_balaclava_name = ""
-			var/new_desc = "The colors are a bit dodgy."
-			for(var/T in typesof(/obj/item/clothing/under/color))
-				var/obj/item/clothing/under/color/J = new T
-				//world << "DEBUG: [wash_color] == [J.item_color]"
-				if(wash_color == J.item_color)
-					new_jumpsuit_icon_state = J.icon_state
-					new_jumpsuit_item_state = J.item_state
-					new_jumpsuit_name = J.name
-					qdel(J)
-					//world << "DEBUG: YUP! [new_icon_state] and [new_item_state]"
-					break
-				qdel(J)
-			for(var/T in typesof(/obj/item/clothing/gloves))
-				var/obj/item/clothing/gloves/G = new T
-				//world << "DEBUG: [wash_color] == [J.item_color]"
-				if(wash_color == G.item_color)
-					new_glove_icon_state = G.icon_state
-					new_glove_item_state = G.item_state
-					new_glove_name = G.name
-					qdel(G)
-					//world << "DEBUG: YUP! [new_icon_state] and [new_item_state]"
-					break
-				qdel(G)
-			for(var/T in typesof(/obj/item/clothing/shoes/sneakers))
-				var/obj/item/clothing/shoes/sneakers/S = new T
-				//world << "DEBUG: [wash_color] == [J.item_color]"
-				if(wash_color == S.item_color)
-					new_shoe_icon_state = S.icon_state
-					new_shoe_name = S.name
-					qdel(S)
-					//world << "DEBUG: YUP! [new_icon_state] and [new_item_state]"
-					break
-				qdel(S)
-			for(var/T in typesof(/obj/item/weapon/bedsheet))
-				var/obj/item/weapon/bedsheet/B = new T
-				//world << "DEBUG: [wash_color] == [J.item_color]"
-				if(wash_color == B.item_color)
-					new_sheet_icon_state = B.icon_state
-					new_sheet_name = B.name
-					qdel(B)
-					//world << "DEBUG: YUP! [new_icon_state] and [new_item_state]"
-					break
-				qdel(B)
-			for(var/T in typesof(/obj/item/clothing/head/soft))
-				var/obj/item/clothing/head/soft/H = new T
-				//world << "DEBUG: [wash_color] == [J.item_color]"
-				if(wash_color == H.item_color)
-					new_softcap_icon_state = H.icon_state
-					new_softcap_name = H.name
-					qdel(H)
-					//world << "DEBUG: YUP! [new_icon_state] and [new_item_state]"
-					break
-				qdel(H)
-			for(var/T in typesof(/obj/item/clothing/mask/balaclava))
-				var/obj/item/clothing/under/color/A = new T
-				world << "DEBUG: [wash_color] == [A.item_color]"
-				if(wash_color == A.item_color)
-					new_balaclava_icon_state = A.icon_state
-					new_balaclava_item_state = A.item_state
-					new_balaclava_name = A.name
-					qdel(A)
-					world << "DEBUG: YUP! [new_balaclava_icon_state] and [new_balaclava_item_state]"
-					break
-				qdel(A)
-			if(new_jumpsuit_icon_state && new_jumpsuit_item_state && new_jumpsuit_name)
-				for(var/obj/item/clothing/under/color/J in contents)
-					//world << "DEBUG: YUP! FOUND IT!"
-					J.item_state = new_jumpsuit_item_state
-					J.icon_state = new_jumpsuit_icon_state
-					J.item_color = wash_color
-					J.name = new_jumpsuit_name
-					J.desc = new_desc
-					J.suit_color = wash_color
-			if(new_glove_icon_state && new_glove_item_state && new_glove_name)
-				for(var/obj/item/clothing/gloves/G in contents)
-					//world << "DEBUG: YUP! FOUND IT!"
-					G.item_state = new_glove_item_state
-					G.icon_state = new_glove_icon_state
-					G.item_color = wash_color
-					G.name = new_glove_name
-					G.desc = new_desc
-			if(new_shoe_icon_state && new_shoe_name)
-				for(var/obj/item/clothing/shoes/sneakers/S in contents)
-					//world << "DEBUG: YUP! FOUND IT!"
-					if (S.chained == 1)
-						S.chained = 0
-						S.slowdown = SHOES_SLOWDOWN
-						new /obj/item/weapon/handcuffs( src )
-					S.icon_state = new_shoe_icon_state
-					S.item_color = wash_color
-					S.name = new_shoe_name
-					S.desc = new_desc
-			if(new_sheet_icon_state && new_sheet_name)
-				for(var/obj/item/weapon/bedsheet/B in contents)
-					//world << "DEBUG: YUP! FOUND IT!"
-					B.icon_state = new_sheet_icon_state
-					B.item_color = wash_color
-					B.name = new_sheet_name
-					B.desc = new_desc
-			if(new_softcap_icon_state && new_softcap_name)
-				for(var/obj/item/clothing/head/soft/H in contents)
-					//world << "DEBUG: YUP! FOUND IT!"
-					H.icon_state = new_softcap_icon_state
-					H.item_color = wash_color
-					H.name = new_softcap_name
-					H.desc = new_desc
-			if(new_balaclava_icon_state && new_balaclava_item_state && new_balaclava_name)
-				for(var/obj/item/clothing/mask/balaclava/A in contents)
-					world << "DEBUG: YUP! FOUND IT!"
-					A.item_state = new_balaclava_item_state
-					A.icon_state = new_balaclava_icon_state
-					A.item_color = wash_color
-					A.name = new_balaclava_name
-					A.desc = new_desc
-		qdel(crayon)
-		crayon = null
+			dye(A, wash_color) //New, hopefully better way of dying things. See the proc for instructions on adding new items
+	qdel(crayon)
+	crayon = null
 
+	//Tanning!
+	for(var/obj/item/stack/sheet/hairlesshide/HH in contents)
+		var/obj/item/stack/sheet/wetleather/WL = new(src)
+		WL.amount = HH.amount
+		qdel(HH)
 
 	if( locate(/mob,contents) )
 		state = 7
@@ -205,6 +75,46 @@
 	sleep(20)
 	if(state in list(1,3,6) )
 		usr.loc = src.loc
+
+/obj/machinery/washing_machine/proc/dye(var/obj/item/clothing/C as obj, var/wash_color)
+	//To add new dyable items, set dye_path of the item to the path you want it to search for available colors, and make sure all dyed variants are children.
+	//Make sure there are no two items with the same item_color in that group, or weird behavior may result.
+	if (!C.dye_path) return //Let's not waste our time here
+
+	var/new_name = ""
+	var/new_desc = "The colors are a bit dodgy."
+	var/new_icon_state = ""
+	var/new_item_state = ""
+
+	for (var/T in typesof(C.dye_path))
+		var/obj/item/clothing/O = new T
+		//world << "DEBUG: [wash_color] == [O.item_color], If this is left on Drache can punch Raptor"
+		if (wash_color == O.item_color)
+			//world << "DEBUG: [O.item_color] found!"
+			new_name = O.name
+			new_icon_state = O.icon_state
+			new_item_state = O.item_state
+			qdel(O)
+			break
+		qdel(O)
+
+	if (new_name && new_icon_state)
+		//world << "DEBUG: [new_name] and [new_icon_state] found, dying item."
+		if (istype(C, /obj/item/clothing/shoes/))
+			var/obj/item/clothing/shoes/D = C
+			//world << "DEBUG: Item is shoes"
+			if (D.chained == 1)
+				//world << "DEBUG: Chains found, removing"
+				D.chained = 0
+				D.slowdown = SHOES_SLOWDOWN
+				new /obj/item/weapon/handcuffs(src)
+		C.name = new_name
+		C.icon_state = new_icon_state
+		C.item_state = new_item_state
+		C.desc = new_desc
+		C.item_color = wash_color
+	return
+
 
 
 /obj/machinery/washing_machine/update_icon()

@@ -5,13 +5,13 @@ SERVERNAME Libertys Last Army Main Server [Official LLA]
 LOBBY_COUNTDOWN 180
 
 ## Add a # infront of this if you want to use the SQL based admin system, the legacy system uses admins.txt. You need to set up your database to use the SQL based system.
-#ADMIN_LEGACY_SYSTEM
+ADMIN_LEGACY_SYSTEM
 
 ## Add a # infront of this if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
 BAN_LEGACY_SYSTEM
 
 ## Remove # to use the perseuslist.txt instead of the database.
-#PERSEUS_LEGACY_SYSTEM		
+PERSEUS_LEGACY_SYSTEM		
 
 ## Add # to have the mycenae start next to the old tcomssat
 MYCENAE_STARTS_AT_CENTCOM
