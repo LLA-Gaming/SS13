@@ -27,6 +27,40 @@ datum/admins/proc/notes_gethtml(var/ckey)
 			. += "<a href='?_src_=holder;notes=show;ckey=[dir]'>[dir]</a><br>"
 	return
 
+/proc/get_notes_for_ckey_by_index(var/ckey, var/_index)
+	var/savefile/notesfile = new(NOTESFILE)
+	if(!notesfile)	return "Error: Couldn't access notes file."
+
+	if(ckey)
+		notesfile.cd = "/[ckey]"
+		var/count = 0
+		while(!notesfile.eof)
+			var/note
+			notesfile >> note
+			// For some reason, (or I'm just being stupid), integer comparison does not work here. This does though. Don't ask.
+			if("[count]" == "[_index]")
+				return note
+
+			count++
+
+	return "Error."
+
+/proc/get_notes_amt_by_ckey(var/ckey)
+	var/savefile/notesfile = new(NOTESFILE)
+	if(!notesfile)	return "0"
+
+	if(ckey)
+		notesfile.cd = "/[ckey]"
+		var/count = 0
+		while(!notesfile.eof)
+			// This has to be there to get to the next buffered note.
+			var/note
+			notesfile >> note
+			//
+			count++
+		return "[count]"
+
+	return "0"
 
 //handles adding notes to the end of a ckey's buffer
 //originally had seperate entries such as var/by to record who left the note and when
