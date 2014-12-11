@@ -10,5 +10,8 @@
 *.rsc
 *.lk
 *.int
+
+#These don't need to by synced
 data/
 config/
+.gitignore
