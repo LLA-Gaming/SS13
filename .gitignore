@@ -1,17 +1,11 @@
 #Files and folders specified here will never be tracked.
-
 *.ban
 *.bdb
 *.log
 *.sav
-
 #Compiled files and other files generated during compilation.
 *.dmb
 *.rsc
 *.lk
 *.int
-
-#These don't need to by synced
-data/
-config/
-.gitignore
+/data/mode.txt
