@@ -149,6 +149,10 @@
 	loc.assume_air(from_int)
 	air_contents.merge(from_env)
 
+	
+/obj/structure/transit_tube_pod/proc/eject_contents()
+	for(var/atom/movable/AM in contents)
+		AM.loc = loc
 
 
 // When the player moves, check if the pos is currently stopped at a station.
