@@ -122,6 +122,7 @@
 		sleep(OPEN_DURATION + 2)
 		pod_moving = 0
 		pod.mix_air()
+		pod.eject_contents() //Prevents things getting stuck in pod
 
 // Tube station directions are simply 90 to either side of
 //  the exit.
