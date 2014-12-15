@@ -21,7 +21,7 @@
 /obj/item/weapon/stamp/law
 	name = "law office's rubber stamp"
 	icon_state = "stamp-law"
-	item_color = "cargo"
+	item_color = "lawyer_black"
 
 /obj/item/weapon/stamp/captain
 	name = "captain's rubber stamp"

@@ -101,7 +101,10 @@
 		S.remove_from_storage(O,src)
 
 	O.loc = src
-	var/n = O.name
+	var/n = html_decode(O.name)
+	n = replacetext(n, "'", "")
+
+	O.name = n
 
 	if(item_quants[n])
 		item_quants[n]++

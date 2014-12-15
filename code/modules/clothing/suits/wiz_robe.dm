@@ -30,6 +30,11 @@
 	icon_state = "magus"
 	item_state = "magus"
 
+/obj/item/clothing/head/wizard/clown
+	name = "clown magus helm"
+	desc = "A funny looking hat that's sure to embarrass you in front of your colleagues."
+	icon_state = "clown_magus"
+	item_state = "clown_magus"
 
 /obj/item/clothing/suit/wizrobe
 	name = "wizard robe"
@@ -69,6 +74,10 @@
 	icon_state = "magusred"
 	item_state = "magusred"
 
+/obj/item/clothing/suit/wizrobe/clown
+	name = "clown wizard robe"
+	icon_state = "clown_magus"
+	item_state = "clown_magus"
 
 /obj/item/clothing/suit/wizrobe/fake
 	name = "wizard robe"
@@ -95,3 +104,8 @@
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+
+/obj/item/clothing/mask/clown_magus
+	name = "clown magus mask"
+	icon_state = "clown_magus"
+	item_state = "clown_magus"

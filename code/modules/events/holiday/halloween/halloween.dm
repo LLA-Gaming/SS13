@@ -9,8 +9,14 @@
 /datum/round_event/spooky/
 	var/minWerewolfAmt = 1
 	var/maxWerewolfAmt = 4
+	var/werewolfMinPlayers = 20
 
 	proc/PickWerewolves()
+
+		if(!(clients.len >= werewolfMinPlayers))
+			log_game("Not enough players for werewolf, aborting.")
+			return
+
 		var/scale = round(length(clients) / 8)
 		var/amount = max(1, scale > maxWerewolfAmt ? maxWerewolfAmt : scale)
 		var/picked = 0
@@ -92,8 +98,8 @@
 
 			// Award medal for participating in halloween events.
 			// @MEDAL
-			if(H.client)
-				H.client.AwardMedal("halloween2014")
+			//if(H.client)
+			//	H.client.AwardMedal("halloween2014")
 
 			//Give people candy bags
 			var/obj/item/weapon/storage/hallooween/B = new(get_turf(H))
@@ -121,22 +127,24 @@
 
 		//list of coordinates where the candy cauldrons spawn
 		//I realise this is hacky, but I didn't want to put halloween-specific landmarks on the map.
-		var/list/coords = list(list(122, 99, 1), 		//Science
-								list(92, 103, 1),		//Medbay
-								list(102, 134, 1),		//Bridge
-								list(70, 138, 1),		//Cargo
-								list(108, 165, 1),		//Security
-								list(159, 137, 1),		//Engineering
-							//	list(122, 149, 1),		//Civilian 1
-							//	list(132, 126, 1),		//Civilian 2
-							//	list(82, 126, 1),		//Civilian 3
-							//	list(67, 134, 1),		//Civilian 4
-								list(128, 149, 1)		//Civilian 5 - Crew Quarters
-							)
+//		var/list/coords = list(list(122, 99, 1), 		//Science
+//								list(92, 103, 1),		//Medbay
+//								list(102, 134, 1),		//Bridge
+//								list(70, 138, 1),		//Cargo
+//								list(108, 165, 1),		//Security
+//								list(159, 137, 1),		//Engineering
+//							//	list(122, 149, 1),		//Civilian 1
+//							//	list(132, 126, 1),		//Civilian 2
+//							//	list(82, 126, 1),		//Civilian 3
+//							//	list(67, 134, 1),		//Civilian 4
+//								list(128, 149, 1)		//Civilian 5 - Crew Quarters
+//							)
+//
+//		//use coordinates above to place the cauldrons.
+//		for(var/list/coord in coords)
+//			new /obj/structure/candy_cauldron(get_turf(locate(coord[1], coord[2], coord[3])))
+// Ok so... i commented out the cauldrons spawning as we switched maps and the coordinates for there spawn points have not been made, re-make these coords or make landmarks before uncommenting. per don zombie. ~Flavo
 
-		//use coordinates above to place the cauldrons.
-		for(var/list/coord in coords)
-			new /obj/structure/candy_cauldron(get_turf(locate(coord[1], coord[2], coord[3])))
 
 	announce()
 		priority_announce(pick("RATTLE ME BONES!","THE RIDE NEVER ENDS!", "A SKELETON POPS OUT!", "SPOOKY SCARY SKELETONS!", "CREWMEMBERS BEWARE, YOU'RE IN FOR A SCARE!") , "THE CALL IS COMING FROM INSIDE THE HOUSE")

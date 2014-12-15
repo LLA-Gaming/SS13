@@ -388,6 +388,13 @@
 			else
 				qdel(src)
 
+	examine()
+		..()
+		usr << "The [src] is [on ? "running" : "offline"]."
+
+	default_unfasten_wrench(mob/user, obj/item/weapon/wrench/W, time = 20)
+		return 0
+
 /proc/isDisruptedArea(area/A)
 	for(var/obj/machinery/tdisruptor/T in A)
 		if(T)

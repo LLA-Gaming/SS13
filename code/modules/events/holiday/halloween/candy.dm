@@ -78,8 +78,8 @@
 				return
 			M << "\red You can't eat this."
 			return
-		..(M, user, def_zone)
-		eaten(M)
+		if(..(M, user, def_zone))
+			eaten(M)
 
 /*
 * Candies
@@ -253,9 +253,9 @@
 	* Peppermint Pattie
 	*/
 
-	pepperment_pattie/
+	/*pepperment_pattie/
 		name = "Zork Peppermint Pattie"
-		icon_state = "placeholder"
+		icon_state = "placeholder"*/
 
 	/*
 	* Lollipops
