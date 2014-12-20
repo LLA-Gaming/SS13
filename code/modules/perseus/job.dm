@@ -64,14 +64,14 @@ var/list/
  *	Log perseus logins in the database.
  */
 
-/proc/logPerseusLogin(var/mob/living/carbon/human/H, var/commander = 0)
+/proc/logPerseusLogin(var/mob/living/carbon/human/H, var/rank = "Enforcer")
 	if(!H || !H.client)	return
 	var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during death reporting. Failed to connect.")
 	else
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO perseus_login (ckey, datetime, iscommander, number) VALUES ('[sanitizeSQL(H.ckey)]', '[sqltime]', '[commander]', '[sanitizeSQL(pnumbers[H.ckey])]')")
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO perseus_login (ckey, datetime, number, rank) VALUES ('[sanitizeSQL(H.ckey)]', '[sqltime]', '[sanitizeSQL(pnumbers[H.ckey])]', '[sanitizeSQL(rank)]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL Error : \[[err]\]\n")
@@ -101,7 +101,7 @@ var/const/COMMANDER = (1<<1)
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 
-		logPerseusLogin(H, 0)
+		logPerseusLogin(H, "Enforcer")
 
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hos (H), slot_ears)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/space/skinsuit(H), slot_w_uniform)
@@ -152,7 +152,7 @@ var/const/COMMANDER = (1<<1)
 	equip(var/mob/living/carbon/human/H)
 		if(!H) return 0
 
-		logPerseusLogin(H, 1)
+		logPerseusLogin(H, "Commander")
 
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hos (H), slot_ears)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/space/skinsuit(H), slot_w_uniform)
