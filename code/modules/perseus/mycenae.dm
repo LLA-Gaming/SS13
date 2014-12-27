@@ -213,6 +213,10 @@ var/perseusShuttleMoving = 0
 	attackby(I as obj, user as mob)
 		if(istype(I, /obj/item/weapon/card/emag))
 			emagged = 1
+			user << "<div class='notice'>You emag the [src].</div>"
+			var/datum/effect/effect/system/spark_spread/system = new()
+			system.set_up(3, 0, get_turf(src))
+			system.start()
 			return
 		src.attack_hand(user)
 		return
@@ -226,12 +230,13 @@ var/perseusShuttleMoving = 0
 		return
 
 	attack_hand(var/mob/user as mob)
-		if(!src.allowed(user))
+		if(!src.allowed(user) && !emagged)
 			user << "\red Access Denied."
 			return
-		if(locked && !perseus_type && !emagged)
-			user << "\red It's locked!"
-			return
+		if(!emagged)
+			if(locked && !perseus_type)
+				user << "\red It's locked!"
+				return
 		user.set_machine(src)
 		var/dat
 		if(tempData)

@@ -1,4 +1,5 @@
 /obj/item/clothing/shoes/sneakers
+	dye_path = /obj/item/clothing/shoes/sneakers
 
 /obj/item/clothing/shoes/sneakers/black
 	name = "black shoes"

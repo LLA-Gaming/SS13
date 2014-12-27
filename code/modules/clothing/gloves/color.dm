@@ -1,3 +1,6 @@
+/obj/item/clothing/gloves
+	dye_path = /obj/item/clothing/gloves
+
 /obj/item/clothing/gloves/yellow
 	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"
@@ -109,7 +112,7 @@
 	desc = "A pair of gloves, they don't look special in any way."
 	icon_state = "brown"
 	item_state = "browngloves"
-	item_color="brown"
+	item_color= "brown"
 
 	cargo
 		item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.

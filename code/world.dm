@@ -120,9 +120,11 @@
 //		world << "End of Topic() call."
 //		..()
 
+// Used for "playerinfo" topic message.
+var/list/TOPIC_PREV_CLIENT_LIST = list()
 
 /world/Topic(T, addr, master, key)
-	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
+//	diary << "TOPIC: \"[T]\", from:[addr], master:[master], key:[key]"
 
 	if (T == "ping")
 		var/x = 1
@@ -177,6 +179,69 @@
 					if(C.prefs && (C.prefs.toggles & CHAT_PULLR))
 						C << "<span class='announce'>PR: [input["announce"]]</span>"
 				#undef CHAT_PULLR
+
+	else if(copytext(T, 1, 9) == "getnotes")
+		var/input[] = params2list(T)
+		if(global.comms_allowed)
+			if(input["key"] != global.comms_key)
+				return "Bad Key"
+			else
+				if(input["amt"])
+					var/amt = get_notes_amt_by_ckey(input["getnotes"])
+					return amt
+				if(input["index"])
+					var/ckey = input["getnotes"]
+					var/notes = get_notes_for_ckey_by_index(ckey, input["index"])
+					return notes
+
+	else if(copytext(T, 1, 11) == "playerinfo")
+		var/input[] = params2list(T)
+		if(global.comms_allowed)
+			if(input["key"] != global.comms_key)
+				return "Bad Key"
+			else
+				if(input["amt"])
+					TOPIC_PREV_CLIENT_LIST.Cut()
+					for(var/client/C in clients)
+						TOPIC_PREV_CLIENT_LIST += C
+					return "[TOPIC_PREV_CLIENT_LIST.len]"
+				if(input["index"])
+					if(!TOPIC_PREV_CLIENT_LIST.len)
+						return "No players."
+
+					var/num = text2num(input["index"]) + 1
+					var/client/C = TOPIC_PREV_CLIENT_LIST[num]
+					if(!C)	return "Client not found."
+					return "[C.ckey] - [C.address] - [C.computer_id]"
+
+		return "Error."
+
+	else if(copytext(T, 1, 10) == "currpercs")
+		var/input[] = params2list(T)
+		if(global.comms_allowed)
+			if(input["key"] != global.comms_key)
+				return "Bad Key"
+			else
+				var/returnstring = ""
+				for(var/mob/living/carbon/human/H in world)
+					if(H.job in list("Perseus Security Enforcer", "Perseus Security Commander"))
+						returnstring += "#[pnumbers[H.ckey] ? pnumbers[H.ckey] : "UKN"] "
+				if(returnstring == "")
+					returnstring = "None."
+				return returnstring
+
+	else if(copytext(T, 1, 14) == "currpmissions")
+		var/input[] = params2list(T)
+		if(global.comms_allowed)
+			if(input["key"] != global.comms_key)
+				return "Bad Key"
+			else
+				if(input["amt"])
+					return "[perseusMissions.len]"
+				if(input["index"])
+					var/num = text2num(input["index"]) + 1
+					var/datum/perseus_mission/mission = perseusMissions[num]
+					return "[mission.mission] - [mission.status]"
 
 /world/Reboot(var/reason)
 #ifdef dellogging
