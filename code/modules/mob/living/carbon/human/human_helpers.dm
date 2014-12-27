@@ -16,9 +16,10 @@
 	if(id)
 		. = id.assignment
 	else
-		var/obj/item/device/pda/pda = wear_id
+		var/obj/item/device/thinktronic/tablet/pda = wear_id
+		var/obj/item/device/thinktronic_parts/HDD/HDD = pda.HDD
 		if(istype(pda))
-			. = pda.ownjob
+			. = HDD.ownjob
 		else
 			return if_no_id
 	if(!.)
@@ -30,9 +31,10 @@
 	var/obj/item/weapon/card/id/id = get_idcard()
 	if(id)
 		return id.registered_name
-	var/obj/item/device/pda/pda = wear_id
+	var/obj/item/device/thinktronic/tablet/pda = wear_id
+	var/obj/item/device/thinktronic_parts/HDD/HDD = pda.HDD
 	if(istype(pda))
-		return pda.owner
+		return HDD.owner
 	return if_no_id
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
@@ -62,11 +64,11 @@
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
 	var/obj/item/weapon/storage/wallet/wallet = wear_id
-	var/obj/item/device/pda/pda = wear_id
+	var/obj/item/device/thinktronic/tablet/pda = wear_id
 	var/obj/item/weapon/card/id/id = wear_id
 	if(istype(wallet))		id = wallet.front_id
 	if(istype(id))			. = id.registered_name
-	else if(istype(pda))	. = pda.owner
+	else if(istype(pda))	. = pda.HDD.owner
 	if(!.) 					. = if_no_id	//to prevent null-names making the mob unclickable
 	return
 

@@ -81,10 +81,10 @@ var/list/ai_list = list()
 
 	verbs += /mob/living/silicon/ai/proc/show_laws_verb
 
-	aiPDA = new/obj/item/device/pda/ai(src)
-	aiPDA.owner = name
-	aiPDA.ownjob = "AI"
-	aiPDA.name = name + " (" + aiPDA.ownjob + ")"
+	var/obj/item/device/thinktronic/tablet/ai/aiPDA = new/obj/item/device/thinktronic/tablet/ai(src)
+	aiPDA.HDD.owner = name
+	aiPDA.HDD.ownjob = "AI"
+	aiPDA.name = name + " (" + aiPDA.HDD.ownjob + ")"
 
 	aiMulti = new(src)
 	aicamera = new/obj/item/device/camera/ai_camera(src)

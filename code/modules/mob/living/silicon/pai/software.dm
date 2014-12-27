@@ -8,7 +8,7 @@
 
 /mob/living/silicon/pai/var/list/available_software = list(
 															"crew manifest" = 5,
-															"digital messenger" = 5,
+															//"digital messenger" = 5,
 															"medical records" = 15,
 															"security records" = 15,
 															//"camera jack" = 10,
@@ -42,8 +42,8 @@
 				left_part = ""
 			if("directives")
 				left_part = src.directives()
-			if("pdamessage")
-				left_part = src.pdamessage()
+//			if("pdamessage")
+//				left_part = src.pdamessage()
 			if("buy")
 				left_part = downloadSoftware()
 			if("manifest")
@@ -275,8 +275,8 @@
 	// Basic
 	dat += "<b>Basic</b> <br>"
 	for(var/s in src.software)
-		if(s == "digital messenger")
-			dat += "<a href='byond://?src=\ref[src];software=pdamessage;sub=0'>Digital Messenger</a> <br>"
+//		if(s == "digital messenger")
+//			dat += "<a href='byond://?src=\ref[src];software=pdamessage;sub=0'>Digital Messenger</a> <br>"
 		if(s == "crew manifest")
 			dat += "<a href='byond://?src=\ref[src];software=manifest;sub=0'>Crew Manifest</a> <br>"
 		if(s == "medical records")
@@ -616,6 +616,7 @@
 		sleep(50)			// Update every 5 seconds
 
 // Digital Messenger
+/*
 /mob/living/silicon/pai/proc/pdamessage()
 
 	var/dat = "<h3>Digital Messenger</h3>"
@@ -633,3 +634,4 @@
 	dat += "<br><br>"
 	dat += "Messages: <hr> [pda.tnote]"
 	return dat
+*/

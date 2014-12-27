@@ -78,8 +78,8 @@
 
 	if (href_list["login"])
 		var/obj/item/I = usr.get_active_hand()
-		if (istype(I, /obj/item/device/pda))
-			var/obj/item/device/pda/pda = I
+		if (istype(I, /obj/item/device/thinktronic/tablet))
+			var/obj/item/device/thinktronic/tablet/pda = I
 			I = pda.id
 		if (I && src.check_access(I))
 			src.locked = 0

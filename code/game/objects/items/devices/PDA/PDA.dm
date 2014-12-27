@@ -999,7 +999,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						cart.honk_charges++
 
 //AI verb and proc for sending PDA messages.
-
+/*
 /mob/living/silicon/ai/verb/cmd_send_pdamesg()
 	set category = "AI Commands"
 	set name = "PDA - Send Message"
@@ -1076,7 +1076,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
 	else
 		usr << "You do not have a PDA. You should make an issue report about this."
-
+*/
 //Some spare PDAs in a box
 /obj/item/weapon/storage/box/PDAs
 	name = "spare PDAs"

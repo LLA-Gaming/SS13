@@ -282,10 +282,11 @@ Turf and target are seperate in case you want to teleport some distance from a t
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/device/pda) )
-				var/obj/item/device/pda/PDA = A
-				if(PDA.owner == oldname)
-					PDA.owner = newname
+			else if( search_pda && istype(A,/obj/item/device/thinktronic/tablet) )
+				var/obj/item/device/thinktronic/tablet/PDA = A
+				var/obj/item/device/thinktronic_parts/HDD/HDD = PDA.HDD
+				if(HDD.owner == oldname)
+					HDD.owner = newname
 					PDA.update_label()
 					if(!search_id)	break
 					search_pda = 0

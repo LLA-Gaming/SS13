@@ -253,6 +253,19 @@
 		image_overlay = image('icons/obj/assemblies.dmi', "breachcharge_ticking")
 
 /*
+* Tablet
+*/
+
+/obj/item/device/thinktronic/tablet/perseus
+	icon_state = "tablet-perc"
+
+	New()
+		..()
+		HDD = new /obj/item/device/thinktronic_parts/HDD(src)
+		HDD.messengeron = 0
+		HDD.neton = 0
+
+/*
 * PDA & Cartridge
 */
 

@@ -15,7 +15,7 @@ Chief Medical Officer
 	minimal_player_age = 7
 
 	default_id = /obj/item/weapon/card/id/silver
-	default_pda = /obj/item/device/pda/heads/cmo
+	default_pda = /obj/item/device/thinktronic/tablet/cmo
 	default_headset = /obj/item/device/radio/headset/heads/cmo
 	default_backpack = /obj/item/weapon/storage/backpack/medic
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_med
@@ -49,7 +49,7 @@ Medical Doctor
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 
-	default_pda = /obj/item/device/pda/medical
+	default_pda = /obj/item/device/thinktronic/tablet/medical
 	default_headset = /obj/item/device/radio/headset/headset_med
 	default_backpack = /obj/item/weapon/storage/backpack/medic
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_med
@@ -78,7 +78,7 @@ Chemist
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 
-	default_pda = /obj/item/device/pda/chemist
+	default_pda = /obj/item/device/thinktronic/tablet/chemist
 	default_headset = /obj/item/device/radio/headset/headset_med
 
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
@@ -103,7 +103,7 @@ Geneticist
 	supervisors = "the chief medical officer and research director"
 	selection_color = "#ffeef0"
 
-	default_pda = /obj/item/device/pda/geneticist
+	default_pda = /obj/item/device/thinktronic/tablet/genetics
 	default_headset = /obj/item/device/radio/headset/headset_medsci
 
 	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research)
@@ -129,7 +129,7 @@ Virologist
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 
-	default_pda = /obj/item/device/pda/viro
+	default_pda = /obj/item/device/thinktronic/tablet/virology
 	default_headset = /obj/item/device/radio/headset/headset_med
 	default_backpack = /obj/item/weapon/storage/backpack/medic
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_med

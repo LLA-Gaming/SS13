@@ -21,7 +21,7 @@ Head of Shitcurity
 	minimal_player_age = 14
 
 	default_id = /obj/item/weapon/card/id/silver
-	default_pda = /obj/item/device/pda/heads/hos
+	default_pda = /obj/item/device/thinktronic/tablet/hos
 	default_headset = /obj/item/device/radio/headset/heads/hos
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
@@ -68,7 +68,7 @@ Warden
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 
-	default_pda = /obj/item/device/pda/warden
+	default_pda = /obj/item/device/thinktronic/tablet/warden
 	default_headset = /obj/item/device/radio/headset/headset_sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
@@ -114,7 +114,7 @@ Detective
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 
-	default_pda = /obj/item/device/pda/detective
+	default_pda = /obj/item/device/thinktronic/tablet/detective
 	default_headset = /obj/item/device/radio/headset/headset_sec
 
 	access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court)
@@ -159,7 +159,7 @@ Security Officer
 	minimal_player_age = 7
 	var/list/dep_access = null
 
-	default_pda = /obj/item/device/pda/security
+	default_pda = /obj/item/device/thinktronic/tablet/security
 	default_headset = /obj/item/device/radio/headset/headset_sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec

@@ -15,7 +15,7 @@ Captain
 	minimal_player_age = 14
 
 	default_id = /obj/item/weapon/card/id/gold
-	default_pda = /obj/item/device/pda/captain
+	default_pda = /obj/item/device/thinktronic/tablet/captain
 	default_headset = /obj/item/device/radio/headset/heads/captain
 	default_backpack = /obj/item/weapon/storage/backpack/captain
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_cap
@@ -65,7 +65,7 @@ Head of Personnel
 	minimal_player_age = 10
 
 	default_id = /obj/item/weapon/card/id/silver
-	default_pda = /obj/item/device/pda/heads/hop
+	default_pda = /obj/item/device/thinktronic/tablet/hop
 	default_headset = /obj/item/device/radio/headset/heads/hop
 
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,

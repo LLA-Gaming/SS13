@@ -901,7 +901,7 @@ datum/mind
 		// remove traitor uplinks
 		var/list/L = current.get_contents()
 		for (var/t in L)
-			if (istype(t, /obj/item/device/pda))
+			if (istype(t, /obj/item/device/thinktronic/tablet))
 				if (t:uplink) qdel(t:uplink)
 				t:uplink = null
 			else if (istype(t, /obj/item/device/radio))

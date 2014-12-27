@@ -12,7 +12,7 @@ Bartender
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/bar
+	default_pda = /obj/item/device/thinktronic/tablet/bartender
 	default_headset = /obj/item/device/radio/headset/headset_srv
 
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue, access_mineral_storeroom)
@@ -63,7 +63,7 @@ Chef
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/chef
+	default_pda = /obj/item/device/thinktronic/tablet/chef
 	default_headset = /obj/item/device/radio/headset/headset_srv
 
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue)
@@ -89,7 +89,7 @@ Botanist
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/botanist
+	default_pda = /obj/item/device/thinktronic/tablet/hydro
 	default_headset = /obj/item/device/radio/headset/headset_srv
 
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
@@ -116,7 +116,7 @@ Quartermaster
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/quartermaster
+	default_pda = /obj/item/device/thinktronic/tablet/qm
 	default_headset = /obj/item/device/radio/headset/headset_cargo
 
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
@@ -142,7 +142,7 @@ Cargo Technician
 	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/cargo
+	default_pda = /obj/item/device/thinktronic/tablet/cargo
 	default_headset = /obj/item/device/radio/headset/headset_cargo
 
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station)
@@ -166,7 +166,7 @@ Shaft Miner
 	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/shaftminer
+	default_pda = /obj/item/device/thinktronic/tablet/miner
 	default_headset = /obj/item/device/radio/headset/headset_cargo
 	default_backpack = /obj/item/weapon/storage/backpack/industrial
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_eng
@@ -202,7 +202,7 @@ Clown
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/clown
+	default_pda = /obj/item/device/thinktronic/tablet/clown
 	default_backpack = /obj/item/weapon/storage/backpack/clown
 
 	access = list(access_theatre, access_maint_tunnels)
@@ -244,7 +244,7 @@ Mime
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/mime
+	default_pda = /obj/item/device/thinktronic/tablet/mime
 	default_backpack = /obj/item/weapon/storage/backpack/mime
 
 	access = list(access_theatre, access_maint_tunnels)
@@ -287,7 +287,7 @@ Janitor
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/janitor
+	default_pda = /obj/item/device/thinktronic/tablet/janitor
 	default_headset = /obj/item/device/radio/headset/headset_srv
 
 	access = list(access_janitor, access_maint_tunnels)
@@ -311,7 +311,7 @@ Librarian
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/librarian
+	default_pda = /obj/item/device/thinktronic/tablet/library
 
 	access = list(access_library, access_maint_tunnels)
 	minimal_access = list(access_library)
@@ -338,7 +338,7 @@ Lawyer
 	selection_color = "#dddddd"
 	var/global/lawyers = 0 //Counts lawyer amount
 
-	default_pda = /obj/item/device/pda/lawyer
+	default_pda = /obj/item/device/thinktronic/tablet/lawyer
 	default_headset = /obj/item/device/radio/headset/headset_sec
 
 	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
