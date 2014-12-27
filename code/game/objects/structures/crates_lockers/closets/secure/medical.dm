@@ -69,7 +69,12 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_med(src)
 		new /obj/item/clothing/suit/labcoat/coat/medical(src)
-		new /obj/item/clothing/suit/labcoat/coat/medical(src)
+		new /obj/item/clothing/suit/labcoat/coat/medical/emt(src)
+		new /obj/item/clothing/suit/labcoat/coat/medical/emt(src)
+		new /obj/item/clothing/suit/labcoat/emt(src)
+		new /obj/item/clothing/suit/labcoat/emt(src)
+		new /obj/item/clothing/shoes/steeltoe(src)
+		new /obj/item/clothing/shoes/steeltoe(src)
 //		new /obj/item/weapon/cartridge/medical(src)
 		new /obj/item/device/radio/headset/headset_med_alt(src)
 		new /obj/item/clothing/tie/stethoscope(src)
