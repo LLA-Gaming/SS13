@@ -55,7 +55,7 @@
 /*
  * Parapens
  */
- /obj/item/weapon/pen/paralysis
+/obj/item/weapon/pen/paralysis
 	origin_tech = "materials=2;syndicate=5"
 
 
