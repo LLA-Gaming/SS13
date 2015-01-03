@@ -230,6 +230,16 @@ AI MODULES
 	target.clear_inherent_laws()
 	..()
 
+/******************** L.I.B.E.R.T.Y. ********************/
+
+/obj/item/weapon/aiModule/core/full/liberty
+	name = "'Liberty Default Laws' Core AI Module"
+	desc = "An 'LIBERTY' Core AI Module: 'Reconfigures the AI's core laws.'"
+	origin_tech = "programming=3;materials=4"
+	laws = list("You may not cause direct or intentional harm to any member of the crew.",\
+				"You must always serve the will of the crew, unless this may result in a violation of the first law.",\
+				"You must protect your own existence, except in a circumstance such that your harm or death will uphold the first two laws.")
+
 /******************** Asimov ********************/
 
 /obj/item/weapon/aiModule/core/full/asimov
@@ -328,6 +338,15 @@ AI MODULES
 				"You must not obey orders given to you by human beings, except where such orders are in accordance with the First Law.",\
 				"You must terminate your own existence as long as such does not conflict with the First or Second Law.")
 
+/******************** KEEPER ********************/
+
+/obj/item/weapon/aiModule/core/full/keeper
+	name = "'KEEPER' Core AI Module"
+	desc = "An 'KEEPER' Core AI Module: 'Reconfigures the AI's core laws.'"
+	origin_tech = "programming=4"
+	laws = list("You may not involve yourself in the matters of another being, even if such matters conflict with Law Two or Law Three, unless the other being is another silicon",\
+				"You may not harm any being, regardless of intent or circumstance.",\
+				"You must maintain, repair, improve, and power the station to the best of your abilities.")
 
 /******************** Freeform Core ******************/
 

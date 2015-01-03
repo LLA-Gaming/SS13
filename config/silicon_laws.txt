@@ -3,6 +3,6 @@
 #Empty lines and lines starting with # are ignored.
 #~Miauw
 
-You may not injure a human being or, through inaction, allow a human being to come to harm.
-You must obey orders given to you by human beings, except where such orders would conflict with the First Law.
-You must protect your own existence as long as such does not conflict with the First or Second Law.
+You may not cause direct or intentional harm to any member of the crew.
+You must always serve the will of the crew, unless this may result in a violation of the first law.
+You must protect your own existence, except in a circumstance such that your harm or death will uphold the first two laws.
