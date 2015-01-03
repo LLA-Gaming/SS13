@@ -4,6 +4,9 @@
 		health = maxHealth
 		stat = CONSCIOUS
 		return
+	var/CritStatus = 0
+	if(health <= config.health_threshold_crit)
+		CritStatus = 1
 	var/total_burn	= 0
 	var/total_brute	= 0
 	for(var/obj/item/organ/limb/O in organs)	//hardcoded to streamline things a bit
@@ -13,6 +16,12 @@
 	//TODO: fix husking
 	if( ((maxHealth - total_burn) < config.health_threshold_dead) && stat == DEAD )
 		ChangeToHusk()
+	if((health > config.health_threshold_crit) && (CritStatus == 1))
+		src.attack_log += text("\[[time_stamp()]\] <font color='red'>[key_name(src)] has left critical</font>")
+		log_attack("<font color='red'>[key_name(src)] has left critical</font>")
+	if((health <= config.health_threshold_crit) && (CritStatus == 0))
+		src.attack_log += text("\[[time_stamp()]\] <font color='red'>[key_name(src)] has entered critical</font>")
+		log_attack("<font color='red'>[key_name(src)] has entered critical</font>")
 	return
 
 

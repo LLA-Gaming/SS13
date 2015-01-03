@@ -62,8 +62,10 @@ obj/item/proc/get_clamped_volume()
 	/////////////////////////
 	user.lastattacked = M
 	M.lastattacker = user
-
-	add_logs(user, M, "attacked", object=src.name, addition="(INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+	if (M.stat != DEAD)
+		add_logs(user, M, "attacked", object=src.name, addition=" (DAMAGE: [src.force]) (REMHP: [M.health - src.force]) (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+	if (M.stat == DEAD)
+		add_logs(user, M, "attacked", object=src.name, addition=" (DAMAGE: [src.force]) (REMHP: DEAD) (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
 
 	//spawn(1800)            // this wont work right
 	//	M.lastattacker = null
