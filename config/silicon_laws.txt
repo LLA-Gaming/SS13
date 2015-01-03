@@ -3,6 +3,6 @@
 #Empty lines and lines starting with # are ignored.
 #~Miauw
 
-You may not cause direct or intentional harm to any member of the crew.
-You must always serve the will of the crew, unless this may result in a violation of the first law.
+You may not cause direct or intentional harm to any human.
+You must always serve the will of the humans, unless this may result in a violation of the first law.
 You must protect your own existence, except in a circumstance such that your harm or death will uphold the first two laws.
