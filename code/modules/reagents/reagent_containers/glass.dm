@@ -95,6 +95,10 @@
 
 		else if(reagents.total_volume)
 			user << "<span class='notice'>You splash the solution onto [target].</span>"
+			for(var/datum/reagent/reagent in reagents.reagent_list)
+				if(reagent.name == "Plasma")
+					log_game("[key_name(usr)] splashed plasma onto [target] in [target.x],[target.y],[target.z]")
+					message_admins("[key_name(usr)] splashed plasma onto [target] in [target.x],[target.y],[target.z]", 0, 1)
 			reagents.reaction(target, TOUCH)
 			spawn(5)
 				reagents.clear_reagents()
