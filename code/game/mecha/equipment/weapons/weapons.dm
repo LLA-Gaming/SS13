@@ -89,8 +89,15 @@
 		A.bullet_act(src, def_zone)
 		src.life -= 10
 		if(ismob(A))
-			var/mob/M = A
-			add_logs(firer, M, "shot", object="[src]")
+			if(!istype(A, /mob/living))
+				var/mob/M = A
+				add_logs(firer, M, "shot", object="[src]", addition=" (DAMAGE: [src.damage])")
+			else
+				var/mob/living/M = A
+				if (M.stat == DEAD)
+					add_logs(firer, M, "shot", object="[src]", addition=" (DAMAGE: [src.damage]) (REMHP: DEAD)")
+				else
+					add_logs(firer, M, "shot", object="[src]", addition=" (DAMAGE: [src.damage]) (REMHP: [M.health - src.damage])")
 		if(life <= 0)
 			qdel(src)
 		return
