@@ -107,6 +107,12 @@
 /obj/item/weapon/reagent_containers/spray/mister/attack_self()
 	return
 
+/obj/item/weapon/reagent_containers/spray/mister/Move(dest, dir)
+	// Only will move to valid locations
+	if((dest == tank) || (dest == tank.loc /*person with tank on back*/))
+		..()
+	return
+
 /proc/check_tank_exists(parent_tank, var/mob/living/carbon/human/M, var/obj/O)
 	if (!parent_tank || !istype(parent_tank, /obj/item/weapon/watertank))	//To avoid weird issues from admin spawns
 		M.unEquip(O)
