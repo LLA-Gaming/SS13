@@ -65,7 +65,10 @@ proc/vol_by_throwforce_and_or_w_class(var/obj/item/I)
 		var/client/assailant = directory[ckey(I.fingerprintslast)]
 		if(assailant && assailant.mob && istype(assailant.mob,/mob))
 			var/mob/M = assailant.mob
-			add_logs(M, src, "hit", object="[I]")
+			if (src.stat == DEAD)
+				add_logs(M, src, "hit", object="[I]", addition = " (DAMAGE:[I.throwforce]) (REMHP: DEAD)")
+			else
+				add_logs(M, src, "hit", object="[I]", addition = " (DAMAGE:[I.throwforce]) (REMHP: [src.health])")
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
