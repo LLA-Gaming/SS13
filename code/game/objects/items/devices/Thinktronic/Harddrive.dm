@@ -274,6 +274,9 @@
 	toner = 0
 
 /obj/item/device/thinktronic_parts/HDD/public/New()
+	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/spacebattle{favorite = 2 DRM = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/theoriontrail{favorite = 2 DRM = 1}(src)
 	cash = 0
 	toner = 0
 
