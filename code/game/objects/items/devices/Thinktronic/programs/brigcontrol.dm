@@ -22,7 +22,7 @@
 						briglockdown = 1
 					else
 						briglockdown = 0
-			dat += "Brig Lockdown is: <i>[briglockdown ? "Inactive" : "Active"]</i>"
+			dat += "Brig Lockdown is: <i>[briglockdown ? "Active" : "Inactive"]</i>"
 			dat += "<br>"
 			var/permalockdown = 1
 			for(var/obj/machinery/door/poddoor/M in world)
@@ -31,7 +31,7 @@
 						permalockdown = 1
 					else
 						permalockdown = 0
-			dat += "Permabrig Lockdown is: <i>[permalockdown ? "Inactive" : "Active"]</i>"
+			dat += "Permabrig Lockdown is: <i>[permalockdown ? "Active" : "Inactive"]</i>"
 			dat += "<br>"
 			var/laborlock = 1
 			for(var/obj/machinery/door/poddoor/M in world)
@@ -40,7 +40,7 @@
 						laborlock = 1
 					else
 						laborlock = 0
-			dat += "Labor Lockdown is: <i>[laborlock ? "Inactive" : "Active"]</i>"
+			dat += "Labor Lockdown is: <i>[laborlock ? "Active" : "Inactive"]</i>"
 			dat += "<br>"
 			var/datum/shuttle_manager/s = shuttles["laborcamp"]
 			if(s.location == /area/shuttle/laborcamp/outpost)
