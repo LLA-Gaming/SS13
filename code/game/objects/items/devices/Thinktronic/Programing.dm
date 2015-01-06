@@ -133,10 +133,7 @@
 						alerts = 0
 				PDA.attack_self(usr)
 				return
-			if("Delete")
-				qdel(src)
-				PDA.attack_self(usr)
-				return
+
 	else
 		usr.set_machine(src)
 		usr << browse(null, "window=thinktronic")
@@ -179,5 +176,10 @@
 
 /obj/item/device/thinktronic_parts/data/task
 	name =  "task"
-	var/alertmsg = "message"
+	var/taskmsg = "Task"
+	var/taskdetail = "Test Detail"
+	var/status = "Pending"
+	var/assignedby = null
+	var/dept = null
+	var/request = null
 

@@ -69,6 +69,10 @@
 				src.timer_end() // open doors, reset timer, clear status screen
 				timing = 0
 				timeset(0)
+				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+					var/second = round(timeleft() % 60)
+					var/minute = round((timeleft() - second) / 60)
+					MS.SendAlert("[name] deactivated. Time left: [minute]:[second]. Crime: [crime]. Prisoner: [prisoner]","Brig Control")
 			src.updateUsrDialog()
 			src.update_icon()
 		else
@@ -196,6 +200,10 @@
 			timeleft = min(max(round(timeleft), 0), 3599)
 			timing = text2num(href_list["timing"])
 			timeset(timeleft)
+			for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+				var/second = round(timeleft() % 60)
+				var/minute = round((timeleft() - second) / 60)
+				MS.SendAlert("[name] activated. Time left: [minute]:[second]. Crime: [crime]. Prisoner: [prisoner]","Brig Control")
 		else if(href_list["tp"]) //adjust timer
 			var/timeleft = timeleft()
 			var/tp = text2num(href_list["tp"])

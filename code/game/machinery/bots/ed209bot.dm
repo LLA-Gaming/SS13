@@ -212,6 +212,9 @@ Auto Patrol: []"},
 				src.target = user
 				if(lasercolor)//To make up for the fact that lasertag bots don't hunt
 					src.shootAt(user)
+				var/area/location = get_area(src)
+				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+					MS.SendAlert("[name] has been struck with a [W.name] in [location] by [user]","Brig Control")
 				src.mode = SECBOT_HUNT
 
 /obj/machinery/bot/ed209/Emag(mob/user as mob)
@@ -659,6 +662,9 @@ Auto Patrol: []"},
 			if(!src.lasercolor)
 				playsound(src.loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/EDPlaceholder.ogg'), 50, 0)
 			src.visible_message("<b>[src]</b> points at [C.name]!")
+			var/area/location = get_area(src)
+			for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+				MS.SendAlert("<b>[name]</b>: [C.name] detected! Threat Level: [src.threatlevel]. Location: [location].","Brig Control")
 			mode = SECBOT_HUNT
 			spawn(0)
 				process()	// ensure bot quickly responds to a perp
@@ -755,6 +761,9 @@ Auto Patrol: []"},
 
 /obj/machinery/bot/ed209/explode()
 	walk_to(src,0)
+	var/area/location = get_area(src)
+	for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+		MS.SendAlert("[name] has exploded in [location]","Brig Control")
 	src.visible_message("\red <B>[src] blows apart!</B>", 1)
 	var/turf/Tsec = get_turf(src)
 

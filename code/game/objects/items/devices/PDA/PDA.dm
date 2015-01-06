@@ -1090,13 +1090,13 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		new /obj/item/device/pda(src)
 		new /obj/item/device/pda(src)
 		new /obj/item/device/pda(src)
-		new /obj/item/weapon/cartridge/head(src)
+		new /obj/item/device/thinktronic_parts/expansioncarts/head(src)
 
-		var/newcart = pick(	/obj/item/weapon/cartridge/engineering,
-							/obj/item/weapon/cartridge/security,
-							/obj/item/weapon/cartridge/medical,
-							/obj/item/weapon/cartridge/signal/toxins,
-							/obj/item/weapon/cartridge/quartermaster)
+		var/newcart = pick(	/obj/item/device/thinktronic_parts/expansioncarts/engineering,
+							/obj/item/device/thinktronic_parts/expansioncarts/security,
+							/obj/item/device/thinktronic_parts/expansioncarts/medical,
+							/obj/item/device/thinktronic_parts/expansioncarts/toxins,
+							/obj/item/device/thinktronic_parts/expansioncarts/quartermaster)
 		new newcart(src)
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP

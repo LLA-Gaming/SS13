@@ -1,11 +1,30 @@
-/obj/item/device/thinktronic/tablet/ai/attack_self(mob/living/user)
+/obj/item/device/thinktronic/laptop/attack_hand(var/mob/living/user as mob)
+	if(!mounted && !bolted)
+		..()
+	if(bolted && !mounted)
+		usr << "It's bolted to the ground!"
+	if(mounted)
+		attack_self(usr)
+
+/obj/item/device/thinktronic/laptop/attack_self(var/mob/living/user as mob)
 	var/mob/U = usr
 	user.set_machine(src)
 	var/dat = ""
+	if(loc == user) return
 	if(can_use(U))
+		if(active_uplink_check(user))
+			return
 		if (!HDD)
 			dat += "ERROR: No Hard Drive found.  Please insert Hard Drive.<br><br>"
 		else
+			if(HDD.implantlocked)
+				if(!user.check_contents_for(HDD.implantlocked))
+					var/datum/effect/effect/system/spark_spread/S = new/datum/effect/effect/system/spark_spread(get_turf(src))
+					S.set_up(3, 0, get_turf(src))
+					S.start()
+					user << "<div class='warning'>The [src] shocks you.</div>"
+					user.AdjustWeakened(2)
+					return
 			if (!HDD.owner)
 				dat += "Warning: No owner information entered.  Please swipe card.<br><br>"
 			else
@@ -24,12 +43,18 @@
 								<div class='statusDisplay'>
 								<center>
 								Owner: [HDD.owner], [HDD.ownjob]<br>
+								ID: <A href='?src=\ref[src];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]</A><A href='?src=\ref[src];choice=UpdateInfo'>[id ? "Update Tablet Info" : ""]</A><br>
 								[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
 								<A href='?src=\ref[src];choice=files'>File Manager</a> <A href='?src=\ref[src];choice=messenger'>Messenger</a> <A href='?src=\ref[src];choice=downloads'>Downloads</a>
 								<br><A href='?src=\ref[src];choice=wallet'>Wallet</a> <A href='?src=\ref[src];choice=store'>NanoStore</a> <a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
-								</center>
-								</div>
 								"}
+						if(HDD.implantlocked == /obj/item/weapon/implant/enforcer) // IF THE TABLET HAS A PERSEUS LOCK
+							for(var/obj/machinery/computer/perseus_shuttle_computer/P in world)
+								dat += {"<br>Shuttle is [P.locked ? "<b>Locked</b>" : "<b>Unlocked</b>"]"}
+								break
+						dat += {"
+								</center>
+								</div>"}
 						for(var/obj/item/device/thinktronic_parts/program/PRG in HDD)
 							if (PRG.favorite == 1)
 								dat += {"<h3>[HDD.primaryname]</h3>"}
@@ -52,8 +77,7 @@
 						for(var/obj/item/device/thinktronic_parts/program/utility/PRG in HDD)
 							if(!PRG.togglemode)
 								dat += {"<A href='?src=\ref[PRG];choice=Open'>[PRG.name]</a><br>"}
-							if(PRG.togglemode)
-								dat += " [PRG.name]: <a href='byond://?src=\ref[PRG];choice=Toggle'>[PRG.toggleon ? "Equipped" : "Unequipped"]</a><br>"
+						dat += " Flashlight: <a href='byond://?src=\ref[src];choice=Light'>[fon ? "On" : "Off"]</a><br>"
 						dat += " Network: <a href='byond://?src=\ref[src];choice=network'>[HDD.neton ? "Enabled" : "Disabled"]</a>"
 					if (1) //All Programs
 						dat += {"<a href='byond://?src=\ref[src];choice=Return'>   Return</a>"}
@@ -98,6 +122,7 @@
 						dat += {"Processor: IntelliTech LW-S<br>"}
 						dat += {"GPU: S-Vidya 2554-m<br>"}
 						dat += {"System Ram: [ram]GB<br>"}
+						dat += {"Hard Drive: <a href='byond://?src=\ref[src];choice=EjectHDD'>Eject</a><br>"}
 						dat += {"<a href='byond://?src=\ref[src];choice=Ringtone'>Ringtone</a><br>"}
 						dat += {"<a href='byond://?src=\ref[src];choice=Sound'>[volume ? "Sound: On" : "Sound: Off"]</a><br>"}
 						dat += {"<h3>[HDD.primaryname] Settings - <A href='?src=\ref[src];choice=RenameCategory1'>Rename</a></h3>"}
@@ -205,10 +230,26 @@
 						dat += {"<br><h3>NanoBank E-Wallet:</h3>"}
 						dat += {"Holder: [HDD.owner]<br>"}
 						dat += {"Space Cash: $[HDD.cash]<br>"}
+						dat += {"Withdraw:"}
+						if (HDD.cash>11)
+							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=10'>$10</a>"
+						if (HDD.cash>21)
+							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=20'>$20</a>"
+						if (HDD.cash>51)
+							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=50'>$50</a>"
+						if (HDD.cash>101)
+							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=100'>$100</a>"
+						if (HDD.cash>201)
+							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=200'>$200</a>"
+						if (HDD.cash>501)
+							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=500'>$500</a>"
+						if (HDD.cash>1001)
+							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=1000'>$1000</a>"
 
 
 					if (7) //Messenger
 						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a><br>"}
+						unalerted(0,1)
 						dat += "<center><a href='byond://?src=\ref[src];choice=ToggleMessenger'>[HDD.messengeron ? "Messenger: On" : "Messenger: Off"]</a>"
 						dat += "<a href='byond://?src=\ref[src];choice=Ringtone'>Ringtone</a></center>"
 						var/obj/item/device/thinktronic_parts/data/convo/activechat = HDD.activechat
@@ -246,6 +287,7 @@
 									break
 					if (8) //Alerts
 						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a><hr>"}
+						unalerted(1,0)
 						for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
 							dat += {"<A href='?src=\ref[src];choice=ClearAlert;target=\ref[alert]'> <b>X</b> </a>"}
 							dat += {"[alert.alertmsg]<br>"}
@@ -273,7 +315,7 @@
 		U.set_machine(src)
 		U << browse(null, "window=thinktronic")
 
-/obj/item/device/thinktronic/tablet/ai/Topic(href, href_list)
+/obj/item/device/thinktronic/laptop/Topic(href, href_list)
 	var/mob/U = usr
 	if(can_use(U)) //Why reinvent the wheel? There's a proc that does exactly that.
 		add_fingerprint(U)
@@ -318,6 +360,49 @@
 				HDD.mode = 6
 				attack_self(usr)
 			if("Withdraw")
+				var/cash = href_list["amount"]
+				if (cash == "10")
+					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c10(usr.loc)
+					if(usr.put_in_hands(dosh))
+						HDD.cash -=10
+					else
+						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+				if (cash == "20")
+					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c20(usr.loc)
+					if(usr.put_in_hands(dosh))
+						HDD.cash -=20
+					else
+						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+				if (cash == "50")
+					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c50(usr.loc)
+					if(usr.put_in_hands(dosh))
+						HDD.cash -=50
+					else
+						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+				if (cash == "100")
+					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c100(usr.loc)
+					if(usr.put_in_hands(dosh))
+						HDD.cash -=100
+					else
+						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+				if (cash == "200")
+					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c200(usr.loc)
+					if(usr.put_in_hands(dosh))
+						HDD.cash -=200
+					else
+						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+				if (cash == "500")
+					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c500(usr.loc)
+					if(usr.put_in_hands(dosh))
+						HDD.cash -=500
+					else
+						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+				if (cash == "1000")
+					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c1000(usr.loc)
+					if(usr.put_in_hands(dosh))
+						HDD.cash -=1000
+					else
+						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
 				attack_self(usr)
 			if("store")
 				HDD.mode = 9
@@ -349,17 +434,28 @@
 				attack_self(usr)
 			if("Ringtone")
 				var/t = input(U, "Please enter message", name, null) as text
-				t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
-				HDD.ttone = t
-				attack_self(usr)
+				if (t)
+					if(src.hidden_uplink && hidden_uplink.check_trigger(U, trim(lowertext(t)), trim(lowertext(lock_code))))
+						U << "The tablet flashes red."
+						attack_self(usr)
+						HDD.mode = 0
+						popup.close()
+						U.unset_machine()
+						U << browse(null, "window=thinktronic")
+						HDD.activechat = null
+						loadeddata = null
+						loadeddata_photo = null
+					else
+						t = copytext(sanitize(t), 1, 20)
+						HDD.ttone = t
+						attack_self(usr)
 			if("Sound")
 				if(volume)
 					volume = 0
 					attack_self(usr)
 				else
-					volume = 1
+					volume = 2
 					attack_self(usr)
-				attack_self(usr)
 			if("network")
 				if(!HDD.banned)
 					if(HDD.neton)
@@ -370,8 +466,15 @@
 						attack_self(usr)
 				attack_self(usr)
 			if("EjectHDD")
-				if (ismob(loc))
-					usr << "<span class='notice'>You cannot remove the Hard Drive from the [name].</span>"
+				if(shared)
+					usr << "<span class='notice'>You cannot remove the HDD from a shared laptop</span>"
+				else
+					var/turf/T = loc
+					HDD.loc = T.loc
+					usr << "<span class='notice'>You remove the Hard Drive from the [name].</span>"
+					HDD.mode = 0
+					HDD = null
+					name = devicetype
 					attack_self(usr)
 			if("Message")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
@@ -479,6 +582,7 @@
 				var/obj/item/device/thinktronic_parts/program/D = locate(href_list["target"])
 				var/exists = 0
 				if(!D)
+					usr << "ERROR: Application files not found"
 					attack_self(usr)
 					return
 				for(var/obj/item/device/thinktronic_parts/program/C in HDD)
@@ -500,16 +604,22 @@
 			if("Buy")
 				if(network())
 					var/obj/item/device/thinktronic_parts/nanonet/store_items/D = locate(href_list["target"])
-					if (volume == 1)
-						playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
-					for (var/mob/O in hearers(3, loc))
-						if(volume == 1)
-							O.show_message(text("\icon[src] *[HDD.ttone]*"))
-					usr << "Application Purchased, Saved to downloads"
-					var/obj/item/device/thinktronic_parts/program/NewD = new D.item(cart)
-					NewD.sentby = "NanoStore"
-					NewD.DRM = 1
-					attack_self(usr)
+					if(D.price <= HDD.cash)
+						HDD.cash -= D.price
+						if (volume == 1)
+							playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
+						for (var/mob/O in hearers(3, loc))
+							if(volume == 1)
+								O.show_message(text("\icon[src] *[HDD.ttone]*"))
+							if(volume == 2)
+								O.show_message(text("\icon[src] *[HDD.ttone]*"))
+								O.show_message(text("Application Purchased, Saved to downloads"))
+						usr << "Application Purchased, Saved to downloads"
+						var/obj/item/device/thinktronic_parts/program/NewD = new D.item(cart)
+						NewD.sentby = "NanoStore"
+						attack_self(usr)
+					else
+						usr << "ERROR: Insufficient Funds"
 				else
 					usr << "ERROR: Connection Lost!"
 					attack_self(usr)

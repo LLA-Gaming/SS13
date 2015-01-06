@@ -48,6 +48,8 @@
 
 	var/obj/item/radio/integrated/signal/sradio // AI's signaller
 
+	var/obj/item/device/thinktronic/tablet/tablet = null
+
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)
 	make_laws()

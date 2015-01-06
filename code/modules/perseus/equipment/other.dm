@@ -253,17 +253,28 @@
 		image_overlay = image('icons/obj/assemblies.dmi', "breachcharge_ticking")
 
 /*
-* Tablet
+* Tablet & Cartrdige
 */
+/obj/item/device/thinktronic_parts/expansioncarts/perseus
+	name = "PercTech Cartridge"
+	icon_state = "cart-perc"
 
 /obj/item/device/thinktronic/tablet/perseus
 	icon_state = "tablet-perc"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD(src)
-		HDD.messengeron = 0
-		HDD.neton = 0
+		HDD = new /obj/item/device/thinktronic_parts/HDD/perc(src)
+
+/obj/item/device/thinktronic/laptop/perseus
+	name = "PercTech Laptop"
+	shared = 1
+
+	New()
+		..()
+		HDD = new /obj/item/device/thinktronic_parts/HDD/perc(src)
+		HDD.owner = "Perseus PMC"
+		HDD.ownjob = "Perseus PMC"
 
 /*
 * PDA & Cartridge

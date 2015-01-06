@@ -99,6 +99,8 @@
 					if(alone_in_area(get_area(loc), usr))
 						if (s.move_shuttle(0)) // No delay, to stop people from getting on while it is departing.
 							usr << "\blue Shuttle recieved message and will be sent shortly."
+							for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+								MS.SendAlert("Labor Shuttle has docked at the station. Prisoner has reached labor quota","Brig Control")
 						else
 							usr << "\blue Shuttle is already moving."
 					else

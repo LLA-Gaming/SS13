@@ -1,11 +1,21 @@
-/obj/item/device/thinktronic/tablet/attack_self(mob/user)
+/obj/item/device/thinktronic/tablet/attack_self(mob/living/user)
 	var/mob/U = usr
 	user.set_machine(src)
 	var/dat = ""
 	if(can_use(U))
+		if(active_uplink_check(user))
+			return
 		if (!HDD)
 			dat += "ERROR: No Hard Drive found.  Please insert Hard Drive.<br><br>"
 		else
+			if(HDD.implantlocked)
+				if(!user.check_contents_for(HDD.implantlocked))
+					var/datum/effect/effect/system/spark_spread/S = new/datum/effect/effect/system/spark_spread(get_turf(src))
+					S.set_up(3, 0, get_turf(src))
+					S.start()
+					user << "<div class='warning'>The [src] shocks you.</div>"
+					user.AdjustWeakened(2)
+					return
 			if (!HDD.owner)
 				dat += "Warning: No owner information entered.  Please swipe card.<br><br>"
 			else
@@ -28,9 +38,14 @@
 								[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
 								<A href='?src=\ref[src];choice=files'>File Manager</a> <A href='?src=\ref[src];choice=messenger'>Messenger</a> <A href='?src=\ref[src];choice=downloads'>Downloads</a>
 								<br><A href='?src=\ref[src];choice=wallet'>Wallet</a> <A href='?src=\ref[src];choice=store'>NanoStore</a> <a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
-								</center>
-								</div>
 								"}
+						if(HDD.implantlocked == /obj/item/weapon/implant/enforcer) // IF THE TABLET HAS A PERSEUS LOCK
+							for(var/obj/machinery/computer/perseus_shuttle_computer/P in world)
+								dat += {"<br>Shuttle is [P.locked ? "<b>Locked</b>" : "<b>Unlocked</b>"]"}
+								break
+						dat += {"
+								</center>
+								</div>"}
 						for(var/obj/item/device/thinktronic_parts/program/PRG in HDD)
 							if (PRG.favorite == 1)
 								dat += {"<h3>[HDD.primaryname]</h3>"}
@@ -102,22 +117,23 @@
 						dat += {"System Ram: [ram]GB<br>"}
 						dat += {"Hard Drive: <a href='byond://?src=\ref[src];choice=EjectHDD'>Eject</a><br>"}
 						dat += {"<a href='byond://?src=\ref[src];choice=Ringtone'>Ringtone</a><br>"}
-						dat += {"<h3>[HDD.primaryname] Settings</h3>"}
+						dat += {"<a href='byond://?src=\ref[src];choice=Sound'>[volume ? "Sound: On" : "Sound: Off"]</a><br>"}
+						dat += {"<h3>[HDD.primaryname] Settings - <A href='?src=\ref[src];choice=RenameCategory1'>Rename</a></h3>"}
 						for(var/obj/item/device/thinktronic_parts/program/PRG in HDD)
 							if (PRG.favorite == 1)
 								if (PRG.deletable)
-									dat += {"<A href='?src=\ref[PRG];choice=Delete'> <b>X</b> </a>"}
+									dat += {"<A href='?src=\ref[src];choice=Delete;target=\ref[PRG]'> <b>X</b> </a>"}
 								dat += {"[PRG.name] - "}
 								if (!PRG.utility)
 									dat += {"<A href='?src=\ref[PRG];choice=Favorite'>Favorite</a>"}
 								if (PRG.usealerts)
 									dat += {"<A href='?src=\ref[PRG];choice=Alerts'>[PRG.alerts ? "Alerts: On" : "Alerts: Off"]</a>"}
 								dat += {"<br>"}
-						dat += {"<h3>[HDD.secondaryname] Settings</h3>"}
+						dat += {"<h3>[HDD.secondaryname] Settings - <A href='?src=\ref[src];choice=RenameCategory2'>Rename</a></h3>"}
 						for(var/obj/item/device/thinktronic_parts/program/PRG in HDD)
 							if (PRG.favorite == 2)
 								if (PRG.deletable)
-									dat += {"<A href='?src=\ref[PRG];choice=Delete'> <b>X</b> </a>"}
+									dat += {"<A href='?src=\ref[src];choice=Delete;target=\ref[PRG]'> <b>X</b> </a>"}
 								dat += {"[PRG.name] - "}
 								if (!PRG.utility)
 									dat += {"<A href='?src=\ref[PRG];choice=Favorite'>Favorite</a>"}
@@ -128,7 +144,7 @@
 						for(var/obj/item/device/thinktronic_parts/program/PRG in HDD)
 							if (PRG.favorite == 0)
 								if (PRG.deletable && !PRG.utility)
-									dat += {"<A href='?src=\ref[PRG];choice=Delete'> <b>X</b> </a>"}
+									dat += {"<A href='?src=\ref[src];choice=Delete;target=\ref[PRG]'> <b>X</b> </a>"}
 									dat += {"[PRG.name] - "}
 									if (!PRG.utility)
 										dat += {"<A href='?src=\ref[PRG];choice=Favorite'>Favorite</a>"}
@@ -139,7 +155,7 @@
 						for(var/obj/item/device/thinktronic_parts/program/utility/PRG in HDD)
 							if (PRG.favorite == 0)
 								if (PRG.deletable)
-									dat += {"<A href='?src=\ref[PRG];choice=Delete'> <b>X</b> </a>"}
+									dat += {"<A href='?src=\ref[src];choice=Delete;target=\ref[PRG]'> <b>X</b> </a>"}
 								dat += {"[PRG.name]"}
 								if (!PRG.utility || PRG.usealerts) // Checks to see if the app even has any options
 									dat += {" - "}
@@ -150,8 +166,11 @@
 								dat += {"<br>"}
 
 					if (3) //Program Displaying
-						dat += {"<a href='byond://?src=\ref[src];choice=Return'>   Return</a><hr>"}
 						var/obj/item/device/thinktronic_parts/program/PRG = HDD.activeprog
+						if(PRG.usealerts)
+							dat += {"<a href='byond://?src=\ref[src];choice=Return'>   Return</a><a href='byond://?src=\ref[PRG];choice=Alerts'>[PRG.alerts ? "Alerts: On" : "Alerts: Off"]</a><hr>"}
+						else
+							dat += {"<a href='byond://?src=\ref[src];choice=Return'>   Return</a><hr>"}
 						PRG.use_app()
 						dat += PRG.dat
 					if (4) //File Manager
@@ -205,24 +224,25 @@
 						dat += {"Holder: [HDD.owner]<br>"}
 						dat += {"Space Cash: $[HDD.cash]<br>"}
 						dat += {"Withdraw:"}
-						if (HDD.cash>10)
+						if (HDD.cash>11)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=10'>$10</a>"
-						if (HDD.cash>20)
+						if (HDD.cash>21)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=20'>$20</a>"
-						if (HDD.cash>50)
+						if (HDD.cash>51)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=50'>$50</a>"
-						if (HDD.cash>100)
+						if (HDD.cash>101)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=100'>$100</a>"
-						if (HDD.cash>200)
+						if (HDD.cash>201)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=200'>$200</a>"
-						if (HDD.cash>500)
+						if (HDD.cash>501)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=500'>$500</a>"
-						if (HDD.cash>1000)
+						if (HDD.cash>1001)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=1000'>$1000</a>"
 
 
 					if (7) //Messenger
 						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a><br>"}
+						unalerted(0,1)
 						dat += "<center><a href='byond://?src=\ref[src];choice=ToggleMessenger'>[HDD.messengeron ? "Messenger: On" : "Messenger: Off"]</a>"
 						dat += "<a href='byond://?src=\ref[src];choice=Ringtone'>Ringtone</a></center>"
 						var/obj/item/device/thinktronic_parts/data/convo/activechat = HDD.activechat
@@ -234,7 +254,7 @@
 										var/obj/item/device/thinktronic_parts/HDD/D = devices.HDD
 										if(!D) continue
 										if(devices.network() && devices.hasmessenger == 1 && D.neton && D.owner && D.messengeron)
-											if (devices == src)	continue
+											if (devices.device_ID == src.device_ID)	continue
 											dat += {" [D.owner] ([devices.devicetype])"}
 											dat += {" - "}
 											dat += {"<a href='byond://?src=\ref[src];choice=Chat;target=\ref[devices]'>Chat</a>"}
@@ -260,9 +280,10 @@
 									break
 					if (8) //Alerts
 						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a><hr>"}
+						unalerted(1,0)
 						for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
 							dat += {"<A href='?src=\ref[src];choice=ClearAlert;target=\ref[alert]'> <b>X</b> </a>"}
-							dat += {"[alert.alertmsg]"}
+							dat += {"[alert.alertmsg]<br>"}
 
 					if (9) //App Store
 						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a> Space Cash: $[HDD.cash]<hr>"}
@@ -298,7 +319,8 @@
 				popup.close()
 				U.unset_machine()
 				U << browse(null, "window=thinktronic")
-				HDD.activechat = null
+				if(HDD)
+					HDD.activechat = null
 				loadeddata = null
 				loadeddata_photo = null
 				return
@@ -405,16 +427,36 @@
 				attack_self(usr)
 			if("Ringtone")
 				var/t = input(U, "Please enter message", name, null) as text
-				t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
-				HDD.ttone = t
-				attack_self(usr)
-			if("network")
-				if(HDD.neton)
-					HDD.neton = 0
+				if (t)
+					if(src.hidden_uplink && hidden_uplink.check_trigger(U, trim(lowertext(t)), trim(lowertext(lock_code))))
+						U << "The tablet flashes red."
+						attack_self(usr)
+						HDD.mode = 0
+						popup.close()
+						U.unset_machine()
+						U << browse(null, "window=thinktronic")
+						HDD.activechat = null
+						loadeddata = null
+						loadeddata_photo = null
+					else
+						t = copytext(sanitize(t), 1, 20)
+						HDD.ttone = t
+						attack_self(usr)
+			if("Sound")
+				if(volume)
+					volume = 0
 					attack_self(usr)
 				else
-					HDD.neton = 1
+					volume = 1
 					attack_self(usr)
+			if("network")
+				if(!HDD.banned)
+					if(HDD.neton)
+						HDD.neton = 0
+						attack_self(usr)
+					else
+						HDD.neton = 1
+						attack_self(usr)
 				attack_self(usr)
 			if("EjectHDD")
 				if (ismob(loc))
@@ -530,7 +572,12 @@
 			if("CartSaveApp")
 				var/obj/item/device/thinktronic_parts/program/D = locate(href_list["target"])
 				var/exists = 0
+				if(!D)
+					usr << "ERROR: Application files not found"
+					attack_self(usr)
+					return
 				for(var/obj/item/device/thinktronic_parts/program/C in HDD)
+					if(!C) continue
 					if(C.name == D.name)
 						exists = 1
 						break
@@ -541,7 +588,8 @@
 					return
 				else
 					D.loc = HDD
-					D.favorite = 2
+					if(!D.utility)
+						D.favorite = 2
 					attack_self(usr)
 					return
 				attack_self(usr)
@@ -550,11 +598,14 @@
 					var/obj/item/device/thinktronic_parts/nanonet/store_items/D = locate(href_list["target"])
 					if(D.price <= HDD.cash)
 						HDD.cash -= D.price
-						if (HDD.volume == 1)
+						if (volume == 1)
 							playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
 						for (var/mob/O in hearers(3, loc))
-							if(HDD.volume == 1)
+							if(volume == 1)
 								O.show_message(text("\icon[src] *[HDD.ttone]*"))
+							if(volume == 2)
+								O.show_message(text("\icon[src] *[HDD.ttone]*"))
+								O.show_message(text("Application Purchased, Saved to downloads"))
 						usr << "Application Purchased, Saved to downloads"
 						var/obj/item/device/thinktronic_parts/program/NewD = new D.item(cart)
 						NewD.sentby = "NanoStore"
@@ -570,6 +621,33 @@
 			if("ClearAlert")
 				var/obj/item/device/thinktronic_parts/data/alert/alert = locate(href_list["target"])
 				qdel(alert)
+				attack_self(usr)
+			if("Delete")
+				var/obj/item/device/thinktronic_parts/P = locate(href_list["target"])
+				qdel(P)
+				attack_self(usr)
+				return
+			if("RenameCategory1")
+				var/t = input(usr, "Category Name", name, null) as text
+				t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
+				if (!t)
+					return
+				if (!in_range(src, usr) && loc != usr)
+					return
+				if(!can_use(usr))
+					return
+				HDD.primaryname = t
+				attack_self(usr)
+			if("RenameCategory2")
+				var/t = input(usr, "Category Name", name, null) as text
+				t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
+				if (!t)
+					return
+				if (!in_range(src, usr) && loc != usr)
+					return
+				if(!can_use(usr))
+					return
+				HDD.secondaryname = t
 				attack_self(usr)
 	else
 		U.set_machine(src)

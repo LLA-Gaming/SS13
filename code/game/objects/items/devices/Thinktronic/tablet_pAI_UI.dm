@@ -1,4 +1,4 @@
-/obj/item/device/thinktronic/tablet/ai/attack_self(mob/living/user)
+/obj/item/device/thinktronic/tablet/pai/attack_self(mob/living/user)
 	var/mob/U = usr
 	user.set_machine(src)
 	var/dat = ""
@@ -25,8 +25,7 @@
 								<center>
 								Owner: [HDD.owner], [HDD.ownjob]<br>
 								[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
-								<A href='?src=\ref[src];choice=files'>File Manager</a> <A href='?src=\ref[src];choice=messenger'>Messenger</a> <A href='?src=\ref[src];choice=downloads'>Downloads</a>
-								<br><A href='?src=\ref[src];choice=wallet'>Wallet</a> <A href='?src=\ref[src];choice=store'>NanoStore</a> <a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
+								<A href='?src=\ref[src];choice=files'>File Manager</a> <A href='?src=\ref[src];choice=messenger'>Messenger</a></a><A href='?src=\ref[src];choice=downloads'>Downloads</a><a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
 								</center>
 								</div>
 								"}
@@ -99,7 +98,6 @@
 						dat += {"GPU: S-Vidya 2554-m<br>"}
 						dat += {"System Ram: [ram]GB<br>"}
 						dat += {"<a href='byond://?src=\ref[src];choice=Ringtone'>Ringtone</a><br>"}
-						dat += {"<a href='byond://?src=\ref[src];choice=Sound'>[volume ? "Sound: On" : "Sound: Off"]</a><br>"}
 						dat += {"<h3>[HDD.primaryname] Settings - <A href='?src=\ref[src];choice=RenameCategory1'>Rename</a></h3>"}
 						for(var/obj/item/device/thinktronic_parts/program/PRG in HDD)
 							if (PRG.favorite == 1)
@@ -273,7 +271,7 @@
 		U.set_machine(src)
 		U << browse(null, "window=thinktronic")
 
-/obj/item/device/thinktronic/tablet/ai/Topic(href, href_list)
+/obj/item/device/thinktronic/tablet/pai/Topic(href, href_list)
 	var/mob/U = usr
 	if(can_use(U)) //Why reinvent the wheel? There's a proc that does exactly that.
 		add_fingerprint(U)
@@ -520,6 +518,8 @@
 				var/obj/item/device/thinktronic_parts/data/alert/alert = locate(href_list["target"])
 				qdel(alert)
 				attack_self(usr)
+			if("OpenTablet")
+				attack_self(usr)
 			if("Delete")
 				var/obj/item/device/thinktronic_parts/P = locate(href_list["target"])
 				qdel(P)
@@ -547,6 +547,7 @@
 					return
 				HDD.secondaryname = t
 				attack_self(usr)
+
 	else
 		U.set_machine(src)
 		U << browse(null, "window=thinktronic")

@@ -7,63 +7,64 @@
 	slot_flags = SLOT_ID | SLOT_BELT
 	var/owner
 	var/ownjob
+	var/lock_code = "" // Lockcode to unlock uplink
 
 /obj/item/device/thinktronic/tablet/New()
 	..()
 	new /obj/item/weapon/pen(src)
-	cart = new /obj/item/device/thinktronic_parts/cartridge(src)
-
-
-/obj/item/device/thinktronic/proc/can_use(mob/user)
-	if(user && ismob(user))
-		if(user.stat || user.restrained() || user.paralysis || user.stunned || user.weakened)
-			return 0
-		if(loc == user)
-			return 1
-	return 0
 
 /obj/item/device/thinktronic/tablet/attackby(obj/item/C as obj, mob/user as mob)
 	..()
-	if(istype(C, /obj/item/weapon/card/id))
-		var/obj/item/weapon/card/id/idcard = C
-		if(!idcard.registered_name)
-			user << "<span class='notice'>\The [src] rejects the ID.</span>"
-			return
-		if(!HDD.owner)
-			HDD.owner = idcard.registered_name
-			HDD.ownjob = idcard.assignment
+	if(HDD)
+		if(istype(C, /obj/item/weapon/card/id))
+			var/obj/item/weapon/card/id/idcard = C
+			if(!idcard.registered_name)
+				user << "<span class='notice'>\The [src] rejects the ID.</span>"
+				return
+			if(!HDD.owner)
+				HDD.owner = idcard.registered_name
+				HDD.ownjob = idcard.assignment
+				update_label()
+				user << "<span class='notice'>Card scanned.</span>"
+			else
+				//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
+				if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
+					if( can_use(user) )//If they can still act.
+						id_check(user, 2)
+						user << "<span class='notice'>You put the ID into \the [src]'s slot.</span>"
+						updateSelfDialog()//Update self dialog on success.
+				return	//Return in case of failed check or when successful.
+			updateSelfDialog()//For the non-input related code.
+		if(istype(C, /obj/item/device/thinktronic_parts/expansioncarts/))
+			var/obj/item/device/thinktronic_parts/expansioncarts/expand = C
+			user << "<span class='notice'>You load the cartridge's data into the downloads.</span>"
+			for(var/obj/item/device/thinktronic_parts/prog in expand)
+				var/obj/item/device/thinktronic_parts/NewD = new prog.type(cart)
+				NewD.sentby = format_text(C.name)
+				updateSelfDialog()//For the non-input related code.
+			qdel(C)
+		if(istype(C, /obj/item/weapon/spacecash))
+			var/obj/item/weapon/spacecash/S = C
+			HDD.cash += S.credits
+			qdel(C)
+			updateSelfDialog()//For the non-input related code.
+			if(S.credits)
+				user << "<span class='notice'>You convert the Space Cash into digital currency in your E-Wallet</span>"
+			else
+				user << "<span class='notice'>ERROR: Counterfeit Space Cash detected. Currency declined</span>"
+		if(istype(C, /obj/item/device/toner))
+			HDD.toner = 30
+			user << "<span class='notice'>You replace the toner cartridge.</span>"
+			qdel(C)
+	else
+		if(istype(C, /obj/item/device/thinktronic_parts/HDD))
+			var/obj/item/device/thinktronic_parts/HDD/D = C
+			HDD = D
+			user.drop_item()
+			D.loc = src
+			user << "<span class='notice'>You put the Hard Drive into \the [src]'s slot.</span>"
 			update_label()
-			user << "<span class='notice'>Card scanned.</span>"
-		else
-			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
-			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
-				if( can_use(user) )//If they can still act.
-					id_check(user, 2)
-					user << "<span class='notice'>You put the ID into \the [src]'s slot.</span>"
-					updateSelfDialog()//Update self dialog on success.
-			return	//Return in case of failed check or when successful.
-		updateSelfDialog()//For the non-input related code.
-	if(istype(C, /obj/item/device/thinktronic_parts/HDD))
-		var/obj/item/device/thinktronic_parts/HDD/D = C
-		HDD = D
-		user.drop_item()
-		D.loc = src
-		user << "<span class='notice'>You put the Hard Drive into \the [src]'s slot.</span>"
-		update_label()
-		updateSelfDialog()//For the non-input related code.
-	if(istype(C, /obj/item/weapon/spacecash))
-		var/obj/item/weapon/spacecash/S = C
-		HDD.cash += S.credits
-		qdel(C)
-		updateSelfDialog()//For the non-input related code.
-		if(S.credits)
-			user << "<span class='notice'>You convert the Space Cash into digital currency in your E-Wallet</span>"
-		else
-			user << "<span class='notice'>ERROR: Counterfeit Space Cash detected. Currency declined</span>"
-	if(istype(C, /obj/item/device/toner))
-		HDD.toner = 30
-		user << "<span class='notice'>You replace the toner cartridge.</span>"
-		qdel(C)
+			updateSelfDialog()//For the non-input related code.
 
 /obj/item/device/thinktronic/tablet/attack(mob/living/carbon/C, mob/living/user as mob)
 	if(istype(C))
@@ -147,50 +148,11 @@
 /obj/item/device/thinktronic/tablet/proc/update_label()
 	name = "Tablet-[HDD.owner] ([HDD.ownjob])" //Name generalisation
 
-/obj/item/device/thinktronic/tablet/GetAccess()
-	if(id)
-		return id.GetAccess()
-	else
-		return ..()
-
-/obj/item/device/thinktronic/tablet/GetID()
-	return id
-
-/obj/item/device/thinktronic/tablet/proc/id_check(mob/user as mob, choice as num)//To check for IDs; 1 for in-pda use, 2 for out of pda use.
-	if(choice == 1)
-		if (id)
-			remove_id()
-		else
-			var/obj/item/I = user.get_active_hand()
-			if (istype(I, /obj/item/weapon/card/id))
-				user.drop_item()
-				I.loc = src
-				id = I
-	else
-		var/obj/item/weapon/card/I = user.get_active_hand()
-		if (istype(I, /obj/item/weapon/card/id) && I:registered_name)
-			var/obj/old_id = id
-			user.drop_item()
-			I.loc = src
-			id = I
-			user.put_in_hands(old_id)
-	return
-
 /obj/item/device/thinktronic/tablet/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
 	if((!istype(over_object, /obj/screen)) && can_use(M))
 		return attack_self(M)
 	return
-
-/obj/item/device/thinktronic/tablet/proc/remove_id()
-	if (id)
-		if (ismob(loc))
-			var/mob/M = loc
-			M.put_in_hands(id)
-			usr << "<span class='notice'>You remove the ID from the [name].</span>"
-		else
-			id.loc = get_turf(src)
-		id = null
 
 /obj/item/device/thinktronic/tablet/verb/use_tablet()
 	set category = "Object"
@@ -215,7 +177,7 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD(src)
+		HDD = new /obj/item/device/thinktronic_parts/HDD/plain/(src)
 
 /obj/item/device/thinktronic/tablet/medical
 	icon_state = "tablet-medical"
@@ -432,19 +394,21 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD(src)
-
-/obj/item/device/thinktronic/tablet/debug
-	icon_state = "tablet-syndi"
-
-	New()
-		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/debug(src)
+		HDD = new /obj/item/device/thinktronic_parts/HDD/syndi(src)
+		HDD.owner = "John Doe"
+		HDD.ownjob = "Unknown"
 
 /obj/item/device/thinktronic/tablet/ai
+	candetonate = 0
 	New()
 		..()
 		HDD = new /obj/item/device/thinktronic_parts/HDD/ai(src)
+
+/obj/item/device/thinktronic/tablet/pai
+	candetonate = 0
+	New()
+		..()
+		HDD = new /obj/item/device/thinktronic_parts/HDD/pai(src)
 
 /obj/item/device/thinktronic/tablet/clown/Crossed(AM as mob|obj) //Clown Tablet is slippery.
 	if (istype(AM, /mob/living/carbon))

@@ -1,5 +1,5 @@
 /obj/item/device/thinktronic_parts/program/utility/reagentscanner
-	name = "Reagent Scanner"
+	name = "Chemical Scanner"
 	togglemode = 1
 
 	Topic(href, href_list) // This is here

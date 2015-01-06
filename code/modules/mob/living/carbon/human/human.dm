@@ -462,6 +462,8 @@
 								if(setcriminal != "Cancel")
 									R.fields["criminal"] = setcriminal
 									modified = 1
+									for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+										MS.SendAlert("[R.fields["name"]] has been set to [R.fields["criminal"]]","Security Records")
 
 									spawn()
 										H.handle_regular_hud_updates()
