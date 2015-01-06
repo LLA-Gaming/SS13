@@ -46,4 +46,4 @@
 			if(!robots)
 				dat += "No Cyborg Units detected within access parameters."
 		else
-			dat += "ERROR: No connection to the server"
+			dat = "ERROR: No connection to the server"

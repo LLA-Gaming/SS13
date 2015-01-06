@@ -61,5 +61,5 @@
 					dat += {"Prisoner: [cell.prisoner]<br>"}
 					dat += "</div>"
 		else
-			dat += "ERROR: No connection to the server"
+			dat = "ERROR: No connection to the server"
 

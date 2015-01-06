@@ -231,19 +231,19 @@
 						dat += {"Holder: [HDD.owner]<br>"}
 						dat += {"Space Cash: $[HDD.cash]<br>"}
 						dat += {"Withdraw:"}
-						if (HDD.cash>11)
+						if (HDD.cash>=10)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=10'>$10</a>"
-						if (HDD.cash>21)
+						if (HDD.cash>=20)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=20'>$20</a>"
-						if (HDD.cash>51)
+						if (HDD.cash>=50)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=50'>$50</a>"
-						if (HDD.cash>101)
+						if (HDD.cash>=100)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=100'>$100</a>"
-						if (HDD.cash>201)
+						if (HDD.cash>=200)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=200'>$200</a>"
-						if (HDD.cash>501)
+						if (HDD.cash>=500)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=500'>$500</a>"
-						if (HDD.cash>1001)
+						if (HDD.cash>=1000)
 							dat += " <a href='?src=\ref[src];choice=Withdraw;amount=1000'>$1000</a>"
 
 

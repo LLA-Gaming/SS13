@@ -21,4 +21,4 @@
 				dat += "</div>"
 			else
 				dat += "ERROR: no research found in server"
-		dat += "ERROR: No connection to the server"
+		dat = "ERROR: No connection to the server"

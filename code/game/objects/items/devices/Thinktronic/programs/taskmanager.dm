@@ -23,7 +23,7 @@
 					dat += {"<a href='byond://?src=\ref[src];choice=EditTask;what=change_setting;task=\ref[task]'>[task.status]</a><br>"}
 					dat += "</div>"
 		else
-			dat += "ERROR: No connection to the server"
+			dat = "ERROR: No connection to the server"
 
 
 
