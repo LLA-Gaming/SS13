@@ -59,7 +59,11 @@
 			return 1
 
 		if("harm")
-			add_logs(M, src, "punched")
+			var/damage = rand(0, 9)
+			if (src.stat == DEAD)
+				add_logs(M, src, "punched", addition=" (DAMAGE: [damage]) (REMHP: DEAD)")
+			else
+				add_logs(M, src, "punched", addition=" (DAMAGE: [damage]) (REMHP: [src.health - damage])")
 
 			var/attack_verb = "punch"
 			if(lying)
@@ -71,7 +75,7 @@
 					if("plant")
 						attack_verb = "slash"
 
-			var/damage = rand(0, 9)
+
 			if(!damage)
 				switch(attack_verb)
 					if("slash")

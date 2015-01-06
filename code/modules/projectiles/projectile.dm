@@ -78,11 +78,10 @@
 
 		bumped = 1
 		if(ismob(A))
-			var/mob/M = A
 			if(!istype(A, /mob/living))
 				loc = A.loc
 				return 0// nope.avi
-
+			var/mob/living/M = A
 			var/reagent_note
 			if(reagents && reagents.reagent_list)
 				reagent_note = " REAGENTS:"
@@ -100,7 +99,10 @@
 					playsound(loc, hitsound, volume, 1, -1)
 				M.visible_message("<span class='danger'>[M] is hit by \a [src] in the [parse_zone(def_zone)]!", \
 									"<span class='userdanger'>[M] is hit by \a [src] in the [parse_zone(def_zone)]!")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
-			add_logs(firer, M, "shot", object="[src]", addition=reagent_note)
+			if (M.stat == DEAD)
+				add_logs(firer, M, "shot", object="[src]", addition=" (DAMAGE: [src.damage]) (REMHP: DEAD) [reagent_note]")
+			else
+				add_logs(firer, M, "shot", object="[src]", addition=" (DAMAGE: [src.damage]) (REMHP: [M.health - src.damage]) [reagent_note]")
 
 
 		spawn(0)
