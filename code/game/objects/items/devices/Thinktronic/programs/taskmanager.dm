@@ -11,9 +11,9 @@
 		var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD
 		dat = ""
 		if(pro)
-			dat += "<div class='statusDisplay'><center>Mode: Manager</div>"
+			dat += "<div class='statusDisplay'><center>Mode: Manager</center></div>"
 		else
-			dat += "<div class='statusDisplay'><center>Mode: User</div>"
+			dat += "<div class='statusDisplay'><center>Mode: User</center></div>"
 		if(network())
 			dat += "<h4>Your Request List</h4>"
 			dat += "<a href='?src=\ref[src];choice=NewRequest'>New Request</a><br>"
