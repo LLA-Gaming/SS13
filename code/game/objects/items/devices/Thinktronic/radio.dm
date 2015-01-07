@@ -68,7 +68,7 @@
 
 	Topic(href, href_list)
 		..()
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc.loc // variable for interactin with the HDD
+		var/obj/item/device/thinktronic_parts/core/hdd = loc.loc // variable for interactin with the HDD
 		var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 
 		switch(href_list["op"])
@@ -150,7 +150,7 @@
 
 	Topic(href, href_list)
 		..()
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc.loc // variable for interactin with the HDD
+		var/obj/item/device/thinktronic_parts/core/hdd = loc.loc // variable for interactin with the HDD
 		var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 		var/cmd = "command"
 		if(active) cmd = "command [active.suffix]"

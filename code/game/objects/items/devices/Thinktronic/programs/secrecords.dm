@@ -1,7 +1,6 @@
 /obj/item/device/thinktronic_parts/program/sec/secrecords
 	name = "Security Records"
 	usealerts = 1
-	alerts = 1
 	var/mode = 1
 	var/datum/data/record/active1 = null //General
 	var/datum/data/record/active2 = null //Medical
@@ -55,7 +54,7 @@
 
 	Topic(href, href_list) // This is here
 		..()
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc // variable for interactin with the HDD
+		var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD
 		var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 		switch(href_list["choice"])
 			if("Security Records")

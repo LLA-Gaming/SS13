@@ -670,7 +670,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 			W.update_label()
 			M.equip_to_slot_or_del(W, slot_wear_id)
 			var/obj/item/device/thinktronic/tablet/plain/P = new(M)
-			var/obj/item/device/thinktronic_parts/HDD/HDD = P.HDD
+			var/obj/item/device/thinktronic_parts/core/HDD = P.HDD
 			HDD.owner = M.real_name
 			HDD.ownjob = "Assistant"
 			P.update_label()
@@ -856,7 +856,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 			M.equip_to_slot_or_del(sec_briefcase, slot_l_hand)
 
 			var/obj/item/device/thinktronic/tablet/clear/pda = new(M)
-			var/obj/item/device/thinktronic_parts/HDD/HDD = pda.HDD
+			var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
 			HDD.owner = M.real_name
 			HDD.ownjob = "Reaper"
 			pda.update_label()
@@ -928,7 +928,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 			M.equip_to_slot_or_del(new /obj/item/weapon/pen(M), slot_l_store)
 
 			var/obj/item/device/thinktronic/tablet/clear/pda = new(M)
-			var/obj/item/device/thinktronic_parts/HDD/HDD = pda.HDD
+			var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
 			HDD.owner = M.real_name
 			HDD.ownjob = "Centcom Official"
 			pda.update_label()

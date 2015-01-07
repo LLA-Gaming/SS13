@@ -64,7 +64,7 @@
 
 	Topic(href, href_list) // This is here
 		..()////THIS IS NEEDED FOR THE TOPIC TO FUNCTION AT ALL, ALWAYS INCLUDE ..()
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc
+		var/obj/item/device/thinktronic_parts/core/hdd = loc
 		var/obj/item/device/thinktronic/PDA = hdd.loc
 		switch(href_list["choice"])//Now we switch based on choice.
 			if("perseus_mission")
@@ -83,7 +83,7 @@
 	deletable = 0
 
 	Topic(href, href_list) // This is here
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc
+		var/obj/item/device/thinktronic_parts/core/hdd = loc
 		var/obj/item/device/thinktronic/PDA = hdd.loc
 		switch(href_list["choice"])//Now we switch based on choice.
 			if ("Open")

@@ -86,7 +86,7 @@
 
 	//Equip PDA
 	var/obj/item/device/thinktronic/tablet/PDA = new default_pda(H)
-	var/obj/item/device/thinktronic_parts/HDD/HDD = PDA.HDD
+	var/obj/item/device/thinktronic_parts/core/HDD = PDA.HDD
 	HDD.owner = H.real_name
 	HDD.ownjob = H.job
 	PDA.update_label()

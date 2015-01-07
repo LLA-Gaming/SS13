@@ -26,6 +26,7 @@
 
 				var/count = 0
 				for(var/obj/machinery/computer/monitor/pMon in powermonitors)
+					if(!pMon.z == 1) continue
 					count++
 					dat += "<a href='byond://?src=\ref[src];choice=Power Select;target=[count]'> [pMon] </a><BR>"
 
@@ -61,7 +62,7 @@
 
 	Topic(href, href_list) // This is here
 		..()
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc // variable for interactin with the HDD
+		var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD
 		var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 		switch(href_list["choice"])
 			if("Power Select")

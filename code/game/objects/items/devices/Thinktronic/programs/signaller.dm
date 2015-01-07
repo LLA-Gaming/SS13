@@ -28,7 +28,7 @@
 
 	Topic(href, href_list) // This is here
 		..()
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc // variable for interactin with the HDD
+		var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD
 		var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 		switch(href_list["choice"])
 			if("Send Signal")

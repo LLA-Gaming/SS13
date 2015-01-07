@@ -40,7 +40,7 @@
 /////////////////////////////////
 /obj/item/device/thinktronic_parts/program/general/spacebattle/Topic(href, href_list)
 	..()
-	var/obj/item/device/thinktronic_parts/HDD/D = loc
+	var/obj/item/device/thinktronic_parts/core/D = loc
 	var/obj/item/device/thinktronic/PDA = D.loc
 	if (!src.blocked && !src.gameover)
 		if (href_list["attack"])

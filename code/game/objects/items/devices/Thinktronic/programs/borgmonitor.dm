@@ -1,7 +1,6 @@
 /obj/item/device/thinktronic_parts/program/sci/borgmonitor
 	name = "Robotics Monitor"
 	usealerts = 1
-	alerts = 1
 
 	use_app() //Put all the HTML here
 		dat = ""

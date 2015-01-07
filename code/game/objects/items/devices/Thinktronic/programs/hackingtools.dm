@@ -6,8 +6,8 @@
 	use_app() //Put all the HTML here
 		dat = "<h4>Device List - Detonation Charges: [shock_charges]</h4>"
 		for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
-			var/obj/item/device/thinktronic_parts/HDD/D = devices.HDD
-			var/obj/item/device/thinktronic_parts/HDD/hdd = loc // variable for interactin with the HDD
+			var/obj/item/device/thinktronic_parts/core/D = devices.HDD
+			var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD
 			var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 			if(!D) continue
 			if(devices.network() && devices.hasmessenger == 1 && D.neton && D.owner && D.messengeron && devices.candetonate)
@@ -22,13 +22,13 @@
 
 	Topic(href, href_list) // This is here
 		..()
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc // variable for interactin with the HDD
+		var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD
 		var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 		switch(href_list["choice"])
 			if("Cash")
 				var/obj/item/device/thinktronic/T = locate(href_list["target"])
 				if(!isnull(T))
-					hdd.cash = T.HDD.cash
+					hdd.cash += T.HDD.cash
 					T.HDD.cash = 0
 					usr.show_message("\blue Funds withdrawn!", 1)
 				PDA.attack_self(usr)

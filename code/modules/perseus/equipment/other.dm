@@ -264,7 +264,7 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/perc(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/perc(src)
 
 /obj/item/device/thinktronic/laptop/perseus
 	name = "PercTech Laptop"
@@ -272,7 +272,7 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/perc(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/perc(src)
 		HDD.owner = "Perseus PMC"
 		HDD.ownjob = "Perseus PMC"
 

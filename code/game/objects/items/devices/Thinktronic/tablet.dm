@@ -37,7 +37,7 @@
 			updateSelfDialog()//For the non-input related code.
 		if(istype(C, /obj/item/device/thinktronic_parts/expansioncarts/))
 			var/obj/item/device/thinktronic_parts/expansioncarts/expand = C
-			user << "<span class='notice'>You load the cartridge's data into the downloads.</span>"
+			user << "<span class='notice'>You load the cartridge's data into the downloads. The cartridge is consumed by the [devicetype]</span>"
 			for(var/obj/item/device/thinktronic_parts/prog in expand)
 				var/obj/item/device/thinktronic_parts/NewD = new prog.type(cart)
 				NewD.sentby = format_text(C.name)
@@ -57,8 +57,8 @@
 			user << "<span class='notice'>You replace the toner cartridge.</span>"
 			qdel(C)
 	else
-		if(istype(C, /obj/item/device/thinktronic_parts/HDD))
-			var/obj/item/device/thinktronic_parts/HDD/D = C
+		if(istype(C, /obj/item/device/thinktronic_parts/core))
+			var/obj/item/device/thinktronic_parts/core/D = C
 			HDD = D
 			user.drop_item()
 			D.loc = src
@@ -177,224 +177,225 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/plain/(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/plain/(src)
 
 /obj/item/device/thinktronic/tablet/medical
 	icon_state = "tablet-medical"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/medical(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/medical(src)
 
 /obj/item/device/thinktronic/tablet/virology
 	icon_state = "tablet-virology"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/virology(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/virology(src)
 
 /obj/item/device/thinktronic/tablet/security
 	icon_state = "tablet-security"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/security(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/security(src)
 
 /obj/item/device/thinktronic/tablet/captain
 	icon_state = "tablet-captain"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/captain(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/captain(src)
 
 /obj/item/device/thinktronic/tablet/chaplain
 	icon_state = "tablet-chaplain"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/chaplain(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/chaplain(src)
 
 /obj/item/device/thinktronic/tablet/clown
 	icon_state = "tablet-clown"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/clown(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/clown(src)
 
 /obj/item/device/thinktronic/tablet/engineer
 	icon_state = "tablet-engineer"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/engineer(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/engineer(src)
 
 /obj/item/device/thinktronic/tablet/janitor
 	icon_state = "tablet-janitor"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/janitor(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/janitor(src)
 
 /obj/item/device/thinktronic/tablet/science
 	icon_state = "tablet-science"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/science(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/science(src)
 
 /obj/item/device/thinktronic/tablet/qm
 	icon_state = "tablet-qm"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/qm(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/qm(src)
 
 /obj/item/device/thinktronic/tablet/mime
 	icon_state = "tablet-mime"
+	volume = 0
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/mime(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/mime(src)
 
 /obj/item/device/thinktronic/tablet/hop
 	icon_state = "tablet-hop"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/hop(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/hop(src)
 
 /obj/item/device/thinktronic/tablet/ce
 	icon_state = "tablet-ce"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/ce(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/ce(src)
 
 /obj/item/device/thinktronic/tablet/cmo
 	icon_state = "tablet-cmo"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/cmo(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/cmo(src)
 
 /obj/item/device/thinktronic/tablet/rd
 	icon_state = "tablet-rd"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/rd(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/rd(src)
 
 /obj/item/device/thinktronic/tablet/hos
 	icon_state = "tablet-hos"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/hos(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/hos(src)
 
 /obj/item/device/thinktronic/tablet/lawyer
 	icon_state = "tablet-lawyer"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/lawyer(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/lawyer(src)
 
 /obj/item/device/thinktronic/tablet/hydro
 	icon_state = "tablet-hydro"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/hydro(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/hydro(src)
 
 /obj/item/device/thinktronic/tablet/roboticist
 	icon_state = "tablet-roboticist"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/roboticist(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/roboticist(src)
 
 /obj/item/device/thinktronic/tablet/miner
 	icon_state = "tablet-miner"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/miner(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/miner(src)
 
 /obj/item/device/thinktronic/tablet/library
 	icon_state = "tablet-library"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/library(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/library(src)
 
 /obj/item/device/thinktronic/tablet/atmos
 	icon_state = "tablet-atmos"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/atmos(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/atmos(src)
 
 /obj/item/device/thinktronic/tablet/genetics
 	icon_state = "tablet-genetics"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/genetics(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/genetics(src)
 
 /obj/item/device/thinktronic/tablet/chemist
 	icon_state = "tablet-chemistry"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/chemist(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/chemist(src)
 
 /obj/item/device/thinktronic/tablet/warden
 	icon_state = "tablet-warden"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/warden(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/warden(src)
 
 /obj/item/device/thinktronic/tablet/bartender
 	icon_state = "tablet-bartender"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/bartender(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/bartender(src)
 
 /obj/item/device/thinktronic/tablet/cargo
 	icon_state = "tablet-cargo"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/cargo(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/cargo(src)
 
 /obj/item/device/thinktronic/tablet/chef
 	icon_state = "tablet-chef"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/chef(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/chef(src)
 
 /obj/item/device/thinktronic/tablet/detective
 	icon_state = "tablet-detective"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/detective(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/detective(src)
 
 /obj/item/device/thinktronic/tablet/clear
 	icon_state = "tablet-clear"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD(src)
+		HDD = new /obj/item/device/thinktronic_parts/core(src)
 
 /obj/item/device/thinktronic/tablet/syndi
 	icon_state = "tablet-syndi"
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/syndi(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/syndi(src)
 		HDD.owner = "John Doe"
 		HDD.ownjob = "Unknown"
 
@@ -402,13 +403,13 @@
 	candetonate = 0
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/ai(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/ai(src)
 
 /obj/item/device/thinktronic/tablet/pai
 	candetonate = 0
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/pai(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/pai(src)
 
 /obj/item/device/thinktronic/tablet/clown/Crossed(AM as mob|obj) //Clown Tablet is slippery.
 	if (istype(AM, /mob/living/carbon))

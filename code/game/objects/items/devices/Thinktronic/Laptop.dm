@@ -7,6 +7,7 @@
 	devicetype = "Laptop"
 	slot_flags = SLOT_BELT
 	volume = 2 // louder so you can hear it without it being in your hand.
+	ram = 512
 	var/owner
 	var/ownjob
 	var/lock_code = "" // Lockcode to unlock uplink
@@ -36,7 +37,7 @@
 			updateSelfDialog()//For the non-input related code.
 		if(istype(C, /obj/item/device/thinktronic_parts/expansioncarts/))
 			var/obj/item/device/thinktronic_parts/expansioncarts/expand = C
-			user << "<span class='notice'>You load the cartridge's data into the downloads.</span>"
+			user << "<span class='notice'>You load the cartridge's data into the downloads. The cartridge is consumed by the [devicetype]</span>"
 			for(var/obj/item/device/thinktronic_parts/prog in expand)
 				var/obj/item/device/thinktronic_parts/NewD = new prog.type(cart)
 				NewD.sentby = format_text(C.name)
@@ -84,8 +85,8 @@
 				pic.photoinfo = A.img
 				user << "\blue Photo scanned."
 	if(!HDD)
-		if(istype(C, /obj/item/device/thinktronic_parts/HDD))
-			var/obj/item/device/thinktronic_parts/HDD/D = C
+		if(istype(C, /obj/item/device/thinktronic_parts/core))
+			var/obj/item/device/thinktronic_parts/core/D = C
 			HDD = D
 			user.drop_item()
 			D.loc = src
@@ -141,7 +142,7 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/plain(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/plain(src)
 		HDD.messengeron = 0
 
 //Shared Laptops
@@ -154,7 +155,7 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/cmo(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/medlaptop(src)
 		HDD.owner = "Medbay Staff"
 		HDD.ownjob = "Medbay"
 
@@ -166,7 +167,7 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/rd(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/scilaptop(src)
 		HDD.owner = "Research Staff"
 		HDD.ownjob = "Science"
 
@@ -178,7 +179,7 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/ce(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/englaptop(src)
 		HDD.owner = "Engineering Staff"
 		HDD.ownjob = "Engineering"
 
@@ -190,7 +191,7 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/hos(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/seclaptop(src)
 		HDD.owner = "Security Staff"
 		HDD.ownjob = "Security"
 
@@ -202,7 +203,7 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/qm(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/cargolaptop(src)
 		HDD.owner = "Cargo Staff"
 		HDD.ownjob = "Cargo"
 
@@ -214,7 +215,7 @@
 
 	New()
 		..()
-		HDD = new /obj/item/device/thinktronic_parts/HDD/public(src)
+		HDD = new /obj/item/device/thinktronic_parts/core/public(src)
 		HDD.owner = "Public Access #[rand(1,100)]"
 		HDD.ownjob = "Public"
 		HDD.messengeron = 0

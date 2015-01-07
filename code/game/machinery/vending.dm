@@ -634,7 +634,7 @@
 	icon_state = "cart"
 	icon_deny = "cart-deny"
 	products = list(/obj/item/device/thinktronic_parts/expansioncarts/medical = 10,/obj/item/device/thinktronic_parts/expansioncarts/engineering = 10,/obj/item/device/thinktronic_parts/expansioncarts/security = 10,
-					/obj/item/device/thinktronic_parts/expansioncarts/janitor = 10,/obj/item/device/thinktronic_parts/expansioncarts/toxins = 10,/obj/item/device/thinktronic/tablet/plain = 10,/obj/item/device/thinktronic/laptop/plain = 5,/obj/item/device/thinktronic_parts/HDD/ = 10,
+					/obj/item/device/thinktronic_parts/expansioncarts/janitor = 10,/obj/item/device/thinktronic_parts/expansioncarts/toxins = 10,/obj/item/device/thinktronic/tablet/plain = 10,/obj/item/device/thinktronic/laptop/plain = 5,/obj/item/device/thinktronic_parts/core/ = 10,
 					/obj/item/device/thinktronic_parts/expansioncarts/captain = 1,/obj/item/device/thinktronic_parts/expansioncarts/quartermaster = 10)
 
 

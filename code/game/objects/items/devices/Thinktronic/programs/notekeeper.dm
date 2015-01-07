@@ -7,7 +7,7 @@
 
 		dat = ""//Youl want to start dat off blank or youl just keep duplicating every click.
 		if(loadeddoc)
-			var/obj/item/device/thinktronic_parts/HDD/hdd = loc
+			var/obj/item/device/thinktronic_parts/core/hdd = loc
 			dat += "<center><h2>[loadeddoc.name]</h2></center><hr>"
 			dat += "<center><a href='byond://?src=\ref[src];choice=EditDoc'>Edit</a><a href='byond://?src=\ref[src];choice=RenameDoc'>Rename</a><a href='byond://?src=\ref[src];choice=PrintDoc'>Print (toner: [hdd.toner])</a><a href='byond://?src=\ref[src];choice=CloseDoc'>Close Document</a></center>"
 			dat += "<div class='statusDisplay'>"
@@ -15,7 +15,7 @@
 			dat += "</div'>"
 		else
 			dat += {"<a href='byond://?src=\ref[src];choice=NewDoc'>New</a><hr>"}
-			var/obj/item/device/thinktronic_parts/HDD/hdd = loc
+			var/obj/item/device/thinktronic_parts/core/hdd = loc
 			for(var/obj/item/device/thinktronic_parts/data/document/DATA in hdd)
 				dat += {"<a href='byond://?src=\ref[src];choice=DeleteDoc;target=\ref[DATA]'><b>X</b> </a>"}
 				dat += {"<a href='byond://?src=\ref[src];choice=OpenDoc;target=\ref[DATA]'>[DATA.name]</a><br>"}
@@ -24,7 +24,7 @@
 	Topic(href, href_list) // This is here
 
 		..()////THIS IS NEEDED FOR THE TOPIC TO FUNCTION AT ALL, ALWAYS INCLUDE ..()
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc
+		var/obj/item/device/thinktronic_parts/core/hdd = loc
 		var/obj/item/device/thinktronic/PDA = hdd.loc
 		switch(href_list["choice"])//Now we switch based on choice.
 			if ("EditDoc")

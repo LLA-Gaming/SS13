@@ -13,6 +13,7 @@
 	var/doc_links = null
 	var/fields = null  //Amount of user created fields
 	var/device_ID = null
+	var/pro = null
 	var/deffont = "Verdana"
 	var/signfont = "Times New Roman"
 	var/crayonfont = "Comic Sans MS"
@@ -86,7 +87,7 @@
 	dat = ""
 
 /obj/item/device/thinktronic_parts/program/proc/network()
-	var/obj/item/device/thinktronic_parts/HDD/D = loc
+	var/obj/item/device/thinktronic_parts/core/D = loc
 	var/obj/item/device/thinktronic/PDA = D.loc
 	var/turf/T = get_turf(PDA.loc)
 	if (D.neton)
@@ -106,7 +107,7 @@
 
 /obj/item/device/thinktronic_parts/program/Topic(href, href_list)
 		//Vital functions, every program needs the code below in there Topic()
-	var/obj/item/device/thinktronic_parts/HDD/D = loc
+	var/obj/item/device/thinktronic_parts/core/D = loc
 	var/obj/item/device/thinktronic/PDA = D.loc
 	if(PDA.can_use(usr))
 		switch(href_list["choice"])
@@ -182,4 +183,7 @@
 	var/assignedby = null
 	var/dept = null
 	var/request = null
+
+/obj/item/device/thinktronic_parts/data/task/request
+
 

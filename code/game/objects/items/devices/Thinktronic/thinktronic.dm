@@ -25,7 +25,7 @@ var/global/thinktronic_device_count = 0
 	var/mounted = 0
 
 	var/obj/item/weapon/card/id/id = null //Making it possible to slot an ID card into the tablet so it can function as both.
-	var/obj/item/device/thinktronic_parts/HDD/HDD = null
+	var/obj/item/device/thinktronic_parts/core/HDD = null
 	var/datum/browser/popup = null
 	var/obj/item/device/thinktronic_parts/cartridge/cart = null
 
@@ -51,8 +51,8 @@ var/global/thinktronic_device_count = 0
 		if(!can_use(U))
 			return
 		if(network() && HDD.messengeron)
-			var/obj/item/device/thinktronic_parts/HDD/MyHDD = HDD
-			var/obj/item/device/thinktronic_parts/HDD/TheirHDD = P.HDD
+			var/obj/item/device/thinktronic_parts/core/MyHDD = HDD
+			var/obj/item/device/thinktronic_parts/core/TheirHDD = P.HDD
 			var/meexisting = 0
 			var/themexisting = 0
 			log_pda("[usr] (PDA: [MyHDD.name]) sent \"[t]\" to [TheirHDD.name]")
@@ -208,7 +208,10 @@ var/global/thinktronic_device_count = 0
 						O.show_message(text("\icon[P] *[HDD.ttone]*"))
 					if(P.volume == 2)
 						O.show_message(text("\icon[P] *[HDD.ttone]*"))
+						O.show_message(text("\icon[P] <b>New download from [HDD.owner] ([HDD.ownjob])"))
 				L << "\icon[P] <b>New download from [HDD.owner] ([HDD.ownjob]), </b>\"[data]\" (<a href='byond://?src=\ref[P];choice=downloads'>View Downloads</a>)"
+				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+					MS.SendAlertSolo("New download from [HDD.owner] ([HDD.ownjob])", P)
 				log_pda("[usr] (PDA: [HDD.name]) sent \"File: [data.name]\" to [P.HDD.name]")
 				U << "File Sent!"
 			else

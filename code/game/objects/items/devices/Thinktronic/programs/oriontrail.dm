@@ -78,7 +78,7 @@
 /////////////////////////////////
 /obj/item/device/thinktronic_parts/program/general/theoriontrail/Topic(href, href_list)
 	..()////THIS IS NEEDED FOR THE TOPIC TO FUNCTION AT ALL, ALWAYS INCLUDE ..()
-	var/obj/item/device/thinktronic_parts/HDD/hdd = loc // You may need these vars
+	var/obj/item/device/thinktronic_parts/core/hdd = loc // You may need these vars
 	var/obj/item/device/thinktronic/PDA = hdd.loc // youl really need this one for sure
 	if (href_list["continue"]) //Continue your travels
 		if(turns >= 9)

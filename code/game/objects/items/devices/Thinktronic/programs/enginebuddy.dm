@@ -7,7 +7,7 @@
 		dat += "Readme: Hello, this application will attempt to help you setup the station's Singularity Engine. For best results stand near the particle acelerator while this device searchs for nearby singularity machinery. Anything colored in red needs your immediate attention in setting up the engine. Be wary of interference."
 		dat += "<hr>"
 		dat += "<h4>The Singularity</h4>"
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc // variable for interactin with the HDD
+		var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD
 		var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 		for(var/obj/machinery/the_singularitygen/gen in orange(15, PDA.loc))
 			if(gen.anchored)
@@ -70,7 +70,7 @@
 					dat += "[PA.name]: <font color='green'><b>assembled</b></font><br>"
 
 		dat += "<h4>Radiation Collectors</h4>"
-		for(var/obj/machinery/power/rad_collector/rad in orange(10, PDA.loc))
+		for(var/obj/machinery/power/rad_collector/rad in orange(14, PDA.loc))
 			if(!rad) return
 			if(rad.P)
 				if(round(rad.P.air_contents.toxins/0.29) <= 50)

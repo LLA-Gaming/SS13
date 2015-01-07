@@ -1,7 +1,6 @@
 /obj/item/device/thinktronic_parts/program/sci/researchmonitor
 	name = "Research Monitor"
 	usealerts = 1
-	alerts = 1
 	var/obj/machinery/computer/rdconsole/cons = null
 
 	New()

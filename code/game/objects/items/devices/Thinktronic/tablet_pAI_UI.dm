@@ -11,7 +11,7 @@
 			else
 				switch (HDD.mode)
 					if (0) //Front screen
-						for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
+						if(alertnotif == 1)
 							dat += {"
 									<div class='statusDisplay'>
 									<center>
@@ -19,13 +19,12 @@
 									</center>
 									</div>
 									"}
-							break
 						dat += {"
 								<div class='statusDisplay'>
 								<center>
 								Owner: [HDD.owner], [HDD.ownjob]<br>
 								[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
-								<A href='?src=\ref[src];choice=files'>File Manager</a> <A href='?src=\ref[src];choice=messenger'>Messenger</a></a><A href='?src=\ref[src];choice=downloads'>Downloads</a><a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
+								<A href='?src=\ref[src];choice=files'>File Manager</a> <A href='?src=\ref[src];choice=messenger'>Messenger</a></a><A href='?src=\ref[src];choice=downloads'>Downloads</a><A href='?src=\ref[src];choice=CheckAlerts'>Alerts</a><a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
 								</center>
 								</div>
 								"}
@@ -185,7 +184,10 @@
 						for(var/obj/item/device/thinktronic_parts/data in cart)
 							if(data.datatype == "Application")
 								dat += {"<A href='?src=\ref[src];choice=CartDel;target=\ref[data]'> <b>X</b> </a>"}
-								dat += {"File: [data.name]<br>"}
+								dat += {"File: [data.name]"}
+								if(data.pro)
+									dat += {" - (Manager)"}
+								dat += {"<br>"}
 								dat += {"Type: [data.datatype]<br>"}
 								dat += {"Sent By: [data.sentby]<br>"}
 								dat += {"<A href='?src=\ref[src];choice=CartSaveApp;target=\ref[data]'>Install Application</a>"}
@@ -215,7 +217,7 @@
 								if (HDD.messengeron)
 									dat += {"<br><h2>Users Online:</h2>"}
 									for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
-										var/obj/item/device/thinktronic_parts/HDD/D = devices.HDD
+										var/obj/item/device/thinktronic_parts/core/D = devices.HDD
 										if(!D) continue
 										if(devices.network() && devices.hasmessenger == 1 && D.neton && D.owner && D.messengeron)
 											if (devices.device_ID == src.device_ID)	continue
@@ -229,7 +231,7 @@
 								dat += {"<br>Error: No connection to the NanoNet"}
 						else
 							for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
-								var/obj/item/device/thinktronic_parts/HDD/D = devices.HDD
+								var/obj/item/device/thinktronic_parts/core/D = devices.HDD
 								if(!D) continue
 								if (HDD.messengeron)
 									if (devices.device_ID == activechat.device_ID)
@@ -369,7 +371,7 @@
 				attack_self(usr)
 			if("EjectHDD")
 				if (ismob(loc))
-					usr << "<span class='notice'>You cannot remove the Hard Drive from the [name].</span>"
+					usr << "<span class='notice'>You cannot remove the Core from the [name].</span>"
 					attack_self(usr)
 			if("Message")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
@@ -396,8 +398,8 @@
 				src.create_message(U, P)
 			if("Chat")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
-				var/obj/item/device/thinktronic_parts/HDD/MyHDD = HDD
-				var/obj/item/device/thinktronic_parts/HDD/TheirHDD = P.HDD
+				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD
+				var/obj/item/device/thinktronic_parts/core/TheirHDD = P.HDD
 				var/existing = 0
 				if(!P.HDD.messengeron || !P.network())
 					usr << "ERROR: Client not found"

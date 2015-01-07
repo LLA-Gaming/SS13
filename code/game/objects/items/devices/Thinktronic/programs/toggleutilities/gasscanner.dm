@@ -4,7 +4,7 @@
 
 	Topic(href, href_list) // This is here
 
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc
+		var/obj/item/device/thinktronic_parts/core/hdd = loc
 		var/obj/item/device/thinktronic/PDA = hdd.loc
 		switch(href_list["choice"])//Now we switch based on choice.
 			if ("Toggle")

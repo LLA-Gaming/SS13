@@ -17,7 +17,7 @@
 		. = id.assignment
 	else
 		var/obj/item/device/thinktronic/tablet/pda = wear_id
-		var/obj/item/device/thinktronic_parts/HDD/HDD = pda.HDD
+		var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
 		if(istype(pda))
 			. = HDD.ownjob
 		else
@@ -32,7 +32,7 @@
 	if(id)
 		return id.registered_name
 	var/obj/item/device/thinktronic/tablet/pda = wear_id
-	var/obj/item/device/thinktronic_parts/HDD/HDD = pda.HDD
+	var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
 	if(istype(pda))
 		return HDD.owner
 	return if_no_id

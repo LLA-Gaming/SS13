@@ -28,7 +28,7 @@
 			new /obj/item/device/thinktronic_parts/program/medical/medrecords(src)
 			new /obj/item/device/thinktronic_parts/program/utility/medscanner(src)
 			new /obj/item/device/thinktronic_parts/program/general/taskmanager/medbay(src)
-			new /obj/item/device/thinktronic_parts/program/sci/crewmonitor(src)
+			new /obj/item/device/thinktronic_parts/program/medical/crewmonitor(src)
 
 	chemistry
 		name = "\improper ChemWhiz cartridge"
@@ -114,6 +114,7 @@
 		New()
 			new /obj/item/device/thinktronic_parts/program/general/crewmanifest(src)
 			new /obj/item/device/thinktronic_parts/program/general/setstatus(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/pro(src)
 
 	hop
 		name = "\improper HumanResources9001 cartridge"
@@ -123,7 +124,7 @@
 			new /obj/item/device/thinktronic_parts/program/general/setstatus(src)
 			new /obj/item/device/thinktronic_parts/program/sec/secrecords(src)
 			new /obj/item/device/thinktronic_parts/program/cargo/mule_control(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/pro(src)
 			new /obj/item/device/thinktronic_parts/program/general/taskmanager/sec(src)
 			new /obj/item/device/thinktronic_parts/program/general/taskmanager/engineering(src)
 			new /obj/item/device/thinktronic_parts/program/general/taskmanager/science(src)
@@ -139,7 +140,7 @@
 			new /obj/item/device/thinktronic_parts/program/general/setstatus(src)
 			new /obj/item/device/thinktronic_parts/program/sec/secrecords(src)
 			new /obj/item/device/thinktronic_parts/program/sec/securitron_control(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager/sec(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/sec/pro(src)
 			new /obj/item/device/thinktronic_parts/program/sec/brigcontrol(src)
 
 	ce
@@ -150,7 +151,7 @@
 			new /obj/item/device/thinktronic_parts/program/general/setstatus(src)
 			new /obj/item/device/thinktronic_parts/program/eng/powermonitor(src)
 			new /obj/item/device/thinktronic_parts/program/utility/gasscanner(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager/engineering(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/engineering/pro(src)
 			new /obj/item/device/thinktronic_parts/program/eng/enginebuddy(src)
 
 	cmo
@@ -163,8 +164,8 @@
 			new /obj/item/device/thinktronic_parts/program/utility/medscanner(src)
 			new /obj/item/device/thinktronic_parts/program/utility/reagentscanner(src)
 			new /obj/item/device/thinktronic_parts/program/utility/radscanner(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager/medbay(src)
-			new /obj/item/device/thinktronic_parts/program/sci/crewmonitor(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/medbay/pro(src)
+			new /obj/item/device/thinktronic_parts/program/medical/crewmonitor(src)
 
 	rd
 		name = "\improper Research-n-Development DELUXE cartridge"
@@ -175,7 +176,7 @@
 			new /obj/item/device/thinktronic_parts/program/utility/reagentscanner(src)
 			new /obj/item/device/thinktronic_parts/program/utility/gasscanner(src)
 			new /obj/item/device/thinktronic_parts/program/general/signaller(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager/science(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/science/pro(src)
 			new /obj/item/device/thinktronic_parts/program/sci/researchmonitor(src)
 			new /obj/item/device/thinktronic_parts/program/sci/borgmonitor(src)
 	captain
@@ -195,15 +196,15 @@
 			new /obj/item/device/thinktronic_parts/program/utility/radscanner(src)
 			new /obj/item/device/thinktronic_parts/program/utility/gasscanner(src)
 			new /obj/item/device/thinktronic_parts/program/general/signaller(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager/sec(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager/engineering(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager/science(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager/cargo(src)
-			new /obj/item/device/thinktronic_parts/program/general/taskmanager/medbay(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/pro(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/sec/pro(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/engineering/pro(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/science/pro(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/cargo/pro(src)
+			new /obj/item/device/thinktronic_parts/program/general/taskmanager/medbay/pro(src)
 			new /obj/item/device/thinktronic_parts/program/sci/researchmonitor(src)
 			new /obj/item/device/thinktronic_parts/program/eng/enginebuddy(src)
-			new /obj/item/device/thinktronic_parts/program/sci/crewmonitor(src)
+			new /obj/item/device/thinktronic_parts/program/medical/crewmonitor(src)
 			new /obj/item/device/thinktronic_parts/program/cargo/cargobay(src)
 			new /obj/item/device/thinktronic_parts/program/sec/brigcontrol(src)
 			new /obj/item/device/thinktronic_parts/program/sci/borgmonitor(src)
@@ -239,7 +240,7 @@
 			new /obj/item/device/thinktronic_parts/program/general/theoriontrail(src)
 			new /obj/item/device/thinktronic_parts/program/sci/researchmonitor(src)
 			new /obj/item/device/thinktronic_parts/program/eng/enginebuddy(src)
-			new /obj/item/device/thinktronic_parts/program/sci/crewmonitor(src)
+			new /obj/item/device/thinktronic_parts/program/medical/crewmonitor(src)
 			new /obj/item/device/thinktronic_parts/program/cargo/cargobay(src)
 			new /obj/item/device/thinktronic_parts/program/sec/brigcontrol(src)
 			new /obj/item/device/thinktronic_parts/program/sci/borgmonitor(src)

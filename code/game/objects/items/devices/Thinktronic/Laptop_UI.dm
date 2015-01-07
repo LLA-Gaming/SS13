@@ -30,7 +30,7 @@
 			else
 				switch (HDD.mode)
 					if (0) //Front screen
-						for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
+						if(alertnotif == 1)
 							dat += {"
 									<div class='statusDisplay'>
 									<center>
@@ -38,7 +38,6 @@
 									</center>
 									</div>
 									"}
-							break
 						dat += {"
 								<div class='statusDisplay'>
 								<center>
@@ -46,7 +45,7 @@
 								ID: <A href='?src=\ref[src];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]</A><A href='?src=\ref[src];choice=UpdateInfo'>[id ? "Update Tablet Info" : ""]</A><br>
 								[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
 								<A href='?src=\ref[src];choice=files'>File Manager</a> <A href='?src=\ref[src];choice=messenger'>Messenger</a> <A href='?src=\ref[src];choice=downloads'>Downloads</a>
-								<br><A href='?src=\ref[src];choice=wallet'>Wallet</a> <A href='?src=\ref[src];choice=store'>NanoStore</a> <a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
+								<br><A href='?src=\ref[src];choice=wallet'>Wallet</a> <A href='?src=\ref[src];choice=store'>NanoStore</a> <A href='?src=\ref[src];choice=CheckAlerts'>Alerts</a> <a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
 								"}
 						if(HDD.implantlocked == /obj/item/weapon/implant/enforcer) // IF THE TABLET HAS A PERSEUS LOCK
 							for(var/obj/machinery/computer/perseus_shuttle_computer/P in world)
@@ -122,7 +121,7 @@
 						dat += {"Processor: IntelliTech LW-S<br>"}
 						dat += {"GPU: S-Vidya 2554-m<br>"}
 						dat += {"System Ram: [ram]GB<br>"}
-						dat += {"Hard Drive: <a href='byond://?src=\ref[src];choice=EjectHDD'>Eject</a><br>"}
+						dat += {"Core: <a href='byond://?src=\ref[src];choice=EjectHDD'>Eject</a><br>"}
 						dat += {"<a href='byond://?src=\ref[src];choice=Ringtone'>Ringtone</a><br>"}
 						dat += {"<a href='byond://?src=\ref[src];choice=Sound'>[volume ? "Sound: On" : "Sound: Off"]</a><br>"}
 						dat += {"<h3>[HDD.primaryname] Settings - <A href='?src=\ref[src];choice=RenameCategory1'>Rename</a></h3>"}
@@ -212,7 +211,10 @@
 						for(var/obj/item/device/thinktronic_parts/data in cart)
 							if(data.datatype == "Application")
 								dat += {"<A href='?src=\ref[src];choice=CartDel;target=\ref[data]'> <b>X</b> </a>"}
-								dat += {"File: [data.name]<br>"}
+								dat += {"File: [data.name]"}
+								if(data.pro)
+									dat += {" - (Manager)"}
+								dat += {"<br>"}
 								dat += {"Type: [data.datatype]<br>"}
 								dat += {"Sent By: [data.sentby]<br>"}
 								dat += {"<A href='?src=\ref[src];choice=CartSaveApp;target=\ref[data]'>Install Application</a>"}
@@ -258,7 +260,7 @@
 								if (HDD.messengeron)
 									dat += {"<br><h2>Users Online:</h2>"}
 									for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
-										var/obj/item/device/thinktronic_parts/HDD/D = devices.HDD
+										var/obj/item/device/thinktronic_parts/core/D = devices.HDD
 										if(!D) continue
 										if(devices.network() && devices.hasmessenger == 1 && D.neton && D.owner && D.messengeron)
 											if (devices.device_ID == src.device_ID)	continue
@@ -272,7 +274,7 @@
 								dat += {"<br>Error: No connection to the NanoNet"}
 						else
 							for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
-								var/obj/item/device/thinktronic_parts/HDD/D = devices.HDD
+								var/obj/item/device/thinktronic_parts/core/D = devices.HDD
 								if(!D) continue
 								if (HDD.messengeron)
 									if (devices.device_ID == activechat.device_ID)
@@ -317,10 +319,18 @@
 
 /obj/item/device/thinktronic/laptop/Topic(href, href_list)
 	var/mob/U = usr
+	if(!mounted)
+		popup.close()
+		U.unset_machine()
+		U << browse(null, "window=thinktronic")
+		if(HDD)
+			HDD.activechat = null
+		loadeddata = null
+		loadeddata_photo = null
+		return
 	if(can_use(U)) //Why reinvent the wheel? There's a proc that does exactly that.
 		add_fingerprint(U)
 		U.set_machine(src)
-
 		switch(href_list["choice"])//Now we switch based on choice.
 			if ("Close")
 				popup.close()
@@ -471,7 +481,7 @@
 				else
 					var/turf/T = loc
 					HDD.loc = T.loc
-					usr << "<span class='notice'>You remove the Hard Drive from the [name].</span>"
+					usr << "<span class='notice'>You remove the Core from the [name].</span>"
 					HDD.mode = 0
 					HDD = null
 					name = devicetype
@@ -501,8 +511,8 @@
 				src.create_message(U, P)
 			if("Chat")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
-				var/obj/item/device/thinktronic_parts/HDD/MyHDD = HDD
-				var/obj/item/device/thinktronic_parts/HDD/TheirHDD = P.HDD
+				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD
+				var/obj/item/device/thinktronic_parts/core/TheirHDD = P.HDD
 				var/existing = 0
 				if(!P.HDD.messengeron || !P.network())
 					usr << "ERROR: Client not found"

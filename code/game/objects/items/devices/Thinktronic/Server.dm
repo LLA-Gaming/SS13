@@ -30,7 +30,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 		for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
 			if(!devices.HDD) continue
 			if(!devices.network()) continue
-			var/obj/item/device/thinktronic_parts/HDD/hdd = devices.HDD
+			var/obj/item/device/thinktronic_parts/core/hdd = devices.HDD
 			var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 			if(!hdd.neton) continue
 			if(!hdd.owner) continue
@@ -61,12 +61,46 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 							PDA.alertnotif = 1
 							PDA.alerted()
 
+/obj/machinery/nanonet_server/proc/SendAlertSolo(var/alerttext, var/device)
+	if(active)
+		for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
+			if(!devices.HDD) continue
+			if(!devices.network()) continue
+			var/obj/item/device/thinktronic_parts/core/hdd = devices.HDD
+			var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
+			if(!hdd.neton) continue
+			if(!hdd.owner) continue
+			if(devices.device_ID == device)
+				var/mob/living/L = null
+				if(devices.loc && isliving(devices.loc))
+					L = devices.loc
+				if (PDA.volume)
+					playsound(devices.loc, 'sound/machines/twobeep.ogg', 50, 1)
+				var/alertfulltext = "\"[alerttext]\""
+				var/exists = 0
+				for (var/mob/O in hearers(3, devices.loc))
+					if(PDA.volume == 1)
+						O.show_message(text("\icon[devices] *[hdd.ttone]*"))
+					if(PDA.volume == 2)
+						O.show_message(text("\icon[devices] *[hdd.ttone]*"))
+						O.show_message(text("\icon[devices] <b>Alert</b> - [alertfulltext]"))
+				L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
+				for(var/obj/item/device/thinktronic_parts/data/alert/alert in hdd)
+					if(alert.alertmsg == "[alertfulltext]")
+						exists = 1
+						break
+				if(!exists)
+					var/obj/item/device/thinktronic_parts/data/alert/alert = new /obj/item/device/thinktronic_parts/data/alert(hdd)
+					alert.alertmsg = "[alertfulltext]"
+					PDA.alertnotif = 1
+					PDA.alerted()
+
 /obj/machinery/nanonet_server/proc/SendAlertAll(var/alerttext)
 	if(active)
 		for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
 			if(!devices.HDD) continue
 			if(!devices.network()) continue
-			var/obj/item/device/thinktronic_parts/HDD/hdd = devices.HDD
+			var/obj/item/device/thinktronic_parts/core/hdd = devices.HDD
 			var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 			if(!hdd.neton) continue
 			if(!hdd.owner) continue
@@ -285,7 +319,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 		var/dat = ""
 		dat += {"ThinkTronic Server is <A href='?src=\ref[src];choice=active'>[src.linkedServer && src.linkedServer.active ? "<font color='green'>\[On\]</font>":"<font color='red'>\[Off\]</font>"]</a></h4><br><a href='byond://?src=\ref[src];choice=alert'>Mass Alert</a><hr>"}
 		for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
-			var/obj/item/device/thinktronic_parts/HDD/D = devices.HDD
+			var/obj/item/device/thinktronic_parts/core/D = devices.HDD
 			if(!D) continue
 			if(devices.network() && D.owner)
 				dat += {"[D.owner] - [D.ownjob]<br>"}

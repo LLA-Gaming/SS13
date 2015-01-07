@@ -1,7 +1,6 @@
-/obj/item/device/thinktronic_parts/program/sci/crewmonitor
+/obj/item/device/thinktronic_parts/program/medical/crewmonitor
 	name = "Medical Monitor"
 	usealerts = 1
-	alerts = 1
 
 	use_app() //Put all the HTML here
 		if(network())

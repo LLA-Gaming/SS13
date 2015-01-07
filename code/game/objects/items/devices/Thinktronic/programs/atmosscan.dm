@@ -5,7 +5,7 @@
 
 
 	use_app() //Put all the HTML here
-		var/obj/item/device/thinktronic_parts/HDD/hdd = loc
+		var/obj/item/device/thinktronic_parts/core/hdd = loc
 		var/obj/item/device/thinktronic/PDA = hdd.loc
 
 		dat = ""//Youl want to start dat off blank or youl just keep duplicating every click.
