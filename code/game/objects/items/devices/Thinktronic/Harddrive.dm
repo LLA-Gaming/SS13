@@ -266,10 +266,10 @@
 
 /obj/item/device/thinktronic_parts/core/seclaptop/New()
 	..()
-	new /obj/item/device/thinktronic_parts/program/sec/secrecords{favorite = 1 alerts = 1 deletable = 0}(src)
+	new /obj/item/device/thinktronic_parts/program/sec/secrecords{favorite = 1 deletable = 0}(src)
 	new /obj/item/device/thinktronic_parts/program/sec/securitron_control{favorite = 2 deletable = 0}(src)
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/sec/pro{favorite = 1 alerts = 1 DRM = 1 deletable = 0}(src)
-	new /obj/item/device/thinktronic_parts/program/sec/brigcontrol{favorite = 1 alerts = 1 deletable = 0}(src)
+	new /obj/item/device/thinktronic_parts/program/sec/brigcontrol{favorite = 1 deletable = 0}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1 deletable = 0}(src)
 	new /obj/item/device/thinktronic_parts/program/general/crewmanifest{favorite = 2 deletable = 0}(src)
 	new /obj/item/device/thinktronic_parts/program/general/setstatus{favorite = 2 deletable = 0}(src)

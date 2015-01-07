@@ -594,6 +594,7 @@
 						return
 					if(exists == 2)
 						usr << "PRO version installed"
+						qdel(D)
 				else
 					D.loc = HDD
 					if(!D.utility)

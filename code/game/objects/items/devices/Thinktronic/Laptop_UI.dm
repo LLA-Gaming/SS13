@@ -599,15 +599,23 @@
 					if(!C) continue
 					if(C.name == D.name)
 						exists = 1
+						if(!C.pro == D.pro)
+							exists = 2
+							C.pro = D.pro
 						break
 				if(exists)
-					usr << "ERROR: Duplicate Applications, Unable to install"
-					qdel(D)
-					attack_self(usr)
-					return
+					if(exists == 1)
+						usr << "ERROR: Duplicate Applications, Unable to install"
+						qdel(D)
+						attack_self(usr)
+						return
+					if(exists == 2)
+						usr << "PRO version installed"
+						qdel(D)
 				else
 					D.loc = HDD
-					D.favorite = 2
+					if(!D.utility)
+						D.favorite = 2
 					attack_self(usr)
 					return
 				attack_self(usr)
