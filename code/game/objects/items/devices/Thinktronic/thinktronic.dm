@@ -3,7 +3,7 @@ var/global/thinktronic_device_count = 0
 
 /obj/item/device/thinktronic/
 	name = "\improper tablet"
-	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
+	desc = "A portable computer by Thinktronic Systems, LTD."
 	icon = 'icons/obj/tablets.dmi'
 	item_state = "tablet-clear"
 	var/dat = null
@@ -37,6 +37,9 @@ var/global/thinktronic_device_count = 0
 		..()
 
 	Destroy()
+		if(id)
+			var/turf/T = loc
+			id.loc = T.loc
 		thinktronic_devices -= src
 		..()
 

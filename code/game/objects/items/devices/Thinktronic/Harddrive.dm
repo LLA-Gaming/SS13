@@ -2,7 +2,7 @@
 
 /obj/item/device/thinktronic_parts/core
 	name = "Computer Core"
-	desc = "A Core Disk for portable microcomputers."
+	desc = "A Core Disk for portable ThinkTronic devices."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "mainboard"
 	w_class = 1

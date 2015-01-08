@@ -189,3 +189,4 @@
 	icon_state = "rainbow"
 	item_state = "rainbow"
 	item_color = "rainbow"
+	can_roll = 1

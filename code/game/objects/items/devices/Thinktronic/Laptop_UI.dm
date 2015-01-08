@@ -511,6 +511,9 @@
 				else
 					var/turf/T = loc
 					HDD.loc = T.loc
+					if(id)
+						id.loc = T.loc
+						id = null
 					usr << "<span class='notice'>You remove the Core from the [name].</span>"
 					HDD.mode = 0
 					HDD = null

@@ -493,7 +493,9 @@
 				if (ismob(loc))
 					var/mob/M = loc
 					HDD.loc = M.loc
-
+					if(id)
+						id.loc = M.loc
+						id = null
 					usr << "<span class='notice'>You remove the Core from the [name].</span>"
 					HDD.mode = 0
 					HDD = null

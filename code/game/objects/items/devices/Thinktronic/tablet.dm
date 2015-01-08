@@ -218,6 +218,7 @@
 
 /obj/item/device/thinktronic/tablet/clown
 	icon_state = "tablet-clown"
+	desc = "A portable computer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
 
 	New()
 		..()

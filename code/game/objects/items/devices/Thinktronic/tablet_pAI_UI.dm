@@ -24,7 +24,7 @@
 								<center>
 								Owner: [HDD.owner], [HDD.ownjob]<br>
 								[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
-								<A href='?src=\ref[src];choice=files'>File Manager</a> <A href='?src=\ref[src];choice=messenger'>Messenger</a></a><A href='?src=\ref[src];choice=downloads'>Downloads</a><A href='?src=\ref[src];choice=CheckAlerts'>Alerts</a><a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
+								<A href='?src=\ref[src];choice=files'>File Manager</a><A href='?src=\ref[src];choice=messenger'>Messenger</a></a><A href='?src=\ref[src];choice=downloads'>Downloads</a><A href='?src=\ref[src];choice=CheckAlerts'>Alerts</a><a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
 								</center>
 								</div>
 								"}
