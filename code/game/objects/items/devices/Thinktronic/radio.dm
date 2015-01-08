@@ -85,6 +85,8 @@
 
 			if("botlist")
 				active = null
+				PDA.attack_self(usr)
+
 
 			if("stop", "go")
 				post_signal(control_freq, "command", href_list["op"], "active", active, s_filter = RADIO_SECBOT)

@@ -214,14 +214,22 @@
 						var/obj/item/device/thinktronic_parts/data/convo/activechat = HDD.activechat
 						if(!activechat)
 							if (network())
+								for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
+									if(alert.message)
+										dat += {"<h2>New Messages</h2>"}
+										break
+								for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
+									if(alert.message)
+										dat += {"<A href='?src=\ref[src];choice=ClearAlert;target=\ref[alert]'> <b>X</b> </a>"}
+										dat += {"[alert.alertmsg]<br>"}
 								if (HDD.messengeron)
-									dat += {"<br><h2>Users Online:</h2>"}
+									dat += {"<h2>Users Online:</h2>"}
 									for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
 										var/obj/item/device/thinktronic_parts/core/D = devices.HDD
 										if(!D) continue
 										if(devices.network() && devices.hasmessenger == 1 && D.neton && D.owner && D.messengeron)
 											if (devices.device_ID == src.device_ID)	continue
-											dat += {" [D.owner] ([devices.devicetype])"}
+											dat += {" [D.owner] ([D.ownjob]/[devices.devicetype])"}
 											dat += {" - "}
 											dat += {"<a href='byond://?src=\ref[src];choice=Chat;target=\ref[devices]'>Chat</a>"}
 											dat += {"<br>"}
@@ -246,7 +254,9 @@
 									break
 					if (8) //Alerts
 						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a><hr>"}
+						unalerted(1,0)
 						for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
+							if(alert.message) continue
 							dat += {"<A href='?src=\ref[src];choice=ClearAlert;target=\ref[alert]'> <b>X</b> </a>"}
 							dat += {"[alert.alertmsg]<br>"}
 
@@ -297,10 +307,14 @@
 				update_label()
 				attack_self(usr)
 			if("Return")//Self explanatory
-				HDD.mode = 0
-				HDD.activechat = null
-				loadeddata = null
-				loadeddata_photo = null
+				if(HDD)
+					if(HDD.activechat)
+						HDD.activechat = null
+						attack_self(usr)
+						return
+					HDD.mode = 0
+					loadeddata = null
+					loadeddata_photo = null
 				attack_self(usr)
 			if("allapps")//Self explanatory
 				HDD.mode = 1
@@ -368,6 +382,8 @@
 					else
 						HDD.neton = 1
 						attack_self(usr)
+				if(HDD.banned)
+					usr << "<span class='notice'>You have been blocked from the ThinkTronic Server</span>"
 				attack_self(usr)
 			if("EjectHDD")
 				if (ismob(loc))
@@ -395,7 +411,7 @@
 					usr << "ERROR: Client not found"
 					attack_self(usr)
 					return
-				src.create_message(U, P)
+				src.create_message(U, P, 1)
 			if("Chat")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
 				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD

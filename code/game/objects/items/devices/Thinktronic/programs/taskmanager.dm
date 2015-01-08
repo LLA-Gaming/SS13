@@ -57,38 +57,38 @@
 					if(!T)	return
 					T.status = toWhat
 					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-						if(T.dept == "General" && !T.assignedby == "[hdd.owner] ([hdd.ownjob])")
+						if(T.dept == "General")
 							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status] by [hdd.owner]","Task Manager")
-						if(T.dept == "Security" && !T.assignedby == "[hdd.owner] ([hdd.ownjob])")
+						if(T.dept == "Security")
 							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status] by [hdd.owner]","Security Task Manager")
-						if(T.dept == "Engineering" && !T.assignedby == "[hdd.owner] ([hdd.ownjob])")
+						if(T.dept == "Engineering")
 							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status] by [hdd.owner]","Engineering Task Manager")
-						if(T.dept == "Medbay" && !T.assignedby == "[hdd.owner] ([hdd.ownjob])")
+						if(T.dept == "Medbay")
 							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status] by [hdd.owner]","Medbay Task Manager")
-						if(T.dept == "Research" && !T.assignedby == "[hdd.owner] ([hdd.ownjob])")
+						if(T.dept == "Research")
 							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status] by [hdd.owner]","Research Task Manager")
-						if(T.dept == "Cargo Bay" && !T.assignedby == "[hdd.owner] ([hdd.ownjob])")
+						if(T.dept == "Cargo Bay")
 							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status] by [hdd.owner]","Cargo Bay Task Manager")
 						break
-					AlertUser(T.taskmsg, hdd.owner, T.status)
+					AlertUser(T.taskmsg, hdd.owner, T.status, dept)
 					PDA.attack_self(usr)
 			if("ClearTask")
 				var/obj/item/device/thinktronic_parts/data/task/task = locate(href_list["target"])
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					if(task.dept == "General" && !task.assignedby == "[hdd.owner] ([hdd.ownjob])")
+					if(task.dept == "General")
 						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","Task Manager")
-					if(task.dept == "Security" && !task.assignedby == "[hdd.owner] ([hdd.ownjob])")
+					if(task.dept == "Security")
 						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","Security Task Manager")
-					if(task.dept == "Engineering" && !task.assignedby == "[hdd.owner] ([hdd.ownjob])")
+					if(task.dept == "Engineering")
 						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","Engineering Task Manager")
-					if(task.dept == "Medbay" && !task.assignedby == "[hdd.owner] ([hdd.ownjob])")
+					if(task.dept == "Medbay")
 						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","Medbay Task Manager")
-					if(task.dept == "Research" && !task.assignedby == "[hdd.owner] ([hdd.ownjob])")
+					if(task.dept == "Research")
 						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","Research Task Manager")
-					if(task.dept == "Cargo Bay" && !task.assignedby == "[hdd.owner] ([hdd.ownjob])")
+					if(task.dept == "Cargo Bay")
 						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","Cargo Bay Task Manager")
 					break
-				AlertUser(task.taskmsg, hdd.owner, null)
+				AlertUser(task.taskmsg, hdd.owner, null, dept)
 				qdel(task)
 				PDA.attack_self(usr)
 			if("ClearLocalTask")
@@ -116,9 +116,15 @@
 				var/obj/item/device/thinktronic_parts/data/task/newtask = new /obj/item/device/thinktronic_parts/data/task(server)
 				var/t = input(usr, "Please enter task title", name, null) as text
 				t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
+				if (!t)
+					qdel(newtask)
+					return
 				newtask.taskmsg = t
 				newtask.dept = dept
 				var/detail = input(usr, "Please enter task detail", name, null) as text
+				if (!detail)
+					qdel(newtask)
+					return
 				detail = copytext(sanitize(detail), 1, MAX_MESSAGE_LEN)
 				newtask.taskdetail = detail
 				newtask.assignedby = "[hdd.owner] ([hdd.ownjob])"
@@ -141,9 +147,15 @@
 				var/obj/item/device/thinktronic_parts/data/task/newtask = new /obj/item/device/thinktronic_parts/data/task(server)
 				var/obj/item/device/thinktronic_parts/data/task/newrequest = new /obj/item/device/thinktronic_parts/data/task/request(hdd)
 				var/t = input(usr, "Please enter message", name, null) as text
+				if (!t)
+					qdel(newtask)
+					return
 				t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
 				newtask.taskmsg = t
 				var/detail = input(usr, "Please enter request detail", name, null) as text
+				if (!detail)
+					qdel(newtask)
+					return
 				detail = copytext(sanitize(detail), 1, MAX_MESSAGE_LEN)
 				newtask.taskdetail = detail
 				var/selectdept = input("Who would you like to assign it to?", "Input") as anything in list("General","Security", "Engineering", "Medbay", "Research", "Cargo Bay")
@@ -172,7 +184,7 @@
 					break
 				PDA.attack_self(usr)
 
-	proc/AlertUser(var/taskmsg, var/assignedby, var/status)
+	proc/AlertUser(var/taskmsg, var/assignedby, var/status, var/dept)
 		for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 			for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
 				var/obj/item/device/thinktronic_parts/core/D = devices.HDD
@@ -181,6 +193,12 @@
 				if(!D) continue
 				for(var/obj/item/device/thinktronic_parts/data/task/request/req in D)
 					if(req.assignedby == "[D.owner] ([D.ownjob])")
+						if(req.dept == dept)
+							if(!status)
+								req.status = "DELETED"
+							if(status)
+								req.status = status
+							return
 						if(!status)
 							MS.SendAlertSolo("Task Manager - <u><b>[taskmsg]</u></b> deleted by [assignedby]",PDA.device_ID)
 							req.status = "DELETED"

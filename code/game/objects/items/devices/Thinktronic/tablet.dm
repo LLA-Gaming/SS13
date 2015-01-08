@@ -130,6 +130,7 @@
 			doc.fields = A:fields
 			doc.doc = A:info
 			doc.doc_links = A:info_links
+			doc.name = A:name
 			user << "\blue Paper scanned."
 	if (istype(A, /obj/item/weapon/photo) && HDD.owner)
 		var/exists = 0
@@ -147,6 +148,7 @@
 
 /obj/item/device/thinktronic/tablet/proc/update_label()
 	name = "Tablet-[HDD.owner] ([HDD.ownjob])" //Name generalisation
+	owner = HDD.owner
 
 /obj/item/device/thinktronic/tablet/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr

@@ -18,7 +18,7 @@
 	else
 		var/obj/item/device/thinktronic/tablet/pda = wear_id
 		var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
-		if(istype(pda))
+		if(istype(pda) && HDD)
 			. = HDD.ownjob
 		else
 			return if_no_id
@@ -33,7 +33,7 @@
 		return id.registered_name
 	var/obj/item/device/thinktronic/tablet/pda = wear_id
 	var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
-	if(istype(pda))
+	if(istype(pda) && HDD)
 		return HDD.owner
 	return if_no_id
 
@@ -68,7 +68,7 @@
 	var/obj/item/weapon/card/id/id = wear_id
 	if(istype(wallet))		id = wallet.front_id
 	if(istype(id))			. = id.registered_name
-	else if(istype(pda))	. = pda.HDD.owner
+	else if(istype(pda))	. = pda.owner
 	if(!.) 					. = if_no_id	//to prevent null-names making the mob unclickable
 	return
 

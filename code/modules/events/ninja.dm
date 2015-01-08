@@ -1615,7 +1615,7 @@ ________________________________________________________________________________
 				dat += "<li><a href='byond://?src=\ref[src];choice=6'><img src=sos_6.png> Activate Abilities</a></li>"
 			dat += "<li><a href='byond://?src=\ref[src];choice=3'><img src=sos_3.png> Medical Screen</a></li>"
 			dat += "<li><a href='byond://?src=\ref[src];choice=1'><img src=sos_5.png> Atmos Scan</a></li>"
-			//dat += "<li><a href='byond://?src=\ref[src];choice=2'><img src=sos_12.png> Messenger</a></li>"//not on tablets
+			dat += "<li><a href='byond://?src=\ref[src];choice=2'><img src=sos_12.png> Messenger</a></li>"
 			if(s_control)
 				dat += "<li><a href='byond://?src=\ref[src];choice=4'><img src=sos_6.png> Other</a></li>"
 			dat += "</ul>"
@@ -1674,16 +1674,15 @@ ________________________________________________________________________________
 			if(k_unlock==7||!s_control)
 				dat += "<a href='byond://?src=\ref[src];choice=32'><img src=sos_1.png> Hidden Menu</a>"
 			dat += "<h4><img src=sos_12.png> Anonymous Messenger:</h4>"//Anonymous because the receiver will not know the sender's identity.
-			dat += "<h4><img src=sos_6.png> Detected PDAs:</h4>"
+			dat += "<h4><img src=sos_6.png> Detected Devices:</h4>"
 			dat += "<ul>"
-			var/count = 0
-			for (var/obj/item/device/pda/P in get_viewable_pdas())
-				dat += "<li><a href='byond://?src=\ref[src];choice=Message;target=\ref[P]'>[P]</a>"
-				dat += "</li>"
-				count++
+			for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
+				var/obj/item/device/thinktronic_parts/core/D = devices.HDD
+				if(!D) continue
+				if(devices.network() && devices.hasmessenger == 1 && D.neton && D.owner && D.messengeron)
+					dat += "<li><a href='byond://?src=\ref[src];choice=Message;target=\ref[devices]'>[D.owner] ([D.ownjob])</a>"
+					dat += "</li>"
 			dat += "</ul>"
-			if (count == 0)
-				dat += "None detected.<br>"
 		if(32)
 			dat += "<h4><img src=sos_1.png> Hidden Menu:</h4>"
 			if(s_control)
@@ -1858,24 +1857,25 @@ ________________________________________________________________________________
 				A << "\red <b>ERROR</b>: \black Not enough energy remaining."
 
 		if("Message")
-			var/obj/item/device/pda/P = locate(href_list["target"])
+			var/obj/item/device/thinktronic/P = locate(href_list["target"])
 			var/t = input(U, "Please enter untraceable message.") as text
 			t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
 			if(!t||U.stat||U.wear_suit!=src||!s_initialized)//Wow, another one of these. Man...
 				display_to << browse(null, "window=spideros")
 				return
-			if(isnull(P)||P.toff)//So it doesn't freak out if the object no-longer exists.
+			if(!P.HDD)//So it doesn't freak out if the object no-longer exists.
 				display_to << "\red Error: unable to deliver message."
 				display_spideros()
 				return
-			P.tnote += "<i><b>&larr; From [!s_control?(A):"an unknown source"]:</b></i><br>[t]<br>"
-			if (!P.silent)
-				playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-				for (var/mob/O in hearers(3, P.loc))
-					O.show_message(text("\icon[P] *[P.ttone]*"))
-			P.overlays.Cut()
-			P.overlays += image('icons/obj/pda.dmi', "pda-r")
-
+			if(!P.HDD.messengeron)
+				display_to << "\red Error: unable to deliver message."
+				display_spideros()
+				return
+			for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+				MS.SendAlertSolo("<b>From [!s_control?(A):"an unknown source"]:</b> [t]",P.device_ID)
+				display_to << "Message sent."
+				display_spideros()
+				break
 		if("Inject")
 			if( (href_list["tag"]=="radium"? (reagents.get_reagent_amount("radium"))<=(a_boost*a_transfer) : !reagents.get_reagent_amount(href_list["tag"])) )//Special case for radium. If there are only a_boost*a_transfer radium units left.
 				display_to << "\red Error: the suit cannot perform this function. Out of [href_list["name"]]."

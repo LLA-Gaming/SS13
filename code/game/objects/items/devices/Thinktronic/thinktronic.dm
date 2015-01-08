@@ -40,7 +40,7 @@ var/global/thinktronic_device_count = 0
 		thinktronic_devices -= src
 		..()
 
-	proc/create_message(var/mob/living/U = usr, var/obj/item/device/thinktronic/P)
+	proc/create_message(var/mob/living/U = usr, var/obj/item/device/thinktronic/P, var/ignorerefresh)
  		// I know this looks very sloppy in terms of variable naming but i couldn't think of good names
 		var/t = input(U, "Please enter message", name, null) as text
 		t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
@@ -99,6 +99,11 @@ var/global/thinktronic_device_count = 0
 							if(P.volume == 2)
 								O.show_message(text("\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\""))
 						L << "\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\" (<a href='byond://?src=\ref[P];choice=QuikMessage;target=\ref[src]'>Reply</a>)"
+						var/obj/item/device/thinktronic_parts/data/alert/alert = new /obj/item/device/thinktronic_parts/data/alert(TheirHDD)
+						alert.alertmsg = "<b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\" <a href='byond://?src=\ref[P];choice=QuikMessage;target=\ref[src]'>Reply</a>"
+						alert.message = 1
+						if(ignorerefresh)
+							MyHDD.activechat = null
 						P.msgnotif = 1
 						P.alerted()
 						break
@@ -123,6 +128,11 @@ var/global/thinktronic_device_count = 0
 							if(P.volume == 2)
 								O.show_message(text("\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\""))
 						L << "\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\" (<a href='byond://?src=\ref[P];choice=QuikMessage;target=\ref[src]'>Reply</a>)"
+						var/obj/item/device/thinktronic_parts/data/alert/alert = new /obj/item/device/thinktronic_parts/data/alert(TheirHDD)
+						alert.alertmsg = "<b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\" <a href='byond://?src=\ref[P];choice=QuikMessage;target=\ref[src]'>Reply</a>"
+						alert.message = 1
+						if(ignorerefresh)
+							MyHDD.activechat = null
 						P.msgnotif = 1
 						P.alerted()
 						break
@@ -136,7 +146,7 @@ var/global/thinktronic_device_count = 0
 
 		if (ismob(loc))
 			var/mob/M = loc
-			M.show_message("\red Your [src]'s Hard Drive ignites into flames!", 1)
+			M.show_message("\red Your [src]'s Computer Core ignites into flames!", 1)
 
 		if(T)
 			T.hotspot_expose(700,125)
@@ -168,7 +178,7 @@ var/global/thinktronic_device_count = 0
 		if(!can_use(U))
 			return
 		if(t == "Cancel")
-			return 0
+			return
 
 		var/obj/item/device/thinktronic_parts/data = D[t]
 

@@ -8,7 +8,6 @@
 	slot_flags = SLOT_BELT
 	volume = 2 // louder so you can hear it without it being in your hand.
 	ram = 512
-	var/owner
 	var/ownjob
 	var/lock_code = "" // Lockcode to unlock uplink
 	var/bolted = 0 // screwdrive to bolt it to a desk
@@ -70,6 +69,7 @@
 				doc.fields = A:fields
 				doc.doc = A.info
 				doc.doc_links = A.info_links
+				doc.name = A:name
 				user << "\blue Paper scanned."
 		if(istype(C, /obj/item/weapon/photo && HDD.owner))
 			var/obj/item/weapon/photo/A = C
@@ -125,7 +125,7 @@
 
 /obj/item/device/thinktronic/laptop/MouseDrop(obj/over_object as obj, src_location, over_location)
 	var/mob/M = usr
-	if(can_use(M))
+	if(can_use(M) && src in oview(1))
 		return toggle_mount()
 	return
 
@@ -218,4 +218,19 @@
 		HDD = new /obj/item/device/thinktronic_parts/core/public(src)
 		HDD.owner = "Public Access #[rand(1,100)]"
 		HDD.ownjob = "Public"
+		HDD.messengeron = 0
+
+/obj/item/device/thinktronic/laptop/prison
+	shared = 1
+	anchored = 1
+	bolted = 1
+	name = "Prison Laptop"
+
+	New()
+		..()
+		HDD = new /obj/item/device/thinktronic_parts/core/public(src)
+		HDD.owner = "Prisoner"
+		HDD.ownjob = "Prisoner"
+		HDD.banned = 1
+		HDD.neton = 0
 		HDD.messengeron = 0

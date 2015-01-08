@@ -16,7 +16,7 @@
 				dat += {" - "}
 				dat += {"<a href='byond://?src=\ref[src];choice=Cash;target=\ref[devices]'>Steal Cash</a>"}
 				dat += {" - "}
-				dat += {"<a href='byond://?src=\ref[src];choice=Detonate;target=\ref[devices]'>Ignite Hard Drive</a>"}
+				dat += {"<a href='byond://?src=\ref[src];choice=Detonate;target=\ref[devices]'>Ignite Core</a>"}
 				dat += {"<br>"}
 
 

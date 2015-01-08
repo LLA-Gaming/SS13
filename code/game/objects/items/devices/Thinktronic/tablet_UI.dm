@@ -250,14 +250,22 @@
 						var/obj/item/device/thinktronic_parts/data/convo/activechat = HDD.activechat
 						if(!activechat)
 							if (network())
+								for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
+									if(alert.message)
+										dat += {"<h2>New Messages</h2>"}
+										break
+								for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
+									if(alert.message)
+										dat += {"<A href='?src=\ref[src];choice=ClearAlert;target=\ref[alert]'> <b>X</b> </a>"}
+										dat += {"[alert.alertmsg]<br>"}
 								if (HDD.messengeron)
-									dat += {"<br><h2>Users Online:</h2>"}
+									dat += {"<h2>Users Online:</h2>"}
 									for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
 										var/obj/item/device/thinktronic_parts/core/D = devices.HDD
 										if(!D) continue
 										if(devices.network() && devices.hasmessenger == 1 && D.neton && D.owner && D.messengeron)
 											if (devices.device_ID == src.device_ID)	continue
-											dat += {" [D.owner] ([devices.devicetype])"}
+											dat += {" [D.owner] ([D.ownjob]/[devices.devicetype])"}
 											dat += {" - "}
 											dat += {"<a href='byond://?src=\ref[src];choice=Chat;target=\ref[devices]'>Chat</a>"}
 											dat += {"<br>"}
@@ -284,6 +292,7 @@
 						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a><hr>"}
 						unalerted(1,0)
 						for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
+							if(alert.message) continue
 							dat += {"<A href='?src=\ref[src];choice=ClearAlert;target=\ref[alert]'> <b>X</b> </a>"}
 							dat += {"[alert.alertmsg]<br>"}
 
@@ -334,10 +343,14 @@
 				update_label()
 				attack_self(usr)
 			if("Return")//Self explanatory
-				HDD.mode = 0
-				HDD.activechat = null
-				loadeddata = null
-				loadeddata_photo = null
+				if(HDD)
+					if(HDD.activechat)
+						HDD.activechat = null
+						attack_self(usr)
+						return
+					HDD.mode = 0
+					loadeddata = null
+					loadeddata_photo = null
 				attack_self(usr)
 			if("allapps")//Self explanatory
 				HDD.mode = 1
@@ -358,46 +371,60 @@
 				var/cash = href_list["amount"]
 				if (cash == "10")
 					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c10(usr.loc)
-					if(usr.put_in_hands(dosh))
+					if(usr.put_in_hands(dosh) && HDD.cash >= dosh.credits)
 						HDD.cash -=10
 					else
 						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+						qdel(dosh)
+						attack_self(usr)
 				if (cash == "20")
 					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c20(usr.loc)
-					if(usr.put_in_hands(dosh))
+					if(usr.put_in_hands(dosh) && HDD.cash >= dosh.credits)
 						HDD.cash -=20
 					else
 						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+						qdel(dosh)
+						attack_self(usr)
 				if (cash == "50")
 					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c50(usr.loc)
-					if(usr.put_in_hands(dosh))
+					if(usr.put_in_hands(dosh) && HDD.cash >= dosh.credits)
 						HDD.cash -=50
 					else
 						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+						qdel(dosh)
+						attack_self(usr)
 				if (cash == "100")
 					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c100(usr.loc)
-					if(usr.put_in_hands(dosh))
+					if(usr.put_in_hands(dosh) && HDD.cash >= dosh.credits)
 						HDD.cash -=100
 					else
 						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+						qdel(dosh)
+						attack_self(usr)
 				if (cash == "200")
 					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c200(usr.loc)
-					if(usr.put_in_hands(dosh))
+					if(usr.put_in_hands(dosh) && HDD.cash >= dosh.credits)
 						HDD.cash -=200
 					else
 						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+						qdel(dosh)
+						attack_self(usr)
 				if (cash == "500")
 					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c500(usr.loc)
-					if(usr.put_in_hands(dosh))
+					if(usr.put_in_hands(dosh) && HDD.cash >= dosh.credits)
 						HDD.cash -=500
 					else
 						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+						qdel(dosh)
+						attack_self(usr)
 				if (cash == "1000")
 					var/obj/item/weapon/spacecash/dosh = new /obj/item/weapon/spacecash/c1000(usr.loc)
-					if(usr.put_in_hands(dosh))
+					if(usr.put_in_hands(dosh) && HDD.cash >= dosh.credits)
 						HDD.cash -=1000
 					else
 						usr << "<span class='notice'>You couldn't withdraw because your hands are full.</span>"
+						qdel(dosh)
+						attack_self(usr)
 				attack_self(usr)
 			if("store")
 				HDD.mode = 9
@@ -459,11 +486,14 @@
 					else
 						HDD.neton = 1
 						attack_self(usr)
+				if(HDD.banned)
+					usr << "<span class='notice'>You have been blocked from the ThinkTronic Server</span>"
 				attack_self(usr)
 			if("EjectHDD")
 				if (ismob(loc))
 					var/mob/M = loc
 					HDD.loc = M.loc
+
 					usr << "<span class='notice'>You remove the Core from the [name].</span>"
 					HDD.mode = 0
 					HDD = null
@@ -491,7 +521,7 @@
 					usr << "ERROR: Client not found"
 					attack_self(usr)
 					return
-				src.create_message(U, P)
+				src.create_message(U, P, 1)
 			if("Chat")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
 				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD
@@ -595,6 +625,8 @@
 					if(exists == 2)
 						usr << "PRO version installed"
 						qdel(D)
+						attack_self(usr)
+						return
 				else
 					D.loc = HDD
 					if(!D.utility)

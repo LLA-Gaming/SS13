@@ -71,16 +71,19 @@
 				mode = 1
 				PDA.attack_self(usr)
 			if("AddComment")
-				if (!( istype(active3, /datum/data/record) ))
-					return
-				var/a2 = active3
-				var/t1 = copytext(sanitize(input("Add Comment:", "Secure. records", null, null)  as message),1,MAX_MESSAGE_LEN)
-				if ((!( t1 ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active3 != a2))
-					return
-				var/counter = 1
-				while(active3.fields[text("com_[]", counter)])
-					counter++
-				active3.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", hdd.owner, hdd.ownjob, worldtime2text(), time2text(world.realtime, "MMM DD"), year_integer+540, t1,)
-				PDA.attack_self(usr)
-				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlert("[hdd.owner] added comment to: [active3.fields["name"]] - [t1]","Security Records")
+				if(network())
+					if (!( istype(active3, /datum/data/record) ))
+						return
+					var/a2 = active3
+					var/t1 = copytext(sanitize(input("Add Comment:", "Secure. records", null, null)  as message),1,MAX_MESSAGE_LEN)
+					if ((!( t1 ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active3 != a2))
+						return
+					var/counter = 1
+					while(active3.fields[text("com_[]", counter)])
+						counter++
+					active3.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", hdd.owner, hdd.ownjob, worldtime2text(), time2text(world.realtime, "MMM DD"), year_integer+540, t1,)
+					PDA.attack_self(usr)
+					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+						MS.SendAlert("[hdd.owner] added comment to: [active3.fields["name"]] - [t1]","Security Records")
+				else
+					dat = "ERROR: Cannot connect to the network"

@@ -1,15 +1,23 @@
 /obj/item/device/thinktronic_parts/program/general/notekeeper
 	name = "Notekeeper Pro"
 	var/obj/item/device/thinktronic_parts/data/document/loadeddoc = null
+	var/mode = 0
 
 	use_app() //Put all the HTML here
 
 
 		dat = ""//Youl want to start dat off blank or youl just keep duplicating every click.
 		if(loadeddoc)
+			if(mode)
+				dat += "<div class='statusDisplay'><center>Mode: <a href='byond://?src=\ref[src];choice=Mode'>Book</a></center></div>"
+			else
+				dat += "<div class='statusDisplay'><center>Mode: <a href='byond://?src=\ref[src];choice=Mode'>Note</a></center></div>"
 			var/obj/item/device/thinktronic_parts/core/hdd = loc
 			dat += "<center><h2>[loadeddoc.name]</h2></center><hr>"
-			dat += "<center><a href='byond://?src=\ref[src];choice=EditDoc'>Edit</a><a href='byond://?src=\ref[src];choice=RenameDoc'>Rename</a><a href='byond://?src=\ref[src];choice=PrintDoc'>Print (toner: [hdd.toner])</a><a href='byond://?src=\ref[src];choice=CloseDoc'>Close Document</a></center>"
+			if(mode)
+				dat += "<center><a href='byond://?src=\ref[src];choice=Add2Doc'>Add To</a><a href='byond://?src=\ref[src];choice=RenameDoc'>Rename</a><a href='byond://?src=\ref[src];choice=PrintDoc'>Print (toner: [hdd.toner])</a><a href='byond://?src=\ref[src];choice=CloseDoc'>Close Document</a></center>"
+			else
+				dat += "<center><a href='byond://?src=\ref[src];choice=EditDoc'>Edit</a><a href='byond://?src=\ref[src];choice=RenameDoc'>Rename</a><a href='byond://?src=\ref[src];choice=PrintDoc'>Print (toner: [hdd.toner])</a><a href='byond://?src=\ref[src];choice=CloseDoc'>Close Document</a></center>"
 			dat += "<div class='statusDisplay'>"
 			dat += "[loadpaper()]"
 			dat += "</div'>"
@@ -29,6 +37,12 @@
 		switch(href_list["choice"])//Now we switch based on choice.
 			if ("EditDoc")
 				editpaper()
+				PDA.attack_self(usr)
+			if ("Add2Doc")
+				addpaper()
+				PDA.attack_self(usr)
+			if ("Mode")
+				mode = !mode
 				PDA.attack_self(usr)
 			if ("RenameDoc")
 				var/t = input(usr, "Name", loadeddoc.name, null) as text
@@ -84,6 +98,7 @@
 		oldt = replacetext(oldt, "</I>", "\[/i\]")
 		oldt = replacetext(oldt, "<U>", "\[u\]")
 		oldt = replacetext(oldt, "</U>", "\[/u\]")
+		oldt = replacetext(oldt, "<font size=\"3\">", "\[large\]")
 		oldt = replacetext(oldt, "<font size=\"4\">", "\[large\]")
 		oldt = replacetext(oldt, "</font>", "\[/large\]")
 		oldt = replacetext(oldt, "<span class=\"paper_field\"></span>", "\[field\]")
@@ -104,6 +119,7 @@
 		t = replacetext(t, "\[/i\]", "</I>")
 		t = replacetext(t, "\[u\]", "<U>")
 		t = replacetext(t, "\[/u\]", "</U>")
+		t = replacetext(t, "\[large\]", "<FONT size=\"3\">")
 		t = replacetext(t, "\[large\]", "<font size=\"4\">")
 		t = replacetext(t, "\[/large\]", "</font>")
 		t = replacetext(t, "\[sign\]", "")
@@ -122,6 +138,41 @@
 			laststart = i+1
 			loadeddoc.fields++
 		loadeddoc.doc = t
+		updateinfolinks()
+
+	proc/addpaper()
+		var/t =  strip_html_simple(input("Enter what you want to write:", "Write", null)  as message, MAX_MESSAGE_LEN)
+		// Encode everything from BBcode to html
+		t = replacetext(t, "\[center\]", "<center>")
+		t = replacetext(t, "\[/center\]", "</center>")
+		t = replacetext(t, "\[br\]", "<BR>")
+		t = replacetext(t, "\[b\]", "<B>")
+		t = replacetext(t, "\[/b\]", "</B>")
+		t = replacetext(t, "\[i\]", "<I>")
+		t = replacetext(t, "\[/i\]", "</I>")
+		t = replacetext(t, "\[u\]", "<U>")
+		t = replacetext(t, "\[/u\]", "</U>")
+		t = replacetext(t, "\[large\]", "<FONT size=\"3\">")
+		t = replacetext(t, "\[large\]", "<font size=\"4\">")
+		t = replacetext(t, "\[/large\]", "</font>")
+		t = replacetext(t, "\[sign\]", "")
+		t = replacetext(t, "\[field\]", "<span class=\"paper_field\"></span>")
+		t = replacetext(t, "\[*\]", "<li>")
+		t = replacetext(t, "\[hr\]", "<HR>")
+		t = replacetext(t, "\[small\]", "<font size = \"1\">")
+		t = replacetext(t, "\[/small\]", "</font>")
+		t = replacetext(t, "\[list\]", "<ul>")
+		t = replacetext(t, "\[/list\]", "</ul>")
+		var/laststart = 1
+		while(1)
+			var/i = findtext(t, "<span class=\"paper_field\">", laststart)
+			if(i == 0)
+				break
+			laststart = i+1
+			loadeddoc.fields++
+		if(loadeddoc.doc)
+			loadeddoc.doc += "<br>"
+		loadeddoc.doc += t
 		updateinfolinks()
 
 

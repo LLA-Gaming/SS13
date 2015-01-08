@@ -4,7 +4,7 @@
 	use_app() //Put all the HTML here
 		dat = ""
 		dat += "<h4>Engine Buddy</h4>"
-		dat += "Readme: Hello, this application will attempt to help you setup the station's Singularity Engine. For best results stand near the particle acelerator while this device searchs for nearby singularity machinery. Anything colored in red needs your immediate attention in setting up the engine. Be wary of interference."
+		dat += "Readme: Hello, this application will attempt to help you setup the station's Singularity Engine. For best results stand near the Particle Accelerator while this device searchs for nearby singularity machinery. Anything colored in red needs your immediate attention in setting up the engine. Be wary of interference."
 		dat += "<hr>"
 		dat += "<h4>The Singularity</h4>"
 		var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD

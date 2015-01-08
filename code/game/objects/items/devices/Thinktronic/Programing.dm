@@ -12,6 +12,8 @@
 	var/doc = null
 	var/doc_links = null
 	var/fields = null  //Amount of user created fields
+	var/numofpages = null
+	var/page = null
 	var/device_ID = null
 	var/pro = null
 	var/deffont = "Verdana"
@@ -174,6 +176,7 @@
 /obj/item/device/thinktronic_parts/data/alert
 	name =  "alert"
 	var/alertmsg = "Alert"
+	var/message = 0
 
 /obj/item/device/thinktronic_parts/data/task
 	name =  "task"
