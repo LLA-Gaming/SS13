@@ -339,7 +339,10 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 					if(D.owner)
 						dat += {"[D.owner] - [D.ownjob]<br>"}
 						dat += {"Device: [devices.devicetype]<br>"}
-						dat += {"Storage: [D.contents.len]GB <br>"}
+						var/appcount= 0
+						for(var/obj/item/device/thinktronic_parts/program/P in D)
+							appcount++
+						dat += {"Storage: [appcount]GB <br>"}
 						for(var/obj/item/device/thinktronic_parts/program/general/hackingtools/PRG in D)
 							dat += {"-Unauthorized Application Detected: [PRG.name]-<br>"}
 							break
