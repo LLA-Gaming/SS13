@@ -37,9 +37,8 @@ var/global/thinktronic_device_count = 0
 		..()
 
 	Destroy()
-		if(id)
-			var/turf/T = loc
-			id.loc = T.loc
+		if(src.id)
+			src.id.loc = get_turf(src.loc)
 		thinktronic_devices -= src
 		..()
 
@@ -191,11 +190,13 @@ var/global/thinktronic_device_count = 0
 					if(data.app)
 						var/obj/item/device/thinktronic_parts/program/Newdata = new data.type(P.cart)
 						Newdata.sentby = "[HDD.owner]([HDD.ownjob])"
+						log_pda("[usr] (PDA: [HDD.name]) sent \"File: [data.name]\" to [P.HDD.owner]")
 					if(data.photo)
 						var/obj/item/device/thinktronic_parts/data/photo/Newdata = new data.type(P.cart)
 						Newdata.sentby = "[HDD.owner]([HDD.ownjob])"
 						Newdata.photoinfo = data.photoinfo
 						Newdata.name = data.name
+						log_pda("[usr] (PDA: [HDD.name]) sent \"File: [data.name]\" to [P.HDD.owner]")
 					if(data.document)
 						var/obj/item/device/thinktronic_parts/data/document/Newdata = new data.type(P.cart)
 						Newdata.sentby = "[HDD.owner]([HDD.ownjob])"
@@ -203,11 +204,13 @@ var/global/thinktronic_device_count = 0
 						Newdata.doc_links = data.doc_links
 						Newdata.fields = data.fields
 						Newdata.name = data.name
+						log_pda("[usr] (PDA: [HDD.name]) sent \"File: [data.name]\" to [P.HDD.owner]")
 					if(data.convo)
 						var/obj/item/device/thinktronic_parts/data/savedconvo/Newdata = new data.type(P.cart)
 						Newdata.sentby = "[HDD.owner]([HDD.ownjob])"
 						Newdata.mlog = data.mlog
 						Newdata.name = data.name
+						log_pda("[usr] (PDA: [HDD.name]) sent \"File: [data.name]\" to [P.HDD.owner]")
 
 				var/mob/living/L = null
 				if(P.loc && isliving(P.loc))
@@ -225,7 +228,6 @@ var/global/thinktronic_device_count = 0
 				L << "\icon[P] <b>New download from [HDD.owner] ([HDD.ownjob]), </b>\"[data]\" (<a href='byond://?src=\ref[P];choice=downloads'>View Downloads</a>)"
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 					MS.SendAlertSolo("New download from [HDD.owner] ([HDD.ownjob])", P)
-				log_pda("[usr] (PDA: [HDD.name]) sent \"File: [data.name]\" to [P.HDD.name]")
 				U << "File Sent!"
 			else
 				U << "<span class='notice'>ERROR: Client not found.</span>"

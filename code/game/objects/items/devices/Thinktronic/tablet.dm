@@ -56,6 +56,14 @@
 			HDD.toner = 30
 			user << "<span class='notice'>You replace the toner cartridge.</span>"
 			qdel(C)
+		if(istype(C, /obj/item/weapon/pen))
+			var/obj/item/weapon/pen/O = locate() in src
+			if(O)
+				user << "<span class='notice'>There is already a pen in \the [src].</span>"
+			else
+				user.drop_item()
+				C.loc = src
+				user << "<span class='notice'>You slide \the [C] into \the [src].</span>"
 	else
 		if(istype(C, /obj/item/device/thinktronic_parts/core))
 			var/obj/item/device/thinktronic_parts/core/D = C
@@ -418,3 +426,43 @@
 	if (istype(AM, /mob/living/carbon))
 		var/mob/living/carbon/M = AM
 		M.slip(8, 5, src, NO_SLIP_WHEN_WALKING)
+
+obj/item/device/thinktronic/tablet/verb/verb_remove_id()
+	set category = "Object"
+	set name = "Remove id"
+	set src in usr
+
+	if(issilicon(usr))
+		return
+
+	if ( can_use(usr) )
+		if(id)
+			remove_id()
+		else
+			usr << "<span class='notice'>This PDA does not have an ID in it.</span>"
+	else
+		usr << "<span class='notice'>You cannot do this while restrained.</span>"
+
+
+obj/item/device/thinktronic/tablet/verb/verb_remove_pen()
+	set category = "Object"
+	set name = "Remove pen"
+	set src in usr
+
+	if(issilicon(usr))
+		return
+
+	if ( can_use(usr) )
+		var/obj/item/weapon/pen/O = locate() in src
+		if(O)
+			if (istype(loc, /mob))
+				var/mob/M = loc
+				if(M.get_active_hand() == null)
+					M.put_in_hands(O)
+					usr << "<span class='notice'>You remove \the [O] from \the [src].</span>"
+					return
+			O.loc = get_turf(src)
+		else
+			usr << "<span class='notice'>This PDA does not have a pen in it.</span>"
+	else
+		usr << "<span class='notice'>You cannot do this while restrained.</span>"

@@ -6327,7 +6327,7 @@
 "crI" = (/obj/machinery/hydroponics/soil{pixel_y = 8},/obj/item/seeds/carrotseed,/turf/simulated/floor/plating{icon_state = "warnplate"},/area/maintenance/asmaint2)
 "crJ" = (/obj/machinery/hydroponics/soil{pixel_y = 8},/obj/item/seeds/glowshroom,/obj/item/seeds/cornseed,/turf/simulated/floor/plating{icon_state = "warnplate"},/area/maintenance/asmaint2)
 "crK" = (/obj/machinery/hydroponics/soil{pixel_y = 8},/obj/item/device/analyzer/plant_analyzer,/turf/simulated/floor/plating{icon_state = "warnplate"},/area/maintenance/asmaint2)
-"crL" = (/obj/structure/table,/obj/item/device/thinktronic/laptop/public,/obj/item/device/radio/intercom{broadcasting = 0; desc = "A station intercomm. The plating seems to have been removed before."; freerange = 1; listening = 1; name = "Station Intercom (Secret)"; pixel_x = -26; pixel_y = 0},/turf/simulated/floor/plating,/area/maintenance/asmaint2)
+"crL" = (/obj/structure/table,/obj/item/device/thinktronic/laptop/public,/obj/item/device/radio/intercom{broadcasting = 0; desc = "A station intercomm. The plating seems to have been removed before."; freerange = 1; listening = 1; name = "Station Intercom (Secret)"; pixel_x = -28; pixel_y = 0},/turf/simulated/floor/plating,/area/maintenance/asmaint2)
 "crM" = (/obj/structure/stool/bed/chair/comfy/black{dir = 8},/turf/simulated/floor/plating,/area/maintenance/asmaint2)
 "crN" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating,/area/maintenance/asmaint2)
 "crO" = (/obj/machinery/door/airlock/external{req_access_txt = "13"},/turf/simulated/floor/plating,/area/maintenance/aft)
