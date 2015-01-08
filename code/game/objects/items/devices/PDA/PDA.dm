@@ -1077,19 +1077,19 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	else
 		usr << "You do not have a PDA. You should make an issue report about this."
 */
-//Some spare PDAs in a box
+//Some spare Tablets in a box
 /obj/item/weapon/storage/box/PDAs
-	name = "spare PDAs"
-	desc = "A box of spare PDA microcomputers."
+	name = "spare Tablets"
+	desc = "A box of spare Tablets."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "pda"
 
 	New()
 		..()
-		new /obj/item/device/pda(src)
-		new /obj/item/device/pda(src)
-		new /obj/item/device/pda(src)
-		new /obj/item/device/pda(src)
+		new /obj/item/device/thinktronic/tablet/plain(src)
+		new /obj/item/device/thinktronic/tablet/plain(src)
+		new /obj/item/device/thinktronic/tablet/plain(src)
+		new /obj/item/device/thinktronic/tablet/plain(src)
 		new /obj/item/device/thinktronic_parts/expansioncarts/head(src)
 
 		var/newcart = pick(	/obj/item/device/thinktronic_parts/expansioncarts/engineering,
