@@ -24,7 +24,7 @@
 				return 0
 
 			if(cpr_time < world.time + 30)
-				add_logs(src, M, "CPRed")
+				add_logs(M, src, "CPRed")
 				visible_message("<span class='notice'>[M] is trying to perform CPR on [src]!</span>")
 				if(!do_mob(M, src))
 					return 0
