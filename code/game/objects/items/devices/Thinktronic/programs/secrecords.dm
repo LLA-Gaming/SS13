@@ -86,4 +86,4 @@
 					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 						MS.SendAlert("[hdd.owner] added comment to: [active3.fields["name"]] - [t1]","Security Records")
 				else
-					dat = "ERROR: Cannot connect to the network"
+					usr << "ERROR: Cannot connect to the network"
