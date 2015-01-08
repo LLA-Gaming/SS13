@@ -55,7 +55,7 @@
 			HDD.toner = 30
 			user << "<span class='notice'>You replace the toner cartridge.</span>"
 			qdel(C)
-		if(istype(C, /obj/item/weapon/paper && HDD.owner))
+		if(istype(C, /obj/item/weapon/paper))
 			var/obj/item/weapon/paper/A = C
 			var/exists = 0
 			for(var/obj/item/device/thinktronic_parts/data/document/D in HDD)
@@ -71,7 +71,7 @@
 				doc.doc_links = A.info_links
 				doc.name = A:name
 				user << "\blue Paper scanned."
-		if(istype(C, /obj/item/weapon/photo && HDD.owner))
+		if(istype(C, /obj/item/weapon/photo))
 			var/obj/item/weapon/photo/A = C
 			var/exists = 0
 			for(var/obj/item/device/thinktronic_parts/data/photo/D in HDD)
