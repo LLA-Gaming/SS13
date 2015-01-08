@@ -199,7 +199,7 @@
 								dat += {"File: [data.name]<br>"}
 								dat += {"Type: [data.datatype]<br>"}
 								dat += {"Sent By: [data.sentby]<br>"}
-								dat += {"<A href='?src=\ref[src];choice=CartSave;target=\ref[data]'>Save to HDD</a>"}
+								dat += {"<A href='?src=\ref[src];choice=CartSave;target=\ref[data]'>Save to Core</a>"}
 								dat += {"<hr>"}
 
 					if (6) //Wallet

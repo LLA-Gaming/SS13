@@ -3818,7 +3818,7 @@
 "bvv" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/wall,/area/toxins/lab)
 "bvw" = (/obj/structure/disposalpipe/segment,/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"},/obj/machinery/door/firedoor/border_only{dir = 1; name = "hazard door north"},/obj/machinery/door/airlock/research{name = "Research and Development Lab"; req_access_txt = "7"},/turf/simulated/floor{icon_state = "white"},/area/toxins/lab)
 "bvx" = (/obj/structure/table,/obj/item/weapon/paper_bin{pixel_x = 0; pixel_y = 6},/obj/item/weapon/pen,/turf/simulated/floor{dir = 2; icon_state = "whitecorner"},/area/toxins/telesci)
-"bvy" = (/obj/structure/table,/obj/machinery/camera{c_tag = "Telescience Lab"; dir = 2; network = list("SS13","RD")},/obj/item/device/multitool,/obj/item/weapon/screwdriver,/turf/simulated/floor{icon_state = "whitehall"; dir = 2},/area/toxins/telesci)
+"bvy" = (/obj/structure/table,/obj/machinery/camera{c_tag = "Telescience Lab"; dir = 2; network = list("SS13","RD")},/obj/item/device/multitool,/obj/item/weapon/screwdriver{pixel_y = 8},/turf/simulated/floor{icon_state = "whitehall"; dir = 2},/area/toxins/telesci)
 "bvz" = (/obj/structure/table,/obj/item/weapon/folder/white,/obj/item/weapon/folder/white,/obj/machinery/alarm{frequency = 1439; pixel_y = 23},/obj/item/device/radio/off,/turf/simulated/floor{icon_state = "whitehall"; dir = 2},/area/toxins/telesci)
 "bvA" = (/obj/structure/closet/l3closet/scientist{pixel_x = -2},/turf/simulated/floor{icon_state = "whitehall"; dir = 2},/area/toxins/telesci)
 "bvB" = (/obj/structure/closet/emcloset{pixel_x = -2},/turf/simulated/floor{dir = 8; icon_state = "whitecorner"},/area/toxins/telesci)
