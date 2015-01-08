@@ -212,23 +212,9 @@ var/global/thinktronic_device_count = 0
 						Newdata.name = data.name
 						log_pda("[usr] (PDA: [HDD.name]) sent \"File: [data.name]\" to [P.HDD.owner]")
 
-				var/mob/living/L = null
-				if(P.loc && isliving(P.loc))
-					L = P.loc
-				if (P.volume == 1)
-					playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-				if (P.volume == 2)
-					playsound(P.loc, 'sound/machines/twobeep.ogg', 50, 1)
-				for (var/mob/O in hearers(3, P.loc))
-					if(P.volume == 1)
-						O.show_message(text("\icon[P] *[HDD.ttone]*"))
-					if(P.volume == 2)
-						O.show_message(text("\icon[P] *[HDD.ttone]*"))
-						O.show_message(text("\icon[P] <b>New download from [HDD.owner] ([HDD.ownjob])"))
-				L << "\icon[P] <b>New download from [HDD.owner] ([HDD.ownjob]), </b>\"[data]\" (<a href='byond://?src=\ref[P];choice=downloads'>View Downloads</a>)"
-				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlertSolo("New download from [HDD.owner] ([HDD.ownjob])", P)
-				U << "File Sent!"
+					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+						MS.SendAlertSolo("New download from [HDD.owner] ([HDD.ownjob]) - [data]", P.device_ID)
+					U << "File Sent!"
 			else
 				U << "<span class='notice'>ERROR: Client not found.</span>"
 		else
