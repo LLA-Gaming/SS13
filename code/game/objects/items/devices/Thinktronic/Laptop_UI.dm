@@ -354,6 +354,7 @@
 				id_check(U, 1)
 				attack_self(usr)
 			if("UpdateInfo")
+				if(shared) return
 				HDD.ownjob = id.assignment
 				update_label()
 				attack_self(usr)
