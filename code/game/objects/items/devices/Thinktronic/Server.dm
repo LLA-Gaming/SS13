@@ -207,6 +207,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/taskmanager(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/theoriontrail(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/spacebattle(src)
+		new /obj/item/device/thinktronic_parts/nanonet/store_items/cubanpete(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/setstatus(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/custodiallocator(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/enginebuddy(src)
@@ -254,6 +255,12 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	desc = "You and your CPU-controlled opponent in a RPG styled battle. Oh my!"
 	item = /obj/item/device/thinktronic_parts/program/general/spacebattle
 	price = 10
+
+/obj/item/device/thinktronic_parts/nanonet/store_items/cubanpete
+	name = "Space Battle: Outbomb Cuban Pete"
+	desc = "Can you Outbomb Cuban Pete?"
+	item = /obj/item/device/thinktronic_parts/program/general/spacebattle/cubanpete
+	price = 30
 
 /obj/item/device/thinktronic_parts/nanonet/store_items/setstatus
 	name = "Station Display"
@@ -337,15 +344,14 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 					var/obj/item/device/thinktronic_parts/core/D = devices.HDD
 					if(!D) continue
 					if(D.owner)
+						for(var/obj/item/device/thinktronic_parts/program/general/hackingtools/PRG in D)
+							continue
 						dat += {"[D.owner] - [D.ownjob]<br>"}
 						dat += {"Device: [devices.devicetype]<br>"}
 						var/appcount= 0
 						for(var/obj/item/device/thinktronic_parts/program/P in D)
 							appcount++
 						dat += {"Storage: [appcount]GB <br>"}
-						for(var/obj/item/device/thinktronic_parts/program/general/hackingtools/PRG in D)
-							dat += {"-Unauthorized Application Detected: [PRG.name]-<br>"}
-							break
 						dat += {"Options: "}
 						if(D.banned)
 							dat += {"<a href='byond://?src=\ref[src];choice=Ban;target=\ref[devices]'>Unban from Network</a>"}

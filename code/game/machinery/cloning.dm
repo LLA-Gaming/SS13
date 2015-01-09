@@ -353,8 +353,6 @@
 		src.connected_message("Critical Error!")
 		src.mess = 1
 		src.icon_state = "pod_g"
-		for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-			MS.SendAlert("Critical error in [name]","Medical Monitor")
 		src.occupant.ghostize()
 		spawn(5)
 			qdel(src.occupant)

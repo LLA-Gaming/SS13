@@ -9,15 +9,24 @@
 	var/gameover = 0
 	var/blocked = 0
 	var/turtle = 0
+	var/pete = 0
+
+/obj/item/device/thinktronic_parts/program/general/spacebattle/cubanpete
+	pete = 1
 
 /obj/item/device/thinktronic_parts/program/general/spacebattle/New()
-	var/name_part1
-	var/name_part2
+	if(!pete)
+		var/name_part1
+		var/name_part2
 
-	name_part1 = pick("the Automatic ", "Farmer ", "Lord ", "Professor ", "the Cuban ", "the Evil ", "the Dread King ", "the Space ", "Lord ", "the Great ", "Duke ", "General ")
-	name_part2 = pick("Melonoid", "Murdertron", "Sorcerer", "Ruin", "Jeff", "Ectoplasm", "Crushulon", "Uhangoid", "Vhakoid", "Peteoid", "slime", "Griefer", "ERPer", "Lizard Man", "Unicorn")
+		name_part1 = pick("the Automatic ", "Farmer ", "Lord ", "Professor ", "the Cuban ", "the Evil ", "the Dread King ", "the Space ", "Lord ", "the Great ", "Duke ", "General ")
+		name_part2 = pick("Melonoid", "Murdertron", "Sorcerer", "Ruin", "Jeff", "Ectoplasm", "Crushulon", "Uhangoid", "Vhakoid", "Peteoid", "slime", "Griefer", "ERPer", "Lizard Man", "Unicorn")
 
-	src.enemy_name = replacetext((name_part1 + name_part2), "the ", "")
+		src.enemy_name = replacetext((name_part1 + name_part2), "the ", "")
+	if(pete)
+		enemy_name = "Cuban Pete"
+		name = "Space Battle: Outbomb Cuban Pete"
+		temp = "Can you Outbomb Cuban Pete?"
 
 /obj/item/device/thinktronic_parts/program/general/spacebattle/use_app()
 	..()
@@ -101,7 +110,7 @@
 			src.gameover = 1
 			src.temp = "[src.enemy_name] has fallen! Rejoice!"
 
-	else if (turtle >= 4)
+	else if (pete && turtle >= 4)
 		var/boomamt = rand(5,10)
 		src.temp = "[src.enemy_name] throws a bomb, exploding you for [boomamt] damage!"
 		src.player_hp -= boomamt

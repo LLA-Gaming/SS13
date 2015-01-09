@@ -157,6 +157,8 @@
 
 /obj/item/device/thinktronic_parts/data/convo
 	name =  "Conversation Log"
+	var/lastmsg = null
+	var/activemsg = null
 
 /obj/item/device/thinktronic_parts/data/savedconvo
 	name =  "Conversation Log"
@@ -176,7 +178,6 @@
 /obj/item/device/thinktronic_parts/data/alert
 	name =  "alert"
 	var/alertmsg = "Alert"
-	var/message = 0
 
 /obj/item/device/thinktronic_parts/data/task
 	name =  "task"

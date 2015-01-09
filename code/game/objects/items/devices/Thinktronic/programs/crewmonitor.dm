@@ -8,9 +8,9 @@
 			dat = "<h3><center>Medbay Monitor</center></h3><BR><div class='statusDisplay'>"
 			for(var/obj/machinery/clonepod/M in world)
 				if(M.z == 1)
-					if(M.attempting)
+					if(M.occupant)
 						dat += "Clone Pod is: In Use<br>"
-					if(!M.attempting)
+					if(!M.occupant)
 						dat += "Clone Pod is: Vacant<br>"
 			for(var/obj/machinery/atmospherics/unary/cryo_cell/M in world)
 				if(M.z == 1)

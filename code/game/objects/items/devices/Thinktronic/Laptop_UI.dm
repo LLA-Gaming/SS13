@@ -256,17 +256,19 @@
 						dat += "<a href='byond://?src=\ref[src];choice=Ringtone'>Ringtone</a></center>"
 						var/obj/item/device/thinktronic_parts/data/convo/activechat = HDD.activechat
 						if(!activechat)
+							for(var/obj/item/device/thinktronic_parts/data/convo/chats in HDD)
+								if(chats.activemsg)
+									dat += {"<h2>Active Chats</h2>"}
+									break
+							for(var/obj/item/device/thinktronic_parts/data/convo/chats in HDD)
+								if(chats.activemsg)
+									dat += "<div class='statusDisplay'>"
+									dat += {"[chats.activemsg]"}
+									dat += "</div>"
 							if (network())
-								for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
-									if(alert.message)
-										dat += {"<h2>New Messages</h2>"}
-										break
-								for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
-									if(alert.message)
-										dat += {"<A href='?src=\ref[src];choice=ClearAlert;target=\ref[alert]'> <b>X</b> </a>"}
-										dat += {"[alert.alertmsg]<br>"}
 								if (HDD.messengeron)
 									dat += {"<h2>Users Online:</h2>"}
+									dat += "<div class='statusDisplay'>"
 									for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
 										var/obj/item/device/thinktronic_parts/core/D = devices.HDD
 										if(!D) continue
@@ -276,6 +278,7 @@
 											dat += {" - "}
 											dat += {"<a href='byond://?src=\ref[src];choice=Chat;target=\ref[devices]'>Chat</a>"}
 											dat += {"<br>"}
+									dat += "</div>"
 								else
 									dat += {"<br><h2>Messenger is OFF</h2>"}
 							else
@@ -287,7 +290,7 @@
 								if (HDD.messengeron)
 									if (devices.device_ID == activechat.device_ID)
 										dat += {"<br><h2>Chat with [D.owner]([D.ownjob]):</h2>"}
-										dat += {"<a href='byond://?src=\ref[src];choice=Message;target=\ref[devices]'>Send Message</a> <a href='byond://?src=\ref[src];choice=SendFile;target=\ref[devices]'>Send File</a> <a href='byond://?src=\ref[src];choice=SaveLog'>Save Log</a> <a href='byond://?src=\ref[src];choice=ClearConvo'>Clear Log</a>"}
+										dat += {"<a href='byond://?src=\ref[src];choice=Message;target=\ref[devices]'>Send Message</a> <a href='byond://?src=\ref[src];choice=SendFile;target=\ref[devices]'>Send File</a> <a href='byond://?src=\ref[src];choice=SaveLog'>Save Log</a> <a href='byond://?src=\ref[src];choice=ClearConvo;target=\ref[devices]'>End Conversation</a>"}
 										dat += "<div class='statusDisplay'>"
 										dat += activechat.mlog
 										dat += "</div>"
@@ -299,7 +302,6 @@
 						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a><hr>"}
 						unalerted(1,0)
 						for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
-							if(alert.message) continue
 							dat += {"<A href='?src=\ref[src];choice=ClearAlert;target=\ref[alert]'> <b>X</b> </a>"}
 							dat += {"[alert.alertmsg]<br>"}
 
@@ -364,9 +366,15 @@
 						HDD.activechat = null
 						attack_self(usr)
 						return
+					if(loadeddata)
+						loadeddata = null
+						attack_self(usr)
+						return
+					if(loadeddata_photo)
+						loadeddata = null
+						attack_self(usr)
+						return
 					HDD.mode = 0
-					loadeddata = null
-					loadeddata_photo = null
 				attack_self(usr)
 			if("allapps")//Self explanatory
 				HDD.mode = 1
@@ -562,6 +570,7 @@
 							break
 				else
 					var/obj/item/device/thinktronic_parts/data/convo/D = new /obj/item/device/thinktronic_parts/data/convo(MyHDD)
+					D.mlog = "--Conversation opened by [MyHDD.owner]--<br>"
 					D.mlogowner = TheirHDD.owner
 					D.device_ID = P.device_ID
 					for(var/obj/item/device/thinktronic_parts/data/convo/C in MyHDD)
@@ -572,11 +581,18 @@
 			if("SaveLog")
 				var/obj/item/device/thinktronic_parts/data/savedconvo/D = new /obj/item/device/thinktronic_parts/data/savedconvo(HDD)
 				D.mlog = HDD.activechat.mlog
-				D.name = "Conversation Log - [HDD.activechat.mlogowner]"
+				D.mlog += "--Conversation saved by [HDD.owner]--<br>"
+				D.name = "Conversation Log - [HDD.activechat.mlogowner]/[HDD.owner]"
 				usr << "Log saved to File Manager"
 				attack_self(usr)
 			if("ClearConvo")
-				HDD.activechat.mlog = ""
+				var/obj/item/device/thinktronic/P = locate(href_list["target"])
+				if(HDD.activechat)
+					var/closer = device_ID
+					if(P.HDD)
+						P.close_message(closer, HDD.owner)
+					qdel(HDD.activechat)
+					HDD.activechat = null
 				attack_self(usr)
 			if("View")
 				var/obj/item/device/thinktronic_parts/data/D = locate(href_list["target"])
@@ -664,7 +680,6 @@
 								O.show_message(text("\icon[src] *[HDD.ttone]*"))
 							if(volume == 2)
 								O.show_message(text("\icon[src] *[HDD.ttone]*"))
-								O.show_message(text("Application Purchased, Saved to downloads"))
 						usr << "Application Purchased, Saved to downloads"
 						var/obj/item/device/thinktronic_parts/program/NewD = new D.item(cart)
 						NewD.sentby = "NanoStore"
