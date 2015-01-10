@@ -184,7 +184,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 				the_shuttles_way = dest
 				at_station = 1
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlert("The supply shuttle has docked at the station.","Cargo Bay Monitor")
+					MS.SendAlert("The supply shuttle has docked at the station.","Cargo Bay Monitor", 1)
 		moving = 0
 
 		//Do I really need to explain this loop?
@@ -518,7 +518,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		O.orderedby = idname
 		supply_shuttle.requestlist += O
 		for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-			MS.SendAlert("Request: [P.name] by [idname]. Reason - [reason].","Cargo Bay Monitor")
+			MS.SendAlert("Request: [P.name] by [idname]. Reason - [reason].","Cargo Bay Monitor", 1)
 
 		temp = "Thanks for your request. The cargo team will process it as soon as possible.<BR>"
 		temp += "<BR><A href='?src=\ref[src];order=[last_viewed_group]'>Back</A> <A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
@@ -627,7 +627,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 				supply_shuttle.buy()
 				temp = "The supply shuttle has been called and will arrive in [round(supply_shuttle.movetime/600,1)] minutes.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlert("The supply shuttle has been called and will arrive in [round(supply_shuttle.movetime/600,1)] minutes.","Cargo Bay Monitor")
+					MS.SendAlert("The supply shuttle has been called and will arrive in [round(supply_shuttle.movetime/600,1)] minutes.","Cargo Bay Monitor", 1)
 				supply_shuttle.moving = 1
 				supply_shuttle.eta_timeofday = (world.timeofday + supply_shuttle.movetime) % 864000
 				post_signal("supply")
@@ -714,7 +714,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 
 		temp = "Order request placed.<BR>"
 		for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-			MS.SendAlert("Request: [P.name] by [idname]. Reason - [reason].","Cargo Bay Monitor")
+			MS.SendAlert("Request: [P.name] by [idname]. Reason - [reason].","Cargo Bay Monitor", 1)
 		temp += "<BR><A href='?src=\ref[src];order=[last_viewed_group]'>Back</A> | <A href='?src=\ref[src];mainmenu=1'>Main Menu</A> | <A href='?src=\ref[src];confirmorder=[O.ordernum]'>Authorize Order</A>"
 
 	else if(href_list["confirmorder"])
