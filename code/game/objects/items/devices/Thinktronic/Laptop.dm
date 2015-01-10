@@ -115,12 +115,18 @@
 	if(mounted)
 		mounted = 0
 		icon_state = "Laptop_closed"
-		ForceRefresh()
+		if(HDD)
+			HDD.activechat = null
+			HDD.mode = 0
+			HDD.activeprog = null
+		loadeddata = null
+		loadeddata_photo = null
+		src.ForceRefresh()
 		unalerted(0,0)
 	else
 		mounted = 1
 		icon_state = "Laptop_open"
-		ForceRefresh()
+		src.ForceRefresh()
 		unalerted(0,0)
 
 /obj/item/device/thinktronic/laptop/MouseDrop(obj/over_object as obj, src_location, over_location)

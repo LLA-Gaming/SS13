@@ -996,7 +996,7 @@
 "ath" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 1; on = 1; scrub_N2O = 0; scrub_Toxins = 0},/obj/machinery/alarm{pixel_y = 23},/obj/structure/closet/secure_closet/personal/cabinet,/obj/effect/decal/cleanable/cobweb2,/turf/simulated/floor/wood,/area/crew_quarters/sleep)
 "ati" = (/obj/structure/dresser,/turf/simulated/floor/wood,/area/crew_quarters/sleep)
 "atj" = (/obj/machinery/atmospherics/unary/vent_pump{dir = 1; on = 1},/obj/machinery/light/small{dir = 1},/turf/simulated/floor/wood,/area/crew_quarters/sleep)
-"atk" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; icon_state = "off"; on = 1; scrub_N2O = 0; scrub_Toxins = 0},/obj/machinery/alarm{pixel_y = 23},/obj/structure/closet/secure_closet/personal/cabinet,/obj/item/device/thinktronic/laptop/plain,/turf/simulated/floor/wood,/area/crew_quarters/sleep)
+"atk" = (/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; icon_state = "off"; on = 1; scrub_N2O = 0; scrub_Toxins = 0},/obj/machinery/alarm{pixel_y = 23},/obj/structure/closet/secure_closet/personal/cabinet,/obj/item/device/thinktronic/laptop,/turf/simulated/floor/wood,/area/crew_quarters/sleep)
 "atl" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 9},/turf/simulated/wall,/area/crew_quarters/fitness)
 "atm" = (/obj/structure/cable{d1 = 1; d2 = 4; icon_state = "1-4"},/obj/structure/disposalpipe/junction{icon_state = "pipe-j2"; dir = 2},/turf/simulated/floor{icon_state = "neutral"; dir = 9},/area/crew_quarters/fitness)
 "atn" = (/obj/structure/cable{d1 = 2; d2 = 8; icon_state = "2-8"},/obj/structure/disposalpipe/trunk{dir = 8},/obj/machinery/disposal,/turf/simulated/floor{icon_state = "neutral"; dir = 1},/area/crew_quarters/fitness)

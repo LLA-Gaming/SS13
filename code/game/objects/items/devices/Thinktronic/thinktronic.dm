@@ -45,6 +45,7 @@ var/global/thinktronic_device_count = 0
 	proc/ForceRefresh()
 		for(var/mob/M in hearers(1, loc))
 			if ((M.client && M.machine == src))
+				spawn(1)
 				src.attack_self(M)
 				return 1
 
@@ -53,22 +54,24 @@ var/global/thinktronic_device_count = 0
 			return
 		if(network())
 			for(var/obj/item/device/thinktronic_parts/data/convo/C in HDD)
-				if(C.device_ID == closer)
+				if(C.device_ID == closer && C.opened)
 					C.mlog += "--Conversation closed by [closername]--<br>"
-					var/mob/living/L = null
-					if(loc && isliving(loc))
-						L = loc
-					if (volume == 1)
-						playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
-					if (volume == 2)
-						playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
-					for (var/mob/O in hearers(3, loc))
-						if(volume)
-							O.show_message(text("\icon[src] *[HDD.ttone]*"))
-					for (var/mob/O in hearers(1, loc))
-						if(volume == 2)
-							O.show_message(text("\icon[src] <b>Conversation closed by [closername]</b>"))
-					L << "\icon[src] <b>Conversation closed by [closername]</b>"
+					C.opened = 0
+					if(network())
+						var/mob/living/L = null
+						if(loc && isliving(loc))
+							L = loc
+						if (volume == 1)
+							playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
+						if (volume == 2)
+							playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
+						for (var/mob/O in hearers(3, loc))
+							if(volume)
+								O.show_message(text("\icon[src] *[HDD.ttone]*"))
+						for (var/mob/O in hearers(1, loc))
+							if(devicetype == "Laptop")
+								O.show_message(text("\icon[src] <b>Conversation closed by [closername]</b>"))
+						L << "\icon[src] <b>Conversation closed by [closername]</b>"
 					ForceRefresh()
 
 	proc/create_message(var/mob/living/U = usr, var/obj/item/device/thinktronic/P, var/ignorerefresh)
@@ -103,21 +106,25 @@ var/global/thinktronic_device_count = 0
 			if(meexisting)
 				for(var/obj/item/device/thinktronic_parts/data/convo/C in MyHDD)
 					if(C.device_ID == P.device_ID)
+						if(C.opened == 0)
+							C.mlog += "--Conversation opened by [MyHDD.owner]--<br>"
+							C.opened = 1
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=Chat;target=\ref[P]'>View</a> - <a href='byond://?src=\ref[src];choice=QuikReply;target=\ref[P]'>Quick Reply</a> - <a href='byond://?src=\ref[src];choice=ClearConvo;target=\ref[P]'>Quick Close</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=Chat;target=\ref[P]'>View</a> - <a href='byond://?src=\ref[src];choice=QuikReply;target=\ref[P]'>Quick Reply</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						MyHDD.activechat = C
 						break
 			else
 				var/obj/item/device/thinktronic_parts/data/convo/D = new /obj/item/device/thinktronic_parts/data/convo(MyHDD)
 				D.mlog = "--Conversation opened by [MyHDD.owner]--<br>"
+				D.opened = 1
 				D.mlogowner = TheirHDD.owner
 				D.device_ID = P.device_ID
 				for(var/obj/item/device/thinktronic_parts/data/convo/C in MyHDD)
 					if(C.device_ID == P.device_ID)
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=Chat;target=\ref[P]'>View</a> - <a href='byond://?src=\ref[src];choice=QuikReply;target=\ref[P]'>Quick Reply</a> - <a href='byond://?src=\ref[src];choice=ClearConvo;target=\ref[P]'>Quick Close</a><br><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=Chat;target=\ref[P]'>View</a> - <a href='byond://?src=\ref[src];choice=QuikReply;target=\ref[P]'>Quick Reply</a><br><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						MyHDD.activechat = C
 						break
 			//Their HDD
@@ -126,7 +133,10 @@ var/global/thinktronic_device_count = 0
 					if(C.device_ID == device_ID)
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=Chat;target=\ref[src]'>View</a> - <a href='byond://?src=\ref[P];choice=QuikReply;target=\ref[src]'>Quick Reply</a> - <a href='byond://?src=\ref[P];choice=ClearConvo;target=\ref[src]'>Quick Close</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=Chat;target=\ref[src]'>View</a> - <a href='byond://?src=\ref[P];choice=QuikReply;target=\ref[src]'>Quick Reply</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						if(!C.opened)
+							C.opened = 1
+							C.mlog += "--Conversation opened by [MyHDD.owner]--<br>"
 						var/mob/living/L = null
 						if(P.loc && isliving(P.loc))
 							L = P.loc
@@ -138,9 +148,9 @@ var/global/thinktronic_device_count = 0
 							if(P.volume)
 								O.show_message(text("\icon[P] *[HDD.ttone]*"))
 						for (var/mob/O in hearers(1, P.loc))
-							if(P.volume == 2)
+							if(P.devicetype == "Laptop")
 								O.show_message(text("\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\""))
-						L << "\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\" (<a href='byond://?src=\ref[P];choice=QuikMessage;target=\ref[src]'>Reply</a>)"
+						if(P.devicetype == "Tablet") L << "\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\" (<a href='byond://?src=\ref[P];choice=QuikMessage;target=\ref[src]'>Reply</a>)"
 						if(ignorerefresh)
 							MyHDD.activechat = null
 						if(TheirHDD.mode == 7) // Checks if the messenger app is open
@@ -154,13 +164,14 @@ var/global/thinktronic_device_count = 0
 			else
 				var/obj/item/device/thinktronic_parts/data/convo/D = new /obj/item/device/thinktronic_parts/data/convo(TheirHDD)
 				D.mlog = "--Conversation opened by [MyHDD.owner]--<br>"
+				D.opened = 1
 				D.mlogowner = MyHDD.owner
 				D.device_ID = device_ID
 				for(var/obj/item/device/thinktronic_parts/data/convo/C in TheirHDD)
 					if(C.device_ID == device_ID)
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=Chat;target=\ref[src]'>View</a> - <a href='byond://?src=\ref[P];choice=QuikReply;target=\ref[src]'>Quick Reply</a> - <a href='byond://?src=\ref[P];choice=ClearConvo;target=\ref[src]'>Quick Close</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=Chat;target=\ref[src]'>View</a> - <a href='byond://?src=\ref[P];choice=QuikReply;target=\ref[src]'>Quick Reply</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						var/mob/living/L = null
 						if(P.loc && isliving(P.loc))
 							L = P.loc
@@ -172,9 +183,9 @@ var/global/thinktronic_device_count = 0
 							if(P.volume)
 								O.show_message(text("\icon[P] *[HDD.ttone]*"))
 						for (var/mob/O in hearers(1, P.loc))
-							if(P.volume == 2)
+							if(P.devicetype == "Laptop")
 								O.show_message(text("\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\""))
-						L << "\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\" (<a href='byond://?src=\ref[P];choice=QuikMessage;target=\ref[src]'>Reply</a>)"
+						if(P.devicetype == "Tablet") L << "\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\" (<a href='byond://?src=\ref[P];choice=QuikMessage;target=\ref[src]'>Reply</a>)"
 						if(ignorerefresh)
 							MyHDD.activechat = null
 						if(TheirHDD.mode == 7) // Checks if the messenger app is open

@@ -259,7 +259,7 @@
 									dat += {"<br><h2>Messenger is OFF</h2>"}
 									break
 					if (8) //Alerts
-						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a><hr>"}
+						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a> <A href='?src=\ref[src];choice=ClearAllAlert'>Clear All</a><hr>"}
 						unalerted(1,0)
 						for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
 							dat += {"<A href='?src=\ref[src];choice=ClearAlert;target=\ref[alert]'> <b>X</b> </a>"}
@@ -420,16 +420,42 @@
 				attack_self(usr)
 			if("QuikMessage")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
+				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD
+				var/obj/item/device/thinktronic_parts/core/TheirHDD = P.HDD
+				var/existing = 0
 				if(!P.HDD.messengeron || !P.network())
 					usr << "ERROR: Client not found"
 					return
+				for(var/obj/item/device/thinktronic_parts/data/convo/C in MyHDD)
+					if(C.mlogowner == TheirHDD.owner)
+						existing = 1
+						break
+				if(!existing)
+					var/obj/item/device/thinktronic_parts/data/convo/D = new /obj/item/device/thinktronic_parts/data/convo(MyHDD)
+					D.mlog = "--Conversation opened by [MyHDD.owner]--<br>"
+					D.opened = 1
+					D.mlogowner = TheirHDD.owner
+					D.device_ID = P.device_ID
 				src.create_message(U, P, 1)
 			if("QuikReply")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
+				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD
+				var/obj/item/device/thinktronic_parts/core/TheirHDD = P.HDD
+				var/existing = 0
 				if(!P.HDD.messengeron || !P.network())
 					usr << "ERROR: Client not found"
 					attack_self(usr)
 					return
+				for(var/obj/item/device/thinktronic_parts/data/convo/C in MyHDD)
+					if(C.mlogowner == TheirHDD.owner)
+						existing = 1
+						break
+				if(!existing)
+					var/obj/item/device/thinktronic_parts/data/convo/D = new /obj/item/device/thinktronic_parts/data/convo(MyHDD)
+					D.mlog = "--Conversation opened by [MyHDD.owner]--<br>"
+					D.opened = 1
+					D.mlogowner = TheirHDD.owner
+					D.device_ID = P.device_ID
 				src.create_message(U, P, 1)
 				attack_self(usr)
 			if("Chat")
@@ -438,17 +464,18 @@
 				var/obj/item/device/thinktronic_parts/core/TheirHDD = P.HDD
 				var/existing = 0
 				for(var/obj/item/device/thinktronic_parts/data/convo/C in MyHDD)
-					if(C.mlogowner == TheirHDD.owner)
+					if(C.device_ID == TheirHDD.device_ID)
 						existing = 1
 						break
 				if(existing)
 					for(var/obj/item/device/thinktronic_parts/data/convo/C in MyHDD)
-						if(C.mlogowner == TheirHDD.owner)
+						if(C.device_ID == TheirHDD.device_ID)
 							MyHDD.activechat = C
 							break
 				else
 					var/obj/item/device/thinktronic_parts/data/convo/D = new /obj/item/device/thinktronic_parts/data/convo(MyHDD)
 					D.mlog = "--Conversation opened by [MyHDD.owner]--<br>"
+					D.opened = 1
 					D.mlogowner = TheirHDD.owner
 					D.device_ID = P.device_ID
 					for(var/obj/item/device/thinktronic_parts/data/convo/C in MyHDD)
@@ -573,6 +600,10 @@
 			if("ClearAlert")
 				var/obj/item/device/thinktronic_parts/data/alert/alert = locate(href_list["target"])
 				qdel(alert)
+				attack_self(usr)
+			if("ClearAllAlert")
+				for(var/obj/item/device/thinktronic_parts/data/alert/alert in HDD)
+					qdel(alert)
 				attack_self(usr)
 			if("Delete")
 				var/obj/item/device/thinktronic_parts/P = locate(href_list["target"])

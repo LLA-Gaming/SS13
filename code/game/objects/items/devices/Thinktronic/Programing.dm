@@ -159,6 +159,7 @@
 	name =  "Conversation Log"
 	var/lastmsg = null
 	var/activemsg = null
+	var/opened = 0
 
 /obj/item/device/thinktronic_parts/data/savedconvo
 	name =  "Conversation Log"

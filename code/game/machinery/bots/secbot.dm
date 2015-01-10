@@ -192,7 +192,8 @@ Auto Patrol: []"},
 			src.target = user
 			var/area/location = get_area(src)
 			for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-				MS.SendAlert(format_text("[name] has been struck with a [W.name] in [location] by [user]","Brig Control"))
+				var/textname = format_text(name)
+				MS.SendAlert("[textname] has been struck with a [W.name] in [location] by [user]","Brig Control")
 			src.mode = SECBOT_HUNT
 
 /obj/machinery/bot/secbot/Emag(mob/user as mob)
@@ -601,9 +602,10 @@ Auto Patrol: []"},
 			src.speak("Level [src.threatlevel] infraction alert!")
 			playsound(src.loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, 0)
 			src.visible_message("<b>[src]</b> points at [C.name]!")
-			var/area/location = get_area(src)
+			var/area/location = format_text(get_area(src))
 			for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-				MS.SendAlert(format_text("<b>[name]</b>: [C.name] detected! Threat Level: [src.threatlevel]. Location: [location].","Brig Control"))
+				var/textname = format_text(name)
+				MS.SendAlert("<b>[textname]</b>: [C.name] detected! Threat Level: [src.threatlevel]. Location: [location].","Brig Control")
 			mode = SECBOT_HUNT
 			spawn(0)
 				process()	// ensure bot quickly responds to a perp
@@ -681,9 +683,10 @@ Auto Patrol: []"},
 /obj/machinery/bot/secbot/explode()
 
 	walk_to(src,0)
-	var/area/location = get_area(src)
+	var/area/location = format_text(get_area(src))
 	for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-		MS.SendAlert(format_text("[name] has exploded in [location]","Brig Control"))
+		var/textname = format_text(name)
+		MS.SendAlert("[textname] has exploded in [location]","Brig Control")
 	src.visible_message("\red <B>[src] blows apart!</B>", 1)
 	var/turf/Tsec = get_turf(src)
 

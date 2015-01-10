@@ -47,18 +47,41 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 							if(PDA.volume == 1)
 								O.show_message(text("\icon[devices] *[hdd.ttone]*"))
 							if(PDA.volume == 2)
-								O.show_message(text("\icon[devices] *[hdd.ttone]*"))
+								if(PDA.volume) O.show_message(text("\icon[devices] *[hdd.ttone]*"))
+						for (var/mob/O in hearers(1, devices.loc))
+							if(PDA.devicetype == "Laptop")
 								O.show_message(text("\icon[devices] <b>Alert</b> - [alertfulltext]"))
-						L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
+						if (PDA.devicetype == "Tablet") L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
 						for(var/obj/item/device/thinktronic_parts/data/alert/alert in hdd)
 							if(alert.alertmsg == "[alertfulltext]")
 								exists = 1
+								if(hdd.activeprog)
+									if(hdd.activeprog.name == app)
+										if(!PDA.ForceRefresh())
+											world << "DEBUG: force refreshed"
+											PDA.alertnotif = 1
+											PDA.alerted()
+									else
+										PDA.alertnotif = 1
+										PDA.alerted()
+								else
+									PDA.alertnotif = 1
+									PDA.alerted()
 								break
 						if(!exists)
 							var/obj/item/device/thinktronic_parts/data/alert/alert = new /obj/item/device/thinktronic_parts/data/alert(hdd)
 							alert.alertmsg = "[alertfulltext]"
-							PDA.alertnotif = 1
-							PDA.alerted()
+							if(hdd.activeprog)
+								if(hdd.activeprog.name == app)
+									if(!PDA.ForceRefresh())
+										PDA.alertnotif = 1
+										PDA.alerted()
+								else
+									PDA.alertnotif = 1
+									PDA.alerted()
+							else
+								PDA.alertnotif = 1
+								PDA.alerted()
 
 /obj/machinery/nanonet_server/proc/SendAlertSolo(var/alerttext, var/device)
 	if(active)
@@ -81,9 +104,11 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 					if(PDA.volume == 1)
 						O.show_message(text("\icon[devices] *[hdd.ttone]*"))
 					if(PDA.volume == 2)
-						O.show_message(text("\icon[devices] *[hdd.ttone]*"))
+						if(PDA.volume) O.show_message(text("\icon[devices] *[hdd.ttone]*"))
+				for (var/mob/O in hearers(1, devices.loc))
+					if(PDA.devicetype == "Laptop")
 						O.show_message(text("\icon[devices] <b>Alert</b> - [alertfulltext]"))
-				L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
+				if (PDA.devicetype == "Tablet") L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
 				for(var/obj/item/device/thinktronic_parts/data/alert/alert in hdd)
 					if(alert.alertmsg == "[alertfulltext]")
 						exists = 1
@@ -114,9 +139,11 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 				if(PDA.volume == 1)
 					O.show_message(text("\icon[devices] *[hdd.ttone]*"))
 				if(PDA.volume == 2)
-					O.show_message(text("\icon[devices] *[hdd.ttone]*"))
+					if(PDA.volume) O.show_message(text("\icon[devices] *[hdd.ttone]*"))
+			for (var/mob/O in hearers(1, devices.loc))
+				if(PDA.devicetype == "Laptop")
 					O.show_message(text("\icon[devices] <b>Alert</b> - [alertfulltext]"))
-			L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
+			if (PDA.devicetype == "Tablet") L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
 			for(var/obj/item/device/thinktronic_parts/data/alert/alert in hdd)
 				if(alert.alertmsg == "[alertfulltext]")
 					exists = 1
