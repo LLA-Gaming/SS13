@@ -331,7 +331,7 @@ var/global/thinktronic_device_count = 0
 			return 1
 		if(devicetype == "Laptop")
 			return 1
-	return 1
+	return 0
 
 /obj/item/device/thinktronic/proc/alerted()
 	if(devicetype == "Tablet")
