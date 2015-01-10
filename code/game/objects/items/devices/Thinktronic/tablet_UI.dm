@@ -326,7 +326,6 @@
 	if(can_use(U)) //Why reinvent the wheel? There's a proc that does exactly that.
 		add_fingerprint(U)
 		U.set_machine(src)
-
 		switch(href_list["choice"])//Now we switch based on choice.
 			if ("Close")
 				popup.close()
@@ -341,6 +340,7 @@
 				id_check(U, 1)
 				attack_self(usr)
 			if("UpdateInfo")
+				if(shared) return
 				HDD.ownjob = id.assignment
 				update_label()
 				attack_self(usr)
@@ -498,11 +498,13 @@
 					usr << "<span class='notice'>You have been blocked from the ThinkTronic Server</span>"
 				attack_self(usr)
 			if("EjectHDD")
-				if (ismob(loc))
-					var/mob/M = loc
-					HDD.loc = M.loc
+				if(shared)
+					usr << "<span class='notice'>You cannot remove the Core from a shared tablet</span>"
+				else
+					var/turf/T = loc
+					HDD.loc = T.loc
 					if(id)
-						id.loc = M.loc
+						id.loc = T.loc
 						id = null
 					usr << "<span class='notice'>You remove the Core from the [name].</span>"
 					HDD.mode = 0
@@ -643,8 +645,6 @@
 					if(exists == 2)
 						usr << "PRO version installed"
 						qdel(D)
-						attack_self(usr)
-						return
 				else
 					D.loc = HDD
 					if(!D.utility)
@@ -710,3 +710,4 @@
 	else
 		U.set_machine(src)
 		U << browse(null, "window=thinktronic")
+

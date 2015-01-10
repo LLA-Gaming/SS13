@@ -43,9 +43,9 @@ var/global/thinktronic_device_count = 0
 		..()
 
 	proc/ForceRefresh()
-		for(var/mob/living/silicon/mob in oview(1))
-			if(mob.machine == src)
-				src.attack_self(mob)
+		for(var/mob/M in hearers(1, loc))
+			if ((M.client && M.machine == src))
+				src.attack_self(M)
 				return 1
 
 	proc/close_message(var/closer, var/closername)
@@ -331,7 +331,7 @@ var/global/thinktronic_device_count = 0
 			return 1
 		if(devicetype == "Laptop")
 			return 1
-	return 0
+	return 1
 
 /obj/item/device/thinktronic/proc/alerted()
 	if(devicetype == "Tablet")

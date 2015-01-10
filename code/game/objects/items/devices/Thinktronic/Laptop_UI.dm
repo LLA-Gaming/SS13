@@ -1,4 +1,4 @@
-/obj/item/device/thinktronic/laptop/attack_hand(var/mob/living/user as mob)
+/obj/item/device/thinktronic/laptop/attack_hand(mob/living/user)
 	if(!mounted && !bolted)
 		..()
 	if(bolted && !mounted)
@@ -6,7 +6,7 @@
 	if(mounted)
 		attack_self(usr)
 
-/obj/item/device/thinktronic/laptop/attack_self(var/mob/living/user as mob)
+/obj/item/device/thinktronic/laptop/attack_self(mob/living/user)
 	var/mob/U = usr
 	user.set_machine(src)
 	var/dat = ""
