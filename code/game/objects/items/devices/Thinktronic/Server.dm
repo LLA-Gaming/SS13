@@ -235,7 +235,6 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/theoriontrail(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/spacebattle(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/cubanpete(src)
-		new /obj/item/device/thinktronic_parts/nanonet/store_items/setstatus(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/custodiallocator(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/enginebuddy(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/honk(src)
@@ -288,12 +287,6 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	desc = "Can you Outbomb Cuban Pete?"
 	item = /obj/item/device/thinktronic_parts/program/general/spacebattle/cubanpete
 	price = 30
-
-/obj/item/device/thinktronic_parts/nanonet/store_items/setstatus
-	name = "Station Display"
-	desc = "Set the various screens on the station to whatever you wish!"
-	item = /obj/item/device/thinktronic_parts/program/general/setstatus
-	price = 100
 
 /obj/item/device/thinktronic_parts/nanonet/store_items/custodiallocator
 	name = "Custodial Locator"
