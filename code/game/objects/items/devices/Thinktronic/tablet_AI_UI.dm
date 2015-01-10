@@ -398,10 +398,6 @@
 				if(HDD.banned)
 					usr << "<span class='notice'>You have been blocked from the ThinkTronic Server</span>"
 				attack_self(usr)
-			if("EjectHDD")
-				if (ismob(loc))
-					usr << "<span class='notice'>You cannot remove the Core from the [name].</span>"
-					attack_self(usr)
 			if("Message")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
 				if(!P.HDD.messengeron || !P.network())

@@ -50,15 +50,25 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 								if(PDA.volume) O.show_message(text("\icon[devices] *[hdd.ttone]*"))
 						for (var/mob/O in hearers(1, devices.loc))
 							if(PDA.devicetype == "Laptop")
-								O.show_message(text("\icon[devices] <b>Alert</b> - [alertfulltext]"))
-						if (PDA.devicetype == "Tablet") L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
+								if(!hdd.activeprog)
+									O.show_message(text("\icon[devices] <b>Alert</b> - [alertfulltext]"))
+								if(hdd.activeprog)
+									if(!hdd.activeprog.name == app)
+										O.show_message(text("\icon[devices] <b>Alert</b> - [alertfulltext]"))
+						if (PDA.devicetype == "Tablet")
+							if(!hdd.activeprog)
+								L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
+							if(hdd.activeprog)
+								if(!hdd.activeprog.name == app)
+									L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
+								else
+
 						for(var/obj/item/device/thinktronic_parts/data/alert/alert in hdd)
 							if(alert.alertmsg == "[alertfulltext]")
 								exists = 1
 								if(hdd.activeprog)
 									if(hdd.activeprog.name == app)
 										if(!PDA.ForceRefresh())
-											world << "DEBUG: force refreshed"
 											PDA.alertnotif = 1
 											PDA.alerted()
 									else
@@ -73,6 +83,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 							alert.alertmsg = "[alertfulltext]"
 							if(hdd.activeprog)
 								if(hdd.activeprog.name == app)
+									qdel(alert)
 									if(!PDA.ForceRefresh())
 										PDA.alertnotif = 1
 										PDA.alerted()
@@ -283,7 +294,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	price = 10
 
 /obj/item/device/thinktronic_parts/nanonet/store_items/cubanpete
-	name = "Space Battle: Outbomb Cuban Pete"
+	name = "Outbomb Cuban Pete"
 	desc = "Can you Outbomb Cuban Pete?"
 	item = /obj/item/device/thinktronic_parts/program/general/spacebattle/cubanpete
 	price = 30

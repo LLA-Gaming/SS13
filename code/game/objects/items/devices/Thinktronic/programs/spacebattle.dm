@@ -25,7 +25,7 @@
 		src.enemy_name = replacetext((name_part1 + name_part2), "the ", "")
 	if(pete)
 		enemy_name = "Cuban Pete"
-		name = "Space Battle: Outbomb Cuban Pete"
+		name = "Outbomb Cuban Pete"
 		temp = "Can you Outbomb Cuban Pete?"
 
 /obj/item/device/thinktronic_parts/program/general/spacebattle/use_app()
