@@ -7,7 +7,7 @@
 		attack_self(usr)
 
 /obj/item/device/thinktronic/laptop/attack_self(mob/living/user)
-	var/mob/U = usr
+	var/mob/U = user
 	user.set_machine(src)
 	var/dat = ""
 	if(loc == user) return

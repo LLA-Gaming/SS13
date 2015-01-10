@@ -1,5 +1,5 @@
 /obj/item/device/thinktronic/tablet/pai/attack_self(mob/living/user)
-	var/mob/U = usr
+	var/mob/U = user
 	user.set_machine(src)
 	var/dat = ""
 	if(can_use(U))
