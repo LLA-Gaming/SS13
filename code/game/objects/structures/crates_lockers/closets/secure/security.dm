@@ -77,7 +77,7 @@
 		new /obj/item/clothing/head/helmet/HoS/dermal(src)
 		new /obj/item/clothing/glasses/hud/security/supergars(src)
 		new /obj/item/device/radio/headset/heads/hos_alt(src)
-		new /obj/item/weapon/cartridge/hos(src)
+		new /obj/item/device/thinktronic_parts/expansioncarts/hos(src)
 		new /obj/item/weapon/contraband/poster/legit(src)
 		new /obj/item/weapon/storage/lockbox/loyalty(src)
 		new /obj/item/weapon/shield/riot(src)

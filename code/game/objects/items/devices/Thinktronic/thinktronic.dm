@@ -105,7 +105,7 @@ var/global/thinktronic_device_count = 0
 					if(C.device_ID == P.device_ID)
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=Chat;target=\ref[P]'>View</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=Chat;target=\ref[P]'>View</a> - <a href='byond://?src=\ref[src];choice=QuikReply;target=\ref[P]'>Quick Reply</a> - <a href='byond://?src=\ref[src];choice=ClearConvo;target=\ref[P]'>Quick Close</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						MyHDD.activechat = C
 						break
 			else
@@ -117,7 +117,7 @@ var/global/thinktronic_device_count = 0
 					if(C.device_ID == P.device_ID)
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=Chat;target=\ref[P]'>View</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=Chat;target=\ref[P]'>View</a> - <a href='byond://?src=\ref[src];choice=QuikReply;target=\ref[P]'>Quick Reply</a> - <a href='byond://?src=\ref[src];choice=ClearConvo;target=\ref[P]'>Quick Close</a><br><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						MyHDD.activechat = C
 						break
 			//Their HDD
@@ -126,7 +126,7 @@ var/global/thinktronic_device_count = 0
 					if(C.device_ID == device_ID)
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=Chat;target=\ref[src]'>View</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=Chat;target=\ref[src]'>View</a> - <a href='byond://?src=\ref[P];choice=QuikReply;target=\ref[src]'>Quick Reply</a> - <a href='byond://?src=\ref[P];choice=ClearConvo;target=\ref[src]'>Quick Close</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						var/mob/living/L = null
 						if(P.loc && isliving(P.loc))
 							L = P.loc
@@ -160,7 +160,7 @@ var/global/thinktronic_device_count = 0
 					if(C.device_ID == device_ID)
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=Chat;target=\ref[src]'>View</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=Chat;target=\ref[src]'>View</a> - <a href='byond://?src=\ref[P];choice=QuikReply;target=\ref[src]'>Quick Reply</a> - <a href='byond://?src=\ref[P];choice=ClearConvo;target=\ref[src]'>Quick Close</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						var/mob/living/L = null
 						if(P.loc && isliving(P.loc))
 							L = P.loc

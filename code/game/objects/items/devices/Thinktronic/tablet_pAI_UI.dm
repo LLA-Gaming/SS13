@@ -299,6 +299,8 @@
 				U << browse(null, "window=thinktronic")
 				if(HDD)
 					HDD.activechat = null
+					HDD.mode = 0
+					HDD.activeprog = null
 				loadeddata = null
 				loadeddata_photo = null
 				return
@@ -418,18 +420,21 @@
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
 				if(!P.HDD.messengeron || !P.network())
 					usr << "ERROR: Client not found"
+					return
+				src.create_message(U, P, 1)
+			if("QuikReply")
+				var/obj/item/device/thinktronic/P = locate(href_list["target"])
+				if(!P.HDD.messengeron || !P.network())
+					usr << "ERROR: Client not found"
 					attack_self(usr)
 					return
 				src.create_message(U, P, 1)
+				attack_self(usr)
 			if("Chat")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
 				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD
 				var/obj/item/device/thinktronic_parts/core/TheirHDD = P.HDD
 				var/existing = 0
-				if(!P.HDD.messengeron || !P.network())
-					usr << "ERROR: Client not found"
-					attack_self(usr)
-					return
 				for(var/obj/item/device/thinktronic_parts/data/convo/C in MyHDD)
 					if(C.mlogowner == TheirHDD.owner)
 						existing = 1

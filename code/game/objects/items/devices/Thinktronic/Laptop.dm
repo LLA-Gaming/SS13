@@ -115,12 +115,12 @@
 	if(mounted)
 		mounted = 0
 		icon_state = "Laptop_closed"
-		updateSelfDialog()//For the non-input related code.
+		ForceRefresh()
 		unalerted(0,0)
 	else
 		mounted = 1
 		icon_state = "Laptop_open"
-		updateSelfDialog()//For the non-input related code.
+		ForceRefresh()
 		unalerted(0,0)
 
 /obj/item/device/thinktronic/laptop/MouseDrop(obj/over_object as obj, src_location, over_location)
