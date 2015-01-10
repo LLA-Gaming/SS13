@@ -84,6 +84,6 @@
 					active3.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", hdd.owner, hdd.ownjob, worldtime2text(), time2text(world.realtime, "MMM DD"), year_integer+540, t1,)
 					PDA.attack_self(usr)
 					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-						MS.SendAlert("[hdd.owner] added comment to: [active3.fields["name"]] - [t1]","Security Records")
+						MS.SendAlert("[hdd.owner] added comment to: [active3.fields["name"]] - [t1]","Security Records", 1)
 				else
 					usr << "ERROR: Cannot connect to the network"

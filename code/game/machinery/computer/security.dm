@@ -349,7 +349,7 @@ What a mess.*/
 					counter++
 				active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", src.authenticated, src.rank, worldtime2text(), time2text(world.realtime, "MMM DD"), year_integer+540, t1,)
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlert("[src.authenticated] added comment to: [active1.fields["name"]] - [t1]","Security Records")
+					MS.SendAlert("[src.authenticated] added comment to: [active1.fields["name"]] - [t1]","Security Records", 1)
 
 			if ("Delete Record (ALL)")
 				if (active1)
@@ -507,7 +507,7 @@ What a mess.*/
 								if("released")
 									active2.fields["criminal"] = "Released"
 							for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-								MS.SendAlert("[active1.fields["name"]] has been set to [active2.fields["criminal"]]","Security Records")
+								MS.SendAlert("[active1.fields["name"]] has been set to [active2.fields["criminal"]]","Security Records", 1)
 
 					if ("Delete Record (Security) Execute")
 						if (active2)

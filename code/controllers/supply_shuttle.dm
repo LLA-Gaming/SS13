@@ -735,7 +735,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 					temp = "Thanks for your order.<BR>"
 					temp += "<BR><A href='?src=\ref[src];viewrequests=1'>Back</A> <A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
 					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-						MS.SendAlert("Order Confirmed: #[O.ordernum] [P.name] by [O.orderedby]. [O.comment ? "([SO.comment])":""]","Cargo Bay Monitor")
+						MS.SendAlert("Order Confirmed: #[O.ordernum] [P.name] by [O.orderedby]. [O.comment ? "([SO.comment])":""]","Cargo Bay Monitor", 1)
 				else
 					temp = "Not enough supply points.<BR>"
 					temp += "<BR><A href='?src=\ref[src];viewrequests=1'>Back</A> <A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"

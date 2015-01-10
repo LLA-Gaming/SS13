@@ -24,7 +24,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	..()
 	return
 
-/obj/machinery/nanonet_server/proc/SendAlert(var/alerttext, var/app)
+/obj/machinery/nanonet_server/proc/SendAlert(var/alerttext, var/app, var/donotskip)
 	if(active)
 		for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
 			if(!devices.HDD) continue
@@ -53,13 +53,13 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 								if(!hdd.activeprog)
 									O.show_message(text("\icon[devices] <b>Alert</b> - [alertfulltext]"))
 								if(hdd.activeprog)
-									if(!hdd.activeprog.name == app)
+									if(!hdd.activeprog.name == app || donotskip)
 										O.show_message(text("\icon[devices] <b>Alert</b> - [alertfulltext]"))
 						if (PDA.devicetype == "Tablet")
 							if(!hdd.activeprog)
 								L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
 							if(hdd.activeprog)
-								if(!hdd.activeprog.name == app)
+								if(!hdd.activeprog.name == app || donotskip)
 									L << "\icon[devices] <b>Alert</b> - [alertfulltext]"
 								else
 
@@ -83,10 +83,10 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 							alert.alertmsg = "[alertfulltext]"
 							if(hdd.activeprog)
 								if(hdd.activeprog.name == app)
-									qdel(alert)
+									if(!donotskip) qdel(alert)
 									if(!PDA.ForceRefresh())
-										PDA.alertnotif = 1
-										PDA.alerted()
+										if(!donotskip) PDA.alertnotif = 1
+										if(!donotskip) PDA.alerted()
 								else
 									PDA.alertnotif = 1
 									PDA.alerted()
