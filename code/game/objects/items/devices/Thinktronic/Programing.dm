@@ -25,7 +25,6 @@
 	datatype = "Application"
 	app = 1
 	var/category = "general_programs"
-	var/img = "<img src=pda_blank.png>"
 	var/ramreq = 128
 	var/favorite = 0
 	var/alerts = 0
@@ -45,42 +44,34 @@
 /obj/item/device/thinktronic_parts/program/general
 	name = "Example Program"
 	category = "general_programs"
-	img = "<img src=pda_blank.png>"
 
 /obj/item/device/thinktronic_parts/program/sec
 	name = "Example Program"
 	category = "sec_programs"
-	img = "<img src=pda_cuffs.png>"
 
 /obj/item/device/thinktronic_parts/program/eng
 	name = "Example Program"
 	category = "engi_programs"
-	img = "<img src=pda_power.png>"
 
 /obj/item/device/thinktronic_parts/program/sci
 	name = "Example Program"
 	category = "sci_programs"
-	img = "<img src=pda_signaler.png>"
 
 /obj/item/device/thinktronic_parts/program/cargo
 	name = "Example Program"
 	category = "cargo_programs"
-	img = "<img src=pda_crate.png>"
 
 /obj/item/device/thinktronic_parts/program/medical
 	name = "Example Program"
 	category = "med_programs"
-	img = "<img src=pda_medical.png>"
 
 /obj/item/device/thinktronic_parts/program/misc
 	name = "Example Misc Program"
 	category = "misc_programs"
-	img = "<img src=pda_bell.png>"
 
 /obj/item/device/thinktronic_parts/program/utility
 	name = "Example Utility"
 	category = "utilities"
-	img = "<img src=pda_atmos.png>"
 	utility = 1
 	var/togglemode = 0
 	var/toggleon = 0
