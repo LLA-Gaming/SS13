@@ -322,7 +322,7 @@
 						attack_self(usr)
 						return
 					if(loadeddata_photo)
-						loadeddata = null
+						loadeddata_photo = null
 						attack_self(usr)
 						return
 					HDD.mode = 0
