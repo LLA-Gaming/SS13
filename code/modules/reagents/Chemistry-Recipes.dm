@@ -2119,3 +2119,54 @@ datum/chemical_reaction/pestkiller
 	result = "thirteenloko"
 	required_reagents = list("vodka" = 1, "coffee" = 1, "limejuice" = 1)
 	result_amount = 3
+
+// Alchemy Reactions
+
+/datum/chemical_reaction/dragon_elixir
+	name = "Dragon Elixir"
+	id = "elixir_dragon"
+	result = "elixir_dragon"
+	required_reagents = list("essence" = 1, "temporum" = 1, "essence_flame" = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/skeletal_elixir
+	name = "Skeletal Elixir"
+	id = "elixir_skeletal"
+	result = "elixir_skeletal"
+	required_reagents = list("crepesculum" = 1, "temporum" = 1, "essence" = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/insect_elixir
+	name = "Insect Elixir"
+	id = "elixir_insect"
+	result = "elixir_insect"
+	required_reagents = list("void_dust" = 1, "temporum" = 1, "essence" = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/adamant_elixir
+	name = "Adamant Elixir"
+	id = "elixir_adamant"
+	result = "elixir_adamant"
+	required_reagents = list("elixir_dragon" = 1, "orichalcum" = 1, "electrum" = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/flowering_elixir
+	name = "Flowering Elixir"
+	id = "elixir_flowering"
+	result = "elixir_flowering"
+	required_reagents = list("elixir_skeletal" = 1, "temporum" = 1, "essence" = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/sapien_elixir
+	name = "Sapien Elixir"
+	id = "elixir_sapien"
+	result = "elixir_sapien"
+	required_reagents = list("elixir_insect" = 1, "essence" = 1, "blood" = 1)
+	result_amount = 1
+
+/datum/chemical_reaction/shadow_elixir
+	name = "Shadow Elixir"
+	id = "elixir_shadow"
+	result = "elixir_shadow"
+	required_reagents = list("elixir_adamant" = 2, "elixir_flowering" = 2, "crepesculum" = 2)
+	result_amount = 1

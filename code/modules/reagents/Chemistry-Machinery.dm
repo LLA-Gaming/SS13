@@ -10,6 +10,7 @@
 	icon_state = "dispenser"
 	use_power = 1
 	idle_power_usage = 40
+	var/dispenser_name = "Chem Dispenser 5000"
 	var/energy = 50
 	var/max_energy = 50
 	var/amount = 30
@@ -112,7 +113,7 @@
 	if (!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "chem_dispenser.tmpl", "Chem Dispenser 5000", 390, 610)
+		ui = new(user, src, ui_key, "chem_dispenser.tmpl", dispenser_name, 390, 610)
 		// when the ui is first opened this is the data it will use
 		ui.set_initial_data(data)
 		// open the new ui window
@@ -175,6 +176,15 @@
 		return
 
 	ui_interact(user)
+
+//The Alchemy version of the chem dispenser. Still needs its own icon.
+
+/obj/machinery/chem_dispenser/alchemotron
+	name = "Alchem-O-Tron 300"
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "dispenser"
+	dispenser_name = "Alchem-O-Tron 300"
+	dispensable_reagents = list("essence","unicorn_blood","temporum","orichalcum","electrum","void_dust","essence_flame","essence_frost","crepesculum")
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
