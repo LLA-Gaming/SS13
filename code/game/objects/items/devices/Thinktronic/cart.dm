@@ -1,6 +1,6 @@
 /obj/item/device/thinktronic_parts/expansioncarts/
 	name = "generic cartridge"
-	desc = "A data cartridge for portable microcomputers."
+	desc = "A data cartridge for portable computers."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "cart"
 	item_state = "electronic"

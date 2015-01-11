@@ -148,6 +148,10 @@
 
 					if (3) //Program Displaying
 						var/obj/item/device/thinktronic_parts/program/PRG = HDD.activeprog
+						if(!PRG)
+							HDD.mode = 0
+							attack_self(U)
+							return
 						if(PRG.usealerts)
 							dat += {"<a href='byond://?src=\ref[src];choice=Return'>   Return</a><a href='byond://?src=\ref[PRG];choice=Alerts'>[PRG.alerts ? "Alerts: On" : "Alerts: Off"]</a><hr>"}
 						else
@@ -327,6 +331,9 @@
 						loadeddata_photo = null
 						attack_self(usr)
 						return
+					if(HDD.activeprog)
+						HDD.activeprog = null
+						attack_self(usr)
 					HDD.mode = 0
 				attack_self(usr)
 			if("allapps")//Self explanatory

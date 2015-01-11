@@ -104,6 +104,10 @@
 	var/obj/item/device/thinktronic/PDA = D.loc
 	if (!D)
 		return
+	if (D.activeprog != src)
+		if(D.activeprog)
+			PDA.attack_self(usr)
+			return
 	if(PDA.can_use(usr))
 		switch(href_list["choice"])
 			if("Open")

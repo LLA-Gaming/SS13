@@ -258,6 +258,11 @@
 /obj/item/device/thinktronic_parts/expansioncarts/perseus
 	name = "PercTech Cartridge"
 	icon_state = "cart-perc"
+	New()
+		new /obj/item/device/thinktronic_parts/program/sec/percblastdoors(src)
+		new /obj/item/device/thinktronic_parts/program/sec/percimplants(src)
+		new /obj/item/device/thinktronic_parts/program/sec/percmissions(src)
+		new /obj/item/device/thinktronic_parts/program/sec/percshuttlelock(src)
 
 /obj/item/device/thinktronic/tablet/perseus
 	icon_state = "tablet-perc"

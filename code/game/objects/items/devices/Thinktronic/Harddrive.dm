@@ -379,7 +379,7 @@
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/spacebattle{favorite = 2 DRM = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/theoriontrail{favorite = 2 DRM = 1}(src)
-	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 1}(src)
 	cash = 0
 	toner = 0
 

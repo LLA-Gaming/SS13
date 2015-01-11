@@ -1,6 +1,6 @@
 /obj/item/device/thinktronic_parts/program/general/chatroom
 	name = "Nanotrasen Relay Chat"
-	var/chat_channel = "#ss13" //name of our current NTRC channel
+	var/chat_channel = "#station" //name of our current NTRC channel
 	var/nick = "" //our NTRC nick
 	var/list/ntrclog = list() //NTRC message log
 	var/helptext = 0
@@ -13,7 +13,7 @@
 		if(network())
 			var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD
 			if(!nick) //first time join
-				nick = copytext(sanitize(hdd.owner), 1, 16)
+				nick = copytext(sanitize(hdd.owner), 1, 12)
 				var/datum/chatroom/C = chatchannels[chat_channel]
 				C.parse_msg(src, nick, "/join [chat_channel]")
 			dat += "<h4>Nanotrasen Relay Chat Network</h4>"
@@ -23,7 +23,7 @@
 			dat += "<a href='byond://?src=\ref[src];choice=NTRC Message'>Write message</a> <br> "
 			dat += "<a href='byond://?src=\ref[src];choice=NTRC Help'>Help</a><br>"
 			if(helptext)
-				dat += "<br><div class='statusDisplay'>/join #channel<br>/register<br>/log amountoflines</div>"
+				dat += "<div class='statusDisplay'>/join #channel<br>/register<br>/log amountoflines</div>"
 			if(chat_channel)
 				dat += "<div class='statusDisplay'>"
 				dat += ntrclog[chat_channel]
@@ -31,20 +31,27 @@
 		else
 			dat = "ERROR: No connection to the server"
 
+
 	Topic(href, href_list) // This is here
 		..()
 		var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD
 		var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 		switch(href_list["choice"])
 			if("Set Nick")
+				if(!network())
+					PDA.attack_self(usr)
+					return
 				if(spamcheck)
 					return
 				spamcheck = 1
 				var/t = stripped_input(usr, "Please enter nickname", name, null) as text
 				spamcheck = 0
-				nick = copytext(sanitize(t), 1, 16)
+				nick = copytext(sanitize(t), 1, 12)
 				PDA.attack_self(usr)
 			if("Set Channel")
+				if(!network())
+					PDA.attack_self(usr)
+					return
 				if(spamcheck)
 					return
 				spamcheck = 1
@@ -58,6 +65,9 @@
 						chat_channel = ret
 				PDA.attack_self(usr)
 			if("NTRC Message")
+				if(!network())
+					PDA.attack_self(usr)
+					return
 				if(spamcheck)
 					return
 				spamcheck = 1
@@ -84,7 +94,7 @@ var/list/chatchannels = list(default_ntrc_chatroom.name = default_ntrc_chatroom)
 //channel.parse_msg
 
 /datum/chatroom
-	var/name = "#ss13"
+	var/name = "#station"
 	var/list/logs = list() // chat logs
 	var/list/auth = list() // authenticated clients
 	var/list/authed = list() //authenticated users
@@ -98,8 +108,7 @@ var/list/chatchannels = list(default_ntrc_chatroom.name = default_ntrc_chatroom)
 	for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 		if(!MS)
 			return "BAD_TCOM"
-
-		if(!get_auth(client,nick) || !nick || length(nick) > 16)
+		if(!get_auth(client,nick) || !nick || length(nick) > 12)
 			return "BAD_NICK"
 
 

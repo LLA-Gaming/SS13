@@ -395,6 +395,8 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 					if(D.owner)
 						for(var/obj/item/device/thinktronic_parts/program/general/hackingtools/PRG in D)
 							continue
+						for(var/obj/item/device/thinktronic_parts/program/sec/percimplants/PRG in D)
+							continue
 						dat += {"[D.owner] - [D.ownjob]<br>"}
 						dat += {"Device: [devices.devicetype]<br>"}
 						var/appcount= 0
