@@ -2,6 +2,7 @@
 	name = "Task Manager"
 	usealerts = 1
 	var/dept = "General"
+	var/spamcheck
 
 	New()
 		for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
@@ -18,7 +19,7 @@
 			dat += "<h4>Your Request List</h4>"
 			dat += "<a href='?src=\ref[src];choice=NewRequest'>New Request</a><br>"
 			for(var/obj/item/device/thinktronic_parts/data/task/request/task in hdd)
-				if(task.assignedby == "[hdd.owner] ([hdd.ownjob])")
+				if(task.assignedby == "[hdd.owner] ([hdd.ownjob])" && task.request)
 					dat += "<div class='statusDisplay'>"
 					dat += {"<A href='?src=\ref[src];choice=ClearLocalTask;target=\ref[task]'> <b>X</b> </a> "}
 					dat += {"<b><u>[task.taskmsg]</b></u>: "}
@@ -51,8 +52,11 @@
 		var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 		switch(href_list["choice"])
 			if("EditTask")
+				if(spamcheck) return
 				if(href_list["what"] == "change_setting")
+					spamcheck = 1
 					var/toWhat = input("What do you want to change it to?", "Input") as anything in list("Pending","Accepted", "Denied", "Completed", "Failed")
+					spamcheck = 0
 					var/obj/item/device/thinktronic_parts/data/task/T = locate(href_list["task"])
 					if(!T)	return
 					T.status = toWhat
@@ -73,6 +77,7 @@
 					AlertUser(T.taskmsg, hdd.owner, T.status, dept)
 					PDA.attack_self(usr)
 			if("ClearTask")
+				if(spamcheck) return
 				var/obj/item/device/thinktronic_parts/data/task/task = locate(href_list["target"])
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 					if(task.dept == "General")
@@ -92,6 +97,7 @@
 				qdel(task)
 				PDA.attack_self(usr)
 			if("ClearLocalTask")
+				if(spamcheck) return
 				var/obj/item/device/thinktronic_parts/data/task/ltask = locate(href_list["target"])
 				for(var/obj/item/device/thinktronic_parts/data/task/task in server)
 					if(task.dept == ltask.dept && task.assignedby == ltask.assignedby && task.taskmsg == ltask.taskmsg && task.taskdetail == ltask.taskdetail)
@@ -113,21 +119,31 @@
 				qdel(ltask)
 				PDA.attack_self(usr)
 			if("NewTask")
+				if(spamcheck) return
 				var/obj/item/device/thinktronic_parts/data/task/newtask = new /obj/item/device/thinktronic_parts/data/task(server)
+				var/obj/item/device/thinktronic_parts/data/task/newrequest = new /obj/item/device/thinktronic_parts/data/task/request(hdd)
+				spamcheck = 1
 				var/t = input(usr, "Please enter task title", name, null) as text
+				spamcheck = 0
 				t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
 				if (!t)
 					qdel(newtask)
 					return
 				newtask.taskmsg = t
 				newtask.dept = dept
+				spamcheck = 1
 				var/detail = input(usr, "Please enter task detail", name, null) as text
+				spamcheck = 0
 				if (!detail)
 					qdel(newtask)
 					return
 				detail = copytext(sanitize(detail), 1, MAX_MESSAGE_LEN)
 				newtask.taskdetail = detail
 				newtask.assignedby = "[hdd.owner] ([hdd.ownjob])"
+				newrequest.taskmsg = t
+				newrequest.assignedby = "[hdd.owner] ([hdd.ownjob])"
+				newrequest.taskdetail = detail
+				newrequest.dept = dept
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 					if(newtask.dept == "General")
 						MS.SendAlert("<u><b>[newtask.taskmsg]</u></b> created by [hdd.owner]","Task Manager")
@@ -144,21 +160,28 @@
 					break
 				PDA.attack_self(usr)
 			if("NewRequest")
+				if(spamcheck) return
 				var/obj/item/device/thinktronic_parts/data/task/newtask = new /obj/item/device/thinktronic_parts/data/task(server)
 				var/obj/item/device/thinktronic_parts/data/task/newrequest = new /obj/item/device/thinktronic_parts/data/task/request(hdd)
+				spamcheck = 1
 				var/t = input(usr, "Please enter message", name, null) as text
+				spamcheck = 0
 				if (!t)
 					qdel(newtask)
 					return
 				t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
 				newtask.taskmsg = t
+				spamcheck = 1
 				var/detail = input(usr, "Please enter request detail", name, null) as text
+				spamcheck = 0
 				if (!detail)
 					qdel(newtask)
 					return
 				detail = copytext(sanitize(detail), 1, MAX_MESSAGE_LEN)
 				newtask.taskdetail = detail
+				spamcheck = 1
 				var/selectdept = input("Who would you like to assign it to?", "Input") as anything in list("General","Security", "Engineering", "Medbay", "Research", "Cargo Bay")
+				spamcheck = 0
 				newtask.dept = selectdept
 				newtask.request = 1
 				newtask.assignedby = "[hdd.owner] ([hdd.ownjob])"
@@ -196,6 +219,7 @@
 						if(req.dept == dept)
 							if(!status)
 								req.status = "DELETED"
+								req.request = 1
 							if(status)
 								req.status = status
 							return

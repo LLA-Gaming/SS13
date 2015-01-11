@@ -402,6 +402,8 @@
 					usr << "ERROR: Client not found"
 					attack_self(usr)
 					return
+				if(spamcheck)
+					return
 				src.create_message(U, P)
 				attack_self(usr)
 			if("SendFile")
@@ -409,6 +411,8 @@
 				if(!P.HDD.messengeron || !P.network())
 					usr << "ERROR: Client not found"
 					attack_self(usr)
+					return
+				if(spamcheck)
 					return
 				src.create_file(U, P)
 				attack_self(usr)
@@ -430,6 +434,8 @@
 					D.opened = 1
 					D.mlogowner = TheirHDD.owner
 					D.device_ID = P.device_ID
+				if(spamcheck)
+					return
 				src.create_message(U, P, 1)
 				if(HDD)
 					if(HDD.mode == 7)
@@ -453,6 +459,8 @@
 					D.opened = 1
 					D.mlogowner = TheirHDD.owner
 					D.device_ID = P.device_ID
+				if(spamcheck)
+					return
 				src.create_message(U, P, 1)
 				attack_self(usr)
 			if("Chat")

@@ -443,7 +443,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 							dat += "OTHER: [round(unknown_level)]%<br>"
 					dat += "Temperature: [round(environment.temperature-T0C)]&deg;C<br>"
 				dat += "<br>"
-
+/*
 			if (5)
 				dat += "<h4><img src=pda_chatroom.png> Nanotrasen Relay Chat</h4>"
 
@@ -453,7 +453,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					if(C.password != "")
 						dat += " <img src=pda_locked.png>"
 					dat += "</li>"
-
+*/
 
 
 			else//Else it links to the cart menu proc. Although, it really uses menu hub 4--menu 4 doesn't really exist as it simply redirects to hub.

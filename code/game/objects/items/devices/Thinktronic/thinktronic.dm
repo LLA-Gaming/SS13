@@ -23,6 +23,7 @@ var/global/thinktronic_device_count = 0
 	var/msgnotif = 0
 	var/alertnotif = 0
 	var/mounted = 0
+	var/spamcheck = 0
 
 	var/obj/item/weapon/card/id/id = null //Making it possible to slot an ID card into the tablet so it can function as both.
 	var/obj/item/device/thinktronic_parts/core/HDD = null
@@ -76,8 +77,10 @@ var/global/thinktronic_device_count = 0
 
 	proc/create_message(var/mob/living/U = usr, var/obj/item/device/thinktronic/P, var/ignorerefresh)
  		// I know this looks very sloppy in terms of variable naming but i couldn't think of good names
+		spamcheck = 1
 		var/t = input(U, "Please enter message", name, null) as text
 		t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
+		spamcheck = 0
 		if (!t || !istype(P))
 			return
 		if (!in_range(src, U) && loc != U)

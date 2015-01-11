@@ -503,6 +503,15 @@
 				if(shared)
 					usr << "<span class='notice'>You cannot remove the Core from a shared laptop</span>"
 				else
+					popup.close()
+					U.unset_machine()
+					U << browse(null, "window=thinktronic")
+					if(HDD)
+						HDD.activechat = null
+						HDD.mode = 0
+						HDD.activeprog = null
+					loadeddata = null
+					loadeddata_photo = null
 					HDD.loc = get_turf(src.loc)
 					if(id)
 						src.id.loc = get_turf(src.loc)
@@ -511,12 +520,14 @@
 					HDD.mode = 0
 					HDD = null
 					name = devicetype
-					attack_self(usr)
+					ForceRefresh()
 			if("Message")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
 				if(!P.HDD.messengeron || !P.network())
 					usr << "ERROR: Client not found"
 					attack_self(usr)
+					return
+				if(spamcheck)
 					return
 				src.create_message(U, P)
 				attack_self(usr)
@@ -525,6 +536,8 @@
 				if(!P.HDD.messengeron || !P.network())
 					usr << "ERROR: Client not found"
 					attack_self(usr)
+					return
+				if(spamcheck)
 					return
 				src.create_file(U, P)
 				attack_self(usr)
@@ -546,6 +559,8 @@
 					D.opened = 1
 					D.mlogowner = TheirHDD.owner
 					D.device_ID = P.device_ID
+				if(spamcheck)
+					return
 				src.create_message(U, P, 1)
 				if(HDD)
 					if(HDD.mode == 7)
@@ -569,6 +584,8 @@
 					D.opened = 1
 					D.mlogowner = TheirHDD.owner
 					D.device_ID = P.device_ID
+				if(spamcheck)
+					return
 				src.create_message(U, P, 1)
 				attack_self(usr)
 			if("Chat")

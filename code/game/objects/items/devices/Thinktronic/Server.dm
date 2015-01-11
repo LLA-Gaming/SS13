@@ -93,6 +93,10 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 							else
 								PDA.alertnotif = 1
 								PDA.alerted()
+					if(!P.alerts)
+						if(hdd.activeprog)
+							if(hdd.activeprog.name == app)
+								PDA.ForceRefresh()
 
 /obj/machinery/nanonet_server/proc/SendAlertSolo(var/alerttext, var/device)
 	if(active)
@@ -243,6 +247,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 		//downloads
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/timer(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/notekeeper(src)
+		new /obj/item/device/thinktronic_parts/nanonet/store_items/ntrc(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/taskmanager(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/theoriontrail(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/spacebattle(src)
@@ -280,6 +285,12 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	name = "NoteKeeper Pro"
 	desc = "Write documents and share them with your friends and family!"
 	item = /obj/item/device/thinktronic_parts/program/general/notekeeper
+	price = 10
+
+/obj/item/device/thinktronic_parts/nanonet/store_items/ntrc
+	name = "Nanotrasen Relay Chat"
+	desc = "Create and participate in relay chats"
+	item = /obj/item/device/thinktronic_parts/program/general/chatroom
 	price = 10
 
 /obj/item/device/thinktronic_parts/nanonet/store_items/taskmanager

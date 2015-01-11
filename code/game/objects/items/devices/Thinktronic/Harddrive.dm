@@ -38,6 +38,7 @@
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/signaller{favorite = 2}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
 
 /obj/item/device/thinktronic_parts/core/captain/New()
 	..()
@@ -66,6 +67,7 @@
 	new /obj/item/device/thinktronic_parts/program/cargo/cargobay(src)
 	new /obj/item/device/thinktronic_parts/program/sec/brigcontrol{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/sci/borgmonitor{favorite = 2}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
 
 //medical
 /obj/item/device/thinktronic_parts/core/cmo/New()
@@ -77,6 +79,8 @@
 	new /obj/item/device/thinktronic_parts/program/medical/medrecords{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/crewmanifest{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/general/setstatus{favorite = 2}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/medical/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/medbay{favorite = 1 alerts = 1}(src)
@@ -84,12 +88,16 @@
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/medical/medrecords{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/utility/medscanner(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/chemist/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/medbay{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/medical/medrecords{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/utility/reagentscanner(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/genetics/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/medbay{favorite = 1 alerts = 1}(src)
@@ -98,12 +106,15 @@
 	new /obj/item/device/thinktronic_parts/program/medical/medrecords{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/utility/medscanner(src)
 	new /obj/item/device/thinktronic_parts/program/utility/radscanner(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/virology/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/medbay{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/medical/medrecords{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/utility/medscanner(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
 
 //security
 /obj/item/device/thinktronic_parts/core/hos/New()
@@ -115,6 +126,8 @@
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/crewmanifest{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/general/setstatus{favorite = 2}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/security/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/sec/secrecords{favorite = 1 alerts = 1}(src)
@@ -122,6 +135,8 @@
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/sec{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/sec/brigcontrol{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/warden/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/sec/secrecords{favorite = 1 alerts = 1}(src)
@@ -129,17 +144,23 @@
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/sec/pro{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/sec/brigcontrol{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/detective/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/sec/secrecords{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/sec{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/lawyer/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/sec/secrecords{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 2 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/theoriontrail{favorite = 2}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 //engineering
 /obj/item/device/thinktronic_parts/core/ce/New()
 	..()
@@ -150,17 +171,23 @@
 	new /obj/item/device/thinktronic_parts/program/general/setstatus{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/eng/powermonitor{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/utility/gasscanner(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/engineer/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/engineering{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/eng/enginebuddy{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/eng/powermonitor{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/atmos/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/engineering{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/utility/gasscanner(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 //research
 /obj/item/device/thinktronic_parts/core/rd/New()
 	..()
@@ -173,6 +200,8 @@
 	new /obj/item/device/thinktronic_parts/program/utility/gasscanner(src)
 	new /obj/item/device/thinktronic_parts/program/general/signaller{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/science/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/sci/researchmonitor{favorite = 1 alerts = 1}(src)
@@ -180,11 +209,15 @@
 	new /obj/item/device/thinktronic_parts/program/utility/gasscanner(src)
 	new /obj/item/device/thinktronic_parts/program/general/signaller{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/roboticist/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/sci/borgmonitor{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/science{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 //cargo
 /obj/item/device/thinktronic_parts/core/hop/New()
 	..()
@@ -200,6 +233,8 @@
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/crewmanifest{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/setstatus{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/qm/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/cargo/mule_control{favorite = 1}(src)
@@ -207,6 +242,8 @@
 	new /obj/item/device/thinktronic_parts/program/cargo/cargobay{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 2}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/cargo/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/cargo/mule_control{favorite = 1}(src)
@@ -214,36 +251,52 @@
 	new /obj/item/device/thinktronic_parts/program/cargo/cargobay{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 2}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/miner/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager/cargo{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 //general
 /obj/item/device/thinktronic_parts/core/bartender/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/hydro/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/chef/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/janitor/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/general/custodiallocator{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/library/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/chaplain/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/clown/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1 alerts = 1}(src)
@@ -251,10 +304,13 @@
 	new /obj/item/device/thinktronic_parts/program/general/honk{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/spacebattle(src)
 	new /obj/item/device/thinktronic_parts/program/general/theoriontrail(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
+
 /obj/item/device/thinktronic_parts/core/mime/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
 	ttone = "silence"
 
 /obj/item/device/thinktronic_parts/core/medlaptop/New()
@@ -306,6 +362,7 @@
 	new /obj/item/device/thinktronic_parts/program/sec/secrecords{favorite = 1 DRM = 1 deletable = 0}(src)
 	new /obj/item/device/thinktronic_parts/program/medical/medrecords{favorite = 1 DRM = 1 deletable = 0}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1 DRM = 1 deletable = 0}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2 DRM = 1 deletable = 0}(src)
 	cash = 65530
 	toner = 0
 
@@ -314,6 +371,7 @@
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1 DRM = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/spacebattle{favorite = 2 DRM = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/theoriontrail{favorite = 2 DRM = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2 DRM = 1 deletable = 0}(src)
 	cash = 0
 	toner = 0
 
@@ -321,6 +379,7 @@
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/spacebattle{favorite = 2 DRM = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/theoriontrail{favorite = 2 DRM = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
 	cash = 0
 	toner = 0
 
@@ -340,6 +399,7 @@
 	new /obj/item/device/thinktronic_parts/program/general/crewmanifest{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/sec/secrecords{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/sec/brigcontrol{favorite = 2}(src)
+	new /obj/item/device/thinktronic_parts/program/general/chatroom{favorite = 2}(src)
 	primaryname = "Perc-Tech"
 	secondaryname = "Station Equipment"
 	messengeron = 0

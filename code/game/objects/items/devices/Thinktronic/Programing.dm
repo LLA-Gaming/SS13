@@ -111,6 +111,8 @@
 		//Vital functions, every program needs the code below in there Topic()
 	var/obj/item/device/thinktronic_parts/core/D = loc
 	var/obj/item/device/thinktronic/PDA = D.loc
+	if (!D)
+		return
 	if(PDA.can_use(usr))
 		switch(href_list["choice"])
 			if("Open")
