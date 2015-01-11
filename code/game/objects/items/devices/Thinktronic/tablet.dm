@@ -37,12 +37,18 @@
 			updateSelfDialog()//For the non-input related code.
 		if(istype(C, /obj/item/device/thinktronic_parts/expansioncarts/))
 			var/obj/item/device/thinktronic_parts/expansioncarts/expand = C
-			user << "<span class='notice'>You load the cartridge's data into the downloads. The cartridge is consumed by the [devicetype]</span>"
+			if(expand.usedup)
+				user << "<span class='notice'>This cartridge has been used up.</span>"
+				return
+			user << "<span class='notice'>You load the cartridge's data into the downloads.</span>"
 			for(var/obj/item/device/thinktronic_parts/prog in expand)
 				var/obj/item/device/thinktronic_parts/NewD = new prog.type(cart)
 				NewD.sentby = format_text(C.name)
 				updateSelfDialog()//For the non-input related code.
-			qdel(C)
+				qdel(prog)
+			if(!expand.contents.len)
+				expand.name += " (Empty)"
+				expand.usedup = 1
 		if(istype(C, /obj/item/weapon/spacecash))
 			var/obj/item/weapon/spacecash/S = C
 			HDD.cash += S.credits

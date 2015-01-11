@@ -42,9 +42,11 @@
 			if(active3 in data_core.security)
 				var/counter = 1
 				while(active3.fields[text("com_[]", counter)])
+					dat += "<div class='statusDisplay'>"
 					dat += "<center>"
 					dat += text("[]<BR>", active3.fields[text("com_[]", counter)])
 					dat += "</center>"
+					dat += "</div>"
 					counter++
 			else
 				dat += "<b>Record Lost!</b><br>"

@@ -27,10 +27,11 @@
 		switch(href_list["choice"])
 			if("Cash")
 				var/obj/item/device/thinktronic/T = locate(href_list["target"])
-				if(!isnull(T))
+				if(!isnull(T) && T.HDD)
 					hdd.cash += T.HDD.cash
+					if(T.HDD.cash)
+						usr.show_message("\blue Funds withdrawn!", 1)
 					T.HDD.cash = 0
-					usr.show_message("\blue Funds withdrawn!", 1)
 				PDA.attack_self(usr)
 			if("Detonate")
 				var/obj/item/device/thinktronic/T = locate(href_list["target"])

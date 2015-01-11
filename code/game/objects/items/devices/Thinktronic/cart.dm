@@ -5,6 +5,7 @@
 	icon_state = "cart"
 	item_state = "electronic"
 	w_class = 1
+	var/usedup = 0
 
 	engineering
 		name = "\improper Power-ON cartridge"
@@ -237,6 +238,7 @@
 			new /obj/item/device/thinktronic_parts/program/general/taskmanager/cargo(src)
 			new /obj/item/device/thinktronic_parts/program/general/taskmanager/medbay(src)
 			new /obj/item/device/thinktronic_parts/program/general/spacebattle(src)
+			new /obj/item/device/thinktronic_parts/program/general/spacebattle/cubanpete(src)
 			new /obj/item/device/thinktronic_parts/program/general/theoriontrail(src)
 			new /obj/item/device/thinktronic_parts/program/sci/researchmonitor(src)
 			new /obj/item/device/thinktronic_parts/program/eng/enginebuddy(src)
@@ -244,6 +246,7 @@
 			new /obj/item/device/thinktronic_parts/program/cargo/cargobay(src)
 			new /obj/item/device/thinktronic_parts/program/sec/brigcontrol(src)
 			new /obj/item/device/thinktronic_parts/program/sci/borgmonitor(src)
+			new /obj/item/device/thinktronic_parts/program/general/timer(src)
 
 	syndicate
 		name = "\improper SyndiHax cartridge"

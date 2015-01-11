@@ -433,6 +433,9 @@
 					D.mlogowner = TheirHDD.owner
 					D.device_ID = P.device_ID
 				src.create_message(U, P, 1)
+				if(HDD)
+					if(HDD.mode == 7)
+						ForceRefresh()
 			if("QuikReply")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
 				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD

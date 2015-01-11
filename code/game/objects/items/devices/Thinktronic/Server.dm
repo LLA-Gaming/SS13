@@ -241,6 +241,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 
 	New()
 		//downloads
+		new /obj/item/device/thinktronic_parts/nanonet/store_items/timer(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/notekeeper(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/taskmanager(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/theoriontrail(src)
@@ -268,6 +269,12 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	desc = "item description"
 	var/item = null
 	var/price = 0
+
+/obj/item/device/thinktronic_parts/nanonet/store_items/timer
+	name = "Timer"
+	desc = "Stopwatch for your device"
+	item = /obj/item/device/thinktronic_parts/program/general/timer
+	price = 10
 
 /obj/item/device/thinktronic_parts/nanonet/store_items/notekeeper
 	name = "NoteKeeper Pro"
