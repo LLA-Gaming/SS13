@@ -211,8 +211,6 @@
 		for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 			for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
 				var/obj/item/device/thinktronic_parts/core/D = devices.HDD
-				var/obj/item/device/thinktronic_parts/core/hdd = loc // variable for interactin with the HDD
-				var/obj/item/device/thinktronic/PDA = hdd.loc // variable for interacting with the Device itself
 				if(!D) continue
 				for(var/obj/item/device/thinktronic_parts/data/task/request/req in D)
 					if(req.assignedby == "[D.owner] ([D.ownjob])")
@@ -224,10 +222,10 @@
 								req.status = status
 							return
 						if(!status)
-							MS.SendAlertSolo("Task Manager - <u><b>[taskmsg]</u></b> deleted by [assignedby]",PDA.device_ID)
+							MS.SendAlertSolo("Task Manager - <u><b>[taskmsg]</u></b> deleted by [assignedby]",devices.device_ID)
 							req.status = "DELETED"
 						if(status)
-							MS.SendAlertSolo("Task Manager - <u><b>[taskmsg]</u></b> set to [status] by [assignedby]",PDA.device_ID)
+							MS.SendAlertSolo("Task Manager - <u><b>[taskmsg]</u></b> set to [status] by [assignedby]",devices.device_ID)
 							req.status = status
 						break
 			break

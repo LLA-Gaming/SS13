@@ -403,6 +403,10 @@
 				attack_self(usr)
 			if("Message")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
+				if(!istype(P, /obj/item/device/thinktronic/))
+					usr << "ERROR: Client not found"
+					attack_self(usr)
+					return
 				if(!P.HDD.messengeron || !P.network())
 					usr << "ERROR: Client not found"
 					attack_self(usr)
@@ -413,6 +417,10 @@
 				attack_self(usr)
 			if("SendFile")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
+				if(!istype(P, /obj/item/device/thinktronic/))
+					usr << "ERROR: Client not found"
+					attack_self(usr)
+					return
 				if(!P.HDD.messengeron || !P.network())
 					usr << "ERROR: Client not found"
 					attack_self(usr)
@@ -423,6 +431,10 @@
 				attack_self(usr)
 			if("QuikMessage")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
+				if(!istype(P, /obj/item/device/thinktronic/))
+					usr << "ERROR: Client not found"
+					attack_self(usr)
+					return
 				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD
 				var/obj/item/device/thinktronic_parts/core/TheirHDD = P.HDD
 				var/existing = 0
@@ -447,6 +459,10 @@
 						ForceRefresh()
 			if("QuikReply")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
+				if(!istype(P, /obj/item/device/thinktronic/))
+					usr << "ERROR: Client not found"
+					attack_self(usr)
+					return
 				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD
 				var/obj/item/device/thinktronic_parts/core/TheirHDD = P.HDD
 				var/existing = 0
@@ -470,6 +486,10 @@
 				attack_self(usr)
 			if("Chat")
 				var/obj/item/device/thinktronic/P = locate(href_list["target"])
+				if(!istype(P, /obj/item/device/thinktronic/))
+					usr << "ERROR: Client not found"
+					attack_self(usr)
+					return
 				var/obj/item/device/thinktronic_parts/core/MyHDD = HDD
 				var/obj/item/device/thinktronic_parts/core/TheirHDD = P.HDD
 				var/existing = 0
@@ -492,6 +512,13 @@
 						if(C.device_ID == P.device_ID)
 							MyHDD.activechat = C
 							break
+				attack_self(usr)
+			if("QuikChat")
+				var/TheirID = text2num(href_list["target"])
+				for(var/obj/item/device/thinktronic_parts/data/convo/C in HDD)
+					if(C.device_ID == TheirID)
+						HDD.activechat = C
+						break
 				attack_self(usr)
 			if("SaveLog")
 				var/obj/item/device/thinktronic_parts/data/savedconvo/D = new /obj/item/device/thinktronic_parts/data/savedconvo(HDD)
