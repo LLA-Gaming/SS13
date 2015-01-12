@@ -205,6 +205,8 @@ var/global/thinktronic_device_count = 0
 	proc/explode() //This needs tuning.
 		if(!src.candetonate) return
 		if(!HDD) return
+		if(src.id)
+			src.id.loc = get_turf(src.loc)
 		var/turf/T = get_turf(src.loc)
 
 		if (ismob(loc))
