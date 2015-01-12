@@ -1,5 +1,5 @@
 /obj/item/device/thinktronic_parts/program/general/taskmanager
-	name = "Task Manager"
+	name = "General Task Manager"
 	usealerts = 1
 	var/dept = "General"
 	var/spamcheck
@@ -62,7 +62,7 @@
 					T.status = toWhat
 					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 						if(T.dept == "General")
-							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status] by [hdd.owner]","Task Manager")
+							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status] by [hdd.owner]","General Task Manager")
 						if(T.dept == "Security")
 							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status] by [hdd.owner]","Security Task Manager")
 						if(T.dept == "Engineering")
@@ -81,7 +81,7 @@
 				var/obj/item/device/thinktronic_parts/data/task/task = locate(href_list["target"])
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 					if(task.dept == "General")
-						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","Task Manager")
+						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","General Task Manager")
 					if(task.dept == "Security")
 						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","Security Task Manager")
 					if(task.dept == "Engineering")
@@ -103,7 +103,7 @@
 					if(task.dept == ltask.dept && task.assignedby == ltask.assignedby && task.taskmsg == ltask.taskmsg && task.taskdetail == ltask.taskdetail)
 						for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 							if(task.dept == "General")
-								MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","Task Manager")
+								MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","General Task Manager")
 							if(task.dept == "Security")
 								MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted by [hdd.owner]","Security Task Manager")
 							if(task.dept == "Engineering")
@@ -146,7 +146,7 @@
 				newrequest.dept = dept
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 					if(newtask.dept == "General")
-						MS.SendAlert("<u><b>[newtask.taskmsg]</u></b> created by [hdd.owner]","Task Manager")
+						MS.SendAlert("<u><b>[newtask.taskmsg]</u></b> created by [hdd.owner]","General Task Manager")
 					if(newtask.dept == "Security")
 						MS.SendAlert("<u><b>[newtask.taskmsg]</u></b> created by [hdd.owner]","Security Task Manager")
 					if(newtask.dept == "Engineering")
@@ -193,7 +193,7 @@
 
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 					if(selectdept == "General")
-						MS.SendAlert("<u><b>[newtask.taskmsg]</u></b> created by [hdd.owner]","Task Manager")
+						MS.SendAlert("<u><b>[newtask.taskmsg]</u></b> created by [hdd.owner]","General Task Manager")
 					if(selectdept == "Security")
 						MS.SendAlert("<u><b>[newtask.taskmsg]</u></b> created by [hdd.owner]","Security Task Manager")
 					if(selectdept == "Engineering")
@@ -272,6 +272,6 @@
 	dept = "Cargo Bay"
 	pro = 1
 /obj/item/device/thinktronic_parts/program/general/taskmanager/pro
-	name = "Task Manager"
+	name = "General Task Manager"
 	dept = "General"
 	pro = 1

@@ -300,7 +300,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	price = 10
 
 /obj/item/device/thinktronic_parts/nanonet/store_items/taskmanager
-	name = "Task Manager"
+	name = "General Task Manager"
 	desc = "Keep up with tasks and jobs"
 	item = /obj/item/device/thinktronic_parts/program/general/taskmanager
 	price = 10
@@ -426,7 +426,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 					T.status = toWhat
 					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 						if(T.dept == "General")
-							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status]","Task Manager")
+							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status]","General Task Manager")
 						if(T.dept == "Security")
 							MS.SendAlert("<u><b>[T.taskmsg]</u></b> set to [T.status]","Security Task Manager")
 						if(T.dept == "Engineering")
@@ -456,7 +456,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 				if(!task) return
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 					if(task.dept == "General")
-						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted","Task Manager")
+						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted","General Task Manager")
 					if(task.dept == "Security")
 						MS.SendAlert("<u><b>[task.taskmsg]</u></b> deleted","Security Task Manager")
 					if(task.dept == "Engineering")
@@ -499,7 +499,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 				newtask.assignedby = assignedby
 				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 					if(dept == "General")
-						MS.SendAlert("<u><b>[newtask.taskmsg]</u></b> created by [assignedby]","Task Manager")
+						MS.SendAlert("<u><b>[newtask.taskmsg]</u></b> created by [assignedby]","General Task Manager")
 					if(dept == "Security")
 						MS.SendAlert("<u><b>[newtask.taskmsg]</u></b> created by [assignedby]","Security Task Manager")
 					if(dept == "Engineering")

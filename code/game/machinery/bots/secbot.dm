@@ -193,7 +193,7 @@ Auto Patrol: []"},
 			var/area/location = get_area(src)
 			for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 				var/textname = format_text(name)
-				MS.SendAlert("[textname] has been struck with a [W.name] in [location] by [user]","Brig Control", 1)
+				MS.SendAlert("[textname] has been struck with a [W.name] in [location] by [user]","Securitron Control", 1)
 			src.mode = SECBOT_HUNT
 
 /obj/machinery/bot/secbot/Emag(mob/user as mob)
@@ -605,7 +605,7 @@ Auto Patrol: []"},
 			var/area/location = get_area(src)
 			for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 				var/textname = format_text(name)
-				MS.SendAlert("<b>[textname]</b>: [C.name] detected! Threat Level: [src.threatlevel]. Location: [location].","Brig Control", 1)
+				MS.SendAlert("<b>[textname]</b>: [C.name] detected! Threat Level: [src.threatlevel]. Location: [location].","Securitron Control", 1)
 			mode = SECBOT_HUNT
 			spawn(0)
 				process()	// ensure bot quickly responds to a perp
@@ -685,7 +685,7 @@ Auto Patrol: []"},
 	walk_to(src,0)
 	for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
 		var/textname = format_text(name)
-		MS.SendAlert("[textname] has exploded","Brig Control", 1)
+		MS.SendAlert("[textname] has exploded","Securitron Control", 1)
 	src.visible_message("\red <B>[src] blows apart!</B>", 1)
 	var/turf/Tsec = get_turf(src)
 
