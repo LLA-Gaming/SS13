@@ -303,12 +303,6 @@
 				popup.close()
 				U.unset_machine()
 				U << browse(null, "window=thinktronic")
-				if(HDD)
-					HDD.activechat = null
-					HDD.mode = 0
-					HDD.activeprog = null
-				loadeddata = null
-				loadeddata_photo = null
 				return
 			if ("Authenticate")//Checks for ID
 				id_check(U, 1)
