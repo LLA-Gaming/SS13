@@ -114,7 +114,7 @@ var/global/thinktronic_device_count = 0
 							C.opened = 1
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=Chat;target=\ref[P]'>View</a> - <a href='byond://?src=\ref[src];choice=QuikReply;target=\ref[P]'>Quick Reply</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=QuikChat;target=[P.device_ID]'>View</a> - <a href='byond://?src=\ref[src];choice=QuikReply;target=\ref[P]'>Quick Reply</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						MyHDD.activechat = C
 						break
 			else
@@ -127,7 +127,7 @@ var/global/thinktronic_device_count = 0
 					if(C.device_ID == P.device_ID)
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=Chat;target=\ref[P]'>View</a> - <a href='byond://?src=\ref[src];choice=QuikReply;target=\ref[P]'>Quick Reply</a><br><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[TheirHDD.owner] ([TheirHDD.ownjob]/[P.devicetype]) <a href='byond://?src=\ref[src];choice=QuikChat;target=[P.device_ID]'>View</a> - <a href='byond://?src=\ref[src];choice=QuikReply;target=\ref[P]'>Quick Reply</a><br><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						MyHDD.activechat = C
 						break
 			//Their HDD
@@ -136,7 +136,7 @@ var/global/thinktronic_device_count = 0
 					if(C.device_ID == device_ID)
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=Chat;target=\ref[src]'>View</a> - <a href='byond://?src=\ref[P];choice=QuikReply;target=\ref[src]'>Quick Reply</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=QuikChat;target=[device_ID]'>View</a> - <a href='byond://?src=\ref[P];choice=QuikReply;target=\ref[src]'>Quick Reply</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						if(!C.opened)
 							C.opened = 1
 							C.mlog += "--Conversation opened by [MyHDD.owner]--<br>"
@@ -174,7 +174,7 @@ var/global/thinktronic_device_count = 0
 					if(C.device_ID == device_ID)
 						C.mlog += "<i><b>[MyHDD.owner]([MyHDD.ownjob]):</b></i><br> [t]<br>"
 						C.lastmsg = t
-						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=Chat;target=\ref[src]'>View</a> - <a href='byond://?src=\ref[P];choice=QuikReply;target=\ref[src]'>Quick Reply</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
+						C.activemsg = "[MyHDD.owner] ([MyHDD.ownjob]/[devicetype]) <a href='byond://?src=\ref[P];choice=QuikChat;target=[device_ID]'>View</a> - <a href='byond://?src=\ref[P];choice=QuikReply;target=\ref[src]'>Quick Reply</a><br>  Latest message by [MyHDD.owner]<br>  Latest message: [C.lastmsg]"
 						var/mob/living/L = null
 						if(P.loc && isliving(P.loc))
 							L = P.loc
@@ -205,10 +205,10 @@ var/global/thinktronic_device_count = 0
 	proc/explode() //This needs tuning.
 		if(!src.candetonate) return
 		if(!HDD) return
-		if(src.id)
-			src.id.loc = get_turf(src.loc)
 		var/turf/T = get_turf(src.loc)
 
+		if(src.id)
+			src.id.loc = get_turf(src.loc)
 		if (ismob(loc))
 			var/mob/M = loc
 			M.show_message("\red Your [src]'s Computer Core ignites into flames!", 1)
@@ -237,7 +237,9 @@ var/global/thinktronic_device_count = 0
 		for(var/obj/item/device/thinktronic_parts/data/DATA in HDD)
 			if(DATA.document || DATA.photo || DATA.convo)
 				D["Data: [DATA.name]"] = DATA
+		spamcheck = 1
 		var/t = input(U, "Which file would you like to send?") as null|anything in D
+		spamcheck = 0
 		if (!in_range(src, U) && loc != U)
 			return
 		if(!can_use(U))
