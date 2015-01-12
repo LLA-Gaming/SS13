@@ -218,7 +218,6 @@
 							if(!status)
 								req.status = "DELETED"
 								req.request = 1
-								MS.SendAlertSolo("Task Manager - <u><b>[taskmsg]</u></b> deleted by [assignedby]",devices.device_ID)
 							if(status)
 								req.status = status
 							return
