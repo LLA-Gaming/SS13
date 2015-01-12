@@ -8,7 +8,8 @@
 
 /mob/living/silicon/pai/var/list/available_software = list(
 															"crew manifest" = 5,
-															"digital messenger" = 5,
+															//"digital messenger" = 5,
+															"thinktronic mini-os" = 30,
 															"medical records" = 15,
 															"security records" = 15,
 															//"camera jack" = 10,
@@ -42,8 +43,8 @@
 				left_part = ""
 			if("directives")
 				left_part = src.directives()
-			if("pdamessage")
-				left_part = src.pdamessage()
+//			if("pdamessage")
+//				left_part = src.pdamessage()
 			if("buy")
 				left_part = downloadSoftware()
 			if("manifest")
@@ -62,6 +63,8 @@
 				left_part = src.medicalAnalysis()
 			if("doorjack")
 				left_part = src.softwareDoor()
+			if("tablet")
+				left_part = src.Tablet()
 			if("camerajack")
 				left_part = src.softwareCamera()
 			if("signaller")
@@ -132,6 +135,11 @@
 					if(src.ram >= cost)
 						src.ram -= cost
 						src.software.Add(target)
+						if(target == "thinktronic mini-os")
+							tablet = new /obj/item/device/thinktronic/tablet/pai(src)
+							if(tablet.HDD)
+								tablet.HDD.owner = "[name]"
+								tablet.HDD.ownjob = "pAI"
 					else
 						src.temp = "Insufficient RAM available."
 				else
@@ -275,8 +283,8 @@
 	// Basic
 	dat += "<b>Basic</b> <br>"
 	for(var/s in src.software)
-		if(s == "digital messenger")
-			dat += "<a href='byond://?src=\ref[src];software=pdamessage;sub=0'>Digital Messenger</a> <br>"
+//		if(s == "digital messenger")
+//			dat += "<a href='byond://?src=\ref[src];software=pdamessage;sub=0'>Digital Messenger</a> <br>"
 		if(s == "crew manifest")
 			dat += "<a href='byond://?src=\ref[src];software=manifest;sub=0'>Crew Manifest</a> <br>"
 		if(s == "medical records")
@@ -308,6 +316,8 @@
 			dat += "<a href='byond://?src=\ref[src];software=camerajack;sub=0'>Camera Jack</a> <br>"
 		if(s == "door jack")
 			dat += "<a href='byond://?src=\ref[src];software=doorjack;sub=0'>Door Jack</a> <br>"
+		if(s == "thinktronic mini-os")
+			dat += "<a href='byond://?src=\ref[src];software=tablet;sub=0'>ThinkTronic Mini-OS</a> <br>"
 	dat += "<br>"
 	dat += "<br>"
 	dat += "<a href='byond://?src=\ref[src];software=buy;sub=0'>Download additional software</a>"
@@ -615,7 +625,18 @@
 			src.cable.machine:open()
 		sleep(50)			// Update every 5 seconds
 
+// Access Tablet
+
+/mob/living/silicon/pai/proc/Tablet()
+
+	var/dat = "<h3>ThinkTronic Mini-OS</h3>"
+	if(tablet)
+		dat += {"<A href='?src=\ref[tablet];choice=OpenTablet'>Open</a>"}
+	return dat
+
+
 // Digital Messenger
+/*
 /mob/living/silicon/pai/proc/pdamessage()
 
 	var/dat = "<h3>Digital Messenger</h3>"
@@ -633,3 +654,4 @@
 	dat += "<br><br>"
 	dat += "Messages: <hr> [pda.tnote]"
 	return dat
+*/

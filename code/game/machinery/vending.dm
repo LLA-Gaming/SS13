@@ -542,7 +542,7 @@
 
 /obj/machinery/vending/assist
 	products = list(	/obj/item/device/assembly/prox_sensor = 5,/obj/item/device/assembly/igniter = 3,/obj/item/device/assembly/signaler = 4,
-						/obj/item/weapon/wirecutters = 1, /obj/item/weapon/cartridge/signal = 4)
+						/obj/item/weapon/wirecutters = 1, /obj/item/device/thinktronic_parts/expansioncarts/signal = 4)
 	contraband = list(/obj/item/device/flashlight = 5,/obj/item/device/assembly/timer = 2, /obj/item/device/assembly/voice = 2)
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
 
@@ -627,16 +627,15 @@
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 
-//This one's from bay12
 /obj/machinery/vending/cart
-	name = "\improper PTech"
-	desc = "Cartridges for PDAs"
-	product_slogans = "Carts to go!"
+	name = "\improper Thinktronic Vendor"
+	desc = "Cartridges for Tablets and Laptops"
+	product_slogans = "Apps to go!"
 	icon_state = "cart"
 	icon_deny = "cart-deny"
-	products = list(/obj/item/weapon/cartridge/medical = 10,/obj/item/weapon/cartridge/engineering = 10,/obj/item/weapon/cartridge/security = 10,
-					/obj/item/weapon/cartridge/janitor = 10,/obj/item/weapon/cartridge/signal/toxins = 10,/obj/item/device/pda/heads = 10,
-					/obj/item/weapon/cartridge/captain = 3,/obj/item/weapon/cartridge/quartermaster = 10)
+	products = list(/obj/item/device/thinktronic_parts/expansioncarts/medical = 10,/obj/item/device/thinktronic_parts/expansioncarts/engineering = 10,/obj/item/device/thinktronic_parts/expansioncarts/security = 10,
+					/obj/item/device/thinktronic_parts/expansioncarts/janitor = 10,/obj/item/device/thinktronic_parts/expansioncarts/toxins = 10,/obj/item/device/thinktronic/tablet/plain = 10,/obj/item/device/thinktronic/laptop/plain = 5,/obj/item/device/thinktronic_parts/core/ = 10,
+					/obj/item/device/thinktronic_parts/expansioncarts/captain = 1,/obj/item/device/thinktronic_parts/expansioncarts/quartermaster = 10)
 
 
 /obj/machinery/vending/cigarette

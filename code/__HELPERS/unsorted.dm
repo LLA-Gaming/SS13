@@ -282,13 +282,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/device/pda) )
-				var/obj/item/device/pda/PDA = A
-				if(PDA.owner == oldname)
-					PDA.owner = newname
-					PDA.update_label()
-					if(!search_id)	break
-					search_pda = 0
+			else if( search_pda && istype(A,/obj/item/device/thinktronic/tablet) )
+				var/obj/item/device/thinktronic/tablet/PDA = A
+				var/obj/item/device/thinktronic_parts/core/HDD = PDA.HDD
+				if(HDD)
+					if(HDD.owner == oldname)
+						HDD.owner = newname
+						PDA.update_label()
+						if(!search_id)	break
+						search_pda = 0
 
 		for(var/datum/mind/T in ticker.minds)
 			for(var/datum/objective/obj in T.objectives)
@@ -340,8 +342,10 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 				// Set ai pda name
 				if(A.aiPDA)
-					A.aiPDA.owner = newname
-					A.aiPDA.name = newname + " (" + A.aiPDA.ownjob + ")"
+					if(A.aiPDA.HDD)
+						var/obj/item/device/thinktronic_parts/core/hdd = A.aiPDA.HDD // variable for interactin with the HDD
+						hdd.owner = newname
+						hdd.name = newname + " (" + hdd.ownjob + ")"
 
 				// Notify Cyborgs
 				for(var/mob/living/silicon/robot/Slave in A.connected_robots)

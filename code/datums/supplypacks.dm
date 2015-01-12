@@ -1177,3 +1177,14 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/under/suit_jacket/tan)
 	cost = 30 //Lots of very expensive items. You gotta pay up to look good!
 	containername = "formal-wear crate"
+
+/datum/supply_packs/misc/thinktronic
+	name = "ThinkTronic Supply crate"
+	contains = list(/obj/item/device/thinktronic/laptop,
+					/obj/item/device/thinktronic/laptop,
+					/obj/item/device/thinktronic/laptop,
+					/obj/item/device/thinktronic/tablet,
+					/obj/item/device/thinktronic/tablet,
+					/obj/item/device/thinktronic/tablet)
+	cost = 15
+	containername = "thinktronic supply crate"

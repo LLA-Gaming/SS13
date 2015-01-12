@@ -1,3 +1,4 @@
+/*
 var/list/chatrooms = list()
 
 /datum/chatroom
@@ -14,3 +15,4 @@ var/list/chatrooms = list()
 /datum/chatroom/proc/attempt_connect(var/obj/item/device/pda/device, var/obj/password)
 	if(!device)
 		return
+*/
