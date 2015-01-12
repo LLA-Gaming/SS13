@@ -249,10 +249,10 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/notekeeper(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/ntrc(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/taskmanager(src)
+		new /obj/item/device/thinktronic_parts/nanonet/store_items/GPS(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/theoriontrail(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/spacebattle(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/cubanpete(src)
-		new /obj/item/device/thinktronic_parts/nanonet/store_items/custodiallocator(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/enginebuddy(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/honk(src)
 		new /obj/item/device/thinktronic_parts/nanonet/store_items/crewmanifest(src)
@@ -279,6 +279,12 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	name = "Timer"
 	desc = "Stopwatch for your device"
 	item = /obj/item/device/thinktronic_parts/program/general/timer
+	price = 10
+
+/obj/item/device/thinktronic_parts/nanonet/store_items/GPS
+	name = "Global Positioning System"
+	desc = "Locate yourself"
+	item = /obj/item/device/thinktronic_parts/program/general/GPS
 	price = 10
 
 /obj/item/device/thinktronic_parts/nanonet/store_items/notekeeper
@@ -316,12 +322,6 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	desc = "Can you Outbomb Cuban Pete?"
 	item = /obj/item/device/thinktronic_parts/program/general/spacebattle/cubanpete
 	price = 30
-
-/obj/item/device/thinktronic_parts/nanonet/store_items/custodiallocator
-	name = "Custodial Locator"
-	desc = "Locate your mop and bucket"
-	item = /obj/item/device/thinktronic_parts/program/general/custodiallocator
-	price = 10
 
 /obj/item/device/thinktronic_parts/nanonet/store_items/enginebuddy
 	name = "Engine Buddy"

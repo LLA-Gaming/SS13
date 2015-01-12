@@ -273,8 +273,10 @@
 							for(var/obj/machinery/nanonet_server/server in nanonet_servers)
 								for(var/obj/item/device/thinktronic_parts/nanostore/store in server)
 									for(var/obj/item/device/thinktronic_parts/nanonet/store_items/PRG in store)
+										dat += "<div class='statusDisplay'>"
 										dat += {"<A href='?src=\ref[src];choice=Buy;target=\ref[PRG]'>[PRG.name]</a> - $[PRG.price]<br>"}
-										dat += {"Description: [PRG.desc]<hr>"}
+										dat += {"Description: [PRG.desc]"}
+										dat += "</div>"
 						else
 							dat += {"<br>Error: No connection to the NanoNet"}
 					else

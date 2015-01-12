@@ -6,6 +6,13 @@
 	if(mounted)
 		attack_self(usr)
 
+/obj/item/device/thinktronic/laptop/verb_pickup()
+	if(mounted && !bolted)
+		toggle_mount()
+		..()
+	if(bolted)
+		usr << "It's bolted to the ground!"
+
 /obj/item/device/thinktronic/laptop/attack_self(mob/living/user)
 	var/mob/U = user
 	user.set_machine(src)
@@ -42,7 +49,7 @@
 								<div class='statusDisplay'>
 								<center>
 								Owner: [HDD.owner], [HDD.ownjob]<br>
-								ID: <A href='?src=\ref[src];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]</A><A href='?src=\ref[src];choice=UpdateInfo'>[id ? "Update Tablet Info" : ""]</A><br>
+								ID: <A href='?src=\ref[src];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]</A><A href='?src=\ref[src];choice=UpdateInfo'>[id ? "Update Laptop Info" : ""]</A><br>
 								[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
 								<A href='?src=\ref[src];choice=files'>File Manager</a> <A href='?src=\ref[src];choice=messenger'>Messenger</a> <A href='?src=\ref[src];choice=downloads'>Downloads</a>
 								<br><A href='?src=\ref[src];choice=wallet'>Wallet</a> <A href='?src=\ref[src];choice=store'>NanoStore</a> <A href='?src=\ref[src];choice=CheckAlerts'>Alerts</a> <a href='byond://?src=\ref[src];choice=Settings'>Settings</a>
@@ -315,8 +322,10 @@
 							for(var/obj/machinery/nanonet_server/server in nanonet_servers)
 								for(var/obj/item/device/thinktronic_parts/nanostore/store in server)
 									for(var/obj/item/device/thinktronic_parts/nanonet/store_items/PRG in store)
+										dat += "<div class='statusDisplay'>"
 										dat += {"<A href='?src=\ref[src];choice=Buy;target=\ref[PRG]'>[PRG.name]</a> - $[PRG.price]<br>"}
-										dat += {"Description: [PRG.desc]<hr>"}
+										dat += {"Description: [PRG.desc]"}
+										dat += "</div>"
 						else
 							dat += {"<br>Error: No connection to the NanoNet"}
 					else

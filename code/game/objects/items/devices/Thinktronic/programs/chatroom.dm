@@ -5,8 +5,6 @@
 	var/list/ntrclog = list() //NTRC message log
 	var/helptext = 0
 	var/spamcheck = 0
-	usealerts = 1
-	alerts = 0
 
 	use_app()
 		dat = ""
@@ -142,7 +140,7 @@ var/list/chatchannels = list(default_ntrc_chatroom.name = default_ntrc_chatroom)
 	log_pda("[usr]/([usr.ckey]) as [nick] sent to [name]: [message]")
 	events.fireEvent("msg_chat",name,nick,message)
 	for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-		MS.SendAlert("[name]: [nick] - [message]","Nanotrasen Relay Chat")
+		MS.SendAlert(null,"Nanotrasen Relay Chat") // Not sending an alert, just  making the screen refresh
 	return 1
 
 /datum/chatroom/proc/get_auth(client,nick) //check auth
