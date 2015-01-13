@@ -20,7 +20,7 @@
 				robots++
 				var/area/location = get_area(R)
 				dat += "<div class='statusDisplay'>[R.name] <br>"
-				dat += " Location: [format_text(location)] <br>"
+				dat += " Location: [location] <br>"
 				if(R.stat)
 					dat += " Not Responding <br>"
 				else if (!R.canmove)
