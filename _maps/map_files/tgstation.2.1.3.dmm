@@ -2945,7 +2945,7 @@
 "beG" = (/obj/machinery/washing_machine,/obj/machinery/atmospherics/pipe/simple/supply/hidden,/turf/simulated/floor{icon_state = "barber"},/area/crew_quarters/locker)
 "beH" = (/obj/structure/table,/obj/item/weapon/paper_bin{pixel_x = -3; pixel_y = 7},/obj/item/weapon/pen{pixel_x = 4; pixel_y = 4},/turf/simulated/floor/plating,/area/maintenance/port)
 "beI" = (/obj/structure/table,/obj/machinery/newscaster{pixel_y = -28},/obj/item/device/taperecorder{pixel_y = 0},/turf/simulated/floor/plating,/area/maintenance/port)
-"beJ" = (/obj/structure/closet,/obj/effect/spawner/lootdrop/maint,/obj/item/device/thinktronic/laptop/public,/turf/simulated/floor/plating,/area/maintenance/port)
+"beJ" = (/obj/structure/closet,/obj/effect/spawner/lootdrop/maint,/obj/item/device/thinktronic/laptop/public{anchored = 0; bolted = 0},/turf/simulated/floor/plating,/area/maintenance/port)
 "beK" = (/turf/simulated/floor{dir = 8; icon_state = "warning"},/area/quartermaster/office)
 "beL" = (/turf/simulated/floor,/area/quartermaster/office)
 "beM" = (/obj/item/weapon/storage/box,/obj/structure/table,/obj/item/weapon/storage/box,/obj/item/weapon/storage/box,/obj/item/device/radio/intercom{broadcasting = 0; listening = 1; name = "Station Intercom (General)"; pixel_y = 20},/turf/simulated/floor{icon_state = "arrival"; dir = 1},/area/quartermaster/office)
