@@ -342,20 +342,25 @@ var/global/thinktronic_device_count = 0
 								break
 
 /obj/item/device/thinktronic/proc/can_use(mob/user)
-	if(devicetype == "Laptop")
+	if(devicetype == "Laptop" && !istype(user, /mob/living/silicon))
 		if(user && ismob(user))
 			if(user.stat || user.restrained() || user.paralysis || user.stunned || user.weakened)
 				return 0
 			for (user in viewers(1, loc))
 				return 1
 		return 0
-	if(devicetype == "Tablet")
+	if(devicetype == "Tablet" && !istype(user, /mob/living/silicon))
 		if(user && ismob(user))
 			if(user.stat || user.restrained() || user.paralysis || user.stunned || user.weakened)
 				return 0
 			if(loc == user)
 				return 1
 		return 0
+	if(istype(user, /mob/living/silicon))
+		if(user.stat)
+			return 0
+		if(loc == user)
+			return 1
 
 /obj/item/device/thinktronic/proc/alerted()
 	if(devicetype == "Tablet")

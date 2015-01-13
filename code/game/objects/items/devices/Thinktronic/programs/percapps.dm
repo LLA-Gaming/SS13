@@ -91,7 +91,6 @@
 					if(!P.perseus_type)
 						P.locked = !P.locked
 						PDA.attack_self(usr)
-						break
 			if("Favorite")
 				switch (favorite)
 					if (0)

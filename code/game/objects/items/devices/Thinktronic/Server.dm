@@ -371,6 +371,15 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 		return
 
 	attack_hand(var/mob/user as mob)
+		if(..())
+			return
+		if(!linkedServer)
+			usr << "Locating NanoNet server..."
+			for(var/obj/machinery/nanonet_server/server in nanonet_servers)
+				linkedServer = server
+				usr << "Server found..."
+				break
+			return
 		user.set_machine(src)
 		var/dat = ""
 		dat += {"ThinkTronic Server is <A href='?src=\ref[src];choice=active'>[src.linkedServer && src.linkedServer.active ? "<font color='green'>\[On\]</font>":"<font color='red'>\[Off\]</font>"]</a></h4>"}
