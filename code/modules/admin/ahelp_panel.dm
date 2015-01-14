@@ -195,7 +195,7 @@
 				<tr>
 					<td><center>[A.GetPlayerCkey()]</center></td>
 					<td><center>[A.original_adminhelp]</center></td>
-					<td><center><a href='about:blank'>View In Browser (todo)</a></center></td>
+					<td><center><a href='[A.GetLink()]'>View In Browser</a></center></td>
 				</tr>
 				<br>
 				</font>
