@@ -778,3 +778,30 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		usr << "Random events disabled"
 		message_admins("Admin [key_name_admin(usr)] has disabled random events.", 1)
 	feedback_add_details("admin_verb","TRE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/delete_fire()
+	set name = "Delete Fire"
+	set category = "Special Verbs"
+
+	var/type = input("Select Type", "Input") in list("All", "Area", "Cancel")
+	if(type == "Cancel")
+		return 0
+
+	switch(type)
+		if("All")
+			for(var/obj/effect/hotspot/H in world)
+				var/turf/T = get_turf(H)
+				del(H)
+				T.temperature = T20C
+			message_admins("[key_name(src)] deleted all hotspots (fire).")
+			log_game("[key_name(src)] deleted all hotspots (fire).")
+		if("Area")
+			var/size = input("How big?", "Input") in list(5, 10, 20, "Cancel")
+			if(size == "Cancel")
+				return 0
+			for(var/obj/effect/hotspot/H in range(size))
+				var/turf/T = get_turf(H)
+				del(H)
+				T.temperature = T20C
+			message_admins("[key_name(src)] deleted all hotspots (fire) within [size] tiles.")
+			log_game("[key_name(src)] deleted all hotspots (fire) within [size] tiles.")

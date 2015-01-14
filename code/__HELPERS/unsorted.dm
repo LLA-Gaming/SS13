@@ -485,7 +485,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/M = E/(SPEED_OF_LIGHT_SQ)
 	return M
 
-/proc/key_name(var/whom, var/include_link = null, var/include_name = 1)
+/proc/key_name(var/whom, var/include_link = null, var/include_name = 1, var/admin_conversation)
 	var/mob/M
 	var/client/C
 	var/key
@@ -518,7 +518,10 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	if(key)
 		if(include_link)
-			. += "<a href='?priv_msg=[ckey]'>"
+			if(!admin_conversation)
+				. += "<a href='?priv_msg=[ckey]'>"
+			else
+				. += "<a href='?priv_msg=[ckey];conversation=[admin_conversation]'>"
 
 		if(C && C.holder && C.holder.fakekey && !include_name)
 			. += "Administrator"
