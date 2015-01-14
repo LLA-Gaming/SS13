@@ -18,7 +18,7 @@
 	if(healths)		healths.icon_state = "health5"
 	stat = DEAD
 	attack_log += text("\[[time_stamp()]\] <font color ='red'>[key_name(src)] has died</font>")
-	log_attack("\[[time_stamp()]\] <font color ='red'>[key_name(src)] has died</font>")
+	log_attack("<font color ='red'>[key_name(src)] has died</font>")
 	dizziness = 0
 	jitteriness = 0
 
