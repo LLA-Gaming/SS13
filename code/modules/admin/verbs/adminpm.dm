@@ -84,11 +84,15 @@
 			convo.LogReply(src.ckey, C.ckey, msg)
 
 		if(holder)	//both are admins
-			if(convo.IsAdminParticipating())
-				convo.participants += list("add_admin", src.ckey)
+			if(convo)
+				if(convo.IsAdminParticipating())
+					convo.participants += list("add_admin", src.ckey)
+				else
+					convo.SetAdminParticipant(src.ckey)
+			if(admin_conversation)
+				shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1, admin_conversation)]</b>: [msg]</font>"
 			else
-				convo.SetAdminParticipant(src.ckey)
-			shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1, admin_conversation)]</b>: [msg]</font>"
+				shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
 		else		//recipient is an admin but sender is not
 			shown_to_sender = "<font color='blue'>PM to-<b>Admins</b>: [msg]</font>"
 

@@ -119,12 +119,12 @@
 		pm_qry.Execute()
 
 	proc/GetLink()
-		return "http://www.webpanel.arctys-boreas.com/index.php?conversation=1&id=[id]"
+		return "http://webpanel.arctys-boreas.com/index.php?conversation=1&id=[id]"
 
 /proc/GetCurrentAdminConversations()
 
 	var/round_id = GetCurrentRoundID()
-	var/DBQuery/convo_qry = dbcon.NewQuery("SELECT id FROM admin_conversations WHERE round_id = [round_id]")
+	var/DBQuery/convo_qry = dbcon.NewQuery("SELECT id FROM admin_conversations WHERE round_id = [round_id] ORDER BY id DESC")
 	convo_qry.Execute()
 
 	var/list/conversations = list()
@@ -171,10 +171,11 @@
 					td {
 						border: 1px solid black;
 						border-collapse: collapse;
+						word-wrap: break-word;
 					}
 
 					tr {
-						border: 2px solid black;
+						border: 1px solid black;
 					}
 
 				</script>
@@ -182,9 +183,9 @@
 				<table width=100% height=100% style='border: 1px solid black; border-collapse: collapse'>
 					<tr>
 
-						<td><center><b>By</b></center></td>
-						<td><center><b>Message</b></center></td>
-						<td><center><b>Misc</b></center></td>
+						<th>By<</th>
+						<th>Message</th>
+						<th>Misc</th>
 
 					</tr>
 				"}
@@ -195,7 +196,7 @@
 				<tr>
 					<td><center>[A.GetPlayerCkey()]</center></td>
 					<td><center>[A.original_adminhelp]</center></td>
-					<td><center><a href='[A.GetLink()]'>View In Browser</a></center></td>
+					<td><center><a href='[A.GetLink()]' target='_blank'>View In Browser</a></center></td>
 				</tr>
 				<br>
 				</font>
