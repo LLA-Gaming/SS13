@@ -136,7 +136,7 @@
 
 	else
 		usr.set_machine(src)
-		usr << browse(null, "window=thinktronic")
+		usr << browse(null, "window=thinktronic[device_ID][PDA.device_ID]")
 		return
 
 //USB devices
