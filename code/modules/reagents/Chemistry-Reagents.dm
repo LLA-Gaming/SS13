@@ -3481,5 +3481,135 @@ datum
 					..()
 					return
 
+// The base alchemy components
+
+/datum/reagent/essence
+	name = "Essence"
+	id = "essence"
+	description = "The very foundation of life."
+	reagent_state = LIQUID
+	color = "#18DEB3" // rgb: 24, 222, 179
+
+/datum/reagent/unicorn_blood
+	name = "Unicorn Blood"
+	id = "unicorn_blood"
+	description = "A silvery substance drawn from a noble creature."
+	reagent_state = LIQUID
+	color = "#C9BDBD" // rgb: 209, 189, 189
+
+/datum/reagent/temporum
+	name = "Temporum"
+	id = "temporum"
+	description = "A milky colored fluid, distilled from space-time itself."
+	reagent_state = LIQUID
+	color = "#DDDDDD" // rgb: 221, 221, 221
+
+/datum/reagent/orichalcum
+	name = "Orichalcum"
+	id = "orichalcum"
+	description = "A golden metal, refined by the gods themselves."
+	reagent_state = SOLID
+	color = "#C9BA12" // rgb: 201, 186, 18
+
+/datum/reagent/electrum
+	name = "Electrum"
+	id = "electrum"
+	description = "A yellow alloy used in fine jewelry."
+	reagent_state = SOLID
+	color = "#DBED15" // rgb: 219, 237, 21
+
+/datum/reagent/void_dust
+	name = "Void Dust"
+	id = "void_dust"
+	description = "Dust born from nothingness itself. Yearns to return there."
+	reagent_state = SOLID
+	color = "#000000" // rgb: 0, 0, 0
+
+/datum/reagent/essenceflame
+	name = "Thermium"
+	id = "essence_flame"
+	description = "The stabilized essence of flame's might, or so the salesman said."
+	reagent_state = GAS
+	color = "#D6530D" // rgb: 214, 83, 13
+
+/datum/reagent/essencefrost
+	name = "Tundrum"
+	id = "essence_frost"
+	description = "The stabilized essence of frost's fangs."
+	reagent_state = GAS
+	color = "#259DE8" // rgb: 37, 157, 232
+
+/datum/reagent/crepesculum
+	name = "Crepesculum"
+	id = "crepesculum"
+	description = "A gas that seems to steal all light."
+	reagent_state = GAS
+	color = "#000000" // rgb: 0, 0, 0
+
+// The Transformative Elixirs
+// Plan: A new ingame method of changing your species, and reverting back to human.
+// These are aesthetic for the most part and the ones that are not aren't very abusable, so I've made them all available.
+
+/datum/reagent/insect_elixir
+	name = "Insect Elixir"
+	id = "elixir_insect"
+	description = "A glowing, pulsing fluid."
+	reagent_state = LIQUID
+	color = "#BD1CAA" // rgb: 189, 28, 170
+	var/transformation = "fly" // Save myself some damned time, since they're all going to be basically doing the same thing. -Raptor
+
+/datum/reagent/insect_elixir/on_mob_life(var/mob/living/M as mob)
+	if(!M) M = holder.my_atom
+	if(ishuman(M))
+		var/mob/living/carbon/human/human = M
+		if(human.dna)
+			M << "<span class='danger'>Your flesh rapidly mutates!</span>"
+			human.dna.mutantrace = transformation
+			human.update_body()
+			human.update_hair()
+			human.reagents.remove_all_type(/datum/reagent/insect_elixir, human.reagents.maximum_volume) //Sorry, no multi-transforming cocktails.
+			..()
+			return
+
+/datum/reagent/insect_elixir/skeletal_elixir
+	name = "Skeletal Elixir"
+	id = "elixir_skeletal"
+	transformation = "skeleton"
+
+/datum/reagent/insect_elixir/dragon_elixir
+	name = "Dragon Elixir"
+	id = "elixir_dragon"
+	transformation = "lizard"
+
+/datum/reagent/insect_elixir/flowering_elixir
+	name = "Flowering Elixir"
+	id = "elixir_flowering"
+	transformation = "plant"
+
+/datum/reagent/insect_elixir/adamant_elixir
+	name = "Adamant Elixir"
+	id = "elixir_adamant"
+	transformation = "golem" //Not the adamantine golem. This one is grey.
+
+/datum/reagent/insect_elixir/shadow_elixir
+	name = "Shadow Elixir"
+	id = "elixir_shadow"
+	transformation = "shadow"
+
+/datum/reagent/insect_elixir/sapien_elixir
+	name = "Sapien Elixir"
+	id = "elixir_sapien"
+	transformation  = null
+
+
+
+// The Power Elixirs
+// Plan: Several elixirs which provide *temporary* powers, such as cold resistance and laser eyes, but cause damage when overdosed. This list might be extremely limited to maintain balance.
+//TBA
+
+// The Venoms
+// Plan: Several reagents that do a variety of interesting negative effects, including inflicting blindness or deafness. Subject to revision based on balance.
+//TBA
+
 // Undefine the alias for REAGENTS_EFFECT_MULTIPLER
 #undef REM
