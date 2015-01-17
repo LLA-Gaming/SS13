@@ -890,6 +890,7 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 	icon_state = "golem"
 	item_state = "golem"
 	siemens_coefficient = 0
+	alloweat = 1 // Allows golems to eat, since they cannot remove the mask.
 	unacidable = 1
 	flags = ABSTRACT | NODROP | MASKINTERNALS | MASKCOVERSMOUTH
 
