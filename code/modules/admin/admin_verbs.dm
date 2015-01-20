@@ -14,7 +14,8 @@ var/list/admin_verbs_default = list(
 	/client/proc/reload_admins,
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
-	/client/proc/toggle_statpanel
+	/client/proc/toggle_statpanel,
+	/client/proc/toggleahelp
 	)
 
 var/list/admin_verbs_trial_admin = list(
@@ -201,6 +202,14 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/enable_debug_verbs,
+	/client/proc/jumptocoord,
+	/client/proc/jumptoturf,
+	/client/proc/jumptokey,
+	/client/proc/jumptomob,
+	/datum/admins/proc/unprison,
+	/client/proc/debug_variables,
+	/client/proc/cmd_admin_delete,
+	/client/proc/Jump,
 	/proc/possess,
 	/proc/release
 	)
@@ -568,6 +577,7 @@ var/list/admin_verbs_hideable = list(
 			message_admins("[src] deadmined themself.", 1)
 			deadmin()
 			src << "<span class='interface'>You are now a normal player.</span>"
+			verbs += /client/proc/reload_admins
 	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_log_hrefs()
