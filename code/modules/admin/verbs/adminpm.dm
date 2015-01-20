@@ -59,8 +59,7 @@
 		if(!msg)	return
 		if(!C)
 			if(holder)
-				if(src.admintoggles)
-					src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
+				src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
 				src.send_text_to_tab("<font color='red'>Error: Admin-PM: Client not found.</font>", "ahelp")
 			else		adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
@@ -83,7 +82,7 @@
 		if(C.admintoggles)
 			C << shown_to_receiver
 		C.send_text_to_tab(shown_to_receiver, "ahelp")
-		if(C.admintoggles)
+		if(src.admintoggles)
 			src << shown_to_sender
 		src.send_text_to_tab(shown_to_sender, "ahelp")
 
@@ -104,7 +103,8 @@
 			C.send_text_to_tab(shown_to_receiver, "ahelp")
 			C.send_text_to_tab(shown_to_receiver, "ic")
 			C.send_text_to_tab(shown_to_receiver, "ooc")
-			src << shown_to_sender
+			if(src.admintoggles)
+				src << shown_to_sender
 			src.send_text_to_tab(shown_to_sender, "ahelp")
 
 			//always play non-admin recipients the adminhelp sound
