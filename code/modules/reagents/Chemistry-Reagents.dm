@@ -85,7 +85,7 @@ datum
 				return
 
 		blood
-			data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null)
+			data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null, "changeling"=null)
 			name = "Blood"
 			id = "blood"
 			reagent_state = LIQUID
@@ -108,6 +108,11 @@ datum
 			on_new(var/list/data)
 				if(istype(data))
 					SetViruses(src, data)
+				if(istype(data["donor"],/mob/living/carbon/))
+					var/mob/living/carbon/donor = data["donor"]
+					if (donor.mind.changeling)
+						data["changeling"] = 1
+
 
 			on_merge(var/list/data)
 				if(src.data && data)
