@@ -170,6 +170,7 @@
 		HDD = new /obj/item/device/thinktronic_parts/core/medlaptop(src)
 		HDD.owner = "Medbay Staff"
 		HDD.ownjob = "Medbay"
+		HDD.messengeron = 0
 
 /obj/item/device/thinktronic/laptop/research
 	shared = 1
@@ -182,6 +183,7 @@
 		HDD = new /obj/item/device/thinktronic_parts/core/scilaptop(src)
 		HDD.owner = "Research Staff"
 		HDD.ownjob = "Science"
+		HDD.messengeron = 0
 
 /obj/item/device/thinktronic/laptop/engineering
 	shared = 1
@@ -194,6 +196,7 @@
 		HDD = new /obj/item/device/thinktronic_parts/core/englaptop(src)
 		HDD.owner = "Engineering Staff"
 		HDD.ownjob = "Engineering"
+		HDD.messengeron = 0
 
 /obj/item/device/thinktronic/laptop/security
 	shared = 1
@@ -206,6 +209,7 @@
 		HDD = new /obj/item/device/thinktronic_parts/core/seclaptop(src)
 		HDD.owner = "Security Staff"
 		HDD.ownjob = "Security"
+		HDD.messengeron = 0
 
 /obj/item/device/thinktronic/laptop/cargo
 	shared = 1
@@ -218,6 +222,7 @@
 		HDD = new /obj/item/device/thinktronic_parts/core/cargolaptop(src)
 		HDD.owner = "Cargo Staff"
 		HDD.ownjob = "Cargo"
+		HDD.messengeron = 0
 
 /obj/item/device/thinktronic/laptop/public
 	shared = 1
