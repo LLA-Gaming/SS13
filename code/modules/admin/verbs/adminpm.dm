@@ -95,10 +95,11 @@
 				shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
 		else		//recipient is an admin but sender is not
 			shown_to_sender = "<font color='blue'>PM to-<b>Admins</b>: [msg]</font>"
-
-		C << shown_to_receiver
+		if(C.admintoggles)
+			C << shown_to_receiver
 		C.send_text_to_tab(shown_to_receiver, "ahelp")
-		src << shown_to_sender
+		if(src.admintoggles)
+			src << shown_to_sender
 		src.send_text_to_tab(shown_to_sender, "ahelp")
 
 		//play the recieving admin the adminhelp sound (if they have them enabled)
@@ -126,7 +127,8 @@
 			C.send_text_to_tab(shown_to_receiver, "ahelp")
 			C.send_text_to_tab(shown_to_receiver, "ic")
 			C.send_text_to_tab(shown_to_receiver, "ooc")
-			src << shown_to_sender
+			if(src.admintoggles)
+				src << shown_to_sender
 			src.send_text_to_tab(shown_to_sender, "ahelp")
 
 			//always play non-admin recipients the adminhelp sound
@@ -155,7 +157,7 @@
 	for(var/client/X in admins)
 		if(X.key!=key && X.key!=C.key)	//check client/X is an admin and isn't the sender or recipient
 			var/to_other_admins = "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;[key_name(C, X, 0)]:</B> \blue [msg]</font>" //inform X
-
-			X << to_other_admins
+			if(X.admintoggles)
+				X << to_other_admins
 			spawn(1)
 				X.send_text_to_tab(to_other_admins, "ahelp")

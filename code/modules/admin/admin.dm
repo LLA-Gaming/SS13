@@ -7,8 +7,22 @@ var/global/floorIsLava = 0
 /proc/message_admins(var/msg)
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
 	log_adminwarn(msg)
-	admins << msg
+	for(var/client/X in admins)
+		if(X.admintoggles)
+			X << msg
+		X.send_text_to_tab(msg, "asay")
 
+///////Toggle ahelp/asay/alogs///////
+
+/client/proc/toggleahelp()
+	set name = "Show/Hide Admin Messages"
+	set category = "Preferences"
+	set desc ="Toggles seeing adminhelps/asay/alogs"
+	admintoggles = !admintoggles
+	src << "You will [admintoggles ? "now" : "no longer"] see admin helps, admin logs, or asay."
+	feedback_add_details("admin_verb","TAH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
