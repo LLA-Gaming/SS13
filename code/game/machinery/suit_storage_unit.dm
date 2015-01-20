@@ -72,7 +72,7 @@
 
 /obj/machinery/suit_storage_unit/cmo
 	SUIT_TYPE = /obj/item/clothing/head/helmet/space/rig/medical
-	HELMET_TYPE = /obj/item/clothing/head/helmet/space/capspace
+	HELMET_TYPE = /obj/item/clothing/head/helmet/space/rig/medical
 	MASK_TYPE = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/New()
