@@ -266,7 +266,7 @@
 								if (HDD.messengeron)
 									dat += {"<h2>Users Online:</h2>"}
 									dat += "<div class='statusDisplay'>"
-									for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
+									for(var/obj/item/device/thinktronic/devices in sortAtom(thinktronic_devices))
 										var/obj/item/device/thinktronic_parts/core/D = devices.HDD
 										if(!D) continue
 										if(devices.network() && devices.hasmessenger == 1 && D.neton && D.owner && D.messengeron)
