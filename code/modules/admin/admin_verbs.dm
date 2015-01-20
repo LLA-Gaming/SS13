@@ -30,7 +30,8 @@ var/list/admin_verbs_trial_admin = list(
 	/client/proc/check_antagonists,		/*shows all antags*/
 	/client/proc/Jump,
 	/client/proc/jumptokey,				/*allows us to jump to the location of a mob with a certain ckey*/
-	/client/proc/jumptomob				/*allows us to jump to a specific mob*/
+	/client/proc/jumptomob,				/*allows us to jump to a specific mob*/
+	/client/proc/ViewAdminhelps
 	)
 
 var/list/admin_verbs_secondary_admin = list(
@@ -43,7 +44,7 @@ var/list/admin_verbs_secondary_admin = list(
 	/client/proc/cmd_admin_gib_self,
 	/datum/admins/proc/view_txt_log,	/*shows the server log (diary) for today*/
 	/datum/admins/proc/view_atk_log,	/*shows the server combat-log, doesn't do anything presently*/
-
+	/client/proc/delete_fire,
 	/datum/admins/proc/unprison
 	//+BANS
 	)

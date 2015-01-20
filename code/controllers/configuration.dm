@@ -128,6 +128,8 @@
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
+	var/faction_change_delay = 24 // In hours
+
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
 	for(var/T in L)
@@ -275,6 +277,8 @@
 					global.comms_key = value
 					if(value != "default_pwd" && length(value) > 6) //It's the default value or less than 6 characters long, warn badmins
 						global.comms_allowed = 1
+				if("faction_change_delay")
+					faction_change_delay = text2num(value)
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 

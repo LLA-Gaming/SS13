@@ -31,12 +31,15 @@
 
 	//Admin PM
 	if(href_list["priv_msg"])
-		cmd_admin_pm(href_list["priv_msg"],null)
+		if(href_list["conversation"])
+			cmd_admin_pm(href_list["priv_msg"], null, href_list["conversation"])
+		else
+			cmd_admin_pm(href_list["priv_msg"], null)
 		return
 
 	//Logs all hrefs
 	if(config && config.log_hrefs && href_logfile)
-		href_logfile << "<small>\[[time_stamp()]\] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>"
+		href_logfile << "<small>[time2text(world.timeofday,"hh:mm")] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>"
 
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder

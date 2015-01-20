@@ -317,15 +317,15 @@
 					else
 						dat += {"<a href='byond://?src=\ref[src];choice=Return'> Return</a>"}
 						dat += {"ERROR: 404 Not Found."}
-		popup = new(user, "thinktronic", "[src]")
+		popup = new(user, "thinktronic[device_ID]", "[src]")
 		popup.set_content(dat)
 		popup.title = {"<div align="left">[version]</div><div align="right"><a href='byond://?src=\ref[src];choice=Refresh'>Refresh</a><a href='byond://?src=\ref[src];choice=Close'>Close</a></div>"}
-		popup.window_options = "window=thinktronic;size=480x640;border=0;can_resize=1;can_close=0;can_minimize=0"
+		popup.window_options = "window=thinktronic[device_ID];size=480x640;border=0;can_resize=1;can_close=0;can_minimize=0"
 		popup.open()
 		return
 	else
 		U.set_machine(src)
-		U << browse(null, "window=thinktronic")
+		U << browse(null, "window=thinktronic[device_ID]")
 
 /obj/item/device/thinktronic/tablet/Topic(href, href_list)
 	var/mob/U = usr
@@ -336,7 +336,7 @@
 			if ("Close")
 				popup.close()
 				U.unset_machine()
-				U << browse(null, "window=thinktronic")
+				U << browse(null, "window=thinktronic[device_ID]")
 				return
 			if ("Authenticate")//Checks for ID
 				id_check(U, 1)
@@ -476,7 +476,7 @@
 						HDD.mode = 0
 						popup.close()
 						U.unset_machine()
-						U << browse(null, "window=thinktronic")
+						U << browse(null, "window=thinktronic[device_ID]")
 						HDD.activechat = null
 						loadeddata = null
 						loadeddata_photo = null
@@ -508,7 +508,7 @@
 				else
 					popup.close()
 					U.unset_machine()
-					U << browse(null, "window=thinktronic")
+					U << browse(null, "window=thinktronic[device_ID]")
 					if(HDD)
 						HDD.activechat = null
 						HDD.mode = 0
@@ -794,5 +794,5 @@
 				attack_self(usr)
 	else
 		U.set_machine(src)
-		U << browse(null, "window=thinktronic")
+		U << browse(null, "window=thinktronic[device_ID]")
 

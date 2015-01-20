@@ -295,6 +295,8 @@ var/round_start_time = 0
 			spawn
 				declare_completion()
 				logPerseusMissions()
+				if(config.sql_enabled)
+					LogAntagMissions()
 
 			spawn(50)
 				if (mode.station_was_nuked)

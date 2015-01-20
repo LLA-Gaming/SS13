@@ -116,7 +116,9 @@ datum/preferences
 		var/dat = "<center>"
 
 		dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a> "
-		dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a>"
+		dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a> "
+		if(config.sql_enabled)
+			dat += "<a href='?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>Faction Settings</a>"
 
 		if(!path)
 			dat += "<div class='notice'>Please create an account to save your preferences</div>"
@@ -254,6 +256,31 @@ datum/preferences
 								dat += "<b>Be [i]:</b> <a href='?_src_=prefs;preference=be_special;num=[n]'>[src.be_special&(1<<n) ? "Yes" : "No"]</a><br>"
 						n++
 				dat += "</td></tr></table>"
+
+			if(2)
+				if(!config.sql_enabled)
+					current_tab = 0
+					return
+
+				var/current_faction = user.client.GetCurrentFaction()
+				var/joined = user.client.GetFactionJoinDate()
+
+				// Make sure the person has waited X hours (set in config)
+				var/can_change = user.client.GetFactionJoinDifference()
+				if(can_change != -1)
+					if(can_change >= config.faction_change_delay)
+						can_change = 1
+					else
+						can_change = 0
+				else
+					can_change = 1
+
+				dat += "<b>Current Faction: </b> <font color='orange'><b>[can_change ? "<a href='?_src_=prefs;preference=faction;task=input;'>[current_faction ? current_faction + "</b></font>" : "None"]</a>" : current_faction ? current_faction + "</b></font> (changeable in [config.faction_change_delay - user.client.GetFactionJoinDifference()] hour(s))" : "None"]<br>"
+				if(current_faction)
+					dat += "<b>Joined </b> (server time): <b>[joined]</b><br>"
+
+
+
 
 		dat += "<hr><center>"
 
@@ -701,6 +728,26 @@ datum/preferences
 						var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference")  as null|anything in backbaglist
 						if(new_backbag)
 							backbag = backbaglist.Find(new_backbag)
+
+					if("faction")
+						var/list/factions = list()
+						factions = GetFactionList()
+
+						var/can_change = user.client.GetFactionJoinDifference()
+						if(can_change != -1)
+							if(can_change >= config.faction_change_delay)
+								can_change = 1
+							else
+								can_change = 0
+						else
+							can_change = 1
+
+						if(can_change)
+							var/new_faction = input(user, "Choose your new faction:", "Game Preference") as null|anything in factions - user.client.GetCurrentFaction() + "None"
+							if(new_faction)
+								user.client.UpdateFaction(new_faction)
+
+
 			else
 				switch(href_list["preference"])
 					if("publicity")
