@@ -156,6 +156,7 @@
 /obj/item/device/thinktronic_parts/core/lawyer/New()
 	..()
 	new /obj/item/device/thinktronic_parts/program/sec/secrecords{favorite = 1}(src)
+	new /obj/item/device/thinktronic_parts/program/sec/brigcontrol{favorite = 2}(src)
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 2 alerts = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/notekeeper{favorite = 1}(src)
 	new /obj/item/device/thinktronic_parts/program/general/theoriontrail{favorite = 2}(src)
