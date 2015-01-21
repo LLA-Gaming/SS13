@@ -269,7 +269,6 @@ MASS SPECTROMETER
 		return
 	if(reagents.total_volume)
 		var/list/blood_traces = list()
-		var/changeling = null
 		for(var/datum/reagent/R in reagents.reagent_list)
 			if(R.id != "blood")
 				reagents.clear_reagents()
@@ -277,8 +276,6 @@ MASS SPECTROMETER
 				return
 			else
 				blood_traces = params2list(R.data["trace_chem"])
-				if(R.data["changeling"])
-					changeling = 1
 				break
 		var/dat = "Trace Chemicals Found: "
 		for(var/R in blood_traces)
@@ -296,8 +293,6 @@ MASS SPECTROMETER
 				else
 					recent_fail = 1
 		user << "[dat]"
-		if (changeling && details)
-			user << "\red ERROR: MORPHOGENIC COMPOUNDS DETECTED."
 		reagents.clear_reagents()
 	return
 
