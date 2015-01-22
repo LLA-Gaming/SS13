@@ -184,3 +184,9 @@
 
 /obj/item/weapon/extinguisher/mini/nozzle/attack_self()
 	return
+
+/obj/item/weapon/extinguisher/mini/nozzle/Move(dest, dir)
+	// Only will move to valid locations
+	if((dest == tank) || (dest == tank.loc /*person with tank on back*/))
+		..()
+	return
