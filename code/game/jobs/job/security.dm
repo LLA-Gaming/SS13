@@ -135,7 +135,7 @@ Detective
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/brown(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/det_hat(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black/sec(H), slot_gloves)
-	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(H), slot_glasses)
+	//H.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(H), slot_glasses)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/det_suit(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/weapon/lighter/zippo(H), slot_l_store)
 
