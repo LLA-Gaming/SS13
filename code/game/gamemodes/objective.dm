@@ -454,15 +454,7 @@ datum/objective/absorb/check_completion()
 		log_game("SQL ERROR during 'LogAntagMissions'. Failed to connect.")
 	else
 
-		var/round_id = 0
-		var/DBQuery/query = dbcon.NewQuery("SELECT MAX(round_id) AS round_id FROM erro_feedback")
-		query.Execute()
-		while(query.NextRow())
-			round_id = query.item[1]
-
-		if(!isnum(round_id))
-			round_id = text2num(round_id)
-		round_id++
+		var/round_id = GetCurrentRoundID()
 
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 

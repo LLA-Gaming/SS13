@@ -183,7 +183,7 @@
 				<table width=100% height=100% style='border: 1px solid black; border-collapse: collapse'>
 					<tr>
 
-						<th>By<</th>
+						<th>By</th>
 						<th>Message</th>
 						<th>Misc</th>
 
