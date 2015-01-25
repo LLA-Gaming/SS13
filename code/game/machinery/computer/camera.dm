@@ -20,6 +20,13 @@
 
 
 	attack_hand(var/mob/user as mob)
+		if(istype(user, /mob/living/carbon)) //thermal check
+			var/mob/living/carbon/human/M = user
+			var/obj/item/clothing/glasses/vision = M.glasses
+			if(istype(vision, /obj/item/clothing/glasses/thermal))
+				if(!vision.vision_flags)
+					vision.attack_self(user)
+
 		if(!stat)
 			if (src.z > 6)
 				user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"

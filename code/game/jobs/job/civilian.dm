@@ -357,3 +357,4 @@ Lawyer
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase(H), slot_l_hand)
 	H.equip_to_slot_or_del(new /obj/item/device/laser_pointer(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_in_backpack)

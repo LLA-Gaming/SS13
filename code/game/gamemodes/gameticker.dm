@@ -12,6 +12,7 @@ var/round_start_time = 0
 
 	var/hide_mode = 0
 	var/datum/game_mode/mode = null
+	var/datum/goal_control/goals = null
 	var/event_time = null
 	var/event = 0
 
@@ -356,7 +357,6 @@ var/round_start_time = 0
 
 			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
 				robo.laws.show_laws(world)
-
 	mode.declare_completion()//To declare normal completion.
 
 	//calls auto_declare_completion_* for all modes

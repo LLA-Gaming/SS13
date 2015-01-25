@@ -314,10 +314,10 @@ var/global/datum/controller/occupations/job_master
 			H = new_mob
 		job.apply_fingerprints(H)
 
-	H << "<b>You are the [rank].</b>"
-	H << "<b>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>"
-	if(job.req_admin_notify)
-		H << "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>"
+	H << "<b><font size = 3 font color = 'blue'>You are the [rank].</b></font>"
+	H << "<b><font size = 2>As the [rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b></font>"
+	if(job.req_spacelaw_notify)
+		H << "<b><u><font size = 2>You are playing a role of high responsibility. Please act in accordance with space law and check with an admin if you have questions.</b></font></u>"
 
 	H.update_hud() 	// Tmp fix for Github issue 1006. TODO: make all procs in update_icons.dm do client.screen |= equipment no matter what.
 	return 1

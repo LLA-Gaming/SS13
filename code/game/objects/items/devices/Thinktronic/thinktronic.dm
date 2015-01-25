@@ -191,6 +191,9 @@ var/global/thinktronic_device_count = 0
 						if(P.devicetype == "Tablet") L << "\icon[P] <b>Message from [MyHDD.owner] ([MyHDD.ownjob]), </b>\"[t]\" (<a href='byond://?src=\ref[P];choice=QuikMessage;target=\ref[src]'>Reply</a>)"
 						if(ignorerefresh)
 							MyHDD.activechat = null
+							if(HDD)
+								if(HDD.mode == 7 && (istype(U.machine,/obj/item/device/thinktronic)))
+									ForceRefresh()
 						if(TheirHDD.mode == 7) // Checks if the messenger app is open
 							if(!P.ForceRefresh())
 								P.msgnotif = 1

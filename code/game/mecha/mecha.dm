@@ -640,6 +640,7 @@
 	src.log_message("Attacked by [W]. Attacker - [user]")
 	if(prob(src.deflect_chance))
 		user << "\red The [W] bounces off [src.name] armor."
+		user.changeNext_move(9)
 		src.log_append_to_last("Armor saved.")
 /*
 		for (var/mob/V in viewers(src))
@@ -648,6 +649,7 @@
 */
 	else
 		src.occupant_message("<font color='red'><b>[user] hits [src] with [W].</b></font>")
+		user.changeNext_move(9)
 		user.visible_message("<font color='red'><b>[user] hits [src] with [W].</b></font>", "<font color='red'><b>You hit [src] with [W].</b></font>")
 		src.take_damage(W.force,W.damtype)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))

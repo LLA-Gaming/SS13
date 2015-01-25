@@ -17,7 +17,7 @@ Head of Shitcurity
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ffdddd"
-	req_admin_notify = 1
+	req_spacelaw_notify = 1
 	minimal_player_age = 14
 
 	default_id = /obj/item/weapon/card/id/silver
@@ -25,6 +25,7 @@ Head of Shitcurity
 	default_headset = /obj/item/device/radio/headset/heads/hos
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
+	default_pda_slot = slot_r_store
 
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court,
 			            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
@@ -39,15 +40,18 @@ Head of Shitcurity
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/head_of_security(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/hos(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black/hos(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/HoS(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
+	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_store)
 
 	if(H.backbag == 1)
-		H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_store)
+		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 	else
-		H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_in_backpack)
+		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
+		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_in_backpack)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
@@ -67,11 +71,13 @@ Warden
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
+	req_spacelaw_notify = 1
 
 	default_pda = /obj/item/device/thinktronic/tablet/warden
 	default_headset = /obj/item/device/radio/headset/headset_sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
+	default_pda_slot = slot_r_store
 
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court) //See /datum/job/warden/get_access()
@@ -81,14 +87,17 @@ Warden
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest/warden(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/warden(H), slot_head)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black/sec(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
-	H.equip_to_slot_or_del(new /obj/item/device/flash(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
+	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
 
 	if(H.backbag == 1)
 		H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_hand)
 	else
-		H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_in_backpack)
+		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_in_backpack)
+		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
@@ -113,6 +122,7 @@ Detective
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
+	req_spacelaw_notify = 1
 
 	default_pda = /obj/item/device/thinktronic/tablet/detective
 	default_headset = /obj/item/device/radio/headset/headset_sec
@@ -124,7 +134,8 @@ Detective
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/det(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/brown(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/det_hat(H), slot_head)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black/sec(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(H), slot_glasses)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/det_suit(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/weapon/lighter/zippo(H), slot_l_store)
 
@@ -157,12 +168,14 @@ Security Officer
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
+	req_spacelaw_notify = 1
 	var/list/dep_access = null
 
 	default_pda = /obj/item/device/thinktronic/tablet/security
 	default_headset = /obj/item/device/radio/headset/headset_sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
+	default_pda_slot = slot_r_store
 
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court) //But see /datum/job/warden/get_access()
@@ -173,15 +186,17 @@ Security Officer
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet(H), slot_head)
-	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_s_store)
-	H.equip_to_slot_or_del(new /obj/item/device/flash(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black/sec(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
+	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 
+	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/taser(H), slot_s_store)
 	if(H.backbag == 1)
-		H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_r_store)
-		H.equip_to_slot_or_del(new /obj/item/weapon/melee/baton/loaded(H), slot_l_hand)
+		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_l_hand)
 	else
-		H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_in_backpack)
-		H.equip_to_slot_or_del(new /obj/item/weapon/melee/baton/loaded(H), slot_in_backpack)
+		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
+		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_in_backpack)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
@@ -195,36 +210,55 @@ Security Officer
 	dep_access = null;
 	return L
 
-var/list/sec_departments = list("engineering", "supply", "medical", "science")
+var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
 
 /datum/job/officer/proc/assign_sec_to_department(var/mob/living/carbon/human/H)
 	if(!sec_departments.len)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
+		default_headset = /obj/item/device/radio/headset/headset_sec
 	else
-		var/department = pick(sec_departments)
-		sec_departments -= department
+		var/department = ""
+		var/gotdept
+		if(H.client.prefs.prefer_dept != "None")
+			for(var/dept in sec_departments)
+				if(H.client.prefs.prefer_dept == dept)
+					department = dept
+					sec_departments -= dept
+					gotdept = 1
+					break
+			if(!gotdept)
+				if(!sec_departments.len)
+					H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
+				department = pick(sec_departments)
+				sec_departments -= department
+		if(H.client.prefs.prefer_dept == "None")
+			department = pick(sec_departments)
+			sec_departments -= department
 		var/destination = null
 		switch(department)
-			if("supply")
+			if("Supply")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/cargo(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/supply
 				dep_access = list(access_mailsorting, access_mining)
 				destination = /area/security/checkpoint/supply
-			if("engineering")
+			if("Engineering")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/engine(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/engi
 				dep_access = list(access_construction, access_engine)
 				destination = /area/security/checkpoint/engineering
-			if("medical")
+			if("Medical")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/med(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/med
 				dep_access = list(access_medical)
 				destination = /area/security/checkpoint/medical
-			if("science")
+			if("Science")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/science(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/sci
 				dep_access = list(access_research)
 				destination = /area/security/checkpoint/science
+			else
+				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
+				default_headset = /obj/item/device/radio/headset/headset_sec
 		var/teleport = 0
 		if(!config.sec_start_brig)
 			if(destination)
@@ -240,7 +274,8 @@ var/list/sec_departments = list("engineering", "supply", "medical", "science")
 					continue
 				else
 					break
-		H << "<b>You have been assigned to [department]!</b>"
+		if(department)
+			H << "<b><font size = 2 font color = 'blue'>You have been assigned to [department]!</b></font>"
 		return
 
 /obj/item/device/radio/headset/headset_sec/department/New()
