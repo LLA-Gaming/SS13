@@ -2014,6 +2014,11 @@
 				for(var/sig in lastsignalers)
 					dat += "[sig]<BR>"
 				usr << browse(dat, "window=lastsignalers;size=800x500")
+			if("crime_logs")
+				var/dat = "<B>Crime Logs.</B><HR>"
+				for(var/law in crimelogs)
+					dat += "[law]<BR>"
+				usr << browse(dat, "window=crimelogs;size=800x500")
 			if("list_lawchanges")
 				var/dat = "<B>Showing last [length(lawchanges)] law changes.</B><HR>"
 				for(var/sig in lawchanges)

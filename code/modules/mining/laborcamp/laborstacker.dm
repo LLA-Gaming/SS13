@@ -109,7 +109,7 @@
 					usr << "\blue Shuttle is already on-station."
 			if(href_list["choice"] == "release")
 				if(alone_in_area(get_area(loc), usr))
-					if(release_door.density)
+					if(release_door.density && release_door.z == 1)
 						release_door.open()
 				else
 					usr << "\red Prisoners are only allowed to be released while alone."

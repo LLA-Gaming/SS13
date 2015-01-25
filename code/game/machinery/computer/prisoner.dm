@@ -12,6 +12,18 @@
 	var/screen = 0 // 0 - No Access Denied, 1 - Access allowed
 	var/obj/item/weapon/card/id/prisoner/inserted_id
 	circuit = /obj/item/weapon/circuitboard/prisoner
+	var/list/crimes = list()
+
+	New()
+		..()
+		// Populate the crime list:
+		for(var/x in typesof(/datum/crime))
+			var/datum/crime/F = new x(src)
+			if(!F.name)
+				del(F)
+				continue
+			else
+				crimes.Add(F)
 
 	attack_hand(var/mob/user as mob)
 		if(..())
@@ -22,10 +34,37 @@
 			dat += "<HR><A href='?src=\ref[src];lock=1'>Unlock Console</A>"
 		else if(screen == 1)
 			dat += "<H3>Prisoner ID Management</H3>"
+			dat += {"<table style="text-align:left">"}
+			dat += {"<tr>"}
+			dat += {"<th valign='top'>"}
+			dat += {"<h3>Minor Crimes</h3></a>"}
+			if(inserted_id)
+				for(var/datum/crime/minor/crime in crimes)
+					if(crime.active)
+						dat += {"<font size = 2>(*)<a href='?src=\ref[src];id=setgoal;target=[crime.name];num=[crime.labor]'>[crime.name]</a></font><br>"}
+					else
+						dat += {"<font size = 2><a href='?src=\ref[src];id=setgoal;target=[crime.name];num=[crime.labor]'>[crime.name]</a></font><br>"}
+				dat += {"</th><th valign='top'>"}
+				dat += {"<h3>Medium Crimes</h3></a>"}
+				for(var/datum/crime/medium/crime in crimes)
+					if(crime.active)
+						dat += {"<font size = 2>(*)<a href='?src=\ref[src];id=setgoal;target=[crime.name];num=[crime.labor]'>[crime.name]</a></font><br>"}
+					else
+						dat += {"<font size = 2><a href='?src=\ref[src];id=setgoal;target=[crime.name];num=[crime.labor]'>[crime.name]</a></font><br>"}
+				dat += {"</th><th valign='top'>"}
+				dat += {"<h3>Major Crimes</h3></a>"}
+				for(var/datum/crime/major/crime in crimes)
+					if(crime.active)
+						dat += {"<font size = 2>(*)<a href='?src=\ref[src];id=setgoal;target=[crime.name];num=[crime.labor]'>[crime.name]</a></font><br>"}
+					else
+						dat += {"<font size = 2><a href='?src=\ref[src];id=setgoal;target=[crime.name];num=[crime.labor]'>[crime.name]</a></font><br>"}
+				dat += {"</th>"}
+				dat += {"</tr>"}
+				dat += "</table>"
 			if(istype(inserted_id))
 				dat += text("<A href='?src=\ref[src];id=eject'>[inserted_id]</A><br>")
 				dat += text("Collected Points: [inserted_id.points]. <A href='?src=\ref[src];id=reset'>Reset.</A><br>")
-				dat += text("Card goal: [inserted_id.goal].  <A href='?src=\ref[src];id=setgoal'>Set </A><br>")
+				dat += text("Card goal: [inserted_id.goal]. <br>")
 			else
 				dat += text("<A href='?src=\ref[src];id=insert'>Insert Prisoner ID.</A><br>")
 			dat += "<H3>Prisoner Implant Management</H3>"
@@ -63,7 +102,7 @@
 
 		//user << browse(dat, "window=computer;size=400x500")
 		//onclose(user, "computer")
-		var/datum/browser/popup = new(user, "computer", "Prisoner Management Console", 400, 500)
+		var/datum/browser/popup = new(user, "computer", "Prisoner Management Console", 780, 600)
 		popup.set_content(dat)
 		popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 		popup.open()
@@ -93,19 +132,37 @@
 						usr.drop_item()
 						I.loc = src
 						inserted_id = I
+						inserted_id.goal = 0
 					else usr << "\red No valid ID."
 				else if(istype(inserted_id))
 					switch(href_list["id"])
 						if("eject")
+							var/detail = ""
+							for(var/datum/crime/x in crimes)
+								if(x.active)
+									if(detail)
+										detail += "; [x.name]"
+									if(!detail)
+										detail += "[x.name]"
+							log_game("BRIG: [key_name(usr)] set [inserted_id]'s goal to [inserted_id.goal] - Crime details [detail].")
+							crimelogs.Add("[key_name(usr)] set [inserted_id]'s goal to [inserted_id.goal] - Crime details [detail].")
 							inserted_id.loc = get_turf(src)
 							inserted_id.verb_pickup()
 							inserted_id = null
+							for(var/datum/crime/x in crimes)
+								x.active = 0
 						if("reset")
 							inserted_id.points = 0
+							inserted_id.goal = 0
+							for(var/datum/crime/x in crimes)
+								x.active = 0
 						if("setgoal")
-							var/num = round(input(usr, "Choose prisoner's goal:", "Input an Integer", null) as num|null)
-							if(num >= 0)
-								inserted_id.goal = num
+							var/num = text2num(href_list["num"])
+							var/detail = href_list["target"]
+							for(var/datum/crime/x in crimes)
+								if(x.name == detail && !x.active)
+									x.active = 1
+									inserted_id.goal += num
 			else if(href_list["inject1"])
 				var/obj/item/weapon/implant/I = locate(href_list["inject1"])
 				if(I)	I.activate(1)

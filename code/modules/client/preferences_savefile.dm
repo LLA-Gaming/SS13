@@ -95,7 +95,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["ooccolor"]			>> ooccolor
 	S["lastchangelog"]		>> lastchangelog
 	S["UI_style"]			>> UI_style
-	S["be_special"]			>> be_special
 	S["default_slot"]		>> default_slot
 	S["toggles"]			>> toggles
 	S["ghost_form"]			>> ghost_form
@@ -108,7 +107,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	ooccolor		= sanitize_ooccolor(sanitize_hexcolor(ooccolor, 6, 1, initial(ooccolor)))
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, list("Midnight", "Plasmafire", "Retro"), initial(UI_style))
-	be_special		= sanitize_integer(be_special, 0, 65535, initial(be_special))
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, 65535, initial(toggles))
 	ghost_form		= sanitize_inlist(ghost_form, ghost_forms, initial(ghost_form))
@@ -127,7 +125,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["ooccolor"]			<< ooccolor
 	S["lastchangelog"]		<< lastchangelog
 	S["UI_style"]			<< UI_style
-	S["be_special"]			<< be_special
 	S["default_slot"]		<< default_slot
 	S["toggles"]			<< toggles
 	S["ghost_form"]			<< ghost_form
@@ -168,6 +165,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["socks"]				>> socks
 	S["backbag"]			>> backbag
 	S["mutant_race"]		>> mutant_race
+	S["prefer_dept"]		>> prefer_dept
+	S["be_special"]			>> be_special
 
 	//Jobs
 	S["userandomjob"]		>> userandomjob
@@ -210,6 +209,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	skin_tone		= sanitize_inlist(skin_tone, skin_tones)
 	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
 	mutant_race 	= sanitize_text(mutant_race, initial(mutant_race))
+	prefer_dept		= sanitize_text(prefer_dept, initial(prefer_dept))
+	be_special		= sanitize_integer(be_special, 0, 65535, initial(be_special))
 
 	userandomjob	= sanitize_integer(userandomjob, 0, 1, initial(userandomjob))
 	job_civilian_high = sanitize_integer(job_civilian_high, 0, 65535, initial(job_civilian_high))
@@ -249,6 +250,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["socks"]				<< socks
 	S["backbag"]			<< backbag
 	S["mutant_race"]		<< mutant_race
+	S["prefer_dept"]		<< prefer_dept
+	S["be_special"]			<< be_special
 
 	//Jobs
 	S["userandomjob"]		<< userandomjob

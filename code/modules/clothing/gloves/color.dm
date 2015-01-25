@@ -38,9 +38,12 @@
 
 	hos
 		item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.
+		name = "security gloves"
 
 	ce
 		item_color = "chief"			//Exists for washing machines. Is not different from black gloves in any way.
+	sec
+		name = "security gloves"
 
 /obj/item/clothing/gloves/orange
 	name = "orange gloves"

@@ -11,7 +11,7 @@ Chief Engineer
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ffeeaa"
-	req_admin_notify = 1
+	req_spacelaw_notify = 1
 	minimal_player_age = 7
 
 	default_id = /obj/item/weapon/card/id/silver

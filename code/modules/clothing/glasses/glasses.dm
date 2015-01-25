@@ -138,7 +138,9 @@
 	icon_state = "thermal"
 	item_state = "glasses"
 	origin_tech = "magnets=3"
+	action_button_name = "Toggle Thermal Vision"
 	vision_flags = SEE_MOBS
+	darkness_view = 2
 	invis_view = 2
 	flash_protect = -1
 
@@ -153,6 +155,27 @@
 				spawn(100)
 					M.disabilities &= ~NEARSIGHTED
 		..()
+
+	attack_self(mob/living/user as mob)
+		if (vision_flags)
+			vision_flags = null
+			icon_state = "thermal_off"
+			user << "You turn off the [name]"
+			darkness_view = 1
+			flash_protect = initial(flash_protect)
+			user.update_inv_glasses(0)
+			return
+		if (!vision_flags)
+			if(user.machine && istype(user.machine, /obj/machinery/computer/security))
+				return
+			vision_flags = SEE_MOBS
+			icon_state = initial(icon_state)
+			user << "You turn on the [name]"
+			darkness_view = initial(darkness_view)
+			flash_protect = initial(flash_protect)
+			user.update_inv_glasses(0)
+			return
+		return
 
 /obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete
 	name = "Optical Meson Scanner"

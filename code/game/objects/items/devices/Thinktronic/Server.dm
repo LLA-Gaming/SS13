@@ -422,6 +422,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 		var/datum/browser/popup = new(usr, "servermanager", "Server manager", 640, 480)
 		popup.set_content(dat)
 		popup.open()
+		onclose(user, "servermanager")
 
 /obj/machinery/computer/thinktronic_monitor/Topic(href, href_list)
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))

@@ -57,6 +57,7 @@
 	icon_state = "omnilaser"
 	damage = 34
 	damage_type = STAMINA
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	var/range = 7
 
 /obj/item/projectile/energy/disabler/Range()

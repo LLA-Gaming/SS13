@@ -749,6 +749,7 @@
 	title = "Engineering Textbook"
 	page_link = "Guide_to_engineering"
 
+/* RIP in kill, wiki spacelaw
 /obj/item/weapon/book/manual/wiki/security_space_law
 	name = "Space Law"
 	desc = "A set of Nanotrasen guidelines for keeping law and order on their space stations."
@@ -756,6 +757,7 @@
 	author = "Nanotrasen"
 	title = "Space Law"
 	page_link = "Space_Law"
+*/
 
 /obj/item/weapon/book/manual/wiki/infections
 	name = "Infections - Making your own pandemic!"

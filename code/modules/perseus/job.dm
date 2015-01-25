@@ -113,7 +113,7 @@ var/const/COMMANDER = (1<<1)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/blackpack(H), slot_back)
 		H.equip_to_slot_or_del(new /obj/item/weapon/tank/perseus(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box(H.back), slot_in_backpack)
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/wiki/security_space_law(H), slot_l_hand)
+		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 		var/obj/item/weapon/implant/enforcer/implant = new /obj/item/weapon/implant/enforcer(H)
 		implant.imp_in = H
@@ -164,7 +164,7 @@ var/const/COMMANDER = (1<<1)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/persberet(H), slot_head)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/specops(H), slot_gloves)
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/wiki/security_space_law(H), slot_l_hand)
+		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/lightarmor(H), slot_wear_suit)
 
 		var/obj/item/weapon/implant/commander/implant = new /obj/item/weapon/implant/commander(H)

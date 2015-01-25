@@ -11,7 +11,7 @@ Captain
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials and Space law"
 	selection_color = "#ccccff"
-	req_admin_notify = 1
+	req_spacelaw_notify = 1
 	minimal_player_age = 14
 
 	default_id = /obj/item/weapon/card/id/gold
@@ -37,6 +37,7 @@ Captain
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/ids(H), slot_l_hand)
 	else
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/ids(H.back), slot_in_backpack)
+		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 	//Implant him
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
@@ -61,7 +62,7 @@ Head of Personnel
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ddddff"
-	req_admin_notify = 1
+	req_spacelaw_notify = 1
 	minimal_player_age = 10
 
 	default_id = /obj/item/weapon/card/id/silver
