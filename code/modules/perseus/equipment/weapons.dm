@@ -321,7 +321,8 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 				return
 		add_fingerprint(user)
 		if(USE_SKNIFE_CHARGES)
-			power_supply.use(SKNIFE_CHARGE_COST)
+			if(mode == 1 || SKNIFE_LETHAL_USE_CHARGE)
+				power_supply.use(SKNIFE_CHARGE_COST)
 		switch(mode)
 			if(1)
 				M.SetStunned(SKNIFE_STUNTIME)
