@@ -12,7 +12,7 @@
 /obj/machinery/recharger/attackby(obj/item/weapon/G, mob/user)
 	if(istype(user,/mob/living/silicon))
 		return
-	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton) || istype(G, /obj/item/weapon/stock_parts/cell/magazine))
+	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton) || istype(G, /obj/item/weapon/stock_parts/cell/magazine) || (!SKNIFE_IS_AUTO_RECHARGING && istype(G, /obj/item/weapon/stun_knife)))
 		if(charging)
 			return
 
@@ -92,6 +92,16 @@
 			if(M.charge < M.maxcharge)
 				M.give(250)
 				M.update_icon()
+				icon_state = "recharger1"
+				use_power(250)
+			else
+				icon_state = "recharger2"
+		if(istype(charging, /obj/item/weapon/stun_knife))
+			var/obj/item/weapon/stun_knife/S = charging
+			var/obj/item/weapon/stock_parts/cell/C = S.power_supply
+			if(C.charge < C.maxcharge)
+				C.give(250)
+				C.update_icon()
 				icon_state = "recharger1"
 				use_power(250)
 			else
