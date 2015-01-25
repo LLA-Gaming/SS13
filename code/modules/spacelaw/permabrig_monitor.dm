@@ -1,9 +1,12 @@
 /obj/machinery/door/airlock/glass_security/perma
-	autoclose = 0
+	req_access = list(access_security)
 	New()
 		..()
 		spawn(15)
 		open()
+		autoclose = 0
+		spawn(15)
+		locked = 1
 
 /obj/machinery/door/airlock/glass_security/perma/cell_1
 	name = "Perma Cell 1"
