@@ -71,13 +71,19 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
 
+		if(blocked >= 2)
+			var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread()
+			sparks.set_up(1, 1, src)
+			sparks.start()
+			return
+
 		if(IS_EP_SINGLE_STACKING)
 			var/max = EP_MAX_SINGLE_STACK ? EP_MAX_SINGLE_STACK : INFINITY
 
-			if((L.stunned + stun) > max)	L.stunned = max
+			if((L.stunned + stun) > max)	L.SetStunned(max)
 			else							L.AdjustStunned(stun)
 
-			if((L.weakened + weaken) > max)	L.weakened = max
+			if((L.weakened + weaken) > max)	L.SetWeakened(max)
 			else							L.AdjustWeakened(weaken)
 
 			if((L.stuttering + stutter) > max)	L.stuttering = max
@@ -112,7 +118,7 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 			for(var/mob/living/M in T)
 				if(IS_EP_AOE_STACKING)
 					if((M.weakened + weaken) > EP_MAX_AOE_STACK)
-						M.weakened = EP_MAX_AOE_STACK
+						M.SetWeakened(EP_MAX_AOE_STACK)
 					else
 						M.AdjustWeakened(weaken)
 					M.updatehealth()
@@ -325,17 +331,21 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 				power_supply.use(SKNIFE_CHARGE_COST)
 		switch(mode)
 			if(1)
+				if(isrobot(M))
+					return
 				M.SetStunned(SKNIFE_STUNTIME)
 				M.SetWeakened(SKNIFE_STUNTIME)
 				M.stuttering = SKNIFE_STUNTIME
 				M.lastattacker = user
 				var/turf/T = get_turf(M)
 				T.visible_message("\red [M] has been stunned by [user] with \the [src]")
+				add_logs(user, M, "stunned", object=src.name, addition=" (DAMAGE: [src.force]) (REMHP: [M.health - src.force]) (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
 			if(0)
 				M.apply_damage(force, BRUTE)
 				M.lastattacker = user
 				var/turf/T = get_turf(M)
 				T.visible_message("\red [M] has been attacked by [user] with \the [src]")
+				add_logs(user, M, "stabbed", object=src.name, addition=" (DAMAGE: [src.force]) (REMHP: [M.health - src.force]) (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
 
 	attack_self(var/mob/user)
 		..()
