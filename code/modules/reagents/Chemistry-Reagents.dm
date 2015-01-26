@@ -3057,7 +3057,6 @@ datum
 				holder.remove_reagent(src.id, 0.4)
 				if(data >= boozepwr*10 && prob(33))
 					M.adjustToxLoss(2)
-				..()
 				return
 
 		ethanol/cognac
