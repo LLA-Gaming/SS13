@@ -385,7 +385,16 @@
 
 
 /mob/living/carbon/human/Topic(href, href_list)
-	if(usr.canUseTopic(src))
+	var/isalien = 0
+	if(istype(usr, /mob/living/carbon/alien))
+		if(restrained() || lying || stat || stunned || weakened)
+			return
+		if(!in_range(usr, src))
+			return
+		if(!isturf(usr.loc) && get(usr.loc, src.type) != src)
+			return
+		isalien = 1
+	if(usr.canUseTopic(src) || isalien)
 		if(href_list["item"])
 			var/slot = text2num(href_list["item"])
 			if(slot in check_obscured_slots())
