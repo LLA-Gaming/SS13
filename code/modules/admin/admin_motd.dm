@@ -1,3 +1,6 @@
+// Edit motto verb disabled per request of taicho
+
+/*
 /client/proc/edit_motd()
 	set name = "Edit MOTD"
 	set category = "Server"
@@ -15,3 +18,4 @@
 		join_motd = motd
 		fdel(F)
 		F << motd
+*/

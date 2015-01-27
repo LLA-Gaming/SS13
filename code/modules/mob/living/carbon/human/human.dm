@@ -385,49 +385,8 @@
 
 
 /mob/living/carbon/human/Topic(href, href_list)
-	if(usr.canUseTopic(src))
-		if(href_list["item"])
-			var/slot = text2num(href_list["item"])
-			if(slot in check_obscured_slots())
-				usr << "<span class='warning'>You can't reach that. Something is covering it.</span>"
-				return
 
-		if(href_list["pockets"])
-			var/pocket_side = href_list["pockets"]
-			var/pocket_id = (pocket_side == "right" ? slot_r_store : slot_l_store)
-			var/obj/item/pocket_item = (pocket_id == slot_r_store ? src.r_store : src.l_store)
-			var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
-
-			//visible_message("<span class='danger'>[usr] tries to empty [src]'s pockets.</span>", \
-							"<span class='userdanger'>[usr] tries to empty [src]'s pockets.</span>") // Pickpocketing!
-			if(pocket_item && !(pocket_item.flags&ABSTRACT))
-				if(pocket_item.flags & NODROP)
-					usr << "<span class='notice'>You try to empty [src]'s [pocket_side] pocket, it seems to be stuck!</span>"
-				usr << "<span class='notice'>You try to empty [src]'s [pocket_side] pocket.</span>"
-			else if(place_item && place_item.mob_can_equip(src, pocket_id, 1) && !(place_item.flags&ABSTRACT))
-				usr << "<span class='notice'>You try to place [place_item] into [src]'s [pocket_side] pocket.</span>"
-			else
-				return
-
-			if(do_mob(usr, src, STRIP_DELAY))
-				if(pocket_item)
-					unEquip(pocket_item)
-				else
-					if(place_item)
-						usr.unEquip(place_item)
-						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
-
-				// Update strip window
-				if(usr.machine == src && in_range(src, usr))
-					show_inv(usr)
-			else
-				// Display a warning if the user mocks up
-				src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
-
-		..()
-		return
-
-
+	/////I put this above the (canUseproc()) because it was causing conflicts // ~ Flavo
 	if(href_list["criminal"])
 		if(istype(usr, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = usr
@@ -470,6 +429,47 @@
 
 				if(!modified)
 					usr << "\red Unable to locate a data core entry for this person."
+	if(usr.canUseTopic(src))
+		if(href_list["item"])
+			var/slot = text2num(href_list["item"])
+			if(slot in check_obscured_slots())
+				usr << "<span class='warning'>You can't reach that. Something is covering it.</span>"
+				return
+
+		if(href_list["pockets"])
+			var/pocket_side = href_list["pockets"]
+			var/pocket_id = (pocket_side == "right" ? slot_r_store : slot_l_store)
+			var/obj/item/pocket_item = (pocket_id == slot_r_store ? src.r_store : src.l_store)
+			var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
+
+			//visible_message("<span class='danger'>[usr] tries to empty [src]'s pockets.</span>", \
+							"<span class='userdanger'>[usr] tries to empty [src]'s pockets.</span>") // Pickpocketing!
+			if(pocket_item && !(pocket_item.flags&ABSTRACT))
+				if(pocket_item.flags & NODROP)
+					usr << "<span class='notice'>You try to empty [src]'s [pocket_side] pocket, it seems to be stuck!</span>"
+				usr << "<span class='notice'>You try to empty [src]'s [pocket_side] pocket.</span>"
+			else if(place_item && place_item.mob_can_equip(src, pocket_id, 1) && !(place_item.flags&ABSTRACT))
+				usr << "<span class='notice'>You try to place [place_item] into [src]'s [pocket_side] pocket.</span>"
+			else
+				return
+
+			if(do_mob(usr, src, STRIP_DELAY))
+				if(pocket_item)
+					unEquip(pocket_item)
+				else
+					if(place_item)
+						usr.unEquip(place_item)
+						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
+
+				// Update strip window
+				if(usr.machine == src && in_range(src, usr))
+					show_inv(usr)
+			else
+				// Display a warning if the user mocks up
+				src << "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>"
+
+		..()
+		return
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
