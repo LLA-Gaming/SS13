@@ -94,8 +94,12 @@ datum/controller/game_controller/proc/setup_engineering()
 	sleep(-1)
 	var/area/engine/alternate/A
 	var/area/mainengine = locate(/area/engine/engineering)
-
-	A = locate(pick(typesof(/area/engine/alternate) - /area/engine/alternate)) // Choose one of the alternates. Not the best way, but it will work as long as every defined alternate is on the map.
+	var/list/alternates = (typesof(/area/engine/alternate) - /area/engine/alternate)
+	if(alternates.len)
+		A = locate(pick(alternates)) // Choose one of the alternates.
+	else
+		world << "\red \b No Alternates found, reverting to lame mode..."
+		return
 
 	for(var/E in mainengine)
 		qdel(E) // Delete the default before we copy things over. Don't want to accidentally have any duplicate things now do we?
