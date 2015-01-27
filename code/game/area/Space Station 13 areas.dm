@@ -847,8 +847,12 @@ proc/process_ghost_teleport_locs()
 
 //Alternate is the subgroup for the randomized engine templates.
 
-/area/engine/alternate/singularity
+/area/engine/alternate
 	icon_state = "engine"
+
+/area/engine/alternate/singularity
+
+/area/engine/alternate/thermal
 
 /area/engine/engine_smes
 	name = "\improper Engineering SMES"
