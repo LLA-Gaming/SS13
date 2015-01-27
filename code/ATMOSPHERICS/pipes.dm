@@ -234,7 +234,8 @@ obj/machinery/atmospherics/pipe
 
 
 			var/turf/T = src.loc			// hide if turf is not intact
-			hide(T.intact)
+			if(T)
+				hide(T.intact)
 			update_icon()
 			//update_icon()
 
@@ -742,7 +743,8 @@ obj/machinery/atmospherics/pipe
 						break
 
 			var/turf/T = src.loc			// hide if turf is not intact
-			hide(T.intact)
+			if(T)
+				hide(T.intact)
 			//update_icon()
 			update_icon()
 

@@ -845,6 +845,11 @@ proc/process_ghost_teleport_locs()
 /area/engine
 	ambientsounds = list('sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg')
 
+//Alternate is the subgroup for the randomized engine templates.
+
+/area/engine/alternate/singularity
+	icon_state = "engine"
+
 /area/engine/engine_smes
 	name = "\improper Engineering SMES"
 	icon_state = "engine_smes"
