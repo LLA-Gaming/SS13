@@ -992,7 +992,10 @@
 		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
 		locker.opened = 0
 		locker.locked = 1
-
+		locker.id = "prison-[M.ckey]"
+		//remove everything from the locker before loading it up
+		for(var/obj/item/C in locker)
+			qdel(C)
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
 			M.unEquip(I)
