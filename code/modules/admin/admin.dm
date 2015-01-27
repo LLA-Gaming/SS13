@@ -705,6 +705,16 @@ var/global/floorIsLava = 0
 		M.loc = pick(latejoin)
 		message_admins("[key_name_admin(usr)] has unprisoned [key_name_admin(M)]", 1)
 		log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
+		for(var/obj/structure/closet/secure_closet/brig/locker in world)
+			if(locker.id == "prison-[M.ckey]")
+				for(var/obj/item/I in M)
+					M.unEquip(I)
+					qdel(I)
+				M.update_icons()
+				for(var/obj/item/C in locker)
+					C.loc = M.loc // Send everything to him
+					M.equip_to_appropriate_slot(C) // Equip everything equipable
+				qdel(locker)
 	else
 		alert("[M.name] is not prisoned.")
 	feedback_add_details("admin_verb","UP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

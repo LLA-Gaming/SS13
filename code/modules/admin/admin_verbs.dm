@@ -84,7 +84,8 @@ var/list/admin_verbs_primary_admin = list(
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
 	/client/proc/set_ooc,
 	/client/proc/cmd_admin_dress,
-	/client/proc/respawn_character
+	/client/proc/respawn_character,
+	///client/proc/edit_motd			//Edit the server MOTD // Commented out per request of taicho
 	)
 
 var/list/admin_verbs_senior_admin = list(
