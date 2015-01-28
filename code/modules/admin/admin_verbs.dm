@@ -47,7 +47,6 @@ var/list/admin_verbs_secondary_admin = list(
 	/datum/admins/proc/view_atk_log,	/*shows the server combat-log, doesn't do anything presently*/
 	/client/proc/delete_fire,
 	/client/proc/reset_atmos,
-	/client/proc/fill_breach,
 	/datum/admins/proc/unprison
 	//+BANS
 	)
@@ -68,6 +67,7 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
 	/client/proc/createPerseusMission,
 	/proc/Ban_Offline_Player,
+	/client/proc/fill_breach,
 	/client/proc/spawncostume
 	//+Sound
 	)
