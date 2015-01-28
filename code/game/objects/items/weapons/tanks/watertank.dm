@@ -14,65 +14,65 @@
 	var/on = 0
 	var/volume = 500
 
-/obj/item/weapon/watertank/New()
-	..()
-	create_reagents(volume)
-	noz = make_noz()
-	return
+	New()
+		..()
+		create_reagents(volume)
+		noz = make_noz()
+		return
 
-/obj/item/weapon/watertank/examine()
-	set src in usr
-	..()
-	for(var/datum/reagent/R in reagents.reagent_list)
-		usr.send_text_to_tab("[round(R.volume)] units of [R.name] left.", "ic")
-		usr << "[round(R.volume)] units of [R.name] left."
-	return
+	examine()
+		set src in usr
+		..()
+		for(var/datum/reagent/R in reagents.reagent_list)
+			usr.send_text_to_tab("[round(R.volume)] units of [R.name] left.", "ic")
+			usr << "[round(R.volume)] units of [R.name] left."
+		return
 
-/obj/item/weapon/watertank/ui_action_click()
-	if (usr.get_item_by_slot(slot_back) == src)
-		toggle_mister()
-	else
-		usr << "<span class='notice'>The watertank needs to be on your back to use!</span>"
-	return
+	ui_action_click()
+		if (usr.get_item_by_slot(slot_back) == src)
+			toggle_mister()
+		else
+			usr << "<span class='notice'>The watertank needs to be on your back to use!</span>"
+		return
 
-/obj/item/weapon/watertank/verb/toggle_mister()
-	set name = "Toggle Mister"
-	set category = "Object"
-	on = !on
+	verb/toggle_mister()
+		set name = "Toggle Mister"
+		set category = "Object"
+		on = !on
 
-	var/mob/living/carbon/human/user = usr
-	if(on)
-		//Detach the nozzle into the user's hands
-	//	var/list/L = list("left hand" = slot_l_hand,"right hand" = slot_r_hand)
-		if(!user.put_in_any_hand_if_possible(noz))
-			on = 0
-			user << "<span class='notice'>You need a free hand to hold the mister!</span>"
-			return
-		noz.loc = user
-	else
-		//Remove from their hands and put back "into" the tank
-		remove_noz(user)
-	return
+		var/mob/living/carbon/human/user = usr
+		if(on)
+			//Detach the nozzle into the user's hands
+		//	var/list/L = list("left hand" = slot_l_hand,"right hand" = slot_r_hand)
+			if(!user.put_in_any_hand_if_possible(noz))
+				on = 0
+				user << "<span class='notice'>You need a free hand to hold the mister!</span>"
+				return
+			noz.loc = user
+		else
+			//Remove from their hands and put back "into" the tank
+			remove_noz(user)
+		return
 
-/obj/item/weapon/watertank/proc/make_noz()
-	return new /obj/item/weapon/reagent_containers/spray/mister(src)
+	proc/make_noz()
+		return new /obj/item/weapon/reagent_containers/spray/mister(src)
 
-/obj/item/weapon/watertank/equipped(mob/user, slot)
-	if (slot != slot_back)
-		remove_noz(user)
+	equipped(mob/user, slot)
+		if (slot != slot_back)
+			remove_noz(user)
 
-/obj/item/weapon/watertank/proc/remove_noz(mob/user)
-	var/mob/living/carbon/human/M = user
-	if(noz in get_both_hands(M))
-		M.unEquip(noz)
-	return
+	proc/remove_noz(mob/user)
+		var/mob/living/carbon/human/M = user
+		if(noz in get_both_hands(M))
+			M.unEquip(noz)
+		return
 
-/obj/item/weapon/watertank/Destroy()
-	if (on)
-		var/M = get(noz, /mob)
-		remove_noz(M)
-	..()
-	return
+	Destroy()
+		if (on)
+			var/M = get(noz, /mob)
+			remove_noz(M)
+		..()
+		return
 
 // This mister item is intended as an extension of the watertank and always attached to it.
 // Therefore, it's designed to be "locked" to the player's hands or extended back onto
@@ -91,27 +91,27 @@
 
 	var/obj/item/weapon/watertank/tank
 
-/obj/item/weapon/reagent_containers/spray/mister/New(parent_tank)
-	..()
-	if(check_tank_exists(parent_tank, src))
-		tank = parent_tank
-		reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
-		loc = tank
-	return
-
-/obj/item/weapon/reagent_containers/spray/mister/dropped(mob/user as mob)
-	user << "<span class='notice'>The mister snaps back onto the watertank!</span>"
-	tank.on = 0
-	loc = tank
-
-/obj/item/weapon/reagent_containers/spray/mister/attack_self()
-	return
-
-/obj/item/weapon/reagent_containers/spray/mister/Move(dest, dir)
-	// Only will move to valid locations
-	if((dest == tank) || (dest == tank.loc /*person with tank on back*/))
+	New(parent_tank)
 		..()
-	return
+		if(check_tank_exists(parent_tank, src))
+			tank = parent_tank
+			reagents = tank.reagents	//This mister is really just a proxy for the tank's reagents
+			loc = tank
+		return
+
+	dropped(mob/user as mob)
+		user << "<span class='notice'>The mister snaps back onto the watertank!</span>"
+		tank.on = 0
+		loc = tank
+
+	attack_self()
+		return
+
+	Move(dest, dir)
+		// Only will move to valid locations
+		if((dest == tank) || (dest == tank.loc /*person with tank on back*/))
+			..()
+		return
 
 /proc/check_tank_exists(parent_tank, var/mob/living/carbon/human/M, var/obj/O)
 	if (!parent_tank || !istype(parent_tank, /obj/item/weapon/watertank))	//To avoid weird issues from admin spawns
@@ -128,10 +128,12 @@
 	icon_state = "waterbackpackjani"
 	item_state = "waterbackpackjani"
 
-/obj/item/weapon/watertank/janitor/New()
-	..()
-	reagents.add_reagent("cleaner", 500)
+	New()
+		..()
+		reagents.add_reagent("cleaner", 500)
 
+	make_noz()
+		return new /obj/item/weapon/reagent_containers/spray/mister/janitor(src)
 
 /obj/item/weapon/reagent_containers/spray/mister/janitor
 	name = "janitor spray nozzle"
@@ -142,12 +144,9 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null
 
-/obj/item/weapon/watertank/janitor/make_noz()
-	return new /obj/item/weapon/reagent_containers/spray/mister/janitor(src)
-
-/obj/item/weapon/reagent_containers/spray/mister/janitor/attack_self(var/mob/user)
-	amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
-	user << "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>"
+	attack_self(var/mob/user)
+		amount_per_transfer_from_this = (amount_per_transfer_from_this == 10 ? 5 : 10)
+		user << "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>"
 
 //Atmos tank
 /obj/item/weapon/watertank/atmos
@@ -157,8 +156,8 @@
 	item_state = "waterbackpackatmos"
 	volume = 100
 
-/obj/item/weapon/watertank/atmos/make_noz()
-	return new /obj/item/weapon/extinguisher/mini/nozzle(src)
+	make_noz()
+		return new /obj/item/weapon/extinguisher/mini/nozzle(src)
 
 /obj/item/weapon/extinguisher/mini/nozzle
 	name = "fire extinguisher nozzle"
@@ -166,27 +165,28 @@
 	icon = 'icons/obj/hydroponics.dmi'
 	icon_state = "misteratmos"
 	item_state = "misteratmos"
+	w_class = 4.0
 	safety = 0
 	var/obj/item/weapon/watertank/tank
 
-/obj/item/weapon/extinguisher/mini/nozzle/New(parent_tank)
-	if(check_tank_exists(parent_tank, src))
-		tank = parent_tank
-		reagents = tank.reagents
-		max_water = tank.volume
+	New(parent_tank)
+		if(check_tank_exists(parent_tank, src))
+			tank = parent_tank
+			reagents = tank.reagents
+			max_water = tank.volume
+			loc = tank
+		return
+
+	dropped(mob/user as mob)
+		user << "<span class='notice'>The nozzle snaps back onto the watertank!</span>"
+		tank.on = 0
 		loc = tank
-	return
 
-/obj/item/weapon/extinguisher/mini/nozzle/dropped(mob/user as mob)
-	user << "<span class='notice'>The nozzle snaps back onto the watertank!</span>"
-	tank.on = 0
-	loc = tank
+	attack_self()
+		return
 
-/obj/item/weapon/extinguisher/mini/nozzle/attack_self()
-	return
-
-/obj/item/weapon/extinguisher/mini/nozzle/Move(dest, dir)
-	// Only will move to valid locations
-	if((dest == tank) || (dest == tank.loc /*person with tank on back*/))
-		..()
-	return
+	Move(dest, dir)
+		// Only will move to valid locations
+		if((dest == tank) || (dest == tank.loc /*person with tank on back*/))
+			..()
+		return
