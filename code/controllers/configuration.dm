@@ -130,6 +130,8 @@
 
 	var/faction_change_delay = 24 // In hours
 
+	var/random_engine = 0 //Whether or not to use one of the random engine templates. If 0, will use whatever the prebuilt engine on the station is.
+
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
 	for(var/T in L)
@@ -393,6 +395,8 @@
 					config.default_laws				= text2num(value)
 				if("join_with_mutant_race")
 					config.mutant_races				= 1
+				if("randomize_engine_template")
+					config.random_engine			= 1
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 

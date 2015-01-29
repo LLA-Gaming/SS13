@@ -58,6 +58,7 @@ proc/process_teleport_locs()
 	for(var/area/AR in world)
 		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
 		if(teleportlocs.Find(AR.name)) continue
+		if(!get_area_turfs(AR.type)) continue // If there's nothing to do here, do nothing.
 		var/turf/picked = pick(get_area_turfs(AR.type))
 		if (picked.z == 1)
 			teleportlocs += AR.name
@@ -844,6 +845,15 @@ proc/process_ghost_teleport_locs()
 
 /area/engine
 	ambientsounds = list('sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg')
+
+//Alternate is the subgroup for the randomized engine templates.
+
+/area/engine/alternate
+	icon_state = "engine"
+
+/area/engine/alternate/singularity
+
+/area/engine/alternate/thermal
 
 /area/engine/engine_smes
 	name = "\improper Engineering SMES"

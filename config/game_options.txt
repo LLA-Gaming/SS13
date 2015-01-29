@@ -190,3 +190,10 @@ DEFAULT_LAWS 0
 
 ## Uncoment to give players the choice of their mutantrace before they join the game
 #JOIN_WITH_MUTANT_RACE
+
+### RANDOMIZED ENGINE ###
+## Allows usage of multiple "template" engines, allowing a random engine to be picked at every roundstart. For now all engines have equal chance.
+## If this is used without any template engines on the map, it will literally result in engineering being deleted at round start. Template engines can be anywhere on the map, and will be deleted after engineering is set up.
+## Uncomment to enable.
+#RANDOMIZE_ENGINE_TEMPLATE
+

@@ -75,10 +75,72 @@ datum/controller/game_controller/proc/setup()
 	setup_objects()
 	setupgenetics()
 	setupfactions()
+	setup_engineering()
 
 	spawn(0)
 		if(ticker)
 			ticker.pregame()
+
+datum/controller/game_controller/proc/setup_engineering()
+	if(!config.random_engine)  //Enable this setup using the config option "randomize_engine_template"
+		for(var/B in typesof(/area/engine/alternate))
+			var/template = locate(B)
+			for(var/C in template)
+				qdel(C) // Cleaning up to reduce residual lag
+		return
+
+	world << "\red \b Randomizing world..."
+
+	sleep(-1)
+	var/area/engine/alternate/A
+	var/area/mainengine = locate(/area/engine/engineering)
+	var/list/alternates = (typesof(/area/engine/alternate) - /area/engine/alternate)
+	if(alternates.len)
+		A = locate(pick(alternates)) // Choose one of the alternates.
+	else
+		world << "\red \b No Alternates found, reverting to lame mode..."
+		return
+
+	for(var/E in mainengine)
+		qdel(E) // Delete the default before we copy things over. Don't want to accidentally have any duplicate things now do we?
+
+	A.move_contents_to(mainengine) // Move everything from the template
+
+	for(var/turf/simulated/wall/wall in world)
+		wall.relativewall() // Reconnect all walls moved
+
+	for(var/obj/machinery/atmospherics/pipe/simple/M in world)
+		M.initialize()
+		M.build_network() //Re-attach all the now moved atmos pipes.
+		if(M.node1)
+			M.node1.initialize()
+			M.node1.build_network()
+		if(M.node2)
+			M.node2.initialize()
+			M.node2.build_network()
+
+	for(var/obj/machinery/atmospherics/pipe/manifold/M in world)
+		M.initialize()
+		M.build_network() //Re-attach all the now moved atmos pipes.
+		if(M.node1)
+			M.node1.initialize()
+			M.node1.build_network()
+		if(M.node2)
+			M.node2.initialize()
+			M.node2.build_network()
+		if(M.node3)
+			M.node3.initialize()
+			M.node3.build_network()
+
+	for(var/B in typesof(/area/engine/alternate))
+		var/template = locate(B)
+		for(var/C in template)
+			qdel(C) // Cleaning up to reduce residual lag
+
+	makepowernets() // Reconnect the cables now that they've moved
+
+	sleep(-1)
+
 
 datum/controller/game_controller/proc/setup_objects()
 	world << "\red \b Initializing objects..."
