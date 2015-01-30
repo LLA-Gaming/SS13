@@ -58,9 +58,9 @@ proc/process_teleport_locs()
 	for(var/area/AR in world)
 		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
 		if(teleportlocs.Find(AR.name)) continue
-		if(!get_area_turfs(AR.type)) continue // If there's nothing to do here, do nothing.
-		var/turf/picked = pick(get_area_turfs(AR.type))
-		if (picked.z == 1)
+		var/turf/picked = safepick(get_area_turfs(AR.type)) //Changed to safepick to resolve an error that was occuring where it would get asked to pick from an empty list. Runtime errors, man.
+		if(!picked) continue
+		else if (picked.z == 1)
 			teleportlocs += AR.name
 			teleportlocs[AR.name] = AR
 
