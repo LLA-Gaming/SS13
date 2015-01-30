@@ -10,7 +10,4 @@
 *.rsc
 *.lk
 *.int
-/data/mode.txt
-/data/player_saves
-/data/logs
-/data/investigate
+/data/**/*
