@@ -253,6 +253,7 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
+		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
@@ -299,6 +300,7 @@
 					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 
 		if("harm", "disarm")
+			M.do_attack_animation(src)
 			adjustBruteLoss(harm_intent_damage)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
@@ -334,6 +336,7 @@
 					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 
 		if("harm", "disarm")
+			M.do_attack_animation(src)
 			var/damage = rand(15, 30)
 			visible_message("\red <B>[M] has slashed at [src]!</B>")
 			adjustBruteLoss(damage)
@@ -350,6 +353,7 @@
 		else
 
 			var/damage = rand(5, 10)
+			L.do_attack_animation(src)
 			visible_message("\red <B>[L] bites [src]!</B>")
 
 			if(stat != DEAD)
@@ -363,7 +367,7 @@
 		return
 
 	if(M.Victim) return // can't attack while eating!
-
+	M.do_attack_animation(src)
 	visible_message("\red <B>[M.name] glomps [src]!</B>")
 
 	var/damage = rand(1, 3)

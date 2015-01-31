@@ -213,13 +213,20 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 15
 	containername = "laser crate"
 
+/datum/supply_packs/security/advtaser
+	name = "Hybrid Taser crate"
+	contains = list(/obj/item/weapon/gun/energy/taser/adv,
+					/obj/item/weapon/gun/energy/taser/adv)
+	cost = 20
+	containername = "hybrid taser crate"
+
 /datum/supply_packs/security/taser
-	name = "Stun Guns crate"
+	name = "Taser crate"
 	contains = list(/obj/item/weapon/gun/energy/taser,
 					/obj/item/weapon/gun/energy/taser,
 					/obj/item/weapon/gun/energy/taser)
-	cost = 15
-	containername = "stun gun crate"
+	cost = 10
+	containername = "taser crate"
 
 /datum/supply_packs/security/disabler
 	name = "Disabler crate"

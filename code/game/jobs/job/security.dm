@@ -191,7 +191,7 @@ Security Officer
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 
-	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/taser(H), slot_s_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/taser/adv(H), slot_s_store)
 	if(H.backbag == 1)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_l_hand)
 	else
