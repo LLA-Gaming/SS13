@@ -137,6 +137,8 @@
 				inv2.icon_state = "inv2"
 				inv3.icon_state = "inv3"
 				module_active = module_state_1
+				if(istype(module_active,/obj/item/device/flash) || istype(module_active,/obj/item/weapon/melee/baton) || istype(module_active,/obj/item/weapon/gun/energy/taser) || istype(module_active,/obj/item/weapon/razor) || istype(module_active,/obj/item/device/violin))
+					visible_message("\red [src] extends \icon[module_active] [module_active]")
 				return
 		if(2)
 			if(module_active != module_state_2)
@@ -144,6 +146,8 @@
 				inv2.icon_state = "inv2 +a"
 				inv3.icon_state = "inv3"
 				module_active = module_state_2
+				if(istype(module_active,/obj/item/device/flash) || istype(module_active,/obj/item/weapon/melee/baton) || istype(module_active,/obj/item/weapon/gun/energy/taser) || istype(module_active,/obj/item/weapon/razor) || istype(module_active,/obj/item/device/violin))
+					visible_message("\red [src] extends \icon[module_active] [module_active]")
 				return
 		if(3)
 			if(module_active != module_state_3)
@@ -151,6 +155,8 @@
 				inv2.icon_state = "inv2"
 				inv3.icon_state = "inv3 +a"
 				module_active = module_state_3
+				if(istype(module_active,/obj/item/device/flash) || istype(module_active,/obj/item/weapon/melee/baton) || istype(module_active,/obj/item/weapon/gun/energy/taser) || istype(module_active,/obj/item/weapon/razor) || istype(module_active,/obj/item/device/violin))
+					visible_message("\red [src] extends \icon[module_active] [module_active]")
 				return
 	return
 
