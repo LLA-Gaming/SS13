@@ -1,26 +1,3 @@
-/obj/machinery/door/airlock/glass_security/perma
-	req_access = list(access_security)
-	New()
-		..()
-		spawn(15)
-		open()
-		autoclose = 0
-		spawn(15)
-		locked = 1
-
-/obj/machinery/door/airlock/glass_security/perma/cell_1
-	name = "Perma Cell 1"
-	id_tag = "Perma Cell 1"
-
-/obj/machinery/door/airlock/glass_security/perma/cell_2
-	name = "Perma Cell 2"
-	id_tag = "Perma Cell 2"
-
-/obj/machinery/door/airlock/glass_security/perma/cell_3
-	name = "Perma Cell 3"
-	id_tag = "Perma Cell 3"
-
-
 /obj/machinery/perma_monitor
 	name = "door timer"
 	icon = 'icons/obj/terminals.dmi'
@@ -37,7 +14,6 @@
 	var/list/activecrimes = list()
 	var/detail = ""
 	var/prisoner = ""
-	var/operating = 0
 	var/saveddetail = ""
 	var/savedprisoner = ""
 	var/repeatoffender = 0
@@ -54,10 +30,6 @@
 				crimes.Add(F)
 
 		spawn(20)
-			for(var/obj/machinery/door/airlock/glass_security/M in world)
-				if (M.id_tag == src.id)
-					targets += M
-
 			for(var/obj/machinery/flasher/F in world)
 				if(F.id == src.id)
 					targets += F
@@ -70,35 +42,6 @@
 				stat |= BROKEN
 			update_icon()
 			return
-		return
-
-//Main door timer loop, if it's timing and time is >0 reduce time by 1.
-// if it's less than 0, open door, reset timer
-// update the door_timer window and the icon
-	process()
-		if(stat & (NOPOWER|BROKEN))	return
-		for(var/obj/machinery/door/airlock/glass_security/M in targets)
-			if(M.z != 1)
-				del(M)
-				stat |= BROKEN
-				update_icon()
-		if(operating)
-			for(var/obj/machinery/door/airlock/glass_security/M in targets)
-				if(M.density)
-					M.locked = 0
-					M.open()
-					M.locked = 1
-					M.update_icon()
-					operating = 0
-					return
-				if(!M.density)
-					M.locked = 0
-					M.close()
-					M.locked = 1
-					M.update_icon()
-					if(M.density)
-						operating = 0
-						return
 		return
 
 // has the door power sitatuation changed, if so update icon.
@@ -157,11 +100,6 @@
 		dat += {"</tr>"}
 		dat += "</table><hr>"
 		//options
-		dat += "<a href='?src=\ref[src];toggle=1'>Toggle Door</a> "
-		if(activated)
-			dat += "Closed - "
-		if(!activated)
-			dat += "Open - "
 		dat += "<a href='?src=\ref[src];reset=1'>Clear Status</a><br/>"
 		dat += "Prisoner: <a href='byond://?src=\ref[src];prisoner=1'>[prisoner ? prisoner : "None Listed."]</a>"
 		dat += " - <a href='byond://?src=\ref[src];set=1'>Set Prisoner as occupant</a><br>"
@@ -208,21 +146,7 @@
 			return
 
 		usr.set_machine(src)
-		if(href_list["toggle"]) //switch between timing and not timing
-			if(operating) return
-			if(!savedprisoner)
-				usr << "[src] requires a prisoner name"
-				return
-			if(!saveddetail)
-				usr << "[src] requires crime details"
-				return
-			if(activated)
-				operating = 1
-				activated = 0
-			if(!activated)
-				operating = 1
-				activated = 1
-		else if(href_list["tp"]) //adjust timer
+		if(href_list["tp"]) //adjust timer
 			var/crime = href_list["detail"]
 			if(crime)
 				for(var/datum/crime/x in crimes)
@@ -254,7 +178,6 @@
 					x.active = 0
 				activated = 0
 				detail = ""
-				operating = 0
 				src.add_fingerprint(usr)
 				src.updateUsrDialog()
 				src.update_icon()
@@ -278,15 +201,12 @@
 			else
 				prisoner = ""
 		else if(href_list["reset"])
-			if(operating || !activated) return
-			operating = 1
 			activated = 0
 			detail = ""
 			prisoner = ""
 			repeatoffender = 0
 			savedprisoner = ""
 			saveddetail = ""
-
 			for(var/datum/crime/x in crimes)
 				x.active = 0
 			src.add_fingerprint(usr)
