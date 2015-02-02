@@ -534,6 +534,11 @@ var/engwords = list("travel", "blood", "join", "hell", "destroy", "technology", 
 				var/holy2unholy = M.reagents.get_reagent_amount("holywater")
 				M.reagents.del_reagent("holywater")
 				M.reagents.add_reagent("unholywater",holy2unholy)
+			if(M.reagents && M.reagents.has_reagent("wine"))
+				user << "\blue You remove the vice from [M]."
+				var/wine2unholy = M.reagents.get_reagent_amount("wine")
+				M.reagents.del_reagent("wine")
+				M.reagents.add_reagent("unholywater",wine2unholy)
 			return
 		M.take_organ_damage(0,rand(5,20)) //really lucky - 5 hits for a crit
 		for(var/mob/O in viewers(M, null))

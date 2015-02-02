@@ -106,10 +106,10 @@ var/list/sacrificed = list()
 				if(M.stat==2)
 					continue
 				for(var/mob/living/carbon/C in orange(1,src))
-					if(iscultist(C) && !C.stat)		//converting requires three cultists
+					if(iscultist(C) && !C.stat)		//converting requires two cultists
 						cultsinrange += C
 						C.say("Mah[pick("'","`")]weyh pleggh at e'ntrath!")
-				if(cultsinrange.len >= 3)
+				if(cultsinrange.len >= 2)
 					M.visible_message("\red [M] writhes in pain as the markings below him glow a bloody red.", \
 					"\red AAAAAAHHHH!.", \
 					"\red You hear an anguished scream.")
