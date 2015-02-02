@@ -414,7 +414,7 @@ proc/get_all_job_icons() //For all existing HUD icons
 	var/obj/item/weapon/card/id/I = GetID()
 	if(!I)	return
 	var/jobName = I.assignment
-	if(jobName in get_all_job_icons()) //Check if the job has a hud icon
+	if(jobName in get_all_job_icons() + list("Perseus Security Enforcer", "Perseus Security Commander")) //Check if the job has a hud icon
 		return jobName
 	if(jobName in get_all_centcom_jobs()) //Return with the NT logo if it is a Centcom job
 		return "Centcom"

@@ -119,6 +119,20 @@ proc/statistic_cycle()
 		sql_poll_admins()
 		sleep(6000) // Poll every ten minutes
 
+/proc/GetCurrentRoundID()
+	var/DBQuery/id_qry = dbcon.NewQuery("SELECT MAX(round_id) FROM erro_feedback")
+	id_qry.Execute()
+
+	var/id = 0
+
+	id_qry.NextRow()
+	if(id_qry.item[1])
+		id = text2num(sanitizeSQL(id_qry.item[1]))
+	else id = 1
+
+	return id
+
+
 //This proc is used for feedback. It is executed at round end.
 proc/sql_commit_feedback()
 	if(!blackbox)
@@ -137,7 +151,7 @@ proc/sql_commit_feedback()
 		log_game("SQL ERROR during feedback reporting. Failed to connect.")
 	else
 
-		var/DBQuery/max_query = dbcon.NewQuery("SELECT MAX(roundid) AS max_round_id FROM erro_feedback")
+		var/DBQuery/max_query = dbcon.NewQuery("SELECT MAX(round_id) AS max_round_id FROM erro_feedback")
 		max_query.Execute()
 
 		var/newroundid
@@ -157,7 +171,7 @@ proc/sql_commit_feedback()
 			var/variable = item.get_variable()
 			var/value = item.get_value()
 
-			var/DBQuery/query = dbcon.NewQuery("INSERT INTO erro_feedback (id, roundid, time, variable, value) VALUES (null, [newroundid], Now(), '[variable]', '[value]')")
+			var/DBQuery/query = dbcon.NewQuery("INSERT INTO erro_feedback (id, round_id, time, variable, value) VALUES (null, [newroundid], Now(), '[variable]', '[value]')")
 			if(!query.Execute())
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during feedback reporting. Error : \[[err]\]\n")

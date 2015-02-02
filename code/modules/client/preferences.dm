@@ -24,7 +24,7 @@ datum/preferences
 	//doohickeys for savefiles
 	var/path
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
-	var/max_save_slots = 3
+	var/max_save_slots = 4
 
 	//non-preference stuff
 	var/warns = 0
@@ -57,6 +57,7 @@ datum/preferences
 	var/skin_tone = "caucasian1"		//Skin color
 	var/eye_color = "000"				//Eye color
 	var/mutant_race = "human"			//Mutant race
+	var/prefer_dept = "None"
 
 		//Mob preview
 	var/icon/preview_icon_front = null
@@ -116,7 +117,9 @@ datum/preferences
 		var/dat = "<center>"
 
 		dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a> "
-		dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a>"
+		dat += "<a href='?_src_=prefs;preference=tab;tab=1' [current_tab == 1 ? "class='linkOn'" : ""]>Game Preferences</a> "
+		if(config.sql_enabled)
+			dat += "<a href='?_src_=prefs;preference=tab;tab=2' [current_tab == 2 ? "class='linkOn'" : ""]>Faction Settings</a>"
 
 		if(!path)
 			dat += "<div class='notice'>Please create an account to save your preferences</div>"
@@ -162,11 +165,10 @@ datum/preferences
 
 				dat += "</td></tr></table>"
 
-				dat += "<h2>Body</h2>"
 				dat += "<a href='?_src_=prefs;preference=all;task=random'>Random Body</A><br>"
 
-				dat += "<table width='100%'><tr><td width='24%' valign='top'>"
-
+				dat += "<table width='100%'><tr><td width='20%' valign='top'>"
+				dat += "<h3>Body</h3>"
 				if(config.mutant_races)
 					dat += "<b>Mutant Race:</b><BR><a href='?_src_=prefs;preference=mutant_race;task=input'>[mutant_race]</a><BR>"
 				else
@@ -179,7 +181,7 @@ datum/preferences
 				dat += "<b>Backpack:</b><BR><a href ='?_src_=prefs;preference=bag;task=input'>[backbaglist[backbag]]</a><BR>"
 
 
-				dat += "</td><td valign='top' width='28%'>"
+				dat += "</td><td valign='top' width='20%'>"
 
 				dat += "<h3>Hair Style</h3>"
 
@@ -187,21 +189,37 @@ datum/preferences
 				dat += "<a href='?_src_=prefs;preference=previous_hair_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_hair_style;task=input'>&gt;</a><BR>"
 				dat += "<span style='border:1px solid #161616; background-color: #[hair_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=hair;task=input'>Change</a><BR>"
 
-
-				dat += "</td><td valign='top' width='28%'>"
-
 				dat += "<h3>Facial Hair Style</h3>"
 
 				dat += "<a href='?_src_=prefs;preference=facial_hair_style;task=input'>[facial_hair_style]</a><BR>"
 				dat += "<a href='?_src_=prefs;preference=previous_facehair_style;task=input'>&lt;</a> <a href='?_src_=prefs;preference=next_facehair_style;task=input'>&gt;</a><BR>"
 				dat += "<span style='border: 1px solid #161616; background-color: #[facial_hair_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=facial;task=input'>Change</a><BR>"
 
-
-				dat += "</td><td valign='top'>"
-
 				dat += "<h3>Eye Color</h3>"
 
 				dat += "<span style='border: 1px solid #161616; background-color: #[eye_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=eyes;task=input'>Change</a><BR>"
+
+
+				dat += "</td><td valign='top' width='30%'>"
+
+				dat += "<h3>Character preferences</h3>"
+
+				dat += "<b>Prefered security department:</b> <a href='?_src_=prefs;preference=set_prefer_dept;task=input'>[prefer_dept]</a><br>"
+				if(jobban_isbanned(user, "Syndicate"))
+					dat += "<b>You are banned from antagonist roles.</b>"
+					src.be_special = 0
+				else
+					var/n = 0
+					for (var/i in special_roles)
+						if(special_roles[i]) //if mode is available on the server
+							if(jobban_isbanned(user, i))
+								dat += "<b>Be [i]:</b> <font color=red><b>\[BANNED]</b></font><br>"
+							else if(i == "pai candidate")
+								if(jobban_isbanned(user, "pAI"))
+									dat += "<b>Be [i]:</b> <font color=red><b>\[BANNED]</b></font><br>"
+							else
+								dat += "<b>Be [i]:</b> <a href='?_src_=prefs;preference=be_special;num=[n]'>[src.be_special&(1<<n) ? "Yes" : "No"]</a><br>"
+						n++
 
 
 				dat += "</td></tr></table>"
@@ -234,26 +252,32 @@ datum/preferences
 						dat += "<b>Ghost Form:</b> <a href='?_src_=prefs;task=input;preference=ghostform'>[ghost_form]</a><br>"
 
 
-				dat += "</td><td width='300px' height='300px' valign='top'>"
-
-				dat += "<h2>Antagonist Settings</h2>"
-
-				if(jobban_isbanned(user, "Syndicate"))
-					dat += "<b>You are banned from antagonist roles.</b>"
-					src.be_special = 0
-				else
-					var/n = 0
-					for (var/i in special_roles)
-						if(special_roles[i]) //if mode is available on the server
-							if(jobban_isbanned(user, i))
-								dat += "<b>Be [i]:</b> <font color=red><b>\[BANNED]</b></font><br>"
-							else if(i == "pai candidate")
-								if(jobban_isbanned(user, "pAI"))
-									dat += "<b>Be [i]:</b> <font color=red><b>\[BANNED]</b></font><br>"
-							else
-								dat += "<b>Be [i]:</b> <a href='?_src_=prefs;preference=be_special;num=[n]'>[src.be_special&(1<<n) ? "Yes" : "No"]</a><br>"
-						n++
 				dat += "</td></tr></table>"
+
+			if(2)
+				if(!config.sql_enabled)
+					current_tab = 0
+					return
+
+				var/current_faction = user.client.GetCurrentFaction()
+				var/joined = user.client.GetFactionJoinDate()
+
+				// Make sure the person has waited X hours (set in config)
+				var/can_change = user.client.GetFactionJoinDifference()
+				if(can_change != -1)
+					if(can_change >= config.faction_change_delay)
+						can_change = 1
+					else
+						can_change = 0
+				else
+					can_change = 1
+
+				dat += "<b>Current Faction: </b> <font color='orange'><b>[can_change ? "<a href='?_src_=prefs;preference=faction;task=input;'>[current_faction ? current_faction + "</b></font>" : "None"]</a>" : current_faction ? current_faction + "</b></font> (changeable in [config.faction_change_delay - user.client.GetFactionJoinDifference()] hour(s))" : "None"]<br>"
+				if(current_faction)
+					dat += "<b>Joined </b> (server time): <b>[joined]</b><br>"
+
+
+
 
 		dat += "<hr><center>"
 
@@ -265,7 +289,7 @@ datum/preferences
 		dat += "</center>"
 
 		//user << browse(dat, "window=preferences;size=560x560")
-		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 600, 700)
+		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 740, 680)
 		popup.set_content(dat)
 		popup.open(0)
 
@@ -372,7 +396,7 @@ datum/preferences
 		HTML += "</center></table>"
 
 		if(perseusList[user.ckey])
-			HTML += "<center>Start as Perseus: <a href='?_src_=prefs;preference=job;task=perseus'>[(user.ckey in assignPerseus) ? "Yes" : "No"]</a></center><br>"
+			HTML += "<center>Start as Perseus: <a href='?_src_=prefs;preference=job;task=perseus'>[(user.ckey in assignPerseus) ? "Yes" : "No"]</a></center>"
 
 		HTML += "<center><br><a href='?_src_=prefs;preference=job;task=random'>[userandomjob ? "Get random job if preferences unavailable" : "Be an Assistant if preference unavailable"]</a></center>"
 		HTML += "<center><a href='?_src_=prefs;preference=job;task=reset'>Reset Preferences</a></center>"
@@ -541,6 +565,7 @@ datum/preferences
 					SetChoices(user)
 				else
 					SetChoices(user)
+
 			return 1
 
 		switch(href_list["task"])
@@ -605,24 +630,15 @@ datum/preferences
 
 					if("hair_style")
 						var/new_hair_style
-						if(gender == MALE)
-							new_hair_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in hair_styles_male_list
-						else
-							new_hair_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in hair_styles_female_list
+						new_hair_style = input(user, "Choose your character's hair style:", "Character Preference")  as null|anything in hair_styles_list
 						if(new_hair_style)
 							hair_style = new_hair_style
 
 					if("next_hair_style")
-						if (gender == MALE)
-							hair_style = next_list_item(hair_style, hair_styles_male_list)
-						else
-							hair_style = next_list_item(hair_style, hair_styles_female_list)
+						hair_style = next_list_item(hair_style, hair_styles_list)
 
 					if("previous_hair_style")
-						if (gender == MALE)
-							hair_style = previous_list_item(hair_style, hair_styles_male_list)
-						else
-							hair_style = previous_list_item(hair_style, hair_styles_female_list)
+						hair_style = previous_list_item(hair_style, hair_styles_list)
 
 					if("facial")
 						var/new_facial = input(user, "Choose your character's facial-hair colour:", "Character Preference") as null|color
@@ -631,24 +647,15 @@ datum/preferences
 
 					if("facial_hair_style")
 						var/new_facial_hair_style
-						if(gender == MALE)
-							new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in facial_hair_styles_male_list
-						else
-							new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in facial_hair_styles_female_list
+						new_facial_hair_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in facial_hair_styles_list
 						if(new_facial_hair_style)
 							facial_hair_style = new_facial_hair_style
 
 					if("next_facehair_style")
-						if (gender == MALE)
-							facial_hair_style = next_list_item(facial_hair_style, facial_hair_styles_male_list)
-						else
-							facial_hair_style = next_list_item(facial_hair_style, facial_hair_styles_female_list)
+						facial_hair_style = next_list_item(facial_hair_style, facial_hair_styles_list)
 
 					if("previous_facehair_style")
-						if (gender == MALE)
-							facial_hair_style = previous_list_item(facial_hair_style, facial_hair_styles_male_list)
-						else
-							facial_hair_style = previous_list_item(facial_hair_style, facial_hair_styles_female_list)
+						facial_hair_style = previous_list_item(facial_hair_style, facial_hair_styles_list)
 
 					if("underwear")
 						var/new_underwear
@@ -686,7 +693,18 @@ datum/preferences
 						var/new_mutant_race = input(user, "Choose your character's mutant race:", "Character Preference")  as null|anything in mutant_races
 						if(new_mutant_race)
 							mutant_race = new_mutant_race
-
+					if("set_prefer_dept")
+						switch(prefer_dept)
+							if("None")
+								prefer_dept = "Engineering"
+							if("Engineering")
+								prefer_dept = "Medical"
+							if("Medical")
+								prefer_dept = "Science"
+							if("Science")
+								prefer_dept = "Supply"
+							if("Supply")
+								prefer_dept = "None"
 					if("s_tone")
 						var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in skin_tones
 						if(new_s_tone)
@@ -701,6 +719,26 @@ datum/preferences
 						var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference")  as null|anything in backbaglist
 						if(new_backbag)
 							backbag = backbaglist.Find(new_backbag)
+
+					if("faction")
+						var/list/factions = list()
+						factions = GetFactionList()
+
+						var/can_change = user.client.GetFactionJoinDifference()
+						if(can_change != -1)
+							if(can_change >= config.faction_change_delay)
+								can_change = 1
+							else
+								can_change = 0
+						else
+							can_change = 1
+
+						if(can_change)
+							var/new_faction = input(user, "Choose your new faction:", "Game Preference") as null|anything in factions - user.client.GetCurrentFaction() + "None"
+							if(new_faction)
+								user.client.UpdateFaction(new_faction)
+
+
 			else
 				switch(href_list["preference"])
 					if("publicity")
@@ -719,15 +757,6 @@ datum/preferences
 
 					if("hear_adminhelps")
 						toggles ^= SOUND_ADMINHELP
-
-					if("ui")
-						switch(UI_style)
-							if("Midnight")
-								UI_style = "Plasmafire"
-							if("Plasmafire")
-								UI_style = "Retro"
-							else
-								UI_style = "Midnight"
 
 					if("be_special")
 						var/num = text2num(href_list["num"])
@@ -753,6 +782,14 @@ datum/preferences
 						toggles ^= CHAT_GHOSTSIGHT
 					if("pull_requests")
 						toggles ^= CHAT_PULLR
+					if("ui")
+						switch(UI_style)
+							if("Midnight")
+								UI_style = "Plasmafire"
+							if("Plasmafire")
+								UI_style = "Retro"
+							else
+								UI_style = "Midnight"
 					if("save")
 						save_preferences()
 						save_character()

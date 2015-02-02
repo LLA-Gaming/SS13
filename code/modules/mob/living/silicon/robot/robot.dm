@@ -480,7 +480,7 @@
 		else
 			user << "Unable to locate a radio."
 
-	else if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
+	else if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/thinktronic/tablet))			// trying to unlock the interface with an ID card
 		if(emagged)//still allow them to open the cover
 			user << "The interface seems slightly damaged"
 		if(opened)
@@ -614,6 +614,7 @@
 					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 
 		if ("harm")
+			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if (prob(90))
 				/*
@@ -638,6 +639,7 @@
 						O.show_message(text("\red <B>[] took a swipe at []!</B>", M, src), 1)
 
 		if ("disarm")
+			M.do_attack_animation(src)
 			if(!(lying))
 				if (rand(1,100) <= 85)
 					Stun(7)
@@ -664,7 +666,7 @@
 	if(M.Victim) return // can't attack while eating!
 
 	if (health > -100)
-
+		M.do_attack_animation(src)
 		for(var/mob/O in viewers(src, null))
 			if ((O.client && !( O.blinded )))
 				O.show_message(text("\red <B>The [M.name] glomps []!</B>", src), 1)
@@ -718,6 +720,7 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
+		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))

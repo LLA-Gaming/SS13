@@ -992,7 +992,10 @@
 		var/obj/structure/closet/secure_closet/brig/locker = new /obj/structure/closet/secure_closet/brig(prison_cell)
 		locker.opened = 0
 		locker.locked = 1
-
+		locker.id = "prison-[M.ckey]"
+		//remove everything from the locker before loading it up
+		for(var/obj/item/C in locker)
+			qdel(C)
 		//strip their stuff and stick it in the crate
 		for(var/obj/item/I in M)
 			M.unEquip(I)
@@ -2014,6 +2017,11 @@
 				for(var/sig in lastsignalers)
 					dat += "[sig]<BR>"
 				usr << browse(dat, "window=lastsignalers;size=800x500")
+			if("crime_logs")
+				var/dat = "<B>Crime Logs.</B><HR>"
+				for(var/law in crimelogs)
+					dat += "[law]<BR>"
+				usr << browse(dat, "window=crimelogs;size=800x500")
 			if("list_lawchanges")
 				var/dat = "<B>Showing last [length(lawchanges)] law changes.</B><HR>"
 				for(var/sig in lawchanges)

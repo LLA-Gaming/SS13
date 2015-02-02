@@ -11,11 +11,11 @@ Captain
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials and Space law"
 	selection_color = "#ccccff"
-	req_admin_notify = 1
+	req_spacelaw_notify = 1
 	minimal_player_age = 14
 
 	default_id = /obj/item/weapon/card/id/gold
-	default_pda = /obj/item/device/pda/captain
+	default_pda = /obj/item/device/thinktronic/tablet/captain
 	default_headset = /obj/item/device/radio/headset/heads/captain
 	default_backpack = /obj/item/weapon/storage/backpack/captain
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_cap
@@ -37,6 +37,7 @@ Captain
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/ids(H), slot_l_hand)
 	else
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/ids(H.back), slot_in_backpack)
+		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 	//Implant him
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
@@ -61,11 +62,11 @@ Head of Personnel
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ddddff"
-	req_admin_notify = 1
+	req_spacelaw_notify = 1
 	minimal_player_age = 10
 
 	default_id = /obj/item/weapon/card/id/silver
-	default_pda = /obj/item/device/pda/heads/hop
+	default_pda = /obj/item/device/thinktronic/tablet/hop
 	default_headset = /obj/item/device/radio/headset/heads/hop
 
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,

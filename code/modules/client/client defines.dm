@@ -4,7 +4,7 @@
 		////////////////
 	var/datum/admins/holder = null
 	var/buildmode		= 0
-
+	var/admintoggles = 1
 	var/last_message	= "" //Contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message_count = 0 //contins a number of how many times a message identical to last_message was sent.
 
@@ -37,5 +37,6 @@
 	var/player_age = "Requires database"	//So admins know why it isn't working - Used to determine how old the account is - in days.
 	var/related_accounts_ip = "Requires database"	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
 	var/related_accounts_cid = "Requires database"	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
+	var/alt_count = 0
 
 	preload_rsc = PRELOAD_RSC

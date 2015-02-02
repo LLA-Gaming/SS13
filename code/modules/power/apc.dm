@@ -461,7 +461,7 @@
 			user << "The wires have been [wiresexposed ? "exposed" : "unexposed"]"
 			update_icon()
 
-	else if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))			// trying to unlock the interface with an ID card
+	else if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/thinktronic/tablet))			// trying to unlock the interface with an ID card
 		if(emagged)
 			user << "The interface is broken."
 		else if(opened)
@@ -643,6 +643,7 @@
 /obj/machinery/power/apc/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(!user)
 		return
+	user.do_attack_animation(src)
 	user.visible_message("\red [user.name] slashes at the [src.name]!", "\blue You slash at the [src.name]!")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
 

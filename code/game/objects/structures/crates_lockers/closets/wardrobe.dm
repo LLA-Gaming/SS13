@@ -29,6 +29,9 @@
 	new /obj/item/clothing/mask/bandana/red(src)
 	new /obj/item/clothing/mask/bandana/red(src)
 	new /obj/item/clothing/mask/bandana/red(src)
+	new /obj/item/clothing/head/beret/sec(src)
+	new /obj/item/clothing/head/beret/sec(src)
+	new /obj/item/clothing/head/beret/sec(src)
 	if(prob(30))
 		new /obj/item/clothing/suit/armor/vest/jacket(src)
 	if(prob(30))
@@ -46,9 +49,6 @@
 	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/clothing/head/soft/sec(src)
-	new /obj/item/clothing/head/beret/sec(src)
-	new /obj/item/clothing/head/beret/sec(src)
-	new /obj/item/clothing/head/beret/sec(src)
 	return
 
 /obj/structure/closet/wardrobe/hos
@@ -60,6 +60,7 @@
 	new /obj/item/clothing/suit/labcoat/coat/security(src)
 	new /obj/item/clothing/under/camo(src)
 	new /obj/item/clothing/suit/armor/vest/jacket(src)
+	new /obj/item/clothing/head/beret/sec(src)
 	new /obj/item/clothing/under/hosformalfem(src)
 	new /obj/item/clothing/under/hosformalmale(src)
 	new /obj/item/clothing/under/rank/head_of_security/jensen(src)

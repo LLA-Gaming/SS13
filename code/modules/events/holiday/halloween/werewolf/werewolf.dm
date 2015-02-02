@@ -147,12 +147,10 @@
 
 		..()
 
-		breathe()
+		if(stat != 2)
+			breathe()
 
-		handle_chemicals_in_body()
-
-		handle_regular_status_updates()
-		update_canmove()
+			handle_chemicals_in_body()
 
 		var/datum/gas_mixture/environment
 		if(loc)
@@ -163,6 +161,9 @@
 
 		if(client)
 			handle_regular_hud_updates()
+
+		handle_regular_status_updates()
+		update_canmove()
 
 		if(stat == 0)
 			if(world.time > lastTransformation + ((transformationCooldownMinimum * 60) * 10))
@@ -330,6 +331,7 @@
 					src << "<div class='info'>You feed from [M].</div>"
 					T.visible_message("<div class='warning'>[src] fed from [M].</div>")
 
+				/*
 				// Devour instead, if they're already dead.
 
 				else
@@ -341,6 +343,7 @@
 					else
 						new /obj/effect/decal/remains/human(get_turf(M))
 					qdel(M)
+				*/
 
 	Stat()
 		..()
@@ -360,6 +363,9 @@
 	verb/Howl()
 		set category = "Werewolf"
 		set name = "Howl"
+
+		if(stat != 0)
+			return
 
 		if(world.time < lastHowl + ((howlCooldown*10)))
 			src << "<div class='warning'>You can't do that yet!</div>"

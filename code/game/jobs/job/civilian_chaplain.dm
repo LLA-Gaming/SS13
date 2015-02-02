@@ -13,7 +13,7 @@ Chaplain
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
-	default_pda = /obj/item/device/pda/chaplain
+	default_pda = /obj/item/device/thinktronic/tablet/chaplain
 
 	access = list(access_morgue, access_chapel_office, access_crematorium, access_maint_tunnels)
 	minimal_access = list(access_morgue, access_chapel_office, access_crematorium)

@@ -209,6 +209,7 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
+		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
@@ -226,6 +227,7 @@
 	if(M.Victim) return // can't attack while eating!
 
 	if (health > -100)
+		M.do_attack_animation(src)
 
 		for(var/mob/O in viewers(src, null))
 			if ((O.client && !( O.blinded )))
@@ -385,6 +387,50 @@
 
 
 /mob/living/carbon/human/Topic(href, href_list)
+
+	/////I put this above the (canUseproc()) because it was causing conflicts // ~ Flavo
+	if(href_list["criminal"])
+		if(istype(usr, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = usr
+			if(istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(H.glasses, /obj/item/clothing/glasses/hud/security/sunglasses))
+				if(usr.stat || usr == src) //|| !usr.canmove || usr.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
+					return													  //Non-fluff: This allows sec to set people to arrest as they get disarmed or beaten
+				// Checks the user has security clearence before allowing them to change arrest status via hud, comment out to enable all access
+				var/allowed_access = 0
+				var/obj/item/clothing/glasses/G = H.glasses
+				if (!G.emagged)
+					if(H.wear_id)
+						var/list/access = H.wear_id.GetAccess()
+						if(access_sec_doors in access)
+							allowed_access = 1
+				else
+					allowed_access = 1
+
+
+				if(!allowed_access)
+					H << "<span class='warning'>ERROR: Invalid Access</span>"
+					return
+
+
+				var/modified = 0
+				var/perpname = get_face_name(get_id_name(""))
+				if(perpname)
+					var/datum/data/record/R = find_record("name", perpname, data_core.security)
+					if(R)
+						var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
+						if(R)
+							if(istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(H.glasses, /obj/item/clothing/glasses/hud/security/sunglasses))
+								if(setcriminal != "Cancel")
+									R.fields["criminal"] = setcriminal
+									modified = 1
+									for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+										MS.SendAlert("[R.fields["name"]] has been set to [R.fields["criminal"]]","Security Records", 1)
+
+									spawn()
+										H.handle_regular_hud_updates()
+
+				if(!modified)
+					usr << "\red Unable to locate a data core entry for this person."
 	if(usr.canUseTopic(src))
 		if(href_list["item"])
 			var/slot = text2num(href_list["item"])
@@ -426,48 +472,6 @@
 
 		..()
 		return
-
-
-	if(href_list["criminal"])
-		if(istype(usr, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = usr
-			if(istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(H.glasses, /obj/item/clothing/glasses/hud/security/sunglasses))
-				if(usr.stat || usr == src) //|| !usr.canmove || usr.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
-					return													  //Non-fluff: This allows sec to set people to arrest as they get disarmed or beaten
-				// Checks the user has security clearence before allowing them to change arrest status via hud, comment out to enable all access
-				var/allowed_access = 0
-				var/obj/item/clothing/glasses/G = H.glasses
-				if (!G.emagged)
-					if(H.wear_id)
-						var/list/access = H.wear_id.GetAccess()
-						if(access_sec_doors in access)
-							allowed_access = 1
-				else
-					allowed_access = 1
-
-
-				if(!allowed_access)
-					H << "<span class='warning'>ERROR: Invalid Access</span>"
-					return
-
-
-				var/modified = 0
-				var/perpname = get_face_name(get_id_name(""))
-				if(perpname)
-					var/datum/data/record/R = find_record("name", perpname, data_core.security)
-					if(R)
-						var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
-						if(R)
-							if(istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(H.glasses, /obj/item/clothing/glasses/hud/security/sunglasses))
-								if(setcriminal != "Cancel")
-									R.fields["criminal"] = setcriminal
-									modified = 1
-
-									spawn()
-										H.handle_regular_hud_updates()
-
-				if(!modified)
-					usr << "\red Unable to locate a data core entry for this person."
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)

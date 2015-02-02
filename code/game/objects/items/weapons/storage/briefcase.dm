@@ -19,3 +19,4 @@
 	new /obj/item/weapon/paper(src)
 	new /obj/item/weapon/paper(src)
 	new /obj/item/weapon/pen(src)
+

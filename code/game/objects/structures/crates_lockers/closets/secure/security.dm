@@ -21,7 +21,7 @@
 		new /obj/item/clothing/head/helmet/cap(src)
 		new /obj/item/clothing/under/rank/captain(src)
 		new /obj/item/clothing/suit/armor/vest/capcarapace(src)
-		new /obj/item/weapon/cartridge/captain(src)
+		new /obj/item/device/thinktronic_parts/expansioncarts/captain(src)
 		new /obj/item/clothing/head/helmet/swat(src)
 		new /obj/item/clothing/shoes/sneakers/brown(src)
 		new /obj/item/device/radio/headset/heads/captain(src)
@@ -45,7 +45,7 @@
 		sleep(2)
 		new /obj/item/clothing/under/rank/head_of_personnel(src)
 		new /obj/item/clothing/head/hopcap(src)
-		new /obj/item/weapon/cartridge/hop(src)
+		new /obj/item/device/thinktronic_parts/expansioncarts/hop(src)
 		new /obj/item/device/radio/headset/heads/hop(src)
 		new /obj/item/clothing/shoes/sneakers/brown(src)
 		new /obj/item/weapon/storage/box/ids(src)
@@ -77,7 +77,7 @@
 		new /obj/item/clothing/head/helmet/HoS/dermal(src)
 		new /obj/item/clothing/glasses/hud/security/supergars(src)
 		new /obj/item/device/radio/headset/heads/hos_alt(src)
-		new /obj/item/weapon/cartridge/hos(src)
+		new /obj/item/device/thinktronic_parts/expansioncarts/hos(src)
 		new /obj/item/weapon/contraband/poster/legit(src)
 		new /obj/item/weapon/storage/lockbox/loyalty(src)
 		new /obj/item/weapon/shield/riot(src)
@@ -113,6 +113,7 @@
 			new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/clothing/under/rank/warden(src)
+		new /obj/item/clothing/head/beret/sec(src)
 		new /obj/item/clothing/suit/armor/vest/warden(src)
 		new /obj/item/clothing/head/helmet/warden(src)
 		new /obj/item/weapon/contraband/poster/legit(src)
@@ -127,7 +128,6 @@
 		new /obj/item/weapon/storage/box/flashbangs(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
 		new /obj/item/weapon/melee/baton/loaded(src)
-		new /obj/item/weapon/gun/energy/taser(src)
 		new /obj/item/weapon/storage/belt/security(src)
 		new /obj/item/weapon/clipboard(src)
 		return
@@ -149,18 +149,13 @@
 		sleep(2)
 
 		new /obj/item/clothing/suit/labcoat/coat/security(src)
-		new /obj/item/clothing/suit/armor/vest(src)
-		new /obj/item/clothing/head/helmet(src)
+		new /obj/item/clothing/head/beret/sec(src)
 		new /obj/item/weapon/contraband/poster/legit(src)
 		new /obj/item/device/radio/headset/headset_sec_alt(src)
 		new /obj/item/clothing/mask/gas/sechailer(src)
 		//new /obj/item/taperoll/security(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
-		new /obj/item/weapon/grenade/flashbang(src)
-		new /obj/item/weapon/gun/energy/taser(src)
-		new /obj/item/weapon/storage/belt/security(src)
-		new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 		return
 
 
@@ -168,6 +163,12 @@
 
 	New()
 		new /obj/item/weapon/melee/baton/loaded(src)
+		new /obj/item/clothing/glasses/hud/security/sunglasses(src)
+		new /obj/item/weapon/gun/energy/taser/adv(src)
+		new /obj/item/weapon/grenade/flashbang(src)
+		new /obj/item/clothing/head/helmet(src)
+		new /obj/item/clothing/suit/armor/vest(src)
+		new /obj/item/weapon/storage/belt/security(src)
 		..()
 		return
 

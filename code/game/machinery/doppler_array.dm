@@ -78,6 +78,12 @@ var/list/doppler_arrays = list()
 		for(var/message in messages)
 			O.show_message("<span class='game say'><span class='name'>[src]</span> states coldly, \"[message]\"",2)
 
+	for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+		if(devastation_range < orig_dev_range || heavy_impact_range < orig_heavy_range || light_impact_range < orig_light_range)
+			MS.SendAlert("Bomb Results - Epicenter:([x0],[y0]). Temporal displacement of tachyons: [took] seconds. -  Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range]. - Theoretical: Epicenter radius: [orig_dev_range]. Outer radius: [orig_heavy_range]. Shockwave radius: [orig_light_range].","Research Monitor", 1)
+		else
+			MS.SendAlert("Bomb Results - Epicenter:([x0],[y0]). Temporal displacement of tachyons: [took] seconds. -  Factual: Epicenter radius: [devastation_range]. Outer radius: [heavy_impact_range]. Shockwave radius: [light_impact_range].","Research Monitor", 1)
+
 
 /obj/machinery/doppler_array/power_change()
 	if(stat & BROKEN)

@@ -35,10 +35,14 @@
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
-/client/proc/cmd_admin_pm(whom, msg)
+/client/proc/cmd_admin_pm(whom, msg, var/admin_conversation)
 	if(prefs.muted & MUTE_ADMINHELP)
 		src << "<font color='red'>Error: Admin-PM: You are unable to use admin PM-s (muted).</font>"
 		return
+
+	var/datum/admin_conversation/convo
+	if(admin_conversation)
+		convo = locate(admin_conversation)
 
 	var/client/C
 	if(istext(whom))
@@ -73,16 +77,29 @@
 		if(!msg)	return
 
 	if(C.holder)
-		var/shown_to_receiver = "<font color='red'>Reply PM from-<b>[key_name(src, C, 1)]</b>: [msg]</font>"
+		var/shown_to_receiver = "<font color='red'>Reply PM from-<b>[key_name(src, C, 1, admin_conversation)]</b>: [msg]</font>"
 		var/shown_to_sender = ""
+
+		if(convo)
+			convo.LogReply(src.ckey, C.ckey, msg)
+
 		if(holder)	//both are admins
-			shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
+			if(convo)
+				if(convo.IsAdminParticipating())
+					convo.participants += list("add_admin", src.ckey)
+				else
+					convo.SetAdminParticipant(src.ckey)
+			if(admin_conversation)
+				shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1, admin_conversation)]</b>: [msg]</font>"
+			else
+				shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
 		else		//recipient is an admin but sender is not
 			shown_to_sender = "<font color='blue'>PM to-<b>Admins</b>: [msg]</font>"
-
-		C << shown_to_receiver
+		if(C.admintoggles)
+			C << shown_to_receiver
 		C.send_text_to_tab(shown_to_receiver, "ahelp")
-		src << shown_to_sender
+		if(src.admintoggles)
+			src << shown_to_sender
 		src.send_text_to_tab(shown_to_sender, "ahelp")
 
 		//play the recieving admin the adminhelp sound (if they have them enabled)
@@ -93,17 +110,25 @@
 		if(holder)	//sender is an admin but recipient is not. Do BIG RED TEXT
 			var/shown_to_receiver = {"
 			<font color='red' size='4'><b>-- Administrator private message --</b></font>
-			<BR><font color='red'>Admin PM from-<b>[key_name(src, C, 0)]</b>: [msg]</font>
+			<BR><font color='red'>Admin PM from-<b>[key_name(src, C, 0, admin_conversation)]</b>: [msg]</font>
 			<BR><font color='red'><i>Click on the administrator's name to reply.</i></font>
 			"}
 
-			var/shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1)]</b>: [msg]</font>"
+			var/shown_to_sender = "<font color='blue'>Admin PM to-<b>[key_name(C, src, 1, admin_conversation)]</b>: [msg]</font>"
+
+			if(convo)
+				convo.LogReply(src.ckey, C.ckey, msg)
+				if(convo.IsAdminParticipating())
+					convo.participants += list("add_admin", src.ckey)
+				else
+					convo.SetAdminParticipant(src.ckey)
 
 			C << shown_to_receiver
 			C.send_text_to_tab(shown_to_receiver, "ahelp")
 			C.send_text_to_tab(shown_to_receiver, "ic")
 			C.send_text_to_tab(shown_to_receiver, "ooc")
-			src << shown_to_sender
+			if(src.admintoggles)
+				src << shown_to_sender
 			src.send_text_to_tab(shown_to_sender, "ahelp")
 
 			//always play non-admin recipients the adminhelp sound
@@ -132,7 +157,7 @@
 	for(var/client/X in admins)
 		if(X.key!=key && X.key!=C.key)	//check client/X is an admin and isn't the sender or recipient
 			var/to_other_admins = "<B><font color='blue'>PM: [key_name(src, X, 0)]-&gt;[key_name(C, X, 0)]:</B> \blue [msg]</font>" //inform X
-
-			X << to_other_admins
+			if(X.admintoggles)
+				X << to_other_admins
 			spawn(1)
 				X.send_text_to_tab(to_other_admins, "ahelp")

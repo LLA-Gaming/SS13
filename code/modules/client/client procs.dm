@@ -31,7 +31,10 @@
 
 	//Admin PM
 	if(href_list["priv_msg"])
-		cmd_admin_pm(href_list["priv_msg"],null)
+		if(href_list["conversation"])
+			cmd_admin_pm(href_list["priv_msg"], null, href_list["conversation"])
+		else
+			cmd_admin_pm(href_list["priv_msg"], null)
 		return
 
 	//Logs all hrefs
@@ -179,17 +182,18 @@ var/next_external_rsc = 0
 
 	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE ip = '[address]'")
 	query_ip.Execute()
+	alt_count = 0
 	related_accounts_ip = ""
 	while(query_ip.NextRow())
 		related_accounts_ip += "[query_ip.item[1]], "
-		break
+		alt_count += 1
 
 	var/DBQuery/query_cid = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE computerid = '[computer_id]'")
 	query_cid.Execute()
 	related_accounts_cid = ""
 	while(query_cid.NextRow())
 		related_accounts_cid += "[query_cid.item[1]], "
-		break
+		alt_count += 1
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)

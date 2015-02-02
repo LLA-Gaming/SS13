@@ -439,8 +439,9 @@
 	return src.attack_hand(user)
 
 
-/obj/mecha/attack_alien(mob/user as mob)
+/obj/mecha/attack_alien(mob/living/user as mob)
 	src.log_message("Attack by alien. Attacker - [user].",1)
+	user.do_attack_animation(src)
 	if(!prob(src.deflect_chance))
 		src.take_damage(15)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
@@ -457,6 +458,7 @@
 
 
 /obj/mecha/attack_animal(mob/living/simple_animal/user as mob)
+	user.do_attack_animation(src)
 	src.log_message("Attack by simple animal. Attacker - [user].",1)
 	if(user.melee_damage_upper == 0)
 		user.emote("[user.friendly] [src]")
@@ -640,6 +642,7 @@
 	src.log_message("Attacked by [W]. Attacker - [user]")
 	if(prob(src.deflect_chance))
 		user << "\red The [W] bounces off [src.name] armor."
+		user.changeNext_move(9)
 		src.log_append_to_last("Armor saved.")
 /*
 		for (var/mob/V in viewers(src))
@@ -648,6 +651,7 @@
 */
 	else
 		src.occupant_message("<font color='red'><b>[user] hits [src] with [W].</b></font>")
+		user.changeNext_move(9)
 		user.visible_message("<font color='red'><b>[user] hits [src] with [W].</b></font>", "<font color='red'><b>You hit [src] with [W].</b></font>")
 		src.take_damage(W.force,W.damtype)
 		src.check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
@@ -676,14 +680,14 @@
 			else
 				user << "You were unable to attach [W] to [src]"
 		return
-	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
+	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/thinktronic/tablet))
 		if(add_req_access || maint_access)
 			if(internals_access_allowed(usr))
 				var/obj/item/weapon/card/id/id_card
 				if(istype(W, /obj/item/weapon/card/id))
 					id_card = W
 				else
-					var/obj/item/device/pda/pda = W
+					var/obj/item/device/thinktronic/tablet/pda = W
 					id_card = pda.id
 				output_maintenance_dialog(id_card, user)
 				return
@@ -1187,8 +1191,8 @@
 		return 1
 	if(!access_list.len) //no requirements
 		return 1
-	if(istype(I, /obj/item/device/pda))
-		var/obj/item/device/pda/pda = I
+	if(istype(I, /obj/item/device/thinktronic/tablet))
+		var/obj/item/device/thinktronic/tablet/pda = I
 		I = pda.id
 	if(!istype(I) || !I.access) //not ID or no access
 		return 0

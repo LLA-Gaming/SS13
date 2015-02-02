@@ -2,14 +2,25 @@
 * All weapon related code goes here.
 */
 
-#define EP_STUNTIME_SINGLE 2
-#define EP_STUNTIME_AOE 3
+/*
+* Variables
+*/
+var/const/EP_STUNTIME_SINGLE = 1
+var/const/EP_STUNTIME_AOE = 1
 
-#define SKNIFE_STUNTIME 7.5
+var/const/IS_EP_SINGLE_STACKING = 1
+var/const/IS_EP_AOE_STACKING = 1
 
-#define USE_SKNIFE_CHARGES 0
-#define SKNIFE_CHARGE_COST 200
-#define SKNIFE_CHARGE_INTERVAL 50
+var/const/EP_MAX_SINGLE_STACK = 7
+var/const/EP_MAX_AOE_STACK = 7
+
+var/const/SKNIFE_STUNTIME = 6
+var/const/SKNIFE_CHARGE_COST = 125 // floor(1000 / n) = # of hits, 1000 / # of hits = cost
+
+var/const/USE_SKNIFE_CHARGES = 1
+var/const/SKNIFE_IS_AUTO_RECHARGING = 0
+var/const/SKNIFE_CHARGE_INTERVAL = 50
+var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 
 //Type of implant needed to shoot the gun.
 /obj/item/weapon/gun/var/locked
@@ -55,6 +66,35 @@
 	damage_type = BURN
 	flag = "energy"
 
+	on_hit(var/atom/target, var/blocked = 0)
+		if(!isliving(target))	return 0
+		if(isanimal(target))	return 0
+		var/mob/living/L = target
+
+		if(blocked >= 2)
+			var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread()
+			sparks.set_up(1, 1, src)
+			sparks.start()
+			return
+
+		if(IS_EP_SINGLE_STACKING)
+			var/max = EP_MAX_SINGLE_STACK ? EP_MAX_SINGLE_STACK : INFINITY
+
+			if((L.stunned + stun) > max)	L.SetStunned(max)
+			else							L.AdjustStunned(stun)
+
+			if((L.weakened + weaken) > max)	L.SetWeakened(max)
+			else							L.AdjustWeakened(weaken)
+
+			if((L.stuttering + stutter) > max)	L.stuttering = max
+			else								L.stuttering += stutter
+
+			L.updatehealth()
+			L.update_canmove()
+
+		else
+			L.apply_effects(stun, weaken, 0, 0, stutter)
+
 /obj/item/projectile/energy/ep90_aoe
 	name = "energy"
 	icon_state = "ep90"
@@ -76,6 +116,13 @@
 		for(var/turf/T in range(1, target))
 			new /obj/effect/effect/sparks(get_turf(T))
 			for(var/mob/living/M in T)
+				if(IS_EP_AOE_STACKING)
+					if((M.weakened + weaken) > EP_MAX_AOE_STACK)
+						M.SetWeakened(EP_MAX_AOE_STACK)
+					else
+						M.AdjustWeakened(weaken)
+					M.updatehealth()
+					continue
 				M.SetWeakened(EP_STUNTIME_AOE)
 
 /obj/item/ammo_casing/energy/ep90_single
@@ -87,7 +134,7 @@
 /obj/item/ammo_casing/energy/ep90_aoe
 	select_name = "area-of-effect fire"
 	projectile_type = /obj/item/projectile/energy/ep90_aoe
-	e_cost = 125
+	e_cost = 180
 	fire_sound = 'sound/weapons/ep90.ogg'
 
 /obj/item/ammo_casing/energy/ep90_burst_3
@@ -251,7 +298,8 @@
 		..()
 		if(USE_SKNIFE_CHARGES)
 			power_supply = new()
-			processing_objects.Add(src)
+			if(SKNIFE_IS_AUTO_RECHARGING)
+				processing_objects.Add(src)
 		update_icon()
 
 	examine()
@@ -259,15 +307,16 @@
 		usr << "<div class='notice'>The charge indicator reads: [power_supply.percent()]% charge left.</div>"
 
 	process()
-		if(SKNIFE_CHARGE_INTERVAL < world.time - lastCharge)
+		if((SKNIFE_CHARGE_INTERVAL < world.time - lastCharge) && SKNIFE_IS_AUTO_RECHARGING)
 			power_supply.give(SKNIFE_CHARGE_COST)
 			lastCharge = world.time
 
 	attack(var/mob/living/M, var/mob/living/user)
 		if(USE_SKNIFE_CHARGES)
-			if(power_supply.charge - SKNIFE_CHARGE_COST < 0)
-				user << "<div class='warning'>Out of charge.</div>"
-				return
+			if(mode == 1 || SKNIFE_LETHAL_USE_CHARGE)
+				if(power_supply.charge - SKNIFE_CHARGE_COST < 0)
+					user << "<div class='warning'>Out of charge.</div>"
+					return
 		if(locked)
 			if(!user.check_contents_for(locked))
 				var/datum/effect/effect/system/spark_spread/S = new/datum/effect/effect/system/spark_spread(get_turf(src))
@@ -278,20 +327,26 @@
 				return
 		add_fingerprint(user)
 		if(USE_SKNIFE_CHARGES)
-			power_supply.use(SKNIFE_CHARGE_COST)
+			if(mode == 1 || SKNIFE_LETHAL_USE_CHARGE)
+				power_supply.use(SKNIFE_CHARGE_COST)
+		user.do_attack_animation(M)
 		switch(mode)
 			if(1)
+				if(isrobot(M))
+					return
 				M.SetStunned(SKNIFE_STUNTIME)
 				M.SetWeakened(SKNIFE_STUNTIME)
 				M.stuttering = SKNIFE_STUNTIME
 				M.lastattacker = user
 				var/turf/T = get_turf(M)
 				T.visible_message("\red [M] has been stunned by [user] with \the [src]")
+				add_logs(user, M, "stunned", object=src.name, addition=" (DAMAGE: [src.force]) (REMHP: [M.health - src.force]) (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
 			if(0)
 				M.apply_damage(force, BRUTE)
 				M.lastattacker = user
 				var/turf/T = get_turf(M)
 				T.visible_message("\red [M] has been attacked by [user] with \the [src]")
+				add_logs(user, M, "stabbed", object=src.name, addition=" (DAMAGE: [src.force]) (REMHP: [M.health - src.force]) (INTENT: [uppertext(user.a_intent)]) (DAMTYE: [uppertext(damtype)])")
 
 	attack_self(var/mob/user)
 		..()
@@ -299,12 +354,3 @@
 		user << "<div class='notice'>The [src] is now set to [mode ? "stun" : "lethal"].</div>"
 		force = mode == 0 ? 17 : 1
 		update_icon()
-
-
-#undef EP_STUNTIME_SINGLE
-#undef EP_STUNTIME_AOE
-
-#undef SKNIFE_STUNTIME
-#undef SKNIFE_CHARGE_COST
-#undef SKNIFE_CHARGE_INTERVAL
-#undef USE_SKNIFE_CHARGES

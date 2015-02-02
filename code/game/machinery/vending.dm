@@ -542,7 +542,7 @@
 
 /obj/machinery/vending/assist
 	products = list(	/obj/item/device/assembly/prox_sensor = 5,/obj/item/device/assembly/igniter = 3,/obj/item/device/assembly/signaler = 4,
-						/obj/item/weapon/wirecutters = 1, /obj/item/weapon/cartridge/signal = 4)
+						/obj/item/weapon/wirecutters = 1, /obj/item/device/thinktronic_parts/expansioncarts/signal = 4)
 	contraband = list(/obj/item/device/flashlight = 5,/obj/item/device/assembly/timer = 2, /obj/item/device/assembly/voice = 2)
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
 
@@ -627,16 +627,15 @@
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 	component_parts += new /obj/item/weapon/vending_refill/cola(0)
 
-//This one's from bay12
 /obj/machinery/vending/cart
-	name = "\improper PTech"
-	desc = "Cartridges for PDAs"
-	product_slogans = "Carts to go!"
+	name = "\improper Thinktronic Vendor"
+	desc = "Cartridges for Tablets and Laptops"
+	product_slogans = "Apps to go!"
 	icon_state = "cart"
 	icon_deny = "cart-deny"
-	products = list(/obj/item/weapon/cartridge/medical = 10,/obj/item/weapon/cartridge/engineering = 10,/obj/item/weapon/cartridge/security = 10,
-					/obj/item/weapon/cartridge/janitor = 10,/obj/item/weapon/cartridge/signal/toxins = 10,/obj/item/device/pda/heads = 10,
-					/obj/item/weapon/cartridge/captain = 3,/obj/item/weapon/cartridge/quartermaster = 10)
+	products = list(/obj/item/device/thinktronic_parts/expansioncarts/medical = 10,/obj/item/device/thinktronic_parts/expansioncarts/engineering = 10,/obj/item/device/thinktronic_parts/expansioncarts/security = 10,
+					/obj/item/device/thinktronic_parts/expansioncarts/janitor = 10,/obj/item/device/thinktronic_parts/expansioncarts/toxins = 10,/obj/item/device/thinktronic/tablet/plain = 10,/obj/item/device/thinktronic/laptop/plain = 5,/obj/item/device/thinktronic_parts/core/ = 10,
+					/obj/item/device/thinktronic_parts/expansioncarts/captain = 1,/obj/item/device/thinktronic_parts/expansioncarts/quartermaster = 10)
 
 
 /obj/machinery/vending/cigarette
@@ -755,7 +754,7 @@
 	vend_delay = 15
 	vend_reply = "Have an enchanted evening!"
 	product_ads = "FJKLFJSD;AJKFLBJAKL;1234 LOONIES LOL!;>MFW;Kill them fuckers!;GET DAT FUKKEN DISK;HONK!;EI NATH;Destroy the station!;Admin conspiracies since forever!;Space-time bending hardware!"
-	products = list(/obj/item/clothing/head/wizard = 1,/obj/item/clothing/suit/wizrobe = 1,/obj/item/clothing/head/wizard/red = 1,/obj/item/clothing/suit/wizrobe/red = 1,/obj/item/clothing/shoes/sandal = 1,/obj/item/weapon/staff = 2)
+	products = list(/obj/item/clothing/head/wizard = 1,/obj/item/clothing/suit/wizrobe = 1,/obj/item/clothing/head/wizard/red = 1,/obj/item/clothing/suit/wizrobe/red = 1, /obj/item/clothing/mask/clown_magus = 1, /obj/item/clothing/suit/wizrobe/clown = 1, /obj/item/clothing/head/wizard/clown = 1,/obj/item/clothing/shoes/sandal = 1,/obj/item/weapon/staff = 2)
 	contraband = list(/obj/item/weapon/reagent_containers/glass/bottle/wizarditis = 1)	//No one can get to the machine to hack it anyways; for the lulz - Microwave
 
 /obj/machinery/vending/autodrobe
@@ -774,7 +773,7 @@
 					/obj/item/clothing/tie/waistcoat = 1,/obj/item/clothing/under/suit_jacket = 1,/obj/item/clothing/head/that =1,/obj/item/clothing/head/cueball = 1,
 					/obj/item/clothing/under/scratch = 1,/obj/item/clothing/under/kilt = 1,/obj/item/clothing/head/beret = 1,/obj/item/clothing/tie/waistcoat = 1,
 					/obj/item/clothing/glasses/monocle =1,/obj/item/clothing/head/bowler = 1,/obj/item/weapon/cane = 1,/obj/item/clothing/under/sl_suit = 1,
-					/obj/item/clothing/mask/fakemoustache = 1,/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,/obj/item/clothing/head/plaguedoctorhat = 1,
+					/obj/item/clothing/mask/fakemoustache = 1,/obj/item/clothing/mask/gas/plaguedoctor = 1,/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,/obj/item/clothing/head/plaguedoctorhat = 1,
 					/obj/item/clothing/under/owl = 1,/obj/item/clothing/mask/gas/owl_mask = 1,/obj/item/clothing/suit/apron = 1,/obj/item/clothing/under/waiter = 1,
 					/obj/item/clothing/under/pirate = 1,/obj/item/clothing/suit/pirate = 1,/obj/item/clothing/head/pirate = 1,/obj/item/clothing/head/bandana = 1,
 					/obj/item/clothing/head/bandana = 1,/obj/item/clothing/under/soviet = 1,/obj/item/clothing/head/ushanka = 1,/obj/item/clothing/suit/imperium_monk = 1,
@@ -784,8 +783,8 @@
 					/obj/item/clothing/under/sexyclown = 1,/obj/item/clothing/mask/gas/sexymime = 1,/obj/item/clothing/under/sexymime = 1,/obj/item/clothing/suit/apron/overalls = 1,
 					/obj/item/clothing/head/rabbitears =1, /obj/item/clothing/head/sombrero = 1, /obj/item/clothing/head/sombrero/green = 1, /obj/item/clothing/suit/poncho = 1,
 					/obj/item/clothing/suit/poncho/green = 1, /obj/item/clothing/suit/poncho/red = 1) //Pretty much everything that had a chance to spawn.
-	contraband = list(/obj/item/clothing/suit/cardborg = 1,/obj/item/clothing/head/cardborg = 1, /obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/weapon/gun/magic/wand = 1)
-	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/weapon/shield/riot/roman = 1)
+	contraband = list(/obj/item/clothing/head/soldier_hat = 1, /obj/item/clothing/under/soldier_uniform = 1, /obj/item/clothing/suit/webbing = 1,/obj/item/clothing/head/paddyhat = 1, /obj/item/clothing/under/vcuniform = 1, /obj/item/clothing/suit/chestrig = 1, /obj/item/clothing/suit/cardborg = 1,/obj/item/clothing/head/cardborg = 1, /obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/weapon/gun/magic/wand = 1)
+	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/weapon/shield/riot/roman = 1, /obj/item/clothing/head/batman = 1, /obj/item/clothing/under/batman = 1, /obj/item/clothing/gloves/batman = 1, /obj/item/clothing/mask/jason = 1, /obj/item/clothing/under/jason = 1, /obj/item/clothing/suit/jason = 1, /obj/item/clothing/suit/hallowings = 1, /obj/item/clothing/head/demonhorns = 1)
 	refill_canister = /obj/item/weapon/vending_refill/autodrobe
 
 /obj/machinery/vending/autodrobe/New()
@@ -810,7 +809,7 @@
 					/obj/item/clothing/under/suit_jacket/really_black = 3,/obj/item/clothing/under/jeans = 5,/obj/item/clothing/under/camo = 2,
 					/obj/item/clothing/tie/waistcoat = 3,/obj/item/clothing/under/sundress = 4,/obj/item/clothing/under/blacktango = 2,
 					/obj/item/clothing/head/maidbow = 1,/obj/item/clothing/under/janimaid = 1,/obj/item/clothing/suit/labcoat/coat/jacket/varsity = 3,/obj/item/clothing/suit/labcoat/coat/jacket = 5,
-					/obj/item/clothing/glasses/regular = 3,/obj/item/clothing/head/sombrero = 2,/obj/item/clothing/suit/poncho = 2,
+					/obj/item/clothing/glasses/regular = 3,/obj/item/clothing/head/sombrero = 2,/obj/item/clothing/suit/poncho = 2,/obj/item/clothing/head/paddyhat = 1,
 					/obj/item/clothing/shoes/laceup = 3,/obj/item/clothing/shoes/sneakers/black = 6, /obj/item/clothing/shoes/sandal = 2)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,/obj/item/clothing/mask/fawkes = 1,/obj/item/clothing/mask/balaclava = 1,/obj/item/clothing/head/ushanka = 1,/obj/item/clothing/under/soviet = 1,/obj/item/clothing/suit/cardborg = 1, /obj/item/clothing/head/cardborg = 1,/obj/item/clothing/glasses/hypno = 1)
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,/obj/item/clothing/head/mailman = 1,/obj/item/clothing/under/rank/mailman = 1,/obj/item/clothing/suit/labcoat/coat/jacket/leather = 1,/obj/item/clothing/suit/ianshirt = 1,/obj/item/clothing/glasses/sunglasses = 3, /obj/item/clothing/glasses/threed = 2, /obj/item/clothing/head/collectable/paper = 1, /obj/item/clothing/head/fedora = 2)

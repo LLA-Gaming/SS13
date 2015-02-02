@@ -24,7 +24,7 @@
 				return 0
 
 			if(cpr_time < world.time + 30)
-				add_logs(src, M, "CPRed")
+				add_logs(M, src, "CPRed")
 				visible_message("<span class='notice'>[M] is trying to perform CPR on [src]!</span>")
 				if(!do_mob(M, src))
 					return 0
@@ -59,7 +59,12 @@
 			return 1
 
 		if("harm")
-			add_logs(M, src, "punched")
+			var/damage = rand(0, 9)
+			M.do_attack_animation(src)
+			if (src.stat == DEAD)
+				add_logs(M, src, "punched", addition=" (DAMAGE: [damage]) (REMHP: DEAD)")
+			else
+				add_logs(M, src, "punched", addition=" (DAMAGE: [damage]) (REMHP: [src.health - damage])")
 
 			var/attack_verb = "punch"
 			if(lying)
@@ -71,7 +76,7 @@
 					if("plant")
 						attack_verb = "slash"
 
-			var/damage = rand(0, 9)
+
 			if(!damage)
 				switch(attack_verb)
 					if("slash")
@@ -109,6 +114,7 @@
 
 		if("disarm")
 			add_logs(M, src, "disarmed")
+			M.do_attack_animation(src)
 
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)

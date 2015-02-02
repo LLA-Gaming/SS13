@@ -29,10 +29,13 @@ var/list/
 		while(query.NextRow())
 			var/ckey = sanitizeSQL(ckey(query.item[2]))
 			var/number = sanitizeSQL(query.item[3])
+			if(!number)	number = rand(100, 999)
 			var/rank = sanitizeSQL(query.item[4])
-			if(ckey && number && rank)
+			var/squad = sanitizeSQL(query.item[5])
+			if(ckey && number && rank && squad)
 				pnumbers[ckey] = number
 				perseusList[ckey] = rank
+				pmeta[ckey] = squad
 	else
 		var/file = file2text(PERSEUS_WHITELIST_FILE)
 		if(!file)
@@ -61,14 +64,14 @@ var/list/
  *	Log perseus logins in the database.
  */
 
-/proc/logPerseusLogin(var/mob/living/carbon/human/H, var/commander = 0)
+/proc/logPerseusLogin(var/mob/living/carbon/human/H, var/rank = "Enforcer")
 	if(!H || !H.client)	return
 	var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		log_game("SQL ERROR during death reporting. Failed to connect.")
 	else
-		var/DBQuery/query = dbcon.NewQuery("INSERT INTO perseus_login (ckey, datetime, iscommander, number) VALUES ('[sanitizeSQL(H.ckey)]', '[sqltime]', '[commander]', '[sanitizeSQL(pnumbers[H.ckey])]')")
+		var/DBQuery/query = dbcon.NewQuery("INSERT INTO perseus_login (ckey, datetime, number, rank) VALUES ('[sanitizeSQL(H.ckey)]', '[sqltime]', '[sanitizeSQL(pnumbers[H.ckey])]', '[sanitizeSQL(rank)]')")
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			log_game("SQL Error : \[[err]\]\n")
@@ -98,7 +101,7 @@ var/const/COMMANDER = (1<<1)
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
 
-		logPerseusLogin(H, 0)
+		logPerseusLogin(H, "Enforcer")
 
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hos (H), slot_ears)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/space/skinsuit(H), slot_w_uniform)
@@ -110,7 +113,7 @@ var/const/COMMANDER = (1<<1)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/blackpack(H), slot_back)
 		H.equip_to_slot_or_del(new /obj/item/weapon/tank/perseus(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box(H.back), slot_in_backpack)
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/wiki/security_space_law(H), slot_l_hand)
+		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 		var/obj/item/weapon/implant/enforcer/implant = new /obj/item/weapon/implant/enforcer(H)
 		implant.imp_in = H
@@ -118,7 +121,7 @@ var/const/COMMANDER = (1<<1)
 
 		var/obj/item/weapon/card/id/perseus/id = new /obj/item/weapon/card/id/perseus(H)
 
-		var/obj/item/device/pda/perseus/P = new /obj/item/device/pda/perseus(H)
+		var/obj/item/device/thinktronic/tablet/perseus/P = new /obj/item/device/thinktronic/tablet/perseus(H)
 		id.assignment = title
 		id.access = get_access(title)
 
@@ -127,9 +130,10 @@ var/const/COMMANDER = (1<<1)
 		id.registered_name = name
 		id.name = name
 		P.id = id
-		P.owner = id.registered_name
-		P.ownjob = id.assignment
-		P.name = "PDA-[P.owner] ([P.ownjob])"
+		P.HDD.owner = id.registered_name
+		P.HDD.ownjob = id.assignment
+		P.HDD.name = "PDA-[P.HDD.owner] ([P.HDD.ownjob])"
+		P.update_label()
 		id.loc = P
 		H.equip_to_slot_or_del(P, slot_wear_id)
 
@@ -149,7 +153,7 @@ var/const/COMMANDER = (1<<1)
 	equip(var/mob/living/carbon/human/H)
 		if(!H) return 0
 
-		logPerseusLogin(H, 1)
+		logPerseusLogin(H, "Commander")
 
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hos (H), slot_ears)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/space/skinsuit(H), slot_w_uniform)
@@ -160,7 +164,7 @@ var/const/COMMANDER = (1<<1)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/persberet(H), slot_head)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/specops(H), slot_gloves)
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/wiki/security_space_law(H), slot_l_hand)
+		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/lightarmor(H), slot_wear_suit)
 
 		var/obj/item/weapon/implant/commander/implant = new /obj/item/weapon/implant/commander(H)
@@ -177,11 +181,12 @@ var/const/COMMANDER = (1<<1)
 		id.registered_name ="Perseus Security Commander #[pnumbers[H.ckey] ? pnumbers[H.ckey] : "00[rand(0,9)]"]-[pmeta[H.ckey] ? pmeta[H.ckey] : ""]"
 		id.name = id.registered_name
 
-		var/obj/item/device/pda/perseus/P = new /obj/item/device/pda/perseus(H)
+		var/obj/item/device/thinktronic/tablet/perseus/P = new /obj/item/device/thinktronic/tablet/perseus(H)
 		P.id = id
-		P.owner = id.registered_name
-		P.ownjob = id.assignment
-		P.name = "PDA-[P.owner] ([P.ownjob])"
+		P.HDD.owner = id.registered_name
+		P.HDD.ownjob = id.assignment
+		P.HDD.name = "PDA-[P.HDD.owner] ([P.HDD.ownjob])"
+		P.update_label()
 
 		H.equip_to_slot_or_del(P, slot_wear_id)
 

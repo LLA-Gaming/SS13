@@ -444,3 +444,47 @@ datum/objective/absorb/check_completion()
 		return 1
 	else
 		return 0
+
+/proc/LogAntagMissions()
+	if(!config.sql_enabled)
+		return
+
+	establish_db_connection()
+	if(!dbcon.IsConnected())
+		log_game("SQL ERROR during 'LogAntagMissions'. Failed to connect.")
+	else
+
+		var/round_id = GetCurrentRoundID()
+
+		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
+
+		for(var/datum/mind/mind in ticker.minds)
+			if(mind.objectives && mind.objectives.len > 0)
+				var/ckey = sanitizeSQL(ckey(mind.key))
+				var/antag_type = sanitizeSQL(mind.special_role)
+				var/faction_id = mind.current.client.GetCurrentFaction(1)
+
+				if(mind.changeling)
+					if(antag_type && antag_type != "Changeling")
+						antag_type += "|Changeling"
+				for(var/datum/objective/objective in mind.objectives)
+					var/status = objective.check_completion()
+					var/difficulty = objective.dangerrating
+					var/objective_type = objective.type
+					var/target = "None"
+					if(objective.target)
+						target = "[sanitizeSQL(ckey(objective.target.key))]/[sanitizeSQL(objective.target.current.real_name)]"
+
+					var/target_amt = objective.target_amount
+
+					var/details = ""
+					if(istype(objective, /datum/objective/steal))
+						var/datum/objective/steal/objective_s = objective
+						if(objective_s.targetinfo)
+							details += "steal_type=[sanitizeSQL(objective_s.targetinfo.type)]"
+
+					var/DBQuery/insert_objective_qry = dbcon.NewQuery("INSERT INTO antag_missions (round_id, faction_id, date, ckey, antag_type, status, difficulty, type, target, target_amount, details) VALUES ([round_id], [faction_id], '[sqltime]', '[ckey]', '[antag_type]', [status], [difficulty], '[objective_type]', '[target]', [target_amt], '[sanitizeSQL(details)]')")
+					if(!insert_objective_qry.Execute())
+						log_game("Query failed to execute 'LogAntagMissions'")
+						return
+

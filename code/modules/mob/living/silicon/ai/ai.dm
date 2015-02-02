@@ -27,7 +27,7 @@ var/list/ai_list = list()
 	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list())
 	var/viewalerts = 0
 	var/icon/holo_icon//Default is assigned when AI is created.
-	var/obj/item/device/pda/ai/aiPDA = null
+	var/obj/item/device/thinktronic/aiPDA = null
 	var/obj/item/device/multitool/aiMulti = null
 	var/obj/item/device/camera/ai_camera/aicamera = null
 
@@ -81,10 +81,10 @@ var/list/ai_list = list()
 
 	verbs += /mob/living/silicon/ai/proc/show_laws_verb
 
-	aiPDA = new/obj/item/device/pda/ai(src)
-	aiPDA.owner = name
-	aiPDA.ownjob = "AI"
-	aiPDA.name = name + " (" + aiPDA.ownjob + ")"
+	aiPDA = new/obj/item/device/thinktronic/tablet/ai(src)
+	aiPDA.HDD.owner = name
+	aiPDA.HDD.ownjob = "AI"
+	aiPDA.name = name + " (" + aiPDA.HDD.ownjob + ")"
 
 	aiMulti = new(src)
 	aicamera = new/obj/item/device/camera/ai_camera(src)
@@ -404,6 +404,7 @@ var/list/ai_list = list()
 					O.show_message(text("\blue [M] caresses [src]'s plating with its scythe like arm."), 1)
 
 		else //harm
+			M.do_attack_animation(src)
 			var/damage = rand(10, 20)
 			if (prob(90))
 				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
@@ -425,6 +426,7 @@ var/list/ai_list = list()
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
+		M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))

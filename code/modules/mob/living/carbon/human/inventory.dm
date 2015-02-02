@@ -126,7 +126,7 @@
 				if(!disable_warning)
 					usr << "The [I.name] is too big to attach."  //should be src?
 				return 0
-			if( istype(I, /obj/item/device/pda) || istype(I, /obj/item/weapon/pen) || is_type_in_list(I, wear_suit.allowed) )  //ugly and un-polymorphic.
+			if( istype(I, /obj/item/device/thinktronic/tablet) || istype(I, /obj/item/weapon/pen) || is_type_in_list(I, wear_suit.allowed) )  //ugly and un-polymorphic.
 				return 1
 			return 0
 		if(slot_handcuffed)

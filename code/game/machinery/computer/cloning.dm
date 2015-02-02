@@ -273,7 +273,7 @@
 
 		else if (src.menu == 4)
 			var/obj/item/weapon/card/id/C = usr.get_active_hand()
-			if (istype(C)||istype(C, /obj/item/device/pda))
+			if (istype(C)||istype(C, /obj/item/device/thinktronic/tablet))
 				if(src.check_access(C))
 					src.temp = "[src.active_record.fields["name"]] => Record deleted."
 					src.records.Remove(active_record)

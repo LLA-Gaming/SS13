@@ -10,7 +10,6 @@ AI
 	spawn_positions = 1
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
-	req_admin_notify = 1
 	minimal_player_age = 30
 
 /datum/job/ai/equip(var/mob/living/carbon/human/H)

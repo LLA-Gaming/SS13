@@ -3,18 +3,21 @@
 	//Multikey checks and logging
 	lastKnownIP	= client.address
 	computer_id	= client.computer_id
-	log_access("Login: [key_name(src)] from [lastKnownIP ? lastKnownIP : "localhost"]-[computer_id] || BYOND v[client.byond_version]")
+	var/age = text2num(client.player_age)
+	log_access("Login: [key_name(src)] from [lastKnownIP ? lastKnownIP : "localhost"]-[computer_id] || BYOND v[client.byond_version] || Player Age: [age]")
 	if(config.log_access)
-		for(var/mob/M in player_list)
+		for(var/mob/M in world)
+			if(!M.key) continue // Skip over mobs that do not have keys
+			if(M.ckey == "@[ckey]") continue // Skip over aghosted bodies
 			if(M == src)	continue
 			if( M.key && (M.key != key) )
 				var/matches
-				if( (M.lastKnownIP == client.address) )
-					matches += "IP ([client.address])"
-				if( (M.computer_id == client.computer_id) )
+				if( (M.lastKnownIP == lastKnownIP) )
+					matches += "IP ([lastKnownIP])"
+				if( (M.computer_id == computer_id) )
 					if(matches)	matches += " and "
-					matches += "ID ([client.computer_id])"
-					spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
+					matches += "ID ([computer_id])(MULTIKEY)"
+					spawn() alert("It appears as though you’ve already logged into this server with a different key this round.  This is something we don’t allow.  We’ve noticed this apparent activity and might have some questions for you.")
 				if(matches)
 					if(M.client)
 						message_admins("<font color='red'><B>Notice: </B><font color='blue'>[key_name_admin(src)] has the same [matches] as [key_name_admin(M)].</font>", 1)

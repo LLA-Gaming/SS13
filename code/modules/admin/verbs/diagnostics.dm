@@ -89,7 +89,7 @@
 	set name = "Reload Admins"
 	set category = "Admin"
 
-	if(!src.holder)	return
+	//if(!src.holder)	return //disabled holder check so deadmin's can reload themselfs
 
 	message_admins("[key_name_admin(usr)] manually reloaded admins")
 	load_admins()

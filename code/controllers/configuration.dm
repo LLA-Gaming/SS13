@@ -128,6 +128,10 @@
 
 	var/default_laws = 0 //Controls what laws the AI spawns with.
 
+	var/faction_change_delay = 24 // In hours
+
+	var/random_engine = 0 //Whether or not to use one of the random engine templates. If 0, will use whatever the prebuilt engine on the station is.
+
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
 	for(var/T in L)
@@ -275,6 +279,8 @@
 					global.comms_key = value
 					if(value != "default_pwd" && length(value) > 6) //It's the default value or less than 6 characters long, warn badmins
 						global.comms_allowed = 1
+				if("faction_change_delay")
+					faction_change_delay = text2num(value)
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 
@@ -389,6 +395,8 @@
 					config.default_laws				= text2num(value)
 				if("join_with_mutant_race")
 					config.mutant_races				= 1
+				if("randomize_engine_template")
+					config.random_engine			= 1
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 

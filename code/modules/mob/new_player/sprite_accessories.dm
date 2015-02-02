@@ -51,14 +51,17 @@
 	short
 		name = "Short Hair"	  // try to capatilize the names please~
 		icon_state = "hair_a" // you do not need to define _s or _l sub-states, game automatically does this for you
+		gender = MALE
 
 	shorthair2
 		name = "Short Hair 2"
 		icon_state = "hair_shorthair2"
+		gender = MALE
 
 	cut
 		name = "Cut Hair"
 		icon_state = "hair_c"
+		gender = MALE
 
 	long
 		name = "Shoulder-length Hair"
@@ -79,22 +82,27 @@
 	longest
 		name = "Very Long Hair"
 		icon_state = "hair_longest"
+		gender = FEMALE
 
 	longest2
 		name = "Very Long Over Eye"
 		icon_state = "hair_longest2"
+		gender = FEMALE
 
 	longfringe
 		name = "Long Fringe"
 		icon_state = "hair_longfringe"
+		gender = FEMALE
 
 	longestalt
 		name = "Longer Fringe"
 		icon_state = "hair_vlongfringe"
+		gender = FEMALE
 
 	gentle
 		name = "Gentle"
 		icon_state = "hair_gentle"
+		gender = FEMALE
 
 	halfbang
 		name = "Half-banged Hair"
@@ -107,30 +115,37 @@
 	ponytail1
 		name = "Ponytail 1"
 		icon_state = "hair_ponytail"
+		gender = FEMALE
 
 	ponytail2
 		name = "Ponytail 2"
 		icon_state = "hair_pa"
+		gender = FEMALE
 
 	ponytail3
 		name = "Ponytail 3"
 		icon_state = "hair_ponytail3"
+		gender = FEMALE
 
 	ponytail4
 		name = "Ponytail 4"
 		icon_state = "hair_ponytail4"
+		gender = FEMALE
 
 	side_tail
 		name = "Side Pony"
 		icon_state = "hair_sidetail"
+		gender = FEMALE
 
 	side_tail2
 		name = "Side Pony 2"
 		icon_state = "hair_sidetail2"
+		gender = FEMALE
 
 	side_tail3
 		name = "Side Pony 3"
 		icon_state = "hair_stail"
+		gender = FEMALE
 
 	oneshoulder
 		name = "One Shoulder"
@@ -143,14 +158,17 @@
 	parted
 		name = "Parted"
 		icon_state = "hair_parted"
+		gender = MALE
 
 	pompadour
 		name = "Pompadour"
 		icon_state = "hair_pompadour"
+		gender = MALE
 
 	quiff
 		name = "Quiff"
 		icon_state = "hair_quiff"
+		gender = MALE
 
 	bedhead
 		name = "Bedhead"
@@ -171,10 +189,12 @@
 	beehive
 		name = "Beehive"
 		icon_state = "hair_beehive"
+		gender = FEMALE
 
 	beehive2
 		name = "Beehive 2"
 		icon_state = "hair_beehivev2"
+		gender = FEMALE
 
 	bobcurl
 		name = "Bobcurl"
@@ -187,18 +207,22 @@
 	bowl
 		name = "Bowl"
 		icon_state = "hair_bowlcut"
+		gender = MALE
 
 	buzz
 		name = "Buzzcut"
 		icon_state = "hair_buzzcut"
+		gender = MALE
 
 	crew
 		name = "Crewcut"
 		icon_state = "hair_crewcut"
+		gender = MALE
 
 	combover
 		name = "Combover"
 		icon_state = "hair_combover"
+		gender = MALE
 
 	devillock
 		name = "Devil Lock"
@@ -207,26 +231,32 @@
 	dreadlocks
 		name = "Dreadlocks"
 		icon_state = "hair_dreads"
+		gender = MALE
 
 	curls
 		name = "Curls"
 		icon_state = "hair_curls"
+		gender = FEMALE
 
 	afro
 		name = "Afro"
 		icon_state = "hair_afro"
+		gender = MALE
 
 	afro2
 		name = "Afro 2"
 		icon_state = "hair_afro2"
+		gender = MALE
 
 	afro_large
 		name = "Big Afro"
 		icon_state = "hair_bigafro"
+		gender = MALE
 
 	sargeant
 		name = "Flat Top"
 		icon_state = "hair_sargeant"
+		gender = MALE
 
 	emo
 		name = "Emo"
@@ -235,6 +265,7 @@
 	jen
 		name = "Jen"
 		icon_state = "hair_jen"
+		gender = FEMALE
 
 	longemo
 		name = "Long Emo"
@@ -243,6 +274,7 @@
 	fag
 		name = "Flow Hair"
 		icon_state = "hair_f"
+		gender = MALE
 
 	feather
 		name = "Feather"
@@ -251,30 +283,37 @@
 	hitop
 		name = "Hitop"
 		icon_state = "hair_hitop"
+		gender = MALE
 
 	mohawk
 		name = "Mohawk"
 		icon_state = "hair_d"
+		gender = MALE
 
 	reversemohawk
 		name = "Reverse Mohawk"
 		icon_state = "hair_reversemohawk"
+		gender = MALE
 
 	jensen
 		name = "Adam Jensen Hair"
 		icon_state = "hair_jensen"
+		gender = MALE
 
 	gelled
 		name = "Gelled Back"
 		icon_state = "hair_gelled"
+		gender = MALE
 
 	spiky
 		name = "Spiky"
 		icon_state = "hair_spikey"
+		gender = MALE
 
 	protagonist
 		name = "Slightly long"
 		icon_state = "hair_protagonist"
+		gender = MALE
 
 	kusangi
 		name = "Kusanagi Hair"
@@ -283,98 +322,122 @@
 	kagami
 		name = "Pigtails"
 		icon_state = "hair_kagami"
+		gender = FEMALE
 
 	himecut
 		name = "Hime Cut"
 		icon_state = "hair_himecut"
+		gender = FEMALE
 
 	himeup
 		name = "Hime Updo"
 		icon_state = "hair_himeup"
+		gender = FEMALE
 
 	antenna
 		name = "Ahoge"
 		icon_state = "hair_antenna"
+		gender = FEMALE
 
 	pigtail
 		name = "Pig tails"
 		icon_state = "hair_pigtails"
+		gender = FEMALE
 
 	front_braid
 		name = "Braided front"
 		icon_state = "hair_braidfront"
+		gender = FEMALE
 
 	lowbraid
 		name = "Low Braid"
 		icon_state = "hair_hbraid"
+		gender = FEMALE
 
 	not_floorlength_braid
 		name = "High Braid"
 		icon_state = "hair_braid2"
+		gender = FEMALE
 
 	braid
 		name = "Floorlength Braid"
 		icon_state = "hair_braid"
+		gender = FEMALE
 
 	shortbraid
 		name = "Short Floorlength Braid"
 		icon_state = "hair_shortbraid"
+		gender = FEMALE
 
 	odango
 		name = "Odango"
 		icon_state = "hair_odango"
+		gender = MALE
 
 	ombre
 		name = "Ombre"
 		icon_state = "hair_ombre"
+		gender = MALE
 
 	updo
 		name = "Updo"
 		icon_state = "hair_updo"
+		gender = FEMALE
 
 	skinhead
 		name = "Skinhead"
 		icon_state = "hair_skinhead"
+		gender = MALE
 
 	longbangs
 		name = "Long Bangs"
 		icon_state = "hair_lbangs"
+		gender = FEMALE
 
 	balding
 		name = "Balding Hair"
 		icon_state = "hair_e"
+		gender = MALE
 
 	bald
 		name = "Bald"
 		icon_state = null
+		gender = MALE
 
 	parted
 		name = "Side Part"
 		icon_state = "hair_part"
+		gender = MALE
 
 	braided
 		name = "Braided"
 		icon_state = "hair_braided"
+		gender = FEMALE
 
 	bun
 		name = "Bun Head"
 		icon_state = "hair_bun"
+		gender = FEMALE
 
 	braidtail
 		name = "Braided Tail"
 		icon_state = "hair_braidtail"
+		gender = FEMALE
 
 	familyman
 		name = "Family Man"
 		icon_state = "hair_thefamilyman"
+		gender = MALE
 
 	drillruru
 		name = "Drillruru"
 		icon_state = "hair_drillruru"
+		gender = FEMALE
 
 	dandypomp
 		name = "Dandy Pompadour"
 		icon_state = "hair_dandypompadour"
+		gender = MALE
 
 	poofy
 		name = "Poofy"
@@ -383,18 +446,22 @@
 	crono
 		name = "Chrono"
 		icon_state = "hair_toriyama1"
+		gender = MALE
 
 	vegeta
 		name = "Vegeta Hair"
 		icon_state = "hair_toriyama2"
+		gender = MALE
 
 	cia
 		name = "CIA"
 		icon_state = "hair_cia"
+		gender = MALE
 
 	mulder
 		name = "Mulder"
 		icon_state = "hair_mulder"
+		gender = MALE
 
 	scully
 		name = "Scully"
@@ -403,26 +470,32 @@
 	nitori
 		name = "Nitori"
 		icon_state = "hair_nitori"
+		gender = FEMALE
 
 	joestar
 		name = "Joestar"
 		icon_state = "hair_joestar"
+		gender = MALE
 
 	edgeworth
 		name = "Edgeworth"
 		icon_state = "hair_edgeworth"
+		gender = MALE
 
 	objection
 		name = "Wright"
 		icon_state = "hair_objection!"
+		gender = MALE
 
 	dubsman
 		name = "Dubsman"
 		icon_state = "hair_dubsman"
+		gender = MALE
 
 	blackswordsman
 		name = "Black Swordsman"
 		icon_state = "hair_blackswordsman"
+		gender = MALE
 
 	mentalist
 		name = "Mentalist"
@@ -447,6 +520,7 @@
 	nia
 		name = "Nia"
 		icon_state = "hair_nia"
+		gender = FEMALE
 
 	shinobu
 		name = "Shinobu"
@@ -459,12 +533,14 @@
 	megaeyebrows
 		name = "Mega Eyebrows"
 		icon_state = "hair_megaeyebrow"
+		gender = MALE
 
 /////////////////////////////
 // Facial Hair Definitions //
 /////////////////////////////
 /datum/sprite_accessory/facial_hair
 	icon = 'icons/mob/human_face.dmi'
+	gender = MALE
 
 	shaved
 		name = "Shaved"
@@ -687,174 +763,344 @@
 		gender = NEUTER
 
 	black_shirt
-		name = "Black Shirt"
+		name = "Mens Black Shirt"
 		icon_state = "bl_shirt"
-		gender = NEUTER
+		gender = MALE
+
+	black_shirt_fem
+		name = "Ladies Black Shirt"
+		icon_state = "bl_shirt_fem"
+		gender = FEMALE
 
 	black_shirt2
-		name = "Black Shirt 2"
+		name = "Mens Black Shirt 2"
 		icon_state = "bl_shirt2"
-		gender = NEUTER
+		gender = MALE
+
+	black_shirt2_fem
+		name = "Ladies Black Shirt 2"
+		icon_state = "bl_shirt2_fem"
+		gender = FEMALE
 
 	white_shirt
-		name = "White Shirt"
+		name = "Mens White Shirt"
 		icon_state = "wt_shirt"
-		gender = NEUTER
+		gender = MALE
+
+	white_shirt_fem
+		name = "Ladies White Shirt"
+		icon_state = "wt_shirt_fem"
+		gender = FEMALE
 
 	white_shirt2
-		name = "White Shirt 2"
+		name = "Mens White Shirt 2"
 		icon_state = "wt_shirt2"
-		gender = NEUTER
+		gender = MALE
+
+	white_shirt2_fem
+		name = "Ladies White Shirt 2"
+		icon_state = "wt_shirt2_fem"
+		gender = FEMALE
 
 	black_tank_top
-		name = "Black Tank Top"
+		name = "Mens Black Tank Top"
 		icon_state = "bl_ttop"
-		gender = NEUTER
+		gender = MALE
+
+	black_tank_top_fem
+		name = "Ladies Black Tank Top"
+		icon_state = "bl_ttop_fem"
+		gender = FEMALE
 
 	white_tank_top
-		name = "White Tank Top"
+		name = "Mens White Tank Top"
 		icon_state = "wt_ttop"
-		gender = NEUTER
+		gender = MALE
+
+	white_tank_top_fem
+		name = "Ladies White Tank Top"
+		icon_state = "wt_ttop_fem"
+		gender = FEMALE
 
 	atmos_tank
-		name = "Atmos Tank Top"
+		name = "Mens Atmos Tank Top"
 		icon_state = "atmostank"
-		gender = NEUTER
+		gender = MALE
+
+	atmos_tank_fem
+		name = "Ladies Atmos Tank Top"
+		icon_state = "atmostank_fem"
+		gender = FEMALE
 
 	botany_tank
-		name = "Botany Tank Top"
+		name = "Mens Botany Tank Top"
 		icon_state = "botanytank"
-		gender = NEUTER
+		gender = MALE
+
+	botany_tank_fem
+		name = "Ladies Botany Tank Top"
+		icon_state = "botanytank_fem"
+		gender = FEMALE
 
 	engi_tank
-		name = "Engineering Tank Top"
+		name = "Mens Engineering Tank Top"
 		icon_state = "engitank"
-		gender = NEUTER
+		gender = MALE
+
+	engi_tank_fem
+		name = "Ladies Engineering Tank Top"
+		icon_state = "engitank_fem"
+		gender = FEMALE
 
 	sci_tank
-		name = "Science Tank Top"
+		name = "Mens Science Tank Top"
 		icon_state = "scitank"
-		gender = NEUTER
+		gender = MALE
+
+	sci_tank_fem
+		name = "Ladies Science Tank Top"
+		icon_state = "scitank_fem"
+		gender = FEMALE
 
 	mine_tank
-		name = "Mining Tank Top"
+		name = "Mens Mining Tank Top"
 		icon_state = "minetank"
-		gender = NEUTER
+		gender = MALE
+
+	mine_tank_fem
+		name = "Ladies Mining Tank Top"
+		icon_state = "minetank_fem"
+		gender = FEMALE
 
 	jani_tank
-		name = "Janitorial Tank Top"
+		name = "Mens Janitorial Tank Top"
 		icon_state = "janitank"
-		gender = NEUTER
+		gender = MALE
+
+	jani_tank_fem
+		name = "Ladies Janitorial Tank Top"
+		icon_state = "janitank_fem"
+		gender = FEMALE
 
 	med_tank
-		name = "Medical Tank Top"
+		name = "Mens Medical Tank Top"
 		icon_state = "medtank"
-		gender = NEUTER
+		gender = MALE
+
+	med_tank_fem
+		name = "Ladies Medical Tank Top"
+		icon_state = "medtank"
+		gender = FEMALE
 
 	robo_tank
-		name = "Robotics Tank Top"
+		name = "Mens Robotics Tank Top"
 		icon_state = "robotank"
-		gender = NEUTER
+		gender = MALE
+
+	robo_tank_fem
+		name = "Ladies Robotics Tank Top"
+		icon_state = "robotank_fem"
+		gender = FEMALE
 
 	sec_tank
-		name = "Security Tank Top"
+		name = "Mens Security Tank Top"
 		icon_state = "sectank"
-		gender = NEUTER
+		gender = MALE
+
+	sec_tank_fem
+		name = "Ladies Security Tank Top"
+		icon_state = "sectank_fem"
+		gender = FEMALE
 
 	rainbow_tank
-		name = "Rainbow Tank Top"
+		name = "Mens Rainbow Tank Top"
 		icon_state = "rainbowtank"
-		gender = NEUTER
+		gender = MALE
+
+	rainbow_tank_fem
+		name = "Ladies Rainbow Tank Top"
+		icon_state = "rainbowtank_fem"
+		gender = FEMALE
 
 	happy_tank
-		name = "Happy Tank Top"
+		name = "Mens Happy Tank Top"
 		icon_state = "happytank"
-		gender = NEUTER
+		gender = MALE
+
+	happy_tank_fem
+		name = "Ladies Happy Tank Top"
+		icon_state = "happytank_fem"
+		gender = FEMALE
 
 	neutral_tank
-		name = "Neutral Tank Top"
+		name = "Mens Neutral Tank Top"
 		icon_state = "neutraltank"
-		gender = NEUTER
+		gender = MALE
+
+	neutral_tank_fem
+		name = "Ladies Neutral Tank Top"
+		icon_state = "neutraltank_fem"
+		gender = FEMALE
 
 	sad_tank
-		name = "Sad Tank Top"
+		name = "Mens Sad Tank Top"
 		icon_state = "sadtank"
-		gender = NEUTER
+		gender = MALE
+
+	sad_tank_fem
+		name = "Ladies Sad Tank Top"
+		icon_state = "sadtank_fem"
+		gender = FEMALE
 
 	assistant_tank
-		name = "Assistant Tank Top"
+		name = "Mens Assistant Tank Top"
 		icon_state = "assistanttank"
-		gender = NEUTER
+		gender = MALE
+
+	assistant_tank_fem
+		name = "Ladies Assistant Tank Top"
+		icon_state = "assistanttank_fem"
+		gender = FEMALE
 
 	dorf_tank
-		name = "Dwarf Tank Top"
+		name = "Mens Dwarf Tank Top"
 		icon_state = "dorftank"
-		gender = NEUTER
+		gender = MALE
+
+	dorf_tank_fem
+		name = "Ladies Dwarf Tank Top"
+		icon_state = "dorftank_fem"
+		gender = FEMALE
 
 	monkey_tank
-		name = "Monkey Tank Top"
+		name = "Mens Monkey Tank Top"
 		icon_state = "monkeytank"
-		gender = NEUTER
+		gender = MALE
+
+	monkey_tank_fem
+		name = "Ladies Monkey Tank Top"
+		icon_state = "monkeytank_fem"
+		gender = FEMALE
 
 	praise_the_sun_tank
-		name = "Praise The Sun Tank Top" //Looks a tad shit all capitalised
+		name = "Mens Praise The Sun Tank Top" //Looks a tad shit all capitalised
 		icon_state = "praisethesuntank"
-		gender = NEUTER
+		gender = MALE
+
+	praise_the_sun_tank_fem
+		name = "Ladies Praise The Sun Tank Top" //Looks a tad shit all capitalised
+		icon_state = "praisethesuntank_fem"
+		gender = FEMALE
 
 	treehugger_tank
-		name = "Treehugger Tank Top"
+		name = "Mens Treehugger Tank Top"
 		icon_state = "treehuggertank"
-		gender = NEUTER
+		gender = MALE
+
+	treehugger_tank_fem
+		name = "Ladies Treehugger Tank Top"
+		icon_state = "treehuggertank_fem"
+		gender = FEMALE
 
 	skull_tank
-		name = "Skull Tank Top"
+		name = "Mens Skull Tank Top"
 		icon_state = "skull_ttop"
-		gender = NEUTER
+		gender = MALE
+
+	skull_tank_fem
+		name = "Ladies Skull Tank Top"
+		icon_state = "skull_ttop_fem"
+		gender = FEMALE
 
 	rus_shirt
-		name = "Telnyashka Shirt"
+		name = "Mens Telnyashka Shirt"
 		icon_state = "rus_shirt"
-		gender = NEUTER
+		gender = MALE
+
+	rus_shirt_fem
+		name = "Ladies Telnyashka Shirt"
+		icon_state = "rus_shirt_fem"
+		gender = FEMALE
 
 	rus_tank
-		name = "Telnyashka Tank Top"
+		name = "Mens Telnyashka Tank Top"
 		icon_state = "rus_ttop"
-		gender = NEUTER
+		gender = MALE
+
+	rus_tank_fem
+		name = "Ladies Telnyashka Tank Top"
+		icon_state = "rus_ttop_fem"
+		gender = FEMALE
 
 	ss13_shirt
-		name = "Space Station 13 Shirt"
+		name = "Mens Space Station 13 Shirt"
 		icon_state = "ss13shirt"
-		gender = NEUTER
+		gender = MALE
+
+	ss13_shirt_fem
+		name = "Ladies Space Station 13 Shirt"
+		icon_state = "ss13shirt_fem"
+		gender = FEMALE
 
 	bleed_shirt
-		name = "Wound Shirt"
+		name = "Mens Wound Shirt"
 		icon_state = "bleedshirt"
-		gender = NEUTER
+		gender = MALE
+
+	bleed_shirt_fem
+		name = "Ladies Wound Shirt"
+		icon_state = "bleedshirt_fem"
+		gender = FEMALE
 
 	ian_shirt
-		name = "Corgi Shirt"
+		name = "Mens Corgi Shirt"
 		icon_state = "ianshirt"
-		gender = NEUTER
+		gender = MALE
+
+	ian_shirt_fem
+		name = "Ladies Corgi Shirt"
+		icon_state = "ianshirt_fem"
+		gender = FEMALE
 
 	wat_shirt
-		name = "Question Shirt"
+		name = "Mens Question Shirt"
 		icon_state = "watshirt"
-		gender = NEUTER
+		gender = MALE
+
+	wat_shirt_fem
+		name = "Ladies Question Shirt"
+		icon_state = "watshirt_fem"
+		gender = FEMALE
 
 	skull_shirt
-		name = "Skull Shirt"
+		name = "Mens Skull Shirt"
 		icon_state = "skullshirt"
-		gender = NEUTER
+		gender = MALE
+
+	skull_shirt_fem
+		name = "Ladies Skull Shirt"
+		icon_state = "skullshirt_fem"
+		gender = FEMALE
 
 	commie_shirt
-		name = "Question Shirt"
-		icon_state = "watshirt"
-		gender = NEUTER
+		name = "Mens Commie Shirt"
+		icon_state = "commie"
+		gender = MALE
+
+	commie_shirt_fem
+		name = "Ladies Commie Shirt"
+		icon_state = "commie_fem"
+		gender = FEMALE
 
 	nano_shirt
-		name = "Nanotrasen Shirt"
-		icon_state = "skullshirt"
-		gender = NEUTER
+		name = "Mens Nanotrasen Shirt"
+		icon_state = "nano"
+		gender = MALE
+
+	nano_shirt_fem
+		name = "Ladies Nanotrasen Shirt"
+		icon_state = "nano_fem"
+		gender = FEMALE
 
 ///////////////////////
 // Socks Definitions //

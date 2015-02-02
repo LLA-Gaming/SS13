@@ -17,8 +17,14 @@
 	if(stat == DEAD)	return
 	if(healths)		healths.icon_state = "health5"
 	stat = DEAD
+	attack_log += text("\[[time_stamp()]\] <font color ='red'>[key_name(src)] has died</font>")
+	log_attack("<font color ='red'>[key_name(src)] has died</font>")
 	dizziness = 0
 	jitteriness = 0
+
+	if(client in vr_controller.contained_clients)
+		var/obj/item/clothing/glasses/virtual/V = vr_controller.GetGogglesFromClient(client)
+		V.LeaveVR()
 
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc

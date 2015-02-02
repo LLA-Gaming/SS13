@@ -957,7 +957,8 @@ steam.start() -- spawns the effect
 		attack_hand(user)
 		return
 
-	attack_hand(var/mob/user)
+	attack_hand(var/mob/living/user)
+		user.do_attack_animation(src)
 		if ((HULK in user.mutations) || (prob(75 - metal*25)))
 			user << "\blue You smash through the metal foam wall."
 			for(var/mob/O in oviewers(user))

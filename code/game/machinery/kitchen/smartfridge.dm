@@ -101,7 +101,10 @@
 		S.remove_from_storage(O,src)
 
 	O.loc = src
-	var/n = O.name
+	var/n = html_decode(O.name)
+	n = replacetext(n, "'", "")
+
+	O.name = n
 
 	if(item_quants[n])
 		item_quants[n]++
@@ -338,6 +341,13 @@ obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
 	if(istype(O,/obj/item/weapon/reagent_containers/syringe) || istype(O,/obj/item/weapon/reagent_containers/glass/bottle) || istype(O,/obj/item/weapon/reagent_containers/glass/beaker) || istype(O,/obj/item/weapon/reagent_containers/spray))
 		return 1
 	return 0
+// -----------------------------
+// Medical Smartfridge
+// -----------------------------
+/obj/machinery/smartfridge/chemistry/medicine
+	name = "smart medicine storage"
+	desc = "A refrigerated storage unit for medicine storage."
+	spawn_meds = list(/obj/item/weapon/reagent_containers/glass/bottle/inaprovaline = 1, /obj/item/weapon/reagent_containers/glass/bottle/antitoxin = 1)
 
 // ----------------------------
 // Virology Medical Smartfridge

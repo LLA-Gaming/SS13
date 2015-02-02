@@ -253,6 +253,35 @@
 		image_overlay = image('icons/obj/assemblies.dmi', "breachcharge_ticking")
 
 /*
+* Tablet & Cartrdige
+*/
+/obj/item/device/thinktronic_parts/expansioncarts/perseus
+	name = "PercTech Cartridge"
+	icon_state = "cart-perc"
+	New()
+		new /obj/item/device/thinktronic_parts/program/sec/percblastdoors(src)
+		new /obj/item/device/thinktronic_parts/program/sec/percimplants(src)
+		new /obj/item/device/thinktronic_parts/program/sec/percmissions(src)
+		new /obj/item/device/thinktronic_parts/program/sec/percshuttlelock(src)
+
+/obj/item/device/thinktronic/tablet/perseus
+	icon_state = "tablet-perc"
+
+	New()
+		..()
+		HDD = new /obj/item/device/thinktronic_parts/core/perc(src)
+
+/obj/item/device/thinktronic/laptop/perseus
+	name = "PercTech Laptop"
+	shared = 1
+
+	New()
+		..()
+		HDD = new /obj/item/device/thinktronic_parts/core/perc(src)
+		HDD.owner = "Perseus PMC"
+		HDD.ownjob = "Perseus PMC"
+
+/*
 * PDA & Cartridge
 */
 
@@ -387,6 +416,13 @@
 				stat ^= BROKEN
 			else
 				qdel(src)
+
+	examine()
+		..()
+		usr << "The [src] is [on ? "running" : "offline"]."
+
+	default_unfasten_wrench(mob/user, obj/item/weapon/wrench/W, time = 20)
+		return 0
 
 /proc/isDisruptedArea(area/A)
 	for(var/obj/machinery/tdisruptor/T in A)

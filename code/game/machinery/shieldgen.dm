@@ -274,7 +274,7 @@
 			anchored = 0
 
 
-	else if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/pda))
+	else if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/device/thinktronic/tablet))
 		if(src.allowed(user))
 			src.locked = !src.locked
 			user << "The controls are now [src.locked ? "locked." : "unlocked."]"
@@ -474,7 +474,7 @@
 			anchored = 0
 			return
 
-	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/pda))
+	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/thinktronic/tablet))
 		if (src.allowed(user))
 			src.locked = !src.locked
 			user << "Controls are now [src.locked ? "locked." : "unlocked."]"

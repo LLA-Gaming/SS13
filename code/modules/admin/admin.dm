@@ -7,8 +7,22 @@ var/global/floorIsLava = 0
 /proc/message_admins(var/msg)
 	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
 	log_adminwarn(msg)
-	admins << msg
+	for(var/client/X in admins)
+		if(X.admintoggles)
+			X << msg
+		X.send_text_to_tab(msg, "asay")
 
+///////Toggle ahelp/asay/alogs///////
+
+/client/proc/toggleahelp()
+	set name = "Show/Hide Admin Messages"
+	set category = "Preferences"
+	set desc ="Toggles seeing adminhelps/asay/alogs"
+	admintoggles = !admintoggles
+	src << "You will [admintoggles ? "now" : "no longer"] see admin helps, admin logs, or asay."
+	feedback_add_details("admin_verb","TAH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
@@ -405,6 +419,7 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsgeneral=list_job_debug'>Show Job Debug</A><BR>
 			<A href='?src=\ref[src];secretsgeneral=spawn_objects'>Admin Log</A><BR>
 			<A href='?src=\ref[src];secretsgeneral=show_admins'>Show Admin List</A><BR>
+			<A href='?src=\ref[src];secretsadmin=crime_logs'>Show Crime Logs</A><BR>
 			<BR>
 			"}
 
@@ -573,6 +588,15 @@ var/global/floorIsLava = 0
 	message_admins("[key_name_admin(usr)] toggled OOC.", 1)
 	feedback_add_details("admin_verb","TOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/datum/admins/proc/toggle_vr()
+	set category = "Server"
+	set name = "Toggle Virtual Reality Entering"
+
+	vr_controller.can_enter = !vr_controller.can_enter
+
+	message_admins("[key_name(usr, 1)] toggled VR entering to [vr_controller.can_enter ? "On" : "Off"]")
+	log_admin("[key_name(usr)] toggled VR entering to [vr_controller.can_enter ? "On" : "Off"]")
+
 /datum/admins/proc/toggleoocdead()
 	set category = "Server"
 	set desc="Toggle dis bitch"
@@ -690,6 +714,16 @@ var/global/floorIsLava = 0
 		M.loc = pick(latejoin)
 		message_admins("[key_name_admin(usr)] has unprisoned [key_name_admin(M)]", 1)
 		log_admin("[key_name(usr)] has unprisoned [key_name(M)]")
+		for(var/obj/structure/closet/secure_closet/brig/locker in world)
+			if(locker.id == "prison-[M.ckey]")
+				for(var/obj/item/I in M)
+					M.unEquip(I)
+					qdel(I)
+				M.update_icons()
+				for(var/obj/item/C in locker)
+					C.loc = M.loc // Send everything to him
+					M.equip_to_appropriate_slot(C) // Equip everything equipable
+				qdel(locker)
 	else
 		alert("[M.name] is not prisoned.")
 	feedback_add_details("admin_verb","UP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

@@ -33,15 +33,15 @@
 	var/selection_color = "#ffffff"
 
 
-	//If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should let admins know that he has to disconnect.
-	var/req_admin_notify
+	//If this is set to 1, a text is printed to the player when jobs are assigned, telling him that he should read space law
+	var/req_spacelaw_notify
 
 	//If you have the use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
 	var/minimal_player_age = 0
 
 	//Job specific items
 	var/default_id				= /obj/item/weapon/card/id //this is just the looks of it
-	var/default_pda				= /obj/item/device/pda
+	var/default_pda				= /obj/item/device/thinktronic/tablet/plain
 	var/default_pda_slot	= slot_belt
 	var/default_headset		= /obj/item/device/radio/headset
 	var/default_backpack	= /obj/item/weapon/storage/backpack
@@ -85,9 +85,10 @@
 	H.equip_to_slot_or_del(C, slot_wear_id)
 
 	//Equip PDA
-	var/obj/item/device/pda/PDA = new default_pda(H)
-	PDA.owner = H.real_name
-	PDA.ownjob = H.job
+	var/obj/item/device/thinktronic/tablet/PDA = new default_pda(H)
+	var/obj/item/device/thinktronic_parts/core/HDD = PDA.HDD
+	HDD.owner = H.real_name
+	HDD.ownjob = H.job
 	PDA.update_label()
 	H.equip_to_slot_or_del(PDA, default_pda_slot)
 

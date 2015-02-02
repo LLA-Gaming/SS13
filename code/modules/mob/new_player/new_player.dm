@@ -280,7 +280,7 @@
 			if (ailist.len)
 				var/mob/living/silicon/ai/announcer = pick(ailist)
 				if(character.mind)
-					if((!character.mind.assigned_role in list("Cyborg", "Perseus Security Enforcer", "Perseus Security Commander")) && (character.mind.special_role != "MODE"))
+					if(!(character.mind.assigned_role in list("Cyborg", "Perseus Security Enforcer", "Perseus Security Commander")) && (character.mind.special_role != "MODE"))
 						announcer.say("[character.real_name] has signed up as [rank].")
 
 	proc/LateChoices()

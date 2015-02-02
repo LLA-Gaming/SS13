@@ -37,34 +37,47 @@
 	throw_speed = 2
 	throw_range = 2
 	w_class = 1.0
+	var/credits = 1
+
+/obj/item/weapon/spacecash/borg
+	icon_state = "spacecash10"
+	desc = "It's worth 10 credits."
+	credits = 0
 
 /obj/item/weapon/spacecash/c10
 	icon_state = "spacecash10"
 	desc = "It's worth 10 credits."
+	credits = 10
 
 /obj/item/weapon/spacecash/c20
 	icon_state = "spacecash20"
 	desc = "It's worth 20 credits."
+	credits = 20
 
 /obj/item/weapon/spacecash/c50
 	icon_state = "spacecash50"
 	desc = "It's worth 50 credits."
+	credits = 50
 
 /obj/item/weapon/spacecash/c100
 	icon_state = "spacecash100"
 	desc = "It's worth 100 credits."
+	credits = 100
 
 /obj/item/weapon/spacecash/c200
 	icon_state = "spacecash200"
 	desc = "It's worth 200 credits."
+	credits = 200
 
 /obj/item/weapon/spacecash/c500
 	icon_state = "spacecash500"
 	desc = "It's worth 500 credits."
+	credits = 500
 
 /obj/item/weapon/spacecash/c1000
 	icon_state = "spacecash1000"
 	desc = "It's worth 1000 credits."
+	credits = 1000
 
 /obj/item/weapon/soap
 	name = "soap"

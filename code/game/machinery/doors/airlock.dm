@@ -1029,7 +1029,7 @@ About the new airlock wires panel:
 		spawn(150)
 			autoclose()
 	else if(autoclose && !normalspeed)
-		spawn(5)
+		spawn(15)
 			autoclose()
 
 	return ..()
@@ -1044,8 +1044,12 @@ About the new airlock wires panel:
 	if(safe)
 		if(locate(/mob/living) in get_turf(src))
 		//	playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)	//THE BUZZING IT NEVER STOPS	-Pete
-			spawn (60)
-				close()
+			if(normalspeed)
+				spawn (60)
+					close()
+			else if(!normalspeed)
+				spawn (15)
+					close()
 			return
 
 	crush()

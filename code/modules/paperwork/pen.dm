@@ -41,7 +41,7 @@
 	colour = "white"
 
 
-/obj/item/weapon/pen/attack(mob/living/M, mob/user)
+/obj/item/weapon/pen/attack(mob/living/M, mob/living/user)
 	if(!istype(M))
 		return
 
@@ -55,7 +55,7 @@
 /*
  * Parapens
  */
- /obj/item/weapon/pen/paralysis
+/obj/item/weapon/pen/paralysis
 	origin_tech = "materials=2;syndicate=5"
 
 

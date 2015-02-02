@@ -14,7 +14,8 @@ var/list/admin_verbs_default = list(
 	/client/proc/reload_admins,
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
-	/client/proc/toggle_statpanel
+	/client/proc/toggle_statpanel,
+	/client/proc/toggleahelp
 	)
 
 var/list/admin_verbs_trial_admin = list(
@@ -29,7 +30,9 @@ var/list/admin_verbs_trial_admin = list(
 	/client/proc/check_antagonists,		/*shows all antags*/
 	/client/proc/Jump,
 	/client/proc/jumptokey,				/*allows us to jump to the location of a mob with a certain ckey*/
-	/client/proc/jumptomob				/*allows us to jump to a specific mob*/
+	/client/proc/jumptomob,				/*allows us to jump to a specific mob*/
+	/client/proc/ViewAdminhelps,
+	/client/proc/alt_check				/*Check for multi-keying griffons!*/
 	)
 
 var/list/admin_verbs_secondary_admin = list(
@@ -42,7 +45,8 @@ var/list/admin_verbs_secondary_admin = list(
 	/client/proc/cmd_admin_gib_self,
 	/datum/admins/proc/view_txt_log,	/*shows the server log (diary) for today*/
 	/datum/admins/proc/view_atk_log,	/*shows the server combat-log, doesn't do anything presently*/
-
+	/client/proc/delete_fire,
+	/client/proc/reset_atmos,
 	/datum/admins/proc/unprison
 	//+BANS
 	)
@@ -63,6 +67,7 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
 	/client/proc/createPerseusMission,
 	/proc/Ban_Offline_Player,
+	/client/proc/fill_breach,
 	/client/proc/spawncostume
 	//+Sound
 	)
@@ -82,7 +87,9 @@ var/list/admin_verbs_primary_admin = list(
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
 	/client/proc/set_ooc,
 	/client/proc/cmd_admin_dress,
-	/client/proc/respawn_character
+	/client/proc/respawn_character,
+	///client/proc/edit_motd,			//Edit the server MOTD // Commented out per request of taicho
+	/datum/admins/proc/toggle_vr
 	)
 
 var/list/admin_verbs_senior_admin = list(
@@ -201,6 +208,14 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/enable_debug_verbs,
+	/client/proc/jumptocoord,
+	/client/proc/jumptoturf,
+	/client/proc/jumptokey,
+	/client/proc/jumptomob,
+	/datum/admins/proc/unprison,
+	/client/proc/debug_variables,
+	/client/proc/cmd_admin_delete,
+	/client/proc/Jump,
 	/proc/possess,
 	/proc/release
 	)
@@ -568,6 +583,7 @@ var/list/admin_verbs_hideable = list(
 			message_admins("[src] deadmined themself.", 1)
 			deadmin()
 			src << "<span class='interface'>You are now a normal player.</span>"
+			verbs += /client/proc/reload_admins
 	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_log_hrefs()

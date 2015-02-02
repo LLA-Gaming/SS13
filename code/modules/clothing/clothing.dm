@@ -5,6 +5,7 @@
 	var/up = 0					//	   but seperated to allow items to protect but not impair vision, like space helmets
 	var/visor_flags = null
 	var/visor_flags_inv = null
+	var/dye_path = null //Allows the washing machine to know where to look for an item's dyed variants
 
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
@@ -132,6 +133,9 @@ BLIND     // can't see anything
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
+
+/obj/item/proc/negates_gravity()
+	return 0
 
 //Suit
 /obj/item/clothing/suit

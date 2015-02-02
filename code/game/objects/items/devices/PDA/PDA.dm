@@ -443,7 +443,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 							dat += "OTHER: [round(unknown_level)]%<br>"
 					dat += "Temperature: [round(environment.temperature-T0C)]&deg;C<br>"
 				dat += "<br>"
-
+/*
 			if (5)
 				dat += "<h4><img src=pda_chatroom.png> Nanotrasen Relay Chat</h4>"
 
@@ -453,7 +453,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					if(C.password != "")
 						dat += " <img src=pda_locked.png>"
 					dat += "</li>"
-
+*/
 
 
 			else//Else it links to the cart menu proc. Although, it really uses menu hub 4--menu 4 doesn't really exist as it simply redirects to hub.
@@ -999,7 +999,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						cart.honk_charges++
 
 //AI verb and proc for sending PDA messages.
-
+/*
 /mob/living/silicon/ai/verb/cmd_send_pdamesg()
 	set category = "AI Commands"
 	set name = "PDA - Send Message"
@@ -1076,27 +1076,27 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
 	else
 		usr << "You do not have a PDA. You should make an issue report about this."
-
-//Some spare PDAs in a box
+*/
+//Some spare Tablets in a box
 /obj/item/weapon/storage/box/PDAs
-	name = "spare PDAs"
-	desc = "A box of spare PDA microcomputers."
+	name = "spare Tablets"
+	desc = "A box of spare Tablets."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "pda"
 
 	New()
 		..()
-		new /obj/item/device/pda(src)
-		new /obj/item/device/pda(src)
-		new /obj/item/device/pda(src)
-		new /obj/item/device/pda(src)
-		new /obj/item/weapon/cartridge/head(src)
+		new /obj/item/device/thinktronic/tablet/plain(src)
+		new /obj/item/device/thinktronic/tablet/plain(src)
+		new /obj/item/device/thinktronic/tablet/plain(src)
+		new /obj/item/device/thinktronic/tablet/plain(src)
+		new /obj/item/device/thinktronic_parts/expansioncarts/head(src)
 
-		var/newcart = pick(	/obj/item/weapon/cartridge/engineering,
-							/obj/item/weapon/cartridge/security,
-							/obj/item/weapon/cartridge/medical,
-							/obj/item/weapon/cartridge/signal/toxins,
-							/obj/item/weapon/cartridge/quartermaster)
+		var/newcart = pick(	/obj/item/device/thinktronic_parts/expansioncarts/engineering,
+							/obj/item/device/thinktronic_parts/expansioncarts/security,
+							/obj/item/device/thinktronic_parts/expansioncarts/medical,
+							/obj/item/device/thinktronic_parts/expansioncarts/toxins,
+							/obj/item/device/thinktronic_parts/expansioncarts/quartermaster)
 		new newcart(src)
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP

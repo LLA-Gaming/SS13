@@ -59,6 +59,17 @@
 	return
 
 /obj/machinery/door/window/bumpopen(mob/user as mob)
+	if(operating)	return
+	src.add_fingerprint(user)
+	if(!src.requiresID())
+		user = null
+
+	if(density && !emagged)
+		if(allowed(user) || src.emergency == 1)	open_and_close()
+		else				flick(text("[]deny", src.base_state), src)
+	return
+//Why the below doesn't work, I am too tired to figure out. According to Flavo it was allowing percs who didn't have armory access into the armory. Let me go back to the hot tub already. - Raptorblaze
+/*
 	if( operating || !src.density )
 		return
 	src.add_fingerprint(user)
@@ -70,7 +81,7 @@
 	else
 		flick(text("[]deny", src.base_state), src)
 	return
-
+*/
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if(istype(mover) && mover.checkpass(PASSGLASS))
 		return 1
@@ -217,7 +228,7 @@
 /obj/machinery/door/window/attack_hand(mob/user as mob)
 	return src.attackby(user, user)
 
-/obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/user as mob)
+/obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/living/user as mob)
 
 	//If it's in the process of opening/closing, ignore the click
 	if (src.operating)
@@ -241,7 +252,7 @@
 		open()
 		emagged = 1
 		return 1
-	
+
 	//If windoor is unpowered, crowbar, fireaxe and armblade can force it.
 	if(istype(I, /obj/item/weapon/crowbar) || istype(I, /obj/item/weapon/twohanded/fireaxe) || istype(I, /obj/item/weapon/melee/arm_blade) )
 		if(stat & NOPOWER)
@@ -254,13 +265,14 @@
 	//If it's a weapon, smash windoor. Unless it's an id card, agent card, ect.. then ignore it (Cards really shouldnt damage a door anyway)
 	if(src.density && istype(I, /obj/item/weapon) && !istype(I, /obj/item/weapon/card) )
 		user.changeNext_move(8)
+		user.do_attack_animation(src)
 		var/aforce = I.force
 		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
 		visible_message("<span class='danger'>\The [src] has been hit by [user] with [I].</span>")
 		if(I.damtype == BURN || I.damtype == BRUTE)
 			take_damage(aforce)
 		return
-	
+
 	src.add_fingerprint(user)
 	if (!src.requiresID())
 		//don't care who they are or what they have, act as if they're NOTHING

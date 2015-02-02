@@ -11,11 +11,11 @@ Chief Engineer
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#ffeeaa"
-	req_admin_notify = 1
+	req_spacelaw_notify = 1
 	minimal_player_age = 7
 
 	default_id = /obj/item/weapon/card/id/silver
-	default_pda = /obj/item/device/pda/heads/ce
+	default_pda = /obj/item/device/thinktronic/tablet/ce
 	default_pda_slot = slot_l_store
 	default_headset = /obj/item/device/radio/headset/heads/ce
 	default_backpack = /obj/item/weapon/storage/backpack/industrial
@@ -52,7 +52,7 @@ Station Engineer
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
 
-	default_pda = /obj/item/device/pda/engineering
+	default_pda = /obj/item/device/thinktronic/tablet/engineer
 	default_pda_slot = slot_l_store
 	default_headset = /obj/item/device/radio/headset/headset_eng
 	default_backpack = /obj/item/weapon/storage/backpack/industrial
@@ -85,7 +85,7 @@ Atmospheric Technician
 	supervisors = "the chief engineer"
 	selection_color = "#fff5cc"
 
-	default_pda = /obj/item/device/pda/atmos
+	default_pda = /obj/item/device/thinktronic/tablet/atmos
 	default_pda_slot = slot_l_store
 	default_headset = /obj/item/device/radio/headset/headset_eng
 	default_storagebox = /obj/item/weapon/storage/box/engineer

@@ -473,7 +473,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 			id.update_label()
 
 			if(worn)
-				if(istype(worn,/obj/item/device/pda))
+				if(istype(worn,/obj/item/device/thinktronic/tablet))
 					worn:id = id
 					id.loc = worn
 				else if(istype(worn,/obj/item/weapon/storage/wallet))
@@ -669,9 +669,10 @@ var/global/list/g_fancy_list_of_safe_types = null
 			W.registered_name = M.real_name
 			W.update_label()
 			M.equip_to_slot_or_del(W, slot_wear_id)
-			var/obj/item/device/pda/P = new(M)
-			P.owner = M.real_name
-			P.ownjob = "Assistant"
+			var/obj/item/device/thinktronic/tablet/plain/P = new(M)
+			var/obj/item/device/thinktronic_parts/core/HDD = P.HDD
+			HDD.owner = M.real_name
+			HDD.ownjob = "Assistant"
 			P.update_label()
 			M.equip_to_slot_or_del(P, slot_belt)
 
@@ -854,9 +855,10 @@ var/global/list/g_fancy_list_of_safe_types = null
 			sec_briefcase.contents += new /obj/item/weapon/plastique
 			M.equip_to_slot_or_del(sec_briefcase, slot_l_hand)
 
-			var/obj/item/device/pda/heads/pda = new(M)
-			pda.owner = M.real_name
-			pda.ownjob = "Reaper"
+			var/obj/item/device/thinktronic/tablet/clear/pda = new(M)
+			var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
+			HDD.owner = M.real_name
+			HDD.ownjob = "Reaper"
 			pda.update_label()
 
 			M.equip_to_slot_or_del(pda, slot_belt)
@@ -925,9 +927,10 @@ var/global/list/g_fancy_list_of_safe_types = null
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/pen(M), slot_l_store)
 
-			var/obj/item/device/pda/heads/pda = new(M)
-			pda.owner = M.real_name
-			pda.ownjob = "Centcom Official"
+			var/obj/item/device/thinktronic/tablet/clear/pda = new(M)
+			var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
+			HDD.owner = M.real_name
+			HDD.ownjob = "Centcom Official"
 			pda.update_label()
 
 			M.equip_to_slot_or_del(pda, slot_r_store)

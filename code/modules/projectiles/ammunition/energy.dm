@@ -120,4 +120,20 @@
 	projectile_type = /obj/item/projectile/energy/disabler
 	select_name  = "disable"
 	e_cost = 50
-	fire_sound = "sound/weapons/taser.ogg"
+	fire_sound = 'sound/weapons/taser.ogg'
+
+
+//Taser modes
+
+/obj/item/ammo_casing/energy/taserstun
+	projectile_type = /obj/item/projectile/energy/electrode
+	select_name = "stun"
+	fire_sound = 'sound/weapons/taser.ogg'
+	mod_name = "taserstun"
+
+/obj/item/ammo_casing/energy/taserdisable
+	projectile_type = /obj/item/projectile/energy/disabler
+	select_name  = "disable"
+	mod_name = "taserdisable"
+	e_cost = 25
+	fire_sound = 'sound/weapons/taser.ogg'
