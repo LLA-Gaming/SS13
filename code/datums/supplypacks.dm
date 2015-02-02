@@ -916,9 +916,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Pizza Delivery"
 	num_contained = 1
 	contains = list(/obj/item/pizzabox/margherita,
-					/obj/item/pizzabox/meatpizza,
-					/obj/item/pizzabox/mushroompizza,
-					/obj/item/pizzabox/vegetablepizza,)
+			/obj/item/pizzabox/meatpizza,
+			/obj/item/pizzabox/mushroompizza,
+			/obj/item/pizzabox/vegetablepizza,)
 	cost = 15
 	containername = "pizza crate"
 
