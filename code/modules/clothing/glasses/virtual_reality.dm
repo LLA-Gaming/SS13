@@ -8,9 +8,10 @@ var/datum/virtual_reality_controller/vr_controller = new()
 	name = "virtual reality"
 	icon_state = "red2"
 
-	requires_power = 0
+	requires_power = 1
 	lighting_use_dynamic = 0
 	has_gravity = 1
+	power_equip = 1
 
 	Exited(var/atom/movable/A, var/atom/new_loc)
 		if(isliving(A))
@@ -44,9 +45,10 @@ var/datum/virtual_reality_controller/vr_controller = new()
 		name = "virtual reality - thunderdome"
 		icon_state = "dark128"
 
+
 		var/list/thunderdome_items = list(/obj/item/weapon/melee/energy/sword, /obj/item/weapon/melee/baton, /obj/item/weapon/gun/energy/laser,	\
 											/obj/item/clothing/suit/armor/tdome, /obj/item/clothing/head/helmet/thunderdome, /obj/item/clothing/head/helmet/swat, \
-											/obj/item/clothing/suit/armor/vest)
+											/obj/item/clothing/suit/armor/vest, /obj/item/weapon/twohanded/dualsaber)
 
 		// Removes the thunder-dome items when leaving the area.
 		Exited(var/atom/movable/A, var/atom/new_loc)
@@ -57,7 +59,7 @@ var/datum/virtual_reality_controller/vr_controller = new()
 
 				if(!istype(get_area(new_loc), src))
 					L << "\blue You left the thunderdome. Removing thunderdome items."
-					for(var/obj/item/I in L)
+					for(var/obj/item/I in L.get_contents())
 						for(var/_type in thunderdome_items)
 							if(istype(I, _type))
 								L.unEquip(I, 1)

@@ -1362,13 +1362,15 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 	target.age = from.age
 	target.blood_type = from.blood_type
 
+	target.gender = from.gender
+
 	if(copyitems)
 		if(from.w_uniform)
 			target.equip_to_slot_or_del(new from.w_uniform.type(target), slot_w_uniform)
 		if(from.shoes)
 			if(istype(from.shoes, /obj/item/clothing/shoes/combat))
 				var/obj/item/clothing/shoes/combat/C = new /obj/item/clothing/shoes/combat()
-				new /obj/item/weapon/stun_knife(C)
+				C.knife = new /obj/item/weapon/stun_knife(C)
 				C.icon_state = "swatk"
 				target.equip_to_slot_or_del(C, slot_shoes)
 			else
