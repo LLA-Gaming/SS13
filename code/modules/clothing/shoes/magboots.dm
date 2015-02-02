@@ -26,12 +26,14 @@
 	icon_state = "[magboot_state][magpulse]"
 	user << "You [magpulse ? "enable" : "disable"] the mag-pulse traction system."
 	user.update_inv_shoes(0)	//so our mob-overlays update
+	user.update_gravity(user.mob_has_gravity())
 
+/obj/item/clothing/shoes/magboots/negates_gravity()
+	return flags & NOSLIP
 
 /obj/item/clothing/shoes/magboots/examine()
 	set src in view()
 	..()
-	usr.send_text_to_tab("Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"].", "ic")
 	usr << "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"]."
 
 

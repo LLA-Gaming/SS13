@@ -341,6 +341,7 @@
 			O.show_message("\red [M] has been stabbed in the eye with [src] by [user].", 1)
 		M << "\red [user] stabs you in the eye with [src]!"
 		user << "\red You stab [M] in the eye with [src]!"
+		user.do_attack_animation(M)
 	else
 		user.visible_message( \
 			"\red [user] has stabbed themself with [src]!", \

@@ -126,14 +126,17 @@
 	var/const/buckled_pixel_y_offset = 6 //Mobs buckled will have their pixel_y offset by this much
 
 /obj/structure/stool/bed/roller/afterbuckle(mob/M as mob)
-	if(buckled_mob)
+	if(M == buckled_mob)
 		density = 1
 		icon_state = "up"
-		M.pixel_y += buckled_pixel_y_offset
+		M.pixel_y = initial(M.pixel_y)
 	else
 		density = 0
 		icon_state = "down"
-		M.pixel_y -= buckled_pixel_y_offset
+		if(buckled_mob)
+			buckled_mob.pixel_y = initial(buckled_mob.pixel_y)
+			if(buckled_mob.lying)
+				buckled_mob.pixel_y -= buckled_pixel_y_offset
 
 /obj/structure/stool/bed/roller/Move()
 	..()

@@ -41,7 +41,7 @@
 	colour = "white"
 
 
-/obj/item/weapon/pen/attack(mob/living/M, mob/user)
+/obj/item/weapon/pen/attack(mob/living/M, mob/living/user)
 	if(!istype(M))
 		return
 
