@@ -588,6 +588,15 @@ var/global/floorIsLava = 0
 	message_admins("[key_name_admin(usr)] toggled OOC.", 1)
 	feedback_add_details("admin_verb","TOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/datum/admins/proc/toggle_vr()
+	set category = "Server"
+	set name = "Toggle Virtual Reality Entering"
+
+	vr_controller.can_enter = !vr_controller.can_enter
+
+	message_admins("[key_name(usr, 1)] toggled VR entering to [vr_controller.can_enter ? "On" : "Off"]")
+	log_admin("[key_name(usr)] toggled VR entering to [vr_controller.can_enter ? "On" : "Off"]")
+
 /datum/admins/proc/toggleoocdead()
 	set category = "Server"
 	set desc="Toggle dis bitch"

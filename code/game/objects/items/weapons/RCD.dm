@@ -262,3 +262,89 @@ RCD
 	origin_tech = "materials=2"
 	m_amt = 16000
 	g_amt = 8000
+
+/*
+* Virtual Reality RCD
+*/
+
+/obj/item/weapon/rcd/virtual
+	name = "virtual rapid-construction-device (V-RCD)"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "rcd"
+
+	matter = INFINITY
+	canRwall = 1
+	advanced_airlock_setting = 1
+
+	/*
+	* Override afterattack to allow for instantaneous building and deconstructing and various other things.
+	*/
+
+	examine()
+		..()
+		usr << "\blue Holds infinite resources."
+
+	afterattack(atom/A, mob/user, proximity)
+		if(!proximity)	return 0
+
+		if(istype(A,/area/shuttle)||istype(A,/turf/space/transit))
+			return 0
+		if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock)))
+			return 0
+
+		if(!istype(get_area(src), /area/virtual_reality/creative_suite))
+			usr << "\red You can't use that here."
+			return 0
+
+		switch(mode)
+			if(1)
+				if(istype(A, /turf/space))
+					user << "Building Floor..."
+					activate()
+					A:ChangeTurf(/turf/simulated/floor/plating)
+					return 1
+
+				if(istype(A, /turf/simulated/floor))
+					user << "Building Wall ..."
+					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					activate()
+					A:ChangeTurf(/turf/simulated/wall)
+					return 1
+
+			if(2)
+				if(istype(A, /turf/simulated/floor))
+					user << "Building Airlock..."
+					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					activate()
+					var/obj/machinery/door/airlock/T = new airlock_type( A )
+					T.autoclose = 1
+
+					return 1
+
+			if(3)
+				if(istype(A, /turf/simulated/wall))
+					if(istype(A, /turf/simulated/wall/r_wall) && !canRwall)
+						return 0
+					user << "Deconstructing Wall..."
+					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					activate()
+					A:ChangeTurf(/turf/simulated/floor/plating)
+					return 1
+
+				if(istype(A, /turf/simulated/floor))
+					user << "Deconstructing Floor..."
+					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					activate()
+					A:ChangeTurf(/turf/space)
+					return 1
+
+				if(istype(A, /obj/machinery/door/airlock))
+					if(istype(get_area(A), /area/virtual_reality))
+						return 0
+					user << "Deconstructing Airlock..."
+					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
+					activate()
+					qdel(A)
+					return 1
+
+				return 1

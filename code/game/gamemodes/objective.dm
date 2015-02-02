@@ -465,7 +465,7 @@ datum/objective/absorb/check_completion()
 				var/faction_id = mind.current.client.GetCurrentFaction(1)
 
 				if(mind.changeling)
-					if(antag_type)
+					if(antag_type && antag_type != "Changeling")
 						antag_type += "|Changeling"
 				for(var/datum/objective/objective in mind.objectives)
 					var/status = objective.check_completion()

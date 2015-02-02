@@ -67,6 +67,9 @@
 	if(c.geneticdamage > max_genetic_damage)
 		user << "<span class='warning'>Our genomes are still reassembling. We need time to recover first.</span>"
 		return 0
+	if(user.client in vr_controller.contained_clients)
+		user << "\red You can't do that in the VR!"
+		return 0
 	return 1
 
 //used in /mob/Stat()

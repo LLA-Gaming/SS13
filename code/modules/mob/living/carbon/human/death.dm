@@ -22,6 +22,10 @@
 	dizziness = 0
 	jitteriness = 0
 
+	if(client in vr_controller.contained_clients)
+		var/obj/item/clothing/glasses/virtual/V = vr_controller.GetGogglesFromClient(client)
+		V.LeaveVR()
+
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc
 		if(M.occupant == src)

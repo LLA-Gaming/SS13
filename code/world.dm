@@ -92,6 +92,9 @@
 	src.update_world_name()
 	src.update_status()
 
+	if(!vr_controller)
+		vr_controller = new()
+
 	process_teleport_locs()			//Sets up the wizard teleport locations
 	process_ghost_teleport_locs()	//Sets up ghost teleport locations.
 	sleep_offline = 1

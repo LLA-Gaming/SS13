@@ -260,6 +260,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 			return DNA
 
 /datum/changeling/proc/can_absorb_dna(var/mob/living/carbon/user, var/mob/living/carbon/target)
+	if(user.client in vr_controller.contained_clients)
+		user << "<span class='warning'>You can't absorb people in the VR!</span>"
+		return
 	if(absorbed_dna[1] == user.dna)//If our current DNA is the stalest, we gotta ditch it.
 		user << "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>"
 		return

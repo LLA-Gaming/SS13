@@ -14,6 +14,9 @@
 	return
 
 /obj/effect/proc_holder/changeling/sting/proc/set_sting(var/mob/user)
+	if(user.client in vr_controller.contained_clients)
+		user << "\red You can't select a sting in the VR!"
+		return
 	user << "<span class='notice'>We prepare our sting, use alt+click or middle mouse button on target to sting them.</span>"
 	user.mind.changeling.chosen_sting = src
 	user.hud_used.lingstingdisplay.icon_state = sting_icon
@@ -45,6 +48,9 @@
 	if(target.mind && target.mind.changeling)
 		sting_feedback(user,target)
 		take_chemical_cost(user.mind.changeling)
+		return
+	if(user.client in vr_controller.contained_clients)
+		user << "\red You can't do that in the VR!"
 		return
 	return 1
 
