@@ -2218,6 +2218,24 @@
 	var/list/boxes = list() // If the boxes are stacked, they come here
 	var/boxtag = ""
 
+/obj/item/pizzabox/margherita
+	name = "margherita pizza box"
+	New()
+		pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/margherita(src)
+/obj/item/pizzabox/meatpizza
+	name = "meat pizza box"
+	New()
+		pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
+/obj/item/pizzabox/mushroompizza
+	name = "mushroom pizza box"
+	New()
+		pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/mushroompizza(src)
+/obj/item/pizzabox/vegetablepizza
+	name = "vegetable pizza box"
+	New()
+		pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/vegetablepizza(src)
+
+
 /obj/item/pizzabox/update_icon()
 	overlays = list()
 
