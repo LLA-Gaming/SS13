@@ -149,7 +149,8 @@
 	name = "security robot module"
 
 	New()
-		..()
+		modules += new /obj/item/device/flashlight/seclite(src)
+		modules += new /obj/item/device/flash(src)
 		modules += new /obj/item/borg/sight/hud/sec(src)
 		modules += new /obj/item/weapon/handcuffs/cyborg(src)
 		modules += new /obj/item/weapon/melee/baton/loaded(src)
