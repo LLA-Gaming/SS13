@@ -874,6 +874,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "glass sheets crate"
 
+/datum/supply_packs/materials/wood30
+	name = "30 Wood Sheets"
+	contains = list(/obj/item/stack/sheet/mineral/wood)
+	amount = 30
+	cost = 10
+	containername = "wood sheet crate"
+
 /datum/supply_packs/materials/cardboard50
 	name = "50 Cardboard Sheets"
 	contains = list(/obj/item/stack/sheet/cardboard)
@@ -888,6 +895,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 20
 	containername = "sandstone blocks crate"
 
+/datum/supply_packs/materials/carpet50
+	name = "50 Carpet Tiles"
+	contains = list(/obj/item/stack/tile/carpet)
+	amount = 50
+	cost = 20
+	containername = "carpet crate"
+
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Miscellaneous ///////////////////////////////////
@@ -896,6 +910,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/misc
 	name = "HEADER"
 	group = supply_misc
+
+//"Hello? Pizza delivery for, uh ... I.C. Wiener?"
+/datum/supply_packs/misc/randomised/pizza
+	name = "Pizza Delivery"
+	num_contained = 1
+	contains = list(/obj/item/pizzabox/margherita,
+					/obj/item/pizzabox/meatpizza,
+					/obj/item/pizzabox/mushroompizza,
+					/obj/item/pizzabox/vegetablepizza,)
+	cost = 15
+	containername = "pizza crate"
 
 /datum/supply_packs/misc/mule
 	name = "MULEbot Crate"
