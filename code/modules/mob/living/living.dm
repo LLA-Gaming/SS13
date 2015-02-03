@@ -587,6 +587,10 @@
 	float(!has_gravity)
 
 /mob/living/proc/float(on)
+	if(resting || stat)
+		animate(src, pixel_y = initial(pixel_y), time = 10)
+		floating = 0
+		return
 	if(on && !floating)
 		animate(src, pixel_y = 2, time = 10, loop = -1)
 		floating = 1
