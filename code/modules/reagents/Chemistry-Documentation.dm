@@ -16,6 +16,29 @@
 	window_size = "970x710"
 	var/list/allowed_categories = list(MED,EFFECT,OTHER)
 	dat = ""
+	var/tablecolor = "#33CCFF"
+	var/introduction = {"<h1><span><a name='top'>The Complete Guide to Reactions</span></h1>
+	<p>This guide will provide the budding chemistry student with access to all the documented and approved reactions for Nanotrasen standard laboratory facilities.</p>
+	<br>
+	<br>
+	<p><h2>Definitions</h2>
+	<ul>
+		<li>Catalyst: A chemical required by the reaction, but not consumed by it. The amount listed is the minimum needed for this reaction to take place.</li>
+		<li>Resulting Amount: The amount of reagent produced by that reaction. If N/A, the reaction will not remain contained in the beaker.</li>
+	</ul>
+	</p>
+	<p><h2>The Recipes</h2>
+	Each recipe is organized into a bulleted list. Sub bullets of a reagent listed are the recipe for the parent bullet. Example Below. Some recipes may contain several levels deep of these reactions.
+	<ul>
+		<li>Reagent A</li>
+		<ul>
+			<li>Reagent to make A</li>
+			<li>Reagent to make A</li>
+		</ul>
+		<li>Reagent B</li>
+		<li>Reagent C</li>
+	</ul>
+	</p>"}
 
 /obj/item/weapon/book/manual/chembook/proc/list_intermediates(var/id, var/list/reactions)
 	//world << "DEBUG: LIST_INTERMEDIATES CALLED"
@@ -102,7 +125,7 @@
 					ul {margin: 5px; padding: 0px;}
 					ol {margin: 5px; padding: 0px 15px;}
 					table, th, td {border: 1px solid black; }
-					td {background-color: #5C85FF;}
+					td {background-color: [tablecolor];}
 					a, a:link, a:visited, a:active, a:hover { color: #000000; }img {border-style:none;}
 					</style>
 					</head>
@@ -111,28 +134,7 @@
 
 		//Contents
 
-	dat += {"<h1><span><a name='top'>The Complete Guide to Reactions</span></h1>
-	<p>This guide will provide the budding chemistry student with access to all the documented and approved reactions for Nanotrasen standard laboratory facilities.</p>
-	<br>
-	<br>
-	<p><h2>Definitions</h2>
-	<ul>
-		<li>Catalyst: A chemical required by the reaction, but not consumed by it. The amount listed is the minimum needed for this reaction to take place.</li>
-		<li>Resulting Amount: The amount of reagent produced by that reaction. If N/A, the reaction will not remain contained in the beaker.</li>
-	</ul>
-	</p>
-	<p><h2>The Recipes</h2>
-	Each recipe is organized into a bulleted list. Sub bullets of a reagent listed are the recipe for the parent bullet. Example Below. Some recipes may contain several levels deep of these reactions.
-	<ul>
-		<li>Reagent A</li>
-		<ul>
-			<li>Reagent to make A</li>
-			<li>Reagent to make A</li>
-		</ul>
-		<li>Reagent B</li>
-		<li>Reagent C</li>
-	</ul>
-	</p>"}
+	dat += introduction
 
 	dat += {"<table border = "1" style="width:100%">
 			<tr>
@@ -142,8 +144,7 @@
 			</tr>"}
 
 	for (var/datum/chemical_reaction/C in reactions)
-		dat += {"<tr><a href="#[C.name]"</a>
-			<td><center>[C.name]</center></td>"}
+		dat += {"<tr><td><center>[C.name]</center></td>"}
 		dat += {"<td>"}
 		src.list_intermediates(C.id, reactions)
 		dat += {"</td>"}
@@ -158,8 +159,37 @@
 		qdel(G) // Bye bye!
 	return
 
-
-
+//bar needs love too ~Flavo
+/obj/item/weapon/book/manual/chembook/barman_recipes
+	name = "Barman Recipes"
+	icon_state = "barbook"
+	author = "Sir John Rose"
+	title = "Barman Recipes"
+	allowed_categories = list(DRINK)
+	dat = ""
+	tablecolor = "#6cf988"
+	introduction = {"<h1><span><a name='top'>Drinks for dummies</span></h1>
+				Heres a guide for some basic drinks.
+				<br>
+				<p><h2>Definitions</h2>
+				<ul>
+					<li>Catalyst: A chemical required by the reaction, but not consumed by it. The amount listed is the minimum needed for the drink to mix.</li>
+					<li>Resulting Amount: The amount of drink produced by that mix.</li>
+				</ul>
+				</p>
+				<p><h2>The Recipes</h2>
+				Each recipe is organized into a bulleted list. Sub bullets of a drink listed are the recipe for the parent bullet. Example Below. Some recipes may contain several levels deep of these mixs.
+				<ul>
+					<li>Drink A</li>
+					<ul>
+						<li>Mix to make A</li>
+						<li>Mix to make A</li>
+					</ul>
+					<li>Drink B</li>
+					<li>Drink C</li>
+				</ul>
+				</p>
+				"}
 
 
 //Cleaning up
