@@ -10,7 +10,7 @@
 
 /obj/item/weapon/book/manual/chembook
 	name = "The Complete Guide to Reactions"
-	//icon_state ="" //needs own icon
+	icon_state ="chemistry" //taken from bay12
 	author = "Dr. J. Rose"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
 	title = "The Complete Guide to Reactions"
 	window_size = "970x710"
