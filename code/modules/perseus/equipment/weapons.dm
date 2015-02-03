@@ -329,7 +329,7 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 		if(USE_SKNIFE_CHARGES)
 			if(mode == 1 || SKNIFE_LETHAL_USE_CHARGE)
 				power_supply.use(SKNIFE_CHARGE_COST)
-		user.do_attack_animation(M)
+		//user.do_attack_animation(M)
 		switch(mode)
 			if(1)
 				if(isrobot(M))

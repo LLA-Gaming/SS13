@@ -209,7 +209,7 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
-		M.do_attack_animation(src)
+		//M.do_attack_animation(src)
 		if(M.attack_sound)
 			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
@@ -227,7 +227,7 @@
 	if(M.Victim) return // can't attack while eating!
 
 	if (health > -100)
-		M.do_attack_animation(src)
+		//M.do_attack_animation(src)
 
 		for(var/mob/O in viewers(src, null))
 			if ((O.client && !( O.blinded )))

@@ -626,6 +626,9 @@ var/list/slotTakeOffTime = list(slot_back = 80, slot_wear_mask = 40, slot_handcu
 				src.unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
 
+//////////Animations removed, the community does not want them////////////
+/*
+
 /mob/living/proc/do_attack_animation(atom/A)
 	if(buckled || resting)
 		return
@@ -656,5 +659,4 @@ var/list/slotTakeOffTime = list(slot_back = 80, slot_wear_mask = 40, slot_handcu
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
 	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
 	floating = 0
-
-
+*/

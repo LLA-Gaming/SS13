@@ -123,7 +123,7 @@ emp_act
 	var/hit_area = parse_zone(affecting.name)
 
 	if(user != src)
-		user.do_attack_animation(src)
+		//user.do_attack_animation(src)
 		if(check_shields(I.force, "the [I.name]"))
 			return 0
 

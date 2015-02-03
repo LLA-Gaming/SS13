@@ -59,7 +59,7 @@
 		playsound(loc, 'sound/weapons/Genhit.ogg', 50, 1, -1)
 		M.Stun(7)
 		M.Weaken(7)
-		user.do_attack_animation(M)
+		//user.do_attack_animation(M)
 		M.visible_message("<span class='danger'>[M] has been stunned with [src] by [user]!</span>", \
 							"<span class='userdanger'>[M] has been stunned with [src] by [user]!</span>")
 
