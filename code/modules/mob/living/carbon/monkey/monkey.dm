@@ -87,7 +87,7 @@
 		help_shake_act(M)
 	else
 		if ((M.a_intent == "harm" && !( istype(wear_mask, /obj/item/clothing/mask/muzzle) )))
-			M.do_attack_animation(src)
+			//M.do_attack_animation(src)
 			if ((prob(75) && health > 0))
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				for(var/mob/O in viewers(src, null))
@@ -120,7 +120,7 @@
 
 	else
 		if (M.a_intent == "harm")
-			M.do_attack_animation(src)
+			//M.do_attack_animation(src)
 			if (prob(75))
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
@@ -192,7 +192,7 @@
 					O.show_message(text("\blue [M] caresses [src] with its scythe like arm."), 1)
 
 		if ("harm")
-			M.do_attack_animation(src)
+			//M.do_attack_animation(src)
 			if ((prob(95) && health > 0))
 				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)
