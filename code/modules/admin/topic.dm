@@ -763,6 +763,19 @@
 			//M.client = null
 			del(M.client)
 
+	else if(href_list["knownedit"])
+		var/mob/M = locate(href_list["knownedit"])
+		if (ismob(M))
+			if(M.client)
+				var/t = input("Enter a small detail about the player", "Write", M.client.prefs.knownplayer, null) as text
+				if(!t)
+					M.client.prefs.knownplayer = ""
+					M.client.prefs.save_nonpreferences()
+				if(t)
+					M.client.prefs.knownplayer = "[t] ~[usr.ckey]"
+					M.client.prefs.save_nonpreferences()
+					message_admins("\blue [key_name_admin(usr)] tagged [M.ckey] as known. Details: [M.client.prefs.knownplayer]", 1)
+
 	//Player Notes
 	else if(href_list["notes"])
 		var/ckey = href_list["ckey"]

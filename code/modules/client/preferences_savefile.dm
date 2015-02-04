@@ -265,6 +265,46 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	return 1
 
+///Non-prefrence saving
+//For now it is used to save the known player variable but you could use it for like karma points or something in the future - Flavo
+
+/datum/preferences/proc/load_nonpreferences()
+	if(!path)				return 0
+	if(!fexists(path))		return 0
+
+	var/savefile/S = new /savefile(path)
+	if(!S)					return 0
+	S.cd = "/"
+
+	var/needs_update = savefile_needs_update(S)
+	if(needs_update == -2)		//fatal, can't load any data
+		return 0
+
+	//non-preferences
+	S["knownplayer"]			>> knownplayer
+
+	//try to fix any outdated data if necessary
+	if(needs_update >= 0)
+		update_preferences(needs_update)		//needs_update = savefile_version if we need an update (positive integer)
+
+	//Sanitize
+	knownplayer 	= sanitize_text(knownplayer, initial(knownplayer))
+
+	return 1
+
+/datum/preferences/proc/save_nonpreferences()
+	if(!path)				return 0
+	var/savefile/S = new /savefile(path)
+	if(!S)					return 0
+	S.cd = "/"
+
+	S["version"] << SAVEFILE_VERSION_MAX		//updates (or failing that the sanity checks) will ensure data is not invalid at load. Assume up-to-date
+
+	//non-preferences
+	S["knownplayer"]			<< knownplayer
+
+	return 1
+
 
 #undef SAVEFILE_VERSION_MAX
 #undef SAVEFILE_VERSION_MIN
