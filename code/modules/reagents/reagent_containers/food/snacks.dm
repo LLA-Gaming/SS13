@@ -3,6 +3,7 @@
 	desc = "yummy"
 	icon = 'icons/obj/food.dmi'
 	icon_state = null
+	var/deepfried = 0
 	var/bitesize = 1
 	var/bitecount = 0
 	var/trash = null
@@ -2571,3 +2572,15 @@
 		..()
 		reagents.add_reagent("purplecrayonpowder", 10)
 		bitesize = 3
+
+/obj/item/weapon/reagent_containers/food/snacks/deepfryholder
+	name = "Deep Fried Food"
+	desc = "This shouldn't exist"
+	icon = 'icons/obj/food.dmi'
+	icon_state = "deepfried_holder_icon"
+	bitesize = 2
+	deepfried = 1
+	New()
+		..()
+		reagents.add_reagent("nutriment", 30)
+
