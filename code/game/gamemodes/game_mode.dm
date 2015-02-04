@@ -338,12 +338,14 @@ proc/display_roundstart_age_report()
 // This proc was once to check if the player logged on and logged off, on other servers logging out is against the rules so we didn't
 //really need this proc, i have replaced it to tell admins the players who have recently started playing on the server so we could
 //properlly greet them and welcome them on and help them if they seem to be causing trouble
-	var/msg = "\blue <b>Roundstart player age report\n\n"
+	var/msg = "\blue <b>Roundstart player report\n\n"
+	var/found
 	for(var/mob/L in mob_list)
 		if(L.client)
-			var/age = text2num(L.client.player_age)
-			if(age <= 14)
-				msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (Player age: <font color = 'red'>[age]</font>)\n"
+			if(!L.client.prefs.knownplayer)
+				found++
+	if(found)
+		msg += "<b><font color = 'red'>[found]</font> unknown player(s) found (use player analysis panel for details)\n"
 
 	for(var/mob/M in mob_list)
 		if(M.client && M.client.holder)

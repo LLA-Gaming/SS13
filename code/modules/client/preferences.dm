@@ -31,6 +31,7 @@ datum/preferences
 	var/muted = 0
 	var/last_ip
 	var/last_id
+	var/knownplayer = ""	//Admins can mark players as known or unknown, by default is unknown
 
 	//game-preferences
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
@@ -97,6 +98,7 @@ datum/preferences
 			if(unlock_content)
 				max_save_slots = 8
 	var/loaded_preferences_successfully = load_preferences()
+	load_nonpreferences()
 	if(loaded_preferences_successfully)
 		if(load_character())
 			return

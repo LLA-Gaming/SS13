@@ -48,7 +48,14 @@ var/global/floorIsLava = 0
 		body += " <B>Hasn't Entered Game</B> "
 	else
 		body += " \[<A href='?_src_=holder;revive=\ref[M]'>Heal</A>\] "
-
+	if(M.client)
+		if(M.client.prefs.knownplayer)
+			body += "<br><br>Known Player: "
+			body += " [M.client.prefs.knownplayer ? "<b>[M.client.prefs.knownplayer]</b>" : "Unknown"] "
+			body += "\[<A href='?_src_=holder;knownedit=\ref[M]'>Edit Details</A>\]"
+		if(!M.client.prefs.knownplayer)
+			body += "<br><br><b><u>Unknown Player!</b></u> "
+			body += "\[<A href='?_src_=holder;knownedit=\ref[M]'>Tag As Known</A>\]"
 	body += "<br><br>\[ "
 	body += "<a href='?_src_=vars;Vars=\ref[M]'>VV</a> - "
 	body += "<a href='?_src_=holder;traitor=\ref[M]'>TP</a> - "
