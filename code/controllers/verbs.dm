@@ -1,7 +1,7 @@
 //TODO: rewrite and standardise all controller datums to the datum/controller type
 //TODO: allow all controllers to be deleted for clean restarts (see WIP master controller stuff) - MC done - lighting done
 
-/client/proc/restart_controller(controller in list("Master","Failsafe","Lighting","Supply Shuttle"))
+/client/proc/restart_controller(controller in list("Master","Failsafe","Lighting","Supply Shuttle", "Virtual Reality"))
 	set category = "Debug"
 	set name = "Restart Controller"
 	set desc = "Restart one of the various periodic loop controllers for the game (be careful!)"
@@ -24,6 +24,11 @@
 		if("Supply Shuttle")
 			supply_shuttle.process()
 			feedback_add_details("admin_verb","RSupply")
+		if("Virtual Reality")
+			qdel(vr_controller)
+			vr_controller = new /datum/virtual_reality_controller()
+			vr_controller.process()
+			feedback_add_details("admin_verb", "RVR")
 	message_admins("Admin [key_name_admin(usr)] has restarted the [controller] controller.")
 	return
 
