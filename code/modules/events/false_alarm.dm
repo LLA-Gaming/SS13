@@ -10,11 +10,14 @@
 
 /datum/round_event/falsealarm/announce()
 	var/datum/round_event_control/E = pick(events.control)
-	var/datum/round_event/Event = new E.typepath()
 
-	if(istype(Event, /datum/round_event_control/spooky))
+	var/list/forbidden = list(/datum/round_event_control/spooky)
+
+	if(E.typepath in forbidden)
 		qdel(src)
 		return 0
+
+	var/datum/round_event/Event = new E.typepath()
 
 	message_admins("False Alarm: [Event]")
 	Event.kill() 		//do not process this event - no starts, no ticks, no ends
