@@ -16,7 +16,7 @@ Chief Engineer
 
 	default_id = /obj/item/weapon/card/id/silver
 	default_pda = /obj/item/device/thinktronic/tablet/ce
-	default_pda_slot = slot_l_store
+	default_pda_slot = slot_r_store
 	default_headset = /obj/item/device/radio/headset/heads/ce
 	default_backpack = /obj/item/weapon/storage/backpack/industrial
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_eng
@@ -37,6 +37,7 @@ Chief Engineer
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/hardhat/white(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/utility/full(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_l_store) // Equips the telebaton
 
 /*
 Station Engineer
