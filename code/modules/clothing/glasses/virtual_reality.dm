@@ -336,7 +336,8 @@ var/datum/virtual_reality_controller/vr_controller = new()
 
 	New()
 		..()
-		vr_controller.goggles += src
+		if(vr_controller)
+			vr_controller.goggles += src
 
 	equipped(var/mob/living/L, var/slot)
 		..()
