@@ -334,7 +334,7 @@ var/datum/virtual_reality_controller/vr_controller = new()
 		// just some fluff
 		usr << "\blue These glasses have an access level of [glasses_type + 1]."
 
-	New()
+	initialize()
 		..()
 		if(vr_controller)
 			vr_controller.goggles += src
@@ -375,6 +375,12 @@ var/datum/virtual_reality_controller/vr_controller = new()
 		if(!H)
 			return 0
 
+		if(!vr_controller)
+			return 0
+
+		if(!src in vr_controller.goggles)
+			vr_controller.goggles += src
+
 		if(!vr_controller.HandleVREnter(src, H))
 			H.unEquip(src)
 			H.put_in_active_hand(src)
@@ -400,6 +406,12 @@ var/datum/virtual_reality_controller/vr_controller = new()
 	proc/LeaveVR()
 		if(!original_mob)
 			return 0
+
+		if(!vr_controller)
+			return 0
+
+		if(!src in vr_controller.goggles)
+			vr_controller.goggles += src
 
 		if(!vr_controller.HandleVRExit(src, using_client))
 			return 0
