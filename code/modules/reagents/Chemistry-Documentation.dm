@@ -15,6 +15,7 @@
 	title = "The Complete Guide to Reactions"
 	window_size = "970x710"
 	var/list/allowed_categories = list(MED,EFFECT,OTHER)
+	var/booksave = "html/manuals/chembook.html"
 	dat = ""
 	var/tablecolor = "#33CCFF"
 	var/introduction = {"<h1><span><a name='top'>The Complete Guide to Reactions</span></h1>
@@ -100,6 +101,10 @@
 
 
 /obj/item/weapon/book/manual/chembook/New()
+	if (fexists(booksave))
+		dat = file2text(file(booksave)) //Delete the files in html/manuals to force re-generation of the books at first runtime. Recommend this gets done by a coder then PR'd to the server.
+		return
+	diary << "\[[time_stamp()]] DEBUG: DYNAMIC MANUAL FILE GENERATION BEGUN. IF THIS HAPPENS ON THE LIVE SERVER CONTACT A CODER."
 	var/list/reactions = list()
 
 	//Populate reactions
@@ -157,6 +162,7 @@
 
 	for (var/G in reactions)
 		qdel(G) // Bye bye!
+	file(booksave) << dat //Save it all so we don't do this again.
 	return
 
 //bar needs love too ~Flavo
@@ -166,6 +172,7 @@
 	author = "Sir John Rose"
 	title = "Barman Recipes"
 	allowed_categories = list(DRINK)
+	booksave = "html/manuals/barbook.html"
 	dat = ""
 	tablecolor = "#6cf988"
 	introduction = {"<h1><span><a name='top'>Drinks for dummies</span></h1>
