@@ -31,6 +31,7 @@ Captain
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/brown(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/caphat(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(H), slot_glasses)
+	H.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_r_store) // Equips the telebaton
 
 	//Equip ID box
 	if(H.backbag == 1)
@@ -87,6 +88,7 @@ Head of Personnel
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/head_of_personnel(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/brown(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/hopcap(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_r_store) // Equips the telebaton
 
 	//Equip ID box
 	if(H.backbag == 1)
