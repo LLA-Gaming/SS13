@@ -11,4 +11,3 @@
 *.lk
 *.int
 /data/**/*
-config/admins.txt
