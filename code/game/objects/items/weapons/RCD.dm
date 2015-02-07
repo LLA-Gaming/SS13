@@ -281,7 +281,6 @@ RCD
 	*/
 
 	examine()
-		..()
 		usr << "\blue Holds infinite resources."
 
 	afterattack(atom/A, mob/user, proximity)
@@ -292,8 +291,8 @@ RCD
 		if(!(istype(A, /turf) || istype(A, /obj/machinery/door/airlock)))
 			return 0
 
-		if(!istype(get_area(src), /area/virtual_reality/creative_suite))
-			usr << "\red You can't use that here."
+		if(!istype(get_area(A), /area/virtual_reality/creative_suite))
+			usr << "\red You can't use that there."
 			return 0
 
 		switch(mode)
@@ -329,13 +328,6 @@ RCD
 					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 					activate()
 					A:ChangeTurf(/turf/simulated/floor/plating)
-					return 1
-
-				if(istype(A, /turf/simulated/floor))
-					user << "Deconstructing Floor..."
-					playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-					activate()
-					A:ChangeTurf(/turf/space)
 					return 1
 
 				if(istype(A, /obj/machinery/door/airlock))

@@ -22,9 +22,10 @@
 	dizziness = 0
 	jitteriness = 0
 
-	if(client in vr_controller.contained_clients)
-		var/obj/item/clothing/glasses/virtual/V = vr_controller.GetGogglesFromClient(client)
-		V.LeaveVR()
+	if(vr_controller)
+		if(client in vr_controller.contained_clients)
+			var/obj/item/clothing/glasses/virtual/V = vr_controller.GetGogglesFromClient(client)
+			if(V)	V.LeaveVR()
 
 	if(istype(loc, /obj/mecha))
 		var/obj/mecha/M = loc

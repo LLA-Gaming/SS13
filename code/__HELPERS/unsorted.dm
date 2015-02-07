@@ -1337,15 +1337,6 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 		return 3
 
 /proc/copy_human(var/mob/living/carbon/human/from, var/mob/living/carbon/human/target, var/copyitems = 1, var/ignore_forbidden = 0, var/copyid = 1)
-	var/list/forbidden = list(/obj/item/clothing/mask/facehugger, /obj/item/device/mmi, /obj/item/weapon/storage/backpack/holding, /obj/item/weapon/hand_tele,
-							 /obj/item/clothing/suit/armor/reactive, /obj/item/weapon/tank, /obj/item/device/transfer_valve, /obj/item/weapon/surgical_drapes,
-							 /obj/item/weapon/bedsheet, /obj/item/weapon/circuitboard, /obj/item/bluespace_crystal, /obj/item/weapon/tome, /obj/item/weapon/paper,
-							 /obj/item/weapon/storage/box/PDAs, /obj/item/weapon/teleportation_scroll, /obj/item/device/radio, /obj/item/seeds/bluespacetomatoseed,
-							 /obj/item/weapon/reagent_containers/food/snacks/grown/bluespacetomato, /obj/item/weapon/rcd, /obj/item/weapon/plastique,
-							 /obj/item/device/thinktronic/tablet, /obj/item/weapon/implant/tracking, /obj/item/weapon/implant/explosive, /obj/item/weapon/implant/chem,
-							 /obj/item/weapon/implant/adrenalin, /obj/item/weapon/implant/emp,/obj/item/weapon/implant/uplink, /obj/item/weapon/implant/freedom,
-							 /obj/item/weapon/implant/exile, /obj/item/weapon/implant/health)
-
 	target.name = from.name
 	target.real_name = from.real_name
 
@@ -1397,7 +1388,7 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 		if(from.back)
 			var/obj/item/weapon/storage/backpack/B = new from.back.type()
 			for(var/obj/item/I in from.back)
-				if(I.type in forbidden)	continue
+				if(I.type in vr_controller.forbidden_types)	continue
 				var/obj/item/O = new I.type()
 				B.contents += O
 			target.equip_to_slot_or_del(B, slot_back)
@@ -1469,7 +1460,7 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 //		target.equip_to_slot_or_del(new /obj/item/weapon/book/manual/security_space_law(target), slot_l_hand)
 	if(!ignore_forbidden)
 		for(var/obj/item/I in target.get_contents())
-			for(var/T in forbidden)
+			for(var/T in vr_controller.forbidden_types)
 				if(istype(I, T))
 					qdel(I)
 	target.update_icons()

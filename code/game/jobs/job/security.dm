@@ -45,7 +45,7 @@ Head of Shitcurity
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
-	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_l_store) // Equips the telebaton
 
 	if(H.backbag == 1)
 		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
@@ -138,6 +138,7 @@ Detective
 	//H.equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(H), slot_glasses)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/det_suit(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/weapon/lighter/zippo(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_r_store) // Equips the telebaton
 
 	var/obj/item/clothing/mask/cigarette/cig = new /obj/item/clothing/mask/cigarette(H)
 	cig.light("")
@@ -145,7 +146,7 @@ Detective
 
 	if(H.backbag == 1)//Why cant some of these things spawn in his office?
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/evidence(H), slot_l_hand)
-		H.equip_to_slot_or_del(new /obj/item/device/detective_scanner(H), slot_r_store)
+		H.equip_to_slot_or_del(new /obj/item/device/detective_scanner(H), slot_s_store)
 	else
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/evidence(H), slot_in_backpack)
 		H.equip_to_slot_or_del(new /obj/item/device/detective_scanner(H), slot_in_backpack)

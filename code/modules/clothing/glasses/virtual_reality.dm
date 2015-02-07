@@ -13,6 +13,19 @@ var/datum/virtual_reality_controller/vr_controller = new()
 	has_gravity = 1
 	power_equip = 1
 
+	// This is here so it is available at this scope.
+
+	// Items not allowed to take out of the thunderdome.
+	var/list/thunderdome_items = list(/obj/item/weapon/melee/energy/sword, /obj/item/weapon/melee/baton, /obj/item/weapon/gun/energy/laser,	\
+									/obj/item/clothing/suit/armor/tdome, /obj/item/clothing/head/helmet/thunderdome, /obj/item/clothing/head/helmet/swat, \
+									/obj/item/clothing/suit/armor/vest, /obj/item/weapon/twohanded/dualsaber)
+
+	// Items not allowed to take out of the perseus start area.
+	var/list/forbidden_perseus_items = list(/obj/item/weapon/plastique/breach)
+
+	// Forbidden items to take out of the firing range.
+	var/list/forbidden_range_items = list(/obj/item/weapon/gun/projectile/automatic/fiveseven, /obj/item/weapon/gun/energy/ep90)
+
 	Exited(var/atom/movable/A, var/atom/new_loc)
 		if(isliving(A))
 			var/mob/living/L = A
@@ -29,6 +42,27 @@ var/datum/virtual_reality_controller/vr_controller = new()
 
 		..(A, new_loc)
 
+	// All the Entered() overrides are to prevent people from throwing items to another area to bypass the Exit restriction.
+	Entered(var/atom/movable/M, var/atom/old_loc)
+		for(var/x in thunderdome_items)
+			if(istype(M, x))
+				qdel(M)
+
+		if(istype(get_area(old_loc), /area/virtual_reality/firing_range))
+			for(var/y in forbidden_range_items)
+				if(istype(M, y))
+					qdel(M)
+
+		if(istype(get_area(old_loc), /area/virtual_reality/start_perseus))
+			for(var/z in forbidden_perseus_items)
+				if(istype(M, z))
+					qdel(M)
+
+		..(M, old_loc)
+
+		return 1
+
+
 	start_crew/
 		name = "virtual reality - crew start"
 		icon_state = "blue2"
@@ -36,6 +70,22 @@ var/datum/virtual_reality_controller/vr_controller = new()
 	start_perseus/
 		name = "virtual reality - perseus start"
 		icon_state = "blue-red2"
+
+		// Remove breaching charges from people unless they're perseus units.
+		Exited(var/atom/movable/A, var/atom/new_loc)
+			..()
+
+			if(isliving(A))
+				var/mob/living/L = A
+				if(!istype(get_area(new_loc), src))
+					if(!locate(/obj/item/weapon/implant/enforcer) in A)
+						L << "\blue Removing certain perseus items..."
+						for(var/obj/item/I in L.get_contents())
+							for(var/_type in forbidden_perseus_items)
+								if(istype(I, _type))
+									L.unEquip(I, 1)
+									qdel(I)
+
 
 	creative_suite/
 		name = "virtual reality - creative suite area"
@@ -45,25 +95,45 @@ var/datum/virtual_reality_controller/vr_controller = new()
 		name = "virtual reality - thunderdome"
 		icon_state = "dark128"
 
-
-		var/list/thunderdome_items = list(/obj/item/weapon/melee/energy/sword, /obj/item/weapon/melee/baton, /obj/item/weapon/gun/energy/laser,	\
-											/obj/item/clothing/suit/armor/tdome, /obj/item/clothing/head/helmet/thunderdome, /obj/item/clothing/head/helmet/swat, \
-											/obj/item/clothing/suit/armor/vest, /obj/item/weapon/twohanded/dualsaber)
-
 		// Removes the thunder-dome items when leaving the area.
 		Exited(var/atom/movable/A, var/atom/new_loc)
 			..()
 
 			if(isliving(A))
 				var/mob/living/L = A
-
 				if(!istype(get_area(new_loc), src))
-					L << "\blue You left the thunderdome. Removing thunderdome items."
+					L << "\blue Removing thunderdome items..."
 					for(var/obj/item/I in L.get_contents())
 						for(var/_type in thunderdome_items)
 							if(istype(I, _type))
 								L.unEquip(I, 1)
 								qdel(I)
+
+		Enter(var/atom/movable/O, var/atom/oldloc)
+			// Get (stay) out of here.
+			if(istype(O, /obj/structure/stool/bed/chair/janicart))
+				return 0
+
+			return 1
+
+	firing_range/
+		icon_state = "dark"
+		name = "virtualy reality - firing range"
+
+
+		Exited(var/atom/movable/A, var/atom/new_loc)
+			..()
+
+			if(isliving(A))
+				var/mob/living/L = A
+				if(!locate(/obj/item/weapon/implant/enforcer) in A)
+					if(!istype(get_area(new_loc), src))
+						L << "\blue Removing firing range items..."
+						for(var/obj/item/I in L.get_contents())
+							for(var/_type in forbidden_range_items)
+								if(istype(I, _type))
+									L.unEquip(I, 1)
+									qdel(I)
 
 /*
 * VR Controller
@@ -79,14 +149,57 @@ var/datum/virtual_reality_controller/vr_controller = new()
 
 	var/can_enter = 1
 
+	var/list/forbidden_types = list()
+
 	New()
 		..()
 
+		// If for some reason it already exists, replace it with the new one.
 		if(vr_controller)
 			vr_controller = src
 
 		crew_destination = locate(/area/virtual_reality/start_crew)
 		perseus_destination = locate(/area/virtual_reality/start_perseus)
+
+		LoadForbiddenTypes()
+
+	Del()
+
+		// Make sure we get rid of all the people in the VR.
+		for(var/mob/living/L in copies)
+			if(L.client)
+				var/obj/item/clothing/glasses/virtual/V = GetGogglesFromClient(L.client)
+				if(V)
+					L << "\red <b>You were removed from the VR. (Reason: VR controller restarting.)</b>"
+					V.LeaveVR()
+
+		..()
+
+	proc/UpdateClients()
+		for(var/obj/item/clothing/glasses/virtual/V in goggles)
+			if(!V.original_mob)
+				continue
+			for(var/mob/living/L in copies)
+				if(V.original_mob.computer_id == L.computer_id)
+					V.using_client = L.client
+
+	proc/LoadForbiddenTypes(var/file = "config/forbidden_vr_types.txt")
+		if(fexists(file))
+			var/list/lines = file2list(file)
+			for(var/line in lines)
+				if(!line)	continue
+
+				line = trim(line)
+				if(!length(line))	continue
+				else if(copytext(line, 1, 2) == "#")	continue
+
+				if(!ispath(line))
+					line = text2path(line)
+
+				if(!line)
+					continue
+
+				forbidden_types += line
 
 	proc/CreateMob(var/mob/living/carbon/human/H, var/glasses_type)
 		var/area/destination
@@ -113,6 +226,11 @@ var/datum/virtual_reality_controller/vr_controller = new()
 
 	proc/process()
 
+		// Remove all bullet casings for clean-up.
+		for(var/obj/item/ammo_casing/A in get_area(locate(/area/virtual_reality)))
+			qdel(A)
+
+		// Make sure we're kicking people who are not supposed to be in the VR when entering is disabled.
 		if(!can_enter)
 			if(copies.len)
 				var/copies_amt = 0
@@ -121,22 +239,55 @@ var/datum/virtual_reality_controller/vr_controller = new()
 					if(L.client.holder)
 						show_message = 0
 						continue
+
 					var/obj/item/clothing/glasses/virtual/V = GetGogglesFromClient(L.client)
 					if(V)
 						L << "\red You were kicked from the VR. (Reason: Admin turned entering off)"
 						V.LeaveVR()
+
 					copies_amt++
 
 				if(show_message)
 					message_admins("\red VR: Kicked [copies_amt] people from VR (entering disabled).")
 					log_game("\red VR: Kicked [copies_amt] people from VR (entering disabled).")
 
+		// Remove all humans from the VR which do not belong there.
+		for(var/area in typesof(/area/virtual_reality))
+			for(var/mob/living/carbon/human/H in get_area(locate(area)))
+				if(!(H.client in contained_clients) && !(H in copies))
+					H << "\red <b>You're not supposed to be in here.</b>"
+					H.loc = get_turf(safepick(latejoin))
+					message_admins("\red VR: [key_name(H, 1)] entered the VR area without being a clone. (Teleported Back)")
+					log_game("VR: [key_name(H)] entered the VR area without being a clone. (Teleported Back)")
+
 		for(var/mob/living/L in copies)
+			var/obj/item/clothing/glasses/virtual/V = GetGogglesFromClient(L.client)
+
+			// This shouldn't happen unless they got teleported or teleported themselves somehow (see vr area Exited function)
+			// but will make sure they stay inside the VR at all times.
 			if(!istype(get_area(L), /area/virtual_reality))
 				message_admins("\red VR: [key_name(L, 1)] left the virtual reality area. (Teleported back)(Skipped Area Boundary)")
 				log_game("VR: [key_name(L)] left the virtual reality area. (Teleported back)(Skipped Area Boundary)")
 
 				L.loc = safepick(get_area_turfs(crew_destination))
+
+			// Kick people out of the VR if they're either: dead, or their "real life" counterpart is dead.
+			if(V)
+				if(L.stat == 2)
+					V.LeaveVR()
+				if(V.original_mob)
+					if(V.original_mob.stat != 0)
+						V.LeaveVR()
+
+			if(L.client)
+				// Make sure the client is in the contained clients list
+				if(!(L.client in contained_clients))
+					contained_clients += L.client
+
+		// Make sure we're up-to-date on the goggle list.
+		if(!goggles.len)
+			for(var/obj/item/clothing/glasses/virtual/V in world)
+				goggles += V
 
 	// Allow the controller to handle these (currently does nothing)
 
@@ -145,7 +296,7 @@ var/datum/virtual_reality_controller/vr_controller = new()
 			if(H.client && H.client.holder && H.client.holder.rank.rights & R_PRIMARYADMIN)
 				if(alert(H, "Entering the VR is currently admin blocked. Do you want to enter anyway?", "Confirmation", "Yes", "No") == "Yes")	return 1
 				else	return 0
-			H << "\red Entering the VR is currently disabled."
+			H << "\red <b>Entering the VR is currently disabled.</b>"
 			return 0
 
 		// Unset any changeling stings they might have.
@@ -183,9 +334,10 @@ var/datum/virtual_reality_controller/vr_controller = new()
 		// just some fluff
 		usr << "\blue These glasses have an access level of [glasses_type + 1]."
 
-	New()
+	initialize()
 		..()
-		vr_controller.goggles += src
+		if(vr_controller)
+			vr_controller.goggles += src
 
 	equipped(var/mob/living/L, var/slot)
 		..()
@@ -223,6 +375,12 @@ var/datum/virtual_reality_controller/vr_controller = new()
 		if(!H)
 			return 0
 
+		if(!vr_controller)
+			return 0
+
+		if(!src in vr_controller.goggles)
+			vr_controller.goggles += src
+
 		if(!vr_controller.HandleVREnter(src, H))
 			H.unEquip(src)
 			H.put_in_active_hand(src)
@@ -246,6 +404,15 @@ var/datum/virtual_reality_controller/vr_controller = new()
 		return
 
 	proc/LeaveVR()
+		if(!original_mob)
+			return 0
+
+		if(!vr_controller)
+			return 0
+
+		if(!src in vr_controller.goggles)
+			vr_controller.goggles += src
+
 		if(!vr_controller.HandleVRExit(src, using_client))
 			return 0
 
@@ -303,7 +470,7 @@ var/datum/virtual_reality_controller/vr_controller = new()
 	icon_state = "item_stock"
 	icon = 'icons/effects/effects.dmi'
 
-	invisibility = 100
+	invisibility = 101
 
 	var/to_supply
 	var/to_supply_amount = 5
@@ -311,8 +478,17 @@ var/datum/virtual_reality_controller/vr_controller = new()
 	var/last_check = 0
 	var/cooldown = 10 // seconds
 
-	New()
-		..()
+	New(loc, var/_to_supply = 0, var/_to_supply_amount = 5, var/_cooldown = 5)
+		..(loc)
+
+		if(_to_supply)
+			if(!ispath(_to_supply))
+				_to_supply = text2path(_to_supply)
+
+			to_supply = _to_supply
+
+		to_supply_amount = _to_supply_amount <= 0 ? _to_supply_amount : 1
+		cooldown = _cooldown > 5 ? _cooldown : 5
 
 		if(!to_supply)
 			qdel(src)
@@ -327,7 +503,7 @@ var/datum/virtual_reality_controller/vr_controller = new()
 		if(world.time > last_check + (cooldown*10))
 
 			var/count = 0
-			for(var/obj/O in get_turf(src))
+			for(var/obj/item/O in get_turf(src))
 				if(istype(O, to_supply))
 					count++
 
@@ -335,3 +511,24 @@ var/datum/virtual_reality_controller/vr_controller = new()
 				new to_supply(get_turf(src))
 
 			last_check = world.time
+
+/*
+* This turns every item it is placed above into an itemstock.
+*/
+
+/obj/effect/itemstock_converter
+	name = "convert to itemstock"
+	icon_state = "item_stock_c"
+	icon = 'icons/effects/effects.dmi'
+
+	invisibility = 101
+
+	var/custom_amt = 5
+	var/cooldown = 10
+
+	New()
+		..()
+		for(var/obj/item/O in get_turf(src))
+			new /obj/effect/itemstock(get_turf(src), O.type, custom_amt, cooldown)
+
+		qdel(src)

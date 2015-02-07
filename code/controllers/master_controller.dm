@@ -189,7 +189,8 @@ datum/controller/game_controller/proc/process()
 				controller_iteration++
 
 				vote.process()
-				vr_controller.process()
+				if(vr_controller)
+					vr_controller.process()
 
 				//AIR
 				if(!air_processing_killed)
