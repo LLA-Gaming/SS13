@@ -227,6 +227,17 @@ Class Procs:
 		return
 	return 1
 
+/mob/living/carbon/alien/humanoid/canUseTopic(atom/movable/M)
+	if(!istype(M, /mob/living/carbon/))//Allows aliens to strip humans
+		return
+	if(restrained() || lying || stat || stunned || weakened)
+		return
+	if(!in_range(M, src))
+		return
+	if(!isturf(M.loc) && get(M.loc, src.type) != src)
+		return
+	return 1
+
 /mob/living/silicon/ai/canUseTopic()
 	if(stat)
 		return
