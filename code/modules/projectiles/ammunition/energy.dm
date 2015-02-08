@@ -120,7 +120,7 @@
 	projectile_type = /obj/item/projectile/energy/disabler
 	select_name  = "disable"
 	e_cost = 50
-	fire_sound = 'sound/weapons/taser.ogg'
+	fire_sound = 'sound/weapons/taser2.ogg'
 
 
 //Taser modes
@@ -136,4 +136,4 @@
 	select_name  = "disable"
 	mod_name = "taserdisable"
 	e_cost = 25
-	fire_sound = 'sound/weapons/taser.ogg'
+	fire_sound = 'sound/weapons/taser2.ogg'
