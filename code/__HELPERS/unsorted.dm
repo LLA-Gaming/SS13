@@ -1336,7 +1336,7 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
 		return 3
 
-/proc/copy_human(var/mob/living/carbon/human/from, var/mob/living/carbon/human/target, var/copyitems = 1, var/ignore_forbidden = 0, var/copyid = 1)
+/proc/copy_human(var/mob/living/carbon/human/from, var/mob/living/carbon/human/target, var/copyitems = 1, var/ignore_forbidden = 0, var/copyid = 1, var/copyhs = 0)
 	target.name = from.name
 	target.real_name = from.real_name
 
@@ -1354,6 +1354,8 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 	target.blood_type = from.blood_type
 
 	target.gender = from.gender
+
+	target.job = from.job
 
 	if(copyitems)
 		if(from.w_uniform)
@@ -1375,8 +1377,28 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 				target.equip_to_slot_or_del(new from.glasses.type(target), slot_glasses)
 		if(from.head)
 			target.equip_to_slot_or_del(new from.head.type(target), slot_head)
+
 		if(from.ears)
 			target.equip_to_slot_or_del(new from.ears.type(target), slot_ears)
+
+	/*	if(copyhs)
+			if(from.ears)
+				target.equip_to_slot_or_del(new from.ears.type(target), slot_ears)
+		else
+			if(target.ears)	qdel(target.ears)
+			target.equip_to_slot_or_del(new /obj/item/device/radio/headset/virtual(target), slot_ears)
+
+			// This really should never be false.
+			if(istype(target.ears, /obj/item/device/radio/headset/virtual))
+				if(istype(from.ears, /obj/item/device/radio/headset))
+					var/obj/item/device/radio/headset/virtual/V = target.ears
+					var/obj/item/device/radio/headset/H = from.ears
+
+					if(H.keyslot1)
+						V.keyslot1 = new H.keyslot1.type(V)
+					if(H.keyslot2)
+						V.keyslot2 = new H.keyslot2.type(V)*/
+
 		if(from.r_store)
 			target.equip_to_slot_or_del(new from.r_store.type(target), slot_r_store)
 		if(from.l_store)

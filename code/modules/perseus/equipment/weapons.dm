@@ -75,9 +75,11 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 			var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread()
 			sparks.set_up(1, 1, src)
 			sparks.start()
-			return
 
 		if(IS_EP_SINGLE_STACKING)
+			if(blocked >= 100)	return 0
+			if(issilicon(L))	return 0
+
 			var/max = EP_MAX_SINGLE_STACK ? EP_MAX_SINGLE_STACK : INFINITY
 
 			if((L.stunned + stun) > max)	L.SetStunned(max)
