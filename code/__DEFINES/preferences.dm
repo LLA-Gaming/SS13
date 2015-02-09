@@ -28,3 +28,4 @@
 #define BE_BLOB			512
 #define BE_NINJA		1024
 #define BE_ANGEL		2048
+#define BE_POSIBRAIN	4096
