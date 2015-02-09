@@ -41,10 +41,6 @@
 	</ul>
 	</p>"}
 
-	var/static/base_case = 0
-	var/static/recursive_case = 0
-	var/static/lookup_case = 0
-
 //Calculate the reactions list, or return it if already calculated (saves time).
 /obj/item/weapon/book/manual/chembook/proc/get_reactions()
 	if (!reactions.len)
@@ -62,38 +58,44 @@
 	return chemical_reagents_list
 
 /obj/item/weapon/book/manual/chembook/proc/add_reaction(var/datum/chemical_reaction/reaction)
-	if(!reaction.category in allowed_categories)
+	if(!(reaction.category in allowed_categories))
 		return 0
 	content += {"
 		<tr><td><center>[reaction.name]</center></td>
 		<td>
-		[get_reagent_entry(reaction.id, toplevel=1)]
+		[get_reagent_list(reaction)]
 	  	</td>
 	  	<td><center>[(reaction.result && reaction.result_amount)? reaction.result_amount : "N/A"]</center></td>
 		</tr>
 	"}
 
-/obj/item/weapon/book/manual/chembook/proc/get_reagent_entry(var/id, var/quantity=1, var/toplevel=0)
+//Takes a reaction recursively to a list of reagents, and how to make them.
+//Pair-recursive with get_reagent_entry
+/obj/item/weapon/book/manual/chembook/proc/get_reagent_list(var/datum/chemical_reaction/reaction)
+	var/reagent_list_html = reagent_dependencies[reaction.id]
+	if (reagent_list_html)
+		return reagent_list_html
+
+	reagent_list_html = "<ul>\n"
+	//Remove reaction.id to prevent infinite recursion.
+	var/list/reagents = (reaction.required_reagents + reaction.required_catalysts) - reaction.id
+	for(var/reagent_id in reagents)
+		reagent_list_html += get_reagent_entry(reagent_id, reagents[reagent_id])
+	reagent_list_html += "</ul>\n"
+
+	reagent_dependencies[reaction.id] = reagent_list_html
+	return reagent_list_html
+
+//Takes a reagent id to a FULL entry in the list (i.e including reaction to create [id], if it exists).
+//Pair-recursive with get_reagent_list
+/obj/item/weapon/book/manual/chembook/proc/get_reagent_entry(var/id, var/quantity=1, var/catalyst=0)
 	var/datum/chemical_reaction/reaction = reactions[id]
 	//No reaction, we're a base element.
 	if (!reaction)
-		base_case += 1
-		return "<li>[quantity] parts [id_to_name(id)]</li>\n"
+		return "<li>[catalyst? "CATALYST: " : ""][quantity] parts [id_to_name(id)]</li>\n"
 
-	var/reagent_entry = ""
-	if (!toplevel)
-		reagent_entry += "<li>[quantity] parts [id_to_name(id)] - 1 part is made by: </li>\n"
-	var/dependencies_entry = reagent_dependencies[id]
-	if (!dependencies_entry)
-		recursive_case += 1
-		dependencies_entry = "<ul>\n"
-		var/list/dependencies = (reaction.required_reagents + reaction.required_catalysts) - id
-		for(var/reagent in dependencies)
-			dependencies_entry += get_reagent_entry(reagent, dependencies[reagent])
-		dependencies_entry += "</ul>\n"
-	else
-		lookup_case += 1
-	reagent_dependencies[id] = dependencies_entry
+	var/reagent_entry = "<li>[catalyst? "CATALYST: " : ""][quantity] parts [id_to_name(id)] - 1 part is made by: </li>\n"
+	var/dependencies_entry = get_reagent_list(reaction)
 	return reagent_entry + dependencies_entry
 
 /obj/item/weapon/book/manual/chembook/proc/id_to_name(var/id)
@@ -161,13 +163,8 @@
 		//world.log << "Generating reaction [id]"
 		add_reaction(reactions[id])
 	world.log << "TIme taken to add reactions is [world.timeofday - time] deciseconds."
-	world.log << "Base: [base_case] Recursive: [recursive_case] Lookup: [lookup_case]"
 
 	dat += content
-
-	//for (var/id in reagent_dependencies)
-	//	var/info = reagent_dependencies[id]
-	//	world.log << "This shit. [id] is \n [info]"
 
 //bar needs love too ~Flavo
 /obj/item/weapon/book/manual/chembook/barman_recipes
