@@ -49,20 +49,46 @@
 			if(!..()) return
 			if(!isrobot(target)) return
 		else
+			add_logs(user, target, "stunned", object="classic baton")
+			var/randn = rand(1, 100)
 			if(cooldown <= 0)
+			//Can it stun?
+				if(randn <= 45)
+					playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
+					target.Weaken(3)
+					src.add_fingerprint(user)
+					target.visible_message("<span class ='danger'>[user] has knocked down [target] with \the [src]!</span>", \
+						"<span class ='userdanger'>[user] has knocked down [target] with \the [src]!</span>")
+					if(!iscarbon(user))
+						target.LAssailant = null
+					else
+						target.LAssailant = user
+					cooldown = 1
+					spawn(50)
+						cooldown = 0
+					return
+				if(randn >= 45)
+					target.drop_item()
+					playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
+					target.visible_message("<span class ='danger'>[user] has disarmed [target] with \the [src]!</span>", \
+						"<span class ='userdanger'>[user] has disarmed [target] with \the [src]!</span>")
+					return
+				if(randn >= 80)
+					playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+					target.visible_message("<span class ='danger'>[user] has attempted to disarm [target] with \the [src]!</span>", \
+						"<span class ='userdanger'>[user] has attempted to disarm [target] with \the [src]!</span>")
+			//Do everything below if its in cooldown mode
+			if(randn >= 80)
+				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+				target.visible_message("<span class ='danger'>[user] has attempted to disarm [target] with \the [src]!</span>", \
+					"<span class ='userdanger'>[user] has attempted to disarm [target] with \the [src]!</span>")
+				return
+			else
+				target.drop_item()
 				playsound(get_turf(src), 'sound/effects/woodhit.ogg', 75, 1, -1)
-				target.Weaken(3)
-				add_logs(user, target, "stunned", object="classic baton")
-				src.add_fingerprint(user)
-				target.visible_message("<span class ='danger'>[user] has knocked down [target] with \the [src]!</span>", \
-					"<span class ='userdanger'>[user] has knocked down [target] with \the [src]!</span>")
-				if(!iscarbon(user))
-					target.LAssailant = null
-				else
-					target.LAssailant = user
-				cooldown = 1
-				spawn(40)
-					cooldown = 0
+				target.visible_message("<span class ='danger'>[user] has disarmed [target] with \the [src]!</span>", \
+					"<span class ='userdanger'>[user] has disarmed [target] with \the [src]!</span>")
+				return
 		return
 	else
 		return ..()
