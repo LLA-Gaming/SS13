@@ -2309,6 +2309,14 @@ datum/chemical_reaction/pestkiller
 	required_reagents = list("vodka" = 1, "coffee" = 1, "limejuice" = 1)
 	result_amount = 3
 
+/datum/chemical_reaction/hyperfinepunch
+	name = "Hyperfine Punch"
+	id = "hyperfinepunch"
+	category = DRINK
+	result = "hyperfinepunch"
+	required_reagents = list("hyperzine" = 1, "coffee" = 1)
+	result_amount = 2
+
 //Cleaning up
 #undef FOOD
 #undef DRINK
