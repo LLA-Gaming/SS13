@@ -7,16 +7,16 @@
 #define OTHER 6 //Non-medical chems made in chemistry, also the default
 #define SECRET 7 //Anything that needs to be hidden (such as blood mixing with virus food)
 
-
 /obj/item/weapon/book/manual/chembook
 	name = "The Complete Guide to Reactions"
 	icon_state ="chemistry" //taken from bay12
 	author = "Dr. J. Rose"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
 	title = "The Complete Guide to Reactions"
 	window_size = "970x710"
+	var/static/list/reactions = list()
+	var/static/list/reagent_dependencies = list()
 	var/list/allowed_categories = list(MED,EFFECT,OTHER)
-	var/booksave = "html/manuals/chembook.html"
-	dat = ""
+	var/content = ""
 	var/tablecolor = "#33CCFF"
 	var/introduction = {"<h1><span><a name='top'>The Complete Guide to Reactions</span></h1>
 	<p>This guide will provide the budding chemistry student with access to all the documented and approved reactions for Nanotrasen standard laboratory facilities.</p>
@@ -41,41 +41,67 @@
 	</ul>
 	</p>"}
 
-/obj/item/weapon/book/manual/chembook/proc/list_intermediates(var/id, var/list/reactions)
-	//world << "DEBUG: LIST_INTERMEDIATES CALLED"
-	for (var/datum/chemical_reaction/C in reactions)
-		//world << "DEBUG: [C.id] == [id]"
-		if (C.id == id)
-			//world << "DEBUG: MATCH FOUND, WRITING RECIPE"
-			dat += {"<ul>"}
-			//dat += {"<li>DEBUG: INTERMEDIATE FOR [id]</li>"}
-			src.list_reagents(id, reactions)
-			dat += {"</ul>"}
-			break
-	return
+	var/static/base_case = 0
+	var/static/recursive_case = 0
+	var/static/lookup_case = 0
 
-/obj/item/weapon/book/manual/chembook/proc/list_reagents(var/id, var/list/reactions)
-	//world << "DEBUG: LIST_REAGENTS CALLED"
-	for (var/datum/chemical_reaction/C in reactions)
-		if (C.id == id)
-			//world << "DEBUG: WRITING [C.id]"
-			var/list/reagents = C.required_reagents
-			var/list/catalysts = C.required_catalysts
-			for (var/x in reagents)
-				dat += {"<li>[reagents[x]] parts [id_to_name(x)]</li>"}
-				src.list_intermediates(x, reactions)
-			for (var/x in catalysts)
-				dat += {"<li>Catalyst: [catalysts[x]] units of [id_to_name(x)]</li>"}
-				src.list_intermediates(x, reactions)
+//Calculate the reactions list, or return it if already calculated (saves time).
+/obj/item/weapon/book/manual/chembook/proc/get_reactions()
+	if (!reactions.len)
+		var/paths = typesof(/datum/chemical_reaction) - /datum/chemical_reaction
+		for(var/path in paths)
+			var/datum/chemical_reaction/reaction = new path()
+			reactions[reaction.id] = reaction
+	return reactions
+
+//As chembook may be spawned before /datum/reagents, make sure the global list is instantiated.
+/obj/item/weapon/book/manual/chembook/proc/get_reagents()
+	if (!chemical_reagents_list)
+		//This instantiates the global reagents list. See source for reasoning.
+		new /datum/reagents
+	return chemical_reagents_list
+
+/obj/item/weapon/book/manual/chembook/proc/add_reaction(var/datum/chemical_reaction/reaction)
+	if(!reaction.category in allowed_categories)
+		return 0
+	content += {"
+		<tr><td><center>[reaction.name]</center></td>
+		<td>
+		[get_reagent_entry(reaction.id, toplevel=1)]
+	  	</td>
+	  	<td><center>[(reaction.result && reaction.result_amount)? reaction.result_amount : "N/A"]</center></td>
+		</tr>
+	"}
+
+/obj/item/weapon/book/manual/chembook/proc/get_reagent_entry(var/id, var/quantity=1, var/toplevel=0)
+	var/datum/chemical_reaction/reaction = reactions[id]
+	//No reaction, we're a base element.
+	if (!reaction)
+		base_case += 1
+		return "<li>[quantity] parts [id_to_name(id)]</li>\n"
+
+	var/reagent_entry = ""
+	if (!toplevel)
+		reagent_entry += "<li>[quantity] parts [id_to_name(id)] - 1 part is made by: </li>\n"
+	var/dependencies_entry = reagent_dependencies[id]
+	if (!dependencies_entry)
+		recursive_case += 1
+		dependencies_entry = "<ul>\n"
+		var/list/dependencies = (reaction.required_reagents + reaction.required_catalysts) - id
+		for(var/reagent in dependencies)
+			dependencies_entry += get_reagent_entry(reagent, dependencies[reagent])
+		dependencies_entry += "</ul>\n"
+	else
+		lookup_case += 1
+	reagent_dependencies[id] = dependencies_entry
+	return reagent_entry + dependencies_entry
 
 /obj/item/weapon/book/manual/chembook/proc/id_to_name(var/id)
-	var/datum/reagent/C
-	for (var/R in typesof(/datum/reagent/))
-		C = new R(src)
-		if (C.id == id)
-			return C.name
-		else qdel(C)
-	return "ERROR: NO MATCH"
+	var/list/datum/reagent/reagents = get_reagents()
+	var/datum/reagent/reagent = reagents[id]
+	if (reagent)
+		return reagent.name
+	return 0
 
 /obj/item/weapon/book/manual/chembook/proc/alphasort(list/datum/chemical_reaction/L)
 //Creating this because the already made procs in this source were failing to return any data.
@@ -97,27 +123,8 @@
 				continue
 	return L
 
-
-
-
 /obj/item/weapon/book/manual/chembook/New()
-	if (fexists(booksave))
-		dat = file2text(file(booksave)) //Delete the files in html/manuals to force re-generation of the books at first runtime. Recommend this gets done by a coder then PR'd to the server.
-		return
-	diary << "\[[time_stamp()]] DEBUG: DYNAMIC MANUAL FILE GENERATION BEGUN. IF THIS HAPPENS ON THE LIVE SERVER CONTACT A CODER."
-	var/list/reactions = list()
-
-	//Populate reactions
-	for (var/C in typesof(/datum/chemical_reaction/))
-		var/datum/chemical_reaction/R = new C(src)
-		if (!(R.category in allowed_categories)) continue
-		if (!R.id || R.required_container)
-			qdel(R)
-			continue
-
-		reactions.Add(R)
-
-	reactions = src.alphasort(reactions)
+	var/list/reactions = get_reactions()
 
 	//We now have a list of all reactions, on to the formatting!
 
@@ -148,22 +155,19 @@
 				<th>Resulting Amount</th>
 			</tr>"}
 
-	for (var/datum/chemical_reaction/C in reactions)
-		dat += {"<tr><td><center>[C.name]</center></td>"}
-		dat += {"<td>"}
-		src.list_intermediates(C.id, reactions)
-		dat += {"</td>"}
-		if (C.result && C.result_amount)
-			dat += {"<td><center>[C.result_amount]</center></td>"}
-		else
-			dat += {"<td><center>N/A</center></td>"}
-		dat += {"</tr>"}
+	world.log << "Length of reactions: [reactions.len]"
+	var/time = world.timeofday
+	for (var/id in reactions)
+		//world.log << "Generating reaction [id]"
+		add_reaction(reactions[id])
+	world.log << "TIme taken to add reactions is [world.timeofday - time] deciseconds."
+	world.log << "Base: [base_case] Recursive: [recursive_case] Lookup: [lookup_case]"
 
+	dat += content
 
-	for (var/G in reactions)
-		qdel(G) // Bye bye!
-	file(booksave) << dat //Save it all so we don't do this again.
-	return
+	//for (var/id in reagent_dependencies)
+	//	var/info = reagent_dependencies[id]
+	//	world.log << "This shit. [id] is \n [info]"
 
 //bar needs love too ~Flavo
 /obj/item/weapon/book/manual/chembook/barman_recipes
@@ -172,7 +176,6 @@
 	author = "Sir John Rose"
 	title = "Barman Recipes"
 	allowed_categories = list(DRINK)
-	booksave = "html/manuals/barbook.html"
 	dat = ""
 	tablecolor = "#6cf988"
 	introduction = {"<h1><span><a name='top'>Drinks for dummies</span></h1>
