@@ -1,3 +1,19 @@
+/obj/item/device/mmi/digital/New()
+	src.brainmob = new(src)
+	src.brainmob.loc = src
+	src.brainmob.container = src
+	src.brainmob.stat = 0
+	src.brainmob.silent = 0
+	dead_mob_list -= src.brainmob
+
+/obj/item/device/mmi/digital/transfer_identity(var/mob/living/carbon/H)
+	brainmob.dna = H.dna
+	brainmob.timeofhostdeath = H.timeofdeath
+	brainmob.stat = 0
+	if(H.mind)
+		H.mind.transfer_to(brainmob)
+	return
+
 /obj/item/device/mmi/digital/posibrain
 	name = "positronic brain"
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."

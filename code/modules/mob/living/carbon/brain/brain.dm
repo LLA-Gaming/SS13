@@ -52,3 +52,6 @@
 
 /mob/living/carbon/brain/toggle_throw_mode()
 	return
+
+/mob/living/carbon/brain/binarycheck()
+	return istype(loc, /obj/item/device/mmi/digital)
