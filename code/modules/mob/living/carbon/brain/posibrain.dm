@@ -21,7 +21,6 @@
 	icon_state = "posibrain"
 	w_class = 3
 	origin_tech = "engineering=4;materials=4;bluespace=2;programming=4"
-
 	construction_cost = list("metal"=500,"glass"=500,"silver"=200,"gold"=200,"diamond"=10)
 	construction_time = 75
 	var/searching = 0
