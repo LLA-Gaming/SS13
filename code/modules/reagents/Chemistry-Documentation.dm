@@ -78,9 +78,10 @@
 
 	reagent_list_html = "<ul>\n"
 	//Remove reaction.id to prevent infinite recursion.
-	var/list/reagents = (reaction.required_reagents + reaction.required_catalysts) - reaction.id
-	for(var/reagent_id in reagents)
-		reagent_list_html += get_reagent_entry(reagent_id, reagents[reagent_id])
+	for(var/reagent_id in (reaction.required_reagents - reaction.id))
+		reagent_list_html += get_reagent_entry(reagent_id, reaction.required_reagents[reagent_id])
+	for(var/reagent_id in (reaction.required_catalysts - reaction.id))
+		reagent_list_html += get_reagent_entry(reagent_id, reaction.required_catalysts[reagent_id], catalyst=1)
 	reagent_list_html += "</ul>\n"
 
 	reagent_dependencies[reaction.id] = reagent_list_html
@@ -104,26 +105,6 @@
 	if (reagent)
 		return reagent.name
 	return 0
-
-/obj/item/weapon/book/manual/chembook/proc/alphasort(list/datum/chemical_reaction/L)
-//Creating this because the already made procs in this source were failing to return any data.
-//Replace it with something more efficient or one of those procs if you can get it working.
-
-	var/sorted = 0
-	var/datum/chemical_reaction/reaction1
-	var/datum/chemical_reaction/reaction2
-	while (!sorted)
-		sorted = 1 //Assume sorted until proven otherwise
-		for (var/i = 2; i <= L.len; i++)
-			reaction1 = L[i]
-			reaction2 = L[i-1]
-			if (reaction1.name < reaction2.name)
-				sorted = 0 //LIES!
-				L.Swap(i,i-1)
-				continue
-			else
-				continue
-	return L
 
 /obj/item/weapon/book/manual/chembook/New()
 	var/list/reactions = get_reactions()
@@ -157,12 +138,8 @@
 				<th>Resulting Amount</th>
 			</tr>"}
 
-	world.log << "Length of reactions: [reactions.len]"
-	var/time = world.timeofday
 	for (var/id in reactions)
-		//world.log << "Generating reaction [id]"
 		add_reaction(reactions[id])
-	world.log << "TIme taken to add reactions is [world.timeofday - time] deciseconds."
 
 	dat += content
 
