@@ -8,6 +8,8 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	siemens_coefficient = 0
+	permeability_coefficient = 0.05
 
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"
