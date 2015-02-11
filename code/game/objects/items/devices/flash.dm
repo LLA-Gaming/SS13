@@ -85,6 +85,7 @@
 //								revsafe = 2
 							if(!revsafe)
 								M.mind.has_been_rev = 1
+								M.mind.rev_by = "[user.name]"
 								ticker.mode.add_revolutionary(M.mind)
 							else if(revsafe == 1)
 								user << "<span class='warning'>Something seems to be blocking the flash!</span>"
