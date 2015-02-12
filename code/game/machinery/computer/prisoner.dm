@@ -137,7 +137,7 @@
 				else if(istype(inserted_id))
 					switch(href_list["id"])
 						if("eject")
-							if ((inserted_id.goal != 0) && (inserted_id.goal < 500))
+							if ((inserted_id.goal != 0) && (inserted_id.goal < 250))
 								usr << "\red Crimes not severe enough for Labor Camp."
 								playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
 							else

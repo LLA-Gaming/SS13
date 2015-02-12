@@ -96,7 +96,7 @@ datum
 			category = "Major"
 			categorycode = "3"
 			time = 300
-			labor = 500
+			labor = 250
 			assault_deadlyweapon
 				code = "01"
 				name = "Assault With a Deadly Weapon"
