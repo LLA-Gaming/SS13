@@ -137,20 +137,24 @@
 				else if(istype(inserted_id))
 					switch(href_list["id"])
 						if("eject")
-							var/detail = ""
-							for(var/datum/crime/x in crimes)
-								if(x.active)
-									if(detail)
-										detail += "; [x.name]"
-									if(!detail)
-										detail += "[x.name]"
-							log_game("BRIG: [key_name(usr)] set [inserted_id]'s goal to [inserted_id.goal] - Crime details [detail].")
-							crimelogs.Add("[key_name(usr)] set [inserted_id]'s goal to [inserted_id.goal] - Crime details [detail].")
-							inserted_id.loc = get_turf(src)
-							inserted_id.verb_pickup()
-							inserted_id = null
-							for(var/datum/crime/x in crimes)
-								x.active = 0
+							if ((inserted_id.goal != 0) && (inserted_id.goal < 500))
+								usr << "\red Crimes not severe enough for Labor Camp."
+								playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
+							else
+								var/detail = ""
+								for(var/datum/crime/x in crimes)
+									if(x.active)
+										if(detail)
+											detail += "; [x.name]"
+										if(!detail)
+											detail += "[x.name]"
+								log_game("BRIG: [key_name(usr)] set [inserted_id]'s goal to [inserted_id.goal] - Crime details [detail].")
+								crimelogs.Add("[key_name(usr)] set [inserted_id]'s goal to [inserted_id.goal] - Crime details [detail].")
+								inserted_id.loc = get_turf(src)
+								inserted_id.verb_pickup()
+								inserted_id = null
+								for(var/datum/crime/x in crimes)
+									x.active = 0
 						if("reset")
 							inserted_id.points = 0
 							inserted_id.goal = 0
