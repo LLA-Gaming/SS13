@@ -340,6 +340,7 @@
 	item_color = "gladiator"
 	body_parts_covered = CHEST|GROIN|ARMS
 	fitted = 0
+	armor = list(melee = 25, bullet = 0, laser = 25, energy = 10, bomb = 10, bio = 0, rad = 0)
 
 
 /obj/item/clothing/under/sundress
