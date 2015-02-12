@@ -92,10 +92,6 @@ var/datum/virtual_reality_controller/vr_controller = new()
 
 	proc/process()
 
-		// Clean out the nulls.
-		listclearnulls(contained_clients)
-		listclearnulls(copies)
-
 		// Remove all bullet casings for clean-up.
 		for(var/obj/item/ammo_casing/A in get_area(locate(/area/virtual_reality)))
 			qdel(A)

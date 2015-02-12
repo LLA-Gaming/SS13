@@ -23,10 +23,12 @@
 		// just some fluff
 		usr << "\blue These glasses have an access level of [glasses_type + 1]."
 
-	initialize()
+	New()
 		..()
-		if(vr_controller)
-			vr_controller.goggles += src
+		spawn(0)
+			if(vr_controller)
+				if(!(src in vr_controller.goggles))
+					vr_controller.goggles += src
 
 	equipped(var/mob/living/L, var/slot)
 		..()
@@ -67,7 +69,7 @@
 		if(!vr_controller)
 			return 0
 
-		if(!src in vr_controller.goggles)
+		if(!(src in vr_controller.goggles))
 			vr_controller.goggles += src
 
 		if(!vr_controller.HandleVREnter(src, H))
@@ -99,7 +101,7 @@
 		if(!vr_controller)
 			return 0
 
-		if(!src in vr_controller.goggles)
+		if(!(src in vr_controller.goggles))
 			vr_controller.goggles += src
 
 		if(!vr_controller.HandleVRExit(src, using_client))
@@ -123,4 +125,4 @@
 		original_mob = 0
 		using_client = 0
 
-		return
+		return 1
