@@ -208,6 +208,8 @@
 
 		else
 			rev_mind.current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer a revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you...</B></FONT>"
+		if(rev_mind.rev_by)
+			rev_mind.current << "You were converted to the revolution by <B>[rev_mind.rev_by]!</B></FONT>"
 
 		update_rev_icons_removed(rev_mind)
 		for(var/mob/living/M in view(rev_mind.current))

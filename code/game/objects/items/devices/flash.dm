@@ -85,6 +85,8 @@
 //								revsafe = 2
 							if(!revsafe)
 								M.mind.has_been_rev = 1
+								M.mind.rev_by = "[user.name]"
+								M.mind.store_memory("You were converted to the revolution by <B>[M.mind.rev_by]!</B>")
 								ticker.mode.add_revolutionary(M.mind)
 							else if(revsafe == 1)
 								user << "<span class='warning'>Something seems to be blocking the flash!</span>"
