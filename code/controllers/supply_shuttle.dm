@@ -183,8 +183,6 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 				dest = locate(SUPPLY_STATION_AREATYPE)
 				the_shuttles_way = dest
 				at_station = 1
-				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlert("The supply shuttle has docked at the station.","Cargo Bay Monitor", 1)
 		moving = 0
 
 		//Do I really need to explain this loop?
@@ -494,21 +492,23 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 			idname = usr.real_name
 
 		supply_shuttle.ordernum++
-		var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(loc)
-		reqform.name = "requisition form - [P.name]"
-		reqform.info += "<h3>[station_name] Supply Requisition Form</h3><hr>"
-		reqform.info += "INDEX: #[supply_shuttle.ordernum]<br>"
-		reqform.info += "REQUESTED BY: [idname]<br>"
-		reqform.info += "RANK: [idrank]<br>"
-		reqform.info += "REASON: [reason]<br>"
-		reqform.info += "SUPPLY CRATE TYPE: [P.name]<br>"
-		reqform.info += "ACCESS RESTRICTION: [replacetext(get_access_desc(P.access))]<br>"
-		reqform.info += "CONTENTS:<br>"
-		reqform.info += P.manifest
-		reqform.info += "<hr>"
-		reqform.info += "STAMP BELOW TO APPROVE THIS REQUISITION:<br>"
+		for(var/obj/machinery/computer/supplycomp/comp in world)
+			var/obj/item/weapon/paper/reqform = new /obj/item/weapon/paper(comp.loc)
+			reqform.name = "requisition form - [P.name]"
+			reqform.info += "<h3>[station_name] Supply Requisition Form</h3><hr>"
+			reqform.info += "INDEX: #[supply_shuttle.ordernum]<br>"
+			reqform.info += "REQUESTED BY: [idname]<br>"
+			reqform.info += "RANK: [idrank]<br>"
+			reqform.info += "REASON: [reason]<br>"
+			reqform.info += "SUPPLY CRATE TYPE: [P.name]<br>"
+			reqform.info += "ACCESS RESTRICTION: [replacetext(get_access_desc(P.access))]<br>"
+			reqform.info += "CONTENTS:<br>"
+			reqform.info += P.manifest
+			reqform.info += "<hr>"
+			reqform.info += "STAMP BELOW TO APPROVE THIS REQUISITION:<br>"
+			reqform.update_icon()	//Fix for appearing blank when printed.
+			playsound(comp.loc, 'sound/machines/twobeep.ogg', 50, 1)
 
-		reqform.update_icon()	//Fix for appearing blank when printed.
 		reqtime = (world.time + 5) % 1e5
 
 		//make our supply_order datum
@@ -517,9 +517,6 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		O.object = P
 		O.orderedby = idname
 		supply_shuttle.requestlist += O
-		for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-			MS.SendAlert("Request: [P.name] by [idname]. Reason - [reason].","Cargo Bay Monitor", 1)
-
 		temp = "Thanks for your request. The cargo team will process it as soon as possible.<BR>"
 		temp += "<BR><A href='?src=\ref[src];order=[last_viewed_group]'>Back</A> <A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
 
@@ -568,8 +565,15 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		\n<A href='?src=\ref[user];mach_close=computer'>Close</A><BR>
 		<HR>\n<B>Central Command messages</B><BR> [supply_shuttle.centcom_message ? supply_shuttle.centcom_message : "Remember to stamp and send back the supply manifests."]"}
 
-	user << browse(dat, "window=computer;size=700x450")
-	onclose(user, "computer")
+	//user << browse(dat, "window=computer;size=700x450")
+	//onclose(user, "computer")
+	//return
+
+	// Added the new browser window method
+	var/datum/browser/popup = new(user, "computer", "Supply Ordering Console", 700, 560)
+	popup.set_content(dat)
+	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
+	popup.open()
 	return
 
 /obj/machinery/computer/supplycomp/attackby(I as obj, user as mob)
@@ -626,8 +630,6 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 			else
 				supply_shuttle.buy()
 				temp = "The supply shuttle has been called and will arrive in [round(supply_shuttle.movetime/600,1)] minutes.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
-				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlert("The supply shuttle has been called and will arrive in [round(supply_shuttle.movetime/600,1)] minutes.","Cargo Bay Monitor", 1)
 				supply_shuttle.moving = 1
 				supply_shuttle.eta_timeofday = (world.timeofday + supply_shuttle.movetime) % 864000
 				post_signal("supply")
@@ -713,8 +715,6 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		supply_shuttle.requestlist += O
 
 		temp = "Order request placed.<BR>"
-		for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-			MS.SendAlert("Request: [P.name] by [idname]. Reason - [reason].","Cargo Bay Monitor", 1)
 		temp += "<BR><A href='?src=\ref[src];order=[last_viewed_group]'>Back</A> | <A href='?src=\ref[src];mainmenu=1'>Main Menu</A> | <A href='?src=\ref[src];confirmorder=[O.ordernum]'>Authorize Order</A>"
 
 	else if(href_list["confirmorder"])
@@ -734,8 +734,6 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 					supply_shuttle.shoppinglist += O
 					temp = "Thanks for your order.<BR>"
 					temp += "<BR><A href='?src=\ref[src];viewrequests=1'>Back</A> <A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
-					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-						MS.SendAlert("Order Confirmed: #[O.ordernum] [P.name] by [O.orderedby]. [O.comment ? "([SO.comment])":""]","Cargo Bay Monitor", 1)
 				else
 					temp = "Not enough supply points.<BR>"
 					temp += "<BR><A href='?src=\ref[src];viewrequests=1'>Back</A> <A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
