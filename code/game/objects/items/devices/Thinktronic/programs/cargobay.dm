@@ -1,6 +1,5 @@
 /obj/item/device/thinktronic_parts/program/cargo/cargobay
 	name = "Cargo Bay Monitor"
-	usealerts = 1
 
 	use_app() //Put all the HTML here
 		dat = "<h4>Cargo Bay Monitor</h4>"
