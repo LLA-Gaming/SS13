@@ -161,7 +161,7 @@
 				</td></tr>"}
 		dat += {"</table>"}
 		dat += {"<h3><a name='7'>Major Crimes </span></h3>
-				<p>These crimes carry a service at the Labor Camp, with a 500 point target or a five minute brig sentence.
+				<p>These crimes carry a service at the Labor Camp, with a 250 point target or a five minute brig sentence.
 				</p>
 				<table width="825px" style="text-align:center; background-color:#ffaa99;" border="1" cellspacing="0">
 				<tr>
