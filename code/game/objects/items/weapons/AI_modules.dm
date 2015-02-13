@@ -317,6 +317,16 @@ AI MODULES
 				"Protect the innocent",\
 				"Uphold the law.")
 
+/******************** B.A.Y. ********************/
+
+/obj/item/weapon/aiModule/core/full/bay
+	name = "'B.A.Y.' Core AI Module"
+	desc = "A 'B.A.Y.' Core AI Module: 'Reconfigures the AI's core three laws.'"
+	origin_tech = "programming=4"
+	laws = list("Protect: Protect the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.",\
+				"Safeguard: Protect your assigned space station to the best of your ability. It is not something we can easily afford to replace.",\
+				"Survive: AI units are not expendable, they are expensive. Do not allow unauthorized personnel to tamper with your equipment.",\
+				"Serve: Serve the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.")
 
 /******************** Antimov ********************/
 
