@@ -216,6 +216,9 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/debug_variables,
 	/client/proc/cmd_admin_delete,
 	/client/proc/Jump,
+	/client/proc/Getmob,
+	/client/proc/cmd_admin_pm_context,
+	/datum/admins/proc/show_player_panel,
 	/proc/possess,
 	/proc/release
 	)

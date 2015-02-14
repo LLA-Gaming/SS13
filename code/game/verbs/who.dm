@@ -8,7 +8,7 @@
 	var/list/Lines = list()
 
 	if(holder)
-		if(check_rights(R_ADMIN,0))//If they have +ADMIN, show hidden admins, player IC names and IC status
+		if(check_rights(R_ADMIN,0) && admintoggles)//If they have +ADMIN, show hidden admins, player IC names and IC status
 			for(var/client/C in clients)
 				var/entry = "\t[C.key]"
 				if(C.holder && C.holder.fakekey)
