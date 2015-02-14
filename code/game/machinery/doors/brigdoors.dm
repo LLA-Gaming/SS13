@@ -1,3 +1,5 @@
+/* Don't use this anymore, use /obj/machinery/brig_timer
+
 #define CHARS_PER_LINE 5
 #define FONT_SIZE "5pt"
 #define FONT_COLOR "#09f"
@@ -330,3 +332,4 @@
 #undef FONT_COLOR
 #undef FONT_STYLE
 #undef CHARS_PER_LINE
+*/
