@@ -13,8 +13,8 @@
 	stun = 5
 	weaken = 5
 	stutter = 5
-	jitter = 20
-	hitsound = 'sound/weapons/taserhit.ogg'
+	//jitter = 20 // no, jitter needs refactoring
+	hitsound = "sparks"
 
 	on_hit(var/atom/target, var/blocked = 0)
 		if(!ismob(target) || blocked >= 2) //Fully blocked by mob or collided with dense object - burst into sparks!
