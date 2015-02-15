@@ -49,14 +49,14 @@
 			if(manager)
 				dat += "<hr>"
 			dat += "<h4>Cell Details</h4>"
-			for(var/obj/machinery/door_timer/cell in world)
+			for(var/obj/machinery/brig_timer/cell in world)
 				if(cell.timing)
 					dat += "<div class='statusDisplay'>"
 					dat += {"[cell.name]<br>"}
 					var/second = round(cell.timeleft() % 60)
 					var/minute = round((cell.timeleft() - second) / 60)
 					dat += {"Time Left: [minute]:[second]<br>"}
-					dat += {"Crime: [cell.crime]<br>"}
+					dat += {"Crime: [cell.detail]<br>"}
 					dat += {"Prisoner: [cell.prisoner]<br>"}
 					dat += "</div>"
 		else

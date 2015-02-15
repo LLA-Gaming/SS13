@@ -204,7 +204,7 @@
 		..()
 
 		usr.send_text_to_tab("The [src] reads:", "ic")
-		usr.send_text_to_tab("Current Crimes: [crimes].", "ic")
+		usr.send_text_to_tab("Current Crimes: [detail].", "ic")
 		usr.send_text_to_tab("Current Prisoner: [prisoner].", "ic")
 
 		usr << "The [src] reads:"

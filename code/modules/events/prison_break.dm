@@ -47,6 +47,6 @@
 			else if(istype(O,/obj/machinery/door/airlock/glass_security))
 				var/obj/machinery/door/airlock/glass_security/temp = O
 				temp.prison_open()
-			else if(istype(O,/obj/machinery/door_timer))
-				var/obj/machinery/door_timer/temp = O
+			else if(istype(O,/obj/machinery/brig_timer))
+				var/obj/machinery/brig_timer/temp = O
 				temp.releasetime = 1
