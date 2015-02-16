@@ -43,6 +43,16 @@ var/global/thinktronic_device_count = 0
 		thinktronic_devices -= src
 		..()
 
+	pickup(mob/user)
+		if(fon)
+			SetLuminosity(0)
+			user.AddLuminosity(f_lum)
+
+	dropped(mob/user)
+		if(fon)
+			user.AddLuminosity(-f_lum)
+			SetLuminosity(f_lum)
+
 	proc/ForceRefresh()
 		for(var/mob/M in hearers(1, loc))
 			if ((M.client && M.machine == src))
