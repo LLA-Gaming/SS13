@@ -17,7 +17,7 @@
 		MakeHood()
 		..()
 
-	Del()
+	Destroy()
 		..()
 		RemoveHood()
 
@@ -80,15 +80,17 @@
 	icon_state = "coatwinter"
 	flags = NODROP | BLOCKHAIR
 	flags_inv = HIDEEARS
-	Del()
+	var/obj/item/clothing/suit/wintercoat/coat = null
+	New()
+		..()
 		if(istype(loc, /obj/item/clothing/suit/wintercoat))
-			var/obj/item/clothing/suit/wintercoat/coat = loc
-			if(coat.hooded)
-				var/mob/living/carbon/H = coat.loc
-				H.unEquip(src, 1)
-				coat.icon_state = initial(icon_state)
-				H.update_inv_wear_suit()
-				coat.hood = new /obj/item/clothing/head/winterhood/(src) // If the hoodie gets deleted some how replace it
+			coat = loc
+		else
+			qdel(src) // Spawned without a hoodie, delete it
+	Destroy()
+		..()
+		if(coat)
+			qdel(src.coat) // If there is a wintercoat attached when one gets deleted, delete the other
 
 
 //
