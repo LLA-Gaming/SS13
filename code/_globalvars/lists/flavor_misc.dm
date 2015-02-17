@@ -21,7 +21,9 @@ var/global/list/socks_f = list() //stores only socks name
 	//Backpacks
 var/global/list/backbaglist = list("Nothing", "Backpack", "Satchel")
 	//Female Uniforms
-var/global/list/female_uniform_icons = list()
+var/global/list/female_clothing_icons = list()
+	//Hair bangs (for helmets and hoods)
+var/global/list/hairbang_icons = list()
 
 	//radical shit
 var/list/hit_appends = list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF")

@@ -147,7 +147,6 @@ BLIND     // can't see anything
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
 	var/can_toggle = 1
-	var/is_toggled = 0
 	var/has_hood = null
 	var/coat_color = null
 
@@ -261,12 +260,19 @@ BLIND     // can't see anything
 		usr.send_text_to_tab("\A [hastie] is attached to it.", "ic")
 		usr << "\A [hastie] is attached to it."
 
-atom/proc/generate_uniform(index,t_color)
-	var/icon/female_uniform_icon	= icon("icon"='icons/mob/uniform.dmi', "icon_state"="[t_color]_s")
+atom/proc/generate_female_clothing(index,t_color,icon)
+	var/icon/female_clothing_icon	= icon("icon"=icon, "icon_state"="[t_color]_s")
 	var/icon/female_s				= icon("icon"='icons/mob/uniform.dmi', "icon_state"="female_s")
-	female_uniform_icon.Blend(female_s, ICON_MULTIPLY)
-	female_uniform_icon 			= fcopy_rsc(female_uniform_icon)
-	female_uniform_icons[index] = female_uniform_icon
+	female_clothing_icon.Blend(female_s, ICON_MULTIPLY)
+	female_clothing_icon 			= fcopy_rsc(female_clothing_icon)
+	female_clothing_icons[index] = female_clothing_icon
+
+atom/proc/generate_bangs(index,t_color,icon)
+	var/icon/hairbang_icon	= icon("icon"=icon, "icon_state"="[t_color]_s")
+	var/icon/bangalpha_s				= icon("icon"='icons/mob/human_face.dmi', "icon_state"="bangalpha_s")
+	hairbang_icon.Blend(bangalpha_s, ICON_MULTIPLY)
+	hairbang_icon 			= fcopy_rsc(hairbang_icon)
+	hairbang_icons[index] = hairbang_icon
 
 /obj/item/clothing/under/proc/set_sensors(mob/usr as mob)
 	var/mob/M = usr

@@ -239,12 +239,13 @@
 	throw_range = 5
 	w_class = 2.0
 	attack_verb = list("warned", "cautioned", "smashed")
-
+/*
+//Cone is now a hat, k
 /obj/item/weapon/caution/cone
 	desc = "This cone is trying to warn you of something!"
 	name = "warning cone"
 	icon_state = "cone"
-
+*/
 /obj/item/weapon/rack_parts
 	name = "rack parts"
 	desc = "Parts of a rack."

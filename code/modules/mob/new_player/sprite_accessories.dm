@@ -753,438 +753,353 @@
 ////////////////////////////
 // Undershirt Definitions //
 ////////////////////////////
-
 /datum/sprite_accessory/undershirt
-	icon = 'icons/mob/undershirt.dmi'
-
-	nude
-		name = "Nude"
-		icon_state = null
-		gender = NEUTER
-
-	black_shirt
-		name = "Mens Black Shirt"
-		icon_state = "bl_shirt"
-		gender = MALE
-
-	black_shirt_fem
-		name = "Ladies Black Shirt"
-		icon_state = "bl_shirt_fem"
-		gender = FEMALE
-
-	black_shirt2
-		name = "Mens Black Shirt 2"
-		icon_state = "bl_shirt2"
-		gender = MALE
-
-	black_shirt2_fem
-		name = "Ladies Black Shirt 2"
-		icon_state = "bl_shirt2_fem"
-		gender = FEMALE
-
-	white_shirt
-		name = "Mens White Shirt"
-		icon_state = "wt_shirt"
-		gender = MALE
-
-	white_shirt_fem
-		name = "Ladies White Shirt"
-		icon_state = "wt_shirt_fem"
-		gender = FEMALE
-
-	white_shirt2
-		name = "Mens White Shirt 2"
-		icon_state = "wt_shirt2"
-		gender = MALE
-
-	white_shirt2_fem
-		name = "Ladies White Shirt 2"
-		icon_state = "wt_shirt2_fem"
-		gender = FEMALE
-
-	black_tank_top
-		name = "Mens Black Tank Top"
-		icon_state = "bl_ttop"
-		gender = MALE
-
-	black_tank_top_fem
-		name = "Ladies Black Tank Top"
-		icon_state = "bl_ttop_fem"
-		gender = FEMALE
-
-	white_tank_top
-		name = "Mens White Tank Top"
-		icon_state = "wt_ttop"
-		gender = MALE
-
-	white_tank_top_fem
-		name = "Ladies White Tank Top"
-		icon_state = "wt_ttop_fem"
-		gender = FEMALE
-
-	atmos_tank
-		name = "Mens Atmos Tank Top"
-		icon_state = "atmostank"
-		gender = MALE
-
-	atmos_tank_fem
-		name = "Ladies Atmos Tank Top"
-		icon_state = "atmostank_fem"
-		gender = FEMALE
-
-	botany_tank
-		name = "Mens Botany Tank Top"
-		icon_state = "botanytank"
-		gender = MALE
-
-	botany_tank_fem
-		name = "Ladies Botany Tank Top"
-		icon_state = "botanytank_fem"
-		gender = FEMALE
-
-	engi_tank
-		name = "Mens Engineering Tank Top"
-		icon_state = "engitank"
-		gender = MALE
-
-	engi_tank_fem
-		name = "Ladies Engineering Tank Top"
-		icon_state = "engitank_fem"
-		gender = FEMALE
-
-	sci_tank
-		name = "Mens Science Tank Top"
-		icon_state = "scitank"
-		gender = MALE
-
-	sci_tank_fem
-		name = "Ladies Science Tank Top"
-		icon_state = "scitank_fem"
-		gender = FEMALE
-
-	mine_tank
-		name = "Mens Mining Tank Top"
-		icon_state = "minetank"
-		gender = MALE
-
-	mine_tank_fem
-		name = "Ladies Mining Tank Top"
-		icon_state = "minetank_fem"
-		gender = FEMALE
-
-	jani_tank
-		name = "Mens Janitorial Tank Top"
-		icon_state = "janitank"
-		gender = MALE
-
-	jani_tank_fem
-		name = "Ladies Janitorial Tank Top"
-		icon_state = "janitank_fem"
-		gender = FEMALE
-
-	med_tank
-		name = "Mens Medical Tank Top"
-		icon_state = "medtank"
-		gender = MALE
-
-	med_tank_fem
-		name = "Ladies Medical Tank Top"
-		icon_state = "medtank"
-		gender = FEMALE
-
-	robo_tank
-		name = "Mens Robotics Tank Top"
-		icon_state = "robotank"
-		gender = MALE
-
-	robo_tank_fem
-		name = "Ladies Robotics Tank Top"
-		icon_state = "robotank_fem"
-		gender = FEMALE
-
-	sec_tank
-		name = "Mens Security Tank Top"
-		icon_state = "sectank"
-		gender = MALE
-
-	sec_tank_fem
-		name = "Ladies Security Tank Top"
-		icon_state = "sectank_fem"
-		gender = FEMALE
-
-	rainbow_tank
-		name = "Mens Rainbow Tank Top"
-		icon_state = "rainbowtank"
-		gender = MALE
-
-	rainbow_tank_fem
-		name = "Ladies Rainbow Tank Top"
-		icon_state = "rainbowtank_fem"
-		gender = FEMALE
-
-	happy_tank
-		name = "Mens Happy Tank Top"
-		icon_state = "happytank"
-		gender = MALE
-
-	happy_tank_fem
-		name = "Ladies Happy Tank Top"
-		icon_state = "happytank_fem"
-		gender = FEMALE
-
-	neutral_tank
-		name = "Mens Neutral Tank Top"
-		icon_state = "neutraltank"
-		gender = MALE
-
-	neutral_tank_fem
-		name = "Ladies Neutral Tank Top"
-		icon_state = "neutraltank_fem"
-		gender = FEMALE
-
-	sad_tank
-		name = "Mens Sad Tank Top"
-		icon_state = "sadtank"
-		gender = MALE
-
-	sad_tank_fem
-		name = "Ladies Sad Tank Top"
-		icon_state = "sadtank_fem"
-		gender = FEMALE
-
-	assistant_tank
-		name = "Mens Assistant Tank Top"
-		icon_state = "assistanttank"
-		gender = MALE
-
-	assistant_tank_fem
-		name = "Ladies Assistant Tank Top"
-		icon_state = "assistanttank_fem"
-		gender = FEMALE
-
-	dorf_tank
-		name = "Mens Dwarf Tank Top"
-		icon_state = "dorftank"
-		gender = MALE
-
-	dorf_tank_fem
-		name = "Ladies Dwarf Tank Top"
-		icon_state = "dorftank_fem"
-		gender = FEMALE
-
-	monkey_tank
-		name = "Mens Monkey Tank Top"
-		icon_state = "monkeytank"
-		gender = MALE
-
-	monkey_tank_fem
-		name = "Ladies Monkey Tank Top"
-		icon_state = "monkeytank_fem"
-		gender = FEMALE
-
-	praise_the_sun_tank
-		name = "Mens Praise The Sun Tank Top" //Looks a tad shit all capitalised
-		icon_state = "praisethesuntank"
-		gender = MALE
-
-	praise_the_sun_tank_fem
-		name = "Ladies Praise The Sun Tank Top" //Looks a tad shit all capitalised
-		icon_state = "praisethesuntank_fem"
-		gender = FEMALE
-
-	treehugger_tank
-		name = "Mens Treehugger Tank Top"
-		icon_state = "treehuggertank"
-		gender = MALE
-
-	treehugger_tank_fem
-		name = "Ladies Treehugger Tank Top"
-		icon_state = "treehuggertank_fem"
-		gender = FEMALE
-
-	skull_tank
-		name = "Mens Skull Tank Top"
-		icon_state = "skull_ttop"
-		gender = MALE
-
-	skull_tank_fem
-		name = "Ladies Skull Tank Top"
-		icon_state = "skull_ttop_fem"
-		gender = FEMALE
-
-	rus_shirt
-		name = "Mens Telnyashka Shirt"
-		icon_state = "rus_shirt"
-		gender = MALE
-
-	rus_shirt_fem
-		name = "Ladies Telnyashka Shirt"
-		icon_state = "rus_shirt_fem"
-		gender = FEMALE
-
-	rus_tank
-		name = "Mens Telnyashka Tank Top"
-		icon_state = "rus_ttop"
-		gender = MALE
-
-	rus_tank_fem
-		name = "Ladies Telnyashka Tank Top"
-		icon_state = "rus_ttop_fem"
-		gender = FEMALE
-
-	ss13_shirt
-		name = "Mens Space Station 13 Shirt"
-		icon_state = "ss13shirt"
-		gender = MALE
-
-	ss13_shirt_fem
-		name = "Ladies Space Station 13 Shirt"
-		icon_state = "ss13shirt_fem"
-		gender = FEMALE
-
-	bleed_shirt
-		name = "Mens Wound Shirt"
-		icon_state = "bleedshirt"
-		gender = MALE
-
-	bleed_shirt_fem
-		name = "Ladies Wound Shirt"
-		icon_state = "bleedshirt_fem"
-		gender = FEMALE
-
-	ian_shirt
-		name = "Mens Corgi Shirt"
-		icon_state = "ianshirt"
-		gender = MALE
-
-	ian_shirt_fem
-		name = "Ladies Corgi Shirt"
-		icon_state = "ianshirt_fem"
-		gender = FEMALE
-
-	wat_shirt
-		name = "Mens Question Shirt"
-		icon_state = "watshirt"
-		gender = MALE
-
-	wat_shirt_fem
-		name = "Ladies Question Shirt"
-		icon_state = "watshirt_fem"
-		gender = FEMALE
-
-	skull_shirt
-		name = "Mens Skull Shirt"
-		icon_state = "skullshirt"
-		gender = MALE
-
-	skull_shirt_fem
-		name = "Ladies Skull Shirt"
-		icon_state = "skullshirt_fem"
-		gender = FEMALE
-
-	commie_shirt
-		name = "Mens Commie Shirt"
-		icon_state = "commie"
-		gender = MALE
-
-	commie_shirt_fem
-		name = "Ladies Commie Shirt"
-		icon_state = "commie_fem"
-		gender = FEMALE
-
-	nano_shirt
-		name = "Mens Nanotrasen Shirt"
-		icon_state = "nano"
-		gender = MALE
-
-	nano_shirt_fem
-		name = "Ladies Nanotrasen Shirt"
-		icon_state = "nano_fem"
-		gender = FEMALE
+	icon = 'icons/mob/underwear.dmi'
+
+/datum/sprite_accessory/undershirt/nude
+	name = "Nude"
+	icon_state = null
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_white
+	name = "White Shirt"
+	icon_state = "shirt_white"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_black
+	name = "Black Shirt"
+	icon_state = "shirt_black"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/shirt_grey
+	name = "Grey Shirt"
+	icon_state = "shirt_grey"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_white
+	name = "White Tank Top"
+	icon_state = "tank_white"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_black
+	name = "Black Tank Top"
+	icon_state = "tank_black"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_grey
+	name = "Grey Tank Top"
+	icon_state = "tank_grey"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/female_midriff
+	name = "Midriff Tank Top"
+	icon_state = "tank_midriff"
+	gender = FEMALE
+
+/datum/sprite_accessory/undershirt/lover
+	name = "Lover shirt"
+	icon_state = "lover"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/ian
+	name = "Blue Ian Shirt"
+	icon_state = "ian"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/uk
+	name = "UK Shirt"
+	icon_state = "uk"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/ilovent
+	name = "I Love NT Shirt"
+	icon_state = "ilovent"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/peace
+	name = "Peace Shirt"
+	icon_state = "peace"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/mondmondjaja
+	name = "Band Shirt"
+	icon_state = "band"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/pacman
+	name = "Pogoman Shirt"
+	icon_state = "pogoman"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/matroska
+	name = "Matroska Shirt"
+	icon_state = "matroska"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/whiteshortsleeve
+	name = "White Short-sleeved Shirt"
+	icon_state = "whiteshortsleeve"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/purpleshortsleeve
+	name = "Purple Short-sleeved Shirt"
+	icon_state = "purpleshortsleeve"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/blueshortsleeve
+	name = "Blue Short-sleeved Shirt"
+	icon_state = "blueshortsleeve"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/greenshortsleeve
+	name = "Green Short-sleeved Shirt"
+	icon_state = "greenshortsleeve"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/blackshortsleeve
+	name = "Black Short-sleeved Shirt"
+	icon_state = "blackshortsleeve"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/blueshirt
+	name = "Blue T-Shirt"
+	icon_state = "blueshirt"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/redshirt
+	name = "Red T-Shirt"
+	icon_state = "redshirt"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/yellowshirt
+	name = "Yellow T-Shirt"
+	icon_state = "yellowshirt"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/greenshirt
+	name = "Green T-Shirt"
+	icon_state = "greenshirt"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/bluepolo
+	name = "Blue Polo Shirt"
+	icon_state = "bluepolo"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/redpolo
+	name = "Red Polo Shirt"
+	icon_state = "redpolo"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/whitepolo
+	name = "White Polo Shirt"
+	icon_state = "whitepolo"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/grayyellowpolo
+	name = "Gray-Yellow Polo Shirt"
+	icon_state = "grayyellowpolo"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/redtop
+	name = "Red Top"
+	icon_state = "redtop"
+	gender = FEMALE
+
+/datum/sprite_accessory/undershirt/whitetop
+	name = "White Top"
+	icon_state = "whitetop"
+	gender = FEMALE
+
+/datum/sprite_accessory/undershirt/greenshirtsport
+	name = "Green Sports Shirt"
+	icon_state = "greenshirtsport"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/redshirtsport
+	name = "Red Sports Shirt"
+	icon_state = "redshirtsport"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/blueshirtsport
+	name = "Blue Sports Shirt"
+	icon_state = "blueshirtsport"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/ss13
+	name = "SS13 Shirt"
+	icon_state = "shirt_ss13"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tankfire
+	name = "Fire Tank Top"
+	icon_state = "tank_fire"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/question
+	name = "Question Shirt"
+	icon_state = "shirt_question"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/skull
+	name = "Skull Shirt"
+	icon_state = "shirt_skull"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/commie
+	name = "Commie Shirt"
+	icon_state = "shirt_commie"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/nano
+	name = "Nanotransen Shirt"
+	icon_state = "shirt_nano"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/stripe
+	name = "Striped Shirt"
+	icon_state = "shirt_stripes"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/blueshirt
+	name = "Blue Shirt"
+	icon_state = "shirt_blue"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/redshirt
+	name = "Red Shirt"
+	icon_state = "shirt_red"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tank_red
+	name = "Red Tank Top"
+	icon_state = "tank_red"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/greenshirt
+	name = "Green Shirt"
+	icon_state = "shirt_green"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/meat
+	name = "Meat Shirt"
+	icon_state = "shirt_meat"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tiedye
+	name = "Tie-dye Shirt"
+	icon_state = "shirt_tiedye"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/redjersey
+	name = "Red Jersey"
+	icon_state = "shirt_redjersey"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/bluejersey
+	name = "Blue Jersey"
+	icon_state = "shirt_bluejersey"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/tankstripe
+	name = "Striped Tank Top"
+	icon_state = "tank_stripes"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/clownshirt
+	name = "Clown Shirt"
+	icon_state = "shirt_clown"
+	gender = NEUTER
+
+/datum/sprite_accessory/undershirt/alienshirt
+	name = "Alien Shirt"
+	icon_state = "shirt_alien"
+	gender = NEUTER
+
+
 
 ///////////////////////
 // Socks Definitions //
 ///////////////////////
-
 /datum/sprite_accessory/socks
-	icon = 'icons/mob/socks.dmi'
+	icon = 'icons/mob/underwear.dmi'
 
-	none
-		name = "None"
-		icon_state = null
-		gender = NEUTER
+/datum/sprite_accessory/socks/nude
+	name = "Nude"
+	icon_state = null
+	gender = NEUTER
 
-	white_norm
-		name = "Normal White"
-		icon_state = "white_norm"
-		gender = NEUTER
+/datum/sprite_accessory/socks/white_norm
+	name = "Normal White"
+	icon_state = "white_norm"
+	gender = NEUTER
 
-	black_norm
-		name = "Normal Black"
-		icon_state = "black_norm"
-		gender = NEUTER
+/datum/sprite_accessory/socks/black_norm
+	name = "Normal Black"
+	icon_state = "black_norm"
+	gender = NEUTER
 
-	white_short
-		name = "Short White"
-		icon_state = "white_short"
-		gender = NEUTER
+/datum/sprite_accessory/socks/white_short
+	name = "Short White"
+	icon_state = "white_short"
+	gender = NEUTER
 
-	black_short
-		name = "Short Black"
-		icon_state = "black_short"
-		gender = NEUTER
+/datum/sprite_accessory/socks/black_short
+	name = "Short Black"
+	icon_state = "black_short"
+	gender = NEUTER
 
-	white_knee
-		name = "Knee-high White"
-		icon_state = "white_knee"
-		gender = NEUTER
+/datum/sprite_accessory/socks/white_knee
+	name = "Knee-high White"
+	icon_state = "white_knee"
+	gender = NEUTER
 
-	black_knee
-		name = "Knee-high Black"
-		icon_state = "black_knee"
-		gender = NEUTER
+/datum/sprite_accessory/socks/black_knee
+	name = "Knee-high Black"
+	icon_state = "black_knee"
+	gender = NEUTER
 
-	thin_knee
-		name = "Knee-high Thin"
-		icon_state = "thin_knee"
-		gender = FEMALE
+/datum/sprite_accessory/socks/thin_knee
+	name = "Knee-high Thin"
+	icon_state = "thin_knee"
+	gender = FEMALE
 
-	striped_knee
-		name = "Knee-high Striped"
-		icon_state = "striped_knee"
-		gender = NEUTER
+/datum/sprite_accessory/socks/striped_knee
+	name = "Knee-high Striped"
+	icon_state = "striped_knee"
+	gender = NEUTER
 
-	rainbow_knee
-		name = "Knee-high Rainbow"
-		icon_state = "rainbow_knee"
-		gender = NEUTER
+/datum/sprite_accessory/socks/rainbow_knee
+	name = "Knee-high Rainbow"
+	icon_state = "rainbow_knee"
+	gender = NEUTER
 
-	white_thigh
-		name = "Thigh-high White"
-		icon_state = "white_thigh"
-		gender = NEUTER
+/datum/sprite_accessory/socks/white_thigh
+	name = "Thigh-high White"
+	icon_state = "white_thigh"
+	gender = NEUTER
 
-	black_thigh
-		name = "Thigh-high Black"
-		icon_state = "black_thigh"
-		gender = NEUTER
+/datum/sprite_accessory/socks/black_thigh
+	name = "Thigh-high Black"
+	icon_state = "black_thigh"
+	gender = NEUTER
 
-	thin_thigh
-		name = "Thigh-high Thin"
-		icon_state = "thin_thigh"
-		gender = FEMALE
+/datum/sprite_accessory/socks/thin_thigh
+	name = "Thigh-high Thin"
+	icon_state = "thin_thigh"
+	gender = FEMALE
 
-	striped_thigh
-		name = "Thigh-high Striped"
-		icon_state = "striped_thigh"
-		gender = NEUTER
+/datum/sprite_accessory/socks/striped_thigh
+	name = "Thigh-high Striped"
+	icon_state = "striped_thigh"
+	gender = NEUTER
 
-	rainbow_thigh
-		name = "Thigh-high Rainbow"
-		icon_state = "rainbow_thigh"
-		gender = NEUTER
+/datum/sprite_accessory/socks/rainbow_thigh
+	name = "Thigh-high Rainbow"
+	icon_state = "rainbow_thigh"
+	gender = NEUTER
 
-	pantyhose
-		name = "Pantyhose"
-		icon_state = "pantyhose"
-		gender = FEMALE
+/datum/sprite_accessory/socks/pantyhose
+	name = "Pantyhose"
+	icon_state = "pantyhose"
+	gender = FEMALE

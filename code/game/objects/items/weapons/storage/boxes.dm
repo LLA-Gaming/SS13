@@ -61,6 +61,7 @@
 		return
 
 /obj/item/weapon/storage/box/engineer
+	icon_state = "box_survival"
 	New()
 		..()
 		contents = list()

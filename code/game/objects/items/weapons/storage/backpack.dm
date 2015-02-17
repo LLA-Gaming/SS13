@@ -95,6 +95,31 @@
 	icon_state = "medicalpack"
 	item_state = "medicalpack"
 
+/obj/item/weapon/storage/backpack/vir
+	name = "virologist backpack"
+	desc = "A sterile backpack with virologist colours."
+	icon_state = "viropack"
+
+/obj/item/weapon/storage/backpack/chem
+	name = "chemist backpack"
+	desc = "A sterile backpack with chemist colours."
+	icon_state = "chempack"
+
+/obj/item/weapon/storage/backpack/gen
+	name = "geneticist backpack"
+	desc = "A sterile backpack with geneticist colours."
+	icon_state = "genpack"
+
+/obj/item/weapon/storage/backpack/tox
+	name = "scientist backpack"
+	desc = "Useful for holding research materials."
+	icon_state = "toxpack"
+
+/obj/item/weapon/storage/backpack/botany
+	name = "medical backpack"
+	desc = "A green backpack for plant related work."
+	icon_state = "botanypack"
+
 /obj/item/weapon/storage/backpack/security
 	name = "security backpack"
 	desc = "It's a very robust backpack."
@@ -181,8 +206,69 @@
 	icon_state = "satchel-cap"
 	item_state = "captainpack"
 
+/*
+ * Other
+ */
+
 /obj/item/weapon/storage/backpack/mime
 	name = "Parcel Parceaux"
 	desc = "A silent backpack made for those silent workers. Silence Co."
 	icon_state = "mimepack"
 	item_state = "mimepack"
+
+/*
+ * Dufflebags (LOADSEMONE)
+ */
+
+/obj/item/weapon/storage/backpack/dufflebag
+	name = "dufflebag"
+	desc = "A large dufflebag for holding extra things"
+	icon_state = "duffle"
+	item_state = "duffle"
+	storage_slots = 9
+	slowdown = 1
+	max_combined_w_class = 27
+
+/obj/item/weapon/storage/backpack/dufflebag/syndiemed
+	name = "medical dufflebag"
+	desc = "A large dufflebag for holding extra tactical medical supplies."
+	icon_state = "duffle-syndiemed"
+	item_state = "duffle-syndiemed"
+	slowdown = 0
+
+/obj/item/weapon/storage/backpack/dufflebag/syndieammo
+	name = "ammunition dufflebag"
+	desc = "A large dufflebag for holding extra weapons ammunition and supplies."
+	icon_state = "duffle-syndieammo"
+	item_state = "duffle-syndieammo"
+	slowdown = 0
+
+/obj/item/weapon/storage/backpack/dufflebag/captain
+	name = "captain's dufflebag"
+	desc = "A large dufflebag for holding extra captainly goods."
+	icon_state = "duffle-captain"
+	item_state = "duffle-captain"
+
+/obj/item/weapon/storage/backpack/dufflebag/med
+	name = "medical dufflebag"
+	desc = "A large dufflebag for holding extra medical supplies."
+	icon_state = "duffle-med"
+	item_state = "duffle-med"
+
+/obj/item/weapon/storage/backpack/dufflebag/sec
+	name = "security dufflebag"
+	desc = "A large dufflebag for holding extra security supplies and ammunition."
+	icon_state = "duffle-sec"
+	item_state = "duffle-sec"
+
+/obj/item/weapon/storage/backpack/dufflebag/engineering
+	name = "engineering dufflebag"
+	desc = "A large dufflebag for holding extra tools and supplies."
+	icon_state = "duffle-eng"
+	item_state = "duffle-eng"
+
+/obj/item/weapon/storage/backpack/dufflebag/clown
+	name = "clown's dufflebag"
+	desc = "A large dufflebag for holding lots of funny gags!"
+	icon_state = "duffle-clown"
+	item_state = "duffle-clown"

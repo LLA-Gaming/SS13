@@ -150,7 +150,7 @@
 				/obj/item/weapon/crowbar = 2,
 				/obj/item/weapon/wirecutters = 2,
 				/obj/item/device/multitool = 2,
-				/obj/item/weapon/caution/cone = 8,
+				/obj/item/clothing/head/cone = 8,
 				/obj/item/weapon/storage/box = 2,
 				/obj/item/weapon/storage/box/cups = 2,
 				/obj/item/weapon/storage/box/donkpockets = 3,

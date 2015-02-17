@@ -91,3 +91,9 @@
 	desc = "It's baseball hat in tasteful red colour."
 	icon_state = "secsoft"
 	item_color = "sec"
+
+/obj/item/clothing/head/soft/jani_hat
+	name = "janitor hat"
+	desc = "It's baseball hat in tasteful red colour."
+	icon_state = "secsoft"
+	item_color = "sec"
