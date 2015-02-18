@@ -32,7 +32,8 @@
 	var/screen				// Which screen our main window displays
 	var/subscreen			// Which specific function of the main screen is being displayed
 
-	var/obj/item/device/pda/ai/pai/pda = null
+	//NO PDAS
+	//var/obj/item/device/pda/ai/pai/pda = null
 
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
@@ -62,16 +63,16 @@
 			card.radio = new /obj/item/device/radio(src.card)
 		radio = card.radio
 
-	//PDA
-	pda = new(src)
-	spawn(5)
-		pda.ownjob = "Personal Assistant"
-		pda.owner = text("[]", src)
-		pda.name = pda.owner + " (" + pda.ownjob + ")"
-		pda.toff = 1
-
-		follow_pai()
-	..()
+//	//PDA
+//	pda = new(src)
+//	spawn(5)
+//		pda.ownjob = "Personal Assistant"
+//		pda.owner = text("[]", src)
+//		pda.name = pda.owner + " (" + pda.ownjob + ")"
+//		pda.toff = 1
+//
+//		follow_pai()
+//	..()
 
 /mob/living/silicon/pai/make_laws()
 	laws = new /datum/ai_laws/pai()
