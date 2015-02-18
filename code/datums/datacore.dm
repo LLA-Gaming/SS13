@@ -2,8 +2,11 @@
 /obj/effect/datacore
 	name = "datacore"
 	var/medical[] = list()
+	var/medicalPrintCount = 0
 	var/general[] = list()
 	var/security[] = list()
+	var/securityPrintCount = 0
+	var/securityCrimeCounter = 0
 	//This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
 	var/locked[] = list()
 
@@ -13,6 +16,87 @@
 /datum/data/record
 	name = "record"
 	var/list/fields = list()
+
+/datum/data/crime
+	name = "crime"
+	var/crimeName = ""
+	var/crimeDetails = ""
+	var/author = ""
+	var/time = ""
+	var/dataId = 0
+
+/obj/effect/datacore/proc/createCrimeEntry(cname = "", cdetails = "", author = "", time = "")
+	var/datum/data/crime/c = new /datum/data/crime
+	c.crimeName = cname
+	c.crimeDetails = cdetails
+	c.author = author
+	c.time = time
+	c.dataId = ++securityCrimeCounter
+	return c
+
+/obj/effect/datacore/proc/addMinorCrime(id = "", var/datum/data/crime/crime)
+	for(var/datum/data/record/R in security)
+		if(R.fields["id"] == id)
+			var/list/crimes = R.fields["min_crim"]
+			crimes |= crime
+			return
+
+/obj/effect/datacore/proc/removeMinorCrime(id, cDataId)
+	for(var/datum/data/record/R in security)
+		if(R.fields["id"] == id)
+			var/list/crimes = R.fields["min_crim"]
+			for(var/datum/data/crime/crime in crimes)
+				if(crime.dataId == text2num(cDataId))
+					crimes -= crime
+					return
+
+/obj/effect/datacore/proc/removeMediumCrime(id, cDataId)
+	for(var/datum/data/record/R in security)
+		if(R.fields["id"] == id)
+			var/list/crimes = R.fields["med_crim"]
+			for(var/datum/data/crime/crime in crimes)
+				if(crime.dataId == text2num(cDataId))
+					crimes -= crime
+					return
+
+/obj/effect/datacore/proc/addMediumCrime(id = "", var/datum/data/crime/crime)
+	for(var/datum/data/record/R in security)
+		if(R.fields["id"] == id)
+			var/list/crimes = R.fields["med_crim"]
+			crimes |= crime
+			return
+
+/obj/effect/datacore/proc/removeMajorCrime(id, cDataId)
+	for(var/datum/data/record/R in security)
+		if(R.fields["id"] == id)
+			var/list/crimes = R.fields["maj_crim"]
+			for(var/datum/data/crime/crime in crimes)
+				if(crime.dataId == text2num(cDataId))
+					crimes -= crime
+					return
+
+/obj/effect/datacore/proc/addMajorCrime(id = "", var/datum/data/crime/crime)
+	for(var/datum/data/record/R in security)
+		if(R.fields["id"] == id)
+			var/list/crimes = R.fields["maj_crim"]
+			crimes |= crime
+			return
+
+/obj/effect/datacore/proc/removeCapitalCrime(id, cDataId)
+	for(var/datum/data/record/R in security)
+		if(R.fields["id"] == id)
+			var/list/crimes = R.fields["cap_crim"]
+			for(var/datum/data/crime/crime in crimes)
+				if(crime.dataId == text2num(cDataId))
+					crimes -= crime
+					return
+
+/obj/effect/datacore/proc/addCapitalCrime(id = "", var/datum/data/crime/crime)
+	for(var/datum/data/record/R in security)
+		if(R.fields["id"] == id)
+			var/list/crimes = R.fields["cap_crim"]
+			crimes |= crime
+			return
 
 /obj/effect/datacore/proc/manifest(var/nosleep = 0)
 	spawn()
@@ -31,8 +115,6 @@ var/record_id_num = 1001
 /obj/effect/datacore/proc/manifest_inject(var/mob/living/carbon/human/H)
 	if(H.mind && (H.mind.assigned_role != "MODE"))
 		var/assignment
-		if(H.job in list("Perseus Security Enforcer", "Perseus Security Commander"))
-			return
 		if(H.mind.assigned_role)
 			assignment = H.mind.assigned_role
 		else if(H.job)
@@ -77,10 +159,10 @@ var/record_id_num = 1001
 		S.fields["id"]			= id
 		S.fields["name"]		= H.real_name
 		S.fields["criminal"]	= "None"
-		S.fields["mi_crim"]		= "None"
-		S.fields["mi_crim_d"]	= "No minor crime convictions."
-		S.fields["ma_crim"]		= "None"
-		S.fields["ma_crim_d"]	= "No major crime convictions."
+		S.fields["min_crim"]		= list()
+		S.fields["med_crim"]		= list()
+		S.fields["maj_crim"]		= list()
+		S.fields["cap_crim"]		= list()
 		S.fields["notes"]		= "No notes."
 		security += S
 
@@ -98,4 +180,3 @@ var/record_id_num = 1001
 		L.fields["image"]		= getFlatIcon(H)	//This is god-awful
 		locked += L
 	return
-
