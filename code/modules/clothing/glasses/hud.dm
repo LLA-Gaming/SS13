@@ -94,6 +94,7 @@
 	name = "Security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
 	icon_state = "securityhud"
+	var/alerts = 1
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "HUDSunglasses"
@@ -147,6 +148,19 @@ obj/item/clothing/glasses/hud/security/supergars
 	item_state = "jensenshades"
 	vision_flags = SEE_MOBS
 	invis_view = 2
+
+/obj/item/clothing/glasses/hud/security/verb/toggle_hud_alerts()
+	set category = "Object"
+	set name = "Toggle HUD Alerts"
+	set src in usr
+	if(alerts)
+		usr << "You turn alerts off"
+		alerts = 0
+		return
+	if(!alerts)
+		usr << "You turn alerts on"
+		alerts = 1
+		return
 
 /obj/item/clothing/glasses/hud/security/process_hud(var/mob/M)
 	if(!M)	return
