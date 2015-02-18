@@ -16,7 +16,6 @@
 			dat += "<br>"
 		if(mode==2)
 			dat = {"<a href='byond://?src=\ref[src];choice=CloseRecord'>Close Record</a>"}
-			dat += "- <a href='byond://?src=\ref[src];choice=AddComment'>Add Comment</a><br>"
 			dat += "<center><h4>Security Record</h4></center>"
 
 			if(active1 in data_core.general)
@@ -25,21 +24,76 @@
 				dat += "Age: [active1.fields["age"]]<br>"
 				dat += "Rank: [active1.fields["rank"]]<br>"
 				dat += "Fingerprint: [active1.fields["fingerprint"]]<br><br>"
-				dat += "<br>Criminal Status: [active3.fields["criminal"]]</b><br>"
+			if(active3)
+				dat += text("<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: []", active3.fields["criminal"])
+
+				dat += "<BR>\n<BR>\nMinor Crimes:<BR>\n"
+				dat +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+				for(var/datum/data/crime/c in active3.fields["min_crim"])
+					dat += "<tr><td>[c.crimeName]</td>"
+					dat += "<td>[c.crimeDetails]</td>"
+					dat += "<td>[c.author]</td>"
+					dat += "<td>[c.time]</td>"
+					dat += "</tr>"
+				dat += "</table>"
+
+				dat += "<BR>\nMedium Crimes: <BR>\n"
+				dat +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+				for(var/datum/data/crime/c in active3.fields["med_crim"])
+					dat += "<tr><td>[c.crimeName]</td>"
+					dat += "<td>[c.crimeDetails]</td>"
+					dat += "<td>[c.author]</td>"
+					dat += "<td>[c.time]</td>"
+					dat += "</tr>"
+				dat += "</table>"
+
+				dat += "<BR>\nMajor Crimes: <BR>\n"
+				dat +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+				for(var/datum/data/crime/c in active3.fields["maj_crim"])
+					dat += "<tr><td>[c.crimeName]</td>"
+					dat += "<td>[c.crimeDetails]</td>"
+					dat += "<td>[c.author]</td>"
+					dat += "<td>[c.time]</td>"
+					dat += "</tr>"
+				dat += "</table>"
+
+				dat += "<BR>\nCapital Crimes: <BR>\n"
+				dat +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+				for(var/datum/data/crime/c in active3.fields["cap_crim"])
+					dat += "<tr><td>[c.crimeName]</td>"
+					dat += "<td>[c.crimeDetails]</td>"
+					dat += "<td>[c.author]</td>"
+					dat += "<td>[c.time]</td>"
+					dat += "</tr>"
+				dat += "</table>"
+
 				dat += "<br>"
-				dat += "Minor Crimes: [active3.fields["mi_crim"]]<br>"
-				dat += "Details: [active3.fields["mi_crim"]]<br>"
-				dat += "Major Crimes: [active3.fields["ma_crim"]]<br>"
-				dat += "Details: [active3.fields["ma_crim_d"]]<br>"
-				dat += "Important Notes:<br>"
-				dat += "[active3.fields["notes"]]"
-			else
-				dat += "<b>Record Lost!</b><br>"
 
-			dat += "<br>"
-
-			dat += "<center><h4>Comments/Log:</h4></center>"
-			if(active3 in data_core.security)
+				dat += "<center><h4>Comments/Log:</h4></center>"
 				var/counter = 1
 				while(active3.fields[text("com_[]", counter)])
 					dat += "<div class='statusDisplay'>"
@@ -72,20 +126,3 @@
 				active2 = null
 				mode = 1
 				PDA.attack_self(usr)
-			if("AddComment")
-				if(network())
-					if (!( istype(active3, /datum/data/record) ))
-						return
-					var/a2 = active3
-					var/t1 = copytext(sanitize(input("Add Comment:", "Secure. records", null, null)  as message),1,MAX_MESSAGE_LEN)
-					if ((!( t1 ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || active3 != a2))
-						return
-					var/counter = 1
-					while(active3.fields[text("com_[]", counter)])
-						counter++
-					active3.fields[text("com_[]", counter)] = text("Made by [] ([]) on [] [], []<BR>[]", hdd.owner, hdd.ownjob, worldtime2text(), time2text(world.realtime, "MMM DD"), year_integer+540, t1,)
-					PDA.attack_self(usr)
-					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-						MS.SendAlert("[hdd.owner] added comment to: [active3.fields["name"]] - [t1]","Security Records", 1)
-				else
-					usr << "ERROR: Cannot connect to the network"

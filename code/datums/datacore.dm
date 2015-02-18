@@ -165,7 +165,6 @@ var/record_id_num = 1001
 		S.fields["med_crim"]		= list()
 		S.fields["maj_crim"]		= list()
 		S.fields["cap_crim"]		= list()
-		S.fields["notes"]		= "No notes."
 		security += S
 
 		//Locked Record

@@ -200,7 +200,6 @@
 							dat += "</tr>"
 						dat += "</table>"
 
-						dat += text("<BR>\n<BR>\nImportant Notes:<BR>\n\t<A href='?src=\ref[];choice=Edit Field;field=notes'>[]</A>", src, active2.fields["notes"])
 						dat += text("<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>")
 						var/counter = 1
 						while(active2.fields[text("com_[]", counter)])
@@ -501,7 +500,7 @@ What a mess.*/
 							P.info += "</tr>"
 						P.info += "</table>"
 
-						P.info += text("<BR>\nImportant Notes:<BR>\n\t[]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>", active2.fields["notes"])
+						P.info += "<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
 						var/counter = 1
 						while(active2.fields[text("com_[]", counter)])
 							P.info += text("[]<BR>", active2.fields[text("com_[]", counter)])
