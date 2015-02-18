@@ -42,7 +42,7 @@ proc/crewmonitor(mob/user)
 		var/turf/pos = get_turf(H)
 		if(istype(H.w_uniform, /obj/item/clothing/under))
 			var/obj/item/clothing/under/U = H.w_uniform
-			if(pos && pos.z == 1 && U.sensor_mode)
+			if((pos && U.sensor_mode) && ((pos.z == 1) || (pos.z == 5)))
 				var/obj/item/ID = null
 				if(H.wear_id)
 					ID = H.wear_id.GetID()
