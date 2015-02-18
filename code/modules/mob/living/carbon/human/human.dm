@@ -420,12 +420,12 @@
 						var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
 						if(R)
 							if(istype(H.glasses, /obj/item/clothing/glasses/hud/security) || istype(H.glasses, /obj/item/clothing/glasses/hud/security/sunglasses))
+								modified = 1
 								if(setcriminal != "Cancel")
 									R.fields["criminal"] = setcriminal
-									modified = 1
-									for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-										MS.SendAlert("[R.fields["name"]] has been set to [R.fields["criminal"]]","Security Records", 1)
-
+									broadcast_hud_message("[H.name] has been set to [R.fields["criminal"]]", src)
+									crimelogs.Add("RECORDS: [key_name(usr)] set [H.name] to [R.fields["criminal"]]") // For crime log purposes
+									log_game("BRIG: [key_name(usr)] set [H.name] to [R.fields["criminal"]]") // For crime LOG purposes
 									spawn()
 										H.handle_regular_hud_updates()
 

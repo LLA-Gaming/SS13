@@ -25,13 +25,15 @@
 	var/time = ""
 	var/dataId = 0
 
-/obj/effect/datacore/proc/createCrimeEntry(cname = "", cdetails = "", author = "", time = "")
+/obj/effect/datacore/proc/createCrimeEntry(cname = "", cdetails = "", author = "", time = "", criminal = "", machine, skipalert)
 	var/datum/data/crime/c = new /datum/data/crime
 	c.crimeName = cname
 	c.crimeDetails = cdetails
 	c.author = author
 	c.time = time
 	c.dataId = ++securityCrimeCounter
+	if(!skipalert)
+		broadcast_hud_message("[author] added [cname] to [criminal] - [cdetails]", machine)
 	return c
 
 /obj/effect/datacore/proc/addMinorCrime(id = "", var/datum/data/crime/crime)

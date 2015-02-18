@@ -593,6 +593,7 @@
 #include "code\game\objects\items\devices\Thinktronic\programs\crewmanifest.dm"
 #include "code\game\objects\items\devices\Thinktronic\programs\crewmonitor.dm"
 #include "code\game\objects\items\devices\Thinktronic\programs\custodiallocator.dm"
+#include "code\game\objects\items\devices\Thinktronic\programs\emergencyhelp.dm"
 #include "code\game\objects\items\devices\Thinktronic\programs\enginebuddy.dm"
 #include "code\game\objects\items\devices\Thinktronic\programs\gps.dm"
 #include "code\game\objects\items\devices\Thinktronic\programs\hackingtools.dm"

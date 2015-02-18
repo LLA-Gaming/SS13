@@ -1,6 +1,5 @@
 /obj/item/device/thinktronic_parts/program/sec/secrecords
 	name = "Security Records"
-	usealerts = 1
 	var/mode = 1
 	var/datum/data/record/active1 = null //General
 	var/datum/data/record/active2 = null //Medical

@@ -17,6 +17,7 @@
 	var/saveddetail = ""
 	var/savedprisoner = ""
 	var/repeatoffender = 0
+	var/reset = 0
 
 	New()
 		..()
@@ -196,7 +197,7 @@
 					usr << "<div class='warning'>Error: Prisoner Name too long.</div>"
 					return
 				log_game("BRIG: [key_name(usr)] edited the [src]'s prisoner to: [_prisoner].")
-				crimelogs.Add("[key_name(usr)] edited the [src]'s prisoner to: [_prisoner].")
+				crimelogs.Add("PERMA: [key_name(usr)] edited the [src]'s prisoner to: [_prisoner].")
 				prisoner = _prisoner
 			else
 				prisoner = ""
@@ -207,6 +208,7 @@
 			repeatoffender = 0
 			savedprisoner = ""
 			saveddetail = ""
+			reset = 0
 			for(var/datum/crime/x in crimes)
 				x.active = 0
 			src.add_fingerprint(usr)
@@ -214,12 +216,40 @@
 			src.update_icon()
 			return
 		else if(href_list["set"])
-			savedprisoner = prisoner
-			saveddetail = detail
-			for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-				MS.SendAlert("[savedprisoner] has been permabrigged for the following crimes: [saveddetail]","Brig Control")
-			log_game("BRIG: [key_name(usr)] permabrigged [savedprisoner] in [src] for: [saveddetail].")
-			crimelogs.Add("[key_name(usr)] permabrigged [savedprisoner] in [src] for: [saveddetail].")
+			if(!reset)
+				reset = 1
+				savedprisoner = prisoner
+				saveddetail = detail
+				log_game("BRIG: [key_name(usr)] permabrigged [savedprisoner] in [src] for: [saveddetail].")
+				crimelogs.Add("PERMA: [key_name(usr)] permabrigged [savedprisoner] in [src] for: [saveddetail].")
+				var/datum/data/record/R = find_record("name", prisoner, data_core.security)
+				if(R)
+					R.fields["criminal"] = "Incarcerated"
+					if(repeatoffender)
+						broadcast_hud_message("[prisoner] has been permabrigged! (marked as repeat offender) <b>*Record Updated*</b>", src)
+					else
+						broadcast_hud_message("[prisoner] has been permabrigged! <b>*Record Updated*</b>", src)
+					for(var/datum/crime/minor/x in crimes)
+						if(x.active)
+							var/record = data_core.createCrimeEntry(x.name, "AUTO: permabrigged in [src]", usr.name, worldtime2text(), prisoner, src, 1)
+							data_core.addMinorCrime(R.fields["id"], record)
+					for(var/datum/crime/medium/x in crimes)
+						if(x.active)
+							var/record = data_core.createCrimeEntry(x.name, "AUTO: permabrigged in [src]", usr.name, worldtime2text(), prisoner, src, 1)
+							data_core.addMediumCrime(R.fields["id"], record)
+					for(var/datum/crime/major/x in crimes)
+						if(x.active)
+							var/record = data_core.createCrimeEntry(x.name, "AUTO: permabrigged in [src]", usr.name, worldtime2text(), prisoner, src, 1)
+							data_core.addMajorCrime(R.fields["id"], record)
+					for(var/datum/crime/capital/x in crimes)
+						if(x.active)
+							var/record = data_core.createCrimeEntry(x.name, "AUTO: permabrigged in [src]", usr.name, worldtime2text(), prisoner, src, 1)
+							data_core.addCapitalCrime(R.fields["id"], record)
+				else
+					if(repeatoffender)
+						broadcast_hud_message("[prisoner] has been permabrigged! (marked as repeat offender) <b>*No Record Found*</b>", src)
+					else
+						broadcast_hud_message("[prisoner] has been permabrigged! <b>*No Record Found*</b>", src)
 		src.add_fingerprint(usr)
 		src.updateUsrDialog()
 		src.update_icon()

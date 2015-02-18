@@ -202,6 +202,7 @@ update_label("John Doe", "Clowny")
 	item_state = "orange-id"
 	assignment = "Prisoner"
 	registered_name = "Scum"
+	var/prisoner_name = null
 	var/goal = 0 //How far from freedom?
 	var/points = 0
 
