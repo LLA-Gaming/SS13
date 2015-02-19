@@ -212,9 +212,9 @@ Auto Patrol: []"},
 				src.target = user
 				if(lasercolor)//To make up for the fact that lasertag bots don't hunt
 					src.shootAt(user)
-				//var/area/location = get_area(src)
-				//var/textname = format_text(name)
-				//broadcast_hud_message("[textname] requesting backup in [location]!", src)
+				var/area/location = get_area(src)
+				var/textname = format_text(name)
+				broadcast_hud_message("[textname] requesting backup in [location]!", src)
 				src.mode = SECBOT_HUNT
 
 /obj/machinery/bot/ed209/Emag(mob/user as mob)
@@ -662,9 +662,9 @@ Auto Patrol: []"},
 			if(!src.lasercolor)
 				playsound(src.loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/EDPlaceholder.ogg'), 50, 0)
 			src.visible_message("<b>[src]</b> points at [C.name]!")
-			//var/area/location = get_area(src)
-			//var/textname = format_text(name)
-			//broadcast_hud_message("[textname] reports: [C.name] detected! Threat Level: [src.threatlevel]. Location: [location].", src)
+			var/area/location = get_area(src)
+			var/textname = format_text(name)
+			broadcast_hud_message("[textname] reports: [C.name] detected! Threat Level: [src.threatlevel]. Location: [location].", src)
 			mode = SECBOT_HUNT
 			spawn(0)
 				process()	// ensure bot quickly responds to a perp
@@ -761,8 +761,8 @@ Auto Patrol: []"},
 
 /obj/machinery/bot/ed209/explode()
 	walk_to(src,0)
-	//var/textname = format_text(name)
-	//broadcast_hud_message("[textname] requesting back-@!$^ERROR%%", src)
+	var/textname = format_text(name)
+	broadcast_hud_message("[textname] requesting back-@!$^ERROR%%", src)
 	src.visible_message("\red <B>[src] blows apart!</B>", 1)
 	var/turf/Tsec = get_turf(src)
 
