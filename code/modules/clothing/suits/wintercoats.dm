@@ -29,6 +29,12 @@
 		..()
 		ToggleHood()
 
+	verb/togglecoat()
+		set name = "Toggle Coat"
+		set category = "Object"
+		set src in usr
+		ToggleHood()
+
 	equipped(mob/user, slot)
 		if(slot != slot_wear_suit)
 			RemoveHood()
