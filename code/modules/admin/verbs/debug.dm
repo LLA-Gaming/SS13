@@ -203,10 +203,11 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	spawn(10)
 		M.Animalize()
 
-/client/proc/becomePAI(var/turf/t in view())
+/client/proc/becomePAI()
 	set category = "Debug"
 	set name = "Become pAI"
 	set desc = "Specify a location to spawn a pAI device, then specify a key to play that pAI"
+	var/turf/t = mob.loc
 	var/obj/item/device/paicard/card = new(t)
 	var/mob/living/silicon/pai/pai = new(card)
 	pai.key = src.key
