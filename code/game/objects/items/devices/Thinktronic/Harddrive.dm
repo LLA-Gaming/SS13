@@ -33,7 +33,6 @@
 	cash = rand(2,10)
 	cash *= 10
 	new  /obj/item/device/thinktronic_parts/program/utility/atmosscan{DRM = 1}(src)
-	new  /obj/item/device/thinktronic_parts/program/utility/emergency{DRM = 1}(src)
 /obj/item/device/thinktronic_parts/core/plain/New() // Assistants + Any other job without a special cartridge
 	..()
 	new /obj/item/device/thinktronic_parts/program/general/taskmanager{favorite = 1 alerts = 1}(src)
