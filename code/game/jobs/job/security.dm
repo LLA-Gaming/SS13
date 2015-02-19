@@ -211,7 +211,7 @@ Security Officer
 	dep_access = null;
 	return L
 
-var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
+var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science", "Brig")
 
 /datum/job/officer/proc/assign_sec_to_department(var/mob/living/carbon/human/H)
 	if(!sec_departments.len)
@@ -220,7 +220,7 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
 	else
 		var/department = ""
 		var/gotdept
-		if(H.client.prefs.prefer_dept != "None")
+		if(H.client.prefs.prefer_dept != "Any")
 			for(var/dept in sec_departments)
 				if(H.client.prefs.prefer_dept == dept)
 					department = dept
@@ -232,7 +232,7 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
 					H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
 				department = pick(sec_departments)
 				sec_departments -= department
-		if(H.client.prefs.prefer_dept == "None")
+		if(H.client.prefs.prefer_dept == "Any")
 			department = pick(sec_departments)
 			sec_departments -= department
 		var/destination = null
@@ -257,6 +257,9 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/sci
 				dep_access = list(access_research)
 				destination = /area/security/checkpoint/science
+			if("Brig")
+				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
+				default_headset = /obj/item/device/radio/headset/headset_sec
 			else
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec
@@ -275,7 +278,7 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
 					continue
 				else
 					break
-		if(department)
+		if(department && department != "Brig")
 			H << "<b><font size = 2 font color = 'blue'>You have been assigned to [department]!</b></font>"
 		return
 

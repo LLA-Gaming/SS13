@@ -205,3 +205,8 @@
 	item_state = "shamebrero"
 	desc = "Once it's on, it never comes off."
 	flags = NODROP
+
+/obj/item/clothing/head/cone
+	desc = "This cone is trying to warn you of something!"
+	name = "warning cone"
+	icon_state = "cone"

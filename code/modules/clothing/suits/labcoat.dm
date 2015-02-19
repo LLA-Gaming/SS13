@@ -94,86 +94,27 @@
 	desc = "A pretty yellow labcoat."
 	icon_state = "yellow_labcoat"
 
-/obj/item/clothing/suit/labcoat/coat
-	name = "winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coatwinter"
-	blood_overlay_type = "coat"
-	body_parts_covered = CHEST|ARMS|HEAD
-	has_hood = 1
-	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS | HEAD
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	allowed = list(/obj/item/device/analyzer,/obj/item/stack/medical,/obj/item/weapon/dnainjector,/obj/item/weapon/reagent_containers/dropper,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/hypospray,/obj/item/device/healthanalyzer,/obj/item/device/flashlight/pen,/obj/item/weapon/reagent_containers/glass/bottle,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/pill,/obj/item/weapon/storage/pill_bottle,/obj/item/weapon/paper,/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/lighter,/obj/item/weapon/lighter/zippo,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/clothing/mask/cigarette,/obj/item/weapon/reagent_containers/food/drinks/flask)
-	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
-	//Comment the variable below when yall figure out how to make the hoodies go over the hair layer ~ Flavo :(
-	can_toggle = null
-
-
-/obj/item/clothing/suit/labcoat/coat/jacket
+/obj/item/clothing/suit/labcoat/jacket
 	name = "bomber jacket"
 	desc = "Aviators not included."
 	icon_state = "jacket"
 	can_toggle = null
+	body_parts_covered = CHEST|ARMS
+	has_hood = 1
+	cold_protection = CHEST | GROIN | LEGS | FEET | ARMS | HANDS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/device/analyzer,/obj/item/stack/medical,/obj/item/weapon/dnainjector,/obj/item/weapon/reagent_containers/dropper,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/hypospray,/obj/item/device/healthanalyzer,/obj/item/device/flashlight/pen,/obj/item/weapon/reagent_containers/glass/bottle,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/pill,/obj/item/weapon/storage/pill_bottle,/obj/item/weapon/paper,/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/lighter,/obj/item/weapon/lighter/zippo,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/clothing/mask/cigarette,/obj/item/weapon/reagent_containers/food/drinks/flask)
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 
-/obj/item/clothing/suit/labcoat/coat/jacket/leather
+/obj/item/clothing/suit/labcoat/jacket/leather
 	name = "leather jacket"
 	desc = "Pompadour not included."
 	icon_state = "leatherjacket"
 
-/obj/item/clothing/suit/labcoat/coat/jacket/varsity
+/obj/item/clothing/suit/labcoat/jacket/varsity
 	name = "varsity jacket"
 	desc = "Smells like high school."
 	icon_state = "varsity_red"
 
-/obj/item/clothing/suit/labcoat/coat/jacket/varsity/blue
+/obj/item/clothing/suit/labcoat/jacket/varsity/blue
 	icon_state = "varsity_blue"
-
-/obj/item/clothing/suit/labcoat/coat/captain
-	name = "captain's winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coatcaptain"
-
-/obj/item/clothing/suit/labcoat/coat/cargo
-	name = "cargo winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coatcargo"
-
-/obj/item/clothing/suit/labcoat/coat/engineer
-	name = "engineering winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coatengineer"
-
-/obj/item/clothing/suit/labcoat/coat/atmos
-	name = "atmos winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coatatmos"
-
-/obj/item/clothing/suit/labcoat/coat/hydro
-	name = "hydroponics winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coathydro"
-
-/obj/item/clothing/suit/labcoat/coat/medical
-	name = "medical winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coatmedical"
-
-/obj/item/clothing/suit/labcoat/coat/medical/emt
-	name = "first-responder winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coatemt"
-
-/obj/item/clothing/suit/labcoat/coat/miner
-	name = "mining winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coatminer"
-
-/obj/item/clothing/suit/labcoat/coat/science
-	name = "science winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coatscience"
-
-/obj/item/clothing/suit/labcoat/coat/security
-	name = "security winter coat"
-	desc = "A coat that protects against the bitter cold."
-	icon_state = "coatsecurity"

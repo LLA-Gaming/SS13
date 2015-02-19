@@ -268,6 +268,21 @@
 					set_picture("ai_sal")
 				if("Red Glow")
 					set_picture("ai_hal")
+				if("Black")
+					set_picture("ai_black")
+				if("Blue")
+					set_picture("ai_blue")
+				if("Starfish")
+					set_picture("starfish")
+				if("Corgi")
+					set_picture("corgi")
+				if("Kamina")
+					set_picture("kamina")
+				if("Doom")
+					set_picture("doom")
+				if("Red October")
+					set_picture("redoctober")
+
 
 			return
 
