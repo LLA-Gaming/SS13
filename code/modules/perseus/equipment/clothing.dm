@@ -181,3 +181,11 @@
 	icon_state = "pershelmet"
 	armor = list(melee = 70, bullet = 55, laser = 45, taser = 10, bomb = 25, bio = 10, rad = 0)
 
+/*
+* Perseus Winter Coat
+*/
+/obj/item/clothing/suit/wintercoat/perseus
+	name = "perseus winter coat"
+	desc = "A coat that protects against the bitter cold."
+	icon_state = "coatperc"
+
