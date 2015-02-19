@@ -192,7 +192,7 @@ Auto Patrol: []"},
 			src.target = user
 			var/area/location = get_area(src)
 			var/textname = format_text(name)
-			broadcast_hud_message("[textname] requesting backup in [location]!", src)
+			broadcast_hud_message("[textname] requesting backup in [location]! taking damage!", src)
 			src.mode = SECBOT_HUNT
 
 /obj/machinery/bot/secbot/Emag(mob/user as mob)
@@ -603,7 +603,7 @@ Auto Patrol: []"},
 			src.visible_message("<b>[src]</b> points at [C.name]!")
 			var/area/location = get_area(src)
 			var/textname = format_text(name)
-			broadcast_hud_message("[textname] reports: [C.name] detected! Threat Level: [src.threatlevel]. Location: [location].", src)
+			broadcast_hud_message("[textname] requesting backup in [location]! Threat Level: [src.threatlevel]", src)
 			mode = SECBOT_HUNT
 			spawn(0)
 				process()	// ensure bot quickly responds to a perp
