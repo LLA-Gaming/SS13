@@ -262,7 +262,7 @@
 		return
 	start()
 	if (reagents.total_volume==0 && !(locate(/obj) in contents)) //dry run
-		if (!wzhzhzh(10))
+		if (!microwave_operate(10))
 			abort()
 			return
 		stop()
@@ -273,17 +273,17 @@
 	if (!recipe)
 		dirty += 1
 		if (prob(max(10,dirty*5)))
-			if (!wzhzhzh(4))
+			if (!microwave_operate(4))
 				abort()
 				return
 			muck_start()
-			wzhzhzh(4)
+			microwave_operate(4)
 			muck_finish()
 			cooked = fail()
 			cooked.loc = src.loc
 			return
 		else if (has_extra_item())
-			if (!wzhzhzh(4))
+			if (!microwave_operate(4))
 				abort()
 				return
 			broke()
@@ -291,7 +291,7 @@
 			cooked.loc = src.loc
 			return
 		else
-			if (!wzhzhzh(10))
+			if (!microwave_operate(10))
 				abort()
 				return
 			stop()
@@ -300,10 +300,10 @@
 			return
 	else
 		var/halftime = round(recipe.time/10/2)
-		if (!wzhzhzh(halftime))
+		if (!microwave_operate(halftime))
 			abort()
 			return
-		if (!wzhzhzh(halftime))
+		if (!microwave_operate(halftime))
 			abort()
 			cooked = fail()
 			cooked.loc = src.loc
@@ -316,7 +316,7 @@
 			cooked = new cooked.type(loc)
 		return
 
-/obj/machinery/microwave/proc/wzhzhzh(var/seconds as num)
+/obj/machinery/microwave/proc/microwave_operate(var/seconds as num)
 	for (var/i=1 to seconds)
 		if (stat & (NOPOWER|BROKEN))
 			return 0
