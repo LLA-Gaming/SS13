@@ -1455,7 +1455,9 @@ ________________________________________________________________________________
 	spawn while(cell.charge>=0)
 
 		//Let's check for some safeties.
-		if(s_initialized&&!affecting)	terminate()//Kills the suit and attached objects.
+		if(s_initialized&&!affecting)
+			terminate()//Kills the suit and attached objects.
+			return // Kills the proc as the suit is destroyed
 		if(!s_initialized)	return//When turned off the proc stops.
 		if(AI&&AI.stat==2)//If there is an AI and it's ded. Shouldn't happen without purging, could happen.
 			if(!s_control)
