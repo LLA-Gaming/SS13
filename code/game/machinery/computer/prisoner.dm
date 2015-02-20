@@ -11,6 +11,7 @@
 	var/stop = 0.0
 	var/screen = 0 // 0 - No Access Denied, 1 - Access allowed
 	var/obj/item/weapon/card/id/prisoner/inserted_id
+	var/prisoner_name = null
 	circuit = /obj/item/weapon/circuitboard/prisoner
 	var/list/crimes = list()
 
@@ -65,6 +66,7 @@
 				dat += text("<A href='?src=\ref[src];id=eject'>[inserted_id]</A><br>")
 				dat += text("Collected Points: [inserted_id.points]. <A href='?src=\ref[src];id=reset'>Reset.</A><br>")
 				dat += text("Card goal: [inserted_id.goal]. <br>")
+				dat += "Prisoner: <a href='byond://?src=\ref[src];prisoner=1'>[prisoner_name ? prisoner_name : "None Listed."]</a><br>"
 			else
 				dat += text("<A href='?src=\ref[src];id=insert'>Insert Prisoner ID.</A><br>")
 			dat += "<H3>Prisoner Implant Management</H3>"
@@ -140,6 +142,9 @@
 							if ((inserted_id.goal != 0) && (inserted_id.goal < 250))
 								usr << "\red Crimes not severe enough for Labor Camp."
 								playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
+							if (!prisoner_name)
+								usr << "\red Please enter prisoner name."
+								playsound(src.loc, 'sound/machines/buzz-two.ogg', 50, 0)
 							else
 								var/detail = ""
 								for(var/datum/crime/x in crimes)
@@ -148,11 +153,35 @@
 											detail += "; [x.name]"
 										if(!detail)
 											detail += "[x.name]"
-								log_game("BRIG: [key_name(usr)] set [inserted_id]'s goal to [inserted_id.goal] - Crime details [detail].")
-								crimelogs.Add("[key_name(usr)] set [inserted_id]'s goal to [inserted_id.goal] - Crime details [detail].")
+								log_game("BRIG: [key_name(usr)] set [prisoner_name]'s goal to [inserted_id.goal] - Crime details [detail].")
+								crimelogs.Add("LABOR: [key_name(usr)] set [prisoner_name]'s goal to [inserted_id.goal] - Crime details [detail].")
+								var/datum/data/record/R = find_record("name", prisoner_name, data_core.security)
+								if(R)
+									R.fields["criminal"] = "Incarcerated"
+									broadcast_hud_message("[prisoner_name] has been assigned to labor camp <b>*Record Updated*</b>", src)
+									for(var/datum/crime/minor/x in crimes)
+										if(x.active)
+											var/record = data_core.createCrimeEntry(x.name, "AUTO: Assigned to labor camp", usr.name, worldtime2text(), prisoner_name, src, 1)
+											data_core.addMinorCrime(R.fields["id"], record)
+									for(var/datum/crime/medium/x in crimes)
+										if(x.active)
+											var/record = data_core.createCrimeEntry(x.name, "AUTO: Assigned to labor camp", usr.name, worldtime2text(), prisoner_name, src, 1)
+											data_core.addMediumCrime(R.fields["id"], record)
+									for(var/datum/crime/major/x in crimes)
+										if(x.active)
+											var/record = data_core.createCrimeEntry(x.name, "AUTO: Assigned to labor camp", usr.name, worldtime2text(), prisoner_name, src, 1)
+											data_core.addMajorCrime(R.fields["id"], record)
+									for(var/datum/crime/capital/x in crimes)
+										if(x.active)
+											var/record = data_core.createCrimeEntry(x.name, "AUTO: Assigned to labor camp", usr.name, worldtime2text(), prisoner_name, src, 1)
+											data_core.addCapitalCrime(R.fields["id"], record)
+								else
+									broadcast_hud_message("[prisoner_name] has been assigned to labor camp <b>*No Record Found*</b>", src)
+								inserted_id.prisoner_name = prisoner_name
 								inserted_id.loc = get_turf(src)
 								inserted_id.verb_pickup()
 								inserted_id = null
+								prisoner_name = null
 								for(var/datum/crime/x in crimes)
 									x.active = 0
 						if("reset")
@@ -183,7 +212,17 @@
 					screen = !screen
 				else
 					usr << "Unauthorized Access."
-
+			else if(href_list["prisoner"])
+				var/_prisoner = input("Who is in the cell?", "Prisoner") as text
+				if(_prisoner)
+					if(length(_prisoner) > 24)
+						usr << "<div class='warning'>Error: Prisoner Name too long.</div>"
+						return
+					log_game("BRIG: [key_name(usr)] edited the [src]'s prisoner to: [_prisoner].")
+					crimelogs.Add("LABOR: [key_name(usr)] edited the [src]'s prisoner to: [_prisoner].")
+					prisoner_name = _prisoner
+				else
+					prisoner_name = ""
 			else if(href_list["warn"])
 				var/warning = copytext(sanitize(input(usr,"Message:","Enter your message here!","")),1,MAX_MESSAGE_LEN)
 				if(!warning) return

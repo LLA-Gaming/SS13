@@ -1,6 +1,5 @@
 /obj/item/device/thinktronic_parts/program/sec/securitron_control
 	name = "Securitron Control"
-	usealerts = 1
 	var/obj/item/tabletradio/integrated/radio = null
 
 	New()

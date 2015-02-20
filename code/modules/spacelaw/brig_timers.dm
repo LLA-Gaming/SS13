@@ -19,6 +19,8 @@
 	var/picture_state		// icon_state of alert picture, if not displaying text/numbers
 	var/list/obj/machinery/targets = list()
 
+	var/reset = 0 //This should be 0 unless the reset button is pressed or the timer runs out naturally.
+
 	var/list/crimes = list()
 	var/detail = ""
 	var/prisoner = ""
@@ -69,10 +71,15 @@
 				src.timer_end() // open doors, reset timer, clear status screen
 				timing = 0
 				timeset(0)
+				var/datum/data/record/R = find_record("name", prisoner, data_core.security)
+				if(R)
+					R.fields["criminal"] = "Released"
+					broadcast_hud_message("[src] deactivated! [prisoner] has been released! <b>*Record Updated*</b>", src)
+				else
+					broadcast_hud_message("[src] deactivated! [prisoner] has been released! <b>*No Record Found*</b>", src)
 				detail = ""
 				prisoner = ""
-				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlert("[name] deactivated! Releasing prisoner: [prisoner]","Brig Control")
+				reset = 0
 				for(var/datum/crime/x in crimes)
 					x.active = 0
 			src.updateUsrDialog()
@@ -227,20 +234,35 @@
 				usr << "[src] requires crime details"
 				return
 			timeleft = min(max(round(timeleft), 0), 3599)
-			var/istiming = 0
-			if(timing)
-				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlert("[name] paused! Prisoner: [prisoner]","Brig Control")
-					istiming = 1
 			timing = text2num(href_list["timing"])
 			timeset(timeleft)
-			log_game("BRIG: [key_name(usr)] arrested [prisoner] in [src] for: [detail].")
-			crimelogs.Add("[key_name(usr)] arrested [prisoner] in [src] for: [detail].")
-			for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-				var/second = round(timeleft() % 60)
-				var/minute = round((timeleft() - second) / 60)
-				if(!istiming)
-					MS.SendAlert("[name] activated. Prisoner: [prisoner] - Time left: [minute]:[second]. - Crimes: [detail].","Brig Control")
+			if(!reset)
+				log_game("BRIG: [key_name(usr)] arrested [prisoner] in [src] for: [detail].")
+				crimelogs.Add("BRIG: [key_name(usr)] arrested [prisoner] in [src] for: [detail].")
+				var/datum/data/record/R = find_record("name", prisoner, data_core.security)
+				if(R)
+					R.fields["criminal"] = "Incarcerated"
+					broadcast_hud_message("[src] activated! Prisoner: [prisoner] <b>*Record Updated*</b>", src)
+					reset = 1
+					for(var/datum/crime/minor/x in crimes)
+						if(x.active)
+							var/record = data_core.createCrimeEntry(x.name, "AUTO: Brigged in [src]", usr.name, worldtime2text(), prisoner, src, 1)
+							data_core.addMinorCrime(R.fields["id"], record)
+					for(var/datum/crime/medium/x in crimes)
+						if(x.active)
+							var/record = data_core.createCrimeEntry(x.name, "AUTO: Brigged in [src]", usr.name, worldtime2text(), prisoner, src, 1)
+							data_core.addMediumCrime(R.fields["id"], record)
+					for(var/datum/crime/major/x in crimes)
+						if(x.active)
+							var/record = data_core.createCrimeEntry(x.name, "AUTO: Brigged in [src]", usr.name, worldtime2text(), prisoner, src, 1)
+							data_core.addMajorCrime(R.fields["id"], record)
+					for(var/datum/crime/capital/x in crimes)
+						if(x.active)
+							var/record = data_core.createCrimeEntry(x.name, "AUTO: Brigged in [src]", usr.name, worldtime2text(), prisoner, src, 1)
+							data_core.addCapitalCrime(R.fields["id"], record)
+				else
+					broadcast_hud_message("[src] activated, Prisoner: [prisoner] <b>*No Record Found*</b>", src)
+					reset = 1
 		else if(href_list["tp"]) //adjust timer
 			var/timeleft = timeleft()
 			var/tp = text2num(href_list["tp"])
@@ -272,20 +294,25 @@
 					usr << "<div class='warning'>Error: Prisoner Name too long.</div>"
 					return
 				log_game("BRIG: [key_name(usr)] edited the [src]'s prisoner to: [_prisoner].")
-				crimelogs.Add("[key_name(usr)] edited the [src]'s prisoner to: [_prisoner].")
+				crimelogs.Add("BRIG: [key_name(usr)] edited the [src]'s prisoner to: [_prisoner].")
 				prisoner = _prisoner
+				reset = 0
 			else
 				prisoner = ""
 		else if(href_list["reset"])
 			src.timer_end() // open doors, reset timer, clear status screen
-			if(timing)
-				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlert("[name] deactivated! Releasing prisoner","Brig Control")
 			timing = 0
 			timeset(0)
+			var/datum/data/record/R = find_record("name", prisoner, data_core.security)
+			if(reset)
+				if(R)
+					R.fields["criminal"] = "Released"
+					broadcast_hud_message("[src] deactivated! [prisoner] has been released! <b>*Record Updated*</b>", src)
+				else
+					broadcast_hud_message("[src] deactivated! [prisoner] has been released! <b>*No Record Found*</b>", src)
 			detail = ""
 			prisoner = ""
-
+			reset = 0
 			for(var/datum/crime/x in crimes)
 				x.active = 0
 		src.add_fingerprint(usr)
