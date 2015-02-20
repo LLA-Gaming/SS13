@@ -46,12 +46,7 @@ Head of Shitcurity
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_l_store) // Equips the telebaton
-
-	if(H.backbag == 1)
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
-	else
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
-		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_in_backpack)
+	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
@@ -92,12 +87,7 @@ Warden
 	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_store)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
-
-	if(H.backbag == 1)
-		H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_hand)
-	else
-		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_in_backpack)
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
+	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
@@ -193,11 +183,7 @@ Security Officer
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/taser/adv(H), slot_s_store)
-	if(H.backbag == 1)
-		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_l_hand)
-	else
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
-		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_in_backpack)
+	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
