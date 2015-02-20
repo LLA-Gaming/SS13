@@ -347,6 +347,16 @@
 	set name = "Power Disruption"
 	set desc = "Disrupt and drain power from the local area."
 	set category = "H.Angel"
+	//find current area
+	var/area/A = src.loc
+	A = A.loc
+	if (!( istype(A, /area))) // If its not a area, stop!
+		return
+	if(!A.requires_power) // If it doesn't require power, stop!
+		return
+	if (istype(A, /area/space)) // If it is space, LOVE OF GOD PLEASE STOP!
+		src << "\red <b>There is no power to disrupt in space.</b>"
+		return
 	//stop if you are already disrupting
 	if(src.disrupting)
 		src << "\red <b>Disruption is not ready yet.</b>"
@@ -354,15 +364,10 @@
 	else disrupting = 1
 	src << "\green <b>Disrupting Power.</b>"
 
-	//find current area
-	var/area/A = src.loc
-	if (istype(A, /area))
-		return
-	A = A.loc
 //	if (A == "Space")
 //		return
-	if (!( istype(A, /area) ))
-		return
+//	if (!( istype(A, /area) ))
+//		return
 
 	//spacecheck
 
@@ -492,6 +497,7 @@
 				O.show_message("\red <B>[M]</B> violently twists [src] by the head!", 1)
 			for(var/mob/O in hearers(src, null))
 				O.show_message("\black SNAP!", 2)
+			playsound(loc, 'sound/effects/neck_snap.ogg', 50, 1)
 			var/damage = src.health + 1
 			apply_damage(damage, BRUTE, "head")
 			src.canmove = 1
@@ -527,7 +533,7 @@
 	disrupting = 1
 	src << "\red <b>WELCOME TO THE HONKING ANGEL HELP!</b>"
 	src << "\blue <b>About:</b>"
-	src << "\black Honking Angels are an ancient species of statuesque humanoids. Not to be confused with their weeping cousins, though they do share some similarities. Angels are predatory by nature and feed off forms of energy be it radiation, electricity, or even stealing energy from living beings. It's worth it to note that angels are sadistic and very intellegent. They find great pleasure harrassing and causing their prety their prey anguish before striking. Angels have evolved with a very special defensive ability. They will involuntarily quantum lock when they are under observation to protect themselves to ALMOST all forms of harm. They also possess a voracious appetite and can starve to death in the span of a single round. In fact if you are reading this you are actually on your way to starvation right now so there is no time to waste. "
+	src << "\black Honking Angels are an ancient species of statuesque humanoids. Not to be confused with their weeping cousins, though they do share some similarities. Angels are predatory by nature and feed off forms of energy be it radiation, electricity, or even stealing energy from living beings. It's worth it to note that angels are sadistic and very intellegent. They find great pleasure harrassing and causing their prey anguish before striking. Angels have evolved with a very special defensive ability. They will involuntarily quantum lock when they are under observation to protect themselves to ALMOST all forms of harm. They also possess a voracious appetite and can starve to death in the span of a single round. In fact if you are reading this you are actually on your way to starvation right now so there is no time to waste. "
 	src << "\blue <b>Health and Starvation:</b>"
 	src << "\red To reiterate, your health constantly and slowly drains. This is to represent the starvation from energy that will eventually lead to death. The healtier you are, the faster you will move and the stronger your brute claw attack will be. Your health percentage can be viewed from the 'Status' tab and it is also displayed by the condition of your icon. Darker and skinnier is lower than lighter color and a full figure. To restore your life force you will need to steal it from the power network or from the life force of living creatures."
 	src << "\blue <b>Abilities: </b>"
@@ -569,9 +575,7 @@
 
 /datum/round_event/honking_angel/announce()
 	if(successSpawn)
-		priority_announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert")
-		world << sound('sound/AI/spanomalies.ogg')
-
+		priority_announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", 'sound/AI/spanomalies.ogg')
 
 /datum/round_event/honking_angel/start()
 	var/list/floors = list()
