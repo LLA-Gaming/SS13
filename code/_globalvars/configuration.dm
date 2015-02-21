@@ -44,5 +44,7 @@ var/list/be_special_flags = list(
 	"pAI" = BE_PAI,
 	"Cultist" = BE_CULTIST,
 	"Blob" = BE_BLOB,
-	"Ninja" = BE_NINJA
+	"Ninja" = BE_NINJA,
+	"Honking Angel" = BE_ANGEL,
+	"Positronic Brain" = BE_POSIBRAIN
 	)

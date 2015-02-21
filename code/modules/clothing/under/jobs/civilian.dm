@@ -88,6 +88,13 @@
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 	can_roll = 1
 
+/obj/item/clothing/under/rank/janitor/alt
+	desc = "Scruffy's gonna die the way he lived. Mmhm."
+	name = "janitor's jumpsuit"
+	icon_state = "alt_janitor"
+	item_color = "alt_janitor"
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
+
 
 /obj/item/clothing/under/lawyer
 	desc = "Slick threads."

@@ -119,3 +119,9 @@
 	desc = "Sandals with buckled leather straps on it."
 	icon_state = "roman"
 	item_state = "roman"
+
+/obj/item/clothing/shoes/ntwork
+	name = "work boots"
+	desc = "working boots."
+	icon_state = "workboots"
+	item_state = "workboots"

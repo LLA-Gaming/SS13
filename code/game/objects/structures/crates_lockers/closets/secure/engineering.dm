@@ -17,7 +17,7 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
 		new /obj/item/blueprints(src)
-		new /obj/item/clothing/suit/labcoat/coat/engineer(src)
+		new /obj/item/clothing/suit/wintercoat/engineer(src)
 		new /obj/item/clothing/under/rank/chief_engineer(src)
 		new /obj/item/clothing/head/hardhat/white(src)
 		new /obj/item/clothing/head/welding(src)
@@ -105,11 +105,12 @@
 			new /obj/item/weapon/storage/backpack/industrial(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
-		new /obj/item/clothing/suit/labcoat/coat/atmos
-		new /obj/item/clothing/suit/labcoat/coat/engineer(src)
+		new /obj/item/clothing/suit/wintercoat/atmos
+		new /obj/item/clothing/suit/wintercoat/engineer(src)
 		new /obj/item/clothing/under/rank/engineer(src)
 		new /obj/item/clothing/shoes/sneakers/orange(src)
 		new /obj/item/weapon/storage/toolbox/mechanical(src)
+		new /obj/item/weapon/storage/backpack/dufflebag/engineering(src)
 //		new /obj/item/weapon/cartridge/engineering(src)
 		new /obj/item/device/radio/headset/headset_eng(src)
 		new /obj/item/clothing/suit/hazardvest(src)

@@ -1,6 +1,5 @@
 /obj/item/device/thinktronic_parts/program/sec/brigcontrol
 	name = "Brig Control"
-	usealerts = 1
 
 	use_app() //Put all the HTML here
 		if(network())

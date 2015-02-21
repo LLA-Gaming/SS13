@@ -454,7 +454,84 @@
 			else
 				. += "<pre>Requested security record not found,</pre><BR>"
 			if(securityActive2 in data_core.security)
-				. += "<BR>\nSecurity Data<BR>\nCriminal Status: [securityActive2.fields["criminal"]]<BR>\n<BR>\nMinor Crimes: <A href='?src=\ref[src];field=mi_crim'>[securityActive2.fields["mi_crim"]]</A><BR>\nDetails: <A href='?src=\ref[src];field=mi_crim_d'>[securityActive2.fields["mi_crim_d"]]</A><BR>\n<BR>\nMajor Crimes: <A href='?src=\ref[src];field=ma_crim'>[securityActive2.fields["ma_crim"]]</A><BR>\nDetails: <A href='?src=\ref[src];field=ma_crim_d'>[securityActive2.fields["ma_crim_d"]]</A><BR>\n<BR>\nImportant Notes:<BR>\n\t<A href='?src=\ref[src];field=notes'>[securityActive2.fields["notes"]]</A><BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
+				//. += "<BR>\nSecurity Data<BR>\nCriminal Status: [securityActive2.fields["criminal"]]<BR>\n<BR>\nMinor Crimes: <A href='?src=\ref[src];field=mi_crim'>[securityActive2.fields["mi_crim"]]</A><BR>\nDetails: <A href='?src=\ref[src];field=mi_crim_d'>[securityActive2.fields["mi_crim_d"]]</A><BR>\n<BR>\nMajor Crimes: <A href='?src=\ref[src];field=ma_crim'>[securityActive2.fields["ma_crim"]]</A><BR>\nDetails: <A href='?src=\ref[src];field=ma_crim_d'>[securityActive2.fields["ma_crim_d"]]</A><BR>\n<BR>\nImportant Notes:<BR>\n\t<A href='?src=\ref[src];field=notes'>[securityActive2.fields["notes"]]</A><BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
+				. += text("<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: []", securityActive2.fields["criminal"])
+
+				. += "<BR>\n<BR>\nMinor Crimes:<BR>\n"
+				. +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+				for(var/datum/data/crime/c in securityActive2.fields["min_crim"])
+					. += "<tr><td>[c.crimeName]</td>"
+					. += "<td>[c.crimeDetails]</td>"
+					. += "<td>[c.author]</td>"
+					. += "<td>[c.time]</td>"
+					. += "</tr>"
+				. += "</table>"
+
+				. += "<BR>\nMedium Crimes: <BR>\n"
+				. +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+				for(var/datum/data/crime/c in securityActive2.fields["med_crim"])
+					. += "<tr><td>[c.crimeName]</td>"
+					. += "<td>[c.crimeDetails]</td>"
+					. += "<td>[c.author]</td>"
+					. += "<td>[c.time]</td>"
+					. += "</tr>"
+				. += "</table>"
+
+				. += "<BR>\nMajor Crimes: <BR>\n"
+				. +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+				for(var/datum/data/crime/c in securityActive2.fields["maj_crim"])
+					. += "<tr><td>[c.crimeName]</td>"
+					. += "<td>[c.crimeDetails]</td>"
+					. += "<td>[c.author]</td>"
+					. += "<td>[c.time]</td>"
+					. += "</tr>"
+				. += "</table>"
+
+				. += "<BR>\nCapital Crimes: <BR>\n"
+				. +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+				for(var/datum/data/crime/c in securityActive2.fields["cap_crim"])
+					. += "<tr><td>[c.crimeName]</td>"
+					. += "<td>[c.crimeDetails]</td>"
+					. += "<td>[c.author]</td>"
+					. += "<td>[c.time]</td>"
+					. += "</tr>"
+				. += "</table>"
+
+				. += "<br>"
+
+				. += "<center><h4>Comments/Log:</h4></center>"
+				var/counter = 1
+				while(securityActive2.fields[text("com_[]", counter)])
+					. += "<div class='statusDisplay'>"
+					. += "<center>"
+					. += text("[]<BR>", securityActive2.fields[text("com_[]", counter)])
+					. += "</center>"
+					. += "</div>"
+					counter++
 			else
 				. += "<pre>Requested security record not found,</pre><BR>"
 			. += text("<BR>\n<A href='?src=\ref[];software=securityrecord;sub=0'>Back</A><BR>", src)

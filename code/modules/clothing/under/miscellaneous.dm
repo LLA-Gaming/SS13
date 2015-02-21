@@ -458,3 +458,9 @@
 	body_parts_covered = GROIN|LEGS
 	fitted = 0
 
+/obj/item/clothing/under/ntwork
+	name = "work jumpsuit"
+	desc = "work, work never changes"
+	icon_state = "ntsuit"
+	item_state = "syndicate-blue"
+	item_color = "ntsuit"

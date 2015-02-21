@@ -99,8 +99,6 @@
 					if(alone_in_area(get_area(loc), usr))
 						if (s.move_shuttle(0)) // No delay, to stop people from getting on while it is departing.
 							usr << "\blue Shuttle recieved message and will be sent shortly."
-							for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-								MS.SendAlert("Labor Shuttle has docked at the station. Prisoner has reached labor quota","Brig Control", 1)
 						else
 							usr << "\blue Shuttle is already moving."
 					else
@@ -111,6 +109,12 @@
 				if(alone_in_area(get_area(loc), usr))
 					if(release_door.density && release_door.z == 1)
 						release_door.open()
+						var/datum/data/record/R = find_record("name", inserted_id.prisoner_name, data_core.security)
+						if(R)
+							R.fields["criminal"] = "Released"
+							broadcast_hud_message("[inserted_id.prisoner_name] has finished labor duty! <b>*Record Updated*</b>", src)
+						else
+							broadcast_hud_message("[inserted_id.prisoner_name] has finished labor duty! <b>*No Record Found*</b>", src)
 				else
 					usr << "\red Prisoners are only allowed to be released while alone."
 		src.updateUsrDialog()

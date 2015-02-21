@@ -427,3 +427,19 @@ proc/is_special_character(mob/M) // returns 1 for special characters and 2 for h
 /proc/get_both_hands(mob/living/carbon/M)
 	var/list/hands = list(M.l_hand, M.r_hand)
 	return hands
+
+/proc/broadcast_hud_message(var/message, var/broadcast_source)
+	var/turf/sourceturf = get_turf(broadcast_source)
+	var/connected = 0// We wanna make sure the NanoNet server is active to send these alerts
+	for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+		if(MS.active)
+			connected = 1
+			break
+	if(connected)
+		for(var/mob/living/carbon/human/human in mob_list)
+			var/turf/humanturf = get_turf(human)
+			if((humanturf.z == sourceturf.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/security))
+				var/obj/item/clothing/glasses/hud/security/huds = human.glasses
+				if(huds.alerts)
+					human.show_message("<span class='info'>\icon[huds] [message]</span>", 1)
+					playsound(human, 'sound/machines/twobeep.ogg', 50, 1)

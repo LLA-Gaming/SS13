@@ -347,6 +347,16 @@
 	set name = "Power Disruption"
 	set desc = "Disrupt and drain power from the local area."
 	set category = "H.Angel"
+	//find current area
+	var/area/A = get_area(src.loc)
+	//A = A.loc
+	if (!( istype(A, /area))) // If its not a area, stop!
+		return
+	if(!A.requires_power) // If it doesn't require power, stop!
+		return
+	if (istype(A, /area/space)) // If it is space, LOVE OF GOD PLEASE STOP!
+		src << "\red <b>There is no power to disrupt in space.</b>"
+		return
 	//stop if you are already disrupting
 	if(src.disrupting)
 		src << "\red <b>Disruption is not ready yet.</b>"
@@ -354,15 +364,10 @@
 	else disrupting = 1
 	src << "\green <b>Disrupting Power.</b>"
 
-	//find current area
-	var/area/A = src.loc
-	if (istype(A, /area))
-		return
-	A = A.loc
 //	if (A == "Space")
 //		return
-	if (!( istype(A, /area) ))
-		return
+//	if (!( istype(A, /area) ))
+//		return
 
 	//spacecheck
 
@@ -491,7 +496,8 @@
 			for(var/mob/O in viewers(src, null))
 				O.show_message("\red <B>[M]</B> violently twists [src] by the head!", 1)
 			for(var/mob/O in hearers(src, null))
-				O.show_message("\black SNAP!", 2)
+				O.show_message("SNAP!", 2)
+			playsound(loc, 'sound/effects/neck_snap.ogg', 50, 1)
 			var/damage = src.health + 1
 			apply_damage(damage, BRUTE, "head")
 			src.canmove = 1
@@ -527,31 +533,66 @@
 	disrupting = 1
 	src << "\red <b>WELCOME TO THE HONKING ANGEL HELP!</b>"
 	src << "\blue <b>About:</b>"
-	src << "\black Honking Angels are an ancient species of statuesque humanoids. Not to be confused with their weeping cousins, though they do share some similarities. Angels are predatory by nature and feed off forms of energy be it radiation, electricity, or even stealing energy from living beings. It's worth it to note that angels are sadistic and very intellegent. They find great pleasure harrassing and causing their prety their prey anguish before striking. Angels have evolved with a very special defensive ability. They will involuntarily quantum lock when they are under observation to protect themselves to ALMOST all forms of harm. They also possess a voracious appetite and can starve to death in the span of a single round. In fact if you are reading this you are actually on your way to starvation right now so there is no time to waste. "
+	src << "Honking Angels are an ancient species of statuesque humanoids. Not to be confused with their weeping cousins, though they do share some similarities. Angels are predatory by nature and feed off forms of energy be it radiation, electricity, or even stealing energy from living beings. It's worth it to note that angels are sadistic and very intellegent. They find great pleasure harrassing and causing their prey anguish before striking. Angels have evolved with a very special defensive ability. They will involuntarily quantum lock when they are under observation to protect themselves to ALMOST all forms of harm. They also possess a voracious appetite and can starve to death in the span of a single round. In fact if you are reading this you are actually on your way to starvation right now so there is no time to waste. "
 	src << "\blue <b>Health and Starvation:</b>"
 	src << "\red To reiterate, your health constantly and slowly drains. This is to represent the starvation from energy that will eventually lead to death. The healtier you are, the faster you will move and the stronger your brute claw attack will be. Your health percentage can be viewed from the 'Status' tab and it is also displayed by the condition of your icon. Darker and skinnier is lower than lighter color and a full figure. To restore your life force you will need to steal it from the power network or from the life force of living creatures."
 	src << "\blue <b>Abilities: </b>"
 	src << "\red Quantum Locking"
-	src << "\black Involuntary defense response to being observed by a nearby creature. While locked Angels are immune to most forms of damage."
+	src << "Involuntary defense response to being observed by a nearby creature. While locked Angels are immune to most forms of damage."
 	src << "\red Claw Attack"
-	src << "\black To use the claw attack use the Harm Intent verb under the H.Angel tab and click the creature you want to attack. The damage of this attack will decrease as the angel slips farther and farther into starvation."
+	src << "To use the claw attack use the Harm Intent verb under the H.Angel tab and click the creature you want to attack. The damage of this attack will decrease as the angel slips farther and farther into starvation."
 	src << "\red Teleporting Touch Attack"
-	src << "\black this method of attack is set in with the Disarm Intent verb under H.Angel tab. Click an adjacent creature to touch them teleporting them off to a random part of the station. This attack will drain some of their life force and heal your starvation (which is also your HP). The ammount healed depends on the amount of damage done to the creation and can vary."
+	src << "this method of attack is set in with the Disarm Intent verb under H.Angel tab. Click an adjacent creature to touch them teleporting them off to a random part of the station. This attack will drain some of their life force and heal your starvation (which is also your HP). The ammount healed depends on the amount of damage done to the creation and can vary."
 	src << "\red Neck Snapping"
-	src << "\black This particularly horrifying form of attack is not available at all times. To use it set the Grab Intent verb. It may only be used by angels in the final form of starvation when the clown mask is abandoned showing their true face. This attack is not recommended under most circumstances considering it will no restore any of your starvation. It's still pretty awesome though."
+	src << "This particularly horrifying form of attack is not available at all times. To use it set the Grab Intent verb. It may only be used by angels in the final form of starvation when the clown mask is abandoned showing their true face. This attack is not recommended under most circumstances considering it will no restore any of your starvation. It's still pretty awesome though."
 	src << "\red Steal Voice"
-	src << "\black An angel cannot speak out loud with mortal creatures. If you want to communicate with non angelic creatures you will need to stand on a corpse and use the 'say' verb as normal to manipulate its body to articulate your thoughts. If there is more than one body under you, you will not get to chose which body speaks."
+	src << "An angel cannot speak out loud with mortal creatures. If you want to communicate with non angelic creatures you will need to stand on a corpse and use the 'say' verb as normal to manipulate its body to articulate your thoughts. If there is more than one body under you, you will not get to chose which body speaks."
 	src << "\red Telepathic Communication"
-	src << "\black in the event that there are other Angels on board the station you can communicate with them telepathically using the 'hsay' verb the same way you would use 'say'"
+	src << "in the event that there are other Angels on board the station you can communicate with them telepathically using the 'hsay' verb the same way you would use 'say'"
 	src << "\red Power Disruption"
-	src << "\black This power allows you to steal power from the local area APC. It can be done anywhere in an area that has one. The lights and local machines will flicker on and off with power as you steal a small amount of the local power to feed your hunger. Use of this ability is critical for survival. This ability can restore some of your hunger and also provide and opportunity for escape if being observed."
+	src << "This power allows you to steal power from the local area APC. It can be done anywhere in an area that has one. The lights and local machines will flicker on and off with power as you steal a small amount of the local power to feed your hunger. Use of this ability is critical for survival. This ability can restore some of your hunger and also provide and opportunity for escape if being observed."
 	src << "\red Prying Doors Open with Hands"
-	src << "\black Angels can pry unpowered doors open with their hands to open them. This can be used together with Power disruption to gain access to new areas. One thing to note though, you will only disrupt power in the area you are standing. A good way to determine if you will be able to pry a door is to right click it and check the area it is a part of. If it is not the same as the one you are in, you will need to find an alternative route."
+	src << "Angels can pry unpowered doors open with their hands to open them. This can be used together with Power disruption to gain access to new areas. One thing to note though, you will only disrupt power in the area you are standing. A good way to determine if you will be able to pry a door is to right click it and check the area it is a part of. If it is not the same as the one you are in, you will need to find an alternative route."
 	src << "\blue <b>Goals: </b>"
-	src << "\black Honking Angels are in it for the hunt. They have come to the station to feed on it, and its inhabitants energy. Honking Angels may kill indiscriminately but it is not neccessarily withing their intrests to do so all of the time. Good luck and have fun. If you have any questions feel free to ask in ahelp."
+	src << "Honking Angels are in it for the hunt. They have come to the station to feed on it, and its inhabitants energy. Honking Angels may kill indiscriminately but it is not neccessarily withing their intrests to do so all of the time. Good luck and have fun. If you have any questions feel free to ask in ahelp."
 	sleep(1200)
 	disrupting = 0
 	return
+
+//Door code
+
+	//honking angel claw doors open
+/obj/machinery/door/airlock/attack_animal(mob/living/simple_animal/M as mob)
+	if(istype(M, /mob/living/simple_animal/hostile/weeping_honk))
+		if(arePowerSystemsOn() && !(stat & NOPOWER))
+			M << "\blue The airlock's motors resist your efforts to force it."
+			return
+		else if(locked)
+			M << "\blue The airlock's bolts prevent it from being forced."
+			return
+		else if( !welded && !operating )
+			if(density)
+				spawn(0)	open(1)
+				for(var/mob/O in viewers(src, null))
+					O.show_message("\red <B>[M]</B> prys open the [src] airlock with its fingers!", 1)
+			else
+				// angels cant pry the door closed.
+				return
+		else return
+	return
+
+/obj/machinery/door/firedoor/attack_animal(mob/living/simple_animal/M as mob)
+	if(istype(M, /mob/living/simple_animal/hostile/weeping_honk))
+		if(blocked || operating)	return
+		if(density)
+			open()
+			for(var/mob/O in viewers(src, null))
+				O.show_message("\red <B>[M]</B> prys open the [src] with its fingers!", 1)
+			return
+		else //angels cant pry it closed.
+			return
+	return
+/////////////////////////
 
 //event
 /datum/round_event_control/honking_angel
@@ -569,9 +610,7 @@
 
 /datum/round_event/honking_angel/announce()
 	if(successSpawn)
-		priority_announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert")
-		world << sound('sound/AI/spanomalies.ogg')
-
+		priority_announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", 'sound/AI/spanomalies.ogg')
 
 /datum/round_event/honking_angel/start()
 	var/list/floors = list()

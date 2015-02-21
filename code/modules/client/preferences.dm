@@ -16,7 +16,9 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"pAI candidate" = 1,                                 // 7
 	"cultist" = IS_MODE_COMPILED("cult"),                // 8
 	"blob" = IS_MODE_COMPILED("blob"),					 // 9
-	"honking angel candidate" = 1 //zombie     		     // 10
+	"ninja" = 1,										 // 10
+	"honking angel candidate" = 1, //zombie    		     // 11
+	"positronic brain" = 1								 // 12
 )
 
 
@@ -57,7 +59,7 @@ datum/preferences
 	var/skin_tone = "caucasian1"		//Skin color
 	var/eye_color = "000"				//Eye color
 	var/mutant_race = "human"			//Mutant race
-	var/prefer_dept = "None"
+	var/prefer_dept = "Any"				//What security department you prefer
 
 		//Mob preview
 	var/icon/preview_icon_front = null
@@ -289,7 +291,7 @@ datum/preferences
 		dat += "</center>"
 
 		//user << browse(dat, "window=preferences;size=560x560")
-		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 740, 680)
+		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 740, 690)
 		popup.set_content(dat)
 		popup.open(0)
 
@@ -659,28 +661,19 @@ datum/preferences
 
 					if("underwear")
 						var/new_underwear
-						if(gender == MALE)
-							new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in underwear_m
-						else
-							new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in underwear_f
+						new_underwear = input(user, "Choose your character's underwear:", "Character Preference")  as null|anything in underwear_all
 						if(new_underwear)
 							underwear = new_underwear
 
 					if("undershirt")
 						var/new_undershirt
-						if(gender == MALE)
-							new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_m
-						else
-							new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_f
+						new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in undershirt_list
 						if(new_undershirt)
 							undershirt = new_undershirt
 
 					if("socks")
 						var/new_socks
-						if(gender == MALE)
-							new_socks = input(user, "Choose your character's socks:", "Character Preference") as null|anything in socks_m
-						else
-							new_socks = input(user, "Choose your character's socks:", "Character Preference") as null|anything in socks_f
+						new_socks = input(user, "Choose your character's socks:", "Character Preference") as null|anything in socks_list
 						if(new_socks)
 							socks = new_socks
 
@@ -695,7 +688,7 @@ datum/preferences
 							mutant_race = new_mutant_race
 					if("set_prefer_dept")
 						switch(prefer_dept)
-							if("None")
+							if("Any")
 								prefer_dept = "Engineering"
 							if("Engineering")
 								prefer_dept = "Medical"
@@ -704,7 +697,11 @@ datum/preferences
 							if("Science")
 								prefer_dept = "Supply"
 							if("Supply")
-								prefer_dept = "None"
+								prefer_dept = "Brig"
+							if("Brig")
+								prefer_dept = "Any"
+							else
+								prefer_dept = "Any"
 					if("s_tone")
 						var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in skin_tones
 						if(new_s_tone)

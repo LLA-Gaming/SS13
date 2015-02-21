@@ -46,12 +46,7 @@ Head of Shitcurity
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_l_store) // Equips the telebaton
-
-	if(H.backbag == 1)
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
-	else
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
-		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_in_backpack)
+	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
@@ -92,12 +87,7 @@ Warden
 	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_store)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
-
-	if(H.backbag == 1)
-		H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_hand)
-	else
-		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_in_backpack)
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
+	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
@@ -193,11 +183,7 @@ Security Officer
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/taser/adv(H), slot_s_store)
-	if(H.backbag == 1)
-		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_l_hand)
-	else
-		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
-		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/flashbangs(H), slot_in_backpack)
+	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
@@ -211,7 +197,7 @@ Security Officer
 	dep_access = null;
 	return L
 
-var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
+var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science", "Brig")
 
 /datum/job/officer/proc/assign_sec_to_department(var/mob/living/carbon/human/H)
 	if(!sec_departments.len)
@@ -220,7 +206,7 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
 	else
 		var/department = ""
 		var/gotdept
-		if(H.client.prefs.prefer_dept != "None")
+		if(H.client.prefs.prefer_dept != "Any")
 			for(var/dept in sec_departments)
 				if(H.client.prefs.prefer_dept == dept)
 					department = dept
@@ -232,7 +218,7 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
 					H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
 				department = pick(sec_departments)
 				sec_departments -= department
-		if(H.client.prefs.prefer_dept == "None")
+		if(H.client.prefs.prefer_dept == "Any")
 			department = pick(sec_departments)
 			sec_departments -= department
 		var/destination = null
@@ -257,6 +243,9 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
 				default_headset = /obj/item/device/radio/headset/headset_sec/department/sci
 				dep_access = list(access_research)
 				destination = /area/security/checkpoint/science
+			if("Brig")
+				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
+				default_headset = /obj/item/device/radio/headset/headset_sec
 			else
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
 				default_headset = /obj/item/device/radio/headset/headset_sec
@@ -275,7 +264,7 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science")
 					continue
 				else
 					break
-		if(department)
+		if(department && department != "Brig")
 			H << "<b><font size = 2 font color = 'blue'>You have been assigned to [department]!</b></font>"
 		return
 

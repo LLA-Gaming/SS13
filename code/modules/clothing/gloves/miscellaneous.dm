@@ -54,3 +54,14 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 
 
+/obj/item/clothing/gloves/ntwork
+	name = "work gloves"
+	desc = "These gloves are fire-resistant."
+	icon_state = "workgloves"
+	item_state = "workgloves"
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	heat_protection = HANDS
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+
+

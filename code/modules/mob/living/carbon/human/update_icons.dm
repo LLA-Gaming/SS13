@@ -146,13 +146,11 @@ Please contact me on #coderbus IRC. ~Carnie x
 	remove_overlay(HAIR_LAYER)
 
 	//mutants don't have hair. masks and helmets can obscure our hair too.
-	if( (HUSK in mutations) || (dna && dna.mutantrace) || (head && (head.flags & BLOCKHAIR)) || (wear_mask && (wear_mask.flags & BLOCKHAIR)) )
+	if( (HUSK in mutations) || (dna && dna.mutantrace) || (wear_mask && (wear_mask.flags & BLOCKHAIR)) )
 		return
-
 	//base icons
 	var/datum/sprite_accessory/S
 	var/list/standing	= list()
-
 	if(facial_hair_style)
 		S = facial_hair_styles_list[facial_hair_style]
 		if(S)
@@ -160,8 +158,10 @@ Please contact me on #coderbus IRC. ~Carnie x
 
 			var/new_color = "#" + facial_hair_color
 			img_facial_s.color = new_color
-
-			standing	+= img_facial_s
+			if(head && (head.flags & BLOCKHAIR))
+				standing	+= hide_hair(S.icon_state, S.icon, HAIR_LAYER)
+			else
+				standing	+= img_facial_s
 
 	//Applies the debrained overlay if there is no brain
 	if(!getorgan(/obj/item/organ/brain))
@@ -173,8 +173,10 @@ Please contact me on #coderbus IRC. ~Carnie x
 
 			var/new_color = "#" + hair_color
 			img_hair_s.color = new_color
-
-			standing	+= img_hair_s
+			if(head && (head.flags & BLOCKHAIR))
+				standing	+= hide_hair(S.icon_state, S.icon, HAIR_LAYER)
+			else
+				standing	+= img_hair_s
 
 	if(standing.len)
 		overlays_standing[HAIR_LAYER]	= standing
@@ -235,8 +237,10 @@ Please contact me on #coderbus IRC. ~Carnie x
 	if(undershirt)
 		var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
 		if(U2)
-			standing	+= image("icon"=U2.icon, "icon_state"="[U2.icon_state]_s", "layer"=-BODY_LAYER)
-
+			if(gender == FEMALE)
+				standing	+=	wear_female_version(U2.icon_state, U2.icon, BODY_LAYER)
+			else
+				standing	+= image("icon"=U2.icon, "icon_state"="[U2.icon_state]_s", "layer"=-BODY_LAYER)
 
 	if(socks)
 		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
@@ -336,11 +340,11 @@ Please contact me on #coderbus IRC. ~Carnie x
 
 		var/G = (gender == FEMALE) ? "f" : "m"
 		if(G == "f" && U.fitted == 1)
-			var/index = "[t_color]_s"
-			var/icon/female_uniform_icon = female_uniform_icons[index]
-			if(!female_uniform_icon ) 	//Create standing/laying icons if they don't exist
-				generate_uniform(index,t_color)
-			standing	= image("icon"=female_uniform_icons["[t_color]_s"], "layer"=-UNIFORM_LAYER)
+//			var/index = "[t_color]_s"
+//			var/icon/female_clothing_icon = female_clothing_icons[index]
+//			if(!female_clothing_icon ) 	//Create standing/laying icons if they don't exist
+//				generate_female_clothing(index,t_color)
+			standing	= wear_female_version(t_color, 'icons/mob/uniform.dmi', UNIFORM_LAYER)
 			overlays_standing[UNIFORM_LAYER]	= standing
 
 		if(w_uniform.blood_DNA)
@@ -637,6 +641,24 @@ Please contact me on #coderbus IRC. ~Carnie x
 		overlays_standing[L_HAND_LAYER] = image("icon"='icons/mob/items_lefthand.dmi', "icon_state"="[t_state]", "layer"=-L_HAND_LAYER)
 
 	apply_overlay(L_HAND_LAYER)
+
+/mob/living/carbon/human/proc/wear_female_version(t_color, icon, layer)
+	var/index = "[t_color]_s"
+	var/icon/female_clothing_icon = female_clothing_icons[index]
+	if(!female_clothing_icon) 	//Create standing/laying icons if they don't exist
+		generate_female_clothing(index,t_color,icon)
+	var/standing	= image("icon"=female_clothing_icons["[t_color]_s"], "layer"=-layer)
+	return(standing)
+
+/mob/living/carbon/human/proc/hide_hair(t_color, icon, layer)
+	var/index = "[t_color]_s"
+	var/icon/hairbang_icon = hairbang_icons[index]
+	if(!hairbang_icon) 	//Create standing/laying icons if they don't exist
+		generate_bangs(index,t_color,icon)
+	var/image/standing	= image("icon"=hairbang_icons["[t_color]_s"], "layer"=-layer)
+	var/new_color = "#" + hair_color
+	standing.color = new_color
+	return(standing)
 
 //Human Overlays Indexes/////////
 #undef BODY_LAYER

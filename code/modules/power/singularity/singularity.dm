@@ -448,6 +448,12 @@ var/global/list/uneatable = list(
 		M.apply_effect(3, STUN)
 		for(var/mob/O in viewers(M, null))
 			O.show_message(text("\red <B>[] stares blankly at The []!</B>", M, src), 1)
+//honking angel absorb radiation
+
+	for(var/mob/living/G in oviewers(8, src))
+		if (istype(G, /mob/living/simple_animal/hostile/weeping_honk))
+			G.health += rand(20, 40)
+			G << {"\blue You absorb some radiation from the singularity."}
 	return
 
 

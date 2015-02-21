@@ -111,8 +111,75 @@
 			if(!S)	continue
 			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(src)
 			P.info = "<CENTER><B>Security Record</B></CENTER><BR>"
-			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<BR>\nSex: [G.fields["sex"]]<BR>\nAge: [G.fields["age"]]<BR>\nFingerprint: [G.fields["fingerprint"]]<BR>\nPhysical Status: [G.fields["p_stat"]]<BR>\nMental Status: [G.fields["m_stat"]]<BR>"
-			P.info += "<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: [S.fields["criminal"]]<BR>\n<BR>\nMinor Crimes: [S.fields["mi_crim"]]<BR>\nDetails: [S.fields["mi_crim_d"]]<BR>\n<BR>\nMajor Crimes: [S.fields["ma_crim"]]<BR>\nDetails: [S.fields["ma_crim_d"]]<BR>\n<BR>\nImportant Notes:<BR>\n\t[S.fields["notes"]]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
+			//P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<BR>\nSex: [G.fields["sex"]]<BR>\nAge: [G.fields["age"]]<BR>\nFingerprint: [G.fields["fingerprint"]]<BR>\nPhysical Status: [G.fields["p_stat"]]<BR>\nMental Status: [G.fields["m_stat"]]<BR>"
+			//P.info += "<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: [S.fields["criminal"]]<BR>\n<BR>\nMinor Crimes: [S.fields["min_crim"]]<BR>\nDetails: [S.fields["mi_crim_d"]]<BR>\n<BR>\nMajor Crimes: [S.fields["ma_crim"]]<BR>\nDetails: [S.fields["ma_crim_d"]]<BR>\n<BR>\nImportant Notes:<BR>\n\t[S.fields["notes"]]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>"
+			P.info += text("<BR>\n<CENTER><B>Security Data</B></CENTER><BR>\nCriminal Status: []", S.fields["criminal"])
+
+			P.info += "<BR>\n<BR>\nMinor Crimes:<BR>\n"
+			P.info +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+			for(var/datum/data/crime/c in S.fields["min_crim"])
+				P.info += "<tr><td>[c.crimeName]</td>"
+				P.info += "<td>[c.crimeDetails]</td>"
+				P.info += "<td>[c.author]</td>"
+				P.info += "<td>[c.time]</td>"
+				P.info += "</tr>"
+			P.info += "</table>"
+
+			P.info += "<BR>\nMedium Crimes: <BR>\n"
+			P.info +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+			for(var/datum/data/crime/c in S.fields["med_crim"])
+				P.info += "<tr><td>[c.crimeName]</td>"
+				P.info += "<td>[c.crimeDetails]</td>"
+				P.info += "<td>[c.author]</td>"
+				P.info += "<td>[c.time]</td>"
+				P.info += "</tr>"
+			P.info += "</table>"
+
+			P.info += "<BR>\nMajor Crimes: <BR>\n"
+			P.info +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+			for(var/datum/data/crime/c in S.fields["maj_crim"])
+				P.info += "<tr><td>[c.crimeName]</td>"
+				P.info += "<td>[c.crimeDetails]</td>"
+				P.info += "<td>[c.author]</td>"
+				P.info += "<td>[c.time]</td>"
+				P.info += "</tr>"
+			P.info += "</table>"
+
+			P.info += "<BR>\nCapital Crimes: <BR>\n"
+			P.info +={"<table style="text-align:center;" border="1" cellspacing="0" width="100%">
+<tr>
+<th>Crime</th>
+<th>Details</th>
+<th>Author</th>
+<th>Time Added</th>
+</tr>"}
+			for(var/datum/data/crime/c in S.fields["cap_crim"])
+				P.info += "<tr><td>[c.crimeName]</td>"
+				P.info += "<td>[c.crimeDetails]</td>"
+				P.info += "<td>[c.author]</td>"
+				P.info += "<td>[c.time]</td>"
+				P.info += "</tr>"
+			P.info += "</table>"
+
+			P.info += text("<BR>\nImportant Notes:<BR>\n\t[]<BR>\n<BR>\n<CENTER><B>Comments/Log</B></CENTER><BR>", S.fields["notes"])
 			var/counter = 1
 			while(S.fields["com_[counter]"])
 				P.info += "[S.fields["com_[counter]"]]<BR>"

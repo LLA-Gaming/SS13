@@ -2017,11 +2017,6 @@
 				for(var/sig in lastsignalers)
 					dat += "[sig]<BR>"
 				usr << browse(dat, "window=lastsignalers;size=800x500")
-			if("crime_logs")
-				var/dat = "<B>Crime Logs.</B><HR>"
-				for(var/law in crimelogs)
-					dat += "[law]<BR>"
-				usr << browse(dat, "window=crimelogs;size=800x500")
 			if("list_lawchanges")
 				var/dat = "<B>Showing last [length(lawchanges)] law changes.</B><HR>"
 				for(var/sig in lawchanges)
@@ -2125,6 +2120,11 @@
 						var/datum/admins/D = admin_datums[ckey]
 						dat += "[ckey] - [D.rank.name]<br>"
 					usr << browse(dat, "window=showadmins;size=600x500")
+			if("crime_logs")
+				var/dat = "<B>Crime Logs.</B><HR>"
+				for(var/law in crimelogs)
+					dat += "[law]<BR>"
+				usr << browse(dat, "window=crimelogs;size=800x500")
 
 	else if(href_list["secretscoder"])
 		if(!check_rights(R_DEBUG))	return
