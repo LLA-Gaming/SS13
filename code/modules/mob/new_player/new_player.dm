@@ -268,8 +268,9 @@
 
 		joined_player_list += character.ckey
 
-		if(config.allow_latejoin_antagonists && emergency_shuttle.timeleft() > 300) //Don't make them antags if the station is evacuating
-			ticker.mode.make_antag_chance(character)
+		if(!(rank in list("Perseus Security Enforcer", "Perseus Security Commander")))
+			if(config.allow_latejoin_antagonists && emergency_shuttle.timeleft() > 300) //Don't make them antags if the station is evacuating
+				ticker.mode.make_antag_chance(character)
 		qdel(src)
 
 	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
