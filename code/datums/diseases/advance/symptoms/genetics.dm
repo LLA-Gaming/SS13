@@ -68,7 +68,6 @@ Bonus
 	Cleans the DNA of a person and then randomly gives them a power..
 
 //////////////////////////////////////
-*/
 
 /datum/symptom/genetic_mutation/powers
 
@@ -79,3 +78,4 @@ Bonus
 	transmittable = -7
 	level = 6
 	good_mutations = 1
+*/
