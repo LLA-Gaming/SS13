@@ -433,7 +433,7 @@
 								modified = 1
 								if(setcriminal != "Cancel")
 									R.fields["criminal"] = setcriminal
-									broadcast_hud_message("[H.name] has been set to [R.fields["criminal"]]", src)
+									broadcast_hud_message("[perpname] has been set to [R.fields["criminal"]]", src)
 									crimelogs.Add("RECORDS: [key_name(usr)] set [H.name] to [R.fields["criminal"]]") // For crime log purposes
 									log_game("BRIG: [key_name(usr)] set [H.name] to [R.fields["criminal"]]") // For crime LOG purposes
 									spawn()
