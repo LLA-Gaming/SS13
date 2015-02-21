@@ -248,6 +248,16 @@
 	return
 
 /mob/living/carbon/monkey/attack_animal(mob/living/simple_animal/M as mob)
+	//honking angel only
+	if (M.quantum_locked)
+		return
+	if (istype(M, /mob/living/simple_animal/hostile/weeping_honk) && M.a_intent == "disarm")
+		teletouch(M)
+		return
+	if (istype(M, /mob/living/simple_animal/hostile/weeping_honk) && M.a_intent == "grab")
+		necksnap(M)
+		return
+	////////////////////
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else

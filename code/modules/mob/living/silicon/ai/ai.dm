@@ -423,6 +423,10 @@ var/list/ai_list = list()
 	return
 
 /mob/living/silicon/ai/attack_animal(mob/living/simple_animal/M as mob)
+	//honking angel only
+	if (M.quantum_locked)
+		return
+	////////////////////
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else

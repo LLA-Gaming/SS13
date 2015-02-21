@@ -291,7 +291,7 @@ datum/preferences
 		dat += "</center>"
 
 		//user << browse(dat, "window=preferences;size=560x560")
-		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 740, 680)
+		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 740, 690)
 		popup.set_content(dat)
 		popup.open(0)
 

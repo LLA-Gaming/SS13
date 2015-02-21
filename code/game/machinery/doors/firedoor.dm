@@ -49,6 +49,7 @@
 			return
 	return
 
+
 /obj/machinery/door/firedoor/attack_ai(mob/user as mob)
 	add_fingerprint(user)
 	if(blocked || operating || stat & NOPOWER)
