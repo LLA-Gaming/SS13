@@ -999,27 +999,6 @@ About the new airlock wires panel:
 		..()
 	return
 
-	//honking angel claw doors open
-/obj/machinery/door/airlock/attack_animal(mob/living/simple_animal/M as mob)
-	if(istype(M, /mob/living/simple_animal/hostile/weeping_honk))
-		if(arePowerSystemsOn() && !(stat & NOPOWER))
-			M << "\blue The airlock's motors resist your efforts to force it."
-			return
-		else if(locked)
-			M << "\blue The airlock's bolts prevent it from being forced."
-			return
-		else if( !welded && !operating )
-			if(density)
-				spawn(0)	open(1)
-				for(var/mob/O in viewers(src, null))
-					O.show_message("\red <B>[M]</B> prys open the [src] airlock with its fingers!", 1)
-			else
-				// angels cant pry the door closed.
-				return
-		else return
-	return
-	///////////////////////////////
-
 /obj/machinery/door/airlock/plasma/attackby(C as obj, mob/user as mob)
 	if(C)
 		message_admins("Plasma airlock ignited by [key_name(user, user.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)

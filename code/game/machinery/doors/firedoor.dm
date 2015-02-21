@@ -49,19 +49,6 @@
 			return
 	return
 
-//honking angel stuff
-/obj/machinery/door/firedoor/attack_animal(mob/living/simple_animal/M as mob)
-	if(istype(M, /mob/living/simple_animal/hostile/weeping_honk))
-		if(blocked || operating)	return
-		if(density)
-			open()
-			for(var/mob/O in viewers(src, null))
-				O.show_message("\red <B>[M]</B> prys open the [src] with its fingers!", 1)
-			return
-		else //angels cant pry it closed.
-			return
-	return
-/////////////////////////
 
 /obj/machinery/door/firedoor/attack_ai(mob/user as mob)
 	add_fingerprint(user)
