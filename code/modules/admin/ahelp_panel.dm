@@ -189,18 +189,18 @@
 
 					</tr>
 				"}
+	if(config.sql_enabled)
+		for(var/datum/admin_conversation/A in GetCurrentAdminConversations())
 
-	for(var/datum/admin_conversation/A in GetCurrentAdminConversations())
-
-		dat += {"
-				<tr>
-					<td><center>[A.GetPlayerCkey()]</center></td>
-					<td><center>[A.original_adminhelp]</center></td>
-					<td><center><a href='[A.GetLink()]' target='_blank'>View In Browser</a></center></td>
-				</tr>
-				<br>
-				</font>
-				"}
+			dat += {"
+					<tr>
+						<td><center>[A.GetPlayerCkey()]</center></td>
+						<td><center>[A.original_adminhelp]</center></td>
+						<td><center><a href='[A.GetLink()]' target='_blank'>View In Browser</a></center></td>
+					</tr>
+					<br>
+					</font>
+					"}
 
 	dat += "</table>"
 
