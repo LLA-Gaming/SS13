@@ -65,14 +65,14 @@
 
 //	//PDA
 //	pda = new(src)
-//	spawn(5)
+	spawn(5)
 //		pda.ownjob = "Personal Assistant"
 //		pda.owner = text("[]", src)
 //		pda.name = pda.owner + " (" + pda.ownjob + ")"
 //		pda.toff = 1
-//
-//		follow_pai()
-//	..()
+
+		follow_pai()
+	..()
 
 /mob/living/silicon/pai/make_laws()
 	laws = new /datum/ai_laws/pai()
