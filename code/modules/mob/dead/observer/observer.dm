@@ -130,6 +130,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				if (timeleft)
 					stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
+/mob/dead/observer/verb/ghost_request_pai()
+	set category = "OOC"
+	set name = "Request to be pAI"
+	paiController.recruitWindow(usr)
+
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
 	set name = "Re-enter Corpse"
@@ -150,7 +155,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			return
 	mind.current.ajourn=0
 	mind.current.key = key
-	return 1
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"

@@ -42,7 +42,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 				ticker.mode.update_rev_icons_removed(card.pai.mind)
 
 				pai_candidates -= candidate
-				usr << browse(null, "window=findPai")
+				usr << browse(null, "window=paicard")
 
 		if(href_list["new"])
 			var/datum/paiCandidate/candidate = locate(href_list["candidate"])
@@ -140,52 +140,6 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		dat += "<a href='byond://?src=\ref[src];option=load;new=1;candidate=\ref[candidate]'>Load Personality</a><br>"
 
 		M << browse(dat, "window=paiRecruit")
-
-	proc/findPAI(var/obj/item/device/paicard/p, var/mob/user)
-		requestRecruits()
-		var/list/available = list()
-		for(var/datum/paiCandidate/c in paiController.pai_candidates)
-			if(c.ready)
-				var/found = 0
-				for(var/mob/dead/observer/o in player_list)
-					if(o.key == c.key)
-						found = 1
-				if(found)
-					available.Add(c)
-		var/dat = ""
-
-		dat += {"
-				<style type="text/css">
-
-				p.top {
-					background-color: #AAAAAA; color: black;
-				}
-
-				tr.d0 td {
-					background-color: #CC9999; color: black;
-				}
-				tr.d1 td {
-					background-color: #9999CC; color: black;
-				}
-				tr.d2 td {
-					background-color: #99CC99; color: black;
-				}
-				</style>
-				"}
-		dat += "<p class=\"top\">Requesting AI personalities from central database... If there are no entries, or if a suitable entry is not listed, check again later as more personalities may be added.</p>"
-
-		dat += "<table>"
-
-		for(var/datum/paiCandidate/c in available)
-			dat += "<tr class=\"d0\"><td>Name:</td><td>[c.name]</td></tr>"
-			dat += "<tr class=\"d1\"><td>Description:</td><td>[c.description]</td></tr>"
-			dat += "<tr class=\"d0\"><td>Preferred Role:</td><td>[c.role]</td></tr>"
-			dat += "<tr class=\"d1\"><td>OOC Comments:</td><td>[c.comments]</td></tr>"
-			dat += "<tr class=\"d2\"><td><a href='byond://?src=\ref[src];download=1;candidate=\ref[c];device=\ref[p]'>\[Download [c.name]\]</a></td><td></td></tr>"
-
-		dat += "</table>"
-
-		user << browse(dat, "window=findPai")
 
 	proc/requestRecruits()
 		for(var/mob/dead/observer/O in player_list)
