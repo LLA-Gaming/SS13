@@ -215,8 +215,11 @@ obj/item/clothing/glasses/hud/security/supergars
 	var/list/images = list()
 	var/list/modes = list("Pressure","Temperature","Off")
 	var/currentmode = 1 // Represents which mode in the list modes is currently active
-	var/const/basetemp = 293.15
-	var/const/basepressure = 101.325
+
+	//Moved these to the object itself for simplicity's sake
+	var/Red = 0
+	var/Blue = 0
+	var/Green = 0
 
 /obj/item/clothing/glasses/hud/atmos/proc/select_mode()
 	if (!modes.len) return //No possible modes? Must be broked
@@ -227,7 +230,7 @@ obj/item/clothing/glasses/hud/security/supergars
 		currentmode = 1
 
 	for (var/turf/T in images) //After switching modes, erase the images we have.
-		janitor(T)
+		ClearImage(T)
 	return
 
 /obj/item/clothing/glasses/hud/atmos/attack_self(mob/user)
@@ -239,16 +242,39 @@ obj/item/clothing/glasses/hud/security/supergars
 /obj/item/clothing/glasses/hud/atmos/equipped(mob/M, slot)
 	if (slot != slot_glasses)
 		for (var/turf/I in src.images)
-			janitor(I)
+			ClearImage(I)
 	..()
 
-/obj/item/clothing/glasses/hud/atmos/proc/janitor(var/turf/T)
+/obj/item/clothing/glasses/hud/atmos/proc/ClearImage(var/turf/T)
 //People are gonna ask why this is necessary, and its because otherwise the lag clearing all these at once generates is stupendous. This eases them out much nicer.
 	set background = 1
 	var/image/trash = src.images[T]
 	src.images -= T
 	spawn(0)
 		qdel(trash)
+	return
+
+/obj/item/clothing/glasses/hud/atmos/proc/CalculateColor(var/Temperature, var/Pressure)
+
+	if(modes[currentmode] == "Temperature")
+		if (((Temperature - T20C) <= 10) && ((Temperature - T20C) >= -10)) return
+		else if (Temperature < T20C)
+			Blue = (255/T20C) * (T20C - Temperature)
+		else if (Temperature > T20C)
+			Red = (255/T20C) * ((Temperature - T20C)/2)
+
+	else if(modes[currentmode] == "Pressure")
+		if (((Pressure - ONE_ATMOSPHERE) <= 20) && ((Pressure - ONE_ATMOSPHERE) >= -20)) return
+		else if (Pressure < ONE_ATMOSPHERE)
+			Green = (255/ONE_ATMOSPHERE) * (ONE_ATMOSPHERE - Pressure)
+		else if (Pressure > ONE_ATMOSPHERE)
+			Red = (255/ONE_ATMOSPHERE) * ((Pressure - ONE_ATMOSPHERE))
+			Green = Red
+
+	//Clamp to ensure all vars are in the proper range
+	Red = Clamp(Red, 0, 255)
+	Green = Clamp(Green, 0, 255)
+	Blue = Clamp(Blue, 0, 255)
 
 /obj/item/clothing/glasses/hud/atmos/process_hud(var/mob/M)
 	set background = 1
@@ -261,56 +287,38 @@ obj/item/clothing/glasses/hud/security/supergars
 	//Clear any no longer in view
 	for (var/turf/I in images)
 		if(!(I in view(M.client)))
-			janitor(I)
+			ClearImage(I)
 
 
 	//Initialize all the vars we'll need
 	var/client/C = M.client
-	var/Red = 0
-	var/Blue = 0
-	var/Green = 0
 	var/datum/gas_mixture/air = null
-	var/pressure = null
+	var/Pressure = null
+	var/Temperature = null
 	var/image/holder = null
 
 	//Check every viewable turf to see if it needs an overlay
 	for (var/turf/T in view(C))
 		Red = 0
-		Blue = 0
 		Green = 0
+		Blue = 0
 		air = T.return_air()
-		pressure = air.return_pressure() //saving a bit of work
+		Temperature = air.return_temperature()
+		Pressure = air.return_pressure() //saving a bit of work
 		if (istype(T, /turf/unsimulated/) || istype(T, /turf/space/) || T.density) //Tiles exempt from this display
 			if (T in images) //Any tiles that changed from a simulated one to one of the exempted tiles
-				janitor(T)
+				ClearImage(T)
 			continue
 
 		if (T in images) //If we already have an image for the turf, lets just update the color
 			holder = images[T]
-			if(modes[currentmode] == "Temperature")
-				if (((air.return_temperature() - basetemp) <= 10) && ((air.return_temperature() - basetemp) >= -10)) continue
-				else if (air.return_temperature() < basetemp)
-					Blue = (255/basetemp) * (basetemp - air.return_temperature())
-				else if (air.return_temperature() > basetemp)
-					Red = (255/basetemp) * ((air.return_temperature() - basetemp)/2)
 
-			else if(modes[currentmode] == "Pressure")
-				if (((pressure - basepressure) <= 20) && ((pressure - basepressure) >= -20)) continue
-				else if (pressure < basepressure)
-					Green = (255/basepressure) * (basepressure - pressure)
-				else if (pressure > basepressure)
-					Red = (255/basepressure) * ((pressure - basepressure))
-					Green = Red
-
-			//Clamp to ensure all vars are in the proper range
-			Clamp(Red, 0, 255)
-			Clamp(Green, 0, 255)
-			Clamp(Blue, 0, 255)
+			CalculateColor(Temperature,Pressure)
 
 			if (!(Red || Green || Blue)) //Delete if its no longer needed
 				qdel(holder)
 			else
-				holder.color = rgb(Red,Green,Blue,intensity) //Set the new color
+				if (holder) holder.color = rgb(Red,Green,Blue,intensity) //Set the new color,
 			continue
 
 		else //Make the new image
@@ -321,25 +329,7 @@ obj/item/clothing/glasses/hud/security/supergars
 			holder.loc = T
 			holder.layer = T.layer
 
-			if(modes[currentmode] == "Temperature") //MATH!
-				if (((air.return_temperature() - basetemp) <= 10) && ((air.return_temperature() - basetemp) >= -10)) continue
-				else if (air.return_temperature() < basetemp)
-					Blue = (255/basetemp) * (basetemp - air.return_temperature())
-				else if (air.return_temperature() > basetemp)
-					Red = (255/basetemp) * ((air.return_temperature() - basetemp)/2)
-
-			else if(modes[currentmode] == "Pressure") //MATH!
-				if (((pressure - basepressure) <= 20) && ((pressure - basepressure) >= -20)) continue
-				else if (pressure < basepressure)
-					Green = (255/basepressure) * (basepressure - pressure)
-				else if (pressure > basepressure)
-					Red = (255/basepressure) * ((pressure - basepressure))
-					Green = Red
-
-			//Clamp to ensure all vars are in the proper range
-			Clamp(Red, 0, 255)
-			Clamp(Green, 0, 255)
-			Clamp(Blue, 0, 255)
+			CalculateColor(Temperature,Pressure)
 
 			if (!(Red || Green || Blue)) //Prevents orphan objects accumulating
 				qdel(holder)
