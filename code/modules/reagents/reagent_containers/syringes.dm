@@ -75,7 +75,7 @@
 						if(target != user)
 							target.visible_message("<span class='danger'>[user] is trying to take a blood sample from  [target]!</span>", \
 											"<span class='userdanger'>[user] is trying to take a blood sample from [target]!</span>")
-							if(!do_mob(user, target)) 
+							if(!do_mob(user, target))
 								return
 						B.holder = src
 						B.volume = amount
@@ -105,6 +105,10 @@
 							temp_chem[R.name] = R.volume
 						B.data["trace_chem"] = list2params(temp_chem)
 
+						if ((B.volume + reagents.total_volume) > reagents.maximum_volume)
+							user.visible_message("<span class='notice'>[user] tries to pull the plunger farther out, but the syringe cannot hold any more.</span>")
+							qdel(B)
+							return
 						reagents.reagent_list += B
 						reagents.update_total()
 						on_reagent_change()
