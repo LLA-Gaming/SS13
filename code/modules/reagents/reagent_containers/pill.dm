@@ -26,6 +26,7 @@
 		if(M == user)
 			M << "<span class='notice'>You swallow [src].</span>"
 			M.unEquip(src) //icon update
+			add_logs(user, M, "fed", object="[reagentlist(src)]", addition="Creator: [src.maker]")
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
 				spawn(5)
