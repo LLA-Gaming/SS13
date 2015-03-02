@@ -204,3 +204,139 @@ obj/item/clothing/glasses/hud/security/supergars
 					else
 						continue
 				C.images += holder
+
+/obj/item/clothing/glasses/hud/atmos
+	name = "Atmospheric Scanner HUD"
+	desc = "An advanced display used to observe atmospheric data in an area."
+	icon_state = "atmoshud"
+	item_state = "atmoshud"
+	action_button_name = "Set HUD Mode"
+	var/intensity = 64 // The value, 0-255, that determines opaqueness of the overlay
+	var/list/images = list()
+	var/list/modes = list("Pressure","Temperature","Off")
+	var/currentmode = 1 // Represents which mode in the list modes is currently active
+
+	//Moved these to the object itself for simplicity's sake
+	var/Red = 0
+	var/Blue = 0
+	var/Green = 0
+
+/obj/item/clothing/glasses/hud/atmos/proc/select_mode()
+	if (!modes.len) return //No possible modes? Must be broked
+	if (currentmode < 1) //Just Checking to prevent problems
+		currentmode = 1
+	else currentmode++
+	if (currentmode > modes.len)
+		currentmode = 1
+
+	for (var/turf/T in images) //After switching modes, erase the images we have.
+		ClearImage(T)
+	return
+
+/obj/item/clothing/glasses/hud/atmos/attack_self(mob/user)
+	select_mode()
+	usr << "You switch the HUD to [modes[currentmode]]."
+	add_fingerprint(user)
+	..()
+
+/obj/item/clothing/glasses/hud/atmos/equipped(mob/M, slot)
+	if (slot != slot_glasses)
+		for (var/turf/I in src.images)
+			ClearImage(I)
+	..()
+
+/obj/item/clothing/glasses/hud/atmos/proc/ClearImage(var/turf/T)
+//People are gonna ask why this is necessary, and its because otherwise the lag clearing all these at once generates is stupendous. This eases them out much nicer.
+	set background = 1
+	var/image/trash = src.images[T]
+	src.images -= T
+	spawn(0)
+		qdel(trash)
+	return
+
+/obj/item/clothing/glasses/hud/atmos/proc/CalculateColor(var/Temperature, var/Pressure)
+
+	if(modes[currentmode] == "Temperature")
+		if (((Temperature - T20C) <= 10) && ((Temperature - T20C) >= -10)) return
+		else if (Temperature < T20C)
+			Blue = (255/T20C) * (T20C - Temperature)
+		else if (Temperature > T20C)
+			Red = (255/T20C) * ((Temperature - T20C)/2)
+
+	else if(modes[currentmode] == "Pressure")
+		if (((Pressure - ONE_ATMOSPHERE) <= 20) && ((Pressure - ONE_ATMOSPHERE) >= -20)) return
+		else if (Pressure < ONE_ATMOSPHERE)
+			Green = (255/ONE_ATMOSPHERE) * (ONE_ATMOSPHERE - Pressure)
+		else if (Pressure > ONE_ATMOSPHERE)
+			Red = (255/ONE_ATMOSPHERE) * ((Pressure - ONE_ATMOSPHERE))
+			Green = Red
+
+	//Clamp to ensure all vars are in the proper range
+	Red = Clamp(Red, 0, 255)
+	Green = Clamp(Green, 0, 255)
+	Blue = Clamp(Blue, 0, 255)
+
+/obj/item/clothing/glasses/hud/atmos/process_hud(var/mob/M)
+	set background = 1
+
+	//Make checks to ensure any of this is necessary
+	if(!M)	return
+	if(!M.client)	return
+	if(modes[currentmode] == "Off") return
+
+	//Clear any no longer in view
+	for (var/turf/I in images)
+		if(!(I in view(M.client)))
+			ClearImage(I)
+
+
+	//Initialize all the vars we'll need
+	var/client/C = M.client
+	var/datum/gas_mixture/air = null
+	var/Pressure = null
+	var/Temperature = null
+	var/image/holder = null
+
+	//Check every viewable turf to see if it needs an overlay
+	for (var/turf/T in view(C))
+		Red = 0
+		Green = 0
+		Blue = 0
+		air = T.return_air()
+		Temperature = air.return_temperature()
+		Pressure = air.return_pressure() //saving a bit of work
+		if (istype(T, /turf/unsimulated/) || istype(T, /turf/space/) || T.density) //Tiles exempt from this display
+			if (T in images) //Any tiles that changed from a simulated one to one of the exempted tiles
+				ClearImage(T)
+			continue
+
+		if (T in images) //If we already have an image for the turf, lets just update the color
+			holder = images[T]
+
+			CalculateColor(Temperature,Pressure)
+
+			if (!(Red || Green || Blue)) //Delete if its no longer needed
+				qdel(holder)
+			else
+				if (holder) holder.color = rgb(Red,Green,Blue,intensity) //Set the new color,
+			continue
+
+		else //Make the new image
+
+			holder = new/image()
+			holder.icon = 'icons/effects/effects.dmi'
+			holder.icon_state = "overlay"
+			holder.loc = T
+			holder.layer = T.layer
+
+			CalculateColor(Temperature,Pressure)
+
+			if (!(Red || Green || Blue)) //Prevents orphan objects accumulating
+				qdel(holder)
+				continue
+
+			holder.color = rgb(Red,Green,Blue,intensity) //Apply the color we calculated
+			C.images += holder //Apply the image to the client's vision
+			src.images[holder.loc] = holder //This is a reference list so that the created images can be pruned and maintained as needed. If the HUD is removed the contents of this list are as well
+
+			continue
