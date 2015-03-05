@@ -319,7 +319,7 @@ obj/item/clothing/glasses/hud/security/supergars
 			CalculateColor(Temperature,Pressure)
 
 			if (!(Red || Green || Blue)) //Delete if its no longer needed
-				qdel(holder)
+				ClearImage(T)
 			else
 				if (holder) holder.color = rgb(Red,Green,Blue,intensity) //Set the new color,
 			continue
