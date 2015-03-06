@@ -435,7 +435,7 @@
 "ais" = (/obj/machinery/disposal,/obj/structure/disposalpipe/trunk{dir = 1},/turf/simulated/floor{tag = "icon-darkred2"; icon_state = "darkred2"},/area/security/main)
 "ait" = (/obj/machinery/vending/snack,/turf/simulated/floor{tag = "icon-darkred2"; icon_state = "darkred2"},/area/security/main)
 "aiu" = (/obj/structure/table,/obj/item/weapon/book/manual/spacelaw,/obj/machinery/camera{c_tag = "Security Office"; dir = 1; network = list("SS13")},/turf/simulated/floor{tag = "icon-darkred2"; icon_state = "darkred2"},/area/security/main)
-"aiv" = (/obj/structure/table,/obj/item/clothing/gloves/black/sec,/obj/item/clothing/gloves/black/sec,/obj/item/clothing/gloves/black/sec,/turf/simulated/floor{tag = "icon-darkred2"; icon_state = "darkred2"},/area/security/main)
+"aiv" = (/obj/structure/table,/obj/item/clothing/gloves/black/sec,/obj/item/clothing/gloves/black/sec,/obj/item/clothing/gloves/black/sec,/obj/machinery/requests_console{department = "Security"; departmentType = 5; pixel_x = 0; pixel_y = -30},/turf/simulated/floor{tag = "icon-darkred2"; icon_state = "darkred2"},/area/security/main)
 "aiw" = (/obj/machinery/computer/secure_data,/obj/structure/disposalpipe/segment{dir = 1; icon_state = "pipe-c"},/turf/simulated/floor{tag = "icon-darkred2"; icon_state = "darkred2"},/area/security/main)
 "aix" = (/obj/machinery/computer/security,/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor{tag = "icon-darkred2"; icon_state = "darkred2"},/area/security/main)
 "aiy" = (/obj/structure/filingcabinet/security,/obj/structure/disposalpipe/segment{dir = 4},/turf/simulated/floor{tag = "icon-darkred2 (SOUTHEAST)"; icon_state = "darkred2"; dir = 6},/area/security/main)
