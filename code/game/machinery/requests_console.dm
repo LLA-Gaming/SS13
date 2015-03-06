@@ -132,7 +132,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 						dat += "<td width='55%'>[dpt]</td>"
 						dat += "<td width='45%'><A href='?src=\ref[src];write=[ckey(dpt)]'>Normal</A> <A href='?src=\ref[src];write=[ckey(dpt)];priority=2'>High</A>"
 						if (hackState == 1)
-							dat += "<A href='?src=\ref[src];write=[ckey(dpt)];priority=3'>EXTREME</A>"
+							dat += " <A href='?src=\ref[src];write=[ckey(dpt)];priority=3'>EXTREME</A>"
 						dat += "</td>"
 						dat += "</tr>"
 				dat += "</table>"
@@ -147,7 +147,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 						dat += "<td width='55%'>[dpt]</td>"
 						dat += "<td width='45%'><A href='?src=\ref[src];write=[ckey(dpt)]'>Normal</A> <A href='?src=\ref[src];write=[ckey(dpt)];priority=2'>High</A>"
 						if (hackState == 1)
-							dat += "<A href='?src=\ref[src];write=[ckey(dpt)];priority=3'>EXTREME</A>"
+							dat += " <A href='?src=\ref[src];write=[ckey(dpt)];priority=3'>EXTREME</A>"
 						dat += "</td>"
 						dat += "</tr>"
 				dat += "</table>"
@@ -162,7 +162,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 						dat += "<td width='55%'>[dpt]</td>"
 						dat += "<td width='45%'><A href='?src=\ref[src];write=[ckey(dpt)]'>Normal</A> <A href='?src=\ref[src];write=[ckey(dpt)];priority=2'>High</A>"
 						if (hackState == 1)
-							dat += "<A href='?src=\ref[src];write=[ckey(dpt)];priority=3'>EXTREME</A>"
+							dat += " <A href='?src=\ref[src];write=[ckey(dpt)];priority=3'>EXTREME</A>"
 						dat += "</td>"
 						dat += "</tr>"
 				dat += "</table>"
@@ -289,7 +289,6 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		screen = 0
 
 	if( href_list["department"] && message )
-		var/log_msg = message
 		var/sending = message
 		sending += "<br>"
 		if (msgVerified)
@@ -301,9 +300,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		screen = 7 //if it's successful, this will get overrwritten (7 = unsufccessfull, 6 = successfull)
 		if (sending)
 			var/pass = 0
-			for (var/obj/machinery/message_server/MS in world)
+			for (var/obj/machinery/nanonet_server/MS in world)
 				if(!MS.active) continue
-				MS.send_rc_message(href_list["department"],department,log_msg,msgStamped,msgVerified,priority)
 				pass = 1
 
 			if(pass)
@@ -352,9 +350,6 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 									for (var/mob/O in hearers(4, Console.loc))
 										O.show_message("\icon[Console] *The Requests Console beeps: 'Message from [department]'")
 								Console.messages += "<b>From:</b> <a href='?src=\ref[Console];write=[ckey(department)]'>[department]</a><BR>[sending]"
-								var/obj/item/weapon/paper/slip = new /obj/item/weapon/paper(Console.loc)
-								slip.info = "<b>From:</b> [department]<BR>[sending]"
-								slip.name = "Request Slip - [department]"
 
 						screen = 6
 						Console.luminosity = 2
