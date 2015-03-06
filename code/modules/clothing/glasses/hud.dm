@@ -241,8 +241,11 @@ obj/item/clothing/glasses/hud/security/supergars
 
 /obj/item/clothing/glasses/hud/atmos/equipped(mob/M, slot)
 	if (slot != slot_glasses)
+		action_button_name = null
 		for (var/turf/I in src.images)
 			ClearImage(I)
+	else
+		action_button_name = "Set HUD Mode"
 	..()
 
 /obj/item/clothing/glasses/hud/atmos/proc/ClearImage(var/turf/T)
@@ -316,7 +319,7 @@ obj/item/clothing/glasses/hud/security/supergars
 			CalculateColor(Temperature,Pressure)
 
 			if (!(Red || Green || Blue)) //Delete if its no longer needed
-				qdel(holder)
+				ClearImage(T)
 			else
 				if (holder) holder.color = rgb(Red,Green,Blue,intensity) //Set the new color,
 			continue
