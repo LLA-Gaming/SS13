@@ -221,7 +221,13 @@ obj/item/clothing/glasses/hud/security/supergars
 	var/Blue = 0
 	var/Green = 0
 
+/obj/item/clothing/glasses/hud/atmos/Destroy()
+	for (var/turf/T in images)
+		ClearImage(T)
+	..()
+
 /obj/item/clothing/glasses/hud/atmos/proc/select_mode()
+	//Handles current mode selection and changing
 	if (!modes.len) return //No possible modes? Must be broked
 	if (currentmode < 1) //Just Checking to prevent problems
 		currentmode = 1
@@ -234,12 +240,14 @@ obj/item/clothing/glasses/hud/security/supergars
 	return
 
 /obj/item/clothing/glasses/hud/atmos/attack_self(mob/user)
+	//Allows the HUD mode to be changed by clicking, this will normally occur via the action button
 	select_mode()
 	usr << "You switch the HUD to [modes[currentmode]]."
 	add_fingerprint(user)
 	..()
 
 /obj/item/clothing/glasses/hud/atmos/equipped(mob/M, slot)
+	//Purges the HUD images if the item is removed. Also controls whether or not the action button displays
 	if (slot != slot_glasses)
 		action_button_name = null
 		for (var/turf/I in src.images)
@@ -249,7 +257,7 @@ obj/item/clothing/glasses/hud/security/supergars
 	..()
 
 /obj/item/clothing/glasses/hud/atmos/proc/ClearImage(var/turf/T)
-//People are gonna ask why this is necessary, and its because otherwise the lag clearing all these at once generates is stupendous. This eases them out much nicer.
+	//People are gonna ask why this is necessary, and its because otherwise the lag clearing all these at once generates is stupendous. This eases them out much nicer.
 	set background = 1
 	var/image/trash = src.images[T]
 	src.images -= T
