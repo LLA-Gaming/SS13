@@ -828,6 +828,23 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name(src)] cleaned air within [size] tiles.")
 	log_game("[key_name(src)] cleaned air within [size] tiles.")
 
+/client/proc/fix_gravity()
+	set name = "Turn on gravity"
+	set category = "Special Verbs"
+	set desc = "Use this when griefons turn off the gravity gen "
+	for(var/obj/machinery/gravity_generator/main/grav in world)
+		if(grav.z == 1) // make sure the grav gen is in z 1
+			grav.breaker = 1
+			grav.charge_count = 100
+			grav.set_state(1) // Turn it on!!
+			if(grav.middle)
+				grav.middle.overlays.Cut() // Update the overlay
+				grav.middle.overlays += "activated"
+				grav.current_overlay = "activated"
+			break
+	message_admins("[key_name(src)] admin revived the gravity generator")
+	log_game("[key_name(src)] admin revived the gravity generator")
+
 /client/proc/fill_breach()
 	set name = "Fill Hull Breach"
 	set category = "Special Verbs"

@@ -17,8 +17,7 @@
 		msg_to_send = "<span class='adminobserver'><span class='prefix'>ADMIN:</span> <EM>[key_name(usr, 1)]:</EM> <span class='message'>[msg]</span></span>"
 
 	for(var/client/admin in admins)
-		if(admin.admintoggles)
-			admin << msg_to_send
+		admin << msg_to_send
 		admin.send_text_to_tab(msg_to_send, "asay")
 
 	feedback_add_details("admin_verb","M") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

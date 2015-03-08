@@ -116,7 +116,7 @@
 	icon_state = "toxpack"
 
 /obj/item/weapon/storage/backpack/botany
-	name = "medical backpack"
+	name = "botany backpack"
 	desc = "A green backpack for plant related work."
 	icon_state = "botanypack"
 

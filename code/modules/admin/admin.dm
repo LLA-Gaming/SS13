@@ -12,14 +12,14 @@ var/global/floorIsLava = 0
 			X << msg
 		X.send_text_to_tab(msg, "asay")
 
-///////Toggle ahelp/asay/alogs///////
+///////Toggle ahelp/alogs///////
 
 /client/proc/toggleahelp()
 	set name = "Show/Hide Admin Messages"
 	set category = "Preferences"
-	set desc ="Toggles seeing adminhelps/asay/alogs"
+	set desc ="Toggles seeing adminhelps/alogs"
 	admintoggles = !admintoggles
-	src << "You will [admintoggles ? "now" : "no longer"] see admin helps, admin logs, or asay."
+	src << "You will [admintoggles ? "now" : "no longer"] see admin helps, or admin logs."
 	feedback_add_details("admin_verb","TAH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /////////////////////////////////////
