@@ -68,7 +68,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/createPerseusMission,
 	/proc/Ban_Offline_Player,
 	/client/proc/fill_breach,
-	/client/proc/fix_gravity,
+	/client/proc/reenable_gravity_gen,
 	/client/proc/spawncostume
 	//+Sound
 	)
