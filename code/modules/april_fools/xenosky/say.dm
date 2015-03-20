@@ -1,4 +1,4 @@
-/mob/living/carbon/alien/say_understands(var/other)
+/mob/living/carbon/alien/beepsky/say_understands(var/other)
 	if (istype(other, /mob/living/carbon/alien/beepsky))
 		return 1
 	return ..()

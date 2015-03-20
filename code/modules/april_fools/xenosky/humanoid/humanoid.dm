@@ -1,3 +1,6 @@
+/mob/living/carbon/alien/beepsky/humanoid
+	var/hailercooldown = 0
+
 //This is fine, works the same as a human
 /mob/living/carbon/alien/beepsky/humanoid/Bump(atom/movable/AM as mob|obj, yes)
 	if ((!( yes ) || now_pushing))

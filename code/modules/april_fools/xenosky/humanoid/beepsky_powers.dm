@@ -11,7 +11,7 @@ Doesn't work on other aliens/AI.*/
 		src << "\green You must be conscious to do this."
 		return 0
 	else if(X && getPlasma() < X)
-		src << "\green Not enough plasma stored."
+		src << "\green Not enough energy stored."
 		return 0
 	else if(Y && (!isturf(src.loc) || istype(src.loc, /turf/space)))
 		src << "\green Bad place for a garden!"
@@ -58,20 +58,20 @@ Doesn't work on other aliens/AI.*/
 	return
 
 /mob/living/carbon/alien/beepsky/humanoid/verb/transfer_plasma(mob/living/carbon/alien/beepsky/M as mob in oview())
-	set name = "Transfer Plasma"
-	set desc = "Transfer Plasma to another beepsky"
+	set name = "Transfer Energy"
+	set desc = "Transfer Energy to another beepsky"
 	set category = "Xenosky"
 
 	if(isalien(M))
-		var/amount = input("Amount:", "Transfer Plasma to [M]") as num
+		var/amount = input("Amount:", "Transfer Energy to [M]") as num
 		if (amount)
 			amount = abs(round(amount))
 			if(powerc(amount))
 				if (get_dist(src,M) <= 1)
 					M.adjustToxLoss(amount)
 					adjustToxLoss(-amount)
-					M << "\green [src] has transfered [amount] plasma to you."
-					src << {"\green You have trasferred [amount] plasma to [M]"}
+					M << "\green [src] has transfered [amount] energy to you."
+					src << {"\green You have trasferred [amount] energy to [M]"}
 				else
 					src << "\green You need to be closer."
 	return
@@ -113,20 +113,20 @@ Doesn't work on other aliens/AI.*/
 
 
 /mob/living/carbon/alien/beepsky/humanoid/proc/neurotoxin() // ok
-	set name = "Spit Neurotoxin (50)"
-	set desc = "Spits neurotoxin at someone, paralyzing them for a short time."
+	set name = "Fire Tazer (50)"
+	set desc = "Fires your tazer at someone, paralyzing them for a short time."
 	set category = "Xenosky"
 
 	if(powerc(50))
 		adjustToxLoss(-50)
-		src.visible_message("\red [src] spits neurotoxin!", "\green You spit neurotoxin.")
+		src.visible_message("\red [src] fires a tazer!", "\green You fire the tazer.")
 
 		var/turf/T = loc
 		var/turf/U = get_step(src, dir) // Get the tile infront of the move, based on their direction
 		if(!isturf(U) || !isturf(T))
 			return
 
-		var/obj/item/projectile/bullet/neurotoxin/A = new /obj/item/projectile/bullet/neurotoxin(usr.loc)
+		var/obj/item/projectile/energy/electrode/A = new /obj/item/projectile/energy/electrode(usr.loc)
 		A.current = U
 		A.yo = U.y - T.y
 		A.xo = U.x - T.x
@@ -169,3 +169,43 @@ Doesn't work on other aliens/AI.*/
 				//Paralyse(10)
 		src.visible_message("\green <B>[src] hurls out the contents of their stomach!</B>")
 	return
+
+/mob/living/carbon/alien/beepsky/humanoid/verb/halt()
+	set category = "Xenosky"
+	set name = "HALT"
+	set desc = "Intimidate the criminals"
+	if(src.stat) return
+
+	var/phrase = 0	//selects which phrase to use
+	var/phrase_text = null
+	var/phrase_sound = null
+
+
+	if(hailercooldown < world.time - 35) // A cooldown, to stop people being jerks
+		phrase = rand(12,18)	// user has broke the restrictor, it will now only play shitcurity phrases
+		switch(phrase)	//sets the properties of the chosen phrase
+			if(12)				// LA-PD
+				phrase_text = "Stop or I'll bash you."
+				phrase_sound = "bash"
+			if(13)
+				phrase_text = "Go ahead, make my day."
+				phrase_sound = "harry"
+			if(14)
+				phrase_text = "Stop breaking the law, ass hole."
+				phrase_sound = "asshole"
+			if(15)
+				phrase_text = "You have the right to shut the fuck up."
+				phrase_sound = "stfu"
+			if(16)
+				phrase_text = "Shut up crime!"
+				phrase_sound = "shutup"
+			if(17)
+				phrase_text = "Face the wrath of the golden bolt."
+				phrase_sound = "super"
+			if(18)
+				phrase_text = "I am, the LAW!"
+				phrase_sound = "dredd"
+
+		usr.visible_message("[usr]: <font color='red' size='4'><b>[phrase_text]</b></font>")
+		playsound(src.loc, "sound/voice/complionator/[phrase_sound].ogg", 100, 0, 4)
+		hailercooldown = world.time

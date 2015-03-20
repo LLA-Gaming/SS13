@@ -6,8 +6,8 @@
 	name = "huggable beepsky"
 	desc = "It has some sort of a tube at the end of its baton."
 	icon = 'icons/mob/alien_b.dmi'
-	icon_state = "officermask"
-	item_state = "officermask"
+	icon_state = "facehugger_b"
+	item_state = "facehugger_b"
 	w_class = 1 //note: can be picked up by aliens unlike most other items of w_class below 4
 	flags = MASKCOVERSMOUTH | MASKCOVERSEYES | MASKINTERNALS
 	throw_range = 5

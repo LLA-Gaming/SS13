@@ -1,15 +1,3 @@
-/* Alien shit!
- * Contains:
- *		structure/alien
- *		Resin
- *		Weeds
- *		Egg
- *		effect/acid
- */
-
-
-/obj/structure/alien
-	icon = 'icons/mob/alien.dmi'
 
 /*
  * Resin
@@ -19,6 +7,7 @@
 	desc = "Looks like some kind of metallic growth."
 	icon = 'icons/mob/alien_b.dmi'
 	icon_state = "resin"
+	hitnoise = 'sound/weapons/smash.ogg'
 	density = 1
 	opacity = 1
 	anchored = 1
@@ -28,6 +17,7 @@
 	desc = "Grey metallic slime and wires solidified into a wall."
 	icon_state = "resinwall"	//same as resin, but consistency ho!
 	icon = 'icons/mob/alien_b.dmi'
+	hitnoise = 'sound/weapons/smash.ogg'
 
 /obj/structure/alien/resin/membrane/beepsky
 	name = "resin membrane"
@@ -36,6 +26,7 @@
 	icon = 'icons/mob/alien_b.dmi'
 	opacity = 0
 	health = 120
+	hitnoise = 'sound/weapons/smash.ogg'
 
 /*
  * Weeds
@@ -108,6 +99,7 @@
 	icon = 'icons/mob/alien_b.dmi'
 	density = 0
 	anchored = 1
+	hitnoise = 'sound/weapons/smash.ogg'
 
 
 /obj/structure/alien/egg/beepsky/New()
@@ -125,5 +117,5 @@
 	mineralType = "metal"
 	hardness = 1
 	close_delay = 100
-	openSound = 'sound/effects/attackblob.ogg'
-	closeSound = 'sound/effects/attackblob.ogg'
+	openSound = 'sound/effects/stonedoor_openclose.ogg'
+	closeSound = 'sound/effects/stonedoor_openclose.ogg'

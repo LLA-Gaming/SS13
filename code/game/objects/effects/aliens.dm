@@ -10,6 +10,7 @@
 
 /obj/structure/alien
 	icon = 'icons/mob/alien.dmi'
+	var/hitnoise = 'sound/items/Welder.ogg'
 
 /*
  * Resin
@@ -21,6 +22,7 @@
 	density = 1
 	opacity = 1
 	anchored = 1
+	hitnoise = 'sound/effects/attackblob.ogg'
 	var/health = 200
 
 /obj/structure/alien/resin/New(location)
@@ -94,7 +96,7 @@
 	else
 		var/obj/O = AM
 		tforce = O.throwforce
-	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+	playsound(loc, hitnoise, 100, 1)
 	health -= tforce
 	healthcheck()
 
@@ -116,7 +118,7 @@
 	user.changeNext_move(8)
 	//user.do_attack_animation(src)
 	user.visible_message("<span class='danger'>[user] claws at the resin!</span>")
-	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+	playsound(loc, hitnoise, 100, 1)
 	health -= 50
 	if(health <= 0)
 		user.visible_message("<span class='danger'>[user] slices the [name] apart!</span>")
@@ -126,7 +128,7 @@
 /obj/structure/alien/resin/attackby(obj/item/I, mob/user)
 	user.changeNext_move(8)
 	health -= I.force
-	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+	playsound(loc, hitnoise, 100, 1)
 	healthcheck()
 	..()
 
@@ -151,6 +153,7 @@
 	icon_state = "weeds"
 	anchored = 1
 	density = 0
+	hitnoise = 'sound/weapons/smash.ogg'
 	var/health = 15
 	var/obj/structure/alien/weeds/node/linked_node = null
 
@@ -209,7 +212,7 @@
 		var/obj/item/weapon/weldingtool/WT = I
 		if(WT.remove_fuel(0, user))
 			damage = 15
-			playsound(loc, 'sound/items/Welder.ogg', 100, 1)
+			playsound(loc, hitnoise, 100, 1)
 
 	health -= damage
 	healthcheck()
@@ -275,7 +278,7 @@
 		switch(status)
 			if(BURST)
 				user << "<span class='notice'>You clear the hatched egg.</span>"
-				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+				playsound(loc, hitnoise, 100, 1)
 				qdel(src)
 				return
 			if(GROWING)
@@ -339,7 +342,7 @@
 
 		if(WT.remove_fuel(0, user))
 			damage = 15
-			playsound(loc, 'sound/items/Welder.ogg', 100, 1)
+			playsound(loc, hitnoise, 100, 1)
 
 	health -= damage
 	healthcheck()
