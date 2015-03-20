@@ -13,14 +13,14 @@
 	stage5	= list("\red Your skin feels as if it's about to burst off!")
 	new_form = /mob/living/carbon/alien/beepsky/humanoid/hunter
 
-/datum/reagent/xenomicrobes
+/datum/reagent/xenoskymicrobes
 	name = "Security Nanobots"
 	id = "xenoskymicrobes"
 	description = "Nanomachines design to punish criminal scum."
 	//reagent_state = LIQUID
 	color = "#535E66" // rgb: 83, 94, 102
 
-/datum/reagent/xenomicrobes/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+/datum/reagent/xenosky/microbes/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	src = null
 	if( (prob(10) && method==TOUCH) || method==INGEST)
 		M.contract_disease(new /datum/disease/transformation/xenosky(0),1)
