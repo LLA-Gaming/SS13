@@ -20,7 +20,7 @@
 	//reagent_state = LIQUID
 	color = "#535E66" // rgb: 83, 94, 102
 
-/datum/reagent/xenosky/microbes/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
+/datum/reagent/xenoskymicrobes/reaction_mob(var/mob/M, var/method=TOUCH, var/volume)
 	src = null
 	if( (prob(10) && method==TOUCH) || method==INGEST)
 		M.contract_disease(new /datum/disease/transformation/xenosky(0),1)
