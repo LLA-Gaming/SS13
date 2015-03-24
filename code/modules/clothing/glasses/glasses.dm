@@ -5,12 +5,13 @@
 	item_state = "glasses"
 	origin_tech = "magnets=2;engineering=2"
 	vision_flags = SEE_TURFS
-
+	invis_view = SEE_INVISIBLE_MINIMUM
+/*
 /obj/item/clothing/glasses/meson/advanced
 	name = "Advanced Optical Meson Scanner"
 	desc = "More powerful than your standard mesons, these ones make everything appear to be lit extremely brightly."
 	invis_view = SEE_INVISIBLE_MINIMUM
-
+*/
 /obj/item/clothing/glasses/science
 	name = "Science Goggles"
 	desc = "nothing"
