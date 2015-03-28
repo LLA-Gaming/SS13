@@ -128,7 +128,7 @@
 				steal_objective.find_target()
 				traitor.objectives += steal_objective
 
-			if(prob(0)) //90% chance to get Escape
+			if(prob(90)) //90% chance to get Escape
 				if (!(locate(/datum/objective/escape) in traitor.objectives))
 					var/datum/objective/escape/escape_objective = new
 					escape_objective.owner = traitor
