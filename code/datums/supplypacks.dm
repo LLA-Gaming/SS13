@@ -282,7 +282,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/clothing/suit/armor/laserproof,
 					/obj/item/clothing/suit/armor/laserproof)		// Only two vests to keep costs down for balance
 	cost = 20
-	containertype = /obj/structure/closet/crate/secure/plasma
+	//Reverts comparatively insecure 'plasma' crate to very secure 'weapon' crate
 	containername = "ablative armor crate"
 
 /////// Weapons: Specialist
@@ -292,6 +292,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/weapon/gun/projectile/shotgun/combat,
 					/obj/item/weapon/gun/projectile/shotgun/combat,
 					/obj/item/weapon/gun/projectile/shotgun/combat)
+	containertype = /obj/structure/closet/crate/secure/gear
 	cost = 20
 	containername = "combat shotgun crate"
 
@@ -300,7 +301,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/weapon/gun/energy/gun,
 					/obj/item/weapon/gun/energy/gun)			// Only two guns to keep costs down
 	cost = 25
-	containertype = /obj/structure/closet/crate/secure/plasma
+	//Reverts comparatively insecure 'plasma' crate to very secure 'weapon' crate
 	containername = "energy gun crate"
 
 /datum/supply_packs/security/armory/eweapons
@@ -579,7 +580,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/weapon/storage/box/beakers,
 					/obj/item/weapon/reagent_containers/glass/bottle/mutagen)
 	cost = 25
-	containertype = /obj/structure/closet/crate/secure/plasma
+	containertype = /obj/structure/closet/crate/secure/weapon //Virus crates hardened vs griff
 	containername = "virus crate"
 	access = access_cmo
 
@@ -612,7 +613,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/weapon/book/manual/ripley_build_and_repair,
 					/obj/item/weapon/circuitboard/mecha/ripley/main, //TEMPORARY due to lack of circuitboard printer
 					/obj/item/weapon/circuitboard/mecha/ripley/peripherals) //TEMPORARY due to lack of circuitboard printer
-	cost = 30
+	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "\improper APLU \"Ripley\" circuit crate"
 
@@ -620,7 +621,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Circuit Crate (\"Odysseus\")"
 	contains = list(/obj/item/weapon/circuitboard/mecha/odysseus/peripherals, //TEMPORARY due to lack of circuitboard printer
 					/obj/item/weapon/circuitboard/mecha/odysseus/main) //TEMPORARY due to lack of circuitboard printer
-	cost = 25
+	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "\improper \"Odysseus\" circuit crate"
 
@@ -705,7 +706,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 //////// livestock
 /datum/supply_packs/organic/cow
 	name = "Cow Crate"
-	cost = 30
+	cost = 20
 	containertype = /obj/structure/closet/critter/cow
 	containername = "cow crate"
 
@@ -952,7 +953,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/suit/bluetag,
 					/obj/item/clothing/head/helmet/redtaghelm,
 					/obj/item/clothing/head/helmet/bluetaghelm)
-	cost = 15
+	cost = 10
 	containername = "LaserTag Crate"
 
 /datum/supply_packs/misc/religious_supplies
