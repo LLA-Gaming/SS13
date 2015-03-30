@@ -147,6 +147,12 @@
 
 ///Bomb Subtypes///
 
+/obj/machinery/syndicatebomb/bluespace
+	name = "bluespace bomb"
+	icon_state = "bluespace-bomb"
+	desc = "The space around this device seems to be warping.. best not get too close"
+	payload = /obj/item/weapon/bombcore/bluespace
+
 /obj/machinery/syndicatebomb/training
 	name = "training bomb"
 	icon_state = "training-bomb"
@@ -271,6 +277,49 @@
 
 /obj/item/weapon/bombcore/badmin/explosion/detonate()
 	explosion(get_turf(src),HeavyExplosion,MediumExplosion,LightExplosion, flame_range = Flames)
+
+/obj/item/weapon/bombcore/bluespace
+	name = "bluespace bomb core"
+	desc = "A pulsating mass of crystallized bluespace energy"
+	icon_state = "bsbombcore"
+	origin_tech = "syndicate=6;combat=5;bluespace=5"
+	var/radius = 10
+
+/obj/item/weapon/bombcore/bluespace/detonate()
+	if(adminlog)
+		message_admins(adminlog)
+		log_game(adminlog)
+	var/list/turf/turfs = list()
+	for (var/turf/T in block(locate(10,10,1),locate(245,245,1))) // Get most turfs on Z = 1, leaving a gap before the edge.
+		turfs += T
+	var/list/stuff = orange(radius, get_turf(src))
+	for (var/atom/movable/A in stuff)
+		if(A.anchored && istype(A, /obj/machinery)) continue
+		if(istype(A, /obj/structure/disposalpipe )) continue
+		if(istype(A, /obj/structure/cable )) continue
+		var/turf/newloc = pick(turfs) //I don't feel the need to safepick here because Z = 1 being empty *should* never happen. Sends everything to its own random new location
+		if (!A.Move(newloc))
+			A.loc = newloc
+
+		playsound(newloc, 'sound/effects/phasein.ogg', 100, 1)
+
+		spawn()
+			if(ismob(A))
+				var/mob/M = A
+				if(M.client)
+					var/obj/blueeffect = new /obj(src)
+					blueeffect.screen_loc = "WEST,SOUTH to EAST,NORTH"
+					blueeffect.icon = 'icons/effects/effects.dmi'
+					blueeffect.icon_state = "shieldsparkles"
+					blueeffect.layer = 17
+					blueeffect.mouse_opacity = 0
+					M.client.screen += blueeffect
+					sleep(20)
+					M.client.screen -= blueeffect
+					qdel(blueeffect)
+	world << "DEBUG: DETONATING CORE"
+	explosion(get_turf(src),1,2,4, flame_range = 0)
+	qdel(src)
 
 ///Syndicate Detonator (aka the big red button)///
 

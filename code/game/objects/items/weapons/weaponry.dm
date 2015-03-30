@@ -92,7 +92,7 @@
 /obj/item/weapon/katana/IsShield()
 		return 1
 
-obj/item/weapon/wirerod
+/obj/item/weapon/wirerod
 	name = "wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
 	icon_state = "wiredrod"
@@ -104,7 +104,7 @@ obj/item/weapon/wirerod
 	m_amt = 1875
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
-obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
+/obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 	..()
 	if(istype(I, /obj/item/weapon/shard))
 		var/obj/item/weapon/twohanded/spear/S = new /obj/item/weapon/twohanded/spear
@@ -127,3 +127,39 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"
 		qdel(I)
 		qdel(src)
+
+/obj/item/weapon/plasmafireblade
+	name = "plasma blade"
+	desc = "A Syndicate weapon created by Cybersun Industries, the blade is made of plasma and the hilt has been equipped with a built on igniter."
+	icon_state = "plasmasword"
+	item_state = "plasmasword"
+	flags = CONDUCT
+	slot_flags = SLOT_BELT
+	force = 15
+	throwforce = 10
+	w_class = 3
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	var/weapon_mode = 0 // 0 = off, 1 = on
+
+/obj/item/weapon/plasmafireblade/attack_self(mob/user)
+	if (weapon_mode)
+		weapon_mode = 0
+		icon_state = "plasmasword"
+		force = 15
+		damtype = "brute"
+		hitsound = 'sound/weapons/bladeslice.ogg'
+	else
+		weapon_mode = 1
+		icon_state = "plasmasword_on"
+		force = 25
+		damtype = "fire"
+		hitsound = 'sound/weapons/sear.ogg'
+	item_state = icon_state
+
+/obj/item/weapon/plasmafireblade/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
+	if (!(M.on_fire))
+		M.on_fire = 1
+		M.AddLuminosity(3)
+		M.update_fire()
+	..()
+
