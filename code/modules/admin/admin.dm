@@ -464,6 +464,8 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsfun=goblob'>Spawn blob</A><BR>
 			<A href='?src=\ref[src];secretsfun=aliens'>Trigger an Alien infestation</A><BR>
 			<A href='?src=\ref[src];secretsfun=alien_silent'>Spawn an Alien silently</A><BR>
+			<A href='?src=\ref[src];secretsfun=aliens_beepsky'>Trigger an Xenosky infestation</A><BR>
+			<A href='?src=\ref[src];secretsfun=alien_beepsky_silent'>Spawn an Xenosky silently</A><BR>
 			<A href='?src=\ref[src];secretsfun=spiders'>Trigger a Spider infestation</A><BR>
 			<A href='?src=\ref[src];secretsfun=spaceninja'>Send in a space ninja</A><BR>
 			<A href='?src=\ref[src];secretsfun=carp'>Trigger an Carp migration</A><BR>

@@ -1,9 +1,11 @@
 /mob/living/carbon/alien/say_understands(var/other)
-	if (istype(other, /mob/living/carbon/alien))
+	if (istype(other, /mob/living/carbon/alien) && !(istype(other, /mob/living/carbon/alien/beepsky)))
 		return 1
 	return ..()
 
-/mob/living/carbon/alien/say(var/message)
+/mob/living/carbon/alien/say(var/message, var/bubble_type)
+	if (bubble_type == "B")
+		return ..(message, "A") //For bypassing xeno speech for beepsky xenos
 
 	if (silent)
 		return

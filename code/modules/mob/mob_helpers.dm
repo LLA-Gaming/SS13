@@ -28,10 +28,14 @@
 /proc/isalienadult(A)
 	if(istype(A, /mob/living/carbon/alien/humanoid))
 		return 1
+	if(istype(A, /mob/living/carbon/alien/beepsky/humanoid))
+		return 1
 	return 0
 
 /proc/islarva(A)
 	if(istype(A, /mob/living/carbon/alien/larva))
+		return 1
+	if(istype(A, /mob/living/carbon/alien/beepsky/larva))
 		return 1
 	return 0
 
