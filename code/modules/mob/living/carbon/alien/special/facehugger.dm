@@ -45,6 +45,7 @@ var/const/MAX_ACTIVE_TIME = 400
 
 /obj/item/clothing/mask/facehugger/examine()
 	..()
+	if(istype(src, /obj/item/clothing/mask/facehugger/beepsky)) return //Another, semi-hacky way of just skipping the proc.
 	switch(stat)
 		if(DEAD,UNCONSCIOUS)
 			usr.send_text_to_tab("\red \b [src] is not moving.", "ic")
