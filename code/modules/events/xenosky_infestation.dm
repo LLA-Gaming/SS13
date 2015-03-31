@@ -1,7 +1,7 @@
 /datum/round_event_control/xenosky_infestation
 	name = "Xenosky Infestation"
 	typepath = /datum/round_event/xenosky_infestation
-	weight = 5
+	weight = 0
 	max_occurrences = 1
 
 /datum/round_event/xenosky_infestation
