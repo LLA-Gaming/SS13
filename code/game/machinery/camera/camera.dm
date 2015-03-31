@@ -112,8 +112,10 @@
 		return
 	user.electrocute_act(10, src)
 
-/obj/machinery/camera/attack_paw(mob/living/carbon/alien/humanoid/user as mob)
+/obj/machinery/camera/attack_paw(mob/living/carbon/alien/user as mob)
 	if(!istype(user))
+		return
+	if(!(istype(user, /mob/living/carbon/alien/humanoid/) || istype(user, /mob/living/carbon/alien/beepsky/humanoid)))
 		return
 	//user.do_attack_animation(src)
 	status = 0
