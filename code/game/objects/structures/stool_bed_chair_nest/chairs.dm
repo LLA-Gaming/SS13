@@ -74,6 +74,10 @@
 	buckle_mob(M, user)
 	return
 
+/obj/structure/stool/bed/chair/AltClick(var/mob/user)
+	if(!Adjacent(user)) return // Adjacent check
+	rotate()
+
 // Chair types
 /obj/structure/stool/bed/chair/wood/normal
 	icon_state = "wooden_chair"

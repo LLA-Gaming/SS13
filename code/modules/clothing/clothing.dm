@@ -345,6 +345,10 @@ atom/proc/generate_bangs(index,t_color,icon)
 	usr.update_inv_w_uniform()
 	..()
 
+/obj/item/clothing/under/AltClick(var/mob/user)
+	if(!Adjacent(user)) return // Adjacent check
+	rolldown()
+
 /obj/item/clothing/under/verb/removetie()
 	set name = "Remove Accessory"
 	set category = "Object"

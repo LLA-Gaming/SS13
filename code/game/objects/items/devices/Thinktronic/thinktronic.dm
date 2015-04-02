@@ -319,6 +319,10 @@ var/global/thinktronic_device_count = 0
 			id.loc = get_turf(src)
 		id = null
 
+/obj/item/device/thinktronic/AltClick(var/mob/user)
+	if(!Adjacent(user)) return // Adjacent check
+	remove_id()
+
 /obj/item/device/thinktronic/proc/id_check(mob/user as mob, choice as num)//To check for IDs; 1 for in-pda use, 2 for out of pda use.
 	if(choice == 1)
 		if (id)

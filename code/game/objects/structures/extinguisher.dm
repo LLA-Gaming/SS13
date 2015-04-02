@@ -24,6 +24,10 @@
 		opened = !opened
 	update_icon()
 
+/obj/structure/extinguisher_cabinet/AltClick(var/mob/user)
+	if(!Adjacent(user)) return // Adjacent check
+	opened = !opened
+	update_icon()
 
 /obj/structure/extinguisher_cabinet/attack_hand(mob/user)
 	if(isrobot(user) || isalien(user))

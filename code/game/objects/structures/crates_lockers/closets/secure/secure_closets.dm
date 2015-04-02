@@ -59,6 +59,10 @@
 		return 1
 	return 0
 
+/obj/structure/closet/secure_closet/AltClick(var/mob/user)
+	if(!Adjacent(user)) return // Adjacent check
+	togglelock(user)
+
 /obj/structure/closet/secure_closet/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if(!src.opened && src.broken)

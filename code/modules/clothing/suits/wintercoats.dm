@@ -29,6 +29,10 @@
 		..()
 		ToggleHood()
 
+	AltClick(var/mob/user)
+		if(!Adjacent(user)) return // Adjacent check
+		togglecoat()
+
 	verb/togglecoat()
 		set name = "Toggle Coat"
 		set category = "Object"
