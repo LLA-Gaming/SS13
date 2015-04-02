@@ -59,6 +59,22 @@
 		user << "\red It's locked!"
 	return
 
+/obj/item/weapon/storage/lockbox/AltClick(var/mob/user)
+	if(!Adjacent(user)) return // Adjacent check
+	if(src.allowed(user))
+		src.locked = !( src.locked )
+		if(src.locked)
+			src.icon_state = src.icon_locked
+			user << "\red You lock the [src.name]!"
+			return
+		else
+			src.icon_state = src.icon_closed
+			user << "\red You unlock the [src.name]!"
+			return
+	else
+		user << "\red Access Denied."
+		return
+
 /obj/item/weapon/storage/lockbox/show_to(mob/user as mob)
 	if(locked)
 		user << "\red It's locked!"
