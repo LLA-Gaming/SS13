@@ -161,3 +161,17 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list ( \
 /obj/item/stack/sheet/cardboard/New(var/loc, var/amount=null)
 		recipes = cardboard_recipes
 		return ..()
+
+/obj/item/stack/sheet/cardboard/attackby(var/obj/item/I, mob/user as mob)
+	..()
+	if(istype(I, /obj/item/stack/rods))
+		var/obj/item/stack/rods/R = I
+		var/obj/item/weapon/picket_sign/S = new /obj/item/weapon/picket_sign
+		R.use(1)
+
+		user.unEquip(src)
+
+		user.put_in_hands(S)
+		user << "<span class='notice'>You attach the cardboard to the top of the rod.</span>"
+
+		qdel(src)
