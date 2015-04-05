@@ -41,7 +41,7 @@
 	name = "ninja shoes"
 	desc = "A pair of running shoes. Excellent for running and even better for smashing skulls."
 	icon_state = "s-ninja"
-	item_state = "secshoes"
+	item_state = "s-ninja"
 	permeability_coefficient = 0.01
 	flags = NOSLIP
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
