@@ -264,6 +264,9 @@
 	add_fingerprint(usr)
 	return
 
+/obj/structure/window/AltClick(var/mob/user)
+	if(!Adjacent(user)) return // Adjacent check
+	revrotate()
 
 /*
 /obj/structure/window/proc/updateSilicate()

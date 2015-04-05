@@ -221,7 +221,6 @@
 
 /*
 	Alt click
-	Unused except for AI
 */
 /mob/proc/AltClickOn(var/atom/A)
 	A.AltClick(src)

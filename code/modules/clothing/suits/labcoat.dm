@@ -27,6 +27,10 @@
 			src.is_toggled = 2
 		usr.update_inv_wear_suit()
 
+	AltClick(var/mob/user)
+		if(!Adjacent(user)) return // Adjacent check
+		togglecoat()
+
 /obj/item/clothing/suit/labcoat/cmo
 	name = "chief medical officer's labcoat"
 	desc = "Bluer than the standard model."

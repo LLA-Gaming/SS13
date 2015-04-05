@@ -80,3 +80,33 @@
 	else
 		..()
 	return
+
+/obj/structure/closet/secure_closet/personal/togglelock(mob/user as mob)
+	if(src.allowed(user))
+		src.locked = !src.locked
+		for(var/mob/O in viewers(user, 3))
+			if((O.client && !( O.blinded )))
+				O << "<span class='notice'>The locker has been [locked ? null : "un"]locked by [user].</span>"
+		if(src.locked)
+			src.icon_state = src.icon_locked
+		else
+			src.icon_state = src.icon_closed
+		return
+	else
+		if (istype(user, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = user
+			if(!H.wear_id)
+				user << "<span class='notice'>Access Denied</span>"
+				return
+			var/obj/item/weapon/card/id/I = H.wear_id.GetID()
+			if(!I || !I.registered_name)
+				user << "<span class='notice'>Access Denied</span>"
+				return
+			if (src.allowed(user) || istype(I) && (src.registered_name == I.registered_name))
+				src.locked = !( src.locked )
+				if(src.locked)	src.icon_state = src.icon_locked
+				else	src.icon_state = src.icon_closed
+			else
+				user << "<span class='notice'>Access Denied</span>"
+				return
+		user << "<span class='notice'>Access Denied</span>"
