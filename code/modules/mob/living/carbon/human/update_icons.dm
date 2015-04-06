@@ -229,10 +229,18 @@ Please contact me on #coderbus IRC. ~Carnie x
 		standing	+= img_eyes_s
 
 	//Underwear
+	if(socks)
+		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
+		if(U3)
+			standing	+= image("icon"=U3.icon, "icon_state"="[U3.icon_state]_s", "layer"=-BODY_LAYER)
+
 	if(underwear)
 		var/datum/sprite_accessory/underwear/U = underwear_all[underwear]
 		if(U)
-			standing	+= image("icon"=U.icon, "icon_state"="[U.icon_state]_s", "layer"=-BODY_LAYER)
+			if(gender == FEMALE)
+				standing	+=	wear_female_version(U.icon_state, U.icon, BODY_LAYER)
+			else
+				standing	+= image("icon"=U.icon, "icon_state"="[U.icon_state]_s", "layer"=-BODY_LAYER)
 
 	if(undershirt)
 		var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
@@ -241,11 +249,6 @@ Please contact me on #coderbus IRC. ~Carnie x
 				standing	+=	wear_female_version(U2.icon_state, U2.icon, BODY_LAYER)
 			else
 				standing	+= image("icon"=U2.icon, "icon_state"="[U2.icon_state]_s", "layer"=-BODY_LAYER)
-
-	if(socks)
-		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
-		if(U3)
-			standing	+= image("icon"=U3.icon, "icon_state"="[U3.icon_state]_s", "layer"=-BODY_LAYER)
 
 	if(standing.len)
 		overlays_standing[BODY_LAYER]	= standing
