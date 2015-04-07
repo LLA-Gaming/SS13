@@ -199,3 +199,4 @@ obj/effect/proc_holder/changeling/sting/heal/sting_action(var/mob/user, var/mob/
 			sleep(10)
 	feedback_add_details("changeling_powers","SRS")
 	return 1
+	
