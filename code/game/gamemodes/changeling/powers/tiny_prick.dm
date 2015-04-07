@@ -179,3 +179,23 @@ obj/effect/proc_holder/changeling/sting/cryo
 		target.reagents.add_reagent("ice", 30)
 	feedback_add_details("changeling_powers","CS")
 	return 1
+
+/obj/effect/proc_holder/changeling/sting/heal
+	name = "Healing Sting"
+	desc = "We sting a target to heal it."
+	helptext = "Heals the target slowly over time. Provides a warning to the target."
+	sting_icon = "sting_heal"
+	chemical_cost = 40
+	dna_cost = 1
+
+obj/effect/proc_holder/changeling/sting/heal/sting_action(var/mob/user, var/mob/living/carbon/target)
+	add_logs(user, target, "stung", object="healing sting")
+	target << "You feel a tiny prick."
+	spawn(0)
+		for(var/i = 0, i<25,i++)
+			target.adjustBruteLoss(-4)
+			target.adjustOxyLoss(-4)
+			target.adjustFireLoss(-4)
+			sleep(10)
+	feedback_add_details("changeling_powers","SRS")
+	return 1
