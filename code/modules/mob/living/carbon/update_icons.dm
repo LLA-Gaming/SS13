@@ -27,8 +27,8 @@
 		floating = 0  // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
 /mob/living/carbon/proc/GetHeldIconFile(var/direction = "right", var/iconstate)
-	var/list/righthand_icons = list('icons/mob/items_righthand.dmi', 'icons/mob/items_righthand2.dmi')
-	var/list/lefthand_icons = list('icons/mob/items_lefthand.dmi', 'icons/mob/items_lefthand2.dmi')
+	var/list/righthand_icons = list('icons/mob/inhands/items_righthand.dmi', 'icons/mob/inhands/clothing_righthand.dmi', 'icons/mob/inhands/weapons_righthand.dmi')
+	var/list/lefthand_icons = list('icons/mob/inhands/items_lefthand.dmi', 'icons/mob/inhands/clothing_lefthand.dmi', 'icons/mob/inhands/weapons_lefthand.dmi')
 
 	switch(direction)
 		if("right")
