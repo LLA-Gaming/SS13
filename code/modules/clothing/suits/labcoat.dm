@@ -29,6 +29,7 @@
 
 	AltClick(var/mob/user)
 		if(!Adjacent(user)) return // Adjacent check
+		if(user.stat || user.restrained() || user.paralysis || user.stunned || user.weakened) return
 		togglecoat()
 
 /obj/item/clothing/suit/labcoat/cmo

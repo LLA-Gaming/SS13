@@ -61,6 +61,7 @@
 
 /obj/item/weapon/storage/lockbox/AltClick(var/mob/user)
 	if(!Adjacent(user)) return // Adjacent check
+	if(user.stat || user.restrained() || user.paralysis || user.stunned || user.weakened) return
 	if(src.allowed(user))
 		src.locked = !( src.locked )
 		if(src.locked)

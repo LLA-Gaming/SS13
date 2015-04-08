@@ -26,6 +26,7 @@
 
 /obj/structure/extinguisher_cabinet/AltClick(var/mob/user)
 	if(!Adjacent(user)) return // Adjacent check
+	if(user.stat || user.restrained() || user.paralysis || user.stunned || user.weakened) return
 	opened = !opened
 	update_icon()
 
