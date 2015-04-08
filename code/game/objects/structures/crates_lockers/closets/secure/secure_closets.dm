@@ -61,6 +61,7 @@
 
 /obj/structure/closet/secure_closet/AltClick(var/mob/user)
 	if(!Adjacent(user)) return // Adjacent check
+	if(user.stat || user.restrained() || user.paralysis || user.stunned || user.weakened) return
 	if(!src.opened)
 		togglelock(user)
 	if(src.opened)
