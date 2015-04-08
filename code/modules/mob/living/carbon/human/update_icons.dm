@@ -595,16 +595,13 @@ Please contact me on #coderbus IRC. ~Carnie x
 
 	apply_overlay(HANDCUFF_LAYER)
 
-
 /mob/living/carbon/human/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
 
 	if(legcuffed)
-		overlays_standing[LEGCUFF_LAYER]	= image("icon"='icons/mob/mob.dmi', "icon_state"="legcuff1", "layer"=-LEGCUFF_LAYER)
+		overlays_standing[LEGCUFF_LAYER] = image("icon"='icons/mob/mob.dmi', "icon_state"="legcuff1", "layer"=-LEGCUFF_LAYER)
 
 	apply_overlay(LEGCUFF_LAYER)
-
-
 
 /mob/living/carbon/human/update_inv_r_hand()
 	remove_overlay(R_HAND_LAYER)
@@ -619,11 +616,9 @@ Please contact me on #coderbus IRC. ~Carnie x
 		var/t_state = r_hand.item_state
 		if(!t_state)	t_state = r_hand.icon_state
 
-		overlays_standing[R_HAND_LAYER] = image("icon"='icons/mob/items_righthand.dmi', "icon_state"="[t_state]", "layer"=-R_HAND_LAYER)
+		overlays_standing[R_HAND_LAYER] = image("icon" = GetHeldIconFile("right", t_state), "icon_state"="[t_state]", "layer"=-R_HAND_LAYER)
 
 	apply_overlay(R_HAND_LAYER)
-
-
 
 /mob/living/carbon/human/update_inv_l_hand()
 	remove_overlay(L_HAND_LAYER)
@@ -638,7 +633,7 @@ Please contact me on #coderbus IRC. ~Carnie x
 		var/t_state = l_hand.item_state
 		if(!t_state)	t_state = l_hand.icon_state
 
-		overlays_standing[L_HAND_LAYER] = image("icon"='icons/mob/items_lefthand.dmi', "icon_state"="[t_state]", "layer"=-L_HAND_LAYER)
+		overlays_standing[L_HAND_LAYER] = image("icon" = GetHeldIconFile("left", t_state), "icon_state"="[t_state]", "layer"=-L_HAND_LAYER)
 
 	apply_overlay(L_HAND_LAYER)
 
