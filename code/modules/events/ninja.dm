@@ -399,7 +399,8 @@ ________________________________________________________________________________
 	if(X)//If you want to check for icons.
 		icon_state = U.gender==FEMALE ? "s-ninjanf" : "s-ninjan"
 		U:gloves.icon_state = "s-ninjan"
-		U:gloves.item_state = "s-ninjan"
+		U:shoes.icon_state = "s-ninjan"
+		U:wear_mask.icon_state = "s-ninjan"
 	else
 		if(U.mind.special_role!="Space Ninja")
 			U << "\red <B>fÄTaL ÈÈRRoR</B>: 382200-*#00CÖDE <B>RED</B>\nUNAU†HORIZED USÈ DETÈC†††eD\nCoMMÈNCING SUB-R0U†IN3 13...\nTÈRMInATING U-U-USÈR..."
@@ -425,6 +426,7 @@ ________________________________________________________________________________
 		n_shoes.slowdown--
 		n_gloves = U:gloves
 		n_gloves.flags |= NODROP
+		n_mask = U:wear_mask
 
 	return 1
 
@@ -437,14 +439,16 @@ ________________________________________________________________________________
 	if(n_hood)//Should be attached, might not be attached.
 		n_hood.flags &= ~NODROP
 	if(n_shoes)
+		n_shoes.icon_state = "s-ninja"
 		n_shoes.flags &= ~NODROP
 		n_shoes.slowdown++
 	if(n_gloves)
 		n_gloves.icon_state = "s-ninja"
-		n_gloves.item_state = "s-ninja"
 		n_gloves.flags &= ~NODROP
 		n_gloves.candrain=0
 		n_gloves.draining=0
+	if(n_mask)
+		n_mask.icon_state = "s-ninja"
 
 //Allows the mob to grab a stealth icon.
 /mob/proc/NinjaStealthActive(atom/A)//A is the atom which we are using as the overlay.
@@ -543,6 +547,12 @@ ________________________________________________________________________________
 		n_gloves.candrain = 0
 		n_gloves.draining = 0
 		n_gloves.verbs -= /obj/item/clothing/gloves/space_ninja/proc/toggled
+	if(n_mask)
+		n_mask.icon_state = "s-ninjak"
+		n_mask.item_state = "s-ninjak"
+	if(n_shoes)
+		n_shoes.icon_state = "s-ninjak"
+		n_shoes.item_state = "s-ninjak"
 
 	cancel_stealth()
 
@@ -1389,6 +1399,7 @@ ________________________________________________________________________________
 //Simply deletes all the attachments and self, killing all related procs.
 /obj/item/clothing/suit/space/space_ninja/proc/terminate()
 	qdel(n_hood)
+	qdel(n_mask)
 	qdel(n_gloves)
 	qdel(n_shoes)
 	qdel(src)
