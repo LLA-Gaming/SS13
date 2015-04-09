@@ -63,7 +63,7 @@ datum/objective/assassinate/update_explanation_text()
 		if (objective_selector == 1)
 			explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]. Try to do it in an elaborate and creative way."
 		if (objective_selector == 2)
-			explanation_text = "Publicly execute [target.current.real_name] the [!target_role_type ? target.assigned_role : target.special_role]. You are encouraged to make sure there are as many witnesses as possible and to attempt to destroy the body."
+			explanation_text = "Execute [target.current.real_name] the [!target_role_type ? target.assigned_role : target.special_role]. You are encouraged to make sure there are as many witnesses as possible and to attempt to destroy the body."
 		if (objective_selector == 3)
 			explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]. Your employer suggests befriending him, then killing him when he least expects it."
 		if (objective_selector == 4)
