@@ -59,17 +59,17 @@ datum/objective/assassinate/update_explanation_text()
 			objective_selector = rand(0,5)
 		//Pregenerated list of objective flavors. Highly modular.
 		if (objective_selector == 0)
-			explanation_text = "Murder [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role] with his/her own job equipment. Prepare a witty one-liner to accompany the act"
+			explanation_text = "Murder [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]. Try to do it with his/her own job equipment, and prepare a witty one-liner to accompany the act."
 		if (objective_selector == 1)
-			explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role] in an elaborate and creative way. Aim for maximum style points."
+			explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]. Try to do it in an elaborate and creative way."
 		if (objective_selector == 2)
-			explanation_text = "Publicly execute [target.current.real_name] the [!target_role_type ? target.assigned_role : target.special_role] and destroy the body. Make sure there are as many witnesses as possible."
+			explanation_text = "Publicly execute [target.current.real_name] the [!target_role_type ? target.assigned_role : target.special_role]. You are encouraged to make sure there are as many witnesses as possible and to attempt to destroy the body."
 		if (objective_selector == 3)
-			explanation_text = "Befriend [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role], then kill him when he least expects it."
+			explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]. Your employer suggests befriending him, then killing him when he least expects it."
 		if (objective_selector == 4)
 			explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]."
 		if (objective_selector == 5)
-			explanation_text = "Stealth-kill [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]. Ensure that there is no evidence; The scene should look like nothing ever happened."
+			explanation_text = "The Mafia has called in a favor; you must kill [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]. They won't be able to control the local authorities, so the Don suggested you do it 'real quiet like'"
 	else
 		explanation_text = "Free Objective"
 
@@ -96,7 +96,24 @@ datum/objective/mutiny/check_completion()
 datum/objective/mutiny/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]."
+		var/objective_selector = rand(0,5) //Used to select objective flavor. Should run once for every relevant objective
+		var/objective_selector_copy = objective_selector
+		while (objective_selector == objective_selector_copy) //Doubles randomization to prevent duplicate flavors; You shouldn't get two 4s in a row.
+			objective_selector_copy = objective_selector
+			objective_selector = rand(0,5)
+		//Pregenerated list of objective flavors. Highly modular.
+		if (objective_selector == 0)
+			explanation_text = "[target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role] has abused his workers for far too long. Show him the fury of an enraged worker. VIVA!"
+		if (objective_selector == 1)
+			explanation_text = "For too long [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role] has lorded his superiority over you! Destroy him! VIVA!"
+		if (objective_selector == 2)
+			explanation_text = "The tree of progress must be watered with the blood of counterrevolutionaries; [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]'s blood will suffice. VIVA!"
+		if (objective_selector == 3)
+			explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]"
+		if (objective_selector == 4)
+			explanation_text = "Kill [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]! Glory to the revolution!"
+		if (objective_selector == 5)
+			explanation_text = "Follow in the footsteps of the great revolutionary Josef Stalin! Kill [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role] and seize control of your destiny! We will be heroes!"
 	else
 		explanation_text = "Free Objective"
 
@@ -291,15 +308,15 @@ datum/objective/steal/proc/set_target(var/datum/objective_item/item)
 	if (objective_selector == 0)
 		explanation_text = "Steal [targetinfo.name]."
 	if (objective_selector == 1)
-		explanation_text = "Seize control of [targetinfo.name]. Do it loudly; We want to send a message."
+		explanation_text = "Seize control of [targetinfo.name]. Your contact recommended doing it loudly; the attention will provide cover for other operatives."
 	if (objective_selector == 2)
-		explanation_text = "'Borrow' [targetinfo.name]. We'll return it when we're done, honest."
+		explanation_text = "The Mafia is calling in a favor. You must steal [targetinfo.name], they don't care how."
 	if (objective_selector == 3)
-		explanation_text = "Procure [targetinfo.name]. Keep it quiet; make sure nobody knows."
+		explanation_text = "Procure [targetinfo.name]. Your contact recommended keeping it quiet; You're can't collect that paycheck if you're dead."
 	if (objective_selector == 4)
 		explanation_text = "Steal [targetinfo.name]. If possible, use it to create as much chaos as you can."
 	if (objective_selector == 5)
-		explanation_text = "Break in and grab [targetinfo.name]. Sabotage a nearby area of the station to create a distraction."
+		explanation_text = "Grab [targetinfo.name]. It may be a good idea to sabotage a nearby area of the station to create a distraction."
 	dangerrating = targetinfo.difficulty
 	return steal_target
 
