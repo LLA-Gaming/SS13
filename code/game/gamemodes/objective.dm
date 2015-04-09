@@ -33,8 +33,6 @@ datum/objective/proc/find_target_by_role(role, role_type=0)//Option sets either 
 datum/objective/proc/update_explanation_text()
 	//Default does nothing, override where needed
 
-
-
 datum/objective/assassinate
 	var/target_role_type=0
 	dangerrating = 10
@@ -54,7 +52,24 @@ datum/objective/assassinate/check_completion()
 datum/objective/assassinate/update_explanation_text()
 	..()
 	if(target && target.current)
-		explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]."
+		var/objective_selector = rand(0,5) //Used to select objective flavor. Should run once for every relevant objective
+		var/objective_selector_copy = objective_selector
+		while (objective_selector == objective_selector_copy) //Doubles randomization to prevent duplicate flavors; You shouldn't get two 4s in a row.
+			objective_selector_copy = objective_selector
+			objective_selector = rand(0,5)
+		//Pregenerated list of objective flavors. Highly modular.
+		if (objective_selector == 0)
+			explanation_text = "Murder [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role] with his/her own job equipment. Prepare a witty one-liner to accompany the act"
+		if (objective_selector == 1)
+			explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role] in an elaborate and creative way. Aim for maximum style points."
+		if (objective_selector == 2)
+			explanation_text = "Publicly execute [target.current.real_name] the [!target_role_type ? target.assigned_role : target.special_role] and destroy the body. Make sure there are as many witnesses as possible."
+		if (objective_selector == 3)
+			explanation_text = "Befriend [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role], then kill him when he least expects it."
+		if (objective_selector == 4)
+			explanation_text = "Assassinate [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]."
+		if (objective_selector == 5)
+			explanation_text = "Stealth-kill [target.current.real_name], the [!target_role_type ? target.assigned_role : target.special_role]. Ensure that there is no evidence; The scene should look like nothing ever happened."
 	else
 		explanation_text = "Free Objective"
 
@@ -245,11 +260,8 @@ datum/objective/survive/check_completion()
 		return 0
 	return 1
 
-
-
-datum/objective/nuclear
+datum/objective/nuclear //STANDING. ON THE EDGE. OF THE CRATER.
 	explanation_text = "Destroy the station with a nuclear device."
-
 
 
 var/global/list/possible_items = list()
@@ -257,6 +269,7 @@ datum/objective/steal
 	var/datum/objective_item/targetinfo = null //Save the chosen item datum so we can access it later.
 	var/obj/item/steal_target = null //Needed for custom objectives (they're just items, not datums).
 	dangerrating = 5 //Overridden by the individual item's difficulty, but defaults to 5 for custom objectives.
+
 
 datum/objective/steal/New()
 	..()
@@ -268,9 +281,25 @@ datum/objective/steal/find_target()
 
 datum/objective/steal/proc/set_target(var/datum/objective_item/item)
 	targetinfo = item
-
 	steal_target = targetinfo.targetitem
-	explanation_text = "Steal [targetinfo.name]."
+	var/objective_selector = rand(0,5) //Used to select objective flavor.
+	var/objective_selector_copy = objective_selector
+	while (objective_selector == objective_selector_copy) //Doubles randomization to prevent duplicate flavors; You shouldn't get two 4s in a row.
+		objective_selector_copy = objective_selector
+		objective_selector = rand(0,5)
+	//Pregenerated list of objective flavors. Highly modular.
+	if (objective_selector == 0)
+		explanation_text = "Steal [targetinfo.name]."
+	if (objective_selector == 1)
+		explanation_text = "Seize control of [targetinfo.name]. Do it loudly; We want to send a message."
+	if (objective_selector == 2)
+		explanation_text = "'Borrow' [targetinfo.name]. We'll return it when we're done, honest."
+	if (objective_selector == 3)
+		explanation_text = "Procure [targetinfo.name]. Keep it quiet; make sure nobody knows."
+	if (objective_selector == 4)
+		explanation_text = "Steal [targetinfo.name]. If possible, use it to create as much chaos as you can."
+	if (objective_selector == 5)
+		explanation_text = "Break in and grab [targetinfo.name]. Sabotage a nearby area of the station to create a distraction."
 	dangerrating = targetinfo.difficulty
 	return steal_target
 
