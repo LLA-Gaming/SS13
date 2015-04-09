@@ -1,3 +1,5 @@
+//Closets can only contain 30 items. Please be careful not to overfill them! (looking at you seclocker)
+
 /obj/structure/closet/wardrobe
 	name = "wardrobe"
 	desc = "It's a storage closet for standard-issue Nanotrasen attire."
@@ -32,17 +34,21 @@
 	new /obj/item/clothing/head/beret/sec(src)
 	new /obj/item/clothing/head/beret/sec(src)
 	new /obj/item/clothing/head/beret/sec(src)
+	new /obj/item/clothing/head/beret/sec/navyofficer(src)
+	new /obj/item/clothing/head/beret/sec/navyofficer(src)
+	new /obj/item/clothing/head/beret/sec/navyofficer(src)
+	new /obj/item/clothing/suit/armor/vest/jacket(src)
 	if(prob(30))
 		new /obj/item/clothing/suit/armor/vest/jacket(src)
-	if(prob(30))
-		new /obj/item/clothing/suit/armor/vest/jacket(src)
-	if(prob(30))
-		new /obj/item/clothing/under/camo(src)
+	new /obj/item/clothing/under/camo(src)
 	if(prob(30))
 		new /obj/item/clothing/under/camo(src)
 	new /obj/item/clothing/under/rank/security(src)
 	new /obj/item/clothing/under/rank/security(src)
 	new /obj/item/clothing/under/rank/security(src)
+	new /obj/item/clothing/under/rank/security/navyblue(src)
+	new /obj/item/clothing/under/rank/security/navyblue(src)
+	new /obj/item/clothing/under/rank/security/navyblue(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/shoes/jackboots(src)
@@ -61,9 +67,11 @@
 	new /obj/item/clothing/under/camo(src)
 	new /obj/item/clothing/suit/armor/vest/jacket(src)
 	new /obj/item/clothing/head/beret/sec(src)
+	new /obj/item/clothing/head/beret/sec/navyhos(src)
 	new /obj/item/clothing/under/hosformalfem(src)
 	new /obj/item/clothing/under/hosformalmale(src)
 	new /obj/item/clothing/under/rank/head_of_security/jensen(src)
+	new /obj/item/clothing/under/rank/head_of_security/navyblue(src)
 	return
 
 /obj/structure/closet/wardrobe/pink

@@ -1,8 +1,13 @@
 /proc/getbrokeninhands()
-	var/icon/IL = new('icons/mob/items_lefthand.dmi')
-	var/list/Lstates = IL.IconStates()
-	var/icon/IR = new('icons/mob/items_righthand.dmi')
-	var/list/Rstates = IR.IconStates()
+	var/list/righthand_icons = list('icons/mob/inhands/items_righthand.dmi', 'icons/mob/inhands/clothing_righthand.dmi', 'icons/mob/inhands/weapons_righthand.dmi')
+	var/list/lefthand_icons = list('icons/mob/inhands/items_lefthand.dmi', 'icons/mob/inhands/clothing_lefthand.dmi', 'icons/mob/inhands/weapons_lefthand.dmi')
+	var/list/Lstates
+	var/list/Rstates
+	for(var/icon/I in lefthand_icons)
+		Lstates.Add(I.IconStates())
+	for(var/icon/I in righthand_icons)
+		Rstates.Add(I.IconStates())
+
 
 
 	var/text

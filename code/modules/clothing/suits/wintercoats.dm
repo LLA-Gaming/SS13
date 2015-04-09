@@ -29,6 +29,11 @@
 		..()
 		ToggleHood()
 
+	AltClick(var/mob/user)
+		if(!Adjacent(user)) return // Adjacent check
+		if(user.stat || user.restrained() || user.paralysis || user.stunned || user.weakened) return
+		togglecoat()
+
 	verb/togglecoat()
 		set name = "Toggle Coat"
 		set category = "Object"

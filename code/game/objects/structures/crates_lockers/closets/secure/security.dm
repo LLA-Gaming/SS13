@@ -108,10 +108,7 @@
 		..()
 		sleep(2)
 		new /obj/item/clothing/suit/wintercoat/security(src)
-		if(prob(35))
-			new /obj/item/clothing/suit/armor/vest/jacket(src)
-		else
-			new /obj/item/clothing/suit/armor/vest(src)
+		new /obj/item/clothing/suit/armor/vest/jacket(src)
 		new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/clothing/under/rank/warden(src)
 		new /obj/item/clothing/head/beret/sec(src)
@@ -131,6 +128,8 @@
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/weapon/storage/belt/security(src)
 		new /obj/item/weapon/clipboard(src)
+		new /obj/item/clothing/under/rank/warden/navyblue(src)
+		new /obj/item/clothing/head/beret/sec/navywarden(src)
 		return
 
 
@@ -158,6 +157,8 @@
 		new /obj/item/weapon/storage/backpack/dufflebag/sec(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
+		new /obj/item/clothing/under/rank/security/navyblue(src)
+		new /obj/item/clothing/head/beret/sec/navyofficer(src)
 		return
 
 

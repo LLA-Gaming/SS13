@@ -806,9 +806,9 @@
 	vend_reply = "Thank you for using the Clothe-O-Mat!"
 	products = list(/obj/item/clothing/mask/fakemoustache = 3,/obj/item/clothing/head/collectable/tophat = 3,/obj/item/clothing/glasses/monocle = 2,
 					/obj/item/clothing/under/suit_jacket/navy = 3,/obj/item/clothing/under/kilt = 1,/obj/item/clothing/under/overalls = 3,
-					/obj/item/clothing/under/suit_jacket/really_black = 3,/obj/item/clothing/under/jeans = 5,/obj/item/clothing/under/camo = 2,
+					/obj/item/clothing/under/suit_jacket/really_black = 3,/obj/item/clothing/under/jeans = 3,/obj/item/clothing/under/khaki = 3,/obj/item/clothing/under/trackpants = 3,/obj/item/clothing/under/camo = 2,
 					/obj/item/clothing/tie/waistcoat = 3,/obj/item/clothing/under/sundress = 4,/obj/item/clothing/under/blacktango = 2,
-					/obj/item/clothing/head/maidbow = 1,/obj/item/clothing/under/janimaid = 1,/obj/item/clothing/suit/labcoat/jacket/varsity = 3,/obj/item/clothing/suit/labcoat/jacket = 5,
+					/obj/item/clothing/head/maidbow = 1,/obj/item/clothing/under/maid = 1,/obj/item/clothing/under/janimaid = 1,/obj/item/clothing/suit/labcoat/jacket/varsity = 3,/obj/item/clothing/suit/labcoat/jacket = 5,
 					/obj/item/clothing/glasses/regular = 3,/obj/item/clothing/head/sombrero = 2,/obj/item/clothing/suit/poncho = 2,/obj/item/clothing/head/paddyhat = 1,
 					/obj/item/clothing/shoes/laceup = 3,/obj/item/clothing/shoes/sneakers/black = 6, /obj/item/clothing/shoes/sandal = 2,
 					/obj/item/weapon/storage/belt/fannypack=1, /obj/item/weapon/storage/belt/fannypack/blue=1, /obj/item/weapon/storage/belt/fannypack/red=1)

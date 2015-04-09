@@ -110,6 +110,11 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	src.dir = turn(src.dir, 90)
 	return 1
 
+/obj/machinery/particle_accelerator/AltClick(var/mob/user)
+	if(!Adjacent(user)) return // Adjacent check
+	if(user.stat || user.restrained() || user.paralysis || user.stunned || user.weakened) return
+	rotate()
+
 /obj/structure/particle_accelerator/examine()
 	switch(src.construction_state)
 		if(0)

@@ -229,10 +229,18 @@ Please contact me on #coderbus IRC. ~Carnie x
 		standing	+= img_eyes_s
 
 	//Underwear
+	if(socks)
+		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
+		if(U3)
+			standing	+= image("icon"=U3.icon, "icon_state"="[U3.icon_state]_s", "layer"=-BODY_LAYER)
+
 	if(underwear)
 		var/datum/sprite_accessory/underwear/U = underwear_all[underwear]
 		if(U)
-			standing	+= image("icon"=U.icon, "icon_state"="[U.icon_state]_s", "layer"=-BODY_LAYER)
+			if(gender == FEMALE)
+				standing	+=	wear_female_version(U.icon_state, U.icon, BODY_LAYER)
+			else
+				standing	+= image("icon"=U.icon, "icon_state"="[U.icon_state]_s", "layer"=-BODY_LAYER)
 
 	if(undershirt)
 		var/datum/sprite_accessory/undershirt/U2 = undershirt_list[undershirt]
@@ -241,11 +249,6 @@ Please contact me on #coderbus IRC. ~Carnie x
 				standing	+=	wear_female_version(U2.icon_state, U2.icon, BODY_LAYER)
 			else
 				standing	+= image("icon"=U2.icon, "icon_state"="[U2.icon_state]_s", "layer"=-BODY_LAYER)
-
-	if(socks)
-		var/datum/sprite_accessory/socks/U3 = socks_list[socks]
-		if(U3)
-			standing	+= image("icon"=U3.icon, "icon_state"="[U3.icon_state]_s", "layer"=-BODY_LAYER)
 
 	if(standing.len)
 		overlays_standing[BODY_LAYER]	= standing
@@ -595,16 +598,13 @@ Please contact me on #coderbus IRC. ~Carnie x
 
 	apply_overlay(HANDCUFF_LAYER)
 
-
 /mob/living/carbon/human/update_inv_legcuffed()
 	remove_overlay(LEGCUFF_LAYER)
 
 	if(legcuffed)
-		overlays_standing[LEGCUFF_LAYER]	= image("icon"='icons/mob/mob.dmi', "icon_state"="legcuff1", "layer"=-LEGCUFF_LAYER)
+		overlays_standing[LEGCUFF_LAYER] = image("icon"='icons/mob/mob.dmi', "icon_state"="legcuff1", "layer"=-LEGCUFF_LAYER)
 
 	apply_overlay(LEGCUFF_LAYER)
-
-
 
 /mob/living/carbon/human/update_inv_r_hand()
 	remove_overlay(R_HAND_LAYER)
@@ -619,11 +619,9 @@ Please contact me on #coderbus IRC. ~Carnie x
 		var/t_state = r_hand.item_state
 		if(!t_state)	t_state = r_hand.icon_state
 
-		overlays_standing[R_HAND_LAYER] = image("icon"='icons/mob/items_righthand.dmi', "icon_state"="[t_state]", "layer"=-R_HAND_LAYER)
+		overlays_standing[R_HAND_LAYER] = image("icon" = GetHeldIconFile("right", t_state), "icon_state"="[t_state]", "layer"=-R_HAND_LAYER)
 
 	apply_overlay(R_HAND_LAYER)
-
-
 
 /mob/living/carbon/human/update_inv_l_hand()
 	remove_overlay(L_HAND_LAYER)
@@ -638,7 +636,7 @@ Please contact me on #coderbus IRC. ~Carnie x
 		var/t_state = l_hand.item_state
 		if(!t_state)	t_state = l_hand.icon_state
 
-		overlays_standing[L_HAND_LAYER] = image("icon"='icons/mob/items_lefthand.dmi', "icon_state"="[t_state]", "layer"=-L_HAND_LAYER)
+		overlays_standing[L_HAND_LAYER] = image("icon" = GetHeldIconFile("left", t_state), "icon_state"="[t_state]", "layer"=-L_HAND_LAYER)
 
 	apply_overlay(L_HAND_LAYER)
 

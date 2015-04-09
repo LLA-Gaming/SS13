@@ -865,7 +865,7 @@
 				unjobbanpanel()
 
 	else if(href_list["mute"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_SECONDARYADMIN))	return
 		cmd_admin_mute(href_list["mute"], text2num(href_list["mute_type"]))
 
 	else if(href_list["c_mode"])
@@ -1805,6 +1805,15 @@
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","ALS")
 				create_xeno()
+			if("aliens_beepsky")
+				feedback_inc("admin_secrets_fun_used",1)
+				feedback_add_details("admin_secrets_fun_used","ALB")
+				message_admins("[key_name_admin(usr)] has spawned xenoskys", 1)
+				E = new /datum/round_event/xenosky_infestation()
+			if("alien_beepsky_silent")								//replaces the spawn_xeno verb
+				feedback_inc("admin_secrets_fun_used",1)
+				feedback_add_details("admin_secrets_fun_used","ALBS")
+				create_xenosky()
 			if("spiders")
 				E = new /datum/round_event/spider_infestation()
 				feedback_inc("admin_secrets_fun_used",1)
