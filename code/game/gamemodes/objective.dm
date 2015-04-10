@@ -312,7 +312,7 @@ datum/objective/steal/proc/set_target(var/datum/objective_item/item)
 	if (objective_selector == 2)
 		explanation_text = "The Mafia is calling in a favor. You must steal [targetinfo.name], they don't care how."
 	if (objective_selector == 3)
-		explanation_text = "Procure [targetinfo.name]. Your contact recommended keeping it quiet; You're can't collect that paycheck if you're dead."
+		explanation_text = "Procure [targetinfo.name]. Your contact recommended keeping it quiet; You can't collect that paycheck if you're dead."
 	if (objective_selector == 4)
 		explanation_text = "Steal [targetinfo.name]. If possible, use it to create as much chaos as you can."
 	if (objective_selector == 5)
