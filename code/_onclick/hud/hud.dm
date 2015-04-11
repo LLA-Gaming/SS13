@@ -196,6 +196,9 @@ datum/hud/New(mob/owner)
 		blob_hud()
 	else if(iswerewolf(mymob))
 		werewolf_hud()
+//DronePort - Devon
+	else if(isdrone(mymob))
+		drone_hud(ui_style)
 	if(istype(mymob.loc,/obj/mecha))
 		show_hud(HUD_STYLE_REDUCED)
 
