@@ -9,6 +9,7 @@
 # reflect whatever role they have on the team.                 -LWS  #  
 ######################################################################
 lonewolfsyndrome = Game Master
+an inmate = Game Master
 
 hattrickredeyes = Head of Staff
 rawrtaicho = Head of Staff

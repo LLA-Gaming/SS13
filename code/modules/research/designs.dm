@@ -1948,3 +1948,13 @@ datum/design/magboots
 	build_type = PROTOLATHE
 	materials = list("$metal" = 4500, "$silver" = 1500, "$gold" = 2500)
 	build_path = /obj/item/clothing/shoes/magboots
+
+//DronePort - Devon
+/datum/design/drone_shell
+	name = "Drone Shell"
+	desc = "A shell of a maintenance drone, an expendable robot built to perform station repairs."
+	id = "drone_shell"
+	req_tech = list("programming" = 2, "biotech" = 4)
+	build_type = MECHFAB
+	build_path = /obj/item/drone_shell
+	category = list("Misc")

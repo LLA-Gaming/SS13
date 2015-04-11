@@ -31,8 +31,8 @@
 
 
 /client/Northwest()
-	if(iscarbon(usr))
-		var/mob/living/carbon/C = usr
+	if(iscarbon(usr)||istype(mob, /mob/living/simple_animal/drone))
+		var/mob/C = usr//var/mob/living/carbon/C = usr
 		if(!C.get_active_hand())
 			usr << "\red You have nothing to drop in your hand."
 			return
@@ -52,7 +52,7 @@
 
 /client/verb/swap_hand()
 	set hidden = 1
-	if(istype(mob, /mob/living/carbon))
+	if(istype(mob, /mob/living/carbon)||istype(mob, /mob/living/simple_animal/drone))
 		mob:swap_hand()
 	if(istype(mob,/mob/living/silicon/robot))
 		var/mob/living/silicon/robot/R = mob
