@@ -251,6 +251,25 @@
 		spawn(0)
 			M.take_damage(100, "brute")
 
+/turf/proc/telestun(mob/U = null)//Will stun people/creatures and damage mechs./N
+//Useful to batch-add creatures to the list.
+	for(var/mob/living/M in src)
+		if(M==U)	continue//Will not stun U. Since null != M, can be excluded to stun everyone.
+		spawn(0)
+			M.Weaken(5)
+	for(var/obj/mecha/M in src)//Mecha are not stunned but are damaged.
+		spawn(0)
+			M.take_damage(50, "brute")
+
+/turf/proc/telefrag(mob/U = null)//Will kill people/creatures and damage mechs./N
+//Useful to batch-add creatures to the list.
+	for(var/mob/living/M in src)
+		spawn(0)
+			M.gib()
+	for(var/obj/mecha/M in src)//Mecha are not gibbed but are damaged.
+		spawn(0)
+			M.take_damage(100, "brute")
+
 /turf/proc/Bless()
 	if(flags & NOJAUNT)
 		return
