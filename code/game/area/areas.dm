@@ -86,11 +86,17 @@
 				aiPlayer.triggerAlarm("Atmosphere", src, cameras, src)
 			for(var/obj/machinery/computer/station_alert/a in machines)
 				a.triggerAlarm("Atmosphere", src, cameras, src)
+				//DronePort - Devon
+			for(var/mob/living/simple_animal/drone/D in mob_list)
+				D.triggerAlarm("Atmosphere", src, cameras, src)
 		else if (src.atmosalm == 2)
 			for(var/mob/living/silicon/aiPlayer in player_list)
 				aiPlayer.cancelAlarm("Atmosphere", src, src)
 			for(var/obj/machinery/computer/station_alert/a in machines)
 				a.cancelAlarm("Atmosphere", src, src)
+				//Also DronePort
+			for(var/mob/living/simple_animal/drone/D in mob_list)
+				D.cancelAlarm("Atmosphere", src, src)
 		src.atmosalm = danger_level
 		return 1
 	return 0
@@ -116,6 +122,9 @@
 			aiPlayer.triggerAlarm("Fire", src, cameras, src)
 		for (var/obj/machinery/computer/station_alert/a in machines)
 			a.triggerAlarm("Fire", src, cameras, src)
+			//DronePort
+		for (var/mob/living/simple_animal/drone/D in mob_list)
+			D.triggerAlarm("Fire", src, cameras, src)
 	return
 
 /area/proc/firereset()
@@ -134,6 +143,9 @@
 			aiPlayer.cancelAlarm("Fire", src, src)
 		for (var/obj/machinery/computer/station_alert/a in machines)
 			a.cancelAlarm("Fire", src, src)
+		//DronePorts Errywhar
+		for (var/mob/living/simple_animal/drone/D in mob_list)
+			D.cancelAlarm("Fire", src, src)
 	return
 
 /area/proc/readyalert()
