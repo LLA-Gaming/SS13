@@ -154,7 +154,7 @@
 	desc = "A backpack watertank with fire extinguisher nozzle, intended to fight fires. Shouldn't toxins have one of these?"
 	icon_state = "waterbackpackatmos"
 	item_state = "waterbackpackatmos"
-	volume = 100
+	volume = 200
 
 	make_noz()
 		return new /obj/item/weapon/extinguisher/mini/nozzle(src)
@@ -163,8 +163,8 @@
 	name = "fire extinguisher nozzle"
 	desc = "A fire extinguisher nozzle attached to a water tank."
 	icon = 'icons/obj/hydroponics.dmi'
-	icon_state = "misteratmos"
-	item_state = "misteratmos"
+	icon_state = "atmos_nozzle"
+	item_state = "nozzleatmos"
 	w_class = 4.0
 	safety = 0
 	var/obj/item/weapon/watertank/tank
