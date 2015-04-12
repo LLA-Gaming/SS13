@@ -168,7 +168,7 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 	w_class = 3.0
 	item_state = "ep"
 	m_amt = 2000
-	cell_type = "/obj/item/weapon/stock_parts/cell/magazine/ep90"
+	cell_type = /obj/item/weapon/stock_parts/cell/magazine/ep90
 	ammo_type = list(/obj/item/ammo_casing/energy/ep90_single, /obj/item/ammo_casing/energy/ep90_aoe, /obj/item/ammo_casing/energy/ep90_burst_3, /obj/item/ammo_casing/energy/ep90_burst_5)
 	fire_sound = 'sound/weapons/ep90.ogg'
 	locked = /obj/item/weapon/implant/enforcer
@@ -184,7 +184,7 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 			icon_state = "ep90"
 
 	/*
-	* Inserting and removing the power_supply (battery)
+	* Inserting and removing the power_supply (magazine)
 	*/
 
 	attack_hand(var/mob/living/M)
@@ -200,7 +200,7 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 		..()
 
 	attackby(var/obj/item/I, var/mob/living/M)
-		if(istype(I, /obj/item/weapon/stock_parts/cell))
+		if(istype(I, /obj/item/weapon/stock_parts/cell/magazine/ep90))
 			if(power_supply)
 				M << "<div class='warning'>There is already a power supply installed.</div>"
 				return
