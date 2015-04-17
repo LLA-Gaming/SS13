@@ -124,6 +124,12 @@ proc/isovermind(A)
 		return 1
 	return 0
 
+//DronePort - Devon
+proc/isdrone(A)
+	if(istype(A, /mob/living/simple_animal/drone))
+		return 1
+	return 0
+
 proc/isorgan(A)
 	if(istype(A, /obj/item/organ/limb))
 		return 1
