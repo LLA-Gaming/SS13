@@ -125,3 +125,9 @@
 	desc = "working boots."
 	icon_state = "workboots"
 	item_state = "workboots"
+
+/obj/item/clothing/shoes/griffin
+	name = "griffon boots"
+	desc = "A pair of costume boots fashioned after bird talons."
+	icon_state = "griffinboots"
+	item_state = "griffinboots"
