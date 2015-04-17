@@ -162,6 +162,14 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
+/obj/item/clothing/head/griffin
+	name = "griffon head"
+	desc = "Why not 'eagle head'? Who knows."
+	icon_state = "griffinhat"
+	item_state = "griffinhat"
+	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+
 /obj/item/clothing/head/bearpelt
 	name = "bear pelt hat"
 	desc = "Fuzzy."
@@ -172,6 +180,14 @@
 	icon_state = "xenos"
 	item_state = "xenos_helm"
 	desc = "A helmet made out of chitinous alien hide."
+	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+
+/obj/item/clothing/head/corgi
+	name = "corgi suit head"
+	desc = "Woof!"
+	icon_state = "corgihead"
+	item_state = "corgihead"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
