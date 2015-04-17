@@ -67,7 +67,7 @@
 		name = "The Dark Knight"
 		parts = list(/obj/item/clothing/head/batman, /obj/item/clothing/under/batman, \
 					/obj/item/clothing/gloves/batman, /obj/item/clothing/shoes/jackboots, \
-					/obj/item/clothing/mask/balaclava)
+					/obj/item/weapon/storage/belt/security/batman)
 
 	friday13th/
 		name = "Friday the 13th"
@@ -119,7 +119,15 @@
 
 	owl/
 		name = "Owl"
-		parts = list(/obj/item/clothing/mask/gas/owl_mask, /obj/item/clothing/under/owl)
+		parts = list(/obj/item/clothing/mask/gas/owl_mask, /obj/item/clothing/under/owl, /obj/item/clothing/suit/owlwings)
+
+	griffin/
+		name = "Griffin"
+		parts = list(/obj/item/clothing/suit/owlwings/griffinwings, /obj/item/clothing/under/griffin, /obj/item/clothing/shoes/griffin, /obj/item/clothing/head/griffin)
+
+	corgi/
+		name = "Corgi"
+		parts = list(/obj/item/clothing/suit/corgisuit, /obj/item/clothing/head/corgi)
 
 	sexyclown/
 		name = "Sexy Clown"
@@ -246,18 +254,29 @@
 //Batman
 
 /obj/item/clothing/head/batman
-	name = "batman helmet"
+	name = "bathelmet"
+	desc = "No one cares who you are until you put on the mask."
 	icon_state = "bmhead"
 	item_state = "xenos_helm"
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	body_parts_covered = HEAD
 
 /obj/item/clothing/under/batman
-	name = "batman uniform"
+	name = "batsuit"
+	desc = "You are the night."
 	icon_state = "bmuniform"
 	item_color = "bmuniform"
 
 /obj/item/clothing/gloves/batman
-	name = "batman gloves"
+	name = "batgloves"
+	desc = "Used for handling all things bat related."
 	icon_state = "bmgloves"
+
+/obj/item/weapon/storage/belt/security/batman
+	name = "batbelt"
+	desc = "For all your crime-fighting bat needs."
+	icon_state = "bmbelt"
+	item_state = "bmbelt"
 
 // Friday the 13th / Jason Vorhees
 
