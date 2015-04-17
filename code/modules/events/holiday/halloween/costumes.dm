@@ -119,11 +119,11 @@
 
 	owl/
 		name = "Owl"
-		parts = list(/obj/item/clothing/mask/gas/owl_mask, /obj/item/clothing/under/owl, /obj/item/clothing/suit/toggle/owlwings)
+		parts = list(/obj/item/clothing/mask/gas/owl_mask, /obj/item/clothing/under/owl, /obj/item/clothing/suit/owlwings)
 
 	griffin/
 		name = "Griffin"
-		parts = list(/obj/item/clothing/suit/toggle/owlwings/griffinwings, /obj/item/clothing/under/griffin, /obj/item/clothing/shoes/griffin, /obj/item/clothing/head/griffin)
+		parts = list(/obj/item/clothing/suit/owlwings/griffinwings, /obj/item/clothing/under/griffin, /obj/item/clothing/shoes/griffin, /obj/item/clothing/head/griffin)
 
 	corgi/
 		name = "Corgi"
