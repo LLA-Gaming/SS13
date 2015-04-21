@@ -20,18 +20,49 @@
 		//see code/modules/mob/new_player/preferences.dm at approx line 545 for comments!
 		//this is largely copypasted from there.
 
-		//handle facial hair (if necessary)
-		var/new_facial_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in facial_hair_styles_list
-		if(userloc != H.loc) return	//no tele-grooming
-		if(new_facial_style)
-			H.facial_hair_style = new_facial_style
+		var/choice = input(user, "Hair Style or Color?", "Changing") as null|anything in list("Hair Style","Hair Color")
 
+		switch(choice)
+			if("Hair Style")
+				var/s_choice = input(user, "Style", "Changing") as null|anything in list("Hair","Facial Hair")
 
-		//handle normal hair
-		var/new_hair_style = input(user, "Select a hair style", "Grooming")  as null|anything in hair_styles_list
-		if(userloc != H.loc) return	//no tele-grooming
-		if(new_hair_style)
-			H.hair_style = new_hair_style
+				switch(s_choice)
+
+					if("Hair")
+						var/new_hair_style = input(user, "Select a hair style", "Grooming")  as null|anything in hair_styles_list
+						if(userloc != H.loc) return	//no tele-grooming
+						if(new_hair_style)
+							H.hair_style = new_hair_style
+
+					if("Facial Hair")
+						var/new_facial_style = input(user, "Select a facial hair style", "Grooming")  as null|anything in facial_hair_styles_list
+						if(userloc != H.loc) return	//no tele-grooming
+						if(new_facial_style)
+							H.facial_hair_style = new_facial_style
+
+			if("Hair Color")
+				var/c_choice = input(user, "Color", "Changing") as null|anything in list("Both","Hair Color","Facial Hair Color")
+
+				switch(c_choice)
+
+					if("Both")
+						var/new_hair_color = input(user, "Select a hair colour:", "Grooming") as null|color
+						if(userloc != H.loc) return	//no tele-grooming
+						if(new_hair_color)
+							H.hair_color = sanitize_hexcolor(new_hair_color)
+							H.facial_hair_color = sanitize_hexcolor(new_hair_color)
+
+					if("Hair Color")
+						var/new_hair_color = input(user, "Select a hair colour:", "Grooming") as null|color
+						if(userloc != H.loc) return	//no tele-grooming
+						if(new_hair_color)
+							H.hair_color = sanitize_hexcolor(new_hair_color)
+
+					if("Facial Hair Color")
+						var/new_facial_hair_color = input(user, "Select a facial hair colour:", "Grooming") as null|color
+						if(userloc != H.loc) return	//no tele-grooming
+						if(new_facial_hair_color)
+							H.facial_hair_color = sanitize_hexcolor(new_facial_hair_color)
 
 		H.update_hair()
 
