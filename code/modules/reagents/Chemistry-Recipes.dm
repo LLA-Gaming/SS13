@@ -491,15 +491,13 @@ silicate
 	required_reagents = list("sodiumchloride" = 1, "ethanol" = 1, "radium" = 1)
 	result_amount = 3
 
-//****************************************
-//Mineral solidifications
 
 /datum/chemical_reaction/plasmasolidification
 	name = "Solid Plasma"
 	id = "solidplasma"
 	category = EFFECT
 	result = null
-	required_reagents = list("iron" = 5, "clonexadone" = 5, "plasma" = 20)
+	required_reagents = list("carbon" = 5, "clonexadone" = 5, "plasma" = 20)
 	result_amount = 1
 /datum/chemical_reaction/plasmasolidification/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -512,7 +510,7 @@ silicate
 	id = "solidsilver"
 	category = EFFECT
 	result = null
-	required_reagents = list("iron" = 5, "clonexadone" = 5, "silver" = 20)
+	required_reagents = list("carbon" = 5, "clonexadone" = 5, "silver" = 20)
 	result_amount = 1
 /datum/chemical_reaction/silversolidification/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -525,7 +523,7 @@ silicate
 	id = "solidgold"
 	category = EFFECT
 	result = null
-	required_reagents = list("iron" = 5, "clonexadone" = 5, "gold" = 20)
+	required_reagents = list("carbon" = 5, "clonexadone" = 5, "gold" = 20)
 	result_amount = 1
 /datum/chemical_reaction/goldsolidification/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -533,22 +531,18 @@ silicate
 	return
 
 
-/datum/chemical_reaction/uranusiamsolidification
+/datum/chemical_reaction/uraniumsolidification
 	name = "Solid Uranium"
 	id = "soliduranium"
 	category = EFFECT
 	result = null
-	required_reagents = list("iron" = 5, "clonexadone" = 5, "uranium" = 20)
+	required_reagents = list("carbon" = 5, "clonexadone" = 5, "uranium" = 20)
 	result_amount = 1
-/datum/chemical_reaction/plasmasolidification/on_reaction(var/datum/reagents/holder, var/created_volume)
+/datum/chemical_reaction/uraniumsolidification/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
 	new /obj/item/stack/sheet/mineral/uranium(location)
 	return
 
-
-
-//End of mineral solidifications
-//*****************************************
 
 
 /datum/chemical_reaction/capsaicincondensation
