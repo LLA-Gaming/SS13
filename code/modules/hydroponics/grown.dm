@@ -568,6 +568,7 @@
 		if(reagents)
 			reagents.add_reagent("nutriment", 1+round((potency / 50), 1))
 			reagents.add_reagent("moonshine", 1+round((potency / 10), 1))
+			reagents.add_reagent("silver", 1+round((potency / 10), 1))
 			bitesize = 1+round(reagents.total_volume / 2, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/tomato
