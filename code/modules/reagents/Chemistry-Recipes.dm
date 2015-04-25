@@ -499,7 +499,7 @@ silicate
 	id = "solidplasma"
 	category = EFFECT
 	result = null
-	required_reagents = list("iron" = 5, "frostoil" = 5, "plasma" = 20)
+	required_reagents = list("iron" = 5, "clonexadone" = 5, "plasma" = 20)
 	result_amount = 1
 /datum/chemical_reaction/plasmasolidification/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -512,7 +512,7 @@ silicate
 	id = "solidsilver"
 	category = EFFECT
 	result = null
-	required_reagents = list("iron" = 5, "frostoil" = 5, "silver" = 20)
+	required_reagents = list("iron" = 5, "clonexadone" = 5, "silver" = 20)
 	result_amount = 1
 /datum/chemical_reaction/silversolidification/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -525,7 +525,7 @@ silicate
 	id = "solidgold"
 	category = EFFECT
 	result = null
-	required_reagents = list("iron" = 5, "frostoil" = 5, "gold" = 20)
+	required_reagents = list("iron" = 5, "clonexadone" = 5, "gold" = 20)
 	result_amount = 1
 /datum/chemical_reaction/goldsolidification/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
@@ -538,7 +538,7 @@ silicate
 	id = "soliduranium"
 	category = EFFECT
 	result = null
-	required_reagents = list("iron" = 5, "frostoil" = 5, "uranium" = 20)
+	required_reagents = list("iron" = 5, "clonexadone" = 5, "uranium" = 20)
 	result_amount = 1
 /datum/chemical_reaction/plasmasolidification/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
