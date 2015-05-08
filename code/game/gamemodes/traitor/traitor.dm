@@ -97,6 +97,7 @@
 		kill_objective.find_target()
 		traitor.objectives += kill_objective
 
+
 		var/datum/objective/survive/survive_objective = new
 		survive_objective.owner = traitor
 		traitor.objectives += survive_objective
@@ -127,13 +128,26 @@
 				steal_objective.find_target()
 				traitor.objectives += steal_objective
 
-			if(prob(90))
+			if(prob(90)) //90% chance to get Escape
 				if (!(locate(/datum/objective/escape) in traitor.objectives))
 					var/datum/objective/escape/escape_objective = new
 					escape_objective.owner = traitor
 					traitor.objectives += escape_objective
 			else
-				if (!(locate(/datum/objective/hijack) in traitor.objectives))
+
+				var/martyr_compatibility = 1
+				for(var/datum/objective/O in traitor.objectives)
+					if(!O.martyr_compatible) //You can't succeed in stealing if you're dead.
+						martyr_compatibility = 0
+						break
+
+//If you do not have an Escape objective and you have martyr-compatible objectives, you will Martyr. Otherwise, Hijack
+				if (!(locate(/datum/objective/martyr) in traitor.objectives) && martyr_compatibility == 1)
+					var/datum/objective/martyr/martyr_objective = new
+					martyr_objective.owner = traitor
+					traitor.objectives += martyr_objective
+
+				if (!(locate(/datum/objective/hijack) in traitor.objectives) && !(locate(/datum/objective/martyr) in traitor.objectives))
 					var/datum/objective/hijack/hijack_objective = new
 					hijack_objective.owner = traitor
 					traitor.objectives += hijack_objective
@@ -334,7 +348,7 @@
 		owner.objectives += backstab_objective
 
 	var/datum/objective/escape_objective
-	if(90)
+	if(prob(90))
 		escape_objective = new/datum/objective/escape
 	else
 		escape_objective = new/datum/objective/hijack
