@@ -55,7 +55,7 @@
 	var/datum/mind/Mind = create_ninja_mind(key)
 	Mind.active = 1
 
-	//generate objectives - You'll generally get 6 objectives (Ninja is meant to be hardmode!)
+	//generate objectives
 	if(mission)
 		var/datum/objective/O = new /datum/objective(mission)
 		O.owner = Mind
@@ -74,10 +74,10 @@
 		else				//Xenos are the highest priority (if we're not so helpful) Although this makes zero sense at all...
 			for(var/mob/living/carbon/alien/humanoid/queen/Q in player_list)
 				if(Q.mind && Q.stat != DEAD)
-					var/datum/objective/assassinate/O = new /datum/objective/assassinate()
+					var/datum/objective/protect/O = new /datum/objective/protect()
 					O.owner = Mind
 					O.target = Q.mind
-					O.explanation_text = "Slay \the [Q.real_name]."
+					O.explanation_text = "Protect \the [Q.real_name]."
 					Mind.objectives += O
 
 		if(Mind.objectives.len < 4)	//not enough objectives still!
@@ -100,8 +100,9 @@
 						Mind.objectives += O
 
 					if(2)	//steal
-						var/datum/objective/steal/special/O = new /datum/objective/steal/special()
+						var/datum/objective/steal/O = new /datum/objective/steal()
 						O.owner = Mind
+						O.find_target()
 						Mind.objectives += O
 
 					if(3)	//protect/kill
@@ -137,23 +138,22 @@
 							O.explanation_text = "Steal the brain of [M.current.real_name]."
 							Mind.objectives += O
 						else										//capture
-							var/datum/objective/capture/O = new /datum/objective/capture()
-							O.owner = Mind
-							O.gen_amount_goal()
-							Mind.objectives += O
+//							var/datum/objective/capture/O = new /datum/objective/capture()
+//							O.owner = Mind
+//							O.gen_amount_goal()
+//							Mind.objectives += O
 					else
 						break
 
 	//Add a survival objective since it's usually broad enough for any round type.
-	var/datum/objective/O = new /datum/objective/survive()
-	O.owner = Mind
-	Mind.objectives += O
-
-	//Finally, add their RP-directive
-	var/directive = generate_ninja_directive()
-	O = new /datum/objective(directive)		//making it an objective so admins can reward the for completion
-	O.owner = Mind
-	Mind.objectives += O
+	if(!helping_station)
+		var/datum/objective/O = new /datum/objective/survive()
+		O.owner = Mind
+		Mind.objectives += O
+	else
+		var/datum/objective/O = new /datum/objective/escape()
+		O.owner = Mind
+		Mind.objectives += O
 
 	//add some RP-fluff
 	Mind.store_memory("I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!")
@@ -174,27 +174,6 @@
 		ERROR("The ninja wasn't assigned the right mind. ;ç;")
 
 	success_spawn = 1
-
-/*
-This proc will give the ninja a directive to follow. They are not obligated to do so but it's a fun roleplay reminder.
-Making this random or semi-random will probably not work without it also being incredibly silly.
-As such, it's hard-coded for now. No reason for it not to be, really.
-*/
-/datum/round_event/ninja/proc/generate_ninja_directive()
-	switch(rand(1,13))
-		if(1)	return "The Spider Clan must not be linked to this operation. Remain as hidden and covert as possible."
-		if(2)	return "[station_name] is financed by an enemy of the Spider Clan. Cause as much structural damage as possible."
-		if(3)	return "A wealthy animal rights activist has made a request we cannot refuse. Prioritize saving animal lives whenever possible."
-		if(4)	return "The Spider Clan absolutely cannot be linked to this operation. Eliminate all witnesses using most extreme prejudice."
-		if(5)	return "We are currently negotiating with Nanotrasen command. Prioritize saving human lives over ending them."
-		if(6)	return "We are engaged in a legal dispute over [station_name]. If a laywer is present on board, force their cooperation in the matter."
-		if(7)	return "A financial backer has made an offer we cannot refuse. Implicate Syndicate involvement in the operation."
-		if(8)	return "Let no one question the mercy of the Spider Clan. Ensure the safety of all non-essential personnel you encounter."
-		if(9)	return "A free agent has proposed a lucrative business deal. Implicate Nanotrasen involvement in the operation."
-		if(10)	return "Our reputation is on the line. Harm as few civilians or innocents as possible."
-		if(11)	return "Our honor is on the line. Utilize only honorable tactics when dealing with opponents."
-		if(12)	return "We are currently negotiating with a Syndicate leader. Disguise assassinations as suicide or another natural cause."
-		else	return "There are no special supplemental instructions at this time."
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -508,7 +487,7 @@ ________________________________________________________________________________
 	verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjapulse
 	verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjablade
 	verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjastar
-	verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjanet
+//	verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjanet
 
 	s_initialized=1
 	slowdown=0
@@ -521,7 +500,7 @@ ________________________________________________________________________________
 	verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjapulse
 	verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjablade
 	verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjastar
-	verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjanet
+//	verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjanet
 
 //=======//KAMIKAZE VERBS//=======//
 
@@ -530,7 +509,7 @@ ________________________________________________________________________________
 	verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjajaunt
 	verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjapulse
 	verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjastar
-	verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjanet
+//	verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjanet
 
 	verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjaslayer
 	verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjawalk
@@ -565,7 +544,7 @@ ________________________________________________________________________________
 		verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjajaunt
 		verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjapulse
 		verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjastar
-		verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjanet
+//		verbs += /obj/item/clothing/suit/space/space_ninja/proc/ninjanet
 
 		verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjaslayer
 		verbs -= /obj/item/clothing/suit/space/space_ninja/proc/ninjawalk
@@ -1010,7 +989,7 @@ Not sure why this would be useful (it's not) but whatever. Ninjas need their smo
 				anim(U.loc,U,'icons/mob/mob.dmi',,"phasein",,U.dir)
 
 			spawn(0)
-				destination.kill_creatures(U)//Any living mobs in teleport area are gibbed. Check turf procs for how it does it.
+				destination.telefrag(U)//Any living mobs in teleport area are gibbed. Check turf procs for how it does it.
 			s_coold = 1
 			cell.charge-=(C*10)
 		else
@@ -1044,7 +1023,7 @@ Not sure why this would be useful (it's not) but whatever. Ninjas need their smo
 				anim(U.loc,U,'icons/mob/mob.dmi',,"phasein",,U.dir)
 
 			spawn(0)//Any living mobs in teleport area are gibbed.
-				T.kill_creatures(U)
+				T.telestun(U)
 			s_coold = 1
 			cell.charge-=(C*10)
 		else
@@ -1062,6 +1041,7 @@ Not sure why this would be useful (it's not) but whatever. Ninjas need their smo
 	var/C = 250
 	if(!ninjacost(C,1))
 		var/mob/living/carbon/human/U = affecting
+		cancel_stealth()
 		playsound(U.loc, 'sound/effects/EMPulse.ogg', 60, 2)
 		empulse(U, 4, 6) //Procs sure are nice. Slightly weaker than wizard's disable tch.
 		s_coold = 2
@@ -1081,6 +1061,7 @@ Not sure why this would be useful (it's not) but whatever. Ninjas need their smo
 		var/mob/living/carbon/human/U = affecting
 		if(!kamikaze)
 			if(!U.get_active_hand()&&!istype(U.get_inactive_hand(), /obj/item/weapon/melee/energy/blade))
+				cancel_stealth()
 				var/obj/item/weapon/melee/energy/blade/W = new()
 				spark_system.start()
 				playsound(U.loc, "sparks", 50, 1)
@@ -1119,6 +1100,7 @@ This could be a lot better but I'm too tired atm.*/
 		if(targets.len)
 			var/mob/living/target=pick(targets)//The point here is to pick a random, living mob in oview to shoot stuff at.
 
+			cancel_stealth()
 			var/turf/curloc = U.loc
 			var/atom/targloc = get_turf(target)
 			if (!targloc || !istype(targloc, /turf) || !curloc)
@@ -1137,7 +1119,7 @@ This could be a lot better but I'm too tired atm.*/
 
 //=======//ENERGY NET//=======//
 /*Allows the ninja to capture people, I guess.
-Must right click on a mob to activate.*/
+Must right click on a mob to activate.
 /obj/item/clothing/suit/space/space_ninja/proc/ninjanet(mob/living/carbon/M in oview())//Only living carbon mobs.
 	set name = "Energy Net (20E)"
 	set desc = "Captures a fallen opponent in a net of energy. Will teleport them to a holding facility after 30 seconds."
@@ -1172,7 +1154,7 @@ Must right click on a mob to activate.*/
 		else
 			U << "They will bring no honor to your Clan!"
 	return
-
+*/
 //=======//ADRENALINE BOOST//=======//
 /*Wakes the user so they are able to do their thing. Also injects a decent dose of radium.
 Movement impairing would indicate drugs and the like.*/
@@ -2215,6 +2197,7 @@ ________________________________________________________________________________
 	if(s_active)
 		cancel_stealth()
 	else
+		blade_check(U,2)
 		spawn(0)
 			anim(U.loc,U,'icons/mob/mob.dmi',,"cloak",,U.dir)
 		s_active=!s_active
