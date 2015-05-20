@@ -120,7 +120,7 @@ GUEST_JOBBAN 1
 FORUMURL http://www.llagaming.net/forums/
 
 ## Wiki address
-WIKIURL http://arctys-boreas.com
+WIKIURL http://www.tgstation13.org/wiki
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
 BANAPPEALS http://www.llagaming.net/forums/forums/un-ban-appeals.14/
