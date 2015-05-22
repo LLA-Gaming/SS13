@@ -1,0 +1,5 @@
+# Configuration file for badges
+# Syntax is: ckey - badge_name
+# Badge name is the icon state in badges.dmi
+
+#gamercad - heart
