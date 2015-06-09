@@ -357,6 +357,11 @@ var/list/slot_equipment_priority = list( \
 /client/verb/changes()
 	set name = "Changelog"
 	set category = "OOC"
+	if( config.changelogurl )
+		if(alert("This will open the changelog in your browser. Are you sure?",,"Yes","No")=="No")
+			return
+		src << link(config.changelogurl)
+		return
 	getFiles(
 		'html/postcardsmall.jpg',
 		'html/somerights20.png',

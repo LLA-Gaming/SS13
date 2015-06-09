@@ -55,6 +55,7 @@
 	var/banappeals
 	var/wikiurl = "http://www.tgstation13.org/wiki" // Default wiki link.
 	var/forumurl
+	var/changelogurl
 
 	var/forbid_singulo_possession = 0
 	var/useircbot = 0
@@ -249,6 +250,8 @@
 					config.wikiurl = value
 				if("forumurl")
 					config.forumurl = value
+				if("changelogurl")
+					config.changelogurl = value
 				if("guest_jobban")
 					config.guest_jobban = 1
 				if("guest_ban")
