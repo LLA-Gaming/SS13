@@ -52,9 +52,10 @@
 /client/verb/adminwho()
 	set category = "Admin"
 	set name = "Adminwho"
-
+	var/admins_on = 0
 	var/msg = "<b>Current Admins:</b>\n"
 	if(holder)
+		admins_on = 1
 		for(var/client/C in admins)
 			msg += "\t[C] is a [C.holder.rank]"
 
@@ -75,5 +76,7 @@
 		for(var/client/C in admins)
 			if(!C.holder.fakekey)
 				msg += "\t[C] is a [C.holder.rank]\n"
-
+				admins_on = 1
 	src << msg
+	if(config.banrequest && !admins_on)
+		src << "There are currently no administrators online. Please follow this link to create a report: <a href='[config.banrequest]'>[config.banrequest]</a>"

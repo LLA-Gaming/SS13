@@ -125,6 +125,9 @@ WIKIURL http://www.tgstation13.org/wiki
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
 BANAPPEALS http://www.llagaming.net/forums/forums/un-ban-appeals.14/
 
+## Ban request URL - directed to the player when they press admin who with no admins on.
+BANREQUEST http://www.llagaming.net/forums/forums/incident-reporting.59/
+
 ## External changelog URL. comment to use the classic changelog system
 CHANGELOGURL http://www.llagaming.net/forums/forums/changelog/
 
