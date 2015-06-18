@@ -295,6 +295,7 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 
 	update_icon()
 		icon_state = "[initial(icon_state)][mode]"
+		item_state = icon_state
 
 	New()
 		..()
