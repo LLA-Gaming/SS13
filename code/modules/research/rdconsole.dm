@@ -523,7 +523,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				res_amount = "diamond_amount"
 		if(ispath(type) && hasvar(linked_imprinter, res_amount))
 			var/obj/item/stack/sheet/sheet = new type(linked_imprinter.loc)
-			var/available_num_sheets = round(linked_imprinter.vars[res_amount]/sheet.perunit)
+			var/perunit = sheet.perunit
+			if(res_amount == "g_amount")
+				perunit = 3750
+			var/available_num_sheets = round(linked_imprinter.vars[res_amount] / perunit)
 			if(available_num_sheets>0)
 				sheet.amount = min(available_num_sheets, desired_num_sheets)
 				linked_imprinter.vars[res_amount] = max(0, (linked_imprinter.vars[res_amount]-sheet.amount * sheet.perunit))
