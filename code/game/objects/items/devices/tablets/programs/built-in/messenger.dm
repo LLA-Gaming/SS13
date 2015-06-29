@@ -64,7 +64,7 @@
 					if(T.messengeron)
 						//existing chat search
 						for(var/datum/tablet_data/conversation/C in server.convos)
-							if(C.users.Find(T) && C.users.len <= 2)
+							if(C.users.Find(tablet) && C.users.len <= 2)
 								active_chat = C
 						if(!active_chat)
 							var/datum/tablet_data/conversation/C = new /datum/tablet_data/conversation/(src)
@@ -177,25 +177,28 @@
 			if("Change Title")
 				if(!spamcheck)
 					if(active_chat.host == tablet)
-						if(active_chat.users.len > 2)
-							spamcheck = 1
-							var/lastname = active_chat.name
-							var/t = copytext(sanitize(input("Rename Chat", "Rename", null, null)  as text),1,MAX_MESSAGE_LEN)
-							if(t)
-								active_chat.name = t
-								active_chat.renamed = 1
-								log_pda("[usr.key] (tablet: [tablet.owner]) renamed chat: \"[lastname]\" to \"[active_chat.name]\"")
-								for(var/obj/item/device/tablet/T in active_chat.users)
-									T.alert_self("Chat Renamed:","<b>[lastname] to [active_chat.name]</b>","messenger")
-							spamcheck = 0
+						spamcheck = 1
+						var/lastname = active_chat.name
+						var/t = copytext(sanitize(input("Rename Chat", "Rename", null, null)  as text),1,MAX_MESSAGE_LEN)
+						if(t)
+							active_chat.name = t
+							active_chat.renamed = 1
+							log_pda("[usr.key] (tablet: [tablet.owner]) renamed chat: \"[lastname]\" to \"[active_chat.name]\"")
+							for(var/obj/item/device/tablet/T in active_chat.users)
+								T.alert_self("Chat Renamed:","<b>[lastname] to [active_chat.name]</b>","messenger")
+						spamcheck = 0
 			if("Message")
 				if(!spamcheck)
 					var/datum/tablet_data/conversation/chat = null
+					var/quick_reply = 0
 					spamcheck = 1
 					if(locate(href_list["target"]))
 						chat = locate(href_list["target"])
+						quick_reply = 1
 					else
 						chat = active_chat
+					if(!chat.users.Find(tablet))
+						return
 					var/t = copytext(sanitize(input("Message", "Message", null, null)  as text),1,MAX_MESSAGE_LEN)
 					if(t)
 						chat.log += "[tablet.owner] ([tablet.ownjob]): [t]<br>"
@@ -214,8 +217,9 @@
 								for(var/datum/program/builtin/messenger/M in T.core.programs)
 									T.alert_self("Messenger:","<b>Message from [chat.name], </b>\"[t]\" <a href='byond://?src=\ref[M];choice=Message;target=\ref[chat]'>Reply</a>","messenger")
 									break
-
 					spamcheck = 0
+					if(quick_reply)
+						return
 			if("ToggleMessenger")
 				tablet.messengeron = !tablet.messengeron
 		use_app()

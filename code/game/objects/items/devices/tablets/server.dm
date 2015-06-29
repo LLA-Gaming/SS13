@@ -151,6 +151,8 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 			dat += "<h3>Network Users - <a href='byond://?src=\ref[src];choice=Mass Alert'>Alert All</a></h3>"
 			for(var/obj/item/device/tablet/T in tablets_list)
 				if(T.core && T.core.owner)
+					if(!T.core.neton) continue
+					if(istype(T,/obj/item/device/tablet/syndi)) continue
 					dat += "[T.owner] ([T.ownjob]) - <a href='byond://?src=\ref[src];choice=Alert;target=\ref[T]'>Alert</a> - <a href='byond://?src=\ref[src];choice=Ban;target=\ref[T]'>[T.banned ? "Unban" : "Ban"]</a><br>"
 
 		var/datum/browser/popup = new(usr, "servermanager", "Server manager", 640, 480)

@@ -66,7 +66,6 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 
 /obj/item/device/tablet/attack_self(mob/living/user)
 	user.set_machine(src)
-	check_alerts()
 	var/dat = ""
 	if(can_use(user))
 		if(implantlocked)
@@ -82,6 +81,8 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 		if (!core)
 			dat += "ERROR: No Hard Drive found.  Please insert Hard Drive.<br><br>"
 		if (core)
+			if(core.loaded)
+				core.loaded.use_app()
 			if (!core.owner)
 				dat += "Warning: No owner information entered.  Please swipe card.<br><br>"
 			else
@@ -117,6 +118,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 					for(var/datum/program/P in apps_utilities)
 						dat += "<a href='byond://?src=\ref[src];choice=load;target=\ref[P]'>[P.name][P.notifications ? " \[[P.notifications]\]" : ""]</a> "
 						dat += "<br>"
+					dat += {"<a href='byond://?src=\ref[src];choice=Network'>[core.neton ? "Network \[On\]" : "Network \[Off\]"]</a><br>"}
 		var/device = "tablet"
 		if(laptop)
 			device = "laptop"
@@ -156,6 +158,9 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 				if(can_eject)
 					core.ownjob = id.assignment
 					update_label()
+			if("Network")
+				if(core)
+					core.neton = !core.neton
 
 		if(core && core.loaded)
 			core.loaded.use_app()
@@ -864,11 +869,13 @@ obj/item/device/tablet/verb/verb_remove_pen()
 	icon_state = "tablet-clear"
 /obj/item/device/tablet/syndi
 	icon_state = "tablet-syndi"
+	messengeron = 0
 /obj/item/device/tablet/perseus
 	icon_state = "tablet-perc"
 	messengeron = 0
 	New()
 		..()
+		core.neton = 0
 		implantlocked = /obj/item/weapon/implant/enforcer
 		core.programs.Add(new /datum/program/percblastdoors)
 		core.programs.Add(new /datum/program/percimplants)

@@ -222,6 +222,9 @@
 	messengeron = 0
 	New()
 		..()
+		core.neton = 0
+		core.owner = "Perseus"
+		core.ownjob = "Perseus PMC"
 		implantlocked = /obj/item/weapon/implant/enforcer
 		core.programs.Add(new /datum/program/percblastdoors)
 		core.programs.Add(new /datum/program/percimplants)
