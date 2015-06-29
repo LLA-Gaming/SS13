@@ -15,7 +15,7 @@ Research Director
 	minimal_player_age = 7
 
 	default_id = /obj/item/weapon/card/id/silver
-	default_pda = /obj/item/device/thinktronic/tablet/rd
+	default_tablet = /obj/item/device/tablet/rd
 	default_headset = /obj/item/device/radio/headset/heads/rd
 	default_backpack = /obj/item/weapon/storage/backpack/tox
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_tox
@@ -53,7 +53,7 @@ Scientist
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
 
-	default_pda = /obj/item/device/thinktronic/tablet/science
+	default_tablet = /obj/item/device/tablet/science
 	default_headset = /obj/item/device/radio/headset/headset_sci
 	default_backpack = /obj/item/weapon/storage/backpack/tox
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_tox
@@ -80,7 +80,7 @@ Roboticist
 	supervisors = "research director"
 	selection_color = "#ffeeff"
 
-	default_pda = /obj/item/device/thinktronic/tablet/roboticist
+	default_tablet = /obj/item/device/tablet/roboticist
 	default_headset = /obj/item/device/radio/headset/headset_sci
 
 	access = list(access_robotics, access_tox, access_tox_storage, access_tech_storage, access_morgue, access_research, access_mineral_storeroom)

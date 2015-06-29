@@ -136,10 +136,11 @@
 						src.ram -= cost
 						src.software.Add(target)
 						if(target == "thinktronic mini-os")
-							tablet = new /obj/item/device/thinktronic/tablet/pai(src)
-							if(tablet.HDD)
-								tablet.HDD.owner = "[name]"
-								tablet.HDD.ownjob = "pAI"
+							tablet = new /obj/item/device/tablet/pai(src)
+							if(tablet.core)
+								tablet.core.owner = "[name]"
+								tablet.core.ownjob = "pAI"
+								tablet.update_label()
 					else
 						src.temp = "Insufficient RAM available."
 				else

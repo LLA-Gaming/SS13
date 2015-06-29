@@ -1,8 +1,7 @@
 
 // Allows you to monitor messages that passes the server.
-
-
-
+//NanoNet replaces this
+/*
 
 /obj/machinery/computer/message_monitor
 	name = "message monitor console"
@@ -491,3 +490,5 @@
 						info_links = info
 						overlays += "paper_words"
 						break
+
+*/

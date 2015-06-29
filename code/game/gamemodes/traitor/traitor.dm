@@ -264,7 +264,7 @@
 
 	// find a radio! toolbox(es), backpack, belt, headset
 	var/loc = ""
-	var/obj/item/R = locate(/obj/item/device/thinktronic/tablet) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
+	var/obj/item/R = locate(/obj/item/device/tablet) in traitor_mob.contents //Hide the uplink in a tablet if available, otherwise radio
 	if(!R)
 		R = locate(/obj/item/device/radio) in traitor_mob.contents
 
@@ -291,18 +291,18 @@
 			target_radio.traitor_frequency = freq
 			traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features."
 			traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [loc]).")
-		else if (istype(R, /obj/item/device/thinktronic/tablet))
+		else if (istype(R, /obj/item/device/tablet))
 			// generate a passcode if the uplink is hidden in a PDA
-			var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
+			var/tablet_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
 
 			var/obj/item/device/uplink/hidden/T = new(R)
 			R.hidden_uplink = T
 			T.uplink_owner = "[traitor_mob.key]"
-			var/obj/item/device/pda/P = R
-			P.lock_code = pda_pass
+			var/obj/item/device/tablet/P = R
+			P.lock_code = tablet_pass
 
-			traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your Tablet [loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features."
-			traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [loc]).")
+			traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your Tablet [loc]. Simply enter the code \"[tablet_pass]\" into the ringtone select to unlock its hidden features."
+			traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [tablet_pass] ([R.name] [loc]).")
 	//Begin code phrase.
 	if(!safety)//If they are not a rev. Can be added on to.
 		traitor_mob << "The Syndicate provided you with the following information on how to identify other agents:"

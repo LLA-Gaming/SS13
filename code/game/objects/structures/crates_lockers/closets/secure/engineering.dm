@@ -23,7 +23,7 @@
 		new /obj/item/clothing/head/welding(src)
 		new /obj/item/clothing/gloves/yellow(src)
 		new /obj/item/clothing/shoes/sneakers/brown(src)
-		new /obj/item/device/thinktronic_parts/expansioncarts/ce(src)
+		new /obj/item/device/tablet_carts/ce(src)
 		new /obj/item/device/radio/headset/heads/ce(src)
 		new /obj/item/weapon/storage/toolbox/mechanical(src)
 		new /obj/item/clothing/suit/hazardvest(src)

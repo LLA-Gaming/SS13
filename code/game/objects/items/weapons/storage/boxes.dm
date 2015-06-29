@@ -374,13 +374,13 @@
 
 	New()
 		..()
-		new /obj/item/weapon/cartridge/security(src)
-		new /obj/item/weapon/cartridge/security(src)
-		new /obj/item/weapon/cartridge/security(src)
-		new /obj/item/weapon/cartridge/security(src)
-		new /obj/item/weapon/cartridge/security(src)
-		new /obj/item/weapon/cartridge/security(src)
-		new /obj/item/weapon/cartridge/security(src)
+		new /obj/item/device/tablet_carts/security(src)
+		new /obj/item/device/tablet_carts/security(src)
+		new /obj/item/device/tablet_carts/security(src)
+		new /obj/item/device/tablet_carts/security(src)
+		new /obj/item/device/tablet_carts/security(src)
+		new /obj/item/device/tablet_carts/security(src)
+		new /obj/item/device/tablet_carts/security(src)
 
 /obj/item/weapon/storage/box/handcuffs
 	name = "box of spare handcuffs"

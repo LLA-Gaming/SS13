@@ -46,7 +46,7 @@
 		new /obj/item/clothing/head/bio_hood/scientist(src)
 		new /obj/item/clothing/under/rank/research_director(src)
 		new /obj/item/clothing/suit/labcoat(src)
-		new /obj/item/device/thinktronic_parts/expansioncarts/rd(src)
+		new /obj/item/device/tablet_carts/rd(src)
 		new /obj/item/clothing/shoes/sneakers/white(src)
 		new /obj/item/clothing/gloves/latex(src)
 		new /obj/item/device/radio/headset/heads/rd(src)

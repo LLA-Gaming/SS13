@@ -94,8 +94,6 @@
 					else
 						message_admins("\blue [key_name_admin(usr)] detonated [R.name]!")
 						log_game("\blue [key_name(usr)] detonated [R.name]!")
-						for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-							MS.SendAlert("[R.name] has been detonated.","Robotics Monitor", 1)
 						R.self_destruct()
 		else
 			usr << "\red Access Denied."
@@ -110,9 +108,6 @@
 					log_game("[key_name(usr)] [R.canmove ? "locked down" : "released"] [R.name]!")
 					R.SetLockdown(!R.lockcharge)
 					R << "[!R.lockcharge ? "<span class='notice'>Your lockdown has been lifted!" : "<span class='alert'>You have been locked down!"]</span>"
-					for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-						MS.SendAlert("[R.name] has been [R.canmove ? "released" : "locked down"].","Robotics Monitor", 1)
-
 		else
 			usr << "\red Access Denied."
 

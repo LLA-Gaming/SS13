@@ -363,15 +363,6 @@ datum/design/comm_server
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/comm_server
 
-datum/design/message_monitor
-	name = "Computer Design (Messaging Monitor Console)"
-	desc = "Allows for the construction of circuit boards used to build a messaging monitor console."
-	id = "message_monitor"
-	req_tech = list("programming" = 5)
-	build_type = IMPRINTER
-	materials = list("$glass" = 1000, "sacid" = 20)
-	build_path = /obj/item/weapon/circuitboard/message_monitor
-
 datum/design/comm_traffic
 	name = "Computer Design (Telecommunications Traffic Control Console)"
 	desc = "Allows for the construction of circuit boards used to build a telecommunications traffic control console."

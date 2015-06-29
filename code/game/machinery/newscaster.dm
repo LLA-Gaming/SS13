@@ -734,10 +734,10 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 
 /obj/machinery/newscaster/attackby(obj/item/I as obj, mob/user as mob)
 
-/*	if (istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/thinktronic/tablet) ) //Name verification for channels or messages
+/*	if (istype(I, /obj/item/weapon/card/id) || istype(I, /obj/item/device/tablet) ) //Name verification for channels or messages
 		if(src.screen == 4 || src.screen == 5)
-			if( istype(I, /obj/item/device/thinktronic/tablet) )
-				var/obj/item/device/thinktronic/tablet/P = I
+			if( istype(I, /obj/item/device/tablet) )
+				var/obj/item/device/tablet/P = I
 				if(P.id)
 					src.scanned_user = "[P.id.registered_name] ([P.id.assignment])"
 					src.screen=2
@@ -979,8 +979,8 @@ obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(user,/mob/living/carbon/human))                       //User is a human
 		var/mob/living/carbon/human/human_user = user
 		if(human_user.wear_id)                                      //Newscaster scans you
-			if(istype(human_user.wear_id, /obj/item/device/thinktronic/tablet) )	//autorecognition, woo!
-				var/obj/item/device/thinktronic/tablet/P = human_user.wear_id
+			if(istype(human_user.wear_id, /obj/item/device/tablet) )	//autorecognition, woo!
+				var/obj/item/device/tablet/P = human_user.wear_id
 				if(P.id)
 					src.scanned_user = "[P.id.registered_name] ([P.id.assignment])"
 				else

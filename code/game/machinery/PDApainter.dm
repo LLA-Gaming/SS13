@@ -1,3 +1,4 @@
+/*
 /obj/machinery/pdapainter
 	name = "\improper PDA painter"
 	desc = "A PDA painting machine. To use, simply insert your PDA and choose the desired preset paint scheme."
@@ -91,3 +92,4 @@
 /obj/machinery/pdapainter/power_change()
 	..()
 	update_icon()
+*/

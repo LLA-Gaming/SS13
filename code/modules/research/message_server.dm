@@ -44,6 +44,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 			else
 				priority = "Undetermined"
 
+/*
 /obj/machinery/message_server
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "server"
@@ -111,7 +112,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 		icon_state = "server-on"
 
 	return
-
+*/
 
 /datum/feedback_variable
 	var/variable
@@ -240,12 +241,6 @@ var/obj/machinery/blackbox_recorder/blackbox
 
 	var/pda_msg_amt = 0
 	var/rc_msg_amt = 0
-
-	for(var/obj/machinery/message_server/MS in world)
-		if(MS.pda_msgs.len > pda_msg_amt)
-			pda_msg_amt = MS.pda_msgs.len
-		if(MS.rc_msgs.len > rc_msg_amt)
-			rc_msg_amt = MS.rc_msgs.len
 
 	feedback_set_details("radio_usage","")
 

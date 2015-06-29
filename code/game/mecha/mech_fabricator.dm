@@ -197,9 +197,9 @@
 	return 0
 
 /obj/machinery/mecha_part_fabricator/check_access(obj/item/weapon/card/id/I)
-	if(istype(I, /obj/item/device/thinktronic/tablet))
-		var/obj/item/device/thinktronic/tablet/pda = I
-		I = pda.id
+	if(istype(I, /obj/item/device/tablet))
+		var/obj/item/device/tablet/tablet = I
+		I = tablet.id
 	if(!istype(I) || !I.access) //not ID or no access
 		return 0
 	for(var/req in req_access)

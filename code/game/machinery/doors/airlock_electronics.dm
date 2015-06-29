@@ -78,9 +78,9 @@
 
 	if (href_list["login"])
 		var/obj/item/I = usr.get_active_hand()
-		if (istype(I, /obj/item/device/thinktronic/tablet))
-			var/obj/item/device/thinktronic/tablet/pda = I
-			I = pda.id
+		if (istype(I, /obj/item/device/tablet))
+			var/obj/item/device/tablet/tablet = I
+			I = tablet.id
 		if (I && src.check_access(I))
 			src.locked = 0
 			src.last_configurator = I:registered_name

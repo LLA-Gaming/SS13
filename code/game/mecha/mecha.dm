@@ -680,15 +680,15 @@
 			else
 				user << "You were unable to attach [W] to [src]"
 		return
-	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/thinktronic/tablet))
+	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/tablet))
 		if(add_req_access || maint_access)
 			if(internals_access_allowed(usr))
 				var/obj/item/weapon/card/id/id_card
 				if(istype(W, /obj/item/weapon/card/id))
 					id_card = W
 				else
-					var/obj/item/device/thinktronic/tablet/pda = W
-					id_card = pda.id
+					var/obj/item/device/tablet/tablet = W
+					id_card = tablet.id
 				output_maintenance_dialog(id_card, user)
 				return
 			else
@@ -1191,9 +1191,9 @@
 		return 1
 	if(!access_list.len) //no requirements
 		return 1
-	if(istype(I, /obj/item/device/thinktronic/tablet))
-		var/obj/item/device/thinktronic/tablet/pda = I
-		I = pda.id
+	if(istype(I, /obj/item/device/tablet))
+		var/obj/item/device/tablet/tablet = I
+		I = tablet.id
 	if(!istype(I) || !I.access) //not ID or no access
 		return 0
 	if(access_list==src.operation_req_access)

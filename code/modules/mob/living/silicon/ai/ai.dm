@@ -27,7 +27,7 @@ var/list/ai_list = list()
 	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list())
 	var/viewalerts = 0
 	var/icon/holo_icon//Default is assigned when AI is created.
-	var/obj/item/device/thinktronic/aiPDA = null
+	var/obj/item/device/tablet/tablet = null
 	var/obj/item/device/multitool/aiMulti = null
 	var/obj/item/device/camera/ai_camera/aicamera = null
 
@@ -81,10 +81,10 @@ var/list/ai_list = list()
 
 	verbs += /mob/living/silicon/ai/proc/show_laws_verb
 
-	aiPDA = new/obj/item/device/thinktronic/tablet/ai(src)
-	aiPDA.HDD.owner = name
-	aiPDA.HDD.ownjob = "AI"
-	aiPDA.name = name + " (" + aiPDA.HDD.ownjob + ")"
+	tablet = new/obj/item/device/tablet/ai(src)
+	tablet.core.owner = name
+	tablet.core.ownjob = "AI"
+	tablet.name = name + " (" + tablet.core.ownjob + ")"
 
 	aiMulti = new(src)
 	aicamera = new/obj/item/device/camera/ai_camera(src)
