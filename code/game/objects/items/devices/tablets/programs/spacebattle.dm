@@ -32,7 +32,6 @@
 		temp = "Can you Outbomb Cuban Pete?"
 
 /datum/program/spacebattle/use_app()
-	if (!..()) return
 	dat += "<center><h4>[src.enemy_name]</h4></center>"
 
 	dat += "<br><center><h3>[src.temp]</h3></center>"

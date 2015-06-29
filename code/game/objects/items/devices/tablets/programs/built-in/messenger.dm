@@ -64,7 +64,7 @@
 					if(T.messengeron)
 						//existing chat search
 						for(var/datum/tablet_data/conversation/C in server.convos)
-							if(C.users.Find(tablet) && C.users.len <= 2)
+							if(C.users.Find(tablet) && C.users.Find(T) && C.users.len <= 2)
 								active_chat = C
 						if(!active_chat)
 							var/datum/tablet_data/conversation/C = new /datum/tablet_data/conversation/(src)

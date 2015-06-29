@@ -870,6 +870,12 @@ obj/item/device/tablet/verb/verb_remove_pen()
 /obj/item/device/tablet/syndi
 	icon_state = "tablet-syndi"
 	messengeron = 0
+	New()
+		..()
+		core.owner = "John Doe"
+		core.ownjob = "Unknown"
+		update_label()
+
 /obj/item/device/tablet/perseus
 	icon_state = "tablet-perc"
 	messengeron = 0
