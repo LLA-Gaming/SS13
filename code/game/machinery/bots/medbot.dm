@@ -193,7 +193,7 @@
 	return
 
 /obj/machinery/bot/medbot/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/thinktronic/tablet))
+	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/tablet))
 		if (src.allowed(user) && !open && !emagged)
 			src.locked = !src.locked
 			user << "<span class='notice'>Controls are now [src.locked ? "locked." : "unlocked."]</span>"

@@ -111,7 +111,7 @@
 
 			updateicon()
 
-		else if (istype(I, /obj/item/weapon/card/id)||istype(I, /obj/item/device/thinktronic/tablet))
+		else if (istype(I, /obj/item/weapon/card/id)||istype(I, /obj/item/device/tablet))
 			if(open)
 				if (src.allowed(user))
 					src.locked = !src.locked

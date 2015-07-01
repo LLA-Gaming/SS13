@@ -340,9 +340,9 @@ What a mess.*/
 								updateUsrDialog()
 								return
 						var/obj/item/weapon/card/id/I = user.wear_id // ID/tablet/wallet in slot?
-						if (istype(I, /obj/item/device/thinktronic/tablet))
-							var/obj/item/device/thinktronic/tablet/pda = I
-							I = pda.id
+						if (istype(I, /obj/item/device/tablet))
+							var/obj/item/device/tablet/tablet = I
+							I = tablet.id
 						if (istype(I, /obj/item/weapon/storage/wallet))
 							var/obj/item/weapon/storage/wallet/wallet = I
 							I = wallet.front_id

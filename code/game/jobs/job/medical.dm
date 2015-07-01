@@ -15,7 +15,7 @@ Chief Medical Officer
 	minimal_player_age = 7
 
 	default_id = /obj/item/weapon/card/id/silver
-	default_pda = /obj/item/device/thinktronic/tablet/cmo
+	default_tablet = /obj/item/device/tablet/cmo
 	default_headset = /obj/item/device/radio/headset/heads/cmo
 	default_backpack = /obj/item/weapon/storage/backpack/medic
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_med
@@ -50,7 +50,7 @@ Medical Doctor
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 
-	default_pda = /obj/item/device/thinktronic/tablet/medical
+	default_tablet = /obj/item/device/tablet/medical
 	default_headset = /obj/item/device/radio/headset/headset_med
 	default_backpack = /obj/item/weapon/storage/backpack/medic
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_med
@@ -79,7 +79,7 @@ Chemist
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 
-	default_pda = /obj/item/device/thinktronic/tablet/chemist
+	default_tablet = /obj/item/device/tablet/chemist
 	default_headset = /obj/item/device/radio/headset/headset_med
 	default_backpack = /obj/item/weapon/storage/backpack/chem
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_chem
@@ -106,7 +106,7 @@ Geneticist
 	supervisors = "the chief medical officer and research director"
 	selection_color = "#ffeef0"
 
-	default_pda = /obj/item/device/thinktronic/tablet/genetics
+	default_tablet = /obj/item/device/tablet/genetics
 	default_headset = /obj/item/device/radio/headset/headset_medsci
 	default_backpack = /obj/item/weapon/storage/backpack/gen
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_gen
@@ -134,7 +134,7 @@ Virologist
 	supervisors = "the chief medical officer"
 	selection_color = "#ffeef0"
 
-	default_pda = /obj/item/device/thinktronic/tablet/virology
+	default_tablet = /obj/item/device/tablet/virology
 	default_headset = /obj/item/device/radio/headset/headset_med
 	default_backpack = /obj/item/weapon/storage/backpack/vir
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_vir

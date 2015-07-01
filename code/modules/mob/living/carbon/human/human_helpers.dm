@@ -9,32 +9,32 @@
 /mob/living/carbon/human/canBeHandcuffed()
 	return 1
 
-//gets assignment from ID or ID inside PDA or PDA itself
+//gets assignment from ID or ID inside tablet or tablet itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
 	var/obj/item/weapon/card/id/id = get_idcard()
 	if(id)
 		. = id.assignment
 	else
-		var/obj/item/device/thinktronic/tablet/pda = wear_id
-		var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
-		if(istype(pda) && HDD)
-			. = HDD.ownjob
+		var/obj/item/device/tablet/tablet = wear_id
+		var/obj/item/device/tablet_core/core = tablet.core
+		if(istype(tablet) && core)
+			. = core.ownjob
 		else
 			return if_no_id
 	if(!.)
 		return if_no_job
 
-//gets name from ID or ID inside PDA or PDA itself
+//gets name from ID or ID inside tablet or tablet itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
 	var/obj/item/weapon/card/id/id = get_idcard()
 	if(id)
 		return id.registered_name
-	var/obj/item/device/thinktronic/tablet/pda = wear_id
-	var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
-	if(istype(pda) && HDD)
-		return HDD.owner
+	var/obj/item/device/tablet/tablet = wear_id
+	var/obj/item/device/tablet_core/core = tablet.core
+	if(istype(tablet) && core)
+		return core.owner
 	return if_no_id
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
@@ -49,7 +49,7 @@
 		return id_name
 	return "Unknown"
 
-//Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
+//Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when utabletting a human's name variable
 /mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")
 	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) )	//Wearing a mask which hides our face, use id-name if possible
 		return if_no_face
@@ -60,15 +60,15 @@
 		return if_no_face
 	return real_name
 
-//gets name from ID or PDA itself, ID inside PDA doesn't matter
+//gets name from ID or tablet itself, ID inside tablet doesn't matter
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
 	var/obj/item/weapon/storage/wallet/wallet = wear_id
-	var/obj/item/device/thinktronic/tablet/pda = wear_id
+	var/obj/item/device/tablet/tablet = wear_id
 	var/obj/item/weapon/card/id/id = wear_id
 	if(istype(wallet))		id = wallet.front_id
 	if(istype(id))			. = id.registered_name
-	else if(istype(pda))	. = pda.owner
+	else if(istype(tablet))	. = tablet.owner
 	if(!.) 					. = if_no_id	//to prevent null-names making the mob unclickable
 	return
 

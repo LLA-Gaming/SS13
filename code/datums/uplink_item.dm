@@ -254,7 +254,7 @@ var/list/uplink_items = list()
 	name = "SyndiHax Cartridge"
 	desc = "When inserted into a tablet, this cartridge gives you five opportunities to detonate tablets of crewmembers who have their message feature enabled. \
 	The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer."
-	item = /obj/item/device/thinktronic_parts/expansioncarts/syndicate
+	item = /obj/item/device/tablet_carts/syndicate
 	cost = 3
 
 /datum/uplink_item/stealthy_weapons/silencer

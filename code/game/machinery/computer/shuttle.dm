@@ -10,10 +10,10 @@
 	attackby(var/obj/item/weapon/card/W as obj, var/mob/user as mob)
 		if(stat & (BROKEN|NOPOWER))	return
 		if (!( istype(W, /obj/item/weapon/card) ) || !( ticker ) || emergency_shuttle.location != DOCKED || !( user ) || emergency_shuttle.timeleft() < 11)	return
-		if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/thinktronic/tablet))
-			if (istype(W, /obj/item/device/thinktronic/tablet))
-				var/obj/item/device/thinktronic/tablet/pda = W
-				W = pda.id
+		if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/tablet))
+			if (istype(W, /obj/item/device/tablet))
+				var/obj/item/device/tablet/tablet = W
+				W = tablet.id
 			if (!W:access) //no access
 				user << "The access level of [W:registered_name]\'s card is not high enough. "
 				return

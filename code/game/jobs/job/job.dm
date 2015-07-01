@@ -41,8 +41,8 @@
 
 	//Job specific items
 	var/default_id				= /obj/item/weapon/card/id //this is just the looks of it
-	var/default_pda				= /obj/item/device/thinktronic/tablet/plain
-	var/default_pda_slot	= slot_belt
+	var/default_tablet				= /obj/item/device/tablet/plain
+	var/default_tablet_slot	= slot_belt
 	var/default_headset		= /obj/item/device/radio/headset
 	var/default_backpack	= /obj/item/weapon/storage/backpack
 	var/default_satchel		= /obj/item/weapon/storage/backpack/satchel_norm
@@ -85,12 +85,12 @@
 	H.equip_to_slot_or_del(C, slot_wear_id)
 
 	//Equip PDA
-	var/obj/item/device/thinktronic/tablet/PDA = new default_pda(H)
-	var/obj/item/device/thinktronic_parts/core/HDD = PDA.HDD
-	HDD.owner = H.real_name
-	HDD.ownjob = H.job
-	PDA.update_label()
-	H.equip_to_slot_or_del(PDA, default_pda_slot)
+	var/obj/item/device/tablet/tablet = new default_tablet(H)
+	var/obj/item/device/tablet_core/core = tablet.core
+	core.owner = H.real_name
+	core.ownjob = H.job
+	tablet.update_label()
+	H.equip_to_slot_or_del(tablet, default_tablet_slot)
 
 	//Equip headset
 	H.equip_to_slot_or_del(new src.default_headset(H), slot_ears)

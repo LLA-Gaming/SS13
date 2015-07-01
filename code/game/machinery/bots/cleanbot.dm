@@ -147,7 +147,7 @@ text("<A href='?src=\ref[src];operation=oddbutton'>[src.oddbutton ? "Yes" : "No"
 			src.updateUsrDialog()
 
 /obj/machinery/bot/cleanbot/attackby(obj/item/weapon/W, mob/user as mob)
-	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/thinktronic/tablet))
+	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/tablet))
 		if(src.allowed(usr) && !open && !emagged)
 			src.locked = !src.locked
 			user << "<span class='notice'>You [ src.locked ? "lock" : "unlock"] the [src] behaviour controls.</span>"

@@ -134,7 +134,7 @@
 		new /obj/item/clothing/head/bio_hood/cmo(src)
 		new /obj/item/clothing/under/rank/chief_medical_officer(src)
 		new /obj/item/clothing/suit/labcoat/cmo(src)
-		new /obj/item/device/thinktronic_parts/expansioncarts/cmo(src)
+		new /obj/item/device/tablet_carts/cmo(src)
 		new /obj/item/clothing/gloves/latex(src)
 		new /obj/item/clothing/shoes/sneakers/brown	(src)
 		new /obj/item/device/radio/headset/heads/cmo(src)

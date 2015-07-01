@@ -267,7 +267,7 @@
 
 	default_deconstruction_crowbar(W)
 
-	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/thinktronic/tablet))
+	if (istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/device/tablet))
 		if (!src.check_access(W))
 			user << "<span class='danger'>Access Denied.</span>"
 			return
@@ -343,8 +343,6 @@
 	src.icon_state = "pod_0"
 	src.eject_wait = 0 //If it's still set somehow.
 	domutcheck(src.occupant) //Waiting until they're out before possible monkeyizing.
-	for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-		MS.SendAlert("[occupant] in [name] has finished cloning","Medical Monitor", 1)
 	src.occupant = null
 	return
 

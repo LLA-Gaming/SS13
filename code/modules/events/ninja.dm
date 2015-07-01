@@ -1688,13 +1688,14 @@ ________________________________________________________________________________
 				dat += "<a href='byond://?src=\ref[src];choice=32'><img src=sos_1.png> Hidden Menu</a>"
 			dat += "<h4><img src=sos_12.png> Anonymous Messenger:</h4>"//Anonymous because the receiver will not know the sender's identity.
 			dat += "<h4><img src=sos_6.png> Detected Devices:</h4>"
+			var/list/users_online = list()
+			for(var/obj/item/device/tablet/T in tablets_list)
+				if(T.network() && T.core && T.core.owner && T.messengeron)
+					users_online.Add(T)
+			dat += "<h3>Users Online</h3>"
+			for(var/obj/item/device/tablet/T in users_online)
+				dat += "[T.owner] ([T.ownjob]) - <a href='byond://?src=\ref[src];choice=Message;target=\ref[T]'>Message</a><br>"
 			dat += "<ul>"
-			for(var/obj/item/device/thinktronic/devices in thinktronic_devices)
-				var/obj/item/device/thinktronic_parts/core/D = devices.HDD
-				if(!D) continue
-				if(devices.network() && devices.hasmessenger == 1 && D.neton && D.owner && D.messengeron)
-					dat += "<li><a href='byond://?src=\ref[src];choice=Message;target=\ref[devices]'>[D.owner] ([D.ownjob])</a>"
-					dat += "</li>"
 			dat += "</ul>"
 		if(32)
 			dat += "<h4><img src=sos_1.png> Hidden Menu:</h4>"
@@ -1868,27 +1869,24 @@ ________________________________________________________________________________
 				cell.charge -= damage
 			else
 				A << "\red <b>ERROR</b>: \black Not enough energy remaining."
-
 		if("Message")
-			var/obj/item/device/thinktronic/P = locate(href_list["target"])
+			var/obj/item/device/tablet/P = locate(href_list["target"])
 			var/t = input(U, "Please enter untraceable message.") as text
 			t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
 			if(!t||U.stat||U.wear_suit!=src||!s_initialized)//Wow, another one of these. Man...
 				display_to << browse(null, "window=spideros")
 				return
-			if(!P.HDD)//So it doesn't freak out if the object no-longer exists.
+			if(!P.core)//So it doesn't freak out if the object no-longer exists.
 				display_to << "\red Error: unable to deliver message."
 				display_spideros()
 				return
-			if(!P.HDD.messengeron)
+			if(!P.messengeron)
 				display_to << "\red Error: unable to deliver message."
 				display_spideros()
 				return
-			for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-				MS.SendAlertSolo("<b>From [!s_control?(A):"an unknown source"]:</b> [t]",P.device_ID)
-				display_to << "Message sent."
-				display_spideros()
-				break
+			P.alert_self("<b>an unknown source:</b>","[t]")
+			display_to << "Message sent."
+			display_spideros()
 		if("Inject")
 			if( (href_list["tag"]=="radium"? (reagents.get_reagent_amount("radium"))<=(a_boost*a_transfer) : !reagents.get_reagent_amount(href_list["tag"])) )//Special case for radium. If there are only a_boost*a_transfer radium units left.
 				display_to << "\red Error: the suit cannot perform this function. Out of [href_list["name"]]."

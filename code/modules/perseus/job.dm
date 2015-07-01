@@ -121,7 +121,7 @@ var/const/COMMANDER = (1<<1)
 
 		var/obj/item/weapon/card/id/perseus/id = new /obj/item/weapon/card/id/perseus(H)
 
-		var/obj/item/device/thinktronic/tablet/perseus/P = new /obj/item/device/thinktronic/tablet/perseus(H)
+		var/obj/item/device/tablet/perseus/P = new /obj/item/device/tablet/perseus(H)
 		id.assignment = title
 		id.access = get_access(title)
 
@@ -130,9 +130,9 @@ var/const/COMMANDER = (1<<1)
 		id.registered_name = name
 		id.name = name
 		P.id = id
-		P.HDD.owner = id.registered_name
-		P.HDD.ownjob = id.assignment
-		P.HDD.name = "PDA-[P.HDD.owner] ([P.HDD.ownjob])"
+		P.core.owner = id.registered_name
+		P.core.ownjob = id.assignment
+		P.core.name = "PDA-[P.core.owner] ([P.core.ownjob])"
 		P.update_label()
 		id.loc = P
 		H.equip_to_slot_or_del(P, slot_wear_id)
@@ -181,11 +181,11 @@ var/const/COMMANDER = (1<<1)
 		id.registered_name ="Perseus Security Commander #[pnumbers[H.ckey] ? pnumbers[H.ckey] : "00[rand(0,9)]"]-[pmeta[H.ckey] ? pmeta[H.ckey] : ""]"
 		id.name = id.registered_name
 
-		var/obj/item/device/thinktronic/tablet/perseus/P = new /obj/item/device/thinktronic/tablet/perseus(H)
+		var/obj/item/device/tablet/perseus/P = new /obj/item/device/tablet/perseus(H)
 		P.id = id
-		P.HDD.owner = id.registered_name
-		P.HDD.ownjob = id.assignment
-		P.HDD.name = "PDA-[P.HDD.owner] ([P.HDD.ownjob])"
+		P.core.owner = id.registered_name
+		P.core.ownjob = id.assignment
+		P.core.name = "PDA-[P.core.owner] ([P.core.ownjob])"
 		P.update_label()
 
 		H.equip_to_slot_or_del(P, slot_wear_id)

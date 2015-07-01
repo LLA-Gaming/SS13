@@ -542,7 +542,7 @@
 
 /obj/machinery/vending/assist
 	products = list(	/obj/item/device/assembly/prox_sensor = 5,/obj/item/device/assembly/igniter = 3,/obj/item/device/assembly/signaler = 4,
-						/obj/item/weapon/wirecutters = 1, /obj/item/device/thinktronic_parts/expansioncarts/signal = 4)
+						/obj/item/weapon/wirecutters = 1, /obj/item/device/tablet_carts/signal = 4)
 	contraband = list(/obj/item/device/flashlight = 5,/obj/item/device/assembly/timer = 2, /obj/item/device/assembly/voice = 2)
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
 
@@ -633,9 +633,9 @@
 	product_slogans = "Apps to go!"
 	icon_state = "cart"
 	icon_deny = "cart-deny"
-	products = list(/obj/item/device/thinktronic_parts/expansioncarts/medical = 10,/obj/item/device/thinktronic_parts/expansioncarts/engineering = 10,/obj/item/device/thinktronic_parts/expansioncarts/security = 10,
-					/obj/item/device/thinktronic_parts/expansioncarts/janitor = 10,/obj/item/device/thinktronic_parts/expansioncarts/toxins = 10,/obj/item/device/thinktronic/tablet/plain = 10,/obj/item/device/thinktronic/laptop/plain = 5,/obj/item/device/thinktronic_parts/core/ = 10,
-					/obj/item/device/thinktronic_parts/expansioncarts/captain = 1,/obj/item/device/thinktronic_parts/expansioncarts/quartermaster = 10)
+	products = list(/obj/item/device/tablet_carts/medical = 10,/obj/item/device/tablet_carts/engineering = 10,/obj/item/device/tablet_carts/security = 10,
+					/obj/item/device/tablet_carts/janitor = 10,/obj/item/device/tablet_carts/toxins = 10,/obj/item/device/tablet/plain = 10,/obj/item/device/tablet/laptop/ = 5,/obj/item/device/tablet_core/ = 10,
+					/obj/item/device/tablet_carts/captain = 1,/obj/item/device/tablet_carts/quartermaster = 10)
 
 
 /obj/machinery/vending/cigarette

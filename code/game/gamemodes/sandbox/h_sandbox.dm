@@ -29,7 +29,7 @@ datum/hSB
 	//items that shouldn't spawn on the floor because they would bug or act weird
 	var/global/list/spawn_forbidden = list(
 		/obj/item/weapon/grab, /obj/item/tk_grab, /obj/item/weapon/implant, // not implanter, the actual thing that is inside you
-		/obj/item/assembly,/obj/item/device/onetankbomb, /obj/item/radio, /obj/item/device/pda/ai,
+		/obj/item/assembly,/obj/item/device/onetankbomb, /obj/item/radio, /obj/item/device/tablet/ai,
 		/obj/item/device/uplink/hidden, /obj/item/smallDelivery, /obj/item/missile,/obj/item/projectile,
 		/obj/item/borg/sight,/obj/item/borg/overdrive,/obj/item/borg/stun,/obj/item/weapon/robot_module)
 

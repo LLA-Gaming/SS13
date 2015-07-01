@@ -17,7 +17,7 @@
 
 
 /* 21st Sept 2010
-Updated by Skie -- Still not perfect but better!
+updated by Skie -- Still not perfect but better!
 Stuff you can't do:
 Call proc /mob/proc/Dizzy() for some player
 Because if you select a player mob as owner it tries to do the proc for
@@ -482,7 +482,7 @@ var/global/list/g_fancy_list_of_safe_types = null
 			id.update_label()
 
 			if(worn)
-				if(istype(worn,/obj/item/device/thinktronic/tablet))
+				if(istype(worn,/obj/item/device/tablet))
 					worn:id = id
 					id.loc = worn
 				else if(istype(worn,/obj/item/weapon/storage/wallet))
@@ -678,10 +678,10 @@ var/global/list/g_fancy_list_of_safe_types = null
 			W.registered_name = M.real_name
 			W.update_label()
 			M.equip_to_slot_or_del(W, slot_wear_id)
-			var/obj/item/device/thinktronic/tablet/plain/P = new(M)
-			var/obj/item/device/thinktronic_parts/core/HDD = P.HDD
-			HDD.owner = M.real_name
-			HDD.ownjob = "Assistant"
+			var/obj/item/device/tablet/plain/P = new(M)
+			var/obj/item/device/tablet_core/core = P.core
+			core.owner = M.real_name
+			core.ownjob = "Assistant"
 			P.update_label()
 			M.equip_to_slot_or_del(P, slot_belt)
 
@@ -864,13 +864,13 @@ var/global/list/g_fancy_list_of_safe_types = null
 			sec_briefcase.contents += new /obj/item/weapon/plastique
 			M.equip_to_slot_or_del(sec_briefcase, slot_l_hand)
 
-			var/obj/item/device/thinktronic/tablet/clear/pda = new(M)
-			var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
-			HDD.owner = M.real_name
-			HDD.ownjob = "Reaper"
-			pda.update_label()
+			var/obj/item/device/tablet/clear/tablet = new(M)
+			var/obj/item/device/tablet_core/core = tablet.core
+			core.owner = M.real_name
+			core.ownjob = "Reaper"
+			tablet.update_label()
 
-			M.equip_to_slot_or_del(pda, slot_belt)
+			M.equip_to_slot_or_del(tablet, slot_belt)
 
 			var/obj/item/weapon/card/id/syndicate/W = new(M)
 			W.access = get_all_accesses()
@@ -936,13 +936,13 @@ var/global/list/g_fancy_list_of_safe_types = null
 			M.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(M), slot_belt)
 			M.equip_to_slot_or_del(new /obj/item/weapon/pen(M), slot_l_store)
 
-			var/obj/item/device/thinktronic/tablet/clear/pda = new(M)
-			var/obj/item/device/thinktronic_parts/core/HDD = pda.HDD
-			HDD.owner = M.real_name
-			HDD.ownjob = "Centcom Official"
-			pda.update_label()
+			var/obj/item/device/tablet/clear/tablet = new(M)
+			var/obj/item/device/tablet_core/core = tablet.core
+			core.owner = M.real_name
+			core.ownjob = "Centcom Official"
+			tablet.update_label()
 
-			M.equip_to_slot_or_del(pda, slot_r_store)
+			M.equip_to_slot_or_del(tablet, slot_r_store)
 
 			M.equip_to_slot_or_del(new /obj/item/weapon/clipboard(M), slot_l_hand)
 

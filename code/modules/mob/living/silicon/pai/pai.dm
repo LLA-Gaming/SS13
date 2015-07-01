@@ -32,9 +32,6 @@
 	var/screen				// Which screen our main window displays
 	var/subscreen			// Which specific function of the main screen is being displayed
 
-	//NO PDAS
-	//var/obj/item/device/pda/ai/pai/pda = null
-
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
 
@@ -49,7 +46,7 @@
 
 	var/obj/item/radio/integrated/signal/sradio // AI's signaller
 
-	var/obj/item/device/thinktronic/tablet/tablet = null
+	var/obj/item/device/tablet/tablet = null
 
 
 /mob/living/silicon/pai/New(var/obj/item/device/paicard)

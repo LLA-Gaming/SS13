@@ -30,7 +30,7 @@
 	// Is it a snack, organ, device, or weapon.. FRY IT UP!
 		user << "<span class='warning'>Budget cuts won't let you put that in there.</span>"
 		return
-	if(istype(I, /obj/item/weapon/storage) || istype(I, /obj/item/weapon/card) || istype(I, /obj/item/weapon/twohanded) || istype(I, /obj/item/weapon/grab) || istype(I, /obj/item/device/thinktronic) || istype(I, /obj/item/weapon/melee/arm_blade) || istype(I, /obj/item/weapon/melee/energy/) || istype(I, /obj/item/weapon/gun/energy/) || istype(I, /obj/item/weapon/extinguisher/mini/nozzle) || istype(I, /obj/item/weapon/reagent_containers/spray/mister) || istype(I, /obj/item/weapon/pinpointer))
+	if(istype(I, /obj/item/weapon/storage) || istype(I, /obj/item/weapon/card) || istype(I, /obj/item/weapon/twohanded) || istype(I, /obj/item/weapon/grab) || istype(I, /obj/item/device/tablet) || istype(I, /obj/item/weapon/melee/arm_blade) || istype(I, /obj/item/weapon/melee/energy/) || istype(I, /obj/item/weapon/gun/energy/) || istype(I, /obj/item/weapon/extinguisher/mini/nozzle) || istype(I, /obj/item/weapon/reagent_containers/spray/mister) || istype(I, /obj/item/weapon/pinpointer))
 	// Block specific items
 		user << "<span class='warning'>Budget cuts won't let you put that in there.</span>"
 		return

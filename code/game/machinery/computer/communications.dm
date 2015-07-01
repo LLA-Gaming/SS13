@@ -68,9 +68,9 @@ var/perseusMissionCooldown = 3000
 		if("login")
 			var/mob/M = usr
 			var/obj/item/weapon/card/id/I = M.get_active_hand()
-			if (istype(I, /obj/item/device/thinktronic/tablet))
-				var/obj/item/device/thinktronic/tablet/pda = I
-				I = pda.id
+			if (istype(I, /obj/item/device/tablet))
+				var/obj/item/device/tablet/tablet = I
+				I = tablet.id
 			if (I && istype(I))
 				if(src.check_access(I))
 					authenticated = 1
@@ -86,9 +86,9 @@ var/perseusMissionCooldown = 3000
 		if("swipeidseclevel")
 			var/mob/M = usr
 			var/obj/item/weapon/card/id/I = M.get_active_hand()
-			if (istype(I, /obj/item/device/thinktronic/tablet))
-				var/obj/item/device/thinktronic/tablet/pda = I
-				I = pda.id
+			if (istype(I, /obj/item/device/tablet))
+				var/obj/item/device/tablet/tablet = I
+				I = tablet.id
 			if (I && istype(I))
 				if(access_captain in I.access)
 					var/old_level = security_level

@@ -70,7 +70,7 @@
 	..()
 	sleep(2)
 	new /obj/item/clothing/under/rank/janitor(src)
-	new /obj/item/device/thinktronic_parts/expansioncarts/janitor(src)
+	new /obj/item/device/tablet_carts/janitor(src)
 	new /obj/item/clothing/gloves/black(src)
 	new /obj/item/clothing/head/soft/purple(src)
 	new /obj/item/device/flashlight(src)

@@ -1212,11 +1212,11 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/misc/thinktronic
 	name = "ThinkTronic Supply crate"
-	contains = list(/obj/item/device/thinktronic/laptop,
-					/obj/item/device/thinktronic/laptop,
-					/obj/item/device/thinktronic/laptop,
-					/obj/item/device/thinktronic/tablet,
-					/obj/item/device/thinktronic/tablet,
-					/obj/item/device/thinktronic/tablet)
+	contains = list(/obj/item/device/tablet/laptop,
+					/obj/item/device/tablet/laptop,
+					/obj/item/device/tablet/laptop,
+					/obj/item/device/tablet,
+					/obj/item/device/tablet,
+					/obj/item/device/tablet)
 	cost = 15
 	containername = "thinktronic supply crate"

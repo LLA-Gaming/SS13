@@ -271,7 +271,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		//update our pda and id if we have them on our person
 		var/list/searching = GetAllContents()
 		var/search_id = 1
-		var/search_pda = 1
+		var/search_tablet = 1
 
 		for(var/A in searching)
 			if( search_id && istype(A,/obj/item/weapon/card/id) )
@@ -279,18 +279,18 @@ Turf and target are seperate in case you want to teleport some distance from a t
 				if(ID.registered_name == oldname)
 					ID.registered_name = newname
 					ID.update_label()
-					if(!search_pda)	break
+					if(!search_tablet)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/device/thinktronic/tablet) )
-				var/obj/item/device/thinktronic/tablet/PDA = A
-				var/obj/item/device/thinktronic_parts/core/HDD = PDA.HDD
-				if(HDD)
-					if(HDD.owner == oldname)
-						HDD.owner = newname
-						PDA.update_label()
+			else if( search_tablet && istype(A,/obj/item/device/tablet) )
+				var/obj/item/device/tablet/tablet = A
+				var/obj/item/device/tablet_core/core = tablet.core
+				if(core)
+					if(core.owner == oldname)
+						core.owner = newname
+						tablet.update_label()
 						if(!search_id)	break
-						search_pda = 0
+						search_tablet = 0
 
 		for(var/datum/mind/T in ticker.minds)
 			for(var/datum/objective/obj in T.objectives)
@@ -341,11 +341,11 @@ Turf and target are seperate in case you want to teleport some distance from a t
 					A.eyeobj.name = "[newname] (AI Eye)"
 
 				// Set ai pda name
-				if(A.aiPDA)
-					if(A.aiPDA.HDD)
-						var/obj/item/device/thinktronic_parts/core/hdd = A.aiPDA.HDD // variable for interactin with the HDD
-						hdd.owner = newname
-						hdd.name = newname + " (" + hdd.ownjob + ")"
+				if(A.tablet)
+					if(A.tablet)
+						var/obj/item/device/tablet_core/core = A.tablet.core // variable for interactin with the HDD
+						core.owner = newname
+						core.name = newname + " (" + core.ownjob + ")"
 
 				// Notify Cyborgs
 				for(var/mob/living/silicon/robot/Slave in A.connected_robots)
@@ -1419,30 +1419,8 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 		if(from.wear_mask)
 			target.equip_to_slot_or_del(new from.wear_mask.type(target), slot_wear_mask)
 		if(from.wear_id)
-			if(istype(from.wear_id, /obj/item/device/pda))
-				var/obj/item/device/pda/G = from.wear_id
-				var/obj/item/device/pda/P = new G.type()
-				P.name = G.name
-				P.cartridge = new G.cartridge.type()
-				P.lock_code = G.lock_code
-				P.hidden = G.hidden
-				P.toff = G.toff
-				P.owner = G.owner
-				P.ownjob = G.ownjob
-				if(G.id)
-					var/obj/item/weapon/card/id/F = G.id
-					var/obj/item/weapon/card/id/W = new F.type()
-					W.name = F.name
-					W.assignment = F.assignment
-					W.access = F.access
-					W.registered_name = F.registered_name
-					W.dorm = F.dorm
-					P.id = W
-				if(P.pai)
-					target << "\red Sorry, but we can't transfer pAI's."
-				target.equip_to_slot_or_del(P, slot_wear_id)
-			else if(istype(from.wear_id, /obj/item/weapon/card/id) || (istype(from.wear_id, /obj/item/device/thinktronic/tablet) && copyid))
-				if(!istype(from.wear_id, /obj/item/device/thinktronic/tablet))
+			if(istype(from.wear_id, /obj/item/weapon/card/id) || (istype(from.wear_id, /obj/item/device/tablet) && copyid))
+				if(!istype(from.wear_id, /obj/item/device/tablet))
 					var/obj/item/weapon/card/id/X = from.wear_id
 					var/obj/item/weapon/card/id/W = new X.type()
 					W.name = X.name
@@ -1452,7 +1430,7 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 					W.icon_state = X.icon_state
 					target.equip_to_slot_or_del(W, slot_wear_id)
 				else
-					var/obj/item/device/thinktronic/tablet/G = from.wear_id
+					var/obj/item/device/tablet/G = from.wear_id
 					if(G.id)
 						var/obj/item/weapon/card/id/I = new G.id.type()
 						I.name = G.id.name
@@ -1462,14 +1440,14 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 						I.icon_state = G.id.icon_state
 						target.equip_to_slot_or_del(I, slot_wear_id)
 
-			else if(istype(from.wear_id, /obj/item/device/thinktronic/tablet))
-				var/obj/item/device/thinktronic/tablet/G = from.wear_id
-				var/obj/item/device/thinktronic/tablet/P = new G.type()
+			else if(istype(from.wear_id, /obj/item/device/tablet))
+				var/obj/item/device/tablet/G = from.wear_id
+				var/obj/item/device/tablet/P = new G.type()
 				P.name = G.name
 				P.owner = G.owner
 				P.ownjob = G.ownjob
-				if(G.HDD)
-					P.HDD = new G.HDD.type()
+				if(G.core)
+					P.core = new G.core.type()
 				target.equip_to_slot_or_del(P, slot_wear_id)
 
 		for(var/obj/item/weapon/implant/I in from)

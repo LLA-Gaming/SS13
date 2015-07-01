@@ -177,10 +177,9 @@
 			user << "[msg2]"
 
 	// OTHER
-	else if ((istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/device/pda)) && isliving(user))
+	else if (istype(W, /obj/item/weapon/paper) && isliving(user))
 		var/mob/living/U = user
 		var/obj/item/weapon/paper/X = null
-		var/obj/item/device/pda/P = null
 
 		var/itemname = ""
 		var/info = ""
@@ -188,10 +187,6 @@
 			X = W
 			itemname = X.name
 			info = X.info
-		else
-			P = W
-			itemname = P.name
-			info = P.notehtml
 		U << "You hold \the [itemname] up to the camera ..."
 		for(var/mob/O in player_list)
 			if(istype(O, /mob/living/silicon/ai))

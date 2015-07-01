@@ -146,8 +146,6 @@ research holder datum.
 		if(KT.id == ID)
 			if(KT.level <= level)
 				KT.level = max((KT.level + 1), (level - 1))
-				for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
-					MS.SendAlert("[KT.name] is now level [KT.level]","Research Monitor")
 	return
 
 /datum/research/proc/UpdateDesigns(var/obj/item/I, var/list/temp_tech)

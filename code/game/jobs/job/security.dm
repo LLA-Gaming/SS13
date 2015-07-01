@@ -21,11 +21,11 @@ Head of Shitcurity
 	minimal_player_age = 14
 
 	default_id = /obj/item/weapon/card/id/silver
-	default_pda = /obj/item/device/thinktronic/tablet/hos
+	default_tablet = /obj/item/device/tablet/hos
 	default_headset = /obj/item/device/radio/headset/heads/hos
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	default_pda_slot = slot_r_store
+	default_tablet_slot = slot_r_store
 
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court,
 			            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
@@ -68,11 +68,11 @@ Warden
 	minimal_player_age = 7
 	req_spacelaw_notify = 1
 
-	default_pda = /obj/item/device/thinktronic/tablet/warden
+	default_tablet = /obj/item/device/tablet/warden
 	default_headset = /obj/item/device/radio/headset/headset_sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	default_pda_slot = slot_r_store
+	default_tablet_slot = slot_r_store
 
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court) //See /datum/job/warden/get_access()
@@ -114,7 +114,7 @@ Detective
 	minimal_player_age = 7
 	req_spacelaw_notify = 1
 
-	default_pda = /obj/item/device/thinktronic/tablet/detective
+	default_tablet = /obj/item/device/tablet/detective
 	default_headset = /obj/item/device/radio/headset/headset_sec
 
 	access = list(access_sec_doors, access_forensics_lockers, access_morgue, access_maint_tunnels, access_court)
@@ -162,11 +162,11 @@ Security Officer
 	req_spacelaw_notify = 1
 	var/list/dep_access = null
 
-	default_pda = /obj/item/device/thinktronic/tablet/security
+	default_tablet = /obj/item/device/tablet/security
 	default_headset = /obj/item/device/radio/headset/headset_sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	default_pda_slot = slot_r_store
+	default_tablet_slot = slot_r_store
 
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court) //But see /datum/job/warden/get_access()

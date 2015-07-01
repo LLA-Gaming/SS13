@@ -49,7 +49,7 @@
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
 	new /obj/item/weapon/pinpointer/nukeop(src)
-	new /obj/item/device/thinktronic/tablet/syndi(src)
+	new /obj/item/device/tablet/syndi(src)
 	return
 
 /obj/structure/closet/syndicate/resources/
