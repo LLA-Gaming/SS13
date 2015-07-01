@@ -1,11 +1,10 @@
-##/tg/station v1.0.1
+##Liberty Station
 
-[![Build Status](https://travis-ci.org/tgstation/-tg-station.png)](https://travis-ci.org/tgstation/-tg-station)
+[![Build Status](https://api.travis-ci.org/Spoffy/LLA-Station-13.png)](https://travis-ci.org/Spoffy/LLA-Station-13)
 
 
-**Website:** http://www.tgstation13.org <BR>
-**Code:** https://github.com/tgstation/-tg-station <BR>
-**IRC:** irc://irc.rizon.net/coderbus <BR>
+**Website:** http://www.llagaming.net/forums/ <BR>
+**Code:** https://github.com/Spoffy/LLA-Station-13 <BR>
 
 ##DOWNLOADING
 
