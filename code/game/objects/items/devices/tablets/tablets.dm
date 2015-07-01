@@ -61,10 +61,10 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 		core.programs.Add(A)
 
 /obj/item/device/tablet/Destroy()
-	..()
 	tablets_list.Remove(src)
 	if(src.id)
 		src.id.loc = get_turf(src.loc)
+	..()
 
 /obj/item/device/tablet/attack_self(mob/living/user)
 	user.set_machine(src)
