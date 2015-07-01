@@ -715,6 +715,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/critter/goat
 	containername = "goat crate"
 
+/datum/supply_packs/organic/alpaca
+	name = "Alpaca Crate"
+	cost = 30
+	containertype = /obj/structure/closet/critter/alpaca
+	containername = "alpaca crate"
+
 /datum/supply_packs/organic/chicken
 	name = "Chicken Crate"
 	cost = 20
