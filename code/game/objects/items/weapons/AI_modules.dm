@@ -176,11 +176,15 @@ AI MODULES
 	desc = "A 'freeform' AI module: '<freeform>'"
 	origin_tech = "programming=4;materials=4"
 	laws = list("")
+	lawpos = 15
 
 /obj/item/weapon/aiModule/supplied/freeform/attack_self(var/mob/user as mob)
 	..()
 	lawpos = input("Please enter the priority for your new law. Can only write to law sectors 15 and above.", "Law Priority (15+)", lawpos) as num
-	if(lawpos < 15) return
+	if(lawpos < 15)
+		user << "<span class = 'caution'> [src] can only write to law sectors 15 and above.</span>"
+		lawpos = 15
+		return
 	lawpos = min(lawpos, 50)
 	var/newlaw = ""
 	var/targName = stripped_input(user, "Please enter a new law for the AI.", "Freeform Law Entry", newlaw, MAX_MESSAGE_LEN)
