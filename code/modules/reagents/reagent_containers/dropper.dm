@@ -10,7 +10,14 @@
 
 	afterattack(obj/target, mob/user , proximity)
 		if(!proximity) return
-		if(!target.reagents) return
+		if(!target.reagents)
+			if(reagents.total_volume<=0)
+				filled = 0
+				icon_state = "dropper[filled]"
+			else
+				filled = 1
+				icon_state = "dropper[filled]"
+			return
 
 		if(filled)
 			if(target.reagents.total_volume >= target.reagents.maximum_volume)
