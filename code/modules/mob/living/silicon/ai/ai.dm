@@ -85,6 +85,7 @@ var/list/ai_list = list()
 	tablet.core.owner = name
 	tablet.core.ownjob = "AI"
 	tablet.name = name + " (" + tablet.core.ownjob + ")"
+	tablet.update_label()
 
 	aiMulti = new(src)
 	aicamera = new/obj/item/device/camera/ai_camera(src)

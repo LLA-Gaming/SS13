@@ -41,6 +41,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 	var/banned = 0
 
 /obj/item/device/tablet/New()
+	..()
 	new /obj/item/weapon/pen(src)
 	tablets_list.Add(src)
 	s_radio = new /obj/item/radio/integrated/signal(src)
@@ -60,6 +61,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 		core.programs.Add(A)
 
 /obj/item/device/tablet/Destroy()
+	..()
 	tablets_list.Remove(src)
 	if(src.id)
 		src.id.loc = get_turf(src.loc)
@@ -132,6 +134,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 	var/mob/U = usr
 	switch(href_list["choice"])//Now we switch based on choice.
 		if ("Close")
+			U << browse(null, "window=[popup.window_id]")
 			popup.close()
 			U.unset_machine()
 			return
@@ -255,10 +258,8 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 
 	if(T)
 		T.hotspot_expose(700,125)
-		explosion(T, -1, 1, 2, 3, flame_range = 2)
-
+		explosion(T, -1, -1, 2, 3, flame_range = 2)
 	qdel(src)
-	return
 
 /obj/item/device/tablet/proc/get_apps_list()
 	apps_builtin = list()
@@ -601,6 +602,7 @@ obj/item/device/tablet/verb/verb_remove_pen()
 
 /obj/item/device/tablet/captain
 	icon_state = "tablet-captain"
+	can_detonate = 0
 	New()
 		..()
 		core.programs.Add(new /datum/program/notekeeper)
@@ -870,10 +872,14 @@ obj/item/device/tablet/verb/verb_remove_pen()
 /obj/item/device/tablet/syndi
 	icon_state = "tablet-syndi"
 	messengeron = 0
+	can_detonate = 0
 	New()
 		..()
 		core.owner = "John Doe"
 		core.ownjob = "Unknown"
+		core.programs.Add(new /datum/program/hackingtools)
+		core.programs.Add(new /datum/program/GPS)
+		core.programs.Add(new /datum/program/signaller)
 		update_label()
 
 /obj/item/device/tablet/perseus

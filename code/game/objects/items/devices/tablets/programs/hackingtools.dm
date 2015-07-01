@@ -12,6 +12,7 @@
 			dat = "<h4>Device List - Detonation Charges: [shock_charges]</h4>"
 			for(var/obj/item/device/tablet/T in tablets_list)
 				if(T == tablet) continue
+				if(!T.can_detonate) continue
 				if(T.network() && T.core && T.core.owner && T.messengeron)
 					dat += {" [T.core.owner] ([T.core.ownjob])"}
 					dat += {" - "}
