@@ -100,8 +100,9 @@
 						Mind.objectives += O
 
 					if(2)	//steal
-						var/datum/objective/steal/special/O = new /datum/objective/steal/special()
+						var/datum/objective/steal/O = new /datum/objective/steal()
 						O.owner = Mind
+						O.find_target()
 						Mind.objectives += O
 
 					if(3)	//protect/kill
@@ -149,16 +150,13 @@
 	O.owner = Mind
 	Mind.objectives += O
 
-	//Finally, add their RP-directive
-	var/directive = generate_ninja_directive()
-	O = new /datum/objective(directive)		//making it an objective so admins can reward the for completion
-	O.owner = Mind
-	Mind.objectives += O
-
 	//add some RP-fluff
 	Mind.store_memory("I am an elite mercenary assassin of the mighty Spider Clan. A <font color='red'><B>SPACE NINJA</B></font>!")
 	Mind.store_memory("Suprise is my weapon. Shadows are my armor. Without them, I am nothing. (//initialize your suit by right clicking on it, to use abilities like stealth)!")
 	Mind.store_memory("Officially, [helping_station?"Nanotrasen":"The Syndicate"] are my employer.")
+
+	var/directive = generate_ninja_directive()
+	Mind.store_memory(directive)
 
 	//spawn the ninja and assign the candidate
 	Ninja = create_space_ninja(spawn_loc)
