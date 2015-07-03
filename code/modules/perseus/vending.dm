@@ -20,7 +20,7 @@
 	/obj/item/weapon/reagent_containers/food/snacks/stew =3, /obj/item/weapon/reagent_containers/food/snacks/burger/superbite = 1,
 	/obj/item/weapon/reagent_containers/food/snacks/candiedapple = 3, /obj/item/weapon/reagent_containers/food/snacks/applepie = 3,
 	/obj/item/weapon/reagent_containers/food/snacks/cherrypie = 3, /obj/item/weapon/reagent_containers/food/snacks/xenomeat = 3,
-	/obj/item/weapon/reagent_containers/food/snacks/sliceable/store/chocolatecake = 3)
+	/obj/item/weapon/reagent_containers/food/snacks/sliceable/store/chocolatecake = 3,/obj/item/weapon/kitchenknife = 1)
 
 	product_ads = "Oui Oui!;Bon appetit!;Oh putain! Qu'est-ce que c'est ça? Ça c’est dégueulasse!;Profitez de votre crasse cochon!"
 	contraband = list(/obj/item/weapon/reagent_containers/food/snacks/wishsoup = 1)
