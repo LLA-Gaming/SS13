@@ -46,14 +46,17 @@
 	var/obj/item/weapon/airlock_electronics/electronics = null
 	var/hasShocked = 0 //Prevents multiple shocks from happening
 	var/autoclose = 1
+	var/secure = 0 //non-zero for random wires when created
 
 /obj/machinery/door/airlock/command
 	icon = 'icons/obj/doors/Doorcom.dmi'
 	doortype = 1
+	secure = 1
 
 /obj/machinery/door/airlock/security
 	icon = 'icons/obj/doors/Doorsec.dmi'
 	doortype = 2
+	secure = 1
 
 /obj/machinery/door/airlock/engineering
 	icon = 'icons/obj/doors/Dooreng.dmi'
@@ -90,6 +93,7 @@
 	icon = 'icons/obj/doors/vault.dmi'
 	opacity = 1
 	doortype = 9
+	secure = 1
 
 /obj/machinery/door/airlock/glass_large
 	name = "glass airlock"
@@ -123,6 +127,7 @@
 	opacity = 0
 	doortype = 14
 	glass = 1
+	secure = 1
 
 /obj/machinery/door/airlock/glass_engineering
 	name = "maintenance hatch"
@@ -137,6 +142,7 @@
 	opacity = 0
 	doortype = 16
 	glass = 1
+	secure = 1
 
 /obj/machinery/door/airlock/glass_medical
 	name = "maintenance hatch"
@@ -270,6 +276,7 @@
 	name = "high tech security airlock"
 	icon = 'icons/obj/doors/hightechsecurity.dmi'
 	doortype = 33
+	secure = 1
 
 /obj/machinery/door/airlock/shuttle
 	name = "shuttle airlock"
@@ -1073,7 +1080,11 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/New()
 	..()
-	wires = new(src)
+	if(secure)
+		var/datum/wires/airlock/secure/S = new(src)
+		wires = S
+	else
+		wires = new(src)
 	if(src.closeOtherId != null)
 		spawn (5)
 			for (var/obj/machinery/door/airlock/A in world)
