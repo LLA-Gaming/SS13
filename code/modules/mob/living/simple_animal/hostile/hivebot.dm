@@ -56,17 +56,14 @@
 	qdel(src)
 	return
 
-/mob/living/simple_animal/hostile/hivebot/tele//this still needs work
+/obj/structure/hivebot_tele
 	name = "beacon"
 	desc = "Some odd beacon thing."
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "def_radar-off"
-	icon_living = "def_radar-off"
-	health = 200
-	maxHealth = 200
-	status_flags = 0
+	density = 1
 	anchored = 1
-	stop_automated_movement = 1
+	var/health = 200
 	var/bot_type = "norm"
 	var/bot_amt = 10
 	var/spawn_delay = 600
@@ -83,6 +80,22 @@
 		smoke.start()
 		visible_message("\red <B>The [src] warps in!</B>")
 		playsound(src.loc, 'sound/effects/EMPulse.ogg', 25, 1)
+		spawn(rand(10,600))
+			warpbots()
+
+	attackby(obj/item/W as obj, mob/user as mob)
+		user.changeNext_move(8)
+		switch(W.damtype)
+			if("fire")
+				src.health -= W.force * 1
+			if("brute")
+				src.health -= W.force * 0.75
+			else
+		if (src.health <= 0)
+			visible_message("\red <B>The beacon is smashed apart!</B>")
+			qdel(src)
+		..()
+
 
 	warpbots()
 		icon_state = "def_radar"
@@ -99,11 +112,3 @@
 		spawn(100)
 			qdel(src)
 		return
-
-
-	Life()
-		..()
-		if(stat == 0)
-			if(prob(2))//Might be a bit low, will mess with it likely
-				warpbots()
-
