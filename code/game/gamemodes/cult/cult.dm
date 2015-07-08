@@ -27,7 +27,7 @@
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel",
 							"Perseus Security Enforcer", "Perseus Security Commander")
 	protected_jobs = list()
-	required_players = 20
+	required_players = 18
 	required_enemies = 6
 	recommended_enemies = 6
 
