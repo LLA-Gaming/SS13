@@ -27,6 +27,7 @@
 			else	output += "<p><b>You are ready</b> <a href='byond://?src=\ref[src];ready=2'>Cancel</A></p>"
 
 		else
+			output += "<p><a href='byond://?src=\ref[src];manifest=1'>View Crew Manifest</A></p>"
 			output += "<p><a href='byond://?src=\ref[src];late_join=1'>Join Game!</A></p>"
 
 		output += "<p><a href='byond://?src=\ref[src];observe=1'>Observe</A></p>"
@@ -53,7 +54,7 @@
 		output += "</center>"
 
 		//src << browse(output,"window=playersetup;size=210x240;can_close=0")
-		var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 210, 240)
+		var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 210, 275)
 		popup.set_window_options("can_close=0")
 		popup.set_content(output)
 		popup.open(0)
@@ -122,6 +123,19 @@
 
 				qdel(src)
 				return 1
+
+		if(href_list["manifest"])
+			if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+				usr << "\red The round is either not ready, or has already finished..."
+				return
+			var/dat = ""
+			if(data_core.general)
+				for (var/datum/data/record/t in sortRecord(data_core.general))
+					dat += "[t.fields["name"]] - [t.fields["rank"]]<br>"
+			var/datum/browser/popup = new(src, "lobby_manifest", "Crew Manifest", 440, 500)
+			popup.set_content(dat)
+			popup.open(0)
+
 
 		if(href_list["late_join"])
 			if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
@@ -385,3 +399,4 @@
 		src << browse(null, "window=preferences") //closes job selection
 		src << browse(null, "window=mob_occupation")
 		src << browse(null, "window=latechoices") //closes late job selection
+		src << browse(null, "window=lobby_manifest") //closes crew manifest
