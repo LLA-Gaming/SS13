@@ -37,6 +37,10 @@
 			cmd_admin_pm(href_list["priv_msg"], null)
 		return
 
+	if(href_list["mentor_reply"])
+		cmd_mentor_reply(href_list["mentor_reply"])
+		return 0
+
 	//Logs all hrefs
 	if(config && config.log_hrefs && href_logfile)
 		href_logfile << "<small>[time2text(world.timeofday,"hh:mm")] [src] (usr:[usr])</small> || [hsrc ? "[hsrc] " : ""][href]<br>"
@@ -115,6 +119,9 @@ var/next_external_rsc = 0
 	if(holder)
 		admins += src
 		holder.owner = src
+
+	if(ckey in mentors)
+		verbs += list(/client/proc/cmd_mentor_say)
 
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
 	prefs = preferences_datums[ckey]

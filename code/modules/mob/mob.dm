@@ -256,7 +256,10 @@ var/list/slot_equipment_priority = list( \
 	set category = "Object"
 	set src = usr
 
-	if(istype(loc,/obj/mecha)) return
+	if(istype(loc,/obj/mecha))
+		var/obj/mecha/M = loc
+		M.attack_self_action(src)
+		return 0
 
 	if(hand)
 		var/obj/item/W = l_hand

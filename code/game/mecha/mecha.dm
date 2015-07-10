@@ -254,6 +254,25 @@
 		src.melee_action(target)
 	return
 
+/obj/mecha/proc/attack_self_action(var/mob/M)
+	var/obj/item/I
+	if(M.hand)
+		I = M.l_hand
+	else
+		I = M.r_hand
+
+	var/list/allowed = list(/obj/item/device/mining_scanner)
+	var/is_allowed = 0
+	for(var/a in allowed)
+		if(istype(I, a))
+			is_allowed = 1
+			break
+
+	if(!is_allowed)
+		return 0
+
+	I.attack_self(M)
+	M.update_inv_l_hand(0)
 
 /obj/mecha/proc/melee_action(atom/target)
 	return

@@ -39,6 +39,7 @@
 	load_mode()
 	load_motd()
 	load_admins()
+	LoadMentors()
 	load_badges()
 	LoadBansjob()
 	if(config.usewhitelist)
