@@ -23,6 +23,8 @@
 															"remote signaller" = 5,
 															)
 
+/mob/living/silicon/pai/var/list/hidden_software = list("thermals" = 20)
+
 /mob/living/silicon/pai/verb/paiInterface()
 	set category = "pAI Commands"
 	set name = "Software Interface"
@@ -61,6 +63,8 @@
 				left_part = src.facialRecognition()
 			if("medicalhud")
 				left_part = src.medicalAnalysis()
+			if("thermals")
+				left_part = src.thermalvision()
 			if("doorjack")
 				left_part = src.softwareDoor()
 			if("tablet")
@@ -130,7 +134,7 @@
 		if("buy")
 			if(src.subscreen == 1)
 				var/target = href_list["buy"]
-				if(available_software.Find(target))
+				if(available_software.Find(target) || hidden_software.Find(target))
 					var/cost = src.available_software[target]
 					if(src.ram >= cost)
 						src.ram -= cost
@@ -249,6 +253,9 @@
 		if("medicalhud")
 			if(href_list["toggle"])
 				src.medHUD = !src.medHUD
+		if("thermals")
+			if(href_list["toggle"])
+				src.thermals = !src.thermals
 		if("translator")
 			if(href_list["toggle"])
 				src.universal_speak = !src.universal_speak
@@ -309,6 +316,8 @@
 			dat += "<a href='byond://?src=\ref[src];software=securityhud;sub=0'>Facial Recognition Suite</a>[(src.secHUD) ? "<font color=#55FF55> On</font>" : "<font color=#FF5555> Off</font>"] <br>"
 		if(s == "medical HUD")
 			dat += "<a href='byond://?src=\ref[src];software=medicalhud;sub=0'>Medical Analysis Suite</a>[(src.medHUD) ? "<font color=#55FF55> On</font>" : "<font color=#FF5555> Off</font>"] <br>"
+		if(s == "thermals")
+			dat += "<a href='byond://?src=\ref[src];software=thermals;sub=0'>Thermal Vision</a> <br>"
 		if(s == "universal translator")
 			dat += "<a href='byond://?src=\ref[src];software=translator;sub=0'>Universal Translator</a>[(src.universal_speak) ? "<font color=#55FF55> On</font>" : "<font color=#FF5555> Off</font>"] <br>"
 		if(s == "projection array")
@@ -341,6 +350,15 @@
 		else
 			var/displayName = lowertext(s)
 			dat += "[displayName] (Download Complete) <br>"
+	if(card.emagged)
+		for(var/s in hidden_software)
+			if(!software.Find(s))
+				var/cost = src.hidden_software[s]
+				var/displayName = uppertext(s)
+				dat += "<a href='byond://?src=\ref[src];software=buy;sub=1;buy=[s]'>[displayName]</a> ([cost]) <br>"
+			else
+				var/displayName = lowertext(s)
+				dat += "[displayName] (Download Complete) <br>"
 	dat += "</p>"
 	return dat
 
@@ -598,6 +616,16 @@
 					"}
 		dat += "<a href='byond://?src=\ref[src];software=medicalhud;sub=0'>Visual Status Overlay</a><br>"
 	return dat
+
+//Thermal
+/mob/living/silicon/pai/proc/thermalvision()
+	var/dat = {"<h3>Thermal Imaging </h3><br>
+				When enabled, this package will scan all thermal heat signatures in the area in realtime.<br><br>
+				The package is currently [ (src.thermals) ? "<font color=#55FF55>en" : "<font color=#FF5555>dis" ]abled.</font><br>
+				<a href='byond://?src=\ref[src];software=thermals;sub=0;toggle=1'>Toggle Package</a><br>
+				"}
+	return dat
+
 
 // Atmospheric Scanner
 /mob/living/silicon/pai/proc/softwareAtmo()

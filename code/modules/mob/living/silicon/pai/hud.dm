@@ -80,3 +80,12 @@
 		else
 			return "health-100"
 	return "0"
+
+/mob/living/silicon/pai/proc/thermals()
+	if(client)
+		if(src.thermals == 1)
+			src.sight |= SEE_MOBS
+			src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+		if(src.thermals == 0)
+			src.sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+			src.see_invisible = SEE_INVISIBLE_LIVING

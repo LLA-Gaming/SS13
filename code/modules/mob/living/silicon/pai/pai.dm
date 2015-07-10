@@ -1,8 +1,9 @@
 /mob/living/silicon/pai
 	name = "pAI"
 	icon = 'icons/obj/status_display.dmi' //invisibility!
-	mouse_opacity
+	mouse_opacity = 0
 	density = 0
+	invisibility = 101 // No more beating up pAIs or pAIs taking bullets for there masters.
 
 	robot_talk_understand = 0
 
@@ -34,6 +35,7 @@
 
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
+	var/thermals = 0		// Toggles whether the thermal vision is active or not
 
 	var/datum/data/record/medicalActive1		// Datacore record declarations for record software
 	var/datum/data/record/medicalActive2

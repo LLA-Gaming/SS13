@@ -14,6 +14,7 @@
 		src.securityHUD()
 	if(src.medHUD == 1)
 		src.medicalHUD()
+	src.thermals()
 	if(silence_time)
 		if(world.timeofday >= silence_time)
 			silence_time = null
