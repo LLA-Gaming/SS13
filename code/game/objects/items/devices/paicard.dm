@@ -9,6 +9,7 @@
 	var/obj/item/device/radio/radio
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
+	var/emagged = 0
 
 /obj/item/device/paicard/New()
 	..()
@@ -171,3 +172,10 @@
 		pai.emp_act(severity)
 	..()
 
+/obj/item/device/paicard/attackby(obj/item/C as obj, mob/user as mob)
+	..()
+	if(istype(C, /obj/item/weapon/card/emag))
+		if(!emagged)
+			user << "<span class='notice'>You emag the pAI.</span>"
+			emagged = 1
+			return
