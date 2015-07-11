@@ -18,6 +18,8 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 	var/messengeron = 1
 	var/scanmode
 	var/system_alerts = 1
+	var/fon = 0
+	var/f_lum = 3
 
 	var/laptop = 0
 
@@ -65,6 +67,16 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 	if(src.id)
 		src.id.loc = get_turf(src.loc)
 	..()
+
+/obj/item/device/tablet/pickup(mob/user)
+	if(fon)
+		SetLuminosity(0)
+		user.AddLuminosity(f_lum)
+
+/obj/item/device/tablet/dropped(mob/user)
+	if(fon)
+		user.AddLuminosity(-f_lum)
+		SetLuminosity(f_lum)
 
 /obj/item/device/tablet/attack_self(mob/living/user)
 	user.set_machine(src)
@@ -121,6 +133,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 						dat += "<a href='byond://?src=\ref[src];choice=load;target=\ref[P]'>[P.name][P.notifications ? " \[[P.notifications]\]" : ""]</a> "
 						dat += "<br>"
 					dat += {"<a href='byond://?src=\ref[src];choice=Network'>[core.neton ? "Network \[On\]" : "Network \[Off\]"]</a><br>"}
+					dat += " Flashlight: <a href='byond://?src=\ref[src];choice=Light'>[fon ? "On" : "Off"]</a><br>"
 		var/device = "tablet"
 		if(laptop)
 			device = "laptop"
@@ -164,6 +177,15 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 			if("Network")
 				if(core)
 					core.neton = !core.neton
+			if("Light")
+				if(fon)
+					fon = 0
+					if(src in U.contents)	U.AddLuminosity(-f_lum)
+					else					SetLuminosity(0)
+				else
+					fon = 1
+					if(src in U.contents)	U.AddLuminosity(f_lum)
+					else					SetLuminosity(f_lum)
 
 		if(core && core.loaded)
 			core.loaded.use_app()

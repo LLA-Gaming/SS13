@@ -215,12 +215,23 @@
 							for(var/obj/item/device/tablet/T in chat.users)
 								if(T == tablet) continue
 								for(var/datum/program/builtin/messenger/M in T.core.programs)
-									T.alert_self("Messenger:","<b>Message from [chat.name], </b>\"[t]\" <a href='byond://?src=\ref[M];choice=Message;target=\ref[chat]'>Reply</a>","messenger")
+									T.alert_self("Messenger:","<b>Message from [tablet.owner], </b>\"[t]\" <a href='byond://?src=\ref[M];choice=Message;target=\ref[chat]'>Reply</a>","messenger")
 									break
 					spamcheck = 0
 					if(quick_reply)
 						return
 			if("ToggleMessenger")
 				tablet.messengeron = !tablet.messengeron
+			if("Ringtone")
+				var/t = stripped_input(usr, "Please enter message", name, null) as text
+				if (t)
+					if(tablet.hidden_uplink && tablet.hidden_uplink.check_trigger(usr, trim(lowertext(t)), trim(lowertext(tablet.lock_code))))
+						usr << "The tablet flashes red."
+						tablet.core.loaded = null
+						tablet.popup.close()
+						usr.unset_machine()
+					else
+						t = copytext(sanitize(t), 1, 20)
+						tablet.core.ttone = t
 		use_app()
 		tablet.attack_self(usr)
