@@ -3,7 +3,6 @@
 	icon = 'icons/obj/status_display.dmi' //invisibility!
 	mouse_opacity = 0
 	density = 0
-	invisibility = 101 // No more beating up pAIs or pAIs taking bullets for there masters.
 
 	robot_talk_understand = 0
 
