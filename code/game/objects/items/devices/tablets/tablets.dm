@@ -133,7 +133,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 						dat += "<a href='byond://?src=\ref[src];choice=load;target=\ref[P]'>[P.name][P.notifications ? " \[[P.notifications]\]" : ""]</a> "
 						dat += "<br>"
 					dat += {"<a href='byond://?src=\ref[src];choice=Network'>[core.neton ? "Network \[On\]" : "Network \[Off\]"]</a><br>"}
-					dat += " Flashlight: <a href='byond://?src=\ref[src];choice=Light'>[fon ? "On" : "Off"]</a><br>"
+					dat += {"<a href='byond://?src=\ref[src];choice=Light'>[fon ? "Flashlight \[On\]" : "Flashlight \[Off\]"]</a><br>"}
 		var/device = "tablet"
 		if(laptop)
 			device = "laptop"

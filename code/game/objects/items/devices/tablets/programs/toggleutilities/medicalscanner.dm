@@ -5,7 +5,6 @@
 	togglemode = 1
 
 	use_app()
-		if (!..()) return
 		if(toggleon)
 			toggleon = 0
 			tablet.scanmode = null
@@ -19,4 +18,3 @@
 			toggleon = 1
 			tablet.scanmode = "Health"
 			name = "Medical Scanner \[On\]"
-		tablet.attack_self(usr)
