@@ -64,6 +64,7 @@
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
+	var/mentor_legacy_system
 
 	//game_options.txt configs
 	var/force_random_names = 0
@@ -187,6 +188,8 @@
 					config.mycenae_starts_at_centcom = 1
 				if("ban_legacy_system")
 					config.ban_legacy_system = 1
+				if("mentor_legacy_system")
+					config.mentor_legacy_system = 1
 				if("use_age_restriction_for_jobs")
 					config.use_age_restriction_for_jobs = 1
 				if("lobby_countdown")

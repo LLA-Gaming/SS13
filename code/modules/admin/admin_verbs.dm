@@ -48,7 +48,8 @@ var/list/admin_verbs_secondary_admin = list(
 	/datum/admins/proc/view_atk_log,	/*shows the server combat-log, doesn't do anything presently*/
 	/client/proc/delete_fire,
 	/client/proc/reset_atmos,
-	/datum/admins/proc/unprison
+	/datum/admins/proc/unprison,
+	/client/proc/cmd_mentor_say
 	//+BANS
 	)
 

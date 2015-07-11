@@ -246,6 +246,10 @@ datum/preferences
 						dat += "<b>Adminhelp Sound:</b> "
 						dat += "<a href='?_src_=prefs;preference=hear_adminhelps'>[(toggles & SOUND_ADMINHELP)?"On":"Off"]</a><br>"
 
+					if(mentors && user.client.ckey in mentors)
+						dat += "<b>Mentorhelp Sound:</b> "
+						dat += "<a href='?_src_=prefs;preference=hear_mentorhelps'>[(toggles & SOUND_MENTORHELP) ? "On" : "Off"]</a><br>"
+
 					if(unlock_content || check_rights_for(user.client, R_ADMIN))
 						dat += "<b>OOC:</b> <span style='border: 1px solid #161616; background-color: [ooccolor];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'>Change</a><br>"
 
@@ -754,6 +758,9 @@ datum/preferences
 
 					if("hear_adminhelps")
 						toggles ^= SOUND_ADMINHELP
+
+					if("hear_mentorhelps")
+						toggles ^= SOUND_MENTORHELP
 
 					if("be_special")
 						var/num = text2num(href_list["num"])

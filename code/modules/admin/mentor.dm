@@ -2,7 +2,7 @@ var/list/mentors = list()
 var/mentor_salt = 0
 
 /proc/LoadMentors(var/override = 0)
-	if(!config.sql_enabled || override)
+	if(!config.sql_enabled || override || config.mentor_legacy_system)
 		var/list/lines = file2list("config/mentors.txt")
 		for(var/line in lines)
 			if(!length(line))
@@ -64,6 +64,8 @@ var/mentor_salt = 0
 	for(var/client/C in clients)
 		if(C.ckey in mentors)
 			C << mentor_formatted
+			if(C.prefs.toggles & SOUND_MENTORHELP)
+				C << 'sound/effects/-adminhelp.ogg'
 
 	var/admin_formatted = "<font color='#91219E'><b>MENTORHELP by [key_name(src)]:</b> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src]'>Reply</a><font>"
 	admins << admin_formatted
@@ -129,6 +131,7 @@ var/mentor_salt = 0
 
 	if(as_player)
 		target << "<font color='#91219E'><b>MENTOR</b><i>-Reply from '[id]':</i> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src];as_player=0'>Reply</a></font>"
+		target << 'sound/effects/-adminhelp.ogg'
 		admins << "<font color='#91219E'><b>MENTOR:</b><i> [key_name(src)] (player, id: '[id]') replied to [key_name(target, 1)] (mentor):</i> [msg]</font>"
 	else
 		target << "<font color='#91219E'><b>Reply from MENTOR:</b> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src]'>Reply</a></font>"
@@ -143,7 +146,7 @@ var/mentor_salt = 0
 	set name = "msay"
 	set hidden = 1
 
-	if(!(ckey in mentors))
+	if(!(ckey in mentors) && !holder)
 		return 0
 
 	if(say_disabled)
@@ -157,8 +160,7 @@ var/mentor_salt = 0
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	if(!msg)	return
 
-	src << "<font color='#660198'><i>To-</i><b>MENTORS:</b> [msg]</font>"
-	var/mentor_formatted = "<font color='#660198'><b>MENTORSAY:</b> [msg]</font>"
+	var/mentor_formatted = "<font color='#660198'><b>[holder ? "ADMIN-" : ""]MENTORSAY:</b> [msg]</font>"
 	var/admin_formatted = "<font color='#660198'><b>MENTORSAY - ([key_name(src)]):</b> [msg]</font>"
 
 	for(var/client/C in clients)
