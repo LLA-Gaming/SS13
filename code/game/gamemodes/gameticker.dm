@@ -12,7 +12,7 @@ var/round_start_time = 0
 
 	var/hide_mode = 0
 	var/datum/game_mode/mode = null
-	var/datum/goal_control/goals = null
+	var/list/assignments = list()
 	var/event_time = null
 	var/event = 0
 
@@ -34,6 +34,8 @@ var/round_start_time = 0
 	var/delay_end = 0	//if set to nonzero, the round will not restart on it's own
 
 	var/triai = 0//Global holder for Triumvirate
+
+	var/mining_points = 0
 
 /datum/controller/gameticker/proc/pregame()
 
@@ -380,6 +382,8 @@ var/round_start_time = 0
 	log_game("Antagonists at round end were...")
 	for(var/i in total_antagonists)
 		log_game("[i]s[total_antagonists[i]].")
+
+	evaluate_station() // Scorestation stuff
 
 	world << "<b>Perseus Missions at the end:</b>"
 	var/number = 1

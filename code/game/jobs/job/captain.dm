@@ -6,6 +6,7 @@ Captain
 	flag = CAPTAIN
 	department_head = list("Centcom")
 	department_flag = ENGSEC
+	departments = list("Command","Security","Engineering","Medical","Science","Supply","Civilian")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -58,6 +59,7 @@ Head of Personnel
 	flag = HOP
 	department_head = list("Captain")
 	department_flag = CIVILIAN
+	departments = list("Command","Supply","Civilian")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1

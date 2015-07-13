@@ -23,6 +23,9 @@
 
 	init_subtypes(/datum/table_recipe, table_recipes)
 
+	if(!crew_objectives.len)//Only need to fill the list when it's needed.
+		init_subtypes(/datum/assignment/,crew_objectives)
+
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 

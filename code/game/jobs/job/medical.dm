@@ -6,6 +6,7 @@ Chief Medical Officer
 	flag = CMO
 	department_head = list("Captain")
 	department_flag = MEDSCI
+	departments = list("Command","Medical")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -44,6 +45,7 @@ Medical Doctor
 	flag = DOCTOR
 	department_head = list("Chief Medical Officer")
 	department_flag = MEDSCI
+	departments = list("Medical")
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 3
@@ -73,6 +75,7 @@ Chemist
 	flag = CHEMIST
 	department_head = list("Chief Medical Officer")
 	department_flag = MEDSCI
+	departments = list("Medical")
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
@@ -100,6 +103,7 @@ Geneticist
 	flag = GENETICIST
 	department_head = list("Chief Medical Officer", "Research Director")
 	department_flag = MEDSCI
+	departments = list("Medical","Science")
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
@@ -128,6 +132,7 @@ Virologist
 	flag = VIROLOGIST
 	department_head = list("Chief Medical Officer")
 	department_flag = MEDSCI
+	departments = list("Medical")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1

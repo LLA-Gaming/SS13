@@ -12,6 +12,7 @@ Head of Shitcurity
 	flag = HOS
 	department_head = list("Captain")
 	department_flag = ENGSEC
+	departments = list("Command","Security")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -60,6 +61,7 @@ Warden
 	flag = WARDEN
 	department_head = list("Head of Security")
 	department_flag = ENGSEC
+	departments = list("Security")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -106,6 +108,7 @@ Detective
 	flag = DETECTIVE
 	department_head = list("Head of Security")
 	department_flag = ENGSEC
+	departments = list("Security")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -153,6 +156,7 @@ Security Officer
 	flag = OFFICER
 	department_head = list("Head of Security")
 	department_flag = ENGSEC
+	departments = list("Security")
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5

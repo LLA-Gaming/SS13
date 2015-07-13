@@ -6,6 +6,7 @@ Research Director
 	flag = RD
 	department_head = list("Captain")
 	department_flag = MEDSCI
+	departments = list("Command","Science")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -47,6 +48,7 @@ Scientist
 	flag = SCIENTIST
 	department_head = list("Research Director")
 	department_flag = MEDSCI
+	departments = list("Science")
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 3
@@ -74,6 +76,7 @@ Roboticist
 	flag = ROBOTICIST
 	department_head = list("Research Director")
 	department_flag = MEDSCI
+	departments = list("Science")
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 1

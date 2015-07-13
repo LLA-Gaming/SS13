@@ -6,6 +6,7 @@ Bartender
 	flag = BARTENDER
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -57,6 +58,7 @@ Chef
 	flag = CHEF
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -83,6 +85,7 @@ Botanist
 	flag = BOTANIST
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
@@ -112,6 +115,7 @@ Quartermaster
 	flag = QUARTERMASTER
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -138,6 +142,7 @@ Cargo Technician
 	flag = CARGOTECH
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
@@ -162,6 +167,7 @@ Shaft Miner
 	flag = MINER
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
@@ -198,6 +204,7 @@ Clown
 	flag = CLOWN
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -240,6 +247,7 @@ Mime
 	flag = MIME
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -284,6 +292,7 @@ Janitor
 	flag = JANITOR
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -308,6 +317,7 @@ Librarian
 	flag = LIBRARIAN
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -334,6 +344,7 @@ Lawyer
 	flag = LAWYER
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
+	departments = list("Civilian")
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2

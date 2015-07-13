@@ -10,6 +10,9 @@
 	//Determines who can demote this position
 	var/department_head = list()
 
+	//Determines what department the job belongs to
+	var/departments = list()
+
 	//Bitflags for the job
 	var/flag = 0
 	var/department_flag = 0

@@ -70,6 +70,10 @@
 	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_age_report()
 
+	spawn(10)
+		start_state = new /datum/station_state()
+		start_state.count()
+
 	feedback_set_details("round_start","[time2text(world.realtime)]")
 	if(ticker && ticker.mode)
 		feedback_set_details("game_mode","[ticker.mode]")

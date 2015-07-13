@@ -28,9 +28,9 @@
 		world << "<FONT size = 3><B>The staff has won!</B></FONT>"
 		world << "<B>The alien organism has been eradicated from the station</B>"
 
-		var/datum/station_state/end_state = new /datum/station_state()
-		end_state.count()
-		var/percent = round( 100.0 *  start_state.score(end_state), 0.1)
+		var/datum/station_state/blob_end_state = new /datum/station_state()
+		blob_end_state.count()
+		var/percent = round( 100.0 *  start_state.score(blob_end_state), 0.1)
 		world << "<B>The station is [percent]% intact.</B>"
 		log_game("Blob mode was won with station [percent]% intact.")
 		world << "\blue Rebooting in 30s"

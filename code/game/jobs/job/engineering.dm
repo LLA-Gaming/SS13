@@ -6,6 +6,7 @@ Chief Engineer
 	flag = CHIEF
 	department_head = list("Captain")
 	department_flag = ENGSEC
+	departments = list("Command","Engineering")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -47,6 +48,7 @@ Station Engineer
 	flag = ENGINEER
 	department_head = list("Chief Engineer")
 	department_flag = ENGSEC
+	departments = list("Engineering")
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5
@@ -80,6 +82,7 @@ Atmospheric Technician
 	flag = ATMOSTECH
 	department_head = list("Chief Engineer")
 	department_flag = ENGSEC
+	departments = list("Engineering")
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2

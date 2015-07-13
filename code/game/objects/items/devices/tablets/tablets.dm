@@ -54,6 +54,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 	b_radio.tablet = src
 	core = new /obj/item/device/tablet_core/(src)
 	core.programs.Add(new /datum/program/atmosscan)
+	core.programs.Add(new /datum/program/assignments)
 	//Install built-in apps
 	for(var/x in typesof(/datum/program/builtin))
 		var/datum/program/builtin/A = new x(src)
@@ -119,17 +120,17 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 					dat += {"</center></div>"}
 					if(apps_primary.len)
 						dat += {"<h3>Primary Applications</h3>"}
-					for(var/datum/program/P in apps_primary)
+					for(var/datum/program/P in sortAtom(apps_primary))
 						dat += "<a href='byond://?src=\ref[src];choice=load;target=\ref[P]'>[P.name][P.notifications ? " \[[P.notifications]\]" : ""]</a> "
 						dat += "<br>"
 					if(apps_secondary.len)
 						dat += {"<h3>Secondary Applications</h3>"}
-					for(var/datum/program/P in apps_secondary)
+					for(var/datum/program/P in sortAtom(apps_secondary))
 						dat += "<a href='byond://?src=\ref[src];choice=load;target=\ref[P]'>[P.name][P.notifications ? " \[[P.notifications]\]" : ""]</a> "
 						dat += "<br>"
 					if(apps_utilities.len)
 						dat += {"<h3>Utilities</h3>"}
-					for(var/datum/program/P in apps_utilities)
+					for(var/datum/program/P in sortAtom(apps_utilities))
 						dat += "<a href='byond://?src=\ref[src];choice=load;target=\ref[P]'>[P.name][P.notifications ? " \[[P.notifications]\]" : ""]</a> "
 						dat += "<br>"
 					dat += {"<a href='byond://?src=\ref[src];choice=Network'>[core.neton ? "Network \[On\]" : "Network \[Off\]"]</a><br>"}

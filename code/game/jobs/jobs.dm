@@ -104,6 +104,13 @@ var/list/civilian_positions = list(
 	"Assistant"
 )
 
+var/list/supply_positions = list(
+	"Head of Personnel",
+	"Quartermaster",
+	"Cargo Technician",
+	"Shaft Miner"
+)
+
 
 var/list/security_positions = list(
 	"Head of Security",
