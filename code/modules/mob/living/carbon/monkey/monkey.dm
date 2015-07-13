@@ -386,3 +386,12 @@
 
 /mob/living/carbon/monkey/canBeHandcuffed()
 	return 1
+
+//Baby monkey
+/obj/item/baby_monkey
+	icon = 'icons/mob/baby_monkey.dmi'
+	layer = MOB_LAYER
+	name = "Little Don"
+
+	attack_hand(user)
+		user << "<span class = 'notice'> you pet [src]"
