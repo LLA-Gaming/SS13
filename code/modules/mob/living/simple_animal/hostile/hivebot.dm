@@ -102,6 +102,7 @@
 		visible_message("\red The [src] turns on!")
 		while(bot_amt > 0)
 			bot_amt--
+			bot_type = pick("norm","range","rapid")
 			switch(bot_type)
 				if("norm")
 					new /mob/living/simple_animal/hostile/hivebot(get_turf(src))
