@@ -49,7 +49,7 @@
 
 	for(var/atom/A in contents)
 		A.clean_blood()
-		if(wash_color)
+		if((wash_color) && (istype(A, /obj/item/clothing) || istype(A, /obj/item/weapon/bedsheet))) // Restricts dyeing to these groups because only these groups have the dye_path var. Fixes some runtime errors.
 			dye(A, wash_color) //New, hopefully better way of dying things. See the proc for instructions on adding new items
 	qdel(crayon)
 	crayon = null
