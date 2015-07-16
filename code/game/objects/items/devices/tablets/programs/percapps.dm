@@ -88,4 +88,3 @@
 					name = "Shuttle Lock (Locked)"
 				else
 					name = "Shuttle Lock (Unlocked)"
-		tablet.attack_self(usr)
