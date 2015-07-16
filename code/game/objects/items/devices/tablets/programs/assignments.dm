@@ -75,7 +75,7 @@
 				dat += "<h4>Manage Tasks</h4>"
 				for(var/datum/assignment/A in ticker.assignments)
 					if(!A.subtask) continue
-					if(A.assigned_to.Find(tablet))
+					if(A.assigned_by == tablet)
 						dat += "<div class='statusDisplay'>"
 						dat += A.display()
 						dat += " <a href='byond://?src=\ref[src];choice=delete_task;target=\ref[A]'>Cancel</a>/<a href='byond://?src=\ref[src];choice=complete_task;target=\ref[A]'>Complete</a><br>"
