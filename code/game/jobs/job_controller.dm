@@ -219,6 +219,13 @@ var/global/datum/controller/occupations/job_master
 		assistant_candidates -= player
 	Debug("DO, AC1 end")
 
+	for(var/mob/new_player/player in unassigned)
+		if(player.ckey in assignPerseus)
+			if(perseusList[player.ckey] == "Commander")
+				if(AssignRole(player, "Perseus Security Commander"))	continue
+			else if(perseusList[player.ckey] == "Enforcer")
+				if(AssignRole(player, "Perseus Security Enforcer"))	continue
+
 	//Select one head
 	Debug("DO, Running Head Check")
 	FillHeadPosition()
@@ -237,13 +244,6 @@ var/global/datum/controller/occupations/job_master
 	// This will cause lots of more loops, but since it's only done once it shouldn't really matter much at all.
 	// Hopefully this will add more randomness and fairness to job giving.
 
-
-	for(var/mob/new_player/player in unassigned)
-		if(player.ckey in assignPerseus)
-			if(perseusList[player.ckey] == "Commander")
-				if(AssignRole(player, "Perseus Security Commander"))	continue
-			else if(perseusList[player.ckey] == "Enforcer")
-				if(AssignRole(player, "Perseus Security Enforcer"))	continue
 
 	// Loop through all levels from high to low
 	var/list/shuffledoccupations = shuffle(occupations)
