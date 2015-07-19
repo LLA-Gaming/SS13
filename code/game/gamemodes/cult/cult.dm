@@ -91,7 +91,11 @@
 		if(!possible_targets.len)
 			message_admins("Cult Sacrifice: Could not find unconvertable target, checking for convertable target.")
 			for(var/mob/living/carbon/human/player in player_list)
-				if(player.mind && !(player.mind in cult))
+				if(!player.mind)
+					continue
+				if(player.mind.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander"))
+					continue
+				if(!(player.mind in cult))
 					possible_targets += player.mind
 
 		if(possible_targets.len > 0)

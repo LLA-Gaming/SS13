@@ -159,9 +159,10 @@ var/list/perseusMissions = list()
 	set name = "Create Perseus Mission"
 	set category = "Fun"
 
-	var/list/availableMissions = getAvailablePerseusMissions()
+	var/list/availableMissions = (list("Cancel") + getAvailablePerseusMissions())
 	var/selectedMission = input("Select a mission.", "Input") as anything in availableMissions
 	if(!selectedMission)	return
+	if(selectedMission == "Cancel") return
 	var/missionType = availableMissions[selectedMission]
 	if(!missionType)	return
 	if(selectedMission in list("Protect", "Detain"))

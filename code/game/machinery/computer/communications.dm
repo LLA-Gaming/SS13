@@ -315,9 +315,10 @@ var/perseusMissionCooldown = 3000
 			if(lastPerseusMission + perseusMissionCooldown > world.time && (perseusMissions.len))
 				usr << "\red You have to wait before creating another mission."
 				return
-			var/list/availableMissions = getAvailablePerseusMissions()
+			var/list/availableMissions = (list("Cancel") + getAvailablePerseusMissions())
 			var/selectedMission = input("Select a mission.", "Input") as anything in availableMissions
 			if(!selectedMission)	return
+			if(selectedMission == "Cancel") return
 			var/missionType = availableMissions[selectedMission]
 			if(!missionType)	return
 			if(selectedMission in list("Protect", "Detain"))
