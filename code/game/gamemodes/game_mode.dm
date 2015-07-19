@@ -43,7 +43,7 @@
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
 	for(var/mob/new_player/player in player_list)
-		if((player.client)&&(player.ready))
+		if((player.client))
 			playerC++
 	if(!Debug2)
 		if(playerC < required_players)
