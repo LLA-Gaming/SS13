@@ -130,12 +130,20 @@ var/mentor_salt = 0
 		return 0
 
 	if(as_player)
-		target << "<font color='#91219E'><b>MENTOR</b><i>-Reply from '[id]':</i> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src];as_player=0'>Reply</a></font>"
+		target << "<font color='#91219E'><b>MENTOR</b><i>-Reply from '[id]':</i> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src]'>Reply</a></font>"
 		target << 'sound/effects/-adminhelp.ogg'
 		admins << "<font color='#91219E'><b>MENTOR:</b><i> [key_name(src)] (player, id: '[id]') replied to [key_name(target, 1)] (mentor):</i> [msg]</font>"
+		var/shown_to_mentors = "<font color='#91219E'><b>MENTOR</b><i>-'[id]' replied to [target.key]:</i> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src]'>Reply</a></font>"
+		for(var/client/C in clients)
+			if(C.ckey in mentors)
+				C << shown_to_mentors
 	else
 		target << "<font color='#91219E'><b>Reply from MENTOR:</b> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src]'>Reply</a></font>"
 		admins << "<font color='#91219E'><b>MENTOR:</b><i> [key_name(src, 1)] (mentor) replied to [key_name(target)] (player, id: '[id]'):</i> [msg]</font>"
+		var/shown_to_other_mentors = "<font color='#91219E'><b>[key] replied to '[id]':</b> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[target]'>Reply</a></font>"
+		for(var/client/C in (clients - src))
+			if(C.ckey in mentors)
+				C << shown_to_other_mentors
 
 	src << "<font color='#91219E'><i>To-</i><b>[as_player ? "MENTOR" : id]:</b> [msg]"
 
@@ -160,8 +168,8 @@ var/mentor_salt = 0
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	if(!msg)	return
 
-	var/mentor_formatted = "<font color='#660198'><b>[holder ? "ADMIN-" : ""]MENTORSAY:</b> [msg]</font>"
-	var/admin_formatted = "<font color='#660198'><b>MENTORSAY - ([key_name(src)]):</b> [msg]</font>"
+	var/mentor_formatted = "<font color='#660198'><b>MENTORSAY ([key]):</b> [msg]</font>"
+	var/admin_formatted = "<font color='#660198'><b>MENTORSAY ([key_name(src)]):</b> [msg]</font>"
 
 	for(var/client/C in clients)
 		if(C.ckey in mentors)
