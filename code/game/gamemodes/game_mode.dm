@@ -26,6 +26,7 @@
 	var/list/protected_jobs = list()	// Jobs that can't be traitors because
 	var/required_players = 0
 	var/required_enemies = 0
+	var/required_readies = 0
 	var/recommended_enemies = 0
 	var/pre_setup_before_jobs = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
@@ -42,10 +43,16 @@
 ///Checks to see if the game can be setup and ran with the current number of players or whatnot.
 /datum/game_mode/proc/can_start()
 	var/playerC = 0
+	var/readyC = 0
 	for(var/mob/new_player/player in player_list)
 		if((player.client))
 			playerC++
+		if((player.ready))
+			readyC++
 	if(!Debug2)
+		if(required_readies)
+			if(readyC < required_readies)
+				return 0
 		if(playerC < required_players)
 			return 0
 	antag_candidates = get_players_for_role(antag_flag)
