@@ -6,6 +6,7 @@
 	name = "nuclear emergency"
 	config_tag = "nuclear"
 	required_players = 18 // 18 players - 5 players to be the nuke ops = 13 players remaining
+	required_readies = 10
 	required_enemies = 5
 	recommended_enemies = 5
 	pre_setup_before_jobs = 1
