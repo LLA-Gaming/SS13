@@ -357,3 +357,6 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 		user << "<div class='notice'>The [src] is now set to [mode ? "stun" : "lethal"].</div>"
 		force = mode == 0 ? 17 : 1
 		update_icon()
+
+	unlocked/
+		locked = 0
