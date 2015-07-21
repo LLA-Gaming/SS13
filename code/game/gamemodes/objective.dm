@@ -18,6 +18,8 @@ datum/objective/proc/find_target()
 	for(var/datum/mind/possible_target in ticker.minds)
 		if(possible_target.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander"))
 			continue
+		if(possible_target.assigned_role == "SPECIAL")
+			continue
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != 2))
 			possible_targets += possible_target
 	if(possible_targets.len > 0)

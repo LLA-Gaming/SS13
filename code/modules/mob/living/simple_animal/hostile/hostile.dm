@@ -111,6 +111,8 @@
 			return 0
 		if(L in friends)
 			return 0
+		if(L.faction == "ignoreme")
+			return 0
 		return 1
 	if(isobj(the_target))
 		if(the_target.type in wanted_objects)

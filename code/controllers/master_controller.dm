@@ -212,6 +212,8 @@ datum/controller/game_controller/proc/process()
 				vote.process()
 				if(vr_controller)
 					vr_controller.process()
+				if(firedome)
+					firedome.process()
 
 				//AIR
 				if(!air_processing_killed)

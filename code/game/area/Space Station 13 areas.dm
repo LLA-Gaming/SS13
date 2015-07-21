@@ -80,7 +80,7 @@ var/list/ghostteleportlocs = list()
 proc/process_ghost_teleport_locs()
 	for(var/area/AR in world)
 		if(ghostteleportlocs.Find(AR.name)) continue
-		if(istype(AR, /area/turret_protected/aisat) || istype(AR, /area/derelict) || istype(AR, /area/tdome))
+		if(istype(AR, /area/turret_protected/aisat) || istype(AR, /area/derelict) || istype(AR, /area/fdome/arena))
 			ghostteleportlocs += AR.name
 			ghostteleportlocs[AR.name] = AR
 		var/turf/picked = safepick(get_area_turfs(AR.type))
@@ -381,27 +381,23 @@ proc/process_ghost_teleport_locs()
 	icon_state = "telesci"
 	requires_power = 0
 
-/area/tdome
-	name = "\improper Thunderdome"
+/area/fdome
+	name = "\improper Firedome"
+	icon_state = "purple"
+	requires_power = 0
+	has_gravity = 1
+
+/area/fdome/arena
+	name = "\improper Firedome"
 	icon_state = "thunder"
 	requires_power = 0
 	has_gravity = 1
 
-/area/tdome/tdome1
-	name = "\improper Thunderdome (Team 1)"
-	icon_state = "green"
-
-/area/tdome/tdome2
-	name = "\improper Thunderdome (Team 2)"
-	icon_state = "yellow"
-
-/area/tdome/tdomeadmin
-	name = "\improper Thunderdome (Admin.)"
-	icon_state = "purple"
-
-/area/tdome/tdomeobserve
-	name = "\improper Thunderdome (Observer.)"
-	icon_state = "purple"
+/area/fdome/source
+	name = "\improper Firedome - Alpha"
+	icon_state = "thunder"
+	requires_power = 0
+	has_gravity = 1
 
 //ENEMY
 

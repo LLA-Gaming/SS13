@@ -95,6 +95,8 @@
 					continue
 				if(player.mind.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander"))
 					continue
+				if(player.mind.assigned_role == "SPECIAL")
+					continue
 				if(!(player.mind in cult))
 					possible_targets += player.mind
 

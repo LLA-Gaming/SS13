@@ -421,6 +421,9 @@
 	item_state = "dodgeball"
 	desc = "Used for playing the most violent and degrading of childhood games."
 
+/obj/item/weapon/beach_ball/holoball/dodgeball/deathball
+	throwforce = 200
+
 /obj/item/weapon/beach_ball/holoball/dodgeball/throw_impact(atom/hit_atom)
 	..()
 	if((ishuman(hit_atom)))

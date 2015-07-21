@@ -41,14 +41,18 @@ var/list/percSpawnTurfs = list()
 			return
 		if("Holding Facility")
 			holdingfacility += loc
-		if("tdome1")
-			tdome1	+= loc
-		if("tdome2")
-			tdome2 += loc
-		if("tdomeadmin")
-			tdomeadmin	+= loc
-		if("tdomeobserve")
-			tdomeobserve += loc
+		if("fdome")
+			fdome	+= loc
+		if("fdome1")
+			fdome1	+= loc
+		if("fdome1items")
+			fdome1items	+= loc
+		if("fdome2")
+			fdome2 += loc
+		if("fdome2items")
+			fdome2items	+= loc
+		if("fdomemaster")
+			fdomemaster	+= loc
 		if("prisonsecuritywarp")
 			prisonsecuritywarp += loc
 			qdel(src)

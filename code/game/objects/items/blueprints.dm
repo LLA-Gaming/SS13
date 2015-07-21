@@ -88,7 +88,7 @@ move an amendment</a> to the drawing.</p>
 		/area/arrival,
 		/area/centcom,
 		/area/asteroid,
-		/area/tdome,
+		/area/fdome,
 		/area/syndicate_station,
 		/area/wizard_station,
 		/area/prison
