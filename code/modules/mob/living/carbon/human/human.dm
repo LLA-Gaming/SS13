@@ -16,6 +16,9 @@
 
 /mob/living/carbon/human/New()
 	create_reagents(1000)
+	blood = new/datum/reagents(145)
+	blood.my_atom = src
+	blood.add_reagent("blood",145)
 	verbs += /mob/living/proc/mob_sleep
 	verbs += /mob/living/proc/lay_down
 	//initialise organs

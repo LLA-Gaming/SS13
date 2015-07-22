@@ -24,6 +24,10 @@
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 
+#define BLOODLOSS_DEFAULT		145
+#define BLOODLOSS_SAFE			100
+#define BLOODLOSS_CRIT			0
+
 /mob/living/carbon/human
 	var/oxygen_alert = 0
 	var/toxins_alert = 0
@@ -82,6 +86,9 @@
 
 	//Handle temperature/pressure differences between body and environment
 	handle_environment(environment)
+
+	//Handle the blood
+	handle_blood()
 
 	//Check if we're on fire
 	handle_fire()
@@ -229,6 +236,8 @@
 		var/datum/gas_mixture/breath
 		// HACK NEED CHANGING LATER
 		if(health <= config.health_threshold_crit)
+			losebreath++
+		if(blood && blood.total_volume <= BLOODLOSS_CRIT)
 			losebreath++
 
 		if(losebreath>0) //Suffocating so do not take a breath
@@ -1033,7 +1042,7 @@
 				damageoverlay.overlays += I
 
 			//Fire and Brute damage overlay (BSSR)
-			var/hurtdamage = src.getBruteLoss() + src.getFireLoss() + damageoverlaytemp
+			var/hurtdamage = src.getBruteLoss() + src.getFireLoss() + src.getBloodLoss() + damageoverlaytemp
 			damageoverlaytemp = 0 // We do this so we can detect if someone hits us or not.
 			if(hurtdamage)
 				var/image/I = image("icon" = 'icons/mob/screen_full.dmi', "icon_state" = "brutedamageoverlay0")
@@ -1130,7 +1139,7 @@
 					if(1)	healths.icon_state = "health6"
 					if(2)	healths.icon_state = "health7"
 					else
-						switch(health)
+						switch(health - (src.getBloodLoss() * health / 100))
 							if(100 to INFINITY)		healths.icon_state = "health0"
 							if(80 to 100)			healths.icon_state = "health1"
 							if(60 to 80)			healths.icon_state = "health2"
@@ -1138,6 +1147,18 @@
 							if(20 to 40)			healths.icon_state = "health4"
 							if(0 to 20)				healths.icon_state = "health5"
 							else					healths.icon_state = "health6"
+						if(blood.total_volume <= BLOODLOSS_CRIT)
+							healths.icon_state = "health6"
+
+			if (staminas)
+				if (stat != 2)
+					switch(staminaloss)
+						if(-INFINITY to 1)	staminas.icon_state = "stamina0"
+						if(2 to 24)				staminas.icon_state = "stamina1"
+						if(25 to 49)			staminas.icon_state = "stamina2"
+						if(50 to 74)			staminas.icon_state = "stamina3"
+						if(75 to 99)			staminas.icon_state = "stamina4"
+						if(100 to INFINITY)		staminas.icon_state = "stamina5"
 
 			if(nutrition_icon)
 				switch(nutrition)
@@ -1250,5 +1271,67 @@
 		if(mind && mind.changeling)
 			mind.changeling.regenerate()
 
+	proc/handle_blood()
+		if(!blood) return
+		if(isbleeding())
+			var/bleed_max = 0
+			for(var/obj/item/organ/limb/L in organs)
+				bleed_max += L.bleedstate
+			bleed_max = Clamp(bleed_max,0,3)
+			switch(bleed_max)
+				if(1)
+					blood.remove_reagent("blood", 0.25)
+				if(2)
+					blood.remove_reagent("blood", 0.5)
+				if(3)
+					blood.remove_reagent("blood", 1)
+			var/turf/location = loc
+			if (istype(location, /turf/simulated))
+				if(bleed_max == 3)
+					location.add_blood_floor(src)
+				else
+					location.add_blooddrips_floor(src)
+		else
+			blood.add_reagent("blood", 0.25)
+		switch(getBloodLoss())
+			if(20 to 39)
+				if(prob(5))
+					eye_blurry = 10
+			if(40 to 59)
+				if(prob(20))
+					eye_blurry = 10
+			if(60 to 79)
+				eye_blurry = 10
+			if(80 to 99)
+				eye_blurry = 10
+				Weaken(10)
+			if(100 to INFINITY)
+				Paralyse(10)
+		return
+
+/mob/living/carbon/human/getBloodLoss()
+	var/amount = 0
+	if(blood)
+		amount = BLOODLOSS_SAFE - blood.total_volume
+		amount = Clamp(amount,0,100)
+	var/bleeding = 0
+	for(var/obj/item/organ/limb/L in organs)
+		if(L.bleeding)
+			bleeding = 1
+			break
+	if(!amount && bleeding)
+		amount = 1
+	return amount
+
+//Moved this proc here since it deals with bloodloss sorta.
+/mob/living/carbon/human/InCritical()
+	if(blood && (blood.total_volume < BLOODLOSS_CRIT && stat == UNCONSCIOUS))
+		return 1
+	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
+
 #undef HUMAN_MAX_OXYLOSS
 #undef HUMAN_CRIT_MAX_OXYLOSS
+
+#undef BLOODLOSS_DEFAULT
+#undef BLOODLOSS_SAFE
+#undef BLOODLOSS_CRIT

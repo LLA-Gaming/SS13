@@ -130,6 +130,9 @@
 /mob/living/proc/getBruteLoss()
 	return bruteloss
 
+/mob/living/proc/getBloodLoss()
+	return 0
+
 /mob/living/proc/adjustBruteLoss(var/amount)
 	if(status_flags & GODMODE)	return 0
 	bruteloss = min(max(bruteloss + amount, 0),(maxHealth*2))
@@ -314,7 +317,7 @@
 	eye_blurry = 0
 	ear_deaf = 0
 	ear_damage = 0
-	heal_overall_damage(1000, 1000)
+	heal_overall_damage(1000, 1000, 1)
 	ExtinguishMob()
 	fire_stacks = 0
 	suiciding = 0
@@ -608,13 +611,13 @@
 	return name
 
 /mob/living/proc/CheckStamina()
-	if(staminaloss)
-		var/total_health = (health - staminaloss)
+	if(staminaloss || getBloodLoss())
+		var/total_health = (100 - staminaloss)
 		if(total_health <= config.health_threshold_crit && !stat)
 			Exhaust()
-			setStaminaLoss(health - 2)
+			setStaminaLoss(100 - 2)
 			return
-		setStaminaLoss(max((staminaloss - 2), 0))
+		setStaminaLoss(max((staminaloss - 2), getBloodLoss()))
 
 /mob/living/proc/Exhaust()
 	src << "<span class='notice'>You're too exhausted to keep going...</span>"

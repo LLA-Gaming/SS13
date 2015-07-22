@@ -173,9 +173,11 @@
 				"<span class='notice'>You check yourself for injuries.</span>")
 
 			for(var/obj/item/organ/limb/org in H.organs)
-				var/status = ""
+				var/list/status = list()
+				var/render = ""
 				var/brutedamage = org.brute_dam
 				var/burndamage = org.burn_dam
+				var/bleeding = org.bleedstate
 				if(hallucination)
 					if(prob(30))
 						brutedamage += rand(30,40)
@@ -183,23 +185,38 @@
 						burndamage += rand(30,40)
 
 				if(brutedamage > 0)
-					status = "bruised"
-				if(brutedamage > 20)
-					status = "bleeding"
-				if(brutedamage > 40)
-					status = "mangled"
-				if(brutedamage > 0 && burndamage > 0)
-					status += " and "
-				if(burndamage > 40)
-					status += "peeling away"
+					status.Add("bruised")
+				else if(brutedamage > 20)
+					status.Add("heavily bruised")
+				else if(brutedamage > 40)
+					status.Add("mangled")
 
+				if(burndamage > 40)
+					status.Add("peeling away")
 				else if(burndamage > 10)
-					status += "blistered"
+					status.Add("blistered")
 				else if(burndamage > 0)
-					status += "numb"
-				if(status == "")
-					status = "OK"
-				src << "\t [status == "OK" ? "\blue" : "\red"] My [org.getDisplayName()] is [status]."
+					status.Add("numb")
+
+				if(bleeding == 1)
+					status.Add("bleeding")
+				else if(bleeding == 2)
+					status.Add("bleeding heavily")
+				else if(bleeding == 3)
+					status.Add("bleeding profusely")
+
+				if(!status.len)
+					render = "OK"
+				else
+					for(var/i=1, i<=status.len, i++)
+						render += status[i]
+						if(i == status.len)
+							break
+						else if(i == status.len-1)
+							render += " and "
+						else if(i < status.len)
+							render += ", "
+				src << "\t [render == "OK" ? "\blue" : "\red"] My [org.getDisplayName()] is [render]."
 			if(staminaloss)
 				if(staminaloss > 30)
 					src << "<span class='info'>You're completely exhausted.</span>"

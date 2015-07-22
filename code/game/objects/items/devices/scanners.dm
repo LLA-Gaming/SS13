@@ -102,7 +102,8 @@ MASS SPECTROMETER
 	var/tox_loss = M.getToxLoss()
 	var/fire_loss = M.getFireLoss()
 	var/brute_loss = M.getBruteLoss()
-	var/mob_status = (M.stat > 1 ? "<font color='red'>Deceased</font>" : text("[]% healthy", M.health))
+	var/blood_loss = M.getBloodLoss()
+	var/mob_status = (M.stat > 1 ? "<font color='red'>Deceased</font>" : text("[]% healthy", M.health - blood_loss))
 
 	if(M.status_flags & FAKEDEATH)
 		mob_status = "<font color='red'>Deceased</font>"
@@ -113,6 +114,12 @@ MASS SPECTROMETER
 
 	user.show_message("<span class='notice'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FF8000'>Burn</font>/<font color='red'>Brute</font></span>", 1)
 	user.show_message("<span class='notice'>Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/bloodloss = 0
+		if(H.blood)
+			bloodloss = H.blood.maximum_volume - (H.blood.total_volume * H.blood.maximum_volume / 100)
+		user.show_message("<span class='notice'>Bloodloss: [bloodloss]%</span>", 1)
 
 	// Time of death
 	if(M.tod && (M.stat == DEAD || (M.status_flags & FAKEDEATH)))
@@ -121,11 +128,19 @@ MASS SPECTROMETER
 	// Organ damage report
 	if(istype(M, /mob/living/carbon/human) && mode == 1)
 		var/mob/living/carbon/human/H = M
-		var/list/damaged = H.get_damaged_organs(1,1)
+		var/list/damaged = H.get_damaged_organs(1,1,1)
 		user.show_message("<span class='notice'>Localized Damage, <font color='#FF8000'>Burn</font>/<font color='red'>Brute</font>:</span>",1)
 		if(length(damaged)>0)
 			for(var/obj/item/organ/limb/org in damaged)
-				user.show_message(text("<span class='notice'>\t []: []-[]", capitalize(org.getDisplayName()), (org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : 0, (org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font></span>" : 0), 1)
+				var/bleed_level
+				switch(org.bleedstate)
+					if(1)
+						bleed_level = "-BLEEDING"
+					if(2)
+						bleed_level = "-BLEEDING HEAVILY"
+					if(3)
+						bleed_level = "-BLEEDING PROFUSELY"
+				user.show_message(text("<span class='notice'>\t []: []-[][]", capitalize(org.getDisplayName()), (org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : 0, (org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font></span>" : 0, bleed_level ? "<font color='red'>[bleed_level]</font></span>" : ""), 1)
 		else
 			user.show_message("<span class='notice'>\t Limbs are OK.</span>",1)
 

@@ -46,15 +46,13 @@
 	var/burn_dam = 0
 	var/max_damage = 0
 	var/status = ORGAN_ORGANIC
-	var/blood = 100 // percentile, 0 to 100
 	var/bleeding = 0
 
 	proc/slice(var/bleedprob,var/sharpness,var/armor) //This proc runs whenever a limb is attacked by a sharp weapon
+		if(status != ORGAN_ORGANIC)
+			return
 		var/current_bleedstate = bleedstate
 		var/sliced = 0
-		world.log << "bleedprob: [bleedprob] + brute_dam: [brute_dam/2] - armor: [armor]"
-		world.log << "[Clamp(bleedprob + (brute_dam/2) - armor,0,100)]"
-		world.log << "***"
 		if(prob(Clamp(bleedprob + (brute_dam/2) - armor,0,100)))
 			sliced =1
 		if(sliced)
@@ -63,17 +61,14 @@
 			return
 		switch(bleedstate)
 			if(1)
-				owner << "<span class='danger'>Your [getDisplayName()] starts bleeding</span>"
+				owner.visible_message("<span class='warning'>[owner]'s [getDisplayName()] starts bleeding</span>","<span class='danger'>Your [getDisplayName()] starts bleeding</span>")
 				bleeding = 1
-				world.log << "SLICE: [bleedstate]"
 			if(2)
-				owner << "<span class='danger'>Your [getDisplayName()] starts bleeding heavily</span>"
+				owner.visible_message("<span class='warning'>[owner]'s [getDisplayName()] starts bleeding heavily</span>","<span class='danger'>Your [getDisplayName()] starts bleeding heavily</span>")
 				bleeding = 1
-				world.log << "SLICE: [bleedstate]"
 			if(3)
-				owner << "<span class='danger'>Your [getDisplayName()] starts bleeding profusely</span>"
+				owner.visible_message("<span class='warning'>[owner]'s [getDisplayName()] starts bleeding profusely</span>","<span class='danger'>Your [getDisplayName()] starts bleeding profusely</span>")
 				bleeding = 1
-				world.log << "SLICE: [bleedstate]"
 
 
 
@@ -140,6 +135,11 @@
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
 
+	if(burn && bleeding && bleedstate <= 2) //GHETTO WELDERING YOUR WOUNDS SHUT THE JAYCE WISE WAY
+		bleedstate = 0
+		bleeding = 0
+		owner << "<span class='danger'>The burns mend the wounds on your [getDisplayName()]</span>"
+
 	var/can_inflict = max_damage - (brute_dam + burn_dam)
 	if(!can_inflict)	return 0
 
@@ -166,7 +166,7 @@
 //Heals brute and burn damage for the organ. Returns 1 if the damage-icon states changed at all.
 //Damage cannot go below zero.
 //Cannot remove negative damage (i.e. apply damage)
-/obj/item/organ/limb/proc/heal_damage(brute, burn, var/robotic)
+/obj/item/organ/limb/proc/heal_damage(brute, burn, var/robotic, bleed)
 
 	if(robotic && status != ORGAN_ROBOTIC) // This makes organic limbs not heal when the proc is in Robotic mode.
 		brute = max(0, brute - 3)
@@ -178,9 +178,9 @@
 
 	brute_dam	= max(brute_dam - brute, 0)
 	burn_dam	= max(burn_dam - burn, 0)
-	bleedstate = 0
-	bleeding = 0
-	blood = 100
+	if(bleed)
+		bleedstate = 0
+		bleeding = 0
 	return update_organ_icon()
 
 

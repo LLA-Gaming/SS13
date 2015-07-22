@@ -29,6 +29,16 @@
 /obj/effect/decal/cleanable/blood/splatter
 	random_icon_states = list("gibbl1", "gibbl2", "gibbl3", "gibbl4", "gibbl5")
 
+/obj/effect/decal/cleanable/blood/drips
+	icon = 'icons/effects/drip.dmi'
+	random_icon_states = list("1", "2", "3", "4", "5")
+
+	remove_ex_blood()
+		if(src.loc && isturf(src.loc))
+			for(var/obj/effect/decal/cleanable/blood/drips/B in src.loc)
+				if(B != src)
+					qdel(B)
+
 /obj/effect/decal/cleanable/blood/tracks
 	icon_state = "tracks"
 	desc = "They look like tracks left by wheels."

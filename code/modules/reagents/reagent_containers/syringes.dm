@@ -114,6 +114,11 @@
 						on_reagent_change()
 						reagents.handle_reactions()
 						user.visible_message("<span class='notice'>[user] takes a blood sample from [target].</span>")
+						if(ishuman(T))
+							var/mob/living/carbon/human/H = T
+							if(H.blood)
+								if(H.blood.total_volume >= 15) // take from the actual blood, if none are left, PULL BLOOD FROM NOWHERE
+									H.blood.remove_reagent("blood", amount)
 
 				else //if not mob
 					if(!target.reagents.total_volume)

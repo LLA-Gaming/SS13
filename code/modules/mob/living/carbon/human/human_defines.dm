@@ -17,6 +17,8 @@
 	var/age = 30		//Player's age (pure fluff)
 	var/blood_type = "A+"	//Player's bloodtype (Not currently used, just character fluff)
 
+	var/datum/reagents/blood //Blood is stored here. you should never transfer other chems into this.
+
 	var/underwear = "Nude"	//Which underwear the player wants
 	var/undershirt = "Nude" //Which undershirt the player wants
 	var/socks = "None" 		//Which socks the player wants

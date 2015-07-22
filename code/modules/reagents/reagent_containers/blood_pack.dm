@@ -9,7 +9,8 @@
 
 /obj/item/weapon/reagent_containers/blood/New()
 	..()
-	reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null))
+	if(!istype(src,/obj/item/weapon/reagent_containers/blood/empty))
+		reagents.add_reagent("blood", 200, list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"resistances"=null,"trace_chem"=null))
 	update_icon()
 
 /obj/item/weapon/reagent_containers/blood/on_reagent_change()

@@ -334,6 +334,14 @@ var/list/blood_splatter_icons = list()
 			var/obj/effect/decal/cleanable/oil/B = locate() in contents
 			if(!B)	B = new(src)
 
+//copypasta but sorry, not sorry
+/atom/proc/add_blooddrips_floor(mob/living/carbon/M as mob)
+	if(istype(src, /turf/simulated))
+		if(check_dna_integrity(M))	//mobs with dna = (monkeys + humans at time of writing)
+			var/obj/effect/decal/cleanable/blood/drips/B = locate() in contents
+			if(!B)	B = new(src)
+			B.blood_DNA[M.dna.unique_enzymes] = M.dna.blood_type
+
 /atom/proc/clean_blood()
 	if(istype(blood_DNA, /list))
 		blood_DNA = null

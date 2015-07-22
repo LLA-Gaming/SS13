@@ -105,7 +105,8 @@
 				var/mob/living/carbon/human/H = A
 				var/obj/item/organ/limb/affecting = H.get_organ(def_zone)
 				var/armor = H.run_armor_check(def_zone, flag)
-				affecting.slice(bleedprob,sharpness,armor)
+				if (damage_type == BRUTE)
+					affecting.slice(bleedprob,sharpness,armor)
 
 			if (M.stat == DEAD)
 				add_logs(firer, M, "shot", object="[src]", addition=" (DAMAGE: [src.damage]) (REMHP: DEAD) [reagent_note]")

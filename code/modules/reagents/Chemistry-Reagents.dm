@@ -105,6 +105,15 @@ datum
 						else //injected
 							M.contract_disease(D, 1, 0)
 
+			on_mob_life(var/mob/living/M as mob)
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					if(H.blood)
+						holder.trans_to(H.blood, REAGENTS_METABOLISM)
+						return
+				holder.remove_reagent(src.id, REAGENTS_METABOLISM)
+				return
+
 			on_new(var/list/data)
 				if(istype(data))
 					SetViruses(src, data)
@@ -182,6 +191,23 @@ datum
 					D.cure(0)
 				..()
 */
+		saline
+			name = "Saline"
+			id = "saline"
+			reagent_state = LIQUID
+			color = "#CCFFFF" // rgb(204, 255, 255)
+
+			on_mob_life(var/mob/living/M as mob)
+				if(ishuman(M))
+					var/mob/living/carbon/human/H = M
+					if(H.blood)
+						H.blood.add_reagent("blood", REAGENTS_METABOLISM/2)
+						return
+				holder.remove_reagent(src.id, REAGENTS_METABOLISM)
+				return
+
+
+
 		vaccine
 			//data must contain virus type
 			name = "Vaccine"

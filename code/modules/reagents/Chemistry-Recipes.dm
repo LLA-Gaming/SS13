@@ -317,6 +317,14 @@ silicate
 	required_reagents = list("oxygen" = 1, "anti_toxin" = 1, "carbon" = 1)
 	result_amount = 3
 
+/datum/chemical_reaction/saline
+	name = "Saline"
+	id = "saline"
+	category = MED
+	result = "saline"
+	required_reagents = list("sodiumchloride" = 1, "water" = 4)
+	result_amount = 4
+
 /datum/chemical_reaction/ethanoloxidation
 	name = "ethanoloxidation"	//Kind of a placeholder in case someone ever changes it so that chemicals
 	id = "ethanoloxidation"		//	react in the body. Also it would be silly if it didn't exist.

@@ -141,7 +141,7 @@ emp_act
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
 	apply_damage(I.force, I.damtype, affecting, armor , I)
-	if(I.force)
+	if(I.force && I.damtype == BRUTE)
 		affecting.slice(I.bleedprob,I.sharpness,armor)
 
 	var/bloody = 0

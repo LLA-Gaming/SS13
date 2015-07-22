@@ -263,6 +263,11 @@
 	mymob.healths.name = "health"
 	mymob.healths.screen_loc = ui_health
 
+	mymob.staminas = new /obj/screen()
+	mymob.staminas.icon_state = "stamina0"
+	mymob.staminas.name = "stamina"
+	mymob.staminas.screen_loc = ui_stamina
+
 	mymob.nutrition_icon = new /obj/screen()
 	mymob.nutrition_icon.icon_state = "nutrition0"
 	mymob.nutrition_icon.name = "nutrition"
@@ -318,7 +323,7 @@
 
 	mymob.client.screen = null
 
-	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.pressure, mymob.toxin, mymob.bodytemp, mymob.internals, mymob.fire, mymob.healths, mymob.nutrition_icon, mymob.pullin, mymob.blind, mymob.flash, mymob.damageoverlay, lingchemdisplay, lingstingdisplay) //, mymob.hands, mymob.rest, mymob.sleep) //, mymob.mach )
+	mymob.client.screen += list( mymob.throw_icon, mymob.zone_sel, mymob.oxygen, mymob.pressure, mymob.toxin, mymob.bodytemp, mymob.internals, mymob.fire, mymob.healths, mymob.staminas, mymob.nutrition_icon, mymob.pullin, mymob.blind, mymob.flash, mymob.damageoverlay, lingchemdisplay, lingstingdisplay) //, mymob.hands, mymob.rest, mymob.sleep) //, mymob.mach )
 	mymob.client.screen += adding + hotkeybuttons
 	inventory_shown = 0;
 

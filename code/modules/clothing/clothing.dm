@@ -210,6 +210,10 @@ BLIND     // can't see anything
 	var/obj/item/clothing/tie/hastie = null
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user)
+	if(I.sharpness)
+		user << "<span class='notice'>you cut the [name] apart to make stacks of gauze</span>"
+		new /obj/item/stack/medical/gauze(usr.loc)
+		qdel(src)
 	attachTie(I, user)
 	..()
 

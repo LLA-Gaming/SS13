@@ -9,6 +9,7 @@
 	throw_range = 7
 	var/heal_brute = 0
 	var/heal_burn = 0
+	var/heal_bleed = 0
 
 /obj/item/stack/medical/attack(mob/living/carbon/M as mob, mob/user as mob)
 
@@ -55,7 +56,7 @@
 		var/obj/item/organ/limb/affecting = H.get_organ(check_zone(user.zone_sel.selecting))
 
 		if(affecting.status == ORGAN_ORGANIC) //Limb must be organic to be healed - RR
-			if (affecting.heal_damage(src.heal_brute, src.heal_burn, 0))
+			if (affecting.heal_damage(src.heal_brute, src.heal_burn, 0, heal_bleed))
 				H.update_damage_overlays(0)
 
 			M.updatehealth()
@@ -84,4 +85,13 @@
 	singular_name = "ointment"
 	icon_state = "ointment"
 	heal_burn = 40
+	origin_tech = "biotech=1"
+
+/obj/item/stack/medical/gauze
+	name = "gauze"
+	desc = "Used to treat bleeding."
+	gender = PLURAL
+	singular_name = "gauze"
+	icon_state = "gauze"
+	heal_bleed = 1
 	origin_tech = "biotech=1"

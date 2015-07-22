@@ -76,10 +76,10 @@ mob/living/carbon/human/proc/hat_fall_prob()
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs
-/mob/living/carbon/human/proc/get_damaged_organs(var/brute, var/burn)
+/mob/living/carbon/human/proc/get_damaged_organs(var/brute, var/burn, var/bleed)
 	var/list/obj/item/organ/limb/parts = list()
 	for(var/obj/item/organ/limb/O in organs)
-		if((brute && O.brute_dam) || (burn && O.burn_dam))
+		if((brute && O.brute_dam) || (burn && O.burn_dam) || (bleed && O.bleedstate) )
 			parts += O
 	return parts
 
@@ -94,11 +94,11 @@ mob/living/carbon/human/proc/hat_fall_prob()
 //Heals ONE external organ, organ gets randomly selected from damaged ones.
 //It automatically updates damage overlays if necesary
 //It automatically updates health status
-/mob/living/carbon/human/heal_organ_damage(var/brute, var/burn)
-	var/list/obj/item/organ/limb/parts = get_damaged_organs(brute,burn)
+/mob/living/carbon/human/heal_organ_damage(var/brute, var/burn, var/bleed)
+	var/list/obj/item/organ/limb/parts = get_damaged_organs(brute,burn,bleed)
 	if(!parts.len)	return
 	var/obj/item/organ/limb/picked = pick(parts)
-	if(picked.heal_damage(brute,burn,0))
+	if(picked.heal_damage(brute,burn,0,bleed))
 		update_damage_overlays(0)
 	updatehealth()
 
@@ -115,7 +115,7 @@ mob/living/carbon/human/proc/hat_fall_prob()
 
 
 //Heal MANY external organs, in random order
-/mob/living/carbon/human/heal_overall_damage(var/brute, var/burn)
+/mob/living/carbon/human/heal_overall_damage(var/brute, var/burn, var/bleed)
 	var/list/obj/item/organ/limb/parts = get_damaged_organs(brute,burn)
 
 	var/update = 0
@@ -125,7 +125,7 @@ mob/living/carbon/human/proc/hat_fall_prob()
 		var/brute_was = picked.brute_dam
 		var/burn_was = picked.burn_dam
 
-		update |= picked.heal_damage(brute,burn,0)
+		update |= picked.heal_damage(brute,burn,0,1)
 
 		brute -= (brute_was-picked.brute_dam)
 		burn -= (burn_was-picked.burn_dam)

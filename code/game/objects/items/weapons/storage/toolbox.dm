@@ -14,7 +14,7 @@
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
 	sharpness = 1
-	bleedprob = 20
+	bleedprob = 10
 
 	New()
 		..()
