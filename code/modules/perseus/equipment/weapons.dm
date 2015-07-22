@@ -230,7 +230,6 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 /obj/item/projectile/bullet/fiveseven
 	damage = 49
 	stun = 3
-	weaken = 3
 
 /obj/item/ammo_casing/fiveseven
 	desc = "A 5.7x28mm casing"

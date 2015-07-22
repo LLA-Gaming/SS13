@@ -60,6 +60,7 @@
 
 		if("harm")
 			var/damage = rand(0, 9)
+			var/do_brute = 0
 			//M.do_attack_animation(src)
 			if (src.stat == DEAD)
 				add_logs(M, src, "punched", addition=" (DAMAGE: [damage]) (REMHP: DEAD)")
@@ -69,12 +70,15 @@
 			var/attack_verb = "punch"
 			if(lying)
 				attack_verb = "kick"
+				do_brute = 1
 			else if(M.dna)
 				switch(M.dna.mutantrace)
 					if("lizard")
 						attack_verb = "scratch"
+						do_brute = 1
 					if("plant")
 						attack_verb = "slash"
+						do_brute = 1
 
 
 			if(!damage)
@@ -93,6 +97,7 @@
 
 			if(HULK in M.mutations)
 				damage += 5
+				do_brute = 1
 
 			switch(attack_verb)
 				if("slash")
@@ -102,8 +107,12 @@
 
 			visible_message("<span class='danger'>[M] has [attack_verb]ed [src]!</span>", \
 							"<span class='userdanger'>[M] has [attack_verb]ed [src]!</span>")
-
-			apply_damage(damage, BRUTE, affecting, armor_block)
+			if(prob(30))
+				do_brute = 1
+			apply_damage(damage, STAMINA, affecting, armor_block)
+			if(do_brute)
+				apply_damage(damage, BRUTE, affecting, armor_block)
+				affecting.slice(0,0,armor_block)
 			if((stat != DEAD) && damage >= 9)
 				visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 								"<span class='userdanger'>[M] has weakened [src]!</span>")

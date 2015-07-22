@@ -60,6 +60,11 @@ proc/vol_by_throwforce_and_or_w_class(var/obj/item/I)
 						"<span class='userdanger'>[src] has been hit by [I].</span>")
 		var/armor = run_armor_check(zone, "melee", "Your armor has protected your [parse_zone(zone)].", "Your armor has softened hit to your [parse_zone(zone)].")
 		apply_damage(I.throwforce, dtype, zone, armor, I)
+		//bleeding
+		if(ishuman(src) && I.throwforce)
+			var/mob/living/carbon/human/H = src
+			var/obj/item/organ/limb/affecting = H.get_organ(zone)
+			affecting.slice(I.bleedprob,I.sharpness,armor)
 		if(!I.fingerprintslast)
 			return
 		var/client/assailant = directory[ckey(I.fingerprintslast)]

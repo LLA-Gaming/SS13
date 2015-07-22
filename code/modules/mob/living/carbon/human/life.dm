@@ -1130,7 +1130,7 @@
 					if(1)	healths.icon_state = "health6"
 					if(2)	healths.icon_state = "health7"
 					else
-						switch(health - staminaloss)
+						switch(health)
 							if(100 to INFINITY)		healths.icon_state = "health0"
 							if(80 to 100)			healths.icon_state = "health1"
 							if(60 to 80)			healths.icon_state = "health2"

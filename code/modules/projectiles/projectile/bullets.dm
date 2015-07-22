@@ -4,6 +4,8 @@
 	damage = 60
 	damage_type = BRUTE
 	nodamage = 0
+	bleedprob = 50
+	sharpness = 2
 	flag = "bullet"
 
 
@@ -11,12 +13,14 @@
 	damage = 5
 	stun = 5
 	weaken = 5
+	bleedprob = 0
 
 
 /obj/item/projectile/bullet/weakbullet2
 	damage = 15
 	stun = 5
 	weaken = 5
+	bleedprob = 0
 
 
 /obj/item/projectile/bullet/pellet
@@ -27,7 +31,6 @@
 /obj/item/projectile/bullet/midbullet
 	damage = 20
 	stun = 5
-	weaken = 5
 
 
 /obj/item/projectile/bullet/midbullet2

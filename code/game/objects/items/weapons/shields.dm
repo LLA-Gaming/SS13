@@ -77,3 +77,18 @@
 		user << "<span class='notice'>[src] can now be concealed.</span>"
 		reflect_chance = 0
 	add_fingerprint(user)
+
+
+
+/obj/item/weapon/shield/attack(mob/M, mob/living/user)
+	if(isrobot(M))
+		..()
+		return
+	if(!isliving(M))
+		..()
+		return
+	if(user.a_intent == "harm")
+		..()
+		return
+	var/mob/living/L = M
+	step_away(L,src,15)

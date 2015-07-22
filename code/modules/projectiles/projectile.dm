@@ -100,6 +100,13 @@
 					playsound(loc, hitsound, volume, 1, -1)
 				M.visible_message("<span class='danger'>[M] is hit by \a [src] in the [parse_zone(def_zone)]!", \
 									"<span class='userdanger'>[M] is hit by \a [src] in the [parse_zone(def_zone)]!")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+			//Bullets and bleeding
+			if(ishuman(A) && damage)
+				var/mob/living/carbon/human/H = A
+				var/obj/item/organ/limb/affecting = H.get_organ(def_zone)
+				var/armor = H.run_armor_check(def_zone, flag)
+				affecting.slice(bleedprob,sharpness,armor)
+
 			if (M.stat == DEAD)
 				add_logs(firer, M, "shot", object="[src]", addition=" (DAMAGE: [src.damage]) (REMHP: DEAD) [reagent_note]")
 			else

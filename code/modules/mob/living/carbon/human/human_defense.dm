@@ -141,9 +141,11 @@ emp_act
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
 	apply_damage(I.force, I.damtype, affecting, armor , I)
+	if(I.force)
+		affecting.slice(I.bleedprob,I.sharpness,armor)
 
 	var/bloody = 0
-	if(((I.damtype == BRUTE) && prob(25 + (I.force * 2))))
+	if(isbleeding())
 		if(affecting.status == ORGAN_ORGANIC)
 			I.add_blood(src)	//Make the weapon bloody, not the person.
 			if(prob(I.force * 2))	//blood spatter!

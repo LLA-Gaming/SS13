@@ -41,10 +41,40 @@
 	var/body_part = null
 	var/brutestate = 0
 	var/burnstate = 0
+	var/bleedstate = 0
 	var/brute_dam = 0
 	var/burn_dam = 0
 	var/max_damage = 0
 	var/status = ORGAN_ORGANIC
+	var/blood = 100 // percentile, 0 to 100
+	var/bleeding = 0
+
+	proc/slice(var/bleedprob,var/sharpness,var/armor) //This proc runs whenever a limb is attacked by a sharp weapon
+		var/current_bleedstate = bleedstate
+		var/sliced = 0
+		world.log << "bleedprob: [bleedprob] + brute_dam: [brute_dam/2] - armor: [armor]"
+		world.log << "[Clamp(bleedprob + (brute_dam/2) - armor,0,100)]"
+		world.log << "***"
+		if(prob(Clamp(bleedprob + (brute_dam/2) - armor,0,100)))
+			sliced =1
+		if(sliced)
+			bleedstate = Clamp(bleedstate + sharpness,1,3)
+		if(bleedstate == current_bleedstate)
+			return
+		switch(bleedstate)
+			if(1)
+				owner << "<span class='danger'>Your [getDisplayName()] starts bleeding</span>"
+				bleeding = 1
+				world.log << "SLICE: [bleedstate]"
+			if(2)
+				owner << "<span class='danger'>Your [getDisplayName()] starts bleeding heavily</span>"
+				bleeding = 1
+				world.log << "SLICE: [bleedstate]"
+			if(3)
+				owner << "<span class='danger'>Your [getDisplayName()] starts bleeding profusely</span>"
+				bleeding = 1
+				world.log << "SLICE: [bleedstate]"
+
 
 
 
@@ -148,6 +178,9 @@
 
 	brute_dam	= max(brute_dam - brute, 0)
 	burn_dam	= max(burn_dam - burn, 0)
+	bleedstate = 0
+	bleeding = 0
+	blood = 100
 	return update_organ_icon()
 
 

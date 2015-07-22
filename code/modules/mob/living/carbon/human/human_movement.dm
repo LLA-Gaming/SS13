@@ -5,8 +5,12 @@
 		return -1
 
 	. = 0
-	var/health_deficiency = (100 - health + staminaloss)
-	if(health_deficiency >= 40)
+	var/leg_damage = 0
+	for(var/obj/item/organ/limb/L in organs)
+		if(L.body_part == LEG_LEFT || L.body_part == LEG_RIGHT)
+			leg_damage += L.brute_dam + L.burn_dam
+	var/health_deficiency = (leg_damage + staminaloss)
+	if(health_deficiency >= 10)
 		. += (health_deficiency / 25)
 
 	var/hungry = (500 - nutrition) / 5	//So overeat would be 100 and default level would be 80
