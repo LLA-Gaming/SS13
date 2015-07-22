@@ -124,6 +124,8 @@
 	item_state = "beer"
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("stabbed", "slashed", "attacked")
+	sharpness = 1
+	bleedprob = 28
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/gin

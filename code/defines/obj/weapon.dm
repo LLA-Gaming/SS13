@@ -377,6 +377,8 @@
 	m_amt = 15000
 	origin_tech = "materials=2;combat=1"
 	attack_verb = list("chopped", "torn", "cut")
+	sharpness = 1
+	bleedprob = 35
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/weapon/scythe
@@ -393,6 +395,8 @@
 	origin_tech = "materials=2;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = 2
+	bleedprob = 35
 
 /*
 /obj/item/weapon/cigarpacket

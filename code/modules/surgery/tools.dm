@@ -49,6 +49,8 @@
 	w_class = 3.0
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
+	sharpness = 2
+	bleedprob = 35
 
 /obj/item/weapon/scalpel/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is pressing [src] to \his temple and activating it! It looks like \he's trying to commit suicide.</span>", \
@@ -72,6 +74,8 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = 1
+	bleedprob = 28
 
 /obj/item/weapon/scalpel/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting \his wrists with [src]! It looks like \he's trying to commit suicide.</span>", \
@@ -97,6 +101,8 @@
 	g_amt = 6000
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
+	sharpness = 2
+	bleedprob = 40
 
 
 /obj/item/weapon/surgical_drapes

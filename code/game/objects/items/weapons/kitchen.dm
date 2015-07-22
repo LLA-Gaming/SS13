@@ -26,6 +26,8 @@
 	origin_tech = "materials=1"
 	attack_verb = list("attacked", "stabbed", "poked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = 1
+	bleedprob = 15
 
 /obj/item/weapon/kitchen/utensil/New()
 	if (prob(60))
@@ -40,6 +42,8 @@
 	desc = "SPOON!"
 	icon_state = "spoon"
 	attack_verb = list("attacked", "poked")
+	sharpness = 0
+	bleedprob = 0
 
 /*
  * Forks
@@ -113,6 +117,8 @@
 	m_amt = 12000
 	origin_tech = "materials=1"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	sharpness = 1
+	bleedprob = 35
 
 /obj/item/weapon/kitchenknife/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting \his wrists with the [src.name]! It looks like \he's trying to commit suicide.</span>", \
@@ -144,6 +150,8 @@
 	origin_tech = "materials=1"
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	sharpness = 2
+	bleedprob = 40
 
 /*
  * Rolling Pins

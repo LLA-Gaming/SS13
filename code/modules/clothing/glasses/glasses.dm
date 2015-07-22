@@ -83,6 +83,8 @@
 	throwforce = 10
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = 1
+	bleedprob = 35
 
 /obj/item/clothing/glasses/sunglasses/supergarb
 	desc = "Believe in us humans."
@@ -93,6 +95,8 @@
 	throwforce = 12
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = 1
+	bleedprob = 35
 
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"

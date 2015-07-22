@@ -71,6 +71,8 @@
 	m_amt = 50
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = 1
+	bleedprob = 20
 
 // *************************************
 // Nutrient defines for hydroponics

@@ -249,6 +249,8 @@
 	g_amt = MINERAL_MATERIAL_AMOUNT
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = 1
+	bleedprob = 35
 	var/cooldown = 0
 
 /obj/item/weapon/shard/suicide_act(mob/user)

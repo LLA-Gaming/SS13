@@ -22,6 +22,8 @@
 	flags = CONDUCT | NOSHIELD
 	origin_tech = "combat=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
+	sharpness = 3
+	bleedprob = 100
 
 /obj/item/weapon/melee/energy/axe/suicide_act(mob/user)
 		user.visible_message("<span class='suicide'>[user] swings the [src.name] towards /his head! It looks like \he's trying to commit suicide.</span>")
@@ -56,6 +58,8 @@
 	w_class = 2.0
 	flags = NOSHIELD
 	origin_tech = "magnets=3;syndicate=4"
+	sharpness = 0
+	bleedprob = 0
 	var/hacked = 0
 
 /obj/item/weapon/melee/energy/sword/New()
@@ -74,6 +78,8 @@
 	if (active)
 		force = 30
 		throwforce = 20
+		sharpness = 3
+		bleedprob = 35
 		hitsound = 'sound/weapons/blade1.ogg'
 		attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		if(istype(src,/obj/item/weapon/melee/energy/sword/pirate))
@@ -86,6 +92,8 @@
 	else
 		force = 3
 		throwforce = 5.0
+		sharpness = 0
+		bleedprob = 0
 		hitsound = "swing_hit"
 		attack_verb = null
 		if(istype(src,/obj/item/weapon/melee/energy/sword/pirate))
@@ -164,6 +172,8 @@
 	desc = "A concentrated beam of energy in the shape of a blade. Very stylish... and lethal."
 	icon_state = "blade"
 	force = 70.0//Normal attacks deal very high damage.
+	sharpness = 3
+	bleedprob = 40
 	hitsound = 'sound/weapons/blade1.ogg'
 	throwforce = 1//Throwing or dropping the item deletes it.
 	throw_speed = 3

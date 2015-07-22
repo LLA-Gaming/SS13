@@ -162,6 +162,8 @@
 	seed = "/obj/item/seeds/deathnettleseed"
 	origin_tech = "combat=3"
 	attack_verb = list("stung")
+	sharpness = 2
+	bleedprob = 35
 /obj/item/weapon/grown/deathnettle/New(var/loc, var/potency = 10)
 	..()
 	if(reagents)

@@ -122,6 +122,8 @@ obj/item/clothing/glasses/hud/security/gars
 	throwforce = 10
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = 1
+	bleedprob = 35
 
 obj/item/clothing/glasses/hud/security/supergars
 	name = "SUPER HUD GAR glasses"
@@ -135,6 +137,8 @@ obj/item/clothing/glasses/hud/security/supergars
 	throwforce = 12
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = 1
+	bleedprob = 35
 
 /obj/item/clothing/glasses/hud/security/sunglasses/emp_act(severity)
 	if(emagged == 0)

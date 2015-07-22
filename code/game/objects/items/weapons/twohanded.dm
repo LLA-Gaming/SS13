@@ -157,6 +157,8 @@ obj/item/weapon/twohanded/
 	force_wielded = 24 // Was 18, Buffed - RobRichards/RR
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	sharpness = 3
+	bleedprob = 45
 
 /obj/item/weapon/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
@@ -200,6 +202,8 @@ obj/item/weapon/twohanded/
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/hacked = 0
 	reflect_chance = 0
+	sharpness = 3
+	bleedprob = 45
 
 /obj/item/weapon/twohanded/dualsaber/New()
 	item_color = pick("red", "blue", "green", "purple")
@@ -242,7 +246,7 @@ obj/item/weapon/twohanded/
 	if(istype(loc, /mob/living))
 		if (HULK in M.mutations)
 			loc << "<span class='warning'>You lack the grace to wield this to its full extent.</span>"
-	hitsound = 'sound/weapons/blade1.ogg' 
+	hitsound = 'sound/weapons/blade1.ogg'
 
 
 /obj/item/weapon/twohanded/dualsaber/unwield() //Specific unwield () to switch hitsounds.
@@ -292,6 +296,8 @@ obj/item/weapon/twohanded/
 	flags = NOSHIELD
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	sharpness = 2
+	bleedprob = 45
 
 /obj/item/weapon/twohanded/spear/update_icon()
 	icon_state = "spearglass[wielded]"

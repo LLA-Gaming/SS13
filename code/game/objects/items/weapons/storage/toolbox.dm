@@ -13,6 +13,8 @@
 	origin_tech = "combat=1"
 	attack_verb = list("robusted")
 	hitsound = 'sound/weapons/smash.ogg'
+	sharpness = 1
+	bleedprob = 20
 
 	New()
 		..()

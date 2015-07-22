@@ -73,6 +73,8 @@
 	var/digspeed = 40 //moving the delay to an item var so R&D can make improved picks. --NEO
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("hit", "pierced", "sliced", "attacked")
+	sharpness = 2
+	bleedprob = 35
 
 	hammer
 		name = "sledgehammer"
