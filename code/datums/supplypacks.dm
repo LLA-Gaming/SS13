@@ -563,6 +563,16 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "oxygen deprivation kits crate"
 
+/datum/supply_packs/medical/firstaidoxygen
+	name = "IV drip and bloodpacks crate"
+	contains = list(/obj/machinery/iv_drip,
+					/obj/machinery/iv_drip,
+					/obj/item/weapon/reagent_containers/blood,
+					/obj/item/weapon/reagent_containers/blood,
+					/obj/item/weapon/reagent_containers/blood)
+	cost = 30
+	containername = "oxygen deprivation kits crate"
+
 
 /datum/supply_packs/medical/virus
 	name = "Virus crate"
