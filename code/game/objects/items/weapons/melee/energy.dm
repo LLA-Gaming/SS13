@@ -22,8 +22,8 @@
 	flags = CONDUCT | NOSHIELD
 	origin_tech = "combat=3"
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
-	sharpness = 3
-	bleedprob = 100
+	sharpness = 0
+	bleedprob = 0
 
 /obj/item/weapon/melee/energy/axe/suicide_act(mob/user)
 		user.visible_message("<span class='suicide'>[user] swings the [src.name] towards /his head! It looks like \he's trying to commit suicide.</span>")
@@ -37,12 +37,16 @@
 		hitsound = 'sound/weapons/blade1.ogg'
 		icon_state = "axe1"
 		w_class = 5
+		sharpness = 3
+		bleedprob = 100
 	else
 		user << "<span class='notice'>[src] can now be concealed.</span>"
 		force = 40
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		icon_state = "axe0"
 		w_class = 3 //it goes back to three you goose
+		sharpness = 0
+		bleedprob = 0
 	add_fingerprint(user)
 
 /obj/item/weapon/melee/energy/sword

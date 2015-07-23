@@ -50,6 +50,8 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
+	sharpness = 1
+	bleedprob = 45
 
 /obj/item/weapon/melee/arm_blade/New()
 	..()

@@ -202,8 +202,8 @@ obj/item/weapon/twohanded/
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/hacked = 0
 	reflect_chance = 0
-	sharpness = 3
-	bleedprob = 45
+	sharpness = 0
+	bleedprob = 0
 
 /obj/item/weapon/twohanded/dualsaber/New()
 	item_color = pick("red", "blue", "green", "purple")
@@ -247,11 +247,15 @@ obj/item/weapon/twohanded/
 		if (HULK in M.mutations)
 			loc << "<span class='warning'>You lack the grace to wield this to its full extent.</span>"
 	hitsound = 'sound/weapons/blade1.ogg'
+	sharpness = 3
+	bleedprob = 40
 
 
 /obj/item/weapon/twohanded/dualsaber/unwield() //Specific unwield () to switch hitsounds.
 	..()
 	hitsound = "swing_hit"
+	sharpness = 0
+	bleedprob = 0
 
 /obj/item/weapon/twohanded/dualsaber/IsReflect()
 	if(wielded)
