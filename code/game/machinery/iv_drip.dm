@@ -105,17 +105,10 @@
 		if(mode)
 			if(beaker.volume > 0)
 				var/transfer_amount = 2
-				var/fraction = min(transfer_amount/beaker.volume, 1) //the fraction that is transfered of the total volume
-				beaker.reagents.reaction(attached, INGEST, fraction,0) //make reagents reacts, but don't spam messages
-				var/blood_only = 1
-				for(var/datum/reagent/R in beaker.reagents)
-					if(R.id != "blood")
-						blood_only = 0
-						break
-				if(blood_only)
-					beaker.reagents.trans_to(attached.blood, transfer_amount)
-				else
-					beaker.reagents.trans_to(attached.reagents, 0.05)
+				beaker.reagents.trans_blood_to(attached, transfer_amount, 0)
+				for(var/datum/reagent/R in beaker.reagents.reagent_list)
+					if(R.id == "blood") continue
+					beaker.reagents.trans_id_to(attached, R.id, transfer_amount)
 				update_icon()
 
 		// Take blood
@@ -135,12 +128,9 @@
 			if(NOCLONE in T.mutations)
 				return
 
-			// If the human is losing too much blood, beep.
-			if(T.blood.get_reagent_amount("blood") < 200)
-				if(prob(5))
-					visible_message("\The [src] beeps loudly.")
-					playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
-			T.blood.trans_to(beaker, amount)
+			// If the human is losing too much blood, stop
+			if(T.blood.get_reagent_amount("blood") > 110)
+				T.blood.trans_to(beaker, amount)
 			update_icon()
 
 /obj/machinery/iv_drip/attack_hand(mob/user)

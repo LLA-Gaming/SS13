@@ -1280,17 +1280,20 @@
 			bleed_max = Clamp(bleed_max,0,3)
 			switch(bleed_max)
 				if(1)
-					blood.remove_reagent("blood", 0.25)
-				if(2)
 					blood.remove_reagent("blood", 0.5)
-				if(3)
+				if(2)
 					blood.remove_reagent("blood", 1)
+				if(3)
+					blood.remove_reagent("blood", 2)
 			var/turf/location = loc
 			if (istype(location, /turf/simulated))
 				if(bleed_max == 3)
 					location.add_blood_floor(src)
-				else
+				if(bleed_max == 2)
 					location.add_blooddrips_floor(src)
+				if(bleed_max == 1)
+					if(prob(80))
+						location.add_blooddrips_floor(src)
 		else
 			blood.add_reagent("blood", 0.25)
 		switch(getBloodLoss())
@@ -1325,7 +1328,7 @@
 
 //Moved this proc here since it deals with bloodloss sorta.
 /mob/living/carbon/human/InCritical()
-	if(blood && (blood.total_volume < BLOODLOSS_CRIT && stat == UNCONSCIOUS))
+	if(blood && (blood.total_volume <= BLOODLOSS_CRIT && stat == UNCONSCIOUS))
 		return 1
 	return (health <= config.health_threshold_crit && stat == UNCONSCIOUS)
 
