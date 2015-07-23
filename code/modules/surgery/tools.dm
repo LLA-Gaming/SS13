@@ -32,6 +32,8 @@
 	g_amt = 750
 	flags = CONDUCT
 	w_class = 1.0
+	force = 1
+	damtype = "burn"
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
 

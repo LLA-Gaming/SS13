@@ -115,7 +115,7 @@
 				if(blood_only)
 					beaker.reagents.trans_to(attached.blood, transfer_amount)
 				else
-					beaker.reagents.trans_to(attached, 0.05)
+					beaker.reagents.trans_to(attached.reagents, 0.05)
 				update_icon()
 
 		// Take blood

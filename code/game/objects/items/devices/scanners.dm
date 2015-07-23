@@ -116,10 +116,10 @@ MASS SPECTROMETER
 	user.show_message("<span class='notice'>Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)</span>", 1)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/bloodloss = 0
+		var/bloodlevel = 100
 		if(H.blood)
-			bloodloss = H.blood.maximum_volume - (H.blood.total_volume * H.blood.maximum_volume / 100)
-		user.show_message("<span class='notice'>Bloodloss: [bloodloss]%</span>", 1)
+			bloodlevel = H.blood.total_volume / H.blood.maximum_volume * 100
+		user.show_message("<span class='notice'>Blood levels: [bloodlevel]%</span>", 1)
 
 	// Time of death
 	if(M.tod && (M.stat == DEAD || (M.status_flags & FAKEDEATH)))

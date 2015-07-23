@@ -224,6 +224,15 @@
 		else
 			msg += "<B>[t_He] [t_has] severe genetic deformities.</B>\n"
 
+	temp = isbleeding()
+	switch(temp)
+		if(1)
+			msg += "<B>[t_He] is bleeding.</B>\n"
+		if(2)
+			msg += "<B>[t_He] is bleeding heavily.</B>\n"
+		if(3)
+			msg += "<B>[t_He] is bleeding profusely.</B>\n"
+
 	if(fire_stacks > 0)
 		msg += "[t_He] [t_is] covered in something flammable.\n"
 	if(fire_stacks < 0)

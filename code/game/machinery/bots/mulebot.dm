@@ -741,6 +741,9 @@ var/global/mulebot_count = 0
 	H.apply_damage(0.5*damage, BRUTE, "r_leg")
 	H.apply_damage(0.5*damage, BRUTE, "l_arm")
 	H.apply_damage(0.5*damage, BRUTE, "r_arm")
+	for(var/obj/item/organ/limb/L in H.organs)
+		if(prob(30))
+			L.slice(30,3,0)
 
 	var/obj/effect/decal/cleanable/blood/B = new(src.loc)
 	B.blood_DNA = list()

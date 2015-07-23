@@ -927,6 +927,7 @@ obj/machinery/computer/pandemic/proc/replicator_cooldown(var/waittime)
 				/obj/item/weapon/reagent_containers/food/snacks/grown/lime = list("limejuice" = 0),
 				/obj/item/weapon/reagent_containers/food/snacks/watermelonslice = list("watermelonjuice" = 0),
 				/obj/item/weapon/reagent_containers/food/snacks/grown/poisonberries = list("poisonberryjuice" = 0),
+				/obj/item/weapon/reagent_containers/food/snacks/meat = list("blood" = 0)
 		)
 
 		var/list/dried_items = list(

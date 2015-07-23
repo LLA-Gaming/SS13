@@ -327,6 +327,11 @@
 		if(C.reagents)
 			for(var/datum/reagent/R in C.reagents.reagent_list)
 				C.reagents.clear_reagents()
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		for(var/datum/reagent/R in H.blood.reagent_list)
+			H.blood.clear_reagents()
+		H.blood.add_reagent("blood",145)
 	for(var/datum/disease/D in viruses)
 		D.cure(0)
 	if(stat == 2)

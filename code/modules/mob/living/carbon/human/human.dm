@@ -198,6 +198,9 @@
 				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05)
 	if(update)	update_damage_overlays(0)
 
+	for(var/obj/item/organ/limb/L in organs)
+		L.slice(30,3,0)
+
 
 /mob/living/carbon/human/blob_act()
 	if(stat == 2)	return

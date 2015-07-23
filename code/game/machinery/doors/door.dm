@@ -261,6 +261,10 @@
 		var/turf/location = src.loc
 		if(istype(location, /turf/simulated)) //add_blood doesn't work for borgs/xenos, but add_blood_floor does.
 			location.add_blood_floor(L)
+		if(ishuman(L))
+			var/mob/living/carbon/human/H = L
+			for(var/obj/item/organ/limb/affect in H.organs)
+				affect.slice(30,3,0)
 
 /obj/machinery/door/proc/requiresID()
 	return 1

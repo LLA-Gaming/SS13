@@ -49,6 +49,7 @@
 	var/bleeding = 0
 
 	proc/slice(var/bleedprob,var/sharpness,var/armor) //This proc runs whenever a limb is attacked by a sharp weapon
+		if(owner && (owner.status_flags & GODMODE))	return 0	//godmode
 		if(status != ORGAN_ORGANIC)
 			return
 		var/current_bleedstate = bleedstate
@@ -135,7 +136,7 @@
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
 
-	if(burn && bleeding && bleedstate <= 2) //GHETTO WELDERING YOUR WOUNDS SHUT THE JAYCE WISE WAY
+	if(burn && bleeding) //GHETTO WELDERING YOUR WOUNDS SHUT THE JAYCE WISE WAY
 		bleedstate = 0
 		bleeding = 0
 		owner << "<span class='danger'>The burns mend the wounds on your [getDisplayName()]</span>"
