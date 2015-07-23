@@ -1303,11 +1303,18 @@
 			if(40 to 59)
 				if(prob(20))
 					eye_blurry = 10
+				if(prob(5))
+					emote("cough")
 			if(60 to 79)
 				eye_blurry = 10
+				if(prob(5))
+					emote("cough")
 			if(80 to 99)
 				eye_blurry = 10
-				Weaken(10)
+				if(prob(5))
+					Paralyse(10)
+				if(prob(5))
+					emote("cough")
 			if(100 to INFINITY)
 				Paralyse(10)
 		return
