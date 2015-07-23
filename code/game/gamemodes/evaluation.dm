@@ -57,7 +57,8 @@
 				Player << "<font color='red'><b>You did not survive the events on [station_name()]...</b></FONT>"
 
 	world << "<BR>[TAB]Shift Duration: <B>[round(world.time / 36000)]:[add_zero(world.time / 600 % 60, 2)]:[world.time / 100 % 6][world.time / 100 % 10]</B>"
-	world << "<BR>[TAB]Nuclear Authentication Disk: <B>[disk_rescued ? "<font color='green'>Secured!</font>" : "<font color='red'>Lost!</font>"]</B>"
+	if(emergency_shuttle && emergency_shuttle.location == 2)
+		world << "<BR>[TAB]Nuclear Authentication Disk: <B>[disk_rescued ? "<font color='green'>Secured!</font>" : "<font color='red'>Lost!</font>"]</B>"
 	world << "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>"
 	world << "<BR>[TAB]Total Population: <B>[joined_player_list.len]</B>"
 	world << "<BR>[TAB]Survival Rate: <B>[num_survivors] ([round((num_survivors/joined_player_list.len)*100, 0.1)]%)</B>"
