@@ -60,6 +60,9 @@
 			bleedstate = Clamp(bleedstate + sharpness,1,3)
 		if(bleedstate == current_bleedstate)
 			return
+		if(!bleeding && sliced)
+			owner.attack_log += text("\[[time_stamp()]\] <font color='yellow'>[key_name(owner)] has started bleeding on their [getDisplayName()]</font>")
+			log_attack("<font color='yellow'>[key_name(owner)] has started bleeding on their [getDisplayName()]</font>")
 		switch(bleedstate)
 			if(1)
 				owner.visible_message("<span class='warning'>[owner]'s [getDisplayName()] starts bleeding</span>","<span class='danger'>Your [getDisplayName()] starts bleeding</span>")
@@ -136,7 +139,7 @@
 		brute = max(0, brute - 5)
 		burn = max(0, burn - 4)
 
-	if(burn && bleeding) //GHETTO WELDERING YOUR WOUNDS SHUT THE JAYCE WISE WAY
+	if(burn >= 5 && bleeding) //GHETTO WELDERING YOUR WOUNDS SHUT THE JAYCE WISE WAY
 		bleedstate = 0
 		bleeding = 0
 		owner << "<span class='danger'>The burns mend the wounds on your [getDisplayName()]</span>"
