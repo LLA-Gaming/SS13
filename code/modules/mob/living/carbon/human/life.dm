@@ -1285,15 +1285,7 @@
 					blood.remove_reagent("blood", 1)
 				if(3)
 					blood.remove_reagent("blood", 2)
-			var/turf/location = loc
-			if (istype(location, /turf/simulated))
-				if(bleed_max == 3)
-					location.add_blood_floor(src)
-				if(bleed_max == 2)
-					location.add_blooddrips_floor(src)
-				if(bleed_max == 1)
-					if(prob(80))
-						location.add_blooddrips_floor(src)
+			bleed_on_floor(bleed_max)
 		else
 			blood.add_reagent("blood", 0.25)
 		switch(getBloodLoss())
@@ -1306,6 +1298,10 @@
 				if(prob(5))
 					emote("cough")
 			if(60 to 79)
+				for(var/obj/item/organ/limb/L in organs) ///Clotting
+					if(L.bleedstate == 1)
+						L.bleeding = 0
+						L.bleedstate = 0
 				eye_blurry = 10
 				if(prob(5))
 					emote("cough")

@@ -370,6 +370,10 @@
 		stop_pulling()
 
 
+	if(istype(src,/mob/living/carbon/human))
+		var/mob/living/carbon/human/H = src
+		H.bleed_on_floor(H.isbleeding())
+
 	var/t7 = 1
 	if (restrained())
 		for(var/mob/living/M in range(src, 1))
@@ -420,7 +424,10 @@
 						M.stop_pulling()
 
 						//this is the gay blood on floor shit -- Added back -- Skie
-						if (M.lying && (prob(M.getBruteLoss() / 2)))
+						if(istype(src,/mob/living/carbon/human))
+							var/mob/living/carbon/human/H = src
+							H.bleed_on_floor()
+						if ((M.lying && (prob(M.getBruteLoss() / 2))) && !istype(src,/mob/living/carbon/human))
 							var/blood_exists = 0
 							var/trail_type = M.getTrail()
 							for(var/obj/effect/decal/cleanable/trail_holder/C in M.loc) //checks for blood splatter already on the floor

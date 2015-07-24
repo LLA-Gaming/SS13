@@ -119,3 +119,48 @@
 
 /mob/living/carbon/human/IsAdvancedToolUser()
 	return 1//Humans can use guns and such
+
+/mob/living/carbon/human/proc/bleed_on_floor(var/bleed_max)
+	if (buckled)
+		return
+	var/turf/location = loc
+	if (istype(location, /turf/simulated))
+		if(bleed_max == 1)
+			if(prob(25))
+				location.add_blooddrips_floor(src)
+		if(bleed_max >= 2)
+			if( (prob(40) && bleed_max == 2) || (prob(50) && bleed_max == 3) )
+				var/blood_exists = 0
+				var/trail_type = getTrail()
+				for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
+					blood_exists = 1
+				if (trail_type != null)
+					var/newdir = get_dir(location, loc)
+					if(newdir != dir)
+						newdir = newdir | dir
+						if(newdir == 3) //N + S
+							newdir = NORTH
+						else if(newdir == 12) //E + W
+							newdir = EAST
+					//if((newdir in list(1, 2, 4, 8)) && (prob(50)))
+					//	newdir = turn(get_dir(location, loc), 180)
+					if(!blood_exists)
+						new /obj/effect/decal/cleanable/trail_holder(loc)
+					for(var/obj/effect/decal/cleanable/trail_holder/H in loc)
+						if((!(newdir in H.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && H.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
+							H.existing_dirs += newdir
+							H.overlays.Add(image('icons/effects/blood.dmi',trail_type,dir = newdir))
+							if(check_dna_integrity(src)) //blood DNA
+								H.blood_DNA[src.dna.unique_enzymes] = src.dna.blood_type
+
+/mob/living/carbon/human/getTrail()
+	var/bleed_max = isbleeding()
+	switch(bleed_max)
+		if(2)
+			if(prob(50))
+				return "ltrails_1"
+			return "ltrails_2"
+		if(3)
+			if(prob(50))
+				return "trails_1"
+			return "trails_2"
