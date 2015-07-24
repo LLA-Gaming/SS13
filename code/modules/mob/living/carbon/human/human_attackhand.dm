@@ -70,15 +70,15 @@
 			var/attack_verb = "punch"
 			if(lying)
 				attack_verb = "kick"
-				do_brute = 1
+				do_brute = 2
 			else if(M.dna)
 				switch(M.dna.mutantrace)
 					if("lizard")
 						attack_verb = "scratch"
-						do_brute = 1
+						do_brute = 2
 					if("plant")
 						attack_verb = "slash"
-						do_brute = 1
+						do_brute = 2
 
 
 			if(!damage)
@@ -97,7 +97,7 @@
 
 			if(HULK in M.mutations)
 				damage += 5
-				do_brute = 1
+				do_brute = 2
 
 			switch(attack_verb)
 				if("slash")
@@ -112,7 +112,8 @@
 			apply_damage(damage, STAMINA, affecting, armor_block)
 			if(do_brute)
 				apply_damage(damage, BRUTE, affecting, armor_block)
-				affecting.slice(0,0,armor_block)
+				if(do_brute == 2) // Should only do a bleed check if they are being kicked, slashed, cut, or hulkpunched
+					affecting.slice(0,0,armor_block)
 			if((stat != DEAD) && damage >= 9)
 				visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 								"<span class='userdanger'>[M] has weakened [src]!</span>")
