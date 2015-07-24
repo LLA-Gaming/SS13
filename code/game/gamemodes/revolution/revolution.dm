@@ -344,7 +344,10 @@
 //Announces the end of the game with all relavent information stated//
 //////////////////////////////////////////////////////////////////////
 /datum/game_mode/revolution/declare_completion()
-	if(finished == 1)
+	if(emergency_shuttle.location==2)
+		feedback_set_details("round_end_result","stalemate - crew_transfer")
+		world << "\red <FONT size = 3><B> The round ended in a stalemate (crew transfer)!</B></FONT>"
+	else if(finished == 1)
 		feedback_set_details("round_end_result","win - heads killed")
 		world << "\red <FONT size = 3><B> The heads of staff were killed or abandoned the station! The revolutionaries win!</B></FONT>"
 	else if(finished == 2)

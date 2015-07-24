@@ -649,6 +649,8 @@ var/perseusMissionCooldown = 3000
 		return
 	if(ticker.mode.name == "meteor")
 		return
+	if(emergency_shuttle.prevent_recall)
+		return
 
 	if ((seclevel2num(get_security_level()) == SEC_LEVEL_RED))
 		if (emergency_shuttle.timeleft() < SHUTTLEARRIVETIME / 4)

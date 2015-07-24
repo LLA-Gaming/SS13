@@ -30,6 +30,7 @@ datum/shuttle_controller
 		//timeleft = 360 //600
 	var/fake_recall = 0 //Used in rounds to prevent "ON NOES, IT MUST [INSERT ROUND] BECAUSE SHUTTLE CAN'T BE CALLED"
 	var/always_fake_recall = 0
+	var/prevent_recall = 0
 
 	var/pods = list("escape", "pod1", "pod2", "pod3", "pod4")
 
@@ -49,7 +50,7 @@ datum/shuttle_controller
 				last_call_loc = null
 			settimeleft(SHUTTLEARRIVETIME*coeff)
 			online = 1
-			if(always_fake_recall)
+			if(always_fake_recall && !prevent_recall)
 
 				if ((seclevel2num(get_security_level()) == SEC_LEVEL_RED))
 					fake_recall = rand(SHUTTLEARRIVETIME / 4, SHUTTLEARRIVETIME - 100 / 2)

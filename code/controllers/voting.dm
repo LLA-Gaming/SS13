@@ -35,14 +35,14 @@ datum/controller/vote
 			else
 				var/datum/browser/client_popup
 				while(i<=voting.len)
-					var/client/C = voting[i]					
+					var/client/C = voting[i]
 					if(C)
 						//C << browse(vote.interface(C),"window=vote;can_close=0")
 						client_popup = new(C, "vote", "Voting Panel")
 						client_popup.set_window_options("can_close=0")
 						client_popup.set_content(vote.interface(C))
 						client_popup.open(0)
-						
+
 						i++
 					else
 						voting.Cut(i,i+1)
@@ -70,6 +70,10 @@ datum/controller/vote
 			var/non_voters = (clients.len - total_votes)
 			if(non_voters > 0)
 				if(mode == "restart")
+					choices["Continue Playing"] += non_voters
+					if(choices["Continue Playing"] >= greatest_votes)
+						greatest_votes = choices["Continue Playing"]
+				if(mode == "crewtransfer")
 					choices["Continue Playing"] += non_voters
 					if(choices["Continue Playing"] >= greatest_votes)
 						greatest_votes = choices["Continue Playing"]
@@ -114,11 +118,15 @@ datum/controller/vote
 	proc/result()
 		. = announce_result()
 		var/restart = 0
+		var/crew_transfer = 0
 		if(.)
 			switch(mode)
 				if("restart")
 					if(. == "Restart Round")
 						restart = 1
+				if("crewtransfer")
+					if(. == "Crew Transfer")
+						crew_transfer = 1
 				if("gamemode")
 					if(master_mode != .)
 						world.save_mode(.)
@@ -134,6 +142,12 @@ datum/controller/vote
 			sleep(50)
 			log_game("Rebooting due to restart vote")
 			world.Reboot()
+
+		if(crew_transfer)
+			if(emergency_shuttle)
+				emergency_shuttle.incall(1)
+				emergency_shuttle.prevent_recall = 1
+				priority_announce("The crew transfer shuttle is en route. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.", "Crew Transfer")
 
 		return .
 
@@ -160,6 +174,7 @@ datum/controller/vote
 			reset()
 			switch(vote_type)
 				if("restart")	choices.Add("Restart Round","Continue Playing")
+				if("crewtransfer")	choices.Add("Crew Transfer","Continue Playing")
 				if("gamemode")	choices.Add(config.votable_modes)
 				if("custom")
 					question = html_encode(input(usr,"What is the vote for?") as text|null)
@@ -204,6 +219,10 @@ datum/controller/vote
 				. += "(<a href='?src=\ref[src];vote=cancel'>Cancel Vote</a>) "
 		else
 			. += "<h2>Start a vote:</h2><hr><ul><li>"
+			//crew_transfer
+			if(ticker.current_state == 3)
+				. += "<a href='?src=\ref[src];vote=crewtransfer'>Crew Transfer</a>"
+				. += "</li><li>"
 			//restart
 			if(trialmin || config.allow_vote_restart)
 				. += "<a href='?src=\ref[src];vote=restart'>Restart</a>"
@@ -248,6 +267,8 @@ datum/controller/vote
 			if("restart")
 				if(config.allow_vote_restart || usr.client.holder)
 					initiate_vote("restart",usr.key)
+			if("crewtransfer")
+				initiate_vote("crewtransfer",usr.key)
 			if("gamemode")
 				if(config.allow_vote_mode || usr.client.holder)
 					initiate_vote("gamemode",usr.key)
