@@ -6,6 +6,7 @@
 	config_tag = "malfunction"
 	antag_flag = BE_MALF
 	required_players = 18
+	required_readies = 5
 	required_enemies = 1
 	recommended_enemies = 1
 	pre_setup_before_jobs = 1
