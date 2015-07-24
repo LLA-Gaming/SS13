@@ -70,7 +70,7 @@
 							var/datum/tablet_data/conversation/C = new /datum/tablet_data/conversation/(src)
 							server.convos.Add(C)
 							active_chat = C
-							active_chat.name = "[T.owner] ([T.ownjob])"
+							active_chat.name = "[tablet.owner]/[T.owner]"
 							active_chat.users.Add(tablet)
 							active_chat.users.Add(T)
 							active_chat.host = tablet
