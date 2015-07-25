@@ -61,7 +61,7 @@
 		if(bleedstate == current_bleedstate)
 			return
 		if(!bleeding && sliced)
-			owner.attack_log += text("\[[time_stamp()]\] <font color='yellow'>[key_name(owner)] has started bleeding on their [getDisplayName()]</font>")
+			owner.attack_log += text("\[[time_stamp()]\] <font color='orange'>[key_name(owner)] has started bleeding on their [getDisplayName()]</font>")
 			log_attack("<font color='yellow'>[key_name(owner)] has started bleeding on their [getDisplayName()]</font>")
 		switch(bleedstate)
 			if(1)
