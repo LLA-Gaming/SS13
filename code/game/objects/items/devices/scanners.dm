@@ -118,7 +118,7 @@ MASS SPECTROMETER
 		var/mob/living/carbon/human/H = M
 		var/bloodlevel = 100
 		if(H.blood)
-			bloodlevel = H.blood.total_volume / H.blood.maximum_volume * 100
+			bloodlevel = round(H.blood.total_volume / H.blood.maximum_volume * 100)
 		user.show_message("<span class='notice'>Blood levels: [bloodlevel]%</span>", 1)
 
 	// Time of death

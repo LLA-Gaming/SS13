@@ -9,7 +9,7 @@
 	for(var/obj/item/organ/limb/L in organs)
 		if(L.body_part == LEG_LEFT || L.body_part == LEG_RIGHT)
 			leg_damage += L.brute_dam + L.burn_dam
-	var/health_deficiency = (leg_damage + staminaloss)
+	var/health_deficiency = leg_damage + staminaloss + getBloodLoss()
 	if(health_deficiency >= 10)
 		. += (health_deficiency / 25)
 

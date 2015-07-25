@@ -624,12 +624,12 @@
 
 /mob/living/proc/CheckStamina()
 	if(staminaloss || getBloodLoss())
-		var/total_health = (100 - staminaloss)
-		if(total_health <= config.health_threshold_crit && !stat)
+		var/threshold = Clamp((health - getBloodLoss()),1,100)
+		if(staminaloss >= threshold && !stat)
 			Exhaust()
-			setStaminaLoss(100 - 2)
+			setStaminaLoss(threshold - 2)
 			return
-		setStaminaLoss(max((staminaloss - 2), getBloodLoss()))
+		setStaminaLoss(Clamp((staminaloss - 2), 0,threshold))
 
 /mob/living/proc/Exhaust()
 	src << "<span class='notice'>You're too exhausted to keep going...</span>"

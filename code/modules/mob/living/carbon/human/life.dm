@@ -1152,13 +1152,16 @@
 
 			if (staminas)
 				if (stat != 2)
-					switch(staminaloss)
-						if(-INFINITY to 1)	staminas.icon_state = "stamina0"
-						if(2 to 24)				staminas.icon_state = "stamina1"
-						if(25 to 49)			staminas.icon_state = "stamina2"
-						if(50 to 74)			staminas.icon_state = "stamina3"
-						if(75 to 99)			staminas.icon_state = "stamina4"
-						if(100 to INFINITY)		staminas.icon_state = "stamina5"
+					var/threshold = Clamp((health - getBloodLoss()),1,100)
+					var/display = 100 - (Clamp(staminaloss,0,threshold) / threshold * 100)
+					switch(display)
+						if(99 to 100)		staminas.icon_state = "stamina0"
+						if(75 to 98)			staminas.icon_state = "stamina1"
+						if(50 to 74)			staminas.icon_state = "stamina2"
+						if(25 to 49)			staminas.icon_state = "stamina3"
+						if(6 to 24)				staminas.icon_state = "stamina4"
+						if(-INFINITY to 5)		staminas.icon_state = "stamina5"
+						else					staminas.icon_state = "stamina5"
 
 			if(nutrition_icon)
 				switch(nutrition)
@@ -1288,6 +1291,13 @@
 			bleed_on_floor(bleed_max)
 		else
 			blood.add_reagent("blood", 0.25)
+		//Clotting start
+		if(round(blood.total_volume / blood.maximum_volume * 100) <= 50)
+			for(var/obj/item/organ/limb/L in organs)
+				if(L.bleedstate == 1)
+					L.bleeding = 0
+					L.bleedstate = 0
+		//Clotting end
 		switch(getBloodLoss())
 			if(20 to 39)
 				if(prob(5))
@@ -1298,10 +1308,6 @@
 				if(prob(5))
 					emote("cough")
 			if(60 to 79)
-				for(var/obj/item/organ/limb/L in organs) ///Clotting
-					if(L.bleedstate == 1)
-						L.bleeding = 0
-						L.bleedstate = 0
 				eye_blurry = 10
 				if(prob(5))
 					emote("cough")
