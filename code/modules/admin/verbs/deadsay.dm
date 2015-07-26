@@ -20,7 +20,7 @@
 	if (!msg)
 		return
 
-	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>ADMIN([src.holder.fakekey ? pick("Mystery","Stealthmin","Conspiracy","Secret","Classified","Covert","Hush-Hush","Unseen","Disguised","Unknown","Whos-Asking","Cryptic","Private","Undercover","Obscure") : src.key])</span> says, <span class='message'>\"[msg]\"</span></span>"
+	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>ADMIN([src.holder.fakekey ? pick("Mystery","Stealthmin","Conspiracy","Secret","Classified","Covert","Hush-Hush","Unseen","Disguised","Unknown","Whos-Asking","Cryptic","Private","Undercover","Obscure","Mr. Grumpy") : src.key])</span> says, <span class='message'>\"[msg]\"</span></span>"
 
 	for (var/mob/M in player_list)
 		if (istype(M, /mob/new_player))
