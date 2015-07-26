@@ -20,7 +20,7 @@
 	if (!msg)
 		return
 
-	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>ADMIN([src.holder.fakekey ? pick("DanZamby","MexicanFood","Mr.Grumpy","ThreeGoals","Finns","Spoffy_the_Goat","Cawcawcaw","Fishboy","Narwhale","Aintshit","Brittboy","Adumb","Bitchling","Phlegm","Review_My_Update","Raptor420","Absent","BJ","SeventySeven","FrogGuru","SecretGerman","FruityJuice","SecretGerman?","Keggers","Chef","Brick","Jockstrap","Badds","EnglishBoomer") : src.key])</span> says, <span class='message'>\"[msg]\"</span></span>"
+	var/rendered = "<span class='game deadsay'><span class='prefix'>DEAD:</span> <span class='name'>ADMIN([src.holder.fakekey ? pick("DanZamby","MexicanFood","Mr.Grumpy","ThreeGoals","Finns","Spoffy_the_Goat","Cawcawcaw","Fishboy","Narwhale","Aintshit","OrangeBisque","Adumb","Bitchling","Phlegm","Review_My_Update","Raptor420","Absent","BJ","SeventySeven","FrogGuru","SecretGerman","FruityJuice","Santan","Yegyeg","TheChef","Brick","Jockstrap","Badds","EnglishBoomer") : src.key])</span> says, <span class='message'>\"[msg]\"</span></span>"
 
 	for (var/mob/M in player_list)
 		if (istype(M, /mob/new_player))
