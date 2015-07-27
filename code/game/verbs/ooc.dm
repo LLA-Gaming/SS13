@@ -13,6 +13,7 @@
 
 	if(ooc_isbanned(src))
 		src << "\red You are currently banned from OOC"
+		src << "\red Reason: [ooc_isbanned(src)]"
 		src << "\red To try to resolve this matter head to [config.banappeals]"
 		return
 
