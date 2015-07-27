@@ -448,6 +448,8 @@ proc/is_special_character(mob/M) // returns 1 for special characters and 2 for h
 	if(connected)
 		for(var/mob/living/carbon/human/human in mob_list)
 			var/turf/humanturf = get_turf(human)
+			if(!humanturf || !sourceturf)
+				return
 			if((humanturf.z == sourceturf.z) && istype(human.glasses, /obj/item/clothing/glasses/hud/security))
 				var/obj/item/clothing/glasses/hud/security/huds = human.glasses
 				if(huds.alerts)
