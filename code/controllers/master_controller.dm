@@ -45,9 +45,11 @@ datum/controller/game_controller/New()
 			del(master_controller)
 		master_controller = src
 
-	createRandomZlevel()			//probably shouldn't be here!
+	createRandomZlevel()			//probably shouldn't be here! //I agree please kill
 
 	for(var/i=0, i<max_secret_rooms, i++)
+		if(!possiblethemes.len)
+			break
 		make_mining_asteroid_secret()
 
 	if(!events)
