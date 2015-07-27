@@ -11,6 +11,11 @@
 		src << "Guests may not use OOC."
 		return
 
+	if(ooc_isbanned(src))
+		src << "\red You are currently banned from OOC"
+		src << "\red To try to resolve this matter head to [config.banappeals]"
+		return
+
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	if(!msg)	return
 

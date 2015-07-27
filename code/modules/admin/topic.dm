@@ -352,6 +352,49 @@
 			if("No")
 				return
 
+	else if(href_list["oocban"])
+		if(!check_rights(R_BAN))
+			return
+		var/mob/M = locate(href_list["oocban"])
+		if(!ismob(M))
+			usr << "This can only be used on instances of type /mob"
+			return
+		if(!M.ckey)	//sanity
+			usr << "This mob has no ckey"
+			return
+
+		var/banreason = ooc_isbanned(M)
+		if(banreason)
+			switch(alert("Reason: '[banreason]' Remove OOC ban?","Please Confirm","Yes","No"))
+				if("Yes")
+					ban_unban_log_save("[key_name(usr)] removed [key_name(M)]'s OOC ban")
+					log_admin("[key_name(usr)] removed [key_name(M)]'s OOC ban")
+					feedback_inc("ban_ooc_unban", 1)
+					ooc_unban(M)
+					message_admins("\blue [key_name_admin(usr)] removed [key_name_admin(M)]'s ooc ban", 1)
+					M << "\red<BIG><B>[usr.client.ckey] has removed your ooc ban.</B></BIG>"
+
+		else switch(alert("OOC ban [M.ckey]?",,"Yes","No", "Cancel"))
+			if("Yes")
+				var/reason = input(usr,"Reason?","reason","IC in OOC") as text|null
+				if(!reason)
+					return
+				ban_unban_log_save("[key_name(usr)] ooc banned [key_name(M)]. reason: [reason]")
+				log_admin("[key_name(usr)] ooc banned [key_name(M)]. \nReason: [reason]")
+				feedback_inc("ban_ooc",1)
+				ooc_fullban(M, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
+				notes_add(M.ckey, "OOC banned - [reason]")
+				message_admins("\blue [key_name_admin(usr)] OOC banned [key_name_admin(M)]", 1)
+				M << "\red<BIG><B>You have been OOC banned by [usr.client.ckey].</B></BIG>"
+				M << "\red <B>The reason is: [reason]</B>"
+				M << "\red OOC bans can be lifted only upon request."
+				if(config.banappeals)
+					M << "\red To try to resolve this matter head to [config.banappeals]"
+				else
+					M << "\red No ban appeals URL has been set."
+			if("No")
+				return
+
 	else if(href_list["jobban2"])
 		var/mob/M = locate(href_list["jobban2"])
 		if(!ismob(M))
