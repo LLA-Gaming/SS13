@@ -97,6 +97,7 @@
 					for(var/obj/item/device/tablet/T in tablets_list)
 						if(T == tablet) continue
 						if(active_chat.users.Find(T)) continue
+						if(active_chat.leftchat.Find(T)) continue
 						if(T.network() && T.core && T.core.owner && T.messengeron)
 							D["[T.owner] ([T.ownjob])"] = T
 
@@ -165,6 +166,7 @@
 
 			if("Leave Chat")
 				active_chat.users.Remove(tablet)
+				active_chat.leftchat.Add(tablet)
 				active_chat.log += "--[tablet.owner] ([tablet.ownjob]) has left the conversation<br>"
 				active_chat.raw_log += "--[tablet.owner] ([tablet.ownjob]) has left the conversation<br>"
 				for(var/obj/item/device/tablet/T in active_chat.users)

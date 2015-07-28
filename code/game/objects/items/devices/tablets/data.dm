@@ -38,6 +38,7 @@
 	var/host = null
 	var/renamed = 0
 	var/list/users = list()
+	var/list/leftchat = list() // "PLEASE STOP READDING ME" - Every annoyed crewmember ever
 	var/log = ""
 	var/raw_log = "" // For viewing or printing.
 	var/lastmsg = ""
