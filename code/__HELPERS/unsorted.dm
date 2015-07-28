@@ -346,6 +346,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 						var/obj/item/device/tablet_core/core = A.tablet.core // variable for interactin with the HDD
 						core.owner = newname
 						core.name = newname + " (" + core.ownjob + ")"
+						A.tablet.update_label()
 
 				// Notify Cyborgs
 				for(var/mob/living/silicon/robot/Slave in A.connected_robots)
