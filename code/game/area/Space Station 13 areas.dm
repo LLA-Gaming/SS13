@@ -984,6 +984,10 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Patient's Rooms"
 	icon_state = "patients"
 
+/area/medical/therapy
+	name = "\improper Therapy"
+	icon_state = "patients"
+
 /area/medical/cmo
 	name = "\improper Chief Medical Officer's office"
 	icon_state = "CMO"

@@ -592,6 +592,20 @@
 	new /obj/item/clothing/shoes/sneakers/white(src)
 	new /obj/item/clothing/shoes/sneakers/white(src)
 
+/obj/structure/closet/wardrobe/therapist
+	name = "therapy wardrobe"
+	icon_state = "white"
+	icon_closed = "white"
+
+/obj/structure/closet/wardrobe/therapist/New()
+	new /obj/item/clothing/under/rank/therapist (src)
+	new /obj/item/clothing/under/rank/therapist (src)
+	new /obj/item/clothing/shoes/laceup (src)
+	new /obj/item/clothing/shoes/laceup (src)
+	new /obj/item/clothing/glasses/regular/hipster (src)
+	new /obj/item/clothing/glasses/regular (src)
+
+
 /obj/structure/closet/wardrobe/work
 	name = "old work wardrobe"
 	desc = "It's a old storage closet for old Nanotrasen attire."
