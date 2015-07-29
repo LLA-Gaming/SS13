@@ -59,7 +59,7 @@
 /var/const/access_RC_announce = 59 //Request console announcements
 /var/const/access_keycard_auth = 60 //Used for events which require at least two people to confirm them
 /var/const/access_tcomsat = 61 // has access to the entire telecomms satellite / machinery
-/var/const/access_gateway = 62
+/var/const/access_therapist = 62 // was gateway, but we dont use the gateway. perfect slot for this :D ~flavo
 /var/const/access_sec_doors = 63 // Security front doors
 /var/const/access_mineral_storeroom = 64
 /var/const/access_minisat = 65
@@ -210,7 +210,7 @@
 	            access_hydroponics, access_library, access_lawyer, access_virology, access_cmo, access_qm, access_surgery,
 	            access_theatre, access_research, access_mining, access_mailsorting,
 	            access_heads_vault, access_mining_station, access_xenobiology, access_ce, access_hop, access_hos, access_RC_announce,
-	            access_keycard_auth, access_tcomsat, access_gateway, access_mineral_storeroom, access_minisat)
+	            access_keycard_auth, access_tcomsat, access_therapist, access_mineral_storeroom, access_minisat)
 
 /proc/get_all_centcom_access()
 	return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_medical, access_cent_living, access_cent_storage, access_cent_teleporter, access_cent_captain)
@@ -227,7 +227,7 @@
 		if(2) //security
 			return list(access_sec_doors, access_security, access_brig, access_armory, access_forensics_lockers, access_court, access_hos)
 		if(3) //medbay
-			return list(access_medical, access_genetics, access_morgue, access_chemistry, access_virology, access_surgery, access_cmo)
+			return list(access_medical, access_genetics, access_morgue, access_chemistry, access_therapist, access_virology, access_surgery, access_cmo)
 		if(4) //research
 			return list(access_research, access_tox, access_tox_storage, access_genetics, access_robotics, access_xenobiology, access_minisat, access_rd)
 		if(5) //engineering and maintenance
@@ -235,7 +235,7 @@
 		if(6) //supply
 			return list(access_mailsorting, access_mining, access_mining_station, access_mineral_storeroom, access_cargo, access_qm)
 		if(7) //command
-			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_gateway, access_all_personal_lockers, access_heads_vault, access_hop, access_captain)
+			return list(access_heads, access_RC_announce, access_keycard_auth, access_change_ids, access_ai_upload, access_teleporter, access_eva, access_all_personal_lockers, access_heads_vault, access_hop, access_captain)
 
 /proc/get_region_accesses_name(var/code)
 	switch(code)
@@ -336,6 +336,8 @@
 			return "Robotics"
 		if(access_virology)
 			return "Virology"
+		if(access_therapist)
+			return "Therapy"
 		if(access_cmo)
 			return "CMO Office"
 		if(access_qm)
@@ -376,8 +378,6 @@
 			return "Keycode Auth."
 		if(access_tcomsat)
 			return "Telecommunications"
-		if(access_gateway)
-			return "Gateway"
 		if(access_sec_doors)
 			return "Brig"
 		if(access_mineral_storeroom)

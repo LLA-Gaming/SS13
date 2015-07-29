@@ -126,7 +126,12 @@
 	can_roll = 0
 
 
-
+/obj/item/clothing/under/rank/therapist
+	desc = "It's suit for a therapist"
+	name = "therapist's suit"
+	icon_state = "teal_suit"
+	item_state = "g_suit"
+	item_color = "teal_suit"
 
 
 /*

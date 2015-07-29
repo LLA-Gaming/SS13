@@ -22,10 +22,10 @@ Chief Medical Officer
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_med
 
 	access = list(access_medical, access_morgue, access_genetics, access_heads, access_mineral_storeroom,
-			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
+			access_chemistry, access_virology, access_therapist, access_cmo, access_surgery, access_RC_announce,
 			access_keycard_auth, access_sec_doors)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_heads, access_mineral_storeroom,
-			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
+			access_chemistry, access_virology, access_therapist, access_cmo, access_surgery, access_RC_announce,
 			access_keycard_auth, access_sec_doors)
 
 /datum/job/cmo/equip_items(var/mob/living/carbon/human/H)
@@ -154,3 +154,29 @@ Virologist
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/labcoat/virologist(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/device/flashlight/pen(H), slot_s_store)
 
+/*
+Therapist
+*/
+/datum/job/therapist
+	title = "Therapist"
+	flag = THERAPIST
+	department_head = list("Chief Medical Officer")
+	department_flag = MEDSCI
+	departments = list("Medical")
+	faction = "Station"
+	total_positions = 1
+	spawn_positions = 1
+	supervisors = "the chief medical officer"
+	selection_color = "#ffeef0"
+
+	default_tablet = /obj/item/device/tablet/therapist
+	default_headset = /obj/item/device/radio/headset/headset_med
+
+	access = list(access_medical, access_therapist, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
+	minimal_access = list(access_medical, access_therapist)
+
+/datum/job/therapist/equip_items(var/mob/living/carbon/human/H)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/therapist(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/laceup(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
+	H.equip_to_slot_or_del(new /obj/item/weapon/clipboard(H), slot_l_hand)

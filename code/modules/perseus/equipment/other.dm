@@ -22,7 +22,7 @@
 /obj/item/weapon/implant/commander
 	name = "perseus commander implant"
 	access = list(access_pcommander,access_penforcer, access_security, access_sec_doors, access_brig, access_armory, access_court, access_forensics_lockers, access_morgue,
-	access_maint_tunnels, access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting, access_heads, access_hos, access_gateway,
+	access_maint_tunnels, access_research, access_engine, access_mining, access_medical, access_construction, access_mailsorting, access_heads, access_hos,
 	access_heads)
 
 

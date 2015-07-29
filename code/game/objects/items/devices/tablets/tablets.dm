@@ -603,6 +603,12 @@ obj/item/device/tablet/verb/verb_remove_pen()
 		core.programs.Add(new /datum/program/medrecords)
 		core.programs.Add(new /datum/program/medicalscanner)
 
+/obj/item/device/tablet/therapist
+	icon_state = "tablet-medical"
+	New()
+		..()
+		core.programs.Add(new /datum/program/notekeeper)
+		core.programs.Add(new /datum/program/medrecords)
 
 /obj/item/device/tablet/virology
 	icon_state = "tablet-virology"
