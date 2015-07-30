@@ -113,6 +113,7 @@
 						log_pda("[usr.key] (tablet: [tablet.owner]) added \"[t]\" to the chat: [active_chat.name]")
 						for(var/obj/item/device/tablet/T in active_chat.users)
 							if(T == tablet) continue
+							if(!T.messengeron) continue
 							T.alert_self("Messenger:","<b>[tablet.owner] ([tablet.ownjob]) added [t] to \"[active_chat.name]\"","messenger")
 			if("Send File")
 				if(!spamcheck)
@@ -131,6 +132,7 @@
 						var/datum/program/builtin/messenger/M = null
 						for(var/obj/item/device/tablet/T in active_chat.users)
 							if(T == tablet) continue
+							if(!T.messengeron) continue
 							T.alert_self("Messenger:","<b>Download from [active_chat.name], </b>\"[t]\"","messenger")
 							for(var/datum/program/builtin/messenger/msgner in T.core.programs)
 								M = msgner
@@ -171,6 +173,7 @@
 				active_chat.raw_log += "--[tablet.owner] ([tablet.ownjob]) has left the conversation<br>"
 				for(var/obj/item/device/tablet/T in active_chat.users)
 					if(T == tablet) continue
+					if(!T.messengeron) continue
 					T.alert_self("Messenger:","<b>[tablet.owner] ([tablet.ownjob]) has left \"[active_chat.name]\"","messenger")
 				log_pda("[usr.key] (tablet: [tablet.owner]) left chat: \"[active_chat.name]\"")
 				if(!active_chat.users.len)
@@ -187,6 +190,7 @@
 							active_chat.renamed = 1
 							log_pda("[usr.key] (tablet: [tablet.owner]) renamed chat: \"[lastname]\" to \"[active_chat.name]\"")
 							for(var/obj/item/device/tablet/T in active_chat.users)
+								if(!T.messengeron) continue
 								T.alert_self("Chat Renamed:","<b>[lastname] to [active_chat.name]</b>","messenger")
 						spamcheck = 0
 			if("Message")
@@ -210,12 +214,14 @@
 						if(chat.users.len > 2)
 							for(var/obj/item/device/tablet/T in chat.users)
 								if(T == tablet) continue
+								if(!T.messengeron) continue
 								for(var/datum/program/builtin/messenger/M in T.core.programs)
 									T.alert_self("Messenger:","<b>Message in [chat.name] by [tablet.owner], </b>\"[t]\" <a href='byond://?src=\ref[M];choice=Message;target=\ref[chat]'>Reply</a>","messenger")
 									break
 						else
 							for(var/obj/item/device/tablet/T in chat.users)
 								if(T == tablet) continue
+								if(!T.messengeron) continue
 								for(var/datum/program/builtin/messenger/M in T.core.programs)
 									T.alert_self("Messenger:","<b>Message from [tablet.owner], </b>\"[t]\" <a href='byond://?src=\ref[M];choice=Message;target=\ref[chat]'>Reply</a>","messenger")
 									break

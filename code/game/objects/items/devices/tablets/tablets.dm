@@ -248,6 +248,8 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 				if(P.alertsoff)
 					return
 				program = P
+	if(!network())
+		return
 	var/mob/living/L = null
 	if(src.loc && isliving(src.loc))
 		L = src.loc
