@@ -107,7 +107,7 @@
 	var/stack_list[0] //Key: Type.  Value: Instance of type.
 	var/stack_amt = 50; //ammount to stack before releassing
 	var/points = 0
-	var/ore_values = list(("glass" = 1), ("metal" = 2), ("solid plasma" = 20), ("plasteel" = 23), ("reinforced glass" = 4), ("gold" = 20), ("silver" = 20), ("uranium" = 20), ("diamond" = 25), ("bananium" = 50))
+	var/ore_values = list(("glass" = 1), ("metal" = 1), ("reinforced glass" = 4), ("gold" = 20), ("silver" = 20), ("uranium" = 30), ("bananium" = 30), ("solid plasma" = 40),("diamond" = 40), ("plasteel" = 41))
 	input_dir = EAST
 	output_dir = WEST
 
