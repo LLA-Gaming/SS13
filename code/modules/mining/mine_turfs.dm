@@ -64,6 +64,9 @@
 /turf/simulated/mineral/proc/HideRock()
 	if(hidden)
 		icon_state = "rock"
+	else
+		if(scan_state)
+			icon_state = scan_state
 	return
 
 /turf/simulated/mineral/proc/Spread(var/turf/T)
@@ -113,6 +116,19 @@
 
 /turf/simulated/mineral/random/high_chance/New()
 	icon_state = "rock"
+
+	if(!mining_config)
+		spawn(-1)
+			mining_config = new()
+
+	mineralChance = mining_config.high_chance_create_mineral
+	mineralSpawnChanceList["Uranium"] = mining_config.high_uranium_chance
+	mineralSpawnChanceList["Diamond"] = mining_config.high_diamond_chance
+	mineralSpawnChanceList["Gold"] = mining_config.high_gold_chance
+	mineralSpawnChanceList["Silver"] = mining_config.high_silver_chance
+	mineralSpawnChanceList["Plasma"] = mining_config.high_plasma_chance
+	mineralSpawnChanceList["Iron"] = mining_config.high_iron_chance
+
 	..()
 
 /turf/simulated/mineral/random/low_chance
@@ -122,14 +138,28 @@
 
 /turf/simulated/mineral/random/low_chance/New()
 	icon_state = "rock"
+
+	if(!mining_config)
+		spawn(-1)
+			mining_config = new()
+
+	mineralChance = mining_config.low_chance_create_mineral
+	mineralSpawnChanceList["Uranium"] = mining_config.low_uranium_chance
+	mineralSpawnChanceList["Diamond"] = mining_config.low_diamond_chance
+	mineralSpawnChanceList["Gold"] = mining_config.low_gold_chance
+	mineralSpawnChanceList["Silver"] = mining_config.low_silver_chance
+	mineralSpawnChanceList["Plasma"] = mining_config.low_plasma_chance
+	mineralSpawnChanceList["Iron"] = mining_config.low_iron_chance
+	mineralSpawnChanceList["Gibtonite"] = mining_config.low_gibtonite_chance
+
 	..()
 
 /turf/simulated/mineral/uranium
 	name = "Uranium deposit"
 	mineralName = "Uranium"
-	spreadChance = 5
+	spreadChance = 10
 	spread = 1
-	hidden = 1
+	hidden = 0
 	scan_state = "rock_Uranium"
 
 /turf/simulated/mineral/iron
@@ -143,34 +173,34 @@
 /turf/simulated/mineral/diamond
 	name = "Diamond deposit"
 	mineralName = "Diamond"
-	spreadChance = 0
+	spreadChance = 10
 	spread = 1
-	hidden = 1
+	hidden = 0
 	scan_state = "rock_Diamond"
 
 /turf/simulated/mineral/gold
 	name = "Gold deposit"
 	mineralName = "Gold"
-	spreadChance = 5
+	spreadChance = 10
 	spread = 1
-	hidden = 1
+	hidden = 0
 	scan_state = "rock_Gold"
 
 /turf/simulated/mineral/silver
 	name = "Silver deposit"
 	mineralName = "Silver"
-	spreadChance = 5
+	spreadChance = 10
 	spread = 1
-	hidden = 1
+	hidden = 0
 	scan_state = "rock_Silver"
 
 /turf/simulated/mineral/plasma
 	name = "Plasma deposit"
 	icon_state = "rock_Plasma"
 	mineralName = "Plasma"
-	spreadChance = 5
+	spreadChance = 10
 	spread = 1
-	hidden = 1
+	hidden = 0
 	scan_state = "rock_Plasma"
 
 /turf/simulated/mineral/clown

@@ -97,6 +97,9 @@
 	if(!vr_controller)
 		vr_controller = new()
 
+	if(!mining_config)
+		mining_config = new()
+
 	process_teleport_locs()			//Sets up the wizard teleport locations
 	process_ghost_teleport_locs()	//Sets up ghost teleport locations.
 	sleep_offline = 1

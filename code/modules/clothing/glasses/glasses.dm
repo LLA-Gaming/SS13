@@ -5,11 +5,19 @@
 	item_state = "glasses"
 	origin_tech = "magnets=2;engineering=2"
 	vision_flags = SEE_TURFS
+	invis_view = SEE_INVISIBLE_MINIMUM
+
+	attack_self(var/mob/living/user)
+		if(invis_view == SEE_INVISIBLE_MINIMUM)
+			invis_view = 25
+		else if(invis_view == 25)
+			invis_view = SEE_INVISIBLE_MINIMUM
+
+		user << "<span class='info'>You will now see everything [invis_view == SEE_INVISIBLE_MINIMUM ? "lit" : "unlit"].</span>"
 
 /obj/item/clothing/glasses/meson/advanced
 	name = "Advanced Optical Meson Scanner"
 	desc = "More powerful than your standard mesons, these ones make everything appear to be lit extremely brightly."
-	invis_view = SEE_INVISIBLE_MINIMUM
 
 /obj/item/clothing/glasses/science
 	name = "Science Goggles"
@@ -62,8 +70,8 @@
 /obj/item/clothing/glasses/gglasses
 	name = "Green Glasses"
 	desc = "Forest green glasses, like the kind you'd wear when hatching a nasty scheme."
-	icon_state = "greenglasses"
-	item_state = "greenglasses"
+	icon_state = "gglasses"
+	item_state = "gglasses"
 
 /obj/item/clothing/glasses/sunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -83,8 +91,6 @@
 	throwforce = 10
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = 1
-	bleedprob = 35
 
 /obj/item/clothing/glasses/sunglasses/supergarb
 	desc = "Believe in us humans."
@@ -95,8 +101,6 @@
 	throwforce = 12
 	attack_verb = list("sliced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = 1
-	bleedprob = 35
 
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"
@@ -232,4 +236,3 @@
 	else
 		var/timeleft = (cooldown - world.time)
 		user << "<span class='notice'>The glasses are recharging, you must wait [round(timeleft/10)] seconds before you can ogle again.</span>"
-

@@ -1,0 +1,19 @@
+[Mining]
+
+high_chance_create_mineral 25
+high_uranium_chance 35
+high_diamond_chance 10
+high_gold_chance 35
+high_silver_chance 35
+high_plasma_chance 35
+high_iron_chance 50
+	
+low_chance_create_mineral 5
+low_uranium_chance 1
+low_diamond_chance 1
+low_gold_chance 1
+low_silver_chance 1
+low_plasma_chance 1
+low_iron_chance 50
+low_gibtonite_chance 4
+

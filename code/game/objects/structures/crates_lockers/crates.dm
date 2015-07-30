@@ -321,6 +321,8 @@
 	return attack_hand(user)
 
 /obj/structure/closet/crate/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/device/crate_teleporter))
+		return 0
 	if(opened)
 		if(isrobot(user))
 			return
@@ -377,4 +379,3 @@
 			src.req_access = list()
 			src.req_access += pick(get_all_accesses())
 	..()
-

@@ -27,7 +27,6 @@
 	else
 		new /obj/item/weapon/storage/backpack/satchel_eng(src)
 	new /obj/item/clothing/suit/wintercoat/miner(src)
-	new /obj/item/clothing/suit/wintercoat/miner(src)
 	new /obj/item/device/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/under/rank/miner(src)
 	new /obj/item/clothing/gloves/black(src)
@@ -36,6 +35,7 @@
 	new /obj/item/weapon/storage/bag/ore(src)
 	new /obj/item/device/flashlight/lantern(src)
 	new /obj/item/weapon/shovel(src)
+	new /obj/item/device/crate_teleporter(src)
 	new /obj/item/weapon/pickaxe(src)
 	new /obj/item/clothing/glasses/meson(src)
 
@@ -70,11 +70,9 @@
 	item_state = "pickaxe"
 	w_class = 4.0
 	m_amt = 3750 //one sheet, but where can you make them?
-	var/digspeed = 40 //moving the delay to an item var so R&D can make improved picks. --NEO
+	var/digspeed = 25 //moving the delay to an item var so R&D can make improved picks. --NEO
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("hit", "pierced", "sliced", "attacked")
-	sharpness = 2
-	bleedprob = 35
 
 	hammer
 		name = "sledgehammer"
@@ -85,7 +83,7 @@
 		name = "silver pickaxe"
 		icon_state = "spickaxe"
 		item_state = "spickaxe"
-		digspeed = 30
+		digspeed = 20
 		origin_tech = "materials=3"
 		desc = "This makes no metallurgic sense."
 
@@ -93,7 +91,7 @@
 		name = "mining drill" // Can dig sand as well!
 		icon_state = "handdrill"
 		item_state = "jackhammer"
-		digspeed = 30
+		digspeed = 15
 		origin_tech = "materials=2;powerstorage=3;engineering=2"
 		desc = "Yours is the drill that will pierce through the rock walls."
 
@@ -101,7 +99,7 @@
 		name = "sonic jackhammer"
 		icon_state = "jackhammer"
 		item_state = "jackhammer"
-		digspeed = 15 //faster than drill, but cannot dig
+		digspeed = 10 //faster than drill, but cannot dig
 		origin_tech = "materials=3;powerstorage=2;engineering=2"
 		desc = "Cracks rocks with sonic blasts, perfect for killing cave lizards."
 
@@ -109,7 +107,7 @@
 		name = "golden pickaxe"
 		icon_state = "gpickaxe"
 		item_state = "gpickaxe"
-		digspeed = 20
+		digspeed = 15
 		origin_tech = "materials=4"
 		desc = "This makes no metallurgic sense."
 
@@ -119,7 +117,7 @@
 		item_state = "gun"
 		w_class = 3.0 //it is smaller than the pickaxe
 		damtype = "fire"
-		digspeed = 20 //Can slice though normal walls, all girders, or be used in reinforced wall deconstruction/ light thermite on fire
+		digspeed = 5 //Can slice though normal walls, all girders, or be used in reinforced wall deconstruction/ light thermite on fire
 		origin_tech = "materials=4;plasmatech=3;engineering=3"
 		desc = "A rock cutter that uses bursts of hot plasma. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 
@@ -127,7 +125,7 @@
 		name = "diamond pickaxe"
 		icon_state = "dpickaxe"
 		item_state = "dpickaxe"
-		digspeed = 10
+		digspeed = 5
 		origin_tech = "materials=6;engineering=4"
 		desc = "A pickaxe with a diamond pick head, this is just like minecraft."
 
@@ -183,7 +181,6 @@
 	density = 1
 	icon_opened = "miningcaropen"
 	icon_closed = "miningcar"
-
 
 
 
