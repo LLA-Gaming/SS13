@@ -1913,6 +1913,7 @@ datum/design/mesons
 	materials = list("$metal" = 50, "$glass" = 50)
 	build_path = /obj/item/clothing/glasses/meson
 
+/*
 datum/design/advanced_mesons
 	name = "Advanced Optical Meson Scanner"
 	desc = "More powerful than your standard mesons, these ones make everything appear to be lit extremely brightly."
@@ -1921,6 +1922,7 @@ datum/design/advanced_mesons
 	build_type = PROTOLATHE
 	materials = list("$metal" = 100, "$glass" = 100)
 	build_path = /obj/item/clothing/glasses/meson/advanced
+*/
 
 datum/design/night_vision_goggles
 	name = "Night Vision Goggles"
