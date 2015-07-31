@@ -46,3 +46,16 @@
 					usr << "Tablet not found."
 		use_app()
 		tablet.attack_self(usr)
+
+/datum/program/poddoor
+	name = "Toggle Ship Doors"
+	app_id = "synd_blastdoors"
+	drm = 1
+	use_app()
+
+		for(var/obj/machinery/door/poddoor/M in world)
+			if(M.id == "smindicate")
+				if(M.density)
+					M.open()
+				else
+					M.close()

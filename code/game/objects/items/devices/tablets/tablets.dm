@@ -911,6 +911,7 @@ obj/item/device/tablet/verb/verb_remove_pen()
 		core.programs.Add(new /datum/program/hackingtools)
 		core.programs.Add(new /datum/program/GPS)
 		core.programs.Add(new /datum/program/signaller)
+		core.programs.Add(new /datum/program/poddoor)
 		update_label()
 
 /obj/item/device/tablet/perseus
