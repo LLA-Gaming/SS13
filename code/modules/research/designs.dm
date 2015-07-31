@@ -1786,6 +1786,24 @@ datum/design/beacon
 	materials = list ("$metal" = 20, "$glass" = 10)
 	build_path = /obj/item/device/radio/beacon
 
+datum/design/crate_tp_pad
+	name = "Crate Teleporter Linkage Pad"
+	desc = "A destination for crate teleporters."
+	id = "crate_tp_pad"
+	req_tech = list("bluespace" = 4, "programming" = 3, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list ("$metal" = 20, "$glass" = 10)
+	build_path = /obj/item/device/crate_tp_pad{ anchored = 0 }
+
+datum/design/crate_teleporter
+	name = "Crate Teleporter"
+	desc = "Set the destination, and teleport crates."
+	id = "crate_teleporter"
+	req_tech = list("bluespace" = 4, "programming" = 3, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 15000, "$glass" = 5000)
+	build_path = /obj/item/device/crate_teleporter
+
 datum/design/bag_holding
 	name = "Bag of Holding"
 	desc = "A backpack that opens into a localized pocket of Blue Space."
