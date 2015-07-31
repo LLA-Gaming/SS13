@@ -4,7 +4,7 @@
 	icon_state = "crate_teleporter"
 	w_class = 2
 	m_amt = 2000
-	origin_tech = "bluespace=2;engineering=2"
+	origin_tech = "bluespace=4;programming=3;magnets=3"
 	var/obj/item/device/crate_tp_pad/destination = 0
 	var/charges = 5
 	var/recharge_cooldown = 100
