@@ -5,7 +5,7 @@
 	damage_type = BRUTE
 	nodamage = 0
 	bleedprob = 50
-	sharpness = 2
+	sharpness = 0 // Can still cause bleeding, just not PROFUSE ON THE FIRST HIT
 	flag = "bullet"
 
 

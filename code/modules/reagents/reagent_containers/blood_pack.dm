@@ -24,6 +24,4 @@
 		if(51 to INFINITY)	icon_state = "full"
 
 /obj/item/weapon/reagent_containers/blood/empty
-	name = "empty blood pack"
-	desc = "Seems pretty useless... Maybe if there were a way to fill it?"
 	icon_state = "empty"
