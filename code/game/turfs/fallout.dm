@@ -100,6 +100,9 @@
 		r_wall/fallout
 			icon = 'icons/turf/fallout_walls.dmi'
 
+		fallout/
+			icon = 'icons/turf/fallout_walls.dmi'
+
 /turf/unsimulated/
 	floor/
 		bluegrid/fallout
