@@ -40,10 +40,8 @@
 			H << {"<font size=2 color=red>As a werewolf, you will sporadically transform between your human form and werewolf form. <br><b>Be aware of this at all times!</b></font>"}
 			picked++
 
-	setup()
-		PickWerewolves()
-
 	start()
+		PickWerewolves()
 
 	/*
 		for(var/mob/living/carbon/human/H in mob_list)
