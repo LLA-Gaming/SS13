@@ -134,7 +134,15 @@
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
 		if (istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)&&wear_suit:s_initialized)
 			stat("Energy Charge", round(wear_suit:cell:charge/100))
-
+		if(istype(loc, /obj/pod))
+			var/obj/pod/pod = loc
+			if(pod.pilot == src)
+				stat("Integrity: ", "[round((pod.health / pod.max_health) * 100)]%")
+				if(pod.power_source)
+					stat("Charge: ", "[pod.power_source.charge]/[pod.power_source.maxcharge] ([pod.power_source.percent()]%)")
+				var/obj/item/weapon/pod_attachment/sensor/sensor = pod.GetAttachmentOnHardpoint(16)
+				if(sensor && istype(sensor, /obj/item/weapon/pod_attachment/sensor/gps))
+					stat("Position: ", "([pod.x], [pod.y], [pod.z])")
 
 /mob/living/carbon/human/ex_act(severity)
 	..()

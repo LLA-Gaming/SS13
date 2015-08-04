@@ -2295,3 +2295,13 @@
 	else if(href_list["ac_set_signature"])
 		src.admincaster_signature = adminscrub(input(usr, "Provide your desired signature", "Network Identity Handler", ""))
 		src.access_news_network()
+
+	else if(href_list["view_pod_log"])
+		var/datum/pod_log/log = locate(href_list["view_pod_log"])
+		if(log)
+			return usr.client.debug_variables(log)
+
+	else if(href_list["view_pod_debug"])
+		var/obj/pod/pod = locate(href_list["view_pod_debug"])
+		if(pod && istype(pod))
+			pod.OpenDebugMenu(owner.mob)

@@ -37,6 +37,7 @@ other types of metals and chemistry for reagents).
 #define	AUTOLATHE	4	//Uses glass/metal only.
 #define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
 #define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define PODFAB		32
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 datum/design						//Datum for object designs, used in construction
