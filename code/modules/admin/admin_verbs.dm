@@ -49,7 +49,8 @@ var/list/admin_verbs_secondary_admin = list(
 	/client/proc/delete_fire,
 	/client/proc/reset_atmos,
 	/datum/admins/proc/unprison,
-	/client/proc/cmd_mentor_say
+	/client/proc/cmd_mentor_say,
+	/client/proc/view_pod_logs
 	//+BANS
 	)
 
