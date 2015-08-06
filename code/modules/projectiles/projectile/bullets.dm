@@ -44,12 +44,16 @@
 	name = "co bullet"
 	damage = 20
 	damage_type = OXY
+	bleedprob = 0
+	sharpness = 0
 
 
 /obj/item/projectile/bullet/cyanideround
 	name = "poison bullet"
 	damage = 40
 	damage_type = TOX
+	bleedprob = 0
+	sharpness = 0
 
 
 /obj/item/projectile/bullet/burstbullet//I think this one needs something for the on hit
@@ -63,6 +67,8 @@
 	stun = 5
 	weaken = 5
 	stutter = 5
+	bleedprob = 0
+	sharpness = 0
 
 
 /obj/item/projectile/bullet/a762
@@ -97,6 +103,8 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
+	bleedprob = 0
+	sharpness = 0
 
 	New()
 		..()
@@ -135,6 +143,8 @@
 	damage = 5
 	damage_type = TOX
 	weaken = 5
+	bleedprob = 0
+	sharpness = 0
 
 /obj/item/projectile/bullet/neurotoxin/on_hit(var/atom/target, var/blocked = 0)
 	if(isalien(target))

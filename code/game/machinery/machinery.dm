@@ -221,7 +221,7 @@ Class Procs:
 /mob/living/carbon/human/canUseTopic(atom/movable/M)
 	if(restrained() || lying || stat || stunned || weakened)
 		return
-	if(!in_range(M, src))
+	if(!Adjacent(M))
 		return
 	if(!isturf(M.loc) && get(M.loc, src.type) != src)
 		return

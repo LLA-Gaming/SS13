@@ -1153,7 +1153,7 @@
 			if (staminas)
 				if (stat != 2)
 					var/threshold = Clamp((health - getBloodLoss()),1,100)
-					var/display = 100 - (Clamp(staminaloss,0,threshold) / threshold * 100)
+					var/display = 100 - round((Clamp(staminaloss,0,threshold) / threshold * 100))
 					switch(display)
 						if(99 to 100)		staminas.icon_state = "stamina0"
 						if(75 to 98)			staminas.icon_state = "stamina1"
