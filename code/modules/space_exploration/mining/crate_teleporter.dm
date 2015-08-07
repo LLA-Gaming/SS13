@@ -32,6 +32,9 @@
 		if(!destination)
 			return 0
 
+		if(!destination.IsAvailable())
+			return 0
+
 		if(!crate)
 			return 0
 
@@ -100,6 +103,9 @@
 			if(!pad.id)
 				continue
 
+			if(!pad.IsAvailable())
+				continue
+
 			destinations[pad.id] = pad
 
 		var/selected_id = input("Select destination", "Input") in destinations + "Cancel"
@@ -135,8 +141,7 @@ var/list/crate_teleporter_pads = list()
 		usr << "<span class='info'>Current ID is '[id ? id : "undefined"]'</span>"
 
 	proc/IsAvailable()
-		var/area/A = get_area(src)
-		return A.use_power(100, EQUIP) && id && anchored && istype(loc, /turf)
+		return (id && anchored && istype(loc, /turf))
 
 	proc/IsOccupied()
 		return (locate(/obj/structure/closet/crate) in get_turf(src))
