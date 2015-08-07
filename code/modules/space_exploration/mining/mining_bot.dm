@@ -62,6 +62,7 @@
 				power_source.loc = get_turf(src)
 				user.put_in_any_hand_if_possible(power_source)
 				user << "<span class='info'>You take out the [power_source] out of \the [src].</span>"
+				power_source = 0
 				return 0
 
 		interact(user)
@@ -70,6 +71,7 @@
 	attackby(var/obj/item/I, var/mob/living/user)
 		if(open && !power_source)
 			if(istype(I, /obj/item/weapon/stock_parts/cell))
+				user.unEquip(I)
 				I.loc = src
 				power_source = I
 				user << "<span class='info'>You place the [I] into \the [src].</span>"
