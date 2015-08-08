@@ -41,6 +41,9 @@
 		if(crate.z == 2 || destination.z == 2)
 			return 0
 
+		if(locate(/mob) in crate)
+			return 0
+
 		crate.loc = get_turf(destination)
 
 		var/datum/effect/effect/system/spark_spread/sparks = new()
@@ -73,6 +76,10 @@
 
 			if(destination.IsOccupied())
 				user << "<span class='warning'>The destination is occupied.</span>"
+				return 0
+
+			if(locate(/mob) in crate)
+				user << "<span class='warning'>The [src] can't teleport mobs.</span>"
 				return 0
 
 			teleporting = 1
