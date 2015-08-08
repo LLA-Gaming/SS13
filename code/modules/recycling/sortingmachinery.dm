@@ -106,7 +106,7 @@
 		if(!istype(target))	//this really shouldn't be necessary (but it is).	-Pete
 			return
 		if(istype(target, /obj/item/smallDelivery) || istype(target,/obj/structure/bigDelivery) \
-		|| istype(target, /obj/item/weapon/evidencebag) || istype(target, /obj/structure/closet/body_bag))
+		|| istype(target, /obj/item/weapon/evidencebag) || istype(target, /obj/structure/closet/body_bag) || istype(target, /obj/structure/closet/crate/bin) || istype(target, /obj/structure/closet/crate/secure/bin))
 			return
 		if(target.anchored)
 			return

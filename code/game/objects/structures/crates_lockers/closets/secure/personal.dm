@@ -106,6 +106,7 @@
 				src.locked = !( src.locked )
 				if(src.locked)	src.icon_state = src.icon_locked
 				else	src.icon_state = src.icon_closed
+				return
 			else
 				user << "<span class='notice'>Access Denied</span>"
 				return

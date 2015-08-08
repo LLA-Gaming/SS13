@@ -78,6 +78,7 @@
 		var/obj/item/stack/sheet/out = new inp.type()
 		out.amount = inp.amount
 		inp.amount = 0
+		out.redeemed = 1
 		machine.unload_mineral(out)
 
 	src.updateUsrDialog()
@@ -94,6 +95,7 @@
 
 /**********************Mineral stacking unit**************************/
 
+/obj/item/stack/sheet/var/redeemed = 0
 
 /obj/machinery/mineral/stacking_machine
 	name = "stacking machine"
@@ -125,6 +127,8 @@
 		unload_mineral(out)
 		storage.amount -= stack_amt
 	if(istype(inp))
+		if(inp.redeemed)
+			return
 		var/n = inp.name
 		var/a = inp.amount
 		if(n in ore_values)
