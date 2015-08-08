@@ -34,6 +34,18 @@
 		botcard.access = list(access_mining, access_mining_office, access_mining_station)
 		power_source = new /obj/item/weapon/stock_parts/cell/high(src)
 
+	explode()
+		var/turf/T = get_turf(src)
+		T.visible_message("<span class='warning'><b>\The [src] blows apart!</b></span>")
+
+		var/datum/effect/effect/system/spark_spread/sparks = new()
+		sparks.set_up(5, 0, T)
+		sparks.start()
+
+		new /obj/effect/decal/cleanable/oil(T)
+
+		qdel(src)
+
 	proc/Bitflag2Display(var/bf)
 		switch(bf)
 			if(MINING_BOT_IDLE)

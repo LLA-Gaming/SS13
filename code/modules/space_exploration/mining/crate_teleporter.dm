@@ -44,12 +44,13 @@
 		if(locate(/mob) in crate)
 			return 0
 
-		crate.loc = get_turf(destination)
-
 		var/datum/effect/effect/system/spark_spread/sparks = new()
-		sparks.set_up(5, 0, get_turf(src))
+		sparks.set_up(5, 0, get_turf(crate))
 		sparks.start()
 
+		crate.loc = get_turf(destination)
+
+		sparks = new()
 		sparks.set_up(5, 0, get_turf(destination))
 		sparks.start()
 
