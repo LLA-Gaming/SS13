@@ -4,7 +4,7 @@
 
 /obj/machinery/part_fabricator
 	icon = 'icons/obj/robotics.dmi'
-	icon_state = "fab-idle"
+	icon_state = "fab"
 	name = "exosuit fabricator"
 	desc = "Nothing is being built."
 	density = 1
@@ -63,6 +63,8 @@
 				S.initialize()
 				break
 		*/
+		icon_state = "[initial(icon_state)]-idle"
+
 		return
 
 	RefreshParts()
@@ -245,12 +247,12 @@
 		src.remove_resources(part)
 		part.m_amt = get_resource_cost_w_coeff(part,"metal")
 		part.g_amt = get_resource_cost_w_coeff(part,"glass")
-		src.overlays += "fab-active"
+		src.overlays += "[initial(icon_state)]-active"
 		src.use_power = 2
 		src.updateUsrDialog()
 		sleep(get_construction_time_w_coeff(part))
 		src.use_power = 1
-		src.overlays -= "fab-active"
+		src.overlays -= "[initial(icon_state)]-active"
 		src.desc = initial(src.desc)
 		if(being_built)
 			src.being_built.loc = place_dir ? get_step(src, place_dir) : get_turf(src)
@@ -586,7 +588,7 @@
 		return result
 
 	attackby(obj/W as obj, mob/user as mob)
-		if(default_deconstruction_screwdriver(user, "fab-o", "fab-idle", W))
+		if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]-idle", W))
 			return
 
 		if(exchange_parts(user, W))
@@ -671,7 +673,7 @@
 		var/sname = "[stack.name]"
 		if(src.resources[material] < res_max_amount)
 			var/count = 0
-			src.overlays += "fab-load-[material]"//loading animation is now an overlay based on material type. No more spontaneous conversion of all ores to metal. -vey
+			src.overlays += "[initial(icon_state)]-load-[material]"//loading animation is now an overlay based on material type. No more spontaneous conversion of all ores to metal. -vey
 			while(src.resources[material] < res_max_amount && stack && stack.amount > 0)
 				src.resources[material] += MINERAL_MATERIAL_AMOUNT
 				stack.use(1)
@@ -679,7 +681,7 @@
 			sleep(10)
 			user << "You insert [count] [sname] sheet\s into \the [src]."
 			src.updateUsrDialog()
-			src.overlays -= "fab-load-[material]" //No matter what the overlay shall still be deleted
+			src.overlays -= "[initial(icon_state)]-load-[material]" //No matter what the overlay shall still be deleted
 		else
 			user << "\The [src] cannot hold any more [sname] sheet\s."
 		return

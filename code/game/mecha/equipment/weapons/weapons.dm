@@ -345,6 +345,7 @@
 
 
 /obj/item/missile
+	name = "explosive missile"
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "missile"
 	var/primed = null

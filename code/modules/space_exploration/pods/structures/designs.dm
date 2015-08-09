@@ -68,6 +68,14 @@
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/phaser
 
+	p_neutron_cannon/
+		name = "neutron cannon"
+		id = "pneutroncannon"
+		category = "Weapons"
+		req_tech = list("combat" = 3)
+		build_type = PODFAB
+		build_path = /obj/item/weapon/pod_attachment/primary/projectile/neutron_cannon
+
 	p_r45/
 		name = ".45 repeater"
 		id = "p45r"

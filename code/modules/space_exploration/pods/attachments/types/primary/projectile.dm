@@ -4,11 +4,11 @@
 		name = "disruptor laser"
 		overlay_icon_state = "pod_weapon_cbeam"
 		power_usage = 500
-		cooldown = 30
+		cooldown = 100
 		use_sound = 'sound/weapons/marauder.ogg'
 		projectile = /obj/item/projectile/beam/pulse/heavy
 		minimum_pod_size = list(2, 2)
-		construction_cost = list("metal" = 6000, "uranium" = 2000, "plasma" = 2000, "gold" = 2000, "diamond" = 2000)
+		construction_cost = list("metal" = 6000, "uranium" = 8000, "plasma" = 8000, "gold" = 8000, "diamond" = 8000)
 		origin_tech = "combat=5"
 
 	xray/
@@ -19,7 +19,7 @@
 		use_sound = 'sound/weapons/laser3.ogg'
 		projectile = /obj/item/projectile/beam/xray
 		minimum_pod_size = list(2, 2)
-		construction_cost = list("metal" = 4000, "uranium" = 500, "silver" = 500)
+		construction_cost = list("metal" = 4000, "uranium" = 1200, "silver" = 1200)
 		origin_tech = "origin_tech=3"
 
 	laser/
@@ -29,7 +29,7 @@
 		cooldown = 10
 		use_sound = 'sound/weapons/Laser.ogg'
 		projectile = /obj/item/projectile/beam
-		construction_cost = list("metal" = 2000, "plasma" = 200)
+		construction_cost = list("metal" = 2000, "plasma" = 800)
 		origin_tech = "combat=2"
 
 	heavylaser/
@@ -40,7 +40,7 @@
 		use_sound = 'sound/weapons/lasercannonfire.ogg'
 		projectile = /obj/item/projectile/beam/heavylaser
 		minimum_pod_size = list(2, 2)
-		construction_cost = list("metal" = 4000, "plasma" = 500, "silver" = 500, "gold" = 500)
+		construction_cost = list("metal" = 4000, "plasma" = 1200, "silver" = 1200, "gold" = 1200)
 		origin_tech = "combat=3"
 
 	deathlaser/
@@ -51,7 +51,7 @@
 		use_sound = 'sound/weapons/emitter2.ogg'
 		projectile = /obj/item/projectile/beam/deathlaser
 		minimum_pod_size = list(2, 2)
-		construction_cost = list("metal" = 6000, "silver" = 1000, "gold" = 1000, "diamond" = 1000)
+		construction_cost = list("metal" = 4000, "silver" = 2200, "gold" = 2200, "diamond" = 2200)
 		origin_tech = "combat=4"
 
 	taser/
@@ -61,7 +61,7 @@
 		cooldown = 10
 		use_sound = 'sound/weapons/taser.ogg'
 		projectile = /obj/item/projectile/energy/electrode
-		construction_cost = list("metal" = 200, "plasma" = 100)
+		construction_cost = list("metal" = 800, "plasma" = 800)
 		origin_tech = "combat=1"
 
 	disabler/
@@ -83,6 +83,15 @@
 		projectile = /obj/item/projectile/energy/phaser
 		construction_cost = list("metal" = 200, "plasma" = 200)
 		origin_tech = "combat=1"
+
+	neutron_cannon/
+		name = "neutron cannon"
+		overlay_icon_state = "pod_weapon_neutron"
+		power_usage = 200
+		cooldown = 10
+		use_sound = 'sound/weapons/Laser3.ogg'
+		projectile = /obj/item/projectile/bullet/neutron
+		construction_cost = list("metal" = 1200, "silver" = 1200, "plasma" = 1200)
 
 	bullet/
 		var/mag_type = 0
@@ -208,3 +217,9 @@
 	damage = 10
 	damage_type = BURN
 	hitsound = 'sound/weapons/sear.ogg'
+
+/obj/item/projectile/bullet/neutron
+	name = "neutron bullet"
+	icon_state = "neutronbullet"
+	damage = 30
+	damage_type = BURN
