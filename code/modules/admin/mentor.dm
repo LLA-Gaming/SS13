@@ -134,7 +134,7 @@ var/mentor_salt = 0
 		target << 'sound/effects/-adminhelp.ogg'
 		admins << "<font color='#91219E'><b>MENTOR:</b><i> [key_name(src)] (player, id: '[id]') replied to [key_name(target, 1)] (mentor):</i> [msg]</font>"
 		var/shown_to_mentors = "<font color='#91219E'><b>MENTOR</b><i>-'[id]' replied to [target.key]:</i> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src]'>Reply</a></font>"
-		for(var/client/C in clients)
+		for(var/client/C in (clients - target))
 			if(C.ckey in mentors)
 				C << shown_to_mentors
 	else
