@@ -247,33 +247,12 @@
 	desc = "Deploys a controlled explosion to breach walls and doors."
 	icon_state = "breachcharge"
 	explosion_size = list(-1, -1, -1, -1)
+	req_access = list(66)
 
 	New()
 		..()
 		image_overlay = image('icons/obj/assemblies.dmi', "breachcharge_ticking")
 
-/*
- PDA & Cartridge
-
-
-/obj/item/weapon/cartridge/
-	var/access_perseus = 0
-	var/locked = ""
-
-	perseus/
-		perseus
-		name = "PercTech Cartridge"
-		icon_state = "cart-perc"
-		access_manifest = 1
-		access_perseus = 1
-		access_security = 1
-		locked = /obj/item/weapon/implant/enforcer
-
-/obj/item/device/pda/perseus
-	default_cartridge = /obj/item/weapon/cartridge/perseus
-	icon_state = "pda-perc"
-	toff = 1
-*/
 
 /*
 * Emergency Case
@@ -290,11 +269,11 @@
 
 
 /*
-* Prisoner Transfer Proceedures
+* Prisoner Transfer Procedures
 */
 
 /obj/structure/perseusreminder
-	name = "Prisoner Transfer Proceedures"
+	name = "Prisoner Transfer Procedures"
 	desc = "This notice has been installed at the prisoner transfer shuttle dock to remind security staff of the only acceptable way to transfer a prisoner into Perseus Custody."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "preminder"
@@ -370,9 +349,38 @@
 		update_icon()
 
 	attack_hand(var/mob/living/L)
+		if(!istype(L, /mob/living/carbon/human))
+			return 0
+
+		var/mob/living/carbon/human/H = L
+
+		var/obj/item/weapon/card/id/id
+		if(H.wear_id)
+			if(istype(H.wear_id, /obj/item/weapon/card/id))
+				id = H.wear_id
+			else if(istype(H.wear_id, /obj/item/device/tablet))
+				var/obj/item/device/tablet/tablet = H.wear_id
+				if(tablet.id)
+					id = tablet.id
+		else if(istype(H.get_active_hand(), /obj/item/weapon/card/id))
+			id = H.get_active_hand()
+
+		if(!id || !check_access(id))
+			var/implant_access = 0
+			for(var/obj/item/weapon/implant/I in H)
+				if(check_access(I))
+					implant_access = 1
+					break
+
+			if(!implant_access)
+				H << "<span class='warning'>Access denied.</span>"
+				return 0
+
 		on = !on
-		if(on)	starting = 1
-		L << "<div class='alert'>You turn the [src] [on ? "on" : "off"].</div>"
+		if(on)
+			starting = 1
+
+		H << "<div class='alert'>You turn the [src] [on ? "on" : "off"].</div>"
 
 	emp_act(var/level = 0)
 		if(level <= 2)

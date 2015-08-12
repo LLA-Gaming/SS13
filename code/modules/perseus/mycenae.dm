@@ -158,6 +158,23 @@
 	large = 0
 
 /*
+* Perseus Armory Wall-Locker
+*/
+
+/obj/structure/closet/secure_closet/p_armory
+	name = "perseus armory locker"
+	desc = "A wall mounted locker."
+	icon_state = "p_armory_wall_closet_locked"
+	icon_opened = "p_armory_wall_closet_open"
+	icon_off = "p_armory_wall_closet_off"
+	icon_broken = "p_armor_wall_closet_broken"
+	icon_closed = "p_armory_wall_closet"
+	icon_locked = "p_armory_wall_closet_locked"
+	wall_mounted = 1
+	req_access = list(access_pcommander)
+	large = 0
+
+/*
 * Mycenae Moving
 */
 
@@ -185,10 +202,6 @@ var/mycenae_at_centcom = 1
 /*
 * Prison Shuttle
 */
-
-//Config stuff
-
-//Config stuff
 
 /area/shuttle/prison/station
 	name = "Prison Shuttle"
