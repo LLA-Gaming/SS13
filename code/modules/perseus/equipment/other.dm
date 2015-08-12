@@ -247,7 +247,6 @@
 	desc = "Deploys a controlled explosion to breach walls and doors."
 	icon_state = "breachcharge"
 	explosion_size = list(-1, -1, -1, -1)
-	req_access = list(66)
 
 	New()
 		..()

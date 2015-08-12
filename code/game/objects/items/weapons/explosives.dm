@@ -63,33 +63,6 @@
 	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage/))
 		return
 
-	if(!istype(user, /mob/living/carbon/human))
-		return 0
-
-	var/mob/living/carbon/human/H = user
-
-	var/obj/item/weapon/card/id/id
-	if(H.wear_id)
-		if(istype(H.wear_id, /obj/item/weapon/card/id))
-			id = H.wear_id
-		else if(istype(H.wear_id, /obj/item/device/tablet))
-			var/obj/item/device/tablet/tablet = H.wear_id
-			if(tablet.id)
-				id = tablet.id
-	else if(istype(H.get_active_hand(), /obj/item/weapon/card/id))
-		id = H.get_active_hand()
-
-	if(!id || !check_access(id))
-		var/implant_access = 0
-		for(var/obj/item/weapon/implant/I in H)
-			if(check_access(I))
-				implant_access = 1
-				break
-
-		if(!implant_access)
-			H << "<span class='warning'>Access denied.</span>"
-			return 0
-
 	user << "Planting explosives..."
 	if(ismob(target))
 		add_logs(user, target, "tried to plant explosives on", object="[name]")
