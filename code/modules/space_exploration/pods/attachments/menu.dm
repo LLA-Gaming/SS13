@@ -71,6 +71,4 @@
 			if("toggle_active")
 				ToggleActive(usr)
 
-				attached_to.PrintSystemNotice("[src] toggled [active & P_ATTACHMENT_ACTIVE ? "on" : "off"]")
-
 		OpenMenu(usr)

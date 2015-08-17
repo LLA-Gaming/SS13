@@ -412,6 +412,14 @@
 		build_path = /obj/item/weapon/pod_attachment/secondary/gimbal
 		req_tech = list("engineering" = 4, "materials" = 4, "combat" = 3)
 
+	p_wormhole_generator/
+		name = "wormhole generator"
+		id = "pwormholegen"
+		category = "Secondary"
+		build_type = PODFAB
+		build_path = /obj/item/weapon/pod_attachment/secondary/wormhhole_generator
+		req_tech = list("engineering" = 4, "materials" = 4, "bluespace" = 3)
+
 	/*
 	* Sensors
 	*/

@@ -32,7 +32,9 @@
 /obj/pod
 	var/health = 200
 	var/max_health
-	var/pod_damage // Bitflag
+	var/pod_damage = 0 // Bitflag
+	var/emped_at = 0
+	var/emped_duration = 0
 
 	proc/GetDamageFlag()
 		return pod_damage
@@ -87,7 +89,14 @@
 		if(pod_damage_iterator)
 			pod_damage_iterator.process()
 
-		sparks.start()
+		var/datum/effect/effect/system/spark_spread/hit_sparks = new()
+		var/turf/hit_turf = get_turf((attacker ? attacker : I ? I : src))
+		var/direction = get_dir(get_turf(src), hit_turf)
+		var/angle = dir2angle(direction)
+		if((angle % 90) != 0)
+			direction = angle2dir((angle == 45) ? (angle + 45) : (angle - 45))
+		hit_sparks.set_up(5, 0, pick(GetDirectionalTurfsUnderPod(direction)))
+		hit_sparks.start()
 
 	proc/DestroyPod()
 		pod_log.Log("Pod Destroyed.")
@@ -144,6 +153,7 @@
 
 		return 0
 
+	// We're taking the reciprocal for the severity, because 1 is the most severe and 3 the least.
 	emp_act(var/severity)
 		playsound(get_turf(src), 'sound/effects/EMPulse.ogg', 30, 5, 0)
 
@@ -151,16 +161,21 @@
 			if(prob(round(pod_config.emp_act_attachment_toggle_chance * (1 / severity))))
 				attachment.ToggleActive()
 
+		emped_duration = (1 / severity) * pod_config.emp_act_duration
+		emped_at = world.time
+		AddDamageFlag(P_DAMAGE_EMPED)
+
 		if(power_source)
 			var/power_to_absorb_percent = (1 / severity) * pod_config.emp_act_power_absorb_percent
 			if(!UsePower(power_source.maxcharge * (power_to_absorb_percent / 100)))
 				power_source.charge = 0
 
 			var/datum/effect/effect/system/lightning_spread/system = new()
-			system.set_up(3, 0, pick(GetDirectionalTurfs(pick(cardinal))))
+			system.set_up(3, 0, pick(GetDirectionalTurfsUnderPod(pick(cardinal))))
 			system.start()
 
-	// We're taking the reciprocal for the severity, because 1 is the most severe and 3 the least.
+		sparks.start()
+
 	ex_act(var/severity)
 		TakeDamage(pod_config.ex_act_damage * (1 / severity))
 
@@ -225,6 +240,13 @@
 
 			pod.TakeDamage(pod_config.fire_damage)
 			last_fire_tick = world.time
+
+		if(pod.HasDamageFlag(P_DAMAGE_EMPED))
+			if((pod.emped_at + pod.emped_duration) <= world.time)
+				pod.RemoveDamageFlag(P_DAMAGE_EMPED)
+			else
+				if(prob(pod_config.emp_sparkchance))
+					pod.sparks.start()
 
 		for(var/obj/effect/hotspot/H in pod.GetTurfsUnderPod())
 			var/show_notice = ((last_notice_tick + pod_config.damage_notice_cooldown) <= world.time)

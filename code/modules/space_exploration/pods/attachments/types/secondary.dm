@@ -110,17 +110,65 @@
 
 	wormhhole_generator/
 		name = "wormhole generator"
-		power_usage = 2000
-		cooldown = 100
+		overlay_icon_state = "wormhole_generator"
+		power_usage = 500
+		cooldown = 50
 		construction_cost = list("metal" = 1000, "uranium" = 800, "diamond" = 800)
+		origin_tech = "engineering=4;materials=4;bluespace=3"
 
-		Use(var/atom/target, var/mob/user)
-			if(!(..(target, user)))
+		Use(var/atom/target, var/mob/user, var/flags = P_ATTACHMENT_PLAYSOUND | P_ATTACHMENT_IGNORE_POWER | P_ATTACHMENT_IGNORE_COOLDOWN)
+			if(!(..(target, user, flags)))
 				return 0
 
-			return 0
+			if(istype(target, /obj/effect/portal))
+				var/obj/effect/portal/P = target
+				P.teleport(attached_to)
+				return 0
 
-		proc/CreateWormhole(var/obj/item/device/radio/beacon/beacon)
+			if(last_use && ((last_use + cooldown) > world.time))
+				return 0
+
+			// Pretty much a copy of the hand-tele code, just made more readable.
+			var/list/targets = list()
+			for(var/obj/machinery/computer/teleporter/teleporter in world)
+				if(teleporter.target)
+					if(teleporter.power_station && teleporter.power_station.teleporter_hub && teleporter.power_station.engaged)
+						targets["[teleporter.id] (Active)"] = teleporter.target
+					else
+						targets["[teleporter.id] (Inactive)"] = teleporter.target
+
+			var/list/ranged_turfs = list()
+			for(var/turf/T in orange(15, get_turf(attached_to)))
+				// Ignore turfs that scratch the transition-edge of a z-level
+				if(T.x > (world.maxx - 8) || T.x < 8)
+					continue
+				if(T.y > (world.maxy - 8) || T.y < 8)
+					continue
+				ranged_turfs += T
+
+			if(length(ranged_turfs))
+				targets["None (Dangerous)"] = pick(ranged_turfs)
+
+			last_use = world.time
+
+			var/_target = input(user, "Please select a target.", "Input") in targets + "Cancel"
+			if(!_target || _target == "Cancel")
+				return 0
+
+			if(!UsePower(power_usage))
+				attached_to.PrintSystemAlert("Insufficient power.")
+				return 0
+
+			var/turf/T = get_turf(attached_to)
+			T.visible_message("<span class='notice'>Locked In.</span>")
+
+			T = targets[_target]
+
+			var/obj/effect/portal/P = new(get_turf(attached_to), T, user)
+			try_move_adjacent(P)
+
+			attached_to.pod_log.LogUsage(user, src, list(T), list("portal created at {[P.x], [P.y], [P.z]} in area ([get_area(P)]), with target {[P.target.x], [P.target.y], [P.target.z]} in area ([get_area(P.target)])"))
+
 			return 0
 
 	ore_collector/

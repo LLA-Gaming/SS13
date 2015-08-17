@@ -42,6 +42,7 @@
 
 #define P_DAMAGE_GENERAL		1
 #define P_DAMAGE_FIRE			2
+#define P_DAMAGE_EMPED			4
 
 #define P_DAMAGE_ABSORBED		1
 #define P_DAMAGE_REDUCED		2
@@ -76,3 +77,13 @@
 #define P_C_ERROR_REQUIRES		1
 #define P_C_ERROR_ALREADY_HAS	2
 #define P_C_ERROR_NEEDS_TOOL	4
+
+/*
+* Attachment Use Proc Flags
+*/
+
+#define P_ATTACHMENT_LOG				1
+#define P_ATTACHMENT_IGNORE_POWER		2
+#define P_ATTACHMENT_IGNORE_EMPED		4
+#define P_ATTACHMENT_IGNORE_COOLDOWN 	8
+#define P_ATTACHMENT_PLAYSOUND			16

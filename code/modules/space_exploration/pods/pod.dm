@@ -189,6 +189,9 @@
 			PrintSystemAlert("Insufficient power.")
 			return 0
 
+		if(HasDamageFlag(P_DAMAGE_EMPED))
+			_dir = pick(cardinal)
+
 		var/can_drive_over = 0
 		var/is_dense = 0
 		for(var/turf/T in GetDirectionalTurfs(_dir))
@@ -280,6 +283,9 @@
 				return 0
 			return 1
 
+		if(user.a_intent == "harm")
+			goto Damage
+
 		if(istype(I, /obj/item/device/multitool))
 			if(CanOpenPod(user))
 				OpenHUD(user)
@@ -359,6 +365,8 @@
 		for(var/obj/item/weapon/pod_attachment/attachment in GetAttachments())
 			if(attachment.PodAttackbyAction(I, user))
 				return 0
+
+		Damage
 
 		if(I.force)
 			user << "<span class='attack'>You hit \the [src] with the [I].</span>"

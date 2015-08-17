@@ -13,8 +13,8 @@
 		construction_cost = list("metal" = 500)
 		origin_tech = "engineering=1"
 
-		Use(var/atom/target, var/mob/user, var/ignore_power = 1, var/playsound = 0, var/log = 0)
-			if(!(..(target, user, ignore_power, playsound, log)))
+		Use(var/atom/target, var/mob/user, var/flags = P_ATTACHMENT_IGNORE_POWER)
+			if(!(..(target, user, flags)))
 				return 0
 
 			if(!HasPower(power_usage))

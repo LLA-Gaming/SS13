@@ -100,8 +100,8 @@
 		overlay_icon_state = "pod_weapon_gun"
 		use_sound = 'sound/weapons/Gunshot.ogg'
 
-		Use(var/atom/target, var/mob/user, var/ignore_power = 0, var/playsound = 0, var/log = 0)
-			if(!..(target, user, ignore_power, playsound, log))
+		Use(var/atom/target, var/mob/user, var/flags = 0)
+			if(!..(target, user, flags))
 				return 0
 
 			if(mag_type)
@@ -179,8 +179,8 @@
 		var/speed = 3
 		var/range = 50
 
-		Use(var/atom/target, var/mob/user, var/ignore_power = 1, var/playsound = 1, var/log = 1)
-			if(!..(target, user, ignore_power, playsound, log))
+		Use(var/atom/target, var/mob/user, var/flags = P_ATTACHMENT_IGNORE_POWER | P_ATTACHMENT_PLAYSOUND | P_ATTACHMENT_LOG)
+			if(!..(target, user, flags))
 				return 0
 
 			if(missile_amount <= 0)

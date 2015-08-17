@@ -5,6 +5,8 @@ ex_act_damage 50
 blob_act_damage 25
 emp_act_attachment_toggle_chance 60
 emp_act_power_absorb_percent 30
+emp_act_duration 300
+emp_sparkchance 5
 fire_damage_cooldown 20
 fire_damage 5
 fire_damage_oygen_cutoff 0.9

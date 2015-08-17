@@ -60,14 +60,18 @@
 			return attached_to.HasPower(amount)
 		return 0
 
-	proc/ToggleActive(var/mob/living/user)
+	proc/ToggleActive(var/mob/living/user, var/print = 1)
 		if(active & P_ATTACHMENT_PASSIVE)
 			return 0
 
 		if(active & P_ATTACHMENT_ACTIVE)
 			active = P_ATTACHMENT_INACTIVE
+			if(print)
+				attached_to.PrintSystemAlert("Powering \the [src] down.")
 		else if(active & P_ATTACHMENT_INACTIVE)
 			active = P_ATTACHMENT_ACTIVE
+			if(print)
+				attached_to.PrintSystemNotice("Powering \the [src] up.")
 
 		if(attached_to)
 			attached_to.update_icon()

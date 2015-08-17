@@ -18,8 +18,8 @@
 			var/projectile = /obj/item/projectile
 			var/dual_projectile = 1
 
-			Use(var/atom/target, var/mob/user, var/ignore_power = 0, var/playsound = 1, var/log = 0)
-				if(!..(target, user, ignore_power, playsound, log))
+			Use(var/atom/target, var/mob/user, var/flags = P_ATTACHMENT_PLAYSOUND)
+				if(!..(target, user, flags))
 					return 0
 
 				if(projectile)

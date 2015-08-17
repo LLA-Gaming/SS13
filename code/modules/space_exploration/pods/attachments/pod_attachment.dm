@@ -98,27 +98,33 @@
 
 		return 1
 
-	proc/Use(var/atom/target, var/mob/user, var/ignore_power = 0, var/playsound = 1, var/log = 1)
-		if(last_use && ((last_use + cooldown) > world.time))
-			return 0
+	proc/Use(var/atom/target, var/mob/user, var/flags = P_ATTACHMENT_PLAYSOUND | P_ATTACHMENT_LOG)
+		if(!(flags & P_ATTACHMENT_IGNORE_COOLDOWN))
+			if(last_use && ((last_use + cooldown) > world.time))
+				return 0
 
 		if(active & P_ATTACHMENT_INACTIVE)
 			return 0
 
-		if(!ignore_power)
+		if((!(flags & P_ATTACHMENT_IGNORE_EMPED)) && attached_to.HasDamageFlag(P_DAMAGE_EMPED))
+			user << "<span class='warning'>Equipment malfunctioning...</span>"
+			return 0
+
+		if(!(flags & P_ATTACHMENT_IGNORE_POWER))
 			if(!UsePower(power_usage))
 				attached_to.PrintSystemAlert("Insufficient power.")
 				return 0
 
-		last_use = world.time
+		if(!(flags & P_ATTACHMENT_IGNORE_COOLDOWN))
+			last_use = world.time
 
-		if(playsound)
+		if(flags & P_ATTACHMENT_PLAYSOUND)
 			spawn(0)
 				playsound(get_turf(src), use_sound, 10, 5, 0)
 
 		user.changeNext_move(3)
 
-		if(log)
+		if(flags & P_ATTACHMENT_LOG)
 			attached_to.pod_log.LogUsage(user, src, list(target), list())
 
 		return 1
