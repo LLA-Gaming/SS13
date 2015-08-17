@@ -174,7 +174,14 @@
 
 			switch(command)
 				if("follow")
-					target = who
+					var/other_robots = 0
+					for(var/obj/machinery/bot/companion/C in oview(7,src.loc))
+						other_robots = 1
+					if(!other_robots)
+						target = who
+					else
+						if(findtext(phrase, name))
+							target = who
 				if("airlock")
 					var/list/doors = list()
 					for(var/obj/machinery/door/airlock/A in oview(5,src.loc))
