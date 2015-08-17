@@ -74,10 +74,18 @@
 		if(fexists("icons/obj/pod-[size[1]]-[size[2]].dmi"))
 			icon = file("icons/obj/pod-[size[1]]-[size[2]].dmi")
 
-		// Place attachments on the same turf as the pod and they'll get attached (map editor)
-		for(var/obj/item/weapon/pod_attachment/P in get_turf(src))
-			if(CanAttach(P))
-				P.OnAttach(src, 0)
+		// Place attachments / batteries under the pod and they'll get attached (map editor)
+		spawn(10)
+			for(var/turf/T in GetTurfsUnderPod())
+				for(var/obj/item/weapon/pod_attachment/P in T)
+					if(CanAttach(P))
+						P.OnAttach(src, 0)
+
+				var/obj/item/weapon/stock_parts/cell/cell = locate() in T
+				if(cell)
+					qdel(power_source)
+					cell.loc = src
+					power_source = cell
 
 	Del()
 		DestroyPod()

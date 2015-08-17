@@ -5,6 +5,7 @@
 	icon_state = "attachment"
 	item_state = "syringe_kit"
 	w_class = 4
+	layer = 3.3
 
 	var/overlay_icon_state = ""
 	var/hardpoint_slot = P_HARDPOINT_SHIELD
