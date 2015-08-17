@@ -25,7 +25,8 @@
 				if(projectile)
 					var/gimbal = istype(attached_to.GetAttachmentOnHardpoint(P_HARDPOINT_SECONDARY_ATTACHMENT), /obj/item/weapon/pod_attachment/secondary/gimbal)
 
-					if(dual_projectile)
+					// Gimbals only shoot one projectile regardless
+					if(dual_projectile && !gimbal)
 						if(!HasPower(power_usage))
 							attached_to.PrintSystemAlert("Insufficient energy.")
 							return 0
@@ -40,10 +41,16 @@
 						var/direction = get_dir(pod_turf, get_turf(target))
 						var/angle = dir2angle(direction)
 						if((angle % 90) != 0)
-							direction = angle2dir((angle == 45) ? (angle + 45) : (angle - 45))
+							// Wooooo edge cases!
+							if((target.x == (attached_to.x + 1)) && (target.y > attached_to.y))
+								direction = angle2dir(angle - 45)
+							else
+								direction = angle2dir((angle == 45) ? (angle + 45) : (angle - 45))
 						start_points = attached_to.GetDirectionalTurfs(direction)
-						for(var/i = 1 to length(start_points))
-							targets.Add(target)
+						start_points.Remove(start_points[2])
+						targets.Add(target)
+						if(dual_projectile)
+							last_use = (world.time - (cooldown / 2)) // Halve the cooldown so we get the same DPS
 					else
 						start_points = attached_to.GetDirectionalTurfs(attached_to.dir)
 						var/step_direction = get_dir(pod_turf, start_points[1])

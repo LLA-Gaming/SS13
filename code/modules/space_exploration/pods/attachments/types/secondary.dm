@@ -9,8 +9,6 @@
 	gimbal/
 		name = "gimbal mount"
 		overlay_icon_state = "gimbal"
-		power_usage = 1
-		power_usage_condition = P_ATTACHMENT_USAGE_ONTICK
 		construction_cost = list("metal" = 4000, "uranium" = 2500, "silver" = 2500)
 		origin_tech = "engineering=4;materials=4;combat=3"
 		minimum_pod_size = list(2, 2)
@@ -118,6 +116,9 @@
 
 		Use(var/atom/target, var/mob/user, var/flags = P_ATTACHMENT_PLAYSOUND | P_ATTACHMENT_IGNORE_POWER | P_ATTACHMENT_IGNORE_COOLDOWN)
 			if(!(..(target, user, flags)))
+				return 0
+
+			if(attached_to.z == 2)
 				return 0
 
 			if(istype(target, /obj/effect/portal))
