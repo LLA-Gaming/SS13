@@ -9,7 +9,7 @@
 		projectile = /obj/item/projectile/beam/pulse/heavy
 		minimum_pod_size = list(2, 2)
 		construction_cost = list("metal" = 6000, "uranium" = 8000, "plasma" = 8000, "gold" = 8000, "diamond" = 8000)
-		origin_tech = "combat=5"
+		origin_tech = "combat=5;materials=5;engineering=5"
 
 	xray/
 		name = "x-ray Laser"
@@ -19,8 +19,8 @@
 		use_sound = 'sound/weapons/laser3.ogg'
 		projectile = /obj/item/projectile/beam/xray
 		minimum_pod_size = list(2, 2)
-		construction_cost = list("metal" = 4000, "uranium" = 1200, "silver" = 1200)
-		origin_tech = "origin_tech=3"
+		construction_cost = list("metal" = 4000, "uranium" = 2500, "silver" = 2500)
+		origin_tech = "combat=3;materials=3;engineering=3"
 
 	laser/
 		name = "laser carbine Mk I"
@@ -29,8 +29,8 @@
 		cooldown = 10
 		use_sound = 'sound/weapons/Laser.ogg'
 		projectile = /obj/item/projectile/beam
-		construction_cost = list("metal" = 2000, "plasma" = 800)
-		origin_tech = "combat=2"
+		construction_cost = list("metal" = 4000, "plasma" = 2000)
+		origin_tech = "combat=2;materials=2;engineering=2"
 
 	heavylaser/
 		name = "laser carbine Mk II"
@@ -40,8 +40,8 @@
 		use_sound = 'sound/weapons/lasercannonfire.ogg'
 		projectile = /obj/item/projectile/beam/heavylaser
 		minimum_pod_size = list(2, 2)
-		construction_cost = list("metal" = 4000, "plasma" = 1200, "silver" = 1200, "gold" = 1200)
-		origin_tech = "combat=3"
+		construction_cost = list("metal" = 4000, "plasma" = 2500, "silver" = 2500, "gold" = 2500)
+		origin_tech = "combat=3;materials=3;engineering=3"
 
 	deathlaser/
 		name = "laser carbine Mk III"
@@ -51,8 +51,8 @@
 		use_sound = 'sound/weapons/emitter2.ogg'
 		projectile = /obj/item/projectile/beam/deathlaser
 		minimum_pod_size = list(2, 2)
-		construction_cost = list("metal" = 4000, "silver" = 2200, "gold" = 2200, "diamond" = 2200)
-		origin_tech = "combat=4"
+		construction_cost = list("metal" = 4000, "silver" = 4000, "gold" = 4000, "diamond" = 4000)
+		origin_tech = "combat=4;materials=4;engineering=4"
 
 	taser/
 		name = "taser carbine"
@@ -61,8 +61,8 @@
 		cooldown = 10
 		use_sound = 'sound/weapons/taser.ogg'
 		projectile = /obj/item/projectile/energy/electrode
-		construction_cost = list("metal" = 800, "plasma" = 800)
-		origin_tech = "combat=1"
+		construction_cost = list("metal" = 4000, "plasma" = 1500)
+		origin_tech = "combat=1;materials=1;engineering=1"
 
 	disabler/
 		name = "disabler carbine"
@@ -71,8 +71,8 @@
 		cooldown = 5
 		use_sound = 'sound/weapons/taser2.ogg'
 		projectile = /obj/item/projectile/energy/disabler
-		construction_cost = list("metal" = 200, "plasma" = 100)
-		origin_tech = "combat=1"
+		construction_cost = list("metal" = 4000, "plasma" = 1500)
+		origin_tech = "combat=1;materials=1;engineering=1"
 
 	phaser/
 		name = "phaser carbine"
@@ -81,8 +81,8 @@
 		cooldown = 10
 		use_sound = 'sound/weapons/taser2.ogg'
 		projectile = /obj/item/projectile/energy/phaser
-		construction_cost = list("metal" = 200, "plasma" = 200)
-		origin_tech = "combat=1"
+		construction_cost = list("metal" = 4000, "plasma" = 1500)
+		origin_tech = "combat=2;materials=2;engineering=2"
 
 	neutron_cannon/
 		name = "neutron cannon"
@@ -91,7 +91,8 @@
 		cooldown = 10
 		use_sound = 'sound/weapons/Laser3.ogg'
 		projectile = /obj/item/projectile/bullet/neutron
-		construction_cost = list("metal" = 1200, "silver" = 1200, "plasma" = 1200)
+		construction_cost = list("metal" = 4000, "silver" = 2300, "plasma" = 2300)
+		origin_tech = "combat=3;materials=3;engineering=3"
 
 	bullet/
 		var/mag_type = 0
@@ -140,31 +141,31 @@
 			name = ".45 repeater"
 			cooldown = 5
 			mag_type = /obj/item/ammo_box/c45
-			construction_cost = list("metal" = 500, "uranium" = 200)
-			origin_tech = "combat=2"
+			construction_cost = list("metal" = 4000, "uranium" = 200)
+			origin_tech = "combat=2;materials=2;engineering=2"
 
 		r9mm/
 			name = "9mm repeater"
 			cooldown = 7.5
 			mag_type = /obj/item/ammo_box/c9mm
-			construction_cost = list("metal" = 500, "silver" = 400, "uranium" = 400)
-			origin_tech = "combat=3"
+			construction_cost = list("metal" = 4000, "silver" = 400, "uranium" = 400)
+			origin_tech = "combat=3;materials=3;engineering=3"
 
 		r10mm/
 			name = "10mm repeater"
 			cooldown = 10
 			minimum_pod_size = list(2, 2)
 			mag_type = /obj/item/ammo_box/c10mm
-			construction_cost = list("metal" = 500, "silver" = 600, "uranium" = 600)
-			origin_tech = "combat=4"
+			construction_cost = list("metal" = 4000, "silver" = 600, "uranium" = 600)
+			origin_tech = "combat=4;materials=4;engineering=4"
 
 		r75/
 			name = ".75 HE repeater"
 			cooldown = 15
 			minimum_pod_size = list(2, 2)
 			mag_type = /obj/item/ammo_box/magazine/m75
-			construction_cost = list("metal" = 500, "silver" = 800, "uranium" = 800)
-			origin_tech = "combat=5"
+			construction_cost = list("metal" = 4000, "silver" = 800, "uranium" = 800)
+			origin_tech = "combat=5;materials=5;engineering=5"
 
 	missile/
 		name = "missile rack"
@@ -172,7 +173,8 @@
 		overlay_icon_state = "pod_weapon_bfg"
 		projectile = 0
 		cooldown = 20
-		construction_cost = list("metal" = 800, "uranium" = 400)
+		construction_cost = list("metal" = 4000, "uranium" = 4000, "plasma" = 4000, "silver" = 4000)
+		origin_tech = "combat=4;materials=4;engineering=4"
 		var/missile_type = /obj/item/missile
 		var/missile_amount = 0
 		var/max_missile_amount = 8

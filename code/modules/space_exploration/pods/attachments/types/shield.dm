@@ -41,26 +41,26 @@
 			name = "plasma shield"
 			max_absorbtion_amount = 10
 			power_usage = 2
-			construction_cost = list("metal" = 2000, "plasma" = 500)
+			construction_cost = list("metal" = 4000, "plasma" = 4000)
 			origin_tech = "magnets=2;powerstorage=2;materials=2"
 
 		neutron/
 			name = "neutron shield"
 			max_absorbtion_amount = 20
 			power_usage = 4
-			construction_cost = list("metal" = 2000, "silver" = 500, "gold" = 500)
+			construction_cost = list("metal" = 4000, "silver" = 4000, "gold" = 2000)
 			origin_tech = "magnets=3;powerstorage=3;materials=3"
 
 		higgs_boson/
 			name = "higgs-boson shield"
 			max_absorbtion_amount = 30
 			power_usage = 16
-			construction_cost = list("metal" = 2000, "uranium" = 2000, "diamond" = 2000)
+			construction_cost = list("metal" = 4000, "uranium" = 4000, "diamond" = 2500)
 			origin_tech = "magnets=4;powerstorage=4;materials=5"
 
 		antimatter/
 			name = "antimatter shield"
 			max_absorbtion_amount = 40
 			power_usage = 64
-			construction_cost = list("metal" = 2000, "uranium" = 4000, "diamond" = 3000, "gold" = 4000)
+			construction_cost = list("metal" = 4000, "uranium" = 6000, "diamond" = 4500, "gold" = 4500)
 			origin_tech = "magnets=5;powerstorage=5;materials=6"

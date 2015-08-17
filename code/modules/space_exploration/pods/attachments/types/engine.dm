@@ -64,13 +64,13 @@
 
 		plasma/
 			name = "plasma engine"
-			construction_cost = list("metal" = 2000)
+			construction_cost = list("metal" = 4000)
 
 			advanced/
 				name = "advanced plasma engine"
 				burn_time = 200
 				pod_move_reduction = -0.2
-				construction_cost = list("metal" = 2000, "silver" = 200, "gold" = 200)
+				construction_cost = list("metal" = 4000, "silver" = 2500, "gold" = 2500)
 				origin_tech = "powerstorage=4;materials=4"
 
 		uranium/
@@ -78,13 +78,13 @@
 			fuel_type = /obj/item/stack/sheet/mineral/uranium
 			power_per_fuel = 2500
 			burn_time = 600
-			construction_cost = list("metal" = 2000)
+			construction_cost = list("metal" = 4000)
 
 			advanced/
 				name = "advanced uranium engine"
 				burn_time = 400
 				pod_move_reduction = -0.2
-				construction_cost = list("metal" = 2000, "silver" = 200, "gold" = 200)
+				construction_cost = list("metal" = 4000, "silver" = 2500, "gold" = 2500)
 				origin_tech = "powerstorage=4;materials=4"
 
 		wood/
@@ -92,11 +92,11 @@
 			fuel_type = /obj/item/stack/sheet/mineral/wood
 			power_per_fuel = 200
 			burn_time = 50
-			construction_cost = list("metal" = 2000)
+			construction_cost = list("metal" = 4000)
 
 			advanced/
 				name = "advanced wooden engine"
 				burn_time = 30
 				pod_move_reduction = -0.2
-				construction_cost = list("metal" = 2000, "silver" = 200, "gold" = 200)
+				construction_cost = list("metal" = 4000, "silver" = 2500, "gold" = 2500)
 				origin_tech = "powerstorage=4;materials=4"

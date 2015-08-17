@@ -11,7 +11,7 @@
 		overlay_icon_state = "gimbal"
 		power_usage = 1
 		power_usage_condition = P_ATTACHMENT_USAGE_ONTICK
-		construction_cost = list("metal" = 500, "uranium" = 800)
+		construction_cost = list("metal" = 4000, "uranium" = 2500, "silver" = 2500)
 		origin_tech = "engineering=4;materials=4;combat=3"
 		minimum_pod_size = list(2, 2)
 
@@ -19,7 +19,7 @@
 		name = "autoloader"
 		power_usage = 20
 		cooldown = 5
-		construction_cost = list("metal" = 500)
+		construction_cost = list("metal" = 1500)
 		origin_tech = "engineering=2"
 
 		Use(var/atom/target, var/mob/user)
@@ -45,7 +45,7 @@
 		use_sound = 'sound/effects/phasein.ogg'
 		power_usage = 3000
 		cooldown = 300
-		construction_cost = list("metal" = 1500, "uranium" = 1500, "silver" = 1500, "diamond" = 1500)
+		construction_cost = list("metal" = 4000, "uranium" = 2500, "silver" = 2500, "diamond" = 2500)
 		origin_tech = "bluespace=4;magnets=4;programming=4;combat=4"
 		minimum_pod_size = list(2, 2)
 		var/range = 3
@@ -91,7 +91,7 @@
 		power_usage = 1000
 		cooldown = 1200
 		origin_tech = "engineering=2;materials=2"
-		construction_cost = list("metal" = 1000, "silver" = 400)
+		construction_cost = list("metal" = 4000, "silver" = 2500, "plasma" = 2500)
 
 		Use(var/atom/target, var/mob/user)
 			if(!(..(target, user)))
@@ -113,7 +113,7 @@
 		overlay_icon_state = "wormhole_generator"
 		power_usage = 500
 		cooldown = 50
-		construction_cost = list("metal" = 1000, "uranium" = 800, "diamond" = 800)
+		construction_cost = list("metal" = 4000, "uranium" = 2500, "diamond" = 1500, "plasma" = 2500)
 		origin_tech = "engineering=4;materials=4;bluespace=3"
 
 		Use(var/atom/target, var/mob/user, var/flags = P_ATTACHMENT_PLAYSOUND | P_ATTACHMENT_IGNORE_POWER | P_ATTACHMENT_IGNORE_COOLDOWN)
@@ -175,7 +175,7 @@
 		name = "ore collector"
 		power_usage = 1
 		power_usage_condition = P_ATTACHMENT_USAGE_ONTICK
-		construction_cost = list("metal" = 500)
+		construction_cost = list("metal" = 2500)
 		origin_tech = "engineering=1"
 
 		GetAvailableKeybinds()

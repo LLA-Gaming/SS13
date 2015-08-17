@@ -7,7 +7,7 @@
 	p_disruptor/
 		name = "disruptor laser"
 		id = "pdisruptor"
-		req_tech = list("combat" = 5)
+		req_tech = list("combat" = 5, "materials" = 5, "engineering" = 5)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/disruptor
@@ -15,7 +15,7 @@
 	p_xray/
 		name = "x-ray laser"
 		id = "pxraylaser"
-		req_tech = list("combat" = 3)
+		req_tech = list("combat" = 3, "materials" = 3, "engineering" = 3)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/xray
@@ -23,7 +23,7 @@
 	p_laser/
 		name = "laser carbine Mk I"
 		id = "plaser"
-		req_tech = list("combat" = 2)
+		req_tech = list("combat" = 2, "materials" = 2, "engineering" = 2)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/laser
@@ -31,7 +31,7 @@
 	p_heavylaser/
 		name = "laser carbine Mk II"
 		id = "pheavylaser"
-		req_tech = list("combat" = 3)
+		req_tech = list("combat" = 3, "materials" = 2, "engineering" = 2)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/heavylaser
@@ -39,7 +39,7 @@
 	p_deathlaser/
 		name = "laser carbine Mk III"
 		id = "pdeathlaser"
-		req_tech = list("combat" = 4)
+		req_tech = list("combat" = 4, "materials" = 4, "engineering" = 4)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/deathlaser
@@ -47,7 +47,7 @@
 	p_taser/
 		name = "taser carbine"
 		id = "ptaser"
-		req_tech = list("combat" = 1)
+		req_tech = list("combat" = 1, "materials" = 1, "engineering" = 1)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/taser
@@ -55,7 +55,7 @@
 	p_disabler/
 		name = "disabler carbine"
 		id = "pdisabler"
-		req_tech = list("combat" = 1)
+		req_tech = list("combat" = 1, "materials" = 1, "engineering" = 1)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/disabler
@@ -64,7 +64,7 @@
 		name = "phaser carbine"
 		id = "pphaser"
 		category = "Weapons"
-		req_tech = list("combat" = 1)
+		req_tech = list("combat" = 2, "materials" = 2, "engineering" = 2)
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/phaser
 
@@ -72,14 +72,14 @@
 		name = "neutron cannon"
 		id = "pneutroncannon"
 		category = "Weapons"
-		req_tech = list("combat" = 3)
+		req_tech = list("combat" = 3, "materials" = 3, "engineering" = 3)
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/neutron_cannon
 
 	p_r45/
 		name = ".45 repeater"
 		id = "p45r"
-		req_tech = list("combat" = 2)
+		req_tech = list("combat" = 2, "materials" = 2, "engineering" = 2)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/bullet/r45
@@ -87,7 +87,7 @@
 	p_r9mm/
 		name = "9mm repeater"
 		id = "p9mmr"
-		req_tech = list("combat" = 3)
+		req_tech = list("combat" = 3, "materials" = 3, "engineering" = 3)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/bullet/r9mm
@@ -96,14 +96,14 @@
 		name = "10mm repeater"
 		id = "p10mmr"
 		category = "Weapons"
-		req_tech = list("combat" = 4)
+		req_tech = list("combat" = 4, "materials" = 4, "engineering" = 4)
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/bullet/r10mm
 
 	p_r75/
 		name = ".75 HE repeater"
 		id = "p75mmr"
-		req_tech = list("combat" = 5)
+		req_tech = list("combat" = 5, "materials" = 5, "engineering" = 5)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/bullet/r75
@@ -127,7 +127,7 @@
 	p_missile_rack/
 		name = "missile rack"
 		id = "pmissilerack"
-		req_tech = list("combat" = 4)
+		req_tech = list("combat" = 4, "materials" = 4, "engineering" = 4)
 		category = "Weapons"
 		build_type = PODFAB
 		build_path = /obj/item/weapon/pod_attachment/primary/projectile/missile
@@ -139,7 +139,7 @@
 	p_missile/
 		name = "HE missile"
 		id = "phemissile"
-		req_tech = list("combat" = 4)
+		req_tech = list("combat" = 4, "materials" = 4, "engineering" = 4)
 		category = "Ammunition"
 		build_type = PODFAB
 		build_path = /obj/item/missile
@@ -342,7 +342,7 @@
 		category = "Construction"
 		build_type = PODFAB
 		build_path = /obj/item/pod_construction_part/parts/armor/industrial
-		req_tech = list("engineering" = 5, "materials" = 5)
+		req_tech = list("engineering" = 4, "materials" = 4)
 
 	p_construction_armor_prototype/
 		name = "prototype armor"
@@ -350,7 +350,7 @@
 		category = "Construction"
 		build_type = PODFAB
 		build_path = /obj/item/pod_construction_part/parts/armor/prototype
-		req_tech = list("engineering" = 6, "materials" = 6, "illegal" = 2)
+		req_tech = list("engineering" = 5, "materials" = 6, "illegal" = 2)
 
 	p_construction_armor_precursor/
 		name = "precursor armor"
@@ -358,7 +358,7 @@
 		category = "Construction"
 		build_type = PODFAB
 		build_path = /obj/item/pod_construction_part/parts/armor/precursor
-		req_tech = list("engineering" = 6, "materials" = 7, "illegal" = 3)
+		req_tech = list("engineering" = 5, "materials" = 6, "illegal" = 4)
 
 	/*
 	* Secondary Systems
