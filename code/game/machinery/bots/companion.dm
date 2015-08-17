@@ -361,7 +361,7 @@
 			if(istype(item_in_hand, /obj/item/weapon/card/id))
 				var/obj/item/weapon/card/id/I = item_in_hand
 				botcard_access = I.GetAccess()
-				src.visible_message("<span class='notice'>You swipe your ID on \the [src]</span>")
+				living_user << "<span class='notice'>You swipe your ID on \the [src]</span>"
 				return
 			return
 
