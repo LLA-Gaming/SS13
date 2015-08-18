@@ -61,6 +61,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 		if(!A.app_id)
 			del(A)
 			continue
+		A.tablet = src
 		core.programs.Add(A)
 
 /obj/item/device/tablet/Destroy()

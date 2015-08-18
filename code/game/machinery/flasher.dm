@@ -48,6 +48,8 @@
 
 	else if (istype(W, /obj/item/device/flash))
 		if (!bulb)
+			if (isrobot(user))
+				return
 			user.visible_message("<span class='notice'>[user] installs [W] into [src].</span>", "<span class='notice'>You install [W] into [src].</span>")
 			user.drop_item()
 			W.loc = src
