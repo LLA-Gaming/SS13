@@ -303,6 +303,16 @@ var/list/department_radio_keys = list(
 				S.speech_buffer.Add(src)
 				S.speech_buffer.Add(lowertext(html_decode(message)))
 
+		if(istype(A, /obj/machinery/bot/companion)) //Robutts hearing voices
+			if (A == src)
+				continue
+
+			var/obj/machinery/bot/companion/S = A
+			if (src in S.friends)
+				S.speech_buffer = list()
+				S.speech_buffer.Add(src)
+				S.speech_buffer.Add(lowertext(html_decode(message)))
+
 		if(istype(A, /obj/)) //radio in pocket could work, radio in backpack wouldn't --rastaf0
 			var/obj/O = A
 			spawn (0)
