@@ -61,6 +61,10 @@
 		if (slot != slot_back)
 			remove_noz(user)
 
+	dropped(mob/user as mob)
+		if(src.noz.loc != src)
+			user.unEquip(noz)
+
 	proc/remove_noz(mob/user)
 		var/mob/living/carbon/human/M = user
 		if(noz in get_both_hands(M))
