@@ -15,12 +15,19 @@
 	var/obj/machinery/hangar_forcefield_generator/generator
 
 	CanAtmosPass()
+		if(!generator)
+			return 1
 		return generator.CanAtmosPass()
 
 	CanPass(var/atom/movable/M, var/turf/T, var/height = 0, var/air_group = 0)
+		if(!generator)
+			return 1
 		return generator.CanPass(M, T, height, air_group)
 
 	Move(newloc, dir)
+		if(!generator)
+			qdel(src)
+			return 0
 		generator.DestroyShields()
 
 /*
