@@ -3,6 +3,7 @@
 	drill/
 		name = "mining drill"
 		overlay_icon_state = "pod_weapon_drills"
+		icon_state = "attachment_utility"
 		power_usage = 10
 		var/speed = 20
 		var/predicate = "drilling"

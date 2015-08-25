@@ -2,7 +2,7 @@
 	name = "pod attachment"
 	desc = "An attachment for a space pod"
 	icon = 'icons/obj/pod_attachments.dmi'
-	icon_state = "attachment"
+	icon_state = "attachment_default"
 	item_state = "syringe_kit"
 	w_class = 4
 	layer = 3.3

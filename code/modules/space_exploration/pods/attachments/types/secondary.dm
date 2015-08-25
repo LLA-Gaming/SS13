@@ -1,4 +1,5 @@
 /obj/item/weapon/pod_attachment/secondary
+	icon_state = "attachment_secondary"
 	hardpoint_slot = P_HARDPOINT_SECONDARY_ATTACHMENT
 	keybind = P_ATTACHMENT_KEYBIND_MIDDLE
 

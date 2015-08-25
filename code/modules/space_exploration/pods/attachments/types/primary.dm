@@ -17,6 +17,7 @@
 		projectile/
 			var/projectile = /obj/item/projectile
 			var/dual_projectile = 1
+			icon_state = "attachment_weapons"
 
 			Use(var/atom/target, var/mob/user, var/flags = P_ATTACHMENT_PLAYSOUND)
 				if(!..(target, user, flags))

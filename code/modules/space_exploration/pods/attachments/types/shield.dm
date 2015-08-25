@@ -1,6 +1,7 @@
 /obj/item/weapon/pod_attachment
 
 	shield/
+		icon_state = "attachment_shields"
 		var/max_absorbtion_amount = 25
 		var/power_usage_multiplier = 20
 		power_usage = 10

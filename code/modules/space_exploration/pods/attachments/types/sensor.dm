@@ -1,4 +1,5 @@
 /obj/item/weapon/pod_attachment/sensor
+	icon_state = "attachment_sensors"
 	name = "pod sensor"
 	hardpoint_slot = P_HARDPOINT_SENSOR
 	power_usage = 100

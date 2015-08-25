@@ -5,6 +5,7 @@
 */
 
 /obj/item/weapon/pod_attachment
+	icon_state = "attachment_armors"
 
 	armor/
 		power_usage = 0
