@@ -730,7 +730,7 @@
 			</head>
 
 			<body>
-			<iframe width='100%' height='97%' src="[config.wikiurl]/[page_link]?printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+			<iframe width='100%' height='97%' src="http://lla-gaming.github.io/SS13-wiki/ingame-books/[page_link].html" frameborder="0" id="main_frame"></iframe>
 			</body>
 
 			</html>
@@ -742,14 +742,14 @@
 	icon_state ="bookEngineering"
 	author = "Engineering Encyclopedia"
 	title = "Station Repairs and Construction"
-	page_link = "Guide_to_construction"
+	page_link = "guide_to_construction"
 
 /obj/item/weapon/book/manual/wiki/engineering_guide
 	name = "Engineering Textbook"
 	icon_state ="bookEngineering2"
 	author = "Engineering Encyclopedia"
 	title = "Engineering Textbook"
-	page_link = "Guide_to_engineering"
+	page_link = "guide_to_engineering"
 
 /* RIP in kill, wiki spacelaw
 /obj/item/weapon/book/manual/wiki/security_space_law
@@ -766,18 +766,18 @@
 	icon_state = "bookInfections"
 	author = "Infections Encyclopedia"
 	title = "Infections - Making your own pandemic!"
-	page_link = "Infections"
+	page_link = "infections"
 
 /obj/item/weapon/book/manual/wiki/telescience
 	name = "Teleportation Science - Bluespace for dummies!"
 	icon_state = "book7"
 	author = "University of Bluespace"
 	title = "Teleportation Science - Bluespace for dummies!"
-	page_link = "Guide_to_telescience"
+	page_link = "guide_to_telescience"
 
 /obj/item/weapon/book/manual/wiki/engineering_hacking
 	name = "Hacking"
 	icon_state ="bookHacking"
 	author = "Engineering Encyclopedia"
 	title = "Hacking"
-	page_link = "Hacking"
+	page_link = "hacking"
