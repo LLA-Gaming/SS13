@@ -49,12 +49,15 @@
 	var/obj/machinery/hangar_forcefield_generator/linked
 	var/list/req_passing_access = list() // Required access to pass through the shield.
 	var/floor_type = /turf/simulated/floor
+	var/generate_shields = 1
 
 	New(loc, var/generate = 1)
 		..()
 
 		if(generate)
 			GenerateShields()
+		else
+			generate_shields = 0
 
 		active_power_usage =  (500 * (length(shields))) / 2
 
@@ -72,7 +75,7 @@
 
 		listclearnulls(shields)
 
-		if(!length(shields) && !stat)
+		if(!length(shields) && !stat && generate_shields)
 			GenerateShields(0)
 
 	CanPass(var/atom/movable/M, var/turf/T, var/height = 0, var/air_group = 0)
