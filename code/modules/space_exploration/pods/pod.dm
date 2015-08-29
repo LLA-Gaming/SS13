@@ -1,3 +1,5 @@
+var/list/pod_list = list()
+
 /obj/pod
 	name = "Pod"
 	icon = 'icons/obj/pod-1-1.dmi'
@@ -43,6 +45,8 @@
 		if(!size || !size.len)
 			qdel(src)
 			return
+
+		pod_list += src
 
 		bound_width = size[1] * 32
 		bound_height = size[2] * 32
@@ -294,6 +298,17 @@
 		if(user.a_intent == "harm")
 			goto Damage
 
+		if(istype(I, /obj/item/weapon/stock_parts/cell))
+			if(power_source)
+				user << "<span class='warning'>There is already a cell installed.</span>"
+				return 0
+			else
+				user << "<span class='notice'>You start to install \the [I] into \the [src].</span>"
+				if(do_after(user, 20))
+					user.unEquip(I, 1)
+					I.loc = src
+					power_source = I
+
 		if(istype(I, /obj/item/device/multitool))
 			if(CanOpenPod(user))
 				OpenHUD(user)
@@ -429,7 +444,7 @@
 					return 0
 				M << "<span class='info'>\The [src] starts to load \the [canister].</span>"
 				sleep(30)
-				if(src && canister in bounds(1) && !internal_canister)
+				if(src && (canister in bounds(1)) && !internal_canister)
 					canister.loc = src
 					internal_canister = canister
 					M << "<span class='info'>\The [src] loaded \the [canister].</span>"

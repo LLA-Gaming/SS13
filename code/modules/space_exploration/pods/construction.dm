@@ -185,7 +185,7 @@
 
 	parts/
 		icon = 'icons/obj/pod_attachments.dmi'
-		icon_state = "pod_part"
+		icon_state = "attachment_default"
 		w_class = 4
 
 		var/required_construction_stage = 0

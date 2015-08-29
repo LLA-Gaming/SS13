@@ -84,10 +84,11 @@
 
 			// Add to stack instead of filling a slot.
 			if(istype(I, /obj/item/stack))
+				var/obj/item/stack/stack = I
 				var/obj/item/stack/same = GetObjectFromType(I.type, 1)
 				if(same)
-					if((same.amount + 1) <= same.max_amount)
-						same.amount++
+					if((same.amount + stack.amount) <= same.max_amount)
+						same.amount += stack.amount
 						qdel(I)
 						return P_CARGOERROR_CLEAR
 

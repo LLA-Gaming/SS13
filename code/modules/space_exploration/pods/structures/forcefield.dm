@@ -54,7 +54,7 @@
 	New(loc, var/generate = 1)
 		..()
 
-		if(generate)
+		if(generate && generate_shields)
 			GenerateShields()
 		else
 			generate_shields = 0
@@ -89,7 +89,6 @@
 			if(istype(M, type))
 				in_permeable = 1
 				break
-
 		if(!in_permeable)
 			return 0
 
@@ -109,14 +108,16 @@
 
 				pod.pilot << "<span class='warning'>You bounce back on the forcefield.</span>"
 
-		return 0
+		return 1
 
 	proc/GenerateShields(var/generator = 1)
 		var/turf/T = get_turf(src)
-		while(istype(T, floor_type))
+		var/obj/machinery/hangar_forcefield_generator/dummy/dummy = 0
+		while(istype(T, floor_type) && !dummy)
 			var/obj/effect/hangar_forcefield/forcefield = new(T)
 			T = get_step(T, dir)
 			shields += forcefield
+			dummy = locate() in T
 			if(length(shields) == 1)
 				forcefield.icon_state = "bay_forcefield_end"
 			forcefield.generator = src
@@ -131,7 +132,12 @@
 		forcefield.icon_state = "bay_forcefield_end"
 		forcefield.dir = rotated
 
-		if(generator)
+		if(dummy)
+			generator = 0
+			linked = dummy
+			UpdateLinked()
+
+		else if(generator)
 			var/obj/machinery/hangar_forcefield_generator/D = new(get_step(T, rotated), 0)
 			D.dir = rotated
 			D.linked = src
@@ -265,5 +271,5 @@
 		if(istype(I, /obj/item/weapon/card/id))
 			return attack_hand(user)
 
-	east/
-		dir = EAST
+	dummy/
+		generate_shields = 0

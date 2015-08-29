@@ -61,6 +61,10 @@ var/list/pod_logs = list()
 				log += ", shot by [key_name(P.firer)] (type: [P.type]) (damage: [P.damage]) (REMHP: [holder.health])"
 			else
 				log += ", attacked with the [I] by [key_name(attacker)] (REMHP: [holder.health])"
+		else if(attacker && !ishuman(attacker))
+			log += ", attacked by ([attacker.type]) (REMHP: [holder.health])"
+		else if(attacker && ishuman(attacker))
+			log += ", attacked by [key_name(attacker)] (REMHP: [holder.health])"
 		damage_log.Add(Stamp() + "<font color='[(bf == P_DAMAGE_ABSORBED) ? "green" : (bf == P_DAMAGE_REDUCED) ? "orange" : "red"]'>[log]</font>")
 
 	proc/LogUsage(var/mob/living/user, var/obj/item/weapon/pod_attachment/attachment, var/list/targets = list(), var/list/additions = list())

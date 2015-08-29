@@ -65,6 +65,9 @@
 		for(var/obj/mecha/M in mechas_list)
 			if(get_dist(M, src) <= vision_range && can_see(src, M, vision_range))
 				L += M
+		for(var/obj/pod/pod in pod_list)
+			if(get_dist(pod, src) <= vision_range && can_see(src, pod, vision_range))
+				L += pod
 	else
 		var/list/Objects = oview(vision_range, src)
 		L += Objects
@@ -121,6 +124,11 @@
 			var/obj/mecha/M = the_target
 			if(M.occupant)//Just so we don't attack empty mechs
 				if(CanAttack(M.occupant))
+					return 1
+		if(istype(the_target, /obj/pod) && search_objects < 2)
+			var/obj/pod/pod = the_target
+			if(pod.pilot)
+				if(CanAttack(pod.pilot))
 					return 1
 	return 0
 

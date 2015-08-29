@@ -136,6 +136,9 @@
 		spawn(0)
 			qdel(src)
 
+	attack_animal(var/mob/living/simple_animal/animal)
+		TakeDamage(rand(animal.melee_damage_lower, animal.melee_damage_upper), 0, 0, animal)
+
 	bullet_act(var/obj/item/projectile/P)
 		if(istype(P, /obj/item/projectile/ion))
 			emp_act(1)

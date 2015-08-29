@@ -26,15 +26,15 @@
 			if((last_burn_time + burn_time) > world.time)
 				return 0
 
+			if(!pod.power_source)
+				return 0
+
 			var/obj/item/weapon/pod_attachment/cargo/cargo_hold = pod.GetAttachmentOnHardpoint(P_HARDPOINT_CARGO_HOLD)
 			if(!cargo_hold)
 				return 0
 
-			if(!pod.power_source)
-				return 0
-
 			var/list/fuel_list = cargo_hold.GetListFromType(fuel_type, 1)
-			if(!fuel_list || !fuel_list.len)
+			if(!fuel_list || !length(fuel_list))
 				return 0
 
 			var/combined_amount = 0
@@ -49,7 +49,7 @@
 			fuel.amount = combined_amount
 
 			if(pod.AddPower(power_per_fuel))
-				fuel.use()
+				fuel.use(1)
 				last_burn_time = world.time
 
 			if(fuel.amount > 0)
