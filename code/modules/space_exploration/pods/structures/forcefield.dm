@@ -172,6 +172,7 @@
 		linked.permeable = permeable
 		linked.emagged = emagged
 		linked.req_access = req_access
+		linked.req_passing_access = req_passing_access
 
 	proc/OpenMenu(var/mob/living/user)
 		var/dat
