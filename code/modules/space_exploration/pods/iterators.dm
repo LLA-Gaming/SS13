@@ -5,8 +5,14 @@
 		if(!pod)
 			qdel(src)
 
+		if(pod.size[1] > 1)
+			// So for some reason when going north or east, Entered() isn't called on the turfs in a 2x2 pod
+			for(var/turf/space/space in pod.GetTurfsUnderPod())
+				space.Entered(pod)
+
 		if(!pod.inertial_direction)
 			return 0
+
 		if(!pod.HasTraction())
 			step(pod, pod.inertial_direction)
 			spawn(-1)

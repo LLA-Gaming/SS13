@@ -235,6 +235,11 @@ var/list/pod_list = list()
 			last_move_time = world.time
 			return 0
 
+		if(size[1] > 1)
+			// So for some reason when going north or east, Entered() isn't called on the turfs in a 2x2 pod
+			for(var/turf/space/space in GetTurfsUnderPod())
+				space.Entered(src)
+
 		if(istype(get_turf(src), /turf/space) && !HasTraction())
 			if((_dir == turn(inertial_direction, 180)) && (toggles & P_TOGGLE_SOR))
 				inertial_direction = 0
