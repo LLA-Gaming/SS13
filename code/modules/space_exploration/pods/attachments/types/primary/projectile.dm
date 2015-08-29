@@ -165,7 +165,7 @@
 			minimum_pod_size = list(2, 2)
 			mag_type = /obj/item/ammo_box/magazine/m75
 			construction_cost = list("metal" = 4000, "silver" = 800, "uranium" = 800)
-			origin_tech = "combat=5;materials=5;engineering=5"
+			origin_tech = "combat=5;materials=5;engineering=5;illegal=4"
 
 	missile/
 		name = "missile rack"

@@ -144,6 +144,38 @@
 		build_type = PODFAB
 		build_path = /obj/item/missile
 
+	p_45_ammo/
+		name = ".45 ammo box"
+		id = "p45ammo"
+		req_tech = list("combat" = 2, "materials" = 2, "engineering" = 2)
+		category = "Ammunition"
+		build_type = PODFAB
+		build_path = /obj/item/ammo_box/c45
+
+	p_9mm_ammo/
+		name = "9mm ammo box"
+		id = "p9mmammo"
+		req_tech = list("combat" = 3, "materials" = 3, "engineering" = 3)
+		category = "Ammunition"
+		build_type = PODFAB
+		build_path = /obj/item/ammo_box/c9mm
+
+	p_10mm_ammo/
+		name = "10mm ammo box"
+		id = "p10mmammo"
+		req_tech = list("combat" = 4, "materials" = 4, "engineering" = 4)
+		category = "Ammunition"
+		build_type = PODFAB
+		build_path = /obj/item/ammo_box/c10mm
+
+	p_75_ammo/
+		name = ".75 HE ammo box"
+		id = "p75ammo"
+		req_tech = list("combat" = 5, "illegal" = 4, "materials" = 5, "engineering" = 5)
+		category = "Ammunition"
+		build_type = PODFAB
+		build_path = /obj/item/ammo_box/magazine/m75
+
 	/*
 	* Shield
 	*/
