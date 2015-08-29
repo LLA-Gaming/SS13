@@ -546,3 +546,38 @@ obj/item/weapon/circuitboard/rdserver
 							"/obj/item/weapon/stock_parts/subspace/amplifier" = 1,
 							"/obj/item/weapon/stock_parts/manipulator/nano" = 3,
 							"/obj/item/weapon/stock_parts/scanning_module/adv" = 1)
+
+
+/obj/item/weapon/circuitboard/sorting_conveyor
+	name = "circuit board (Sorting Conveyor)"
+	build_path = /obj/machinery/sorting_conveyor
+	origin_tech = "programming=2;materials=2"
+	board_type = "machine"
+	req_components = list(
+		"/obj/item/weapon/stock_parts/manipulator" = 1,
+		"/obj/item/weapon/stock_parts/scanning_module" = 1,
+		"/obj/item/weapon/stock_parts/micro_laser" = 1,
+		"/obj/item/stack/cable_coil" = 1
+	)
+
+/obj/item/weapon/circuitboard/conveyor
+	name = "circuit board (Conveyor)"
+	build_path = /obj/machinery/conveyor
+	origin_tech = "materials=2"
+	board_type = "machine"
+	req_components = list(
+		"/obj/item/weapon/stock_parts/manipulator" = 1,
+		"/obj/item/weapon/stock_parts/capacitor" = 1,
+		"/obj/item/stack/cable_coil" = 1
+	)
+
+/obj/item/weapon/circuitboard/conveyor_switch
+	name = "circuit board (Conveyor Switch)"
+	build_path = /obj/machinery/conveyor_switch
+	origin_tech = "materials=2"
+	board_type = "machine"
+	req_components = list(
+		"/obj/item/weapon/stock_parts/manipulator" = 1,
+		"/obj/item/weapon/stock_parts/capacitor" = 1,
+		"/obj/item/stack/cable_coil" = 1
+	)

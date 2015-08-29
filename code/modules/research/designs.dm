@@ -391,6 +391,30 @@ datum/design/aifixer
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/aifixer
 
+/datum/design/conveyor
+	name = "Machine Design (Conveyor)"
+	id = "conveyor"
+	req_tech = list("materials" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/conveyor
+
+/datum/design/sorting_conveyor
+	name = "Machine Design (Sorting Conveyor)"
+	id = "sortingconveyor"
+	req_tech = list("programming" = 2, "materials" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/sorting_conveyor
+
+/datum/design/conveyor_switch
+	name = "Machine Design (Conveyor Switch)"
+	id = "conveyorswitch"
+	req_tech = list("materials" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/conveyor_switch
+
 ///////////////////////////////////
 //////////AI Module Disks//////////
 ///////////////////////////////////

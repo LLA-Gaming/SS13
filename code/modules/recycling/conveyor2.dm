@@ -1,6 +1,8 @@
 //conveyor2 is pretty much like the original, except it supports corners, but not diverters.
 //note that corner pieces transfer stuff clockwise when running forward, and anti-clockwise backwards.
 
+var/list/conveyor_belts = list()
+
 /obj/machinery/conveyor
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor0"
@@ -46,6 +48,18 @@
 	..(loc)
 	if(newdir)
 		dir = newdir
+
+	conveyor_belts += src
+
+	UpdateDirections()
+
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/conveyor(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+
+/obj/machinery/conveyor/proc/UpdateDirections()
 	switch(dir)
 		if(NORTH)
 			forwards = NORTH
@@ -71,10 +85,17 @@
 		if(SOUTHWEST)
 			forwards = WEST
 			backwards = NORTH
+
 	if(verted == -1)
 		var/temp = forwards
 		forwards = backwards
 		backwards = temp
+
+/obj/machinery/conveyor/examine()
+	..()
+	usr << "<span class='notice'>Its current ID is '[id ? id : "*NONE*"]'."
+	if(panel_open)
+		usr << "<span class='notice'>The maintenance panel is open.</span>"
 
 /obj/machinery/conveyor/proc/setmove()
 	if(operating == 1)
@@ -101,6 +122,9 @@
 		return
 	if(!operating)
 		return
+	if(panel_open)
+		return 0
+
 	use_power(100)
 
 	affecting = loc.contents - src		// moved items will be all in loc
@@ -117,6 +141,54 @@
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(var/obj/item/I, mob/user)
 	if(isrobot(user))	return //Carn: fix for borgs dropping their modules on conveyor belts
+
+	if(istype(I, /obj/item/weapon/screwdriver))
+		if(operating)
+			return 0
+		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+		return 0
+
+	if(istype(I, /obj/item/device/multitool))
+		if(panel_open)
+			if(verted == 1)
+				verted = -1
+			else
+				verted = 1
+			user << "<span class='notice'>\The [src] now moves in the opposite direction."
+
+			UpdateDirections()
+		else
+			var/newid = input(user, "Please enter a new ID.", "Input") as text
+			newid = trim(newid)
+			newid = strip_html(newid)
+			newid = sanitize(newid)
+			id = newid
+			user << "<span class='notice'>You set \the [src]'s ID to '[id]'."
+
+			for(var/obj/machinery/conveyor_switch/conveyor_switch in conveyor_switches)
+				conveyor_switch.UpdateConveyors()
+
+		return 0
+
+	if(istype(I, /obj/item/weapon/crowbar))
+		if(panel_open)
+			default_deconstruction_crowbar(I)
+		else
+			var/list/directions = list()
+			for(var/_dir in (alldirs.Copy() - dir))
+				directions[dir2text(_dir)] = _dir
+
+			var/newdir_input = input(user, "Select a new direction", "Input") in directions + "Cancel"
+			if(!newdir_input || newdir_input == "Cancel")
+				return 0
+
+			dir = directions[newdir_input]
+			user << "<span class='notice'>You rotate \the [src] to [dir2text(dir)].</span>"
+
+			UpdateDirections()
+			setmove()
+		return 0
+
 	if(!user.drop_item())
 		user << "<span class='notice'>\The [I] is stuck to your hand, you cannot place it on the conveyor!</span>"
 		return
@@ -170,6 +242,8 @@
 //
 //
 
+var/list/conveyor_switches = list()
+
 /obj/machinery/conveyor_switch
 
 	name = "conveyor switch"
@@ -185,17 +259,20 @@
 	var/list/conveyors		// the list of converyors that are controlled by this switch
 	anchored = 1
 
-
-
 /obj/machinery/conveyor_switch/New()
 	..()
 	update()
 
+	conveyor_switches += src
+
+	component_parts = list()
+	component_parts += new /obj/item/weapon/circuitboard/conveyor_switch(null)
+	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
+	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stack/cable_coil(null, 1)
+
 	spawn(5)		// allow map load
-		conveyors = list()
-		for(var/obj/machinery/conveyor/C in world)
-			if(C.id == id)
-				conveyors += C
+		UpdateConveyors()
 
 // update the icon depending on the position
 
@@ -207,6 +284,15 @@
 	else
 		icon_state = "switch-off"
 
+/obj/machinery/conveyor_switch/proc/UpdateConveyors()
+	conveyors = list()
+	for(var/obj/machinery/conveyor/C in conveyor_belts)
+		if(C.id == id)
+			conveyors += C
+
+/obj/machinery/conveyor_switch/examine()
+	..()
+	usr << "<span class='notice'>Its current ID is '[id ? id : "*NONE*"]'."
 
 // timed process
 // if the switch changed, update the linked conveyors
@@ -237,10 +323,27 @@
 	update()
 
 	// find any switches with same id as this one, and set their positions to match us
-	for(var/obj/machinery/conveyor_switch/S in world)
+	for(var/obj/machinery/conveyor_switch/S in conveyor_switches)
 		if(S.id == src.id)
 			S.position = position
 			S.update()
+
+/obj/machinery/conveyor_switch/attackby(var/obj/item/I, var/mob/living/user)
+	if(istype(I, /obj/item/weapon/screwdriver))
+		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+		return 0
+
+	if(istype(I, /obj/item/device/multitool))
+		var/newid = input(user, "Please enter a new ID.", "Input") as text
+		newid = trim(newid)
+		newid = strip_html(newid)
+		newid = sanitize(newid)
+		id = newid
+		user << "<span class='notice'>You set \the [src]'s ID to '[id]'."
+		UpdateConveyors()
+		return 0
+
+	return attack_hand(user)
 
 /obj/machinery/conveyor_switch/oneway
 	var/convdir = 1 //Set to 1 or -1 depending on which way you want the convayor to go. (In other words keep at 1 and set the proper dir on the belts.)
@@ -257,7 +360,7 @@
 	update()
 
 	// find any switches with same id as this one, and set their positions to match us
-	for(var/obj/machinery/conveyor_switch/S in world)
+	for(var/obj/machinery/conveyor_switch/S in conveyor_switches)
 		if(S.id == src.id)
 			S.position = position
 			S.update()
