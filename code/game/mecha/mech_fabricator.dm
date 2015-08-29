@@ -40,11 +40,12 @@
 	var/list/part_sets = list()
 	var/build_type = 16
 	var/place_dir = SOUTH
+	var/board_type = /obj/item/weapon/circuitboard/mechfab
 
 	New()
 		..()
 		component_parts = list()
-		component_parts += new /obj/item/weapon/circuitboard/mechfab(null)
+		component_parts += new board_type(null)
 		component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 		component_parts += new /obj/item/weapon/stock_parts/matter_bin(null)
 		component_parts += new /obj/item/weapon/stock_parts/manipulator(null)

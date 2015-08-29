@@ -23,6 +23,7 @@
 	build_type = PODFAB
 	place_dir = 0
 	req_access = list()
+	board_type = /obj/item/weapon/circuitboard/podfab
 
 	New()
 		..()

@@ -47,16 +47,18 @@
 								direction = angle2dir(angle - 45)
 							else
 								direction = angle2dir((angle == 45) ? (angle + 45) : (angle - 45))
-						start_points = attached_to.GetDirectionalTurfs(direction)
-						start_points.Remove(start_points[2])
+						start_points = attached_to.GetDirectionalTurfsUnderPod(direction)
+						// Wooooo more edge cases!
+						var/index_to_remove = 2
+						if(((target.x < attached_to.x) && (target.y > attached_to.y)) || ((target.x > attached_to.x) && (target.y > attached_to.y)))
+							index_to_remove = 1
+						start_points.Remove(start_points[index_to_remove])
 						targets.Add(target)
 						if(dual_projectile)
 							last_use = (world.time - (cooldown / 2)) // Halve the cooldown so we get the same DPS
 					else
-						start_points = attached_to.GetDirectionalTurfs(attached_to.dir)
-						var/step_direction = get_dir(pod_turf, start_points[1])
-						for(var/i = 1 to length(start_points))
-							targets.Add(get_step(start_points[i], step_direction))
+						start_points = attached_to.GetDirectionalTurfsUnderPod(attached_to.dir)
+						targets = attached_to.GetDirectionalTurfs(attached_to.dir)
 
 					for(var/turf/T in start_points)
 						var/obj/item/projectile/P = new projectile(T)
