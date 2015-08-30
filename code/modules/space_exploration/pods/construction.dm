@@ -1,3 +1,27 @@
+/obj/item/weapon/storage/box/pod_frame_left
+	name = "left pod frame box"
+	icon = 'icons/obj/pod_attachments.dmi'
+	icon_state = "attachment_default"
+	foldable = /obj/item/pod_construction_part/parts/frames/left
+	can_hold = list()
+	var/list/construction_cost = list("metal" = 2000)
+	var/construction_time = 100
+
+	show_to()
+		return 0
+
+/obj/item/weapon/storage/box/pod_frame_right
+	name = "right pod frame box"
+	icon = 'icons/obj/pod_attachments.dmi'
+	icon_state = "attachment_default"
+	foldable = /obj/item/pod_construction_part/parts/frames/right
+	can_hold = list()
+	var/list/construction_cost = list("metal" = 2000)
+	var/construction_time = 100
+
+	show_to()
+		return 0
+
 // NOTE(drache): Redo this. Such a mess.
 /obj/item/pod_construction_part
 	name = "pod construction part"
@@ -142,6 +166,12 @@
 					CSRemoveFlag(requires_tool)
 					if(requires_tool == P_CS_ACTION_MULTI)
 						user << "<span class='info'>You use the multitool on the [src].</span>"
+					else if(required_tool == P_CS_ACTION_WELD)
+						var/obj/item/weapon/weldingtool/welder = I
+						if(!welder.isOn())
+							return 0
+						if(!welder.remove_fuel(1, user))
+							return 0
 					else
 						user << "<span class='info'>You [BF2Text(requires_tool)] the [src].</span>"
 					PlayToolSound(requires_tool)
@@ -264,6 +294,7 @@
 			bound_height = 64
 			w_class = INFINITY
 			origin_tech = "materials=1"
+			flags = ABSTRACT
 
 			attackby(var/obj/item/I, var/mob/living/user)
 				if(istype(I, /obj/item/weapon/weldingtool))

@@ -119,25 +119,13 @@
 
 				if(!battery)
 					return 0
+
 				if(battery != power_source)
 					return 0
 
 				if(!istype(usr.get_active_hand(), /obj/item/weapon/wrench) && !istype(usr.get_inactive_hand(), /obj/item/weapon/wrench))
 					usr << "<span class='warning'>You need to hold a wrench to detach the power source.</span>"
 					return 0
-
-				if(power_source.charge > 0)
-					if(ishuman(usr))
-						var/mob/living/carbon/human/H = usr
-						var/obj/item/clothing/gloves/G = H.gloves
-						if(!G || G.siemens_coefficient > 0)
-							if(!G)
-								H << "<span class='warning'>You touch the [power_source] with your bare hands.</span>"
-
-							sparks.start()
-
-							electrocute_mob(usr, power_source, src)
-							return 0
 
 				usr << "<span class='info'>You start to detach the [power_source].</span>"
 				if(do_after(usr, 10))

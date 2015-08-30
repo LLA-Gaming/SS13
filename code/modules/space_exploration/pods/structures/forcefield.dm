@@ -55,7 +55,8 @@
 		..()
 
 		if(generate && generate_shields)
-			GenerateShields()
+			spawn(4)
+				GenerateShields()
 		else
 			generate_shields = 0
 
@@ -89,6 +90,7 @@
 			if(istype(M, type))
 				in_permeable = 1
 				break
+
 		if(!in_permeable)
 			return 0
 
@@ -107,17 +109,20 @@
 							return 1
 
 				pod.pilot << "<span class='warning'>You bounce back on the forcefield.</span>"
+				return 0
 
 		return 1
 
 	proc/GenerateShields(var/generator = 1)
 		var/turf/T = get_turf(src)
-		var/obj/machinery/hangar_forcefield_generator/dummy/dummy = 0
+		var/obj/machinery/hangar_forcefield_generator/dummy/dummy
 		while(istype(T, floor_type) && !dummy)
 			var/obj/effect/hangar_forcefield/forcefield = new(T)
+			for(var/obj/machinery/hangar_forcefield_generator/dummy/d in T)
+				dummy = d
+				break
 			T = get_step(T, dir)
 			shields += forcefield
-			dummy = locate() in T
 			if(length(shields) == 1)
 				forcefield.icon_state = "bay_forcefield_end"
 			forcefield.generator = src

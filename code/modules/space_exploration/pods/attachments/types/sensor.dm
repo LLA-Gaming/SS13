@@ -3,7 +3,7 @@
 	name = "pod sensor"
 	hardpoint_slot = P_HARDPOINT_SENSOR
 	power_usage = 100
-	keybind = P_ATTACHMENT_KEYBIND_MIDDLE
+	keybind = P_ATTACHMENT_KEYBIND_CTRL
 	cooldown = 200
 	var/interval = 0
 	var/last_scan = 0
@@ -34,8 +34,8 @@
 				last_scan = world.time
 
 	GetAdditionalMenuData()
-		var/dat = "Scan Interval: <a href='?src=\ref[src];action=setinterval'>[interval ? interval : "No Interval"]</a><br>"
-		dat += "Next Scan in [round(((last_scan + interval) - world.time) / 10)] seconds."
+		var/dat = "Scan Interval: <a href='?src=\ref[src];action=setinterval'>[interval ? (interval / 10) : "No Interval"]</a><br>"
+		dat += "Next Scan in [Clamp(round(((last_scan + interval) - world.time) / 10), 0, INFINITY)] seconds."
 
 		return dat
 
@@ -43,9 +43,13 @@
 		..()
 
 		if(href_list["action"] == "setinterval")
-			var/interval = input(usr, "Set Interval between 0 (off), 20 and 60 seconds.", "Input") as num
-			interval = round(Clamp(interval, 20, 60))
-			interval *= 10
+			var/_interval = input(usr, "Set Interval between 0 (off), 20 and 60 seconds.", "Input") as num
+			if(!_interval)
+				return 0
+
+			_interval = round(Clamp(_interval, 20, 60))
+			_interval *= 10
+			interval = _interval
 			last_scan = world.time
 
 	gps/ // This is used in human.Stat

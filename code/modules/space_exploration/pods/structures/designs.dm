@@ -309,7 +309,7 @@
 		id = "pcleftframe"
 		category = "Construction"
 		build_type = PODFAB
-		build_path = /obj/item/pod_construction_part/parts/frames/left
+		build_path = /obj/item/weapon/storage/box/pod_frame_left
 		req_tech = list("materials" = 1)
 
 	p_construction_right_frame/
@@ -317,7 +317,7 @@
 		id = "pcrightframe"
 		category = "Construction"
 		build_type = PODFAB
-		build_path = /obj/item/pod_construction_part/parts/frames/right
+		build_path = /obj/item/weapon/storage/box/pod_frame_right
 		req_tech = list("materials" = 1)
 
 	p_construction_circuits/

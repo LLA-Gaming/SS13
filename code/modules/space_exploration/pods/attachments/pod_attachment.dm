@@ -37,7 +37,7 @@
 			attached_to.update_icon()
 
 	examine()
-		usr << desc
+		..()
 		usr << "\blue The label says it requires a [minimum_pod_size[1]] by [minimum_pod_size[2]] pod, and attaches to the [GetHardpointDisplayName()]."
 
 	proc/GetOverlay(var/list/size = minimum_pod_size)

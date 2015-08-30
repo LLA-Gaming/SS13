@@ -313,6 +313,8 @@ var/list/pod_list = list()
 					user.unEquip(I, 1)
 					I.loc = src
 					power_source = I
+					user << "<span class='notice'>You install \the [I] into \the [src].</span>"
+			return 0
 
 		if(istype(I, /obj/item/device/multitool))
 			if(CanOpenPod(user))
