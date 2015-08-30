@@ -55,7 +55,6 @@ var/list/conveyor_belts = list()
 
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/conveyor(null)
-	component_parts += new /obj/item/stack/sheet/metal(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 /obj/machinery/conveyor/proc/UpdateDirections()
@@ -93,6 +92,7 @@ var/list/conveyor_belts = list()
 /obj/machinery/conveyor/examine()
 	..()
 	usr << "<span class='notice'>Its current ID is '[id ? id : "*NONE*"]'."
+	usr << "<span class='notice'>Current direction: [dir2text(dir)]</span>"
 	if(panel_open)
 		usr << "<span class='notice'>The maintenance panel is open.</span>"
 
@@ -266,7 +266,6 @@ var/list/conveyor_switches = list()
 
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/conveyor_switch(null)
-	component_parts += new /obj/item/stack/sheet/metal(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 	spawn(5)		// allow map load
@@ -327,8 +326,11 @@ var/list/conveyor_switches = list()
 			S.update()
 
 /obj/machinery/conveyor_switch/attackby(var/obj/item/I, var/mob/living/user)
-	if(istype(I, /obj/item/weapon/screwdriver))
-		default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+		return 0
+
+	if(istype(I, /obj/item/weapon/crowbar))
+		default_deconstruction_crowbar(I)
 		return 0
 
 	if(istype(I, /obj/item/device/multitool))

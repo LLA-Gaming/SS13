@@ -582,3 +582,10 @@ obj/item/weapon/circuitboard/rdserver
 	board_type = "machine"
 	req_components = list("/obj/item/stack/cable_coil" = 1)
 
+/obj/item/weapon/circuitboard/crate_unloading_machine
+	name = "circuit board (Crate Unloading Machine)"
+	build_path = /obj/machinery/mineral/unloading_machine/crate
+	origin_tech = "materials=2;engineering=2"
+	board_type = "machine"
+	req_components = list("/obj/item/stack/cable_coil" = 1)
+

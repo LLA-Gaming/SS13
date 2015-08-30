@@ -396,7 +396,7 @@ datum/design/aifixer
 	id = "conveyor"
 	req_tech = list("materials" = 2)
 	build_type = IMPRINTER
-	materials = list("$glass" = 1000, "sacid" = 20)
+	materials = list("$glass" = 200, "sacid" = 5)
 	build_path = /obj/item/weapon/circuitboard/conveyor
 
 /datum/design/sorting_conveyor
@@ -404,7 +404,7 @@ datum/design/aifixer
 	id = "sortingconveyor"
 	req_tech = list("programming" = 2, "materials" = 2)
 	build_type = IMPRINTER
-	materials = list("$glass" = 1000, "sacid" = 20)
+	materials = list("$glass" = 1000, "sacid" = 10)
 	build_path = /obj/item/weapon/circuitboard/sorting_conveyor
 
 /datum/design/conveyor_switch
@@ -412,7 +412,7 @@ datum/design/aifixer
 	id = "conveyorswitch"
 	req_tech = list("materials" = 2)
 	build_type = IMPRINTER
-	materials = list("$glass" = 1000, "sacid" = 20)
+	materials = list("$glass" = 200, "sacid" = 5)
 	build_path = /obj/item/weapon/circuitboard/conveyor_switch
 
 /datum/design/auto_wrapper
@@ -420,7 +420,7 @@ datum/design/aifixer
 	id = "autotagandwrapper"
 	req_tech = list("materials" = 2, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list("$glass" = 1000, "sacid" = 20)
+	materials = list("$glass" = 1000, "sacid" = 10)
 	build_path = /obj/item/weapon/circuitboard/auto_wrapper
 
 /datum/design/auto_bodybag_wrapper
@@ -428,8 +428,17 @@ datum/design/aifixer
 	id = "autotagandwrapper"
 	req_tech = list("materials" = 2, "engineering" = 2)
 	build_type = IMPRINTER
-	materials = list("$glass" = 1000, "sacid" = 20)
+	materials = list("$glass" = 1000, "sacid" = 10)
 	build_path = /obj/item/weapon/circuitboard/auto_bodybag_wrapper
+
+/datum/design/crate_unloading_machine
+	name = "Machine Design (Crate Unloading Machine)"
+	id = "crateunloader"
+	req_tech = list("materials" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 10)
+	build_path = /obj/item/weapon/circuitboard/crate_unloading_machine
+
 
 ///////////////////////////////////
 //////////AI Module Disks//////////

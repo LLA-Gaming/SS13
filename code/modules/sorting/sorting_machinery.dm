@@ -7,6 +7,7 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "unloader"
 	density = 1
+	anchored = 1
 	var/_tag = 0
 	var/paper_amt = 25
 	var/max_paper_amt = 50
@@ -20,19 +21,53 @@
 
 		component_parts = list()
 		component_parts += new /obj/item/weapon/circuitboard/auto_wrapper(null)
-		component_parts += new /obj/item/stack/sheet/metal(null, 1)
 		component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 	examine()
 		..()
 		usr << "<span class='notice'>Current tag is: [_tag ? "*[TAGGERLOCATIONS[_tag]]*" : "*NONE*"]"
 		usr << "<span class='notice'>Paper Amount: [paper_amt]</span>"
+		usr << "<span class='notice'>Input Direction is [dir2text(input_dir)].</span>"
+		usr << "<span class='notice'>Output Direction is [dir2text(output_dir)].</span>"
+		if(panel_open)
+			usr << "<span class='notice'>The maintenance hatch is opened.</span>"
 
 	attack_hand(var/mob/living/user)
 		on = !on
 		user << "<span class='notice'>You turn \the [src] [on ? "on" : "off"].</span>"
 
 	attackby(var/obj/item/I, var/mob/living/user)
+		if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+			return 0
+
+		if(istype(I, /obj/item/weapon/crowbar))
+			if(panel_open)
+				default_deconstruction_crowbar(I)
+				return 0
+
+			var/what = input("What direction do you want to change?", "Input") in list("Input", "Output", "Cancel")
+			if(!what || what == "Cancel")
+				return 0
+
+			var/list/directions = list()
+			for(var/d in cardinal.Copy())
+				directions[dir2text(d)] = d
+
+			var/newdir = input("Enter new direction", "Input") in directions + "Cancel"
+			if(!newdir || newdir == "Cancel")
+				return 0
+
+			var/direction = directions[newdir]
+
+			if(what == "Input")
+				input_dir = direction
+			else if(what == "Output")
+				output_dir = direction
+
+			user << "<span class='notice'>You change the [lowertext(what)] direction to [newdir].</span>"
+
+			return 0
+
 		if(istype(I, /obj/item/device/destTagger))
 			var/obj/item/device/destTagger/tagger = I
 			if(tagger.currTag)
@@ -132,6 +167,7 @@
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "unloader"
 	density = 1
+	anchored = 1
 	var/on = 1
 	var/body_bag_amt = 7
 	var/max_body_bag_amt = 7
@@ -142,15 +178,57 @@
 		..()
 
 		component_parts = list()
-		component_parts += new /obj/item/weapon/circuitboard/sorting_conveyor(null)
-		component_parts += new /obj/item/stack/sheet/metal(null, 1)
+		component_parts += new /obj/item/weapon/circuitboard/auto_bodybag_wrapper(null)
 		component_parts += new /obj/item/stack/cable_coil(null, 1)
+
+	examine()
+		..()
+		usr << "<span class='notice'>Bodybag amount: [body_bag_amt]/[max_body_bag_amt].</span>"
+		usr << "<span class='notice'>Input Direction is [dir2text(input_dir)].</span>"
+		usr << "<span class='notice'>Output Direction is [dir2text(output_dir)].</span>"
+		if(panel_open)
+			usr << "<span class='notice'>The maintenance hatch is opened.</span>"
 
 	attack_hand(var/mob/living/user)
 		on = !on
 		user << "<span class='notice'>You turn \the [src] [on ? "on" : "off"].</span>"
 
 	attackby(var/obj/item/I, var/mob/living/user)
+		if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+			return 0
+
+		if(panel_open)
+			default_deconstruction_crowbar(I)
+			return 0
+
+		if(istype(I, /obj/item/weapon/crowbar))
+			if(panel_open)
+				default_deconstruction_crowbar(I)
+				return 0
+
+			var/what = input("What direction do you want to change?", "Input") in list("Input", "Output", "Cancel")
+			if(!what || what == "Cancel")
+				return 0
+
+			var/list/directions = list()
+			for(var/d in cardinal.Copy())
+				directions[dir2text(d)] = d
+
+			var/newdir = input("Enter new direction", "Input") in directions + "Cancel"
+			if(!newdir || newdir == "Cancel")
+				return 0
+
+			var/direction = directions[newdir]
+
+			if(what == "Input")
+				input_dir = direction
+			else if(what == "Output")
+				output_dir = direction
+
+			user << "<span class='notice'>You change the [lowertext(what)] direction to [newdir].</span>"
+
+			return 0
+
 		if(istype(I, /obj/item/bodybag))
 			if((body_bag_amt + 1) <= max_body_bag_amt)
 				user << "<span class='notice'>You add \the [I] to \the [src].</span>"
@@ -184,6 +262,57 @@
 
 /obj/machinery/mineral/unloading_machine/crate
 	var/crate_dir = NORTH
+
+	examine()
+		..()
+		usr << "<span class='notice'>Input Direction is [dir2text(input_dir)].</span>"
+		usr << "<span class='notice'>Output Direction is [dir2text(output_dir)].</span>"
+		usr << "<span class='notice'>Crate Direction is [dir2text(crate_dir)].</span>"
+
+	New()
+		..()
+
+		component_parts = list()
+		component_parts += new /obj/item/weapon/circuitboard/crate_unloading_machine(null)
+		component_parts += new /obj/item/stack/cable_coil(null, 1)
+
+	attackby(var/obj/item/I, var/mob/living/user)
+		if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+			return 0
+
+		if(panel_open)
+			default_deconstruction_crowbar(I)
+			return 0
+
+		if(istype(I, /obj/item/weapon/crowbar))
+			if(panel_open)
+				default_deconstruction_crowbar(I)
+				return 0
+
+			var/what = input("What direction do you want to change?", "Input") in list("Input", "Output", "Unloaded Crate", "Cancel")
+			if(!what || what == "Cancel")
+				return 0
+
+			var/list/directions = list()
+			for(var/d in cardinal.Copy())
+				directions[dir2text(d)] = d
+
+			var/newdir = input("Enter new direction", "Input") in directions + "Cancel"
+			if(!newdir || newdir == "Cancel")
+				return 0
+
+			var/direction = directions[newdir]
+
+			if(what == "Input")
+				input_dir = direction
+			else if(what == "Output")
+				output_dir = direction
+			else if(what == "Unloaded Crate")
+				crate_dir = direction
+
+			user << "<span class='notice'>You change the [lowertext(what)] direction to [newdir].</span>"
+
+			return 0
 
 	process()
 		var/turf/T = get_step(get_turf(src), input_dir)
