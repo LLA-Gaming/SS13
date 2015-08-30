@@ -514,6 +514,46 @@
 	for(var/i = 0; i < 7; i++)
 		new /obj/item/weapon/light/bulb(src)
 
+/obj/item/weapon/storage/box/conveyor_boards
+	name = "box of conveyor boards"
+	icon_state = "circuit"
+
+	New()
+		..()
+
+		for(var/i = 1 to 7)
+			new /obj/item/weapon/circuitboard/conveyor(src)
+
+/obj/item/weapon/storage/box/conveyor_switch_boards
+	name = "box of conveyor switch boards"
+	icon_state = "circuit"
+
+	New()
+		..()
+
+		for(var/i = 1 to 7)
+			new /obj/item/weapon/circuitboard/conveyor_switch(src)
+
+/obj/item/weapon/storage/box/sorting_conveyor_boards
+	name = "box of sorting conveyor boards"
+	icon_state = "circuit"
+
+	New()
+		..()
+
+		for(var/i = 1 to 7)
+			new /obj/item/weapon/circuitboard/sorting_conveyor(src)
+
+/obj/item/weapon/storage/box/sorting_cartridges
+	name = "box of sorting cartridges"
+	icon_state = "pda"
+
+	New()
+		..()
+
+		for(var/i = 1 to 7)
+			new /obj/item/sorting_cartridge(src)
+
 //Cosmetic boxes
 
 /obj/item/weapon/storage/box/tools

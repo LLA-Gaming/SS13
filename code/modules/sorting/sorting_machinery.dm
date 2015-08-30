@@ -15,6 +15,14 @@
 	var/on = 1
 	var/list/restricted = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/weapon/evidencebag, /obj/item/weapon/storage)
 
+	New()
+		..()
+
+		component_parts = list()
+		component_parts += new /obj/item/weapon/circuitboard/sorting_conveyor(null)
+		component_parts += new /obj/item/stack/sheet/metal(null, 1)
+		component_parts += new /obj/item/stack/cable_coil(null, 1)
+
 	examine()
 		..()
 		usr << "<span class='notice'>Current tag is: [_tag ? "*[TAGGERLOCATIONS[_tag]]*" : "*NONE*"]"
@@ -129,6 +137,14 @@
 	var/max_body_bag_amt = 7
 	var/input_dir = WEST
 	var/output_dir = EAST
+
+	New()
+		..()
+
+		component_parts = list()
+		component_parts += new /obj/item/weapon/circuitboard/sorting_conveyor(null)
+		component_parts += new /obj/item/stack/sheet/metal(null, 1)
+		component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 	attack_hand(var/mob/living/user)
 		on = !on

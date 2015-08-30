@@ -55,8 +55,7 @@ var/list/conveyor_belts = list()
 
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/conveyor(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stack/sheet/metal(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 /obj/machinery/conveyor/proc/UpdateDirections()
@@ -267,8 +266,7 @@ var/list/conveyor_switches = list()
 
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/conveyor_switch(null)
-	component_parts += new /obj/item/weapon/stock_parts/manipulator(null)
-	component_parts += new /obj/item/weapon/stock_parts/capacitor(null)
+	component_parts += new /obj/item/stack/sheet/metal(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 	spawn(5)		// allow map load
