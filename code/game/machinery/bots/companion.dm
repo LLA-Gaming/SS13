@@ -247,7 +247,7 @@
 				walk_to(src, src.target,1,4)
 
 		//speech
-		if(prob(1) && !to_say)
+		if(prob(5) && !to_say)
 			var/message = safepick(idle_speech)
 			if(message && talk)
 				src.speak(message)
@@ -420,13 +420,12 @@
 			command_speech.Remove(href_list["phrase"])
 
 		else if(href_list["Final"])
-			var/obj/machinery/bot/companion/C = new /obj/machinery/bot/companion
+			var/obj/machinery/bot/companion/C = new(get_turf(src))
 			C.name = created_name
 			C.desc = created_desc
 			C.botcard_access = botcard_access
 			C.idle_speech = idle_speech
 			C.command_speech = command_speech
-			C.loc = src.loc
 			if(istype(usr,/mob/living/carbon/human))
 				C.friends.Add(usr)
 				C.speak("Friend registered: [usr]")
