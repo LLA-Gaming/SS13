@@ -19,7 +19,7 @@
 		..()
 
 		component_parts = list()
-		component_parts += new /obj/item/weapon/circuitboard/sorting_conveyor(null)
+		component_parts += new /obj/item/weapon/circuitboard/auto_wrapper(null)
 		component_parts += new /obj/item/stack/sheet/metal(null, 1)
 		component_parts += new /obj/item/stack/cable_coil(null, 1)
 

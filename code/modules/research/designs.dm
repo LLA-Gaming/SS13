@@ -415,6 +415,22 @@ datum/design/aifixer
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/conveyor_switch
 
+/datum/design/auto_wrapper
+	name = "Machine Design (Auto Tag & Wrapper)"
+	id = "autotagandwrapper"
+	req_tech = list("materials" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/auto_wrapper
+
+/datum/design/auto_bodybag_wrapper
+	name = "Machine Design (Auto Bodybag Wrapper)"
+	id = "autotagandwrapper"
+	req_tech = list("materials" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 20)
+	build_path = /obj/item/weapon/circuitboard/auto_bodybag_wrapper
+
 ///////////////////////////////////
 //////////AI Module Disks//////////
 ///////////////////////////////////

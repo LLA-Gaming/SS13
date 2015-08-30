@@ -552,24 +552,33 @@ obj/item/weapon/circuitboard/rdserver
 	build_path = /obj/machinery/sorting_conveyor
 	origin_tech = "programming=2;materials=2"
 	board_type = "machine"
-	req_components = list(
-		"/obj/item/stack/cable_coil" = 1
-	)
+	req_components = list("/obj/item/stack/cable_coil" = 1)
 
 /obj/item/weapon/circuitboard/conveyor
 	name = "circuit board (Conveyor)"
 	build_path = /obj/machinery/conveyor
 	origin_tech = "materials=2"
 	board_type = "machine"
-	req_components = list(
-		"/obj/item/stack/cable_coil" = 1
-	)
+	req_components = list("/obj/item/stack/cable_coil" = 1)
 
 /obj/item/weapon/circuitboard/conveyor_switch
 	name = "circuit board (Conveyor Switch)"
 	build_path = /obj/machinery/conveyor_switch
 	origin_tech = "materials=2"
 	board_type = "machine"
-	req_components = list(
-		"/obj/item/stack/cable_coil" = 1
-	)
+	req_components = list("/obj/item/stack/cable_coil" = 1)
+
+/obj/item/weapon/circuitboard/auto_wrapper
+	name = "circuit board (Auto Tag & Wrapper)"
+	build_path = /obj/machinery/auto_wrapper
+	origin_tech = "materials=2;engineering=2"
+	board_type = "machine"
+	req_components = list("/obj/item/stack/cable_coil" = 1)
+
+/obj/item/weapon/circuitboard/auto_bodybag_wrapper
+	name = "circuit board (Auto Bodybag Wrapper)"
+	build_path = /obj/machinery/auto_bodybag_wrapper
+	origin_tech = "materials=2;engineering=2"
+	board_type = "machine"
+	req_components = list("/obj/item/stack/cable_coil" = 1)
+
