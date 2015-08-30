@@ -66,6 +66,9 @@
 	for(var/obj/item/weapon/stock_parts/cell/PC in component_parts)
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
+	var/obj/item/weapon/circuitboard/smes/smes_board = locate() in component_parts
+	if(smes_board && smes_board.previous_charge)
+		charge = smes_board.previous_charge
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
@@ -174,6 +177,10 @@
 		output_used = min( charge/SMESRATE, output_level)		//limit output to that stored
 
 		charge -= output_used*SMESRATE		// reduce the storage (may be recovered in /restore() if excessive)
+
+		var/obj/item/weapon/circuitboard/smes/smes_board = locate() in component_parts
+		if(smes_board)
+			smes_board.previous_charge = charge
 
 		add_avail(output_used)				// add output to powernet (smes side)
 

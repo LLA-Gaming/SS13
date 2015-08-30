@@ -197,6 +197,7 @@ to destroy them and players will be able to make replacements.
 							"/obj/item/stack/cable_coil" = 5,
 							"/obj/item/weapon/stock_parts/cell" = 5,
 							"/obj/item/weapon/stock_parts/capacitor" = 1)
+	var/previous_charge = 0
 
 /obj/item/weapon/circuitboard/power_compressor
 	name = "circuit board (Power Compressor)"

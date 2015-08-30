@@ -41,7 +41,8 @@
 	var/safe_weapons = list(\
 		/obj/item/weapon/gun/energy/laser/bluetag,\
 		/obj/item/weapon/gun/energy/laser/redtag,\
-		/obj/item/weapon/gun/energy/laser/practice)
+		/obj/item/weapon/gun/energy/laser/practice,\
+		/obj/item/weapon/gun/projectile/revolver/doublebarrel = access_bar)
 
 	var/turf/patrol_target	// this is turf to navigate to (location of beacon)
 	var/new_destination		// pending new destination (waiting for beacon response)
@@ -621,16 +622,16 @@ Auto Patrol: []"},
 
 	if(src.idcheck && !src.allowed(perp))
 
-		if(check_for_weapons(perp.l_hand))
+		if(check_for_weapons(perp.l_hand, perp))
 			threatcount += 4
-		if(check_for_weapons(perp.r_hand))
+		if(check_for_weapons(perp.r_hand, perp))
 			threatcount += 4
 
 	if(istype(perp, /mob/living/carbon/human))
 		var/mob/living/carbon/human/humanperp = perp
 
 		if(src.idcheck && !src.allowed(perp))
-			if(check_for_weapons(humanperp.belt))
+			if(check_for_weapons(humanperp.belt, perp))
 				threatcount += 2
 
 		if(istype(humanperp.head, /obj/item/clothing/head/wizard) || istype(humanperp.head, /obj/item/clothing/head/helmet/space/rig/wizard))
@@ -653,10 +654,42 @@ Auto Patrol: []"},
 
 	return threatcount
 
-/obj/machinery/bot/secbot/proc/check_for_weapons(var/obj/item/slot_item)
+/obj/machinery/bot/secbot/proc/HasAccess(var/mob/living/carbon/perp, var/required_access = 0)
+	var/list/items = list()
+	items += perp.get_active_hand()
+	if(ishuman(perp))
+		var/mob/living/carbon/human/H = perp
+		items += H.wear_id
+
+	for(var/obj/item/item in items)
+		var/obj/item/weapon/card/id/I = 0
+		if(istype(item, /obj/item/weapon/card/id))
+			I = item
+
+		if(istype(I, /obj/item/device/tablet))
+			var/obj/item/device/tablet/pda = I
+			I = pda.id
+
+		if(!istype(I) || !I.access) //not ID or no access
+			continue
+
+		if(!(required_access in I.access))
+			continue
+
+		return 1
+
+	return 0
+
+/obj/machinery/bot/secbot/proc/check_for_weapons(var/obj/item/slot_item, var/mob/living/carbon/perp)
 	if(istype(slot_item, /obj/item/weapon/gun) || istype(slot_item, /obj/item/weapon/melee))
+		for(var/path in safe_weapons)
+			var/required_access = safe_weapons[path]
+			if(istype(slot_item, path) && required_access && !HasAccess(perp, required_access))
+				return 1
+
 		if(!(slot_item.type in safe_weapons))
 			return 1
+
 	return 0
 
 /obj/machinery/bot/secbot/Bump(M as mob|obj) //Leave no door unopened!

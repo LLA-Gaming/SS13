@@ -182,6 +182,12 @@
 		if(..())
 			return 0
 
+		if(istype(loc, /obj/machinery/sorting_conveyor))
+			if(!usr.canUseTopic(loc))
+				return 0
+		else if(!usr.canUseTopic(src))
+			return 0
+
 		if(href_list["action"] == "changedir")
 			var/newdir = ChangeDirInput(usr)
 			if(!newdir)
