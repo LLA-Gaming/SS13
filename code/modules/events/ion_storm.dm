@@ -4,7 +4,10 @@
 /datum/round_event_control/ion_storm
 	name = "Ion Storm"
 	typepath = /datum/round_event/ion_storm
-	weight = 15
+	rating = list(
+				"Gameplay"	= 55,
+				"Dangerous"	= 40
+				)
 
 /datum/round_event/ion_storm
 	var/botEmagChance = 10

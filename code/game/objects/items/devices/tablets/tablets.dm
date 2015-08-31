@@ -205,6 +205,8 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 	if (banned) return 0
 	if (core.neton)
 		for (var/list/obj/machinery/nanonet_server/MS in nanonet_servers)
+			if(MS.stat & (BROKEN|NOPOWER|EMPED))
+				return
 			if(MS.active)
 				if(MS.z == T.z)//on the same z-level?
 					return 1

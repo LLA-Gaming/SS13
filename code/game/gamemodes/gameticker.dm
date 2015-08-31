@@ -13,12 +13,15 @@ var/round_start_time = 0
 	var/hide_mode = 0
 	var/datum/game_mode/mode = null
 	var/list/assignments = list()
+	var/list/timeline = list() 	//timeline of events
 	var/event_time = null
 	var/event = 0
 
 	var/login_music			// music played in pregame lobby
 
 	var/list/datum/mind/minds = list()//The people in the game. Used for objective tracking.
+
+	var/datum/roundintel/intel //Holds the ticker's round intel (deaths, timeline)
 
 	var/Bible_icon_state	// icon_state the chaplain has chosen for his bible
 	var/Bible_item_state	// item_state the chaplain has chosen for his bible
@@ -131,6 +134,7 @@ var/round_start_time = 0
 	collect_minds()
 	equip_characters()
 	data_core.manifest()
+	intel = new /datum/roundintel
 	current_state = GAME_STATE_PLAYING
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
@@ -146,6 +150,20 @@ var/round_start_time = 0
 		if(events.holiday)
 			world << "<font color='blue'>and...</font>"
 			world << "<h4>Happy [events.holiday] Everybody!</h4>"
+
+		//timeline stuff
+		timeline.Add("<b>[station_name]</b>")
+		timeline.Add("<b>Starting Crew:</b>")
+		var/list/crew = list()
+		for(var/datum/mind/M in minds)
+			if(!(M.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander", "SPECIAL")) && (M.special_role != "MODE"))
+				crew.Add("[M.name] ([M.assigned_role])")
+		crew = sortList(crew)
+		timeline.Add("[english_list(crew)]")
+		add2timeline("Shift begins!",1)
+		if(intel)
+			intel.gather_stats()
+		//end timeline stuff
 
 	if(!admins.len)
 		send2irc("Server", "Round just started with no admins online!")
@@ -383,6 +401,11 @@ var/round_start_time = 0
 	for(var/i in total_antagonists)
 		log_game("[i]s[total_antagonists[i]].")
 
+	//kill any unfinished events
+	if(events)
+		for(var/datum/round_event/E in events.running)
+			events.finished += E //save these for end round stuff
+			E.kill()
 	evaluate_station() // Scorestation stuff
 
 	world << "<b>Perseus Missions at the end:</b>"

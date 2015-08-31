@@ -1,3 +1,31 @@
+[Pod]
+
+damage_overlay_threshold 40
+ex_act_damage 50
+blob_act_damage 25
+emp_act_attachment_toggle_chance 60
+emp_act_power_absorb_percent 30
+emp_act_duration 300
+emp_sparkchance 5
+fire_damage_cooldown 20
+fire_damage 5
+fire_damage_oygen_cutoff 0.9
+fire_oxygen_consumption_percent 0.10
+damage_notice_cooldown 10
+pod_pullout_delay 80
+metal_repair_threshold_percent 75
+welding_repair_amount 5
+metal_repair_amount 15
+
+drivable /turf/space
+drivable /turf/simulated/floor/engine
+drivable /turf/simulated/floor/plating
+drivable /turf/unsimulated/floor/engine
+drivable /turf/unsimulated/floor/plating
+drivable /turf/simulated/floor/airless
+
+#####################################
+
 [Mining]
 
 high_chance_create_mineral 25

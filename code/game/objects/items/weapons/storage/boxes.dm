@@ -38,9 +38,7 @@
 		return
 
 	//Close any open UI windows first
-	var/found = close_all()
-	if(!found)	//No user had any windows closed
-		return
+	close_all()
 
 	user << "<span class='notice'>You fold [src] flat.</span>"
 	var/obj/item/I = new foldable(get_turf(src))
@@ -513,6 +511,46 @@
 		new /obj/item/weapon/light/tube(src)
 	for(var/i = 0; i < 7; i++)
 		new /obj/item/weapon/light/bulb(src)
+
+/obj/item/weapon/storage/box/conveyor_boards
+	name = "box of conveyor boards"
+	icon_state = "circuit"
+
+	New()
+		..()
+
+		for(var/i = 1 to 7)
+			new /obj/item/weapon/circuitboard/conveyor(src)
+
+/obj/item/weapon/storage/box/conveyor_switch_boards
+	name = "box of conveyor switch boards"
+	icon_state = "circuit"
+
+	New()
+		..()
+
+		for(var/i = 1 to 7)
+			new /obj/item/weapon/circuitboard/conveyor_switch(src)
+
+/obj/item/weapon/storage/box/sorting_conveyor_boards
+	name = "box of sorting conveyor boards"
+	icon_state = "circuit"
+
+	New()
+		..()
+
+		for(var/i = 1 to 7)
+			new /obj/item/weapon/circuitboard/sorting_conveyor(src)
+
+/obj/item/weapon/storage/box/sorting_cartridges
+	name = "box of sorting cartridges"
+	icon_state = "pda"
+
+	New()
+		..()
+
+		for(var/i = 1 to 7)
+			new /obj/item/sorting_cartridge(src)
 
 //Cosmetic boxes
 

@@ -304,7 +304,8 @@ proc/isInSight(var/atom/A, var/atom/B)
 	while(!candidates.len && afk_bracket < 6000)
 		for(var/mob/dead/observer/G in player_list)
 			if(G.client != null)
-				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
+				//Basically if the following isn't true, conisder them. that being that they can renter there corpse, has a mind, has a body, and that body isnt dead
+				if(!(G.can_reenter_corpse && G.mind && G.mind.current && G.mind.current.stat != DEAD))
 					if(!G.client.is_afk(afk_bracket) && (G.client.prefs.be_special & be_special_flag))
 						candidates += G.client
 		afk_bracket += 600 // Add a minute to the bracket, for every attempt

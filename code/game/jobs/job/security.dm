@@ -210,21 +210,22 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science", "
 	else
 		var/department = ""
 		var/gotdept
-		if(H.client.prefs.prefer_dept != "Any")
-			for(var/dept in sec_departments)
-				if(H.client.prefs.prefer_dept == dept)
-					department = dept
-					sec_departments -= dept
-					gotdept = 1
-					break
-			if(!gotdept)
-				if(!sec_departments.len)
-					H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
+		if(H.client)
+			if(H.client.prefs.prefer_dept != "Any")
+				for(var/dept in sec_departments)
+					if(H.client.prefs.prefer_dept == dept)
+						department = dept
+						sec_departments -= dept
+						gotdept = 1
+						break
+				if(!gotdept)
+					if(!sec_departments.len)
+						H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
+					department = pick(sec_departments)
+					sec_departments -= department
+			if(H.client.prefs.prefer_dept == "Any")
 				department = pick(sec_departments)
 				sec_departments -= department
-		if(H.client.prefs.prefer_dept == "Any")
-			department = pick(sec_departments)
-			sec_departments -= department
 		var/destination = null
 		switch(department)
 			if("Supply")

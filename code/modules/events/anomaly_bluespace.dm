@@ -2,7 +2,10 @@
 	name = "Bluespace Anomaly"
 	typepath = /datum/round_event/anomaly/anomaly_bluespace
 	max_occurrences = 1
-	weight = 5
+	rating = list(
+				"Gameplay"	= 10,
+				"Dangerous"	= 75
+				)
 
 /datum/round_event/anomaly/anomaly_bluespace
 	startWhen = 3
@@ -21,6 +24,10 @@
 
 
 /datum/round_event/anomaly/anomaly_bluespace/end()
+	if(newAnomaly && !newAnomaly.loc) //if it doesn't exist in the game world its probably in the GC
+		failed = 0
+		qdel(newAnomaly)
+		return
 	if(newAnomaly)//If it hasn't been neutralized, it's time to warp half the station away jeez
 		var/turf/T = pick(get_area_turfs(impact_area))
 		if(T)
@@ -74,4 +81,13 @@
 								sleep(20)
 								M.client.screen -= blueeffect
 								qdel(blueeffect)
+		failed = 1
 		qdel(newAnomaly)
+	else
+		failed = 0
+
+/datum/round_event/anomaly/anomaly_bluespace/declare_completion()
+	if(failed)
+		return "<b>Bluespace Anomaly:</b> <font color='red'>The anomaly was not deactivated, teleporting most of [impact_area.name] to an unknown location!</font>"
+	else
+		return "<b>Bluespace Anomaly:</b> <font color='green'>The anomaly was deactivated by the crew, preventing [impact_area.name] from teleporting away!</font>"

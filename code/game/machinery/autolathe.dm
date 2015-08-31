@@ -49,7 +49,8 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/newscaster_frame(), \
 		new /obj/item/weapon/reagent_containers/syringe(), \
 		new /obj/item/device/assembly/prox_sensor(), \
-		new /obj/item/clothing/glasses/virtual()
+		new /obj/item/clothing/glasses/virtual(),
+		new /obj/item/sorting_cartridge()
 	)
 
 var/global/list/autolathe_recipes_hidden = list( \

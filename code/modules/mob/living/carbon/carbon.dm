@@ -386,6 +386,10 @@
 		var/obj/mecha/M = loc
 		loc_temp =  M.return_temperature()
 
+	else if(istype(loc, /obj/pod))
+		var/obj/pod/P = loc
+		loc_temp = P.return_temperature()
+
 	else if(istype(loc, /obj/structure/transit_tube_pod))
 		loc_temp = environment.temperature
 

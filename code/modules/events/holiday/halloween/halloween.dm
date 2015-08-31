@@ -2,9 +2,8 @@
 	name = "2 SPOOKY!"
 	holidayID = "Halloween"
 	typepath = /datum/round_event/spooky
-	weight = -1							//forces it to be called, regardless of weight
 	max_occurrences = 1
-	earliest_start = 0
+	phases_required = -1 //round start
 
 /datum/round_event/spooky/
 	var/minWerewolfAmt = 1

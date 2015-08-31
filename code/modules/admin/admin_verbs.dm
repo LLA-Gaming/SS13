@@ -49,7 +49,8 @@ var/list/admin_verbs_secondary_admin = list(
 	/client/proc/delete_fire,
 	/client/proc/reset_atmos,
 	/datum/admins/proc/unprison,
-	/client/proc/cmd_mentor_say
+	/client/proc/cmd_mentor_say,
+	/client/proc/view_pod_logs
 	//+BANS
 	)
 
@@ -91,7 +92,7 @@ var/list/admin_verbs_primary_admin = list(
 	/client/proc/set_ooc,
 	/client/proc/cmd_admin_dress,
 	/client/proc/respawn_character,
-	///client/proc/edit_motd,			//Edit the server MOTD // Commented out per request of taicho
+	/datum/admins/proc/event_panel,
 	/datum/admins/proc/toggle_vr
 	)
 

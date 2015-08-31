@@ -1,8 +1,12 @@
 /datum/round_event_control/xenosky_infestation
 	name = "Xenosky Infestation"
 	typepath = /datum/round_event/xenosky_infestation
-	weight = 0
-	max_occurrences = 1
+	max_occurrences = 0
+	needs_ghosts = 1
+	rating = list(
+				"Gameplay"	= 90,
+				"Dangerous"	= 90
+				)
 
 /datum/round_event/xenosky_infestation
 	announceWhen	= 400
@@ -24,6 +28,10 @@
 	if(successSpawn)
 		priority_announce("Unidentified security hardware detected aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", 'sound/AI/aliens.ogg')
 
+/datum/round_event/xenosky_infestation/tick_queue()
+	var/list/candidates = get_candidates(BE_ALIEN, ALIEN_AFK_BRACKET)
+	if(candidates.len)
+		unqueue()
 
 /datum/round_event/xenosky_infestation/start()
 	var/list/vents = list()
@@ -33,7 +41,9 @@
 				vents += temp_vent
 
 	var/list/candidates = get_candidates(BE_ALIEN, ALIEN_AFK_BRACKET)
-
+	if(!candidates.len && events.queue_ghost_events && !loopsafety)
+		queue()
+		return
 	while(spawncount > 0 && vents.len && candidates.len)
 		var/obj/vent = pick_n_take(vents)
 		var/client/C = pick_n_take(candidates)
@@ -43,3 +53,16 @@
 
 		spawncount--
 		successSpawn = 1
+
+/datum/round_event/xenosky_infestation/declare_completion()
+	var/alien_count = 0
+	for(var/mob/living/carbon/alien/beepsky/humanoid/H in world)
+		if(H.stat != DEAD)
+			alien_count++
+	for(var/mob/living/carbon/alien/beepsky/larva/L in world)
+		if(L.stat != DEAD)
+			alien_count++
+	if(alien_count)
+		return "<b>Xenosky Infestation:</b> <font color='red'>[alien_count] Alien(s) survived</font>"
+	else
+		return "<b>Xenosky Infestation:</b> <font color='green'>All aliens were wiped out from [station_name]</font>"

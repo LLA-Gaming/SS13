@@ -2,6 +2,10 @@
 	name = "Prison Break"
 	typepath = /datum/round_event/prison_break
 	max_occurrences = 2
+	rating = list(
+				"Gameplay"	= 50,
+				"Dangerous"	= 60
+				)
 
 /datum/round_event/prison_break
 	announceWhen = 50
@@ -43,10 +47,12 @@
 				temp.icon_state = temp.icon_closed
 			else if(istype(O,/obj/machinery/door/airlock/security))
 				var/obj/machinery/door/airlock/security/temp = O
-				temp.prison_open()
+				spawn(0)
+					temp.prison_open()
 			else if(istype(O,/obj/machinery/door/airlock/glass_security))
 				var/obj/machinery/door/airlock/glass_security/temp = O
-				temp.prison_open()
+				spawn(0)
+					temp.prison_open()
 			else if(istype(O,/obj/machinery/brig_timer))
 				var/obj/machinery/brig_timer/temp = O
 				temp.releasetime = 1

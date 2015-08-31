@@ -36,7 +36,9 @@
 	updateicon()
 	update_fire()
 	tod = worldtime2text() //weasellos time of death patch
-	if(mind)	mind.store_memory("Time of death: [tod]", 0)
+	if(mind)
+		mind.store_memory("Time of death: [tod]", 0)
+		add2timeline("[mind.name] ([mind.assigned_role]) died")
 
 	sql_report_cyborg_death(src)
 

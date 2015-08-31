@@ -1,13 +1,17 @@
 /datum/round_event_control/brand_intelligence
 	name = "Brand Intelligence"
 	typepath = /datum/round_event/brand_intelligence
-	weight = 5
 	max_occurrences = 1
+	rating = list(
+				"Gameplay"	= 75,
+				"Dangerous"	= 80
+				)
 
 /datum/round_event/brand_intelligence
 	announceWhen	= 21
 	endWhen			= 1000	//Ends when all vending machines are subverted anyway.
 
+	var/prevented = 0
 	var/list/obj/machinery/vending/vendingMachines = list()
 	var/list/obj/machinery/vending/infectedMachines = list()
 	var/obj/machinery/vending/originMachine
@@ -19,22 +23,24 @@
 									 "Advertising is legalized lying! But don't let that put you off our great deals!", \
 									 "You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
 
-
-/datum/round_event/brand_intelligence/announce()
-	priority_announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert")
-
-
-/datum/round_event/brand_intelligence/start()
+/datum/round_event/brand_intelligence/setup()
 	for(var/obj/machinery/vending/V in machines)
 		if(V.z != 1)	continue
 		vendingMachines.Add(V)
 
 	if(!vendingMachines.len)
-		kill()
 		return
 
 	originMachine = pick(vendingMachines)
 	vendingMachines.Remove(originMachine)
+
+/datum/round_event/brand_intelligence/announce()
+	if(!vendingMachines.len)
+		kill()
+		return
+	priority_announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert")
+
+/datum/round_event/brand_intelligence/start()
 	originMachine.shut_up = 0
 	originMachine.shoot_inventory = 1
 
@@ -46,6 +52,7 @@
 		if(originMachine)
 			originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
 			originMachine.visible_message("[originMachine] beeps and seems lifeless.")
+		events.finished += src //save these for end round stuff
 		kill()
 		return
 
@@ -60,6 +67,7 @@
 				explosion(upriser.loc, -1, 1, 2, 4, 0)
 				qdel(upriser)
 
+		events.finished += src //save these for end round stuff
 		kill()
 		return
 
@@ -72,3 +80,11 @@
 
 		if(IsMultiple(activeFor, 8))
 			originMachine.speak(pick(rampant_speeches))
+
+/datum/round_event/brand_intelligence/declare_completion()
+	if(!infectedMachines.len)
+		return "<b>Brand Intelligence:</b> <font color='green'>The crew defeated ALL of the uprising vending machines.</font>"
+	if(infectedMachines.len >= 3)
+		return "<b>Brand Intelligence:</b> <font color='red'>The machine uprising was a astounding success</font>"
+	if(infectedMachines.len <= 3)
+		return "<b>Brand Intelligence:</b> <font color='green'>The crew defeated most of the uprising vending machines.</font>"

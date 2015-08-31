@@ -197,6 +197,7 @@ to destroy them and players will be able to make replacements.
 							"/obj/item/stack/cable_coil" = 5,
 							"/obj/item/weapon/stock_parts/cell" = 5,
 							"/obj/item/weapon/stock_parts/capacitor" = 1)
+	var/previous_charge = 0
 
 /obj/item/weapon/circuitboard/power_compressor
 	name = "circuit board (Power Compressor)"
@@ -415,7 +416,7 @@ obj/item/weapon/circuitboard/rdserver
 
 /obj/item/weapon/circuitboard/mechfab
 	name = "circuit board (Exosuit Fabricator)"
-	build_path = /obj/machinery/mecha_part_fabricator
+	build_path = /obj/machinery/part_fabricator/exosuit
 	board_type = "machine"
 	origin_tech = "programming=3;engineering=3"
 	req_components = list(
@@ -546,3 +547,46 @@ obj/item/weapon/circuitboard/rdserver
 							"/obj/item/weapon/stock_parts/subspace/amplifier" = 1,
 							"/obj/item/weapon/stock_parts/manipulator/nano" = 3,
 							"/obj/item/weapon/stock_parts/scanning_module/adv" = 1)
+
+/obj/item/weapon/circuitboard/sorting_conveyor
+	name = "circuit board (Sorting Conveyor)"
+	build_path = /obj/machinery/sorting_conveyor
+	origin_tech = "programming=2;materials=2"
+	board_type = "machine"
+	req_components = list("/obj/item/stack/cable_coil" = 1)
+
+/obj/item/weapon/circuitboard/conveyor
+	name = "circuit board (Conveyor)"
+	build_path = /obj/machinery/conveyor
+	origin_tech = "materials=2"
+	board_type = "machine"
+	req_components = list("/obj/item/stack/cable_coil" = 1)
+
+/obj/item/weapon/circuitboard/conveyor_switch
+	name = "circuit board (Conveyor Switch)"
+	build_path = /obj/machinery/conveyor_switch
+	origin_tech = "materials=2"
+	board_type = "machine"
+	req_components = list("/obj/item/stack/cable_coil" = 1)
+
+/obj/item/weapon/circuitboard/auto_wrapper
+	name = "circuit board (Auto Tag & Wrapper)"
+	build_path = /obj/machinery/auto_wrapper
+	origin_tech = "materials=2;engineering=2"
+	board_type = "machine"
+	req_components = list("/obj/item/stack/cable_coil" = 1)
+
+/obj/item/weapon/circuitboard/auto_bodybag_wrapper
+	name = "circuit board (Auto Bodybag Wrapper)"
+	build_path = /obj/machinery/auto_bodybag_wrapper
+	origin_tech = "materials=2;engineering=2"
+	board_type = "machine"
+	req_components = list("/obj/item/stack/cable_coil" = 1)
+
+/obj/item/weapon/circuitboard/crate_unloading_machine
+	name = "circuit board (Crate Unloading Machine)"
+	build_path = /obj/machinery/mineral/unloading_machine/crate
+	origin_tech = "materials=2;engineering=2"
+	board_type = "machine"
+	req_components = list("/obj/item/stack/cable_coil" = 1)
+

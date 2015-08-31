@@ -37,6 +37,7 @@ other types of metals and chemistry for reagents).
 #define	AUTOLATHE	4	//Uses glass/metal only.
 #define CRAFTLATHE	8	//Uses fuck if I know. For use eventually.
 #define MECHFAB		16 //Remember, objects utilising this flag should have construction_time and construction_cost vars.
+#define PODFAB		32
 //Note: More then one of these can be added to a design but imprinter and lathe designs are incompatable.
 
 datum/design						//Datum for object designs, used in construction
@@ -389,6 +390,55 @@ datum/design/aifixer
 	build_type = IMPRINTER
 	materials = list("$glass" = 1000, "sacid" = 20)
 	build_path = /obj/item/weapon/circuitboard/aifixer
+
+/datum/design/conveyor
+	name = "Machine Design (Conveyor)"
+	id = "conveyor"
+	req_tech = list("materials" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 200, "sacid" = 5)
+	build_path = /obj/item/weapon/circuitboard/conveyor
+
+/datum/design/sorting_conveyor
+	name = "Machine Design (Sorting Conveyor)"
+	id = "sortingconveyor"
+	req_tech = list("programming" = 2, "materials" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 10)
+	build_path = /obj/item/weapon/circuitboard/sorting_conveyor
+
+/datum/design/conveyor_switch
+	name = "Machine Design (Conveyor Switch)"
+	id = "conveyorswitch"
+	req_tech = list("materials" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 200, "sacid" = 5)
+	build_path = /obj/item/weapon/circuitboard/conveyor_switch
+
+/datum/design/auto_wrapper
+	name = "Machine Design (Auto Tag & Wrapper)"
+	id = "autotagandwrapper"
+	req_tech = list("materials" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 10)
+	build_path = /obj/item/weapon/circuitboard/auto_wrapper
+
+/datum/design/auto_bodybag_wrapper
+	name = "Machine Design (Auto Bodybag Wrapper)"
+	id = "autotagandwrapper"
+	req_tech = list("materials" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 10)
+	build_path = /obj/item/weapon/circuitboard/auto_bodybag_wrapper
+
+/datum/design/crate_unloading_machine
+	name = "Machine Design (Crate Unloading Machine)"
+	id = "crateunloader"
+	req_tech = list("materials" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list("$glass" = 1000, "sacid" = 10)
+	build_path = /obj/item/weapon/circuitboard/crate_unloading_machine
+
 
 ///////////////////////////////////
 //////////AI Module Disks//////////
