@@ -2,7 +2,11 @@
 	name = "Energetic Flux"
 	typepath = /datum/round_event/anomaly/anomaly_flux
 	max_occurrences = 2
-	weight = 15
+	rating = list(
+				"Gameplay"	= 10,
+				"Dangerous"	= 90
+				)
+
 
 /datum/round_event/anomaly/anomaly_flux
 	startWhen = 3
@@ -21,6 +25,19 @@
 
 
 /datum/round_event/anomaly/anomaly_flux/end()
+	if(newAnomaly && !newAnomaly.loc) //if it doesn't exist in the game world its probably in the GC
+		failed = 0
+		qdel(newAnomaly)
+		return
 	if(newAnomaly)//If it hasn't been neutralized, it's time to blow up.
+		failed = 1
 		explosion(newAnomaly, -1, 3, 5, 5)
 		qdel(newAnomaly)
+	else
+		failed = 0
+
+/datum/round_event/anomaly/anomaly_flux/declare_completion()
+	if(failed)
+		return "<b>Energetic Flux:</b> <font color='red'>The anomaly was not deactivated, causing heavy damage to [impact_area.name]!</font>"
+	else
+		return "<b>Energetic Flux:</b> <font color='green'>The flux wave in [impact_area.name] was deactivated by the crew, averting the imminent explosion.</font>"

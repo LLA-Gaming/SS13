@@ -6,8 +6,12 @@
 /datum/round_event_control/shuttle_loan
 	name = "Shuttle loan"
 	typepath = /datum/round_event/shuttle_loan
+	phases_required = 0
 	max_occurrences = 1
-	earliest_start = 0
+	rating = list(
+				"Gameplay"	= 80,
+				"Dangerous"	= 20
+				)
 
 /datum/round_event/shuttle_loan
 	endWhen = 500

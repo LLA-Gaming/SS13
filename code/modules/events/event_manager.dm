@@ -3,10 +3,31 @@ var/datum/controller/event/events
 /datum/controller/event
 	var/list/control = list()	//list of all datum/round_event_control. Used for selecting events based on weight and occurrences.
 	var/list/running = list()	//list of all existing /datum/round_event
+	var/list/queue = list()		//list of all queued events to fire when a candidate is available
+	var/list/finished = list()  //list of all ended events.
 
 	var/scheduled = 0			//The next world.time that a naturally occuring random event can be selected.
 	var/frequency_lower = 3000	//5 minutes lower bound.
 	var/frequency_upper = 9000	//15 minutes upper bound. Basically an event will happen every 15 to 30 minutes.
+	var/phase = 0				//how many times the event scheduler has scheduled itself
+
+	var/autoratings = 1 // to adjust the ratings
+	var/allow_enders = 0 // allow finales (no finales made yet)
+	var/true_random = 0 //1 to ignore the ratings and make everything equal
+	var/spawnrate_mode = 0 //1 for faster event spawning
+
+	//configs
+	var/stddev = 0.75
+	var/queue_ghost_events = 1
+	var/timelocks = 1
+
+	//This list decides how to modify the difficulty variable in running a event based on
+	//the distance between the targets (the values below) and the events values with the same title
+	//Think of these like a 100 x 100 grid with 50,50 being the absolute middle
+	var/list/rating = list(
+						"Gameplay"	= 50,	// 0 to 100: 0 for annoying, 100 for gameplay
+						"Dangerous"	= 0	// 0 to 100: 0 for filler, 100 for dangerous
+						)
 
 	var/holiday					//This will be a string of the name of any realworld holiday which occurs today (GMT time)
 
@@ -18,11 +39,18 @@ var/datum/controller/event/events
 			del(events)
 		events = src
 
+	//configs
+	if(config)
+		stddev = config.events_stddev
+		queue_ghost_events = config.events_queue_ghost_events
+		timelocks = config.events_timelocks
+
 	for(var/type in typesof(/datum/round_event_control))
 		var/datum/round_event_control/E = new type()
 		if(!E.typepath)
 			continue				//don't want this one! leave it for the garbage collector
 		control += E				//add it to the list of all events (controls)
+
 	reschedule()
 	getHoliday()
 	handleSchedule(holiday)
@@ -38,6 +66,16 @@ var/datum/controller/event/events
 		//Make sure Halloween starts after 5 minutes exactly.
 		scheduled = 3000
 
+/datum/controller/event/proc/adjust_spawnrate()
+	if(frequency_lower == initial(frequency_lower) || frequency_upper == initial(frequency_upper))
+		frequency_lower = frequency_lower/2
+		frequency_upper = frequency_upper/2
+		spawnrate_mode = 1
+	else
+		frequency_lower = initial(frequency_lower)
+		frequency_upper = initial(frequency_upper)
+		spawnrate_mode = 0
+
 //This is called by the MC every MC-tick (*neatfreak*).
 /datum/controller/event/proc/process()
 	checkEvent()
@@ -49,50 +87,149 @@ var/datum/controller/event/events
 			i++
 			continue
 		running.Cut(i,i+1)
+	//pick one lovely event from the queue to possibly unqueue
+	for(var/datum/round_event/Event in shuffle(queue))
+		Event.tick_queue()
+		break
 
 //checks if we should select a random event yet, and reschedules if necessary
 /datum/controller/event/proc/checkEvent()
 	if(scheduled <= world.time)
-		spawnEvent()
+		phase++
+		if(ticker && ticker.intel)
+			ticker.intel.rateStation()
+		pickEvent()
 		reschedule()
 
 //decides which world.time we should select another random event at.
 /datum/controller/event/proc/reschedule()
 	scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
 
-//selects a random event based on whether it can occur and it's 'weight'(probability)
-/datum/controller/event/proc/spawnEvent()
-	if(!config.allow_random_events)
+
+/datum/controller/event/proc/getDistance(var/datum/round_event_control/E)
+	var/distance = 0
+	for(var/X in rating)
+		if(rating[X] < 0) continue
+		distance += abs(rating[X] - E.rating[X])
+	if(true_random)
+		distance = 1 //ALL HELL BREAKS LOOSE
+	return Clamp(distance,1,200)
+
+/*
+/datum/controller/event/proc/getWeight(var/datum/round_event_control/E)
+	var/distance = 0
+	for(var/X in rating)
+		if(rating[X] < 0) continue
+		distance += abs(rating[X] - E.rating[X])
+	if(distance <= 0)
+		return 300 //just so events that hit the dot arent in the THOUSANDS PLACE
+	return round((1 / distance)*1000)
+*/
+
+//Spoffy code below. Thank you based spoffy
+/*
+Gets the event list, organised into lists of a events of a specific difficulty.
+I.e, the following is valid:
+	events_list[distance_from_difficulty] = list(event1, event2)
+*/
+/datum/controller/event/proc/createEventListByDistance(var/test=0)
+	var/list/events_by_weight = list()
+	//addition by flavo
+	events_by_weight.len = 200 //Highest difference for events, should probably be a DEFINE
+	for(var/datum/round_event_control/event in control)
+		if(event.occurrences >= event.max_occurrences)	continue //ran too much
+		if(timelocks)
+			if(event.phases_required > phase)		continue  //time locked
+		if(event.holidayID) 							//holiday
+			if(event.holidayID != holiday)			continue
+		if(event.needs_ghosts)
+			var/ghosts = 0
+			for(var/client/C in clients)
+				if(istype(C.mob,/mob/dead/observer))
+					ghosts++
+			if(!ghosts && !queue_ghost_events)
+				continue
+		if(event.phases_required < 0 && !test)				//for round-start events etc.
+			if(event.runEvent() == PROCESS_KILL)
+				event.max_occurrences = 0
+				continue
+			add2timeline("[event.name]",1)
+			return
+
+		var/distance = getDistance(event)
+		if(events_by_weight[distance])
+			var/list/events_at_current_weight = events_by_weight[distance]
+		//addition end
+			events_at_current_weight += event
+		else
+			events_by_weight[distance] = list(event)
+	return events_by_weight
+
+/datum/controller/event/proc/pickEvent(var/test=0)
+	//addition by flavo for station rating
+	if(!test && ticker && ticker.intel && autoratings)
+		ticker.intel.rateStation()
+	//addition end
+	var/list/event_list = createEventListByDistance(test)
+	var/chosen_probability = gaussian(0, stddev) //Mean, stddev
+	//We have our probability, and events organised by difference.
+	//Difference is between 0 and 500 (as 5 ratings, with a range of 100 each).
+
+	//Convert our random number (which is a decimal, with a 98% chance of being between -3 and 3 for mean = 0, stddev = 1)
+	//into something we can use, so multiply by 100.
+
+	var/chosen_difference = chosen_probability * 100
+
+	//Hurray, we now have an integer between -infinity and infinity, with a 98% chance of being between -75 and 75.
+	//But fuck negatives, let's make it positive!
+
+	chosen_difference = Ceiling(abs(chosen_difference))
+
+	//Cool, now it has a 98% chance of being between 0 and 300, a 95% chance of being between 0 and 200, and a 68% chance of being between 0 and 100.
+	//That seems rather high... so perhaps go back and change the stddev to something lower. Maybe 0.1?
+	//Moving on, so we have our chosen difference, as something useful. Let's find out which event set it's closest to*!
+	//
+	//* In the most inefficient way possible!
+
+	//Nice and simple, we loop through all the possible event differences in the event_list,
+	//And calculate how far it is from the difference we've chosen.
+	//We'll call this the distance from the difference.
+	//And we select the difference with the lowest distance,
+	//I.e, the list of events that have their difficulty closest to our randomly selected one.
+	//(Remembering that our randomly selected difficulty is more likely to throw out certain values)
+	var/selected_event_difference = 200 //Highest difference for a given event, currently.
+	var/selected_distance_from_difference = 200
+	chosen_difference = Clamp(chosen_difference,0,200)
+	for(var/difference in event_list)
+		//addition by flavo
+		if(!difference) continue
+		difference = event_list.Find(difference)
+		//world.log << "[difference]: [list2text(event_list[difference],", ")]"
+		//addition end
+		var/distance_from_chosen_difference = abs(chosen_difference - difference)
+		if(distance_from_chosen_difference < selected_distance_from_difference)
+			selected_event_difference = difference
+			selected_distance_from_difference = distance_from_chosen_difference
+
+	var/list/selected_events = event_list[selected_event_difference]
+	//addition by flavo
+	if(!selected_events)
 		return
-
-	var/sum_of_weights = 0
-	for(var/datum/round_event_control/E in control)
-		if(E.occurrences >= E.max_occurrences)	continue
-		if(E.earliest_start >= world.time)		continue
-		if(E.holidayID)
-			if(E.holidayID != holiday)			continue
-		if(E.weight < 0)						//for round-start events etc.
-			if(E.runEvent() == PROCESS_KILL)
-				E.max_occurrences = 0
-				continue
-			return
-		sum_of_weights += E.weight
-
-	sum_of_weights = rand(0,sum_of_weights)	//reusing this variable. It now represents the 'weight' we want to select
-
-	for(var/datum/round_event_control/E in control)
-		if(E.occurrences >= E.max_occurrences)	continue
-		if(E.earliest_start >= world.time)		continue
-		if(E.holidayID)
-			if(E.holidayID != holiday)			continue
-		sum_of_weights -= E.weight
-
-		if(sum_of_weights <= 0)				//we've hit our goal
-			if(E.runEvent() == PROCESS_KILL)//we couldn't run this event for some reason, set its max_occurrences to 0
-				E.max_occurrences = 0
-				continue
-			return
-
+	if(test)
+		return "[list2text(selected_events,", ")]<br>chosen diff: [chosen_difference]" //only a test, return the event
+	else
+		for(var/i=0, i<10, i++) // try at least 10 times before deciding "fuck it"
+			var/datum/round_event_control/E = safepick(selected_events)
+			if(E)
+				if(E.runEvent() == PROCESS_KILL)//we couldn't run this event for some reason, set its max_occurrences to 0
+					E.max_occurrences = 0
+					continue
+				add2timeline("[E.name]",1)
+				return //Yes, boom, the event fired.. your work here is done big ol calculator
+			else
+				return //err.. E was null so the list is clearly empty or something. fuck it.
+	//addition end
+//spoffy code above
 
 /datum/round_event/proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
 	var/list/safe_areas = list(
@@ -132,7 +269,6 @@ var/datum/controller/event/events
 	if(istype(E))
 		E.runEvent()
 		message_admins("[key_name_admin(usr)] has triggered an event. ([E.name])", 1)
-
 
 /*
 //////////////

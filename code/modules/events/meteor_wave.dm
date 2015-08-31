@@ -1,8 +1,11 @@
 /datum/round_event_control/meteor_wave
 	name = "Meteor Wave"
 	typepath = /datum/round_event/meteor_wave
-	weight = 5
 	max_occurrences = 3
+	rating = list(
+				"Gameplay"	= 10,
+				"Dangerous"	= 79
+				)
 
 /datum/round_event/meteor_wave
 	startWhen		= 6

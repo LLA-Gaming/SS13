@@ -5,6 +5,11 @@
 	name = "Space Ninja"
 	typepath = /datum/round_event/ninja
 	max_occurrences = 1
+	needs_ghosts = 1
+	rating = list(
+				"Gameplay"	= 80,
+				"Dangerous"	= 80
+				)
 
 /datum/round_event/ninja
 	var/success_spawn = 0
@@ -24,6 +29,11 @@
 		control.occurrences--
 	return ..()
 
+/datum/round_event/ninja/tick_queue()
+	var/list/candidates = get_candidates(BE_NINJA)
+	if(candidates.len)
+		unqueue()
+
 /datum/round_event/ninja/start()
 	//selecting a spawn_loc
 	if(!spawn_loc)
@@ -42,7 +52,10 @@
 	//selecting a candidate player
 	if(!key)
 		var/list/candidates = get_candidates(BE_NINJA)
-		if(!candidates.len)
+		if(!candidates.len && events.queue_ghost_events && !loopsafety)
+			queue()
+			return
+		if(!candidates.len) // If queue_ghost_events is off run this as it would normally be run.
 			return kill()
 		var/client/C = pick(candidates)
 		key = C.key

@@ -27,6 +27,13 @@
 	max_n2 = 0
 	minbodytemp = 0
 
+/mob/living/simple_animal/hostile/hivebot/bullet_act(var/obj/item/projectile/Proj)
+	if(istype(Proj,/obj/item/projectile/hivebotbullet))
+		return
+	else
+		..()
+
+
 /mob/living/simple_animal/hostile/hivebot/range
 	name = "hivebot"
 	desc = "A smallish robot, this one is armed!"

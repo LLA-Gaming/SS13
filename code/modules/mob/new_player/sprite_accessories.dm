@@ -70,10 +70,12 @@
 	longer
 		name = "Long Hair"
 		icon_state = "hair_vlong"
+		gender = FEMALE
 
 	long_over_eye
 		name = "Over-eye Long"
 		icon_state = "hair_longovereye"
+		gender = FEMALE
 
 	short_over_eye
 		name = "Over-eye Short"
@@ -115,7 +117,6 @@
 	ponytail1
 		name = "Ponytail 1"
 		icon_state = "hair_ponytail"
-		gender = FEMALE
 
 	ponytail2
 		name = "Ponytail 2"
@@ -150,10 +151,12 @@
 	oneshoulder
 		name = "One Shoulder"
 		icon_state = "hair_oneshoulder"
+		gender = FEMALE
 
 	tressshoulder
 		name = "Tress Shoulder"
 		icon_state = "hair_tressshoulder"
+		gender = FEMALE
 
 	parted
 		name = "Parted"
@@ -227,6 +230,7 @@
 	devillock
 		name = "Devil Lock"
 		icon_state = "hair_devilock"
+		gender = MALE
 
 	dreadlocks
 		name = "Dreadlocks"
@@ -270,6 +274,7 @@
 	longemo
 		name = "Long Emo"
 		icon_state = "hair_longemo"
+		gender = FEMALE
 
 	fag
 		name = "Flow Hair"
@@ -313,11 +318,11 @@
 	protagonist
 		name = "Slightly long"
 		icon_state = "hair_protagonist"
-		gender = MALE
 
 	kusangi
 		name = "Kusanagi Hair"
 		icon_state = "hair_kusanagi"
+		gender = MALE
 
 	kagami
 		name = "Pigtails"
@@ -466,6 +471,7 @@
 	scully
 		name = "Scully"
 		icon_state = "hair_scully"
+		gender = FEMALE
 
 	nitori
 		name = "Nitori"
@@ -500,22 +506,27 @@
 	mentalist
 		name = "Mentalist"
 		icon_state = "hair_mentalist"
+		gender = MALE
 
 	fujisaki
 		name = "Fujisaki"
 		icon_state = "hair_fujisaki"
+		gender = FEMALE
 
 	schierke
 		name = "Schierke"
 		icon_state = "hair_schierke"
+		gender = FEMALE
 
 	akari
 		name = "Akari"
 		icon_state = "hair_akari"
+		gender = FEMALE
 
 	fujiyabashi
 		name = "Fujiyabashi"
 		icon_state = "hair_fujiyabashi"
+		gender = FEMALE
 
 	nia
 		name = "Nia"
@@ -525,10 +536,12 @@
 	shinobu
 		name = "Shinobu"
 		icon_state = "hair_shinobu"
+		gender = FEMALE
 
 	ramona
 		name = "Ramona"
 		icon_state = "hair_ramona"
+		gender = FEMALE
 
 	megaeyebrows
 		name = "Mega Eyebrows"

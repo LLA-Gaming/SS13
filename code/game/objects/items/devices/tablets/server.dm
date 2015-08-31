@@ -31,11 +31,20 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	return
 
 /obj/machinery/nanonet_server/process()
-	if(active && (stat & (BROKEN|NOPOWER)))
-		active = 0
+	if(active && (stat & (BROKEN|NOPOWER|EMPED)))
+		update_icon()
 		return
 	update_icon()
 	return
+
+/obj/machinery/nanonet_server/emp_act(severity)
+	if(prob(100/severity))
+		if(!(stat & EMPED))
+			stat |= EMPED
+			var/duration = (300 * 10)/severity
+			spawn(rand(duration - 20, duration + 20)) // Takes a long time for the machines to reboot.
+				stat &= ~EMPED
+	..()
 
 /obj/machinery/nanonet_server/attack_hand(user as mob)
 	user << "You toggle the NanoNet server from [active ? "On" : "Off"] to [active ? "Off" : "On"]"
@@ -45,7 +54,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	return
 
 /obj/machinery/nanonet_server/update_icon()
-	if((stat & (BROKEN|NOPOWER)))
+	if((stat & (BROKEN|NOPOWER|EMPED)))
 		icon_state = "server-nopower"
 	else if (!active)
 		icon_state = "server-off"
@@ -196,5 +205,3 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	origin_tech = "programming=3"
 
 
-/proc/tablet_alert()
-	return

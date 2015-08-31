@@ -1,8 +1,11 @@
 /datum/round_event_control/spider_infestation
 	name = "Spider Infestation"
 	typepath = /datum/round_event/spider_infestation
-	weight = 5
 	max_occurrences = 1
+	rating = list(
+				"Gameplay"	= 80,
+				"Dangerous"	= 70
+				)
 
 /datum/round_event/spider_infestation
 	announceWhen	= 400
@@ -32,3 +35,15 @@
 			S.grow_as = /mob/living/simple_animal/hostile/giant_spider/nurse
 		vents -= vent
 		spawncount--
+
+/datum/round_event/spider_infestation/declare_completion()
+	var/spooder_count = 0
+	for(var/mob/living/simple_animal/hostile/giant_spider/S in world)
+		if(S.stat != DEAD)
+			spooder_count++
+	if(!spooder_count)
+		return "<b>Spider Infestation:</b> <font color='green'>The crew wiped out all of the giant spiders.</font>"
+	if(spooder_count < 5)
+		return "<b>Spider Infestation:</b> <font color='green'>The crew wiped out most of the giant spiders</font>"
+	if(spooder_count >= 5)
+		return "<b>Spider Infestation:</b> <font color='red'>[station_name] was taken over by giant spiders</font>"

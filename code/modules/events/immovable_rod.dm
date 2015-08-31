@@ -11,6 +11,11 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	name = "Immovable Rod"
 	typepath = /datum/round_event/immovable_rod
 	max_occurrences = 5
+	rating = list(
+				"Gameplay"	= 10,
+				"Dangerous"	= 65
+				)
+
 
 /datum/round_event/immovable_rod
 	announceWhen = 5

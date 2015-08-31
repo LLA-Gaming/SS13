@@ -1,7 +1,10 @@
 /datum/round_event_control/communications_blackout
 	name = "Communications Blackout"
 	typepath = /datum/round_event/communications_blackout
-	weight = 30
+	rating = list(
+				"Gameplay"	= 25,
+				"Dangerous"	= 40
+				)
 
 /datum/round_event/communications_blackout/announce()
 	var/alert = pick(	"Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you*%fj00)`5vc-BZZT", \
@@ -23,3 +26,5 @@
 /datum/round_event/communications_blackout/start()
 	for(var/obj/machinery/telecomms/T in telecomms_list)
 		T.emp_act(1)
+	for(var/obj/machinery/nanonet_server/N in nanonet_servers)
+		N.emp_act(1)

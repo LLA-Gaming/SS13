@@ -2,7 +2,10 @@
 	name = "Disease Outbreak"
 	typepath = /datum/round_event/disease_outbreak
 	max_occurrences = 1
-	weight = 5
+	rating = list(
+				"Gameplay"	= 55,
+				"Dangerous"	= 60
+				)
 
 /datum/round_event/disease_outbreak
 	announceWhen	= 15
@@ -51,3 +54,14 @@
 		D.affected_mob = H
 		H.viruses += D
 		break
+
+/datum/round_event/disease_outbreak/declare_completion()
+	var/foundAlready = 0	//don't infect someone that already has the virus
+	for(var/mob/living/carbon/human/H in shuffle(living_mob_list))
+		if(foundAlready) break
+		for(virus_type in H.viruses)
+			foundAlready = 1
+	if(foundAlready)
+		return "<b>Disease Outbreak:</b> <font color='red'>Level 7 Biohazard aboard [station_name] was not cured</font>"
+	else
+		return "<b>Disease Outbreak:</b> <font color='green'>Level 7 Biohazard aboard [station_name] was contained</font>"

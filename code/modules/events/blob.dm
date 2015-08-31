@@ -1,10 +1,12 @@
 /datum/round_event_control/blob
 	name = "Blob"
 	typepath = /datum/round_event/blob
-	weight = 5
 	max_occurrences = 1
-
-	earliest_start = 48000 // 1 hour 20 minutes
+	phases_required = 5 //25 to 75 minutes
+	rating = list(
+				"Gameplay"	= 100,
+				"Dangerous"	= 100
+				)
 
 /datum/round_event/blob
 	announceWhen	= 12
@@ -32,3 +34,13 @@
 		return
 	if(IsMultiple(activeFor, 3))
 		Blob.process()
+
+/datum/round_event/blob/declare_completion()
+	var/core_count = 0
+	for(var/obj/effect/blob/core/C in world)
+		if(C.loc)
+			core_count++
+	if(core_count)
+		return "<b>Blob:</b> <font color='red'>The blob was not destroyed</font>"
+	else
+		return "<b>Alien Infestation:</b> <font color='green'>The blob's core was destroyed</font>"

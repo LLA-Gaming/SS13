@@ -3,19 +3,20 @@
 	var/name					//The name human-readable name of the event
 	var/typepath				//The typepath of the event datum /datum/round_event
 
-	var/weight = 10				//The weight this event has in the random-selection process.
-								//Higher weights are more likely to be picked.
-								//10 is the default weight. 20 is twice more likely; 5 is half as likely as this default.
+	var/phases_required = 2	//how many phases the event manager needs to through to consider this event (2 = 10 to 30 minutes)
 
-	var/earliest_start = 12000	//The earliest world.time that an event can start (round-duration in deciseconds) default: 20 mins
+	var/list/rating = list(
+						"Gameplay"	= 0,   // 0 to 100: 0 for filler, 100 for gameplay
+						"Dangerous"	= 50   // 0 to 100: 0 for annoying, 100 for dangerous
+						)
 
+	var/needs_ghosts = 0
 	var/occurrences = 0			//How many times this event has occured
 	var/max_occurrences = 20		//The maximum number of times this event can occur (naturally), it can still be forced.
 								//By setting this to 0 you can effectively disable an event.
 
 	var/holidayID				//string which should match the events.holiday variable if you wish this event to be holiday-specific
 								//anything with a (non-null) holidayID which does not match holiday, cannot run.
-
 
 /datum/round_event_control/proc/runEvent()
 	if(!ispath(typepath,/datum/round_event))
@@ -28,6 +29,8 @@
 
 /datum/round_event	//NOTE: Times are measured in master controller ticks!
 	var/processing = 1
+	var/queued = 0
+	var/loopsafety = 0 // with queue, basically preventing infinite loops (they shouldnt happen but this is just to be safe)
 	var/datum/round_event_control/control
 
 	var/startWhen		= 0	//When in the lifetime to call start().
@@ -74,28 +77,54 @@
 /datum/round_event/proc/end()
 	return
 
+//run at the end of the round, decides if a event was succeeded at or not.
+/datum/round_event/proc/declare_completion()
+	return
 
+//Queue procs
+//queue to add a event to the queue, this will pause the event and run tick_queue forever until it is unqueued
+//unqueue to return the event to running
+//tick_queue runs every tick the event is in the queue
+/datum/round_event/proc/queue()
+	if(events)
+		events.queue += src
+		events.running -= src
+		queued = 1
+		loopsafety = 1
+	return
+
+/datum/round_event/proc/unqueue()
+	if(events)
+		events.running += src
+		events.queue -= src
+		queued = 0
+		activeFor = 0 //reset
+	return
+
+/datum/round_event/proc/tick_queue()
+	return
 
 //Do not override this proc, instead use the appropiate procs.
 //This proc will handle the calls to the appropiate procs.
 /datum/round_event/proc/process()
 	if(!processing)
 		return
-	
-	if(activeFor == startWhen)
+
+	if(!queued && activeFor == startWhen)
 		start()
 
-	if(activeFor == announceWhen)
+	if(!queued && activeFor == announceWhen)
 		announce()
 
-	if(startWhen < activeFor && activeFor < endWhen)
+	if(!queued && startWhen < activeFor && activeFor < endWhen)
 		tick()
 
-	if(activeFor == endWhen)
+	if(!queued && activeFor == endWhen)
 		end()
 
 	// Everything is done, let's clean up.
-	if(activeFor >= endWhen && activeFor >= announceWhen && activeFor >= startWhen)
+	if(!queued && activeFor >= endWhen && activeFor >= announceWhen && activeFor >= startWhen)
+		events.finished += src //save these for end round stuff
 		kill()
 
 	activeFor++
