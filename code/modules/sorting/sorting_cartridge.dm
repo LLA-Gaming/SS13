@@ -3,6 +3,8 @@
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "harddisk"
 	w_class = 2
+	m_amt = 100
+	g_amt = 100
 	var/list/directions = list()
 	var/list/behaviors = list()
 	var/condition = AND

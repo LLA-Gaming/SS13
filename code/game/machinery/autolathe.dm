@@ -50,7 +50,13 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/weapon/reagent_containers/syringe(), \
 		new /obj/item/device/assembly/prox_sensor(), \
 		new /obj/item/clothing/glasses/virtual(),
-		new /obj/item/sorting_cartridge()
+		new /obj/item/sorting_cartridge(),
+		new /obj/item/weapon/circuitboard/sorting_conveyor(),
+		new /obj/item/weapon/circuitboard/conveyor(),
+		new /obj/item/weapon/circuitboard/conveyor_switch(),
+		new /obj/item/weapon/circuitboard/auto_wrapper(),
+		new /obj/item/weapon/circuitboard/auto_bodybag_wrapper(),
+		new /obj/item/weapon/circuitboard/crate_unloading_machine()
 	)
 
 var/global/list/autolathe_recipes_hidden = list( \

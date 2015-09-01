@@ -554,6 +554,8 @@ obj/item/weapon/circuitboard/rdserver
 	origin_tech = "programming=2;materials=2"
 	board_type = "machine"
 	req_components = list("/obj/item/stack/cable_coil" = 1)
+	m_amt = 100
+	g_amt = 100
 
 /obj/item/weapon/circuitboard/conveyor
 	name = "circuit board (Conveyor)"
@@ -561,6 +563,8 @@ obj/item/weapon/circuitboard/rdserver
 	origin_tech = "materials=2"
 	board_type = "machine"
 	req_components = list("/obj/item/stack/cable_coil" = 1)
+	m_amt = 100
+	g_amt = 100
 
 /obj/item/weapon/circuitboard/conveyor_switch
 	name = "circuit board (Conveyor Switch)"
@@ -568,6 +572,8 @@ obj/item/weapon/circuitboard/rdserver
 	origin_tech = "materials=2"
 	board_type = "machine"
 	req_components = list("/obj/item/stack/cable_coil" = 1)
+	m_amt = 100
+	g_amt = 100
 
 /obj/item/weapon/circuitboard/auto_wrapper
 	name = "circuit board (Auto Tag & Wrapper)"
@@ -575,6 +581,8 @@ obj/item/weapon/circuitboard/rdserver
 	origin_tech = "materials=2;engineering=2"
 	board_type = "machine"
 	req_components = list("/obj/item/stack/cable_coil" = 1)
+	m_amt = 100
+	g_amt = 100
 
 /obj/item/weapon/circuitboard/auto_bodybag_wrapper
 	name = "circuit board (Auto Bodybag Wrapper)"
@@ -582,6 +590,8 @@ obj/item/weapon/circuitboard/rdserver
 	origin_tech = "materials=2;engineering=2"
 	board_type = "machine"
 	req_components = list("/obj/item/stack/cable_coil" = 1)
+	m_amt = 100
+	g_amt = 100
 
 /obj/item/weapon/circuitboard/crate_unloading_machine
 	name = "circuit board (Crate Unloading Machine)"
@@ -589,4 +599,5 @@ obj/item/weapon/circuitboard/rdserver
 	origin_tech = "materials=2;engineering=2"
 	board_type = "machine"
 	req_components = list("/obj/item/stack/cable_coil" = 1)
-
+	m_amt = 100
+	g_amt = 100
