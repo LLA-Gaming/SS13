@@ -174,6 +174,9 @@
 				return /obj/item
 
 	proc/UpdateLinked()
+		if(!linked)
+			return 0
+
 		linked.permeable = permeable
 		linked.emagged = emagged
 		linked.req_access = req_access

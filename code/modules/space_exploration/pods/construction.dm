@@ -10,6 +10,9 @@
 	show_to()
 		return 0
 
+	handle_item_insertion()
+		return 0
+
 /obj/item/weapon/storage/box/pod_frame_right
 	name = "right pod frame box"
 	icon = 'icons/obj/pod_attachments.dmi'
@@ -20,6 +23,9 @@
 	var/construction_time = 100
 
 	show_to()
+		return 0
+
+	handle_item_insertion()
 		return 0
 
 // NOTE(drache): Redo this. Such a mess.

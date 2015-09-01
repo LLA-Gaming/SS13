@@ -79,6 +79,8 @@
 						true = 0
 
 		else
+			if(!length(results))
+				return 0
 			true = results[1]
 
 		return true
