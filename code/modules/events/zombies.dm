@@ -16,7 +16,7 @@
 
 /datum/round_event/zombies/start()
 	var/list/spawns = list()
-	SpawnNum = rand(5,30)
+	SpawnNum = rand(1,5)
 
 	for(var/obj/effect/landmark/holiday/O in world)
 		spawns += O
