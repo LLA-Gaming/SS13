@@ -143,6 +143,15 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "weed control crate"
 	access = access_hydroponics
 
+/datum/supply_packs/emergency/zedoutbreak
+	name = "Zedkit Crate"
+	contains = list(/obj/item/weapon/storage/firstaid/zed,
+					/obj/item/weapon/storage/firstaid/zed,
+					/obj/item/weapon/storage/firstaid/zed)
+	cost = 120
+	containertype = /obj/structure/closet/crate/internals
+	containername = "zedkit crate"
+
 /datum/supply_packs/emergency/specialops
 	name = "Special Ops supplies"
 	contains = list(/obj/item/weapon/storage/box/emps,

@@ -115,7 +115,7 @@
 		if(goodie)
 			H.equip_to_slot_or_del(new goodie(H.back), slot_in_backpack)
 	//Clothing and stuff..
-	var/outfit_type = pick("Space Dweller","Laborer","Scientist","Merchant")
+	var/outfit_type = pick("Space Dweller","Laborer","Merchant")
 	switch(outfit_type)
 		if("Space Dweller")
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/ntwork(H), slot_w_uniform)
@@ -126,7 +126,7 @@
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/gloves/brown(H), slot_gloves)
 		if("Merchant")
-			if(prob(25)) //ay carumba
+			if(prob(50)) //ay carumba
 				H.equip_to_slot_or_del(new /obj/item/clothing/head/sombrero(H), slot_head)
 				H.equip_to_slot_or_del(new /obj/item/clothing/mask/fakemoustache(H), slot_wear_mask)
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/redoveralls(H), slot_w_uniform)
