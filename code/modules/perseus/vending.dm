@@ -43,7 +43,7 @@
 	/obj/item/weapon/reagent_containers/glass/beaker = 4,/obj/item/weapon/reagent_containers/dropper = 2, /obj/item/stack/medical/bruise_pack = 6,
 	/obj/item/stack/medical/ointment = 6, /obj/item/weapon/stimpack/perseus = 10,/obj/item/stack/medical/gauze=5)
 
-	contraband = list(/obj/item/weapon/reagent_containers/pill/tox = 3, /obj/item/weapon/reagent_containers/pill/stox = 4, /obj/item/weapon/reagent_containers/pill/antitox = 6, /obj/item/weapon/storage/firstaid/zed)
+	contraband = list(/obj/item/weapon/reagent_containers/pill/tox = 3, /obj/item/weapon/reagent_containers/pill/stox = 4, /obj/item/weapon/reagent_containers/pill/antitox = 6, /obj/item/weapon/storage/firstaid/zed = 2)
 
 /*
 * PercTech Vendor

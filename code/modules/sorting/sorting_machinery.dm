@@ -78,7 +78,7 @@
 		if(istype(I, /obj/item/weapon/packageWrap))
 			var/obj/item/weapon/packageWrap/wrap = I
 			var/amt_to_remove = Clamp(wrap.amount, 0, (max_paper_amt - paper_amt))
-			wrap -= amt_to_remove
+			wrap.amount -= amt_to_remove
 			if(wrap.amount <= 0)
 				user.unEquip(wrap)
 				qdel(wrap)
