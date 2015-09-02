@@ -382,37 +382,37 @@
 			light/
 				name = "light pod armor"
 				pod_type = /obj/pod/large/light
-				construction_cost = list("metal" = 12000)
+				construction_cost = list("metal" = 16000)
 				origin_tech = "engineering=1;materials=1"
 
 			heavy/
 				name = "heavy pod armor"
 				pod_type = /obj/pod/large/heavy
-				construction_cost = list("metal" = 16000, "silver" = 6000, "uranium" = 8000)
+				construction_cost = list("metal" = 16000, "uranium" = 12000)
 				origin_tech = "engineering=4;materials=4;combat=3"
 
 			gold/
 				name = "gold pod armor"
 				pod_type = /obj/pod/large/gold
-				construction_cost = list("metal" = 4000, "gold" = 12000)
+				construction_cost = list("metal" = 16000, "gold" = 8000)
 				origin_tech = "engineering=2;materials=2"
 
 			industrial/
 				name = "industrial pod armor"
 				pod_type = /obj/pod/large/industrial
-				construction_cost = list("metal" = 16000, "uranium" = 12000, "gold" = 6000)
+				construction_cost = list("metal" = 16000, "uranium" = 8000)
 				origin_tech = "engineering=5;materials=5"
 
 			prototype/
 				name = "prototype pod armor"
 				pod_type = /obj/pod/large/prototype
-				construction_cost = list("metal" = 16000, "uranium" = 16000, "diamond" = 16000, "gold" = 8000, "silver" = 8000)
+				construction_cost = list("metal" = 16000, "uranium" = 12000, "diamond" = 6000, "silver" = 6000)
 				origin_tech = "engineering=6;materials=6;illegal=2"
 
 			precursor/
 				name = "precursor pod armor"
 				pod_type = /obj/pod/large/precursor
-				construction_cost = list("metal" = 16000, "uranium" = 16000, "diamond" = 12000, "gold" = 6000)
+				construction_cost = list("metal" = 16000, "uranium" = 12000, "diamond" = 10000, "silver" = 8000)
 				origin_tech = "engineering=6;materials=7;illegal=3"
 
 #undef P_CS_FRAME_WELDED

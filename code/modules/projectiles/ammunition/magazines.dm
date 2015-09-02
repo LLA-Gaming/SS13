@@ -146,6 +146,7 @@ obj/item/ammo_box/magazine/tommygunm45
 	caliber = "75"
 	multiple_sprites = 2
 	max_ammo = 8
+	construction_cost = list("metal" = 1400, "uranium" = 1000, "silver" = 1000)
 
 /obj/item/ammo_box/magazine/m762
 	name = "magazine (7.62mm)"

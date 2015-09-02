@@ -354,7 +354,7 @@
 
 	p_construction_armor_gold/
 		name = "gold armor"
-		id = "pcarmorlight"
+		id = "pcarmorgold"
 		category = "Construction"
 		build_type = PODFAB
 		build_path = /obj/item/pod_construction_part/parts/armor/gold
@@ -362,7 +362,7 @@
 
 	p_construction_armor_heavy/
 		name = "heavy armor"
-		id = "pcarmorlight"
+		id = "pcarmorheavy"
 		category = "Construction"
 		build_type = PODFAB
 		build_path = /obj/item/pod_construction_part/parts/armor/heavy
@@ -370,7 +370,7 @@
 
 	p_construction_armor_industrial/
 		name = "industrial armor"
-		id = "pcarmorlight"
+		id = "pcarmorindustrial"
 		category = "Construction"
 		build_type = PODFAB
 		build_path = /obj/item/pod_construction_part/parts/armor/industrial
@@ -378,7 +378,7 @@
 
 	p_construction_armor_prototype/
 		name = "prototype armor"
-		id = "pcarmorlight"
+		id = "pcarmorprototype"
 		category = "Construction"
 		build_type = PODFAB
 		build_path = /obj/item/pod_construction_part/parts/armor/prototype
@@ -386,7 +386,7 @@
 
 	p_construction_armor_precursor/
 		name = "precursor armor"
-		id = "pcarmorlight"
+		id = "pcarmorprecursor"
 		category = "Construction"
 		build_type = PODFAB
 		build_path = /obj/item/pod_construction_part/parts/armor/precursor

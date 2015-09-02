@@ -350,6 +350,8 @@
 	icon_state = "missile"
 	var/primed = null
 	throwforce = 15
+	var/construction_time = 100
+	var/list/construction_cost = list("metal" = 800, "uranium" = 800, "silver" = 800)
 
 	throw_impact(atom/hit_atom)
 		if(primed)

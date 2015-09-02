@@ -13,16 +13,12 @@
 	max_ammo = 6
 	multiple_sprites = 1
 
-
-
 /obj/item/ammo_box/a418
 	name = "ammo box (.418)"
 	icon_state = "418"
 	ammo_type = /obj/item/ammo_casing/a418
 	max_ammo = 7
 	multiple_sprites = 1
-
-
 
 /obj/item/ammo_box/a666
 	name = "ammo box (.666)"
@@ -31,12 +27,17 @@
 	max_ammo = 4
 	multiple_sprites = 1
 
+/obj/item/ammo_box
+	var/construction_time = 100
+	var/list/construction_cost = list()
+
 /obj/item/ammo_box/c9mm
 	name = "Ammunition Box (9mm)"
 	icon_state = "9mm"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 30
+	construction_cost = list("metal" = 600)
 
 /obj/item/ammo_box/c10mm
 	name = "Ammunition Box (10mm)"
@@ -44,7 +45,7 @@
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	max_ammo = 30
-
+	construction_cost = list("metal" = 800)
 
 /obj/item/ammo_box/c45
 	name = "Ammunition Box (.45)"
@@ -52,6 +53,7 @@
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 30
+	construction_cost = list("metal" = 400)
 
 /obj/item/ammo_box/a12mm
 	name = "Ammunition Box (12mm)"
