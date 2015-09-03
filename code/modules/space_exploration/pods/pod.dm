@@ -7,6 +7,7 @@ var/list/pod_list = list()
 	density = 1
 	anchored = 1
 	layer = 3.2
+	unacidable = 1
 
 	var/list/size = list(1, 1)
 	var/obj/machinery/portable_atmospherics/canister/internal_canister
@@ -18,7 +19,6 @@ var/list/pod_list = list()
 	var/move_cooldown = 2
 	var/enter_delay = 10
 	var/exit_delay = 10
-	var/movement_cost = 2
 	var/list/locks = list() // DNA (unique_enzymes) or code lock.
 	var/lumens = 6
 	var/toggles = 0
@@ -197,7 +197,7 @@ var/list/pod_list = list()
 			PrintSystemAlert("Engine is turned off.")
 			return 0
 
-		if(!HasPower(movement_cost))
+		if(!HasPower(pod_config.movement_cost))
 			PrintSystemAlert("Insufficient power.")
 			return 0
 
@@ -255,7 +255,7 @@ var/list/pod_list = list()
 				return 0
 
 			step(src, _dir)
-			UsePower(movement_cost)
+			UsePower(pod_config.movement_cost)
 			turn_direction = _dir
 			inertial_direction = _dir
 

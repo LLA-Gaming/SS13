@@ -16,6 +16,12 @@ pod_pullout_delay 80
 metal_repair_threshold_percent 75
 welding_repair_amount 5
 metal_repair_amount 15
+movement_cost 2
+alien_damage_lower 10
+alien_damage_upper 20
+paw_damage_lower 2
+paw_damage_upper 8
+
 
 drivable /turf/space
 drivable /turf/simulated/floor/engine

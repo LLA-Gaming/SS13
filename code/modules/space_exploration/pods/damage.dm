@@ -136,8 +136,20 @@
 		spawn(0)
 			qdel(src)
 
+	attack_paw(var/mob/living/user)
+		TakeDamage(rand(pod_config.paw_damage_lower, pod_config.paw_damage_upper), 0, 0, user)
+		user.changeNext_move(8)
+		user << "<span class='warning'>You scratch \the [src].</span>"
+
+	attack_alien(var/mob/living/user)
+		TakeDamage(rand(pod_config.alien_damage_lower, pod_config.alien_damage_lower), 0, 0, user)
+		user.changeNext_move(8)
+		user << "<span class='warning'>You slash \the [src].</span>"
+
 	attack_animal(var/mob/living/simple_animal/animal)
 		TakeDamage(rand(animal.melee_damage_lower, animal.melee_damage_upper), 0, 0, animal)
+		animal.changeNext_move(8)
+		animal << "<span class='warning'>You claw \the [src].</span>"
 
 	bullet_act(var/obj/item/projectile/P)
 		if(istype(P, /obj/item/projectile/ion))
