@@ -201,6 +201,9 @@
 		if(!length(locks))
 			return 1
 
+		if(emagged)
+			return 1
+
 		// Check all DNA locks first before trying code locks.
 		var/dna_found = 0
 		for(var/lock in locks)

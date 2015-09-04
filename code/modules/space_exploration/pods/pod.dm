@@ -24,6 +24,7 @@ var/list/pod_list = list()
 	var/toggles = 0
 	var/seats = 0 // Amount of additional people that can fit into the pod (excludes pilot)
 	var/being_repaired = 0
+	var/emagged = 0
 
 	var/list/hardpoints = list()
 	var/list/attachments = list()
@@ -263,20 +264,36 @@ var/list/pod_list = list()
 
 	attack_hand(var/mob/living/user)
 		if(user.a_intent == "grab")
-			if(pilot)
-				var/result = input(user, "Do you want to pull the pilot out of the pod?", "Confirmation") in list("Yes", "No")
-				if(result == "No")
-					return 0
-				pilot << "<span class='warning'>You are being pulled out of the pod by [user].</span>"
-				user << "<span class='info'>You start to pull out the pilot.</span>"
-				if(do_after(user, pod_config.pod_pullout_delay))
-					if(pilot)
-						pilot << "<span class='warning'>You were pulled out of \the [src] from [user].</span>"
-						pod_log.LogOccupancy(pilot, 1, user)
-						pilot.loc = get_turf(src)
-						pilot = 0
+			var/list/possible_targets = list()
+			for(var/mob/living/M in GetOccupants())
+				possible_targets["[M.name] ([(pilot && M == pilot) ? "Pilot" : "Passenger"])"] = M
 
-					else return 0
+			if(!length(possible_targets))
+				return 0
+
+			var/chosen = input(user, "Who do you want to pull out?", "Input") in possible_targets + "Cancel"
+			if(!chosen || chosen == "Cancel")
+				return 0
+
+			var/mob/living/chosen_mob = possible_targets[chosen]
+			if(!chosen_mob || (!(chosen_mob in GetOccupants())))
+				return 0
+
+			var/is_pilot = 0
+			if(pilot && (pilot == chosen_mob))
+				is_pilot = 1
+
+			chosen_mob << "<span class='warning'>You are being pulled out of the pod by [user].</span>"
+			user << "<span class='info'>You start to pull out [chosen_mob].</span>"
+			if(do_after(user, pod_config.pod_pullout_delay))
+				if(chosen_mob && (chosen_mob in GetOccupants()))
+					chosen_mob << "<span class='warning'>You were pulled out of \the [src] from [user].</span>"
+					pod_log.LogOccupancy(chosen_mob, 1, user)
+					chosen_mob.loc = get_turf(src)
+					if(is_pilot)
+						pilot = 0
+				else
+					return 0
 			else
 				user << "<span class='info'>\The [src] is unmanned.</span>"
 
@@ -389,6 +406,17 @@ var/list/pod_list = list()
 
 			user << "<span class='info'>You change the [name]'s name to [new_name].</span>"
 			name = "\"[new_name]\""
+			return 0
+
+		if(istype(I, /obj/item/weapon/card/emag))
+			if(emagged)
+				return 0
+
+			sparks.start()
+			user << "<span class='notice'>You emag \the [src].</span>"
+
+			emagged = 1
+
 			return 0
 
 		// Give attachments a chance to handle attackby.
