@@ -126,9 +126,11 @@
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/gloves/brown(H), slot_gloves)
 		if("Merchant")
+			/* need to make room for that EVA gear
 			if(prob(50)) //ay carumba
 				H.equip_to_slot_or_del(new /obj/item/clothing/head/sombrero(H), slot_head)
 				H.equip_to_slot_or_del(new /obj/item/clothing/mask/fakemoustache(H), slot_wear_mask)
+			*/
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/redoveralls(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
 			H.equip_to_slot_or_del(new /obj/item/clothing/gloves/yellow(H), slot_gloves)
@@ -138,6 +140,11 @@
 	C.registered_name = H.real_name
 	C.assignment = "Space Explorer"
 	C.update_label()
+	//EVA gear
+	H.equip_to_slot_or_del(new /obj/item/clothing/mask/breath(H), slot_wear_mask)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/space(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space(H), slot_head)
+	H.equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen(H), slot_s_store)
 
 
 	//antag?
@@ -152,26 +159,26 @@
 		kill_objective.owner = Mind
 		kill_objective.find_target()
 		if(kill_objective.target)
+			var/fluff_kill = rand(1,4)
+			switch(fluff_kill)
+				if(1)
+					kill_objective.explanation_text = "Kill [kill_objective.target.name]. Your scanner reports that they might be the [kill_objective.target.assigned_role]"
+				if(2)
+					kill_objective.explanation_text = "Take out [kill_objective.target.name]. Your scanner reports they may be the only thing standing in your way"
+				if(3)
+					kill_objective.explanation_text = "Kick the living crap out of [kill_objective.target.name], make sure they do not come out alive. Your scanner recommended this, better do as it says."
+				if(4)
+					kill_objective.explanation_text = "The station has a [kill_objective.target.assigned_role], their name is [kill_objective.target.name].. Take them out"
+			Mind.objectives += kill_objective
+		else
 			qdel(kill_objective)
-			goto Steal
-		var/fluff_kill = rand(1,4)
-		switch(fluff_kill)
-			if(1)
-				kill_objective.explanation_text = "Kill [kill_objective.target.name]. Your scanner reports that they might be the [kill_objective.target.assigned_role]"
-			if(2)
-				kill_objective.explanation_text = "Take out [kill_objective.target.name]. Your scanner reports they may be the only thing standing in your way"
-			if(3)
-				kill_objective.explanation_text = "Kick the living crap out of [kill_objective.target.name], make sure they do not come out alive. Your scanner recommended this, better do as it says."
-			if(4)
-				kill_objective.explanation_text = "The station has a [kill_objective.target.assigned_role], their name is [kill_objective.target.name].. Take them out"
-		Mind.objectives += kill_objective
 
-		Steal //node for goto
+
 
 		var/datum/objective/steal/steal_objective = new
 		steal_objective.owner = Mind
 		steal_objective.find_target()
-		var/fluff_steal = rand(1,5)
+		var/fluff_steal = rand(1,4)
 		switch(fluff_steal)
 			if(1)
 				steal_objective.explanation_text = "It's time for a raid. The scanner reports [steal_objective.targetinfo.name] aboard the vessel"
@@ -184,8 +191,6 @@
 
 		Mind.objectives += steal_objective
 
-		if(Mind.objectives.len < 2)
-			goto Steal
 
 		var/datum/objective/survive/survive_objective = new
 		survive_objective.owner = Mind

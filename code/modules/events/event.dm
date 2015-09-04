@@ -3,7 +3,7 @@
 	var/name					//The name human-readable name of the event
 	var/typepath				//The typepath of the event datum /datum/round_event
 
-	var/phases_required = 2	//how many phases the event manager needs to through to consider this event (2 = 10 to 30 minutes)
+	var/phases_required = 3		//how many phases the event manager needs to through to consider this event (2 = 10 to 30 minutes)
 
 	var/list/rating = list(
 						"Gameplay"	= 0,   // 0 to 100: 0 for filler, 100 for gameplay

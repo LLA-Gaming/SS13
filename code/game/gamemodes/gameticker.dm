@@ -162,7 +162,7 @@ var/round_start_time = 0
 		timeline.Add("[english_list(crew)]")
 		add2timeline("Shift begins!",1)
 		if(intel)
-			intel.gather_stats()
+			intel.gather_stats(1)
 		//end timeline stuff
 
 	if(!admins.len)

@@ -20,6 +20,8 @@ datum/objective/proc/find_target()
 			continue
 		if(possible_target.assigned_role == "SPECIAL")
 			continue
+		if(possible_target.assigned_role == "MODE")
+			continue
 		if(possible_target != owner && ishuman(possible_target.current) && (possible_target.current.stat != 2))
 			possible_targets += possible_target
 	if(possible_targets.len > 0)

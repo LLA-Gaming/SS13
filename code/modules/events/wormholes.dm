@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/wormholes
 	max_occurrences = 3
 	rating = list(
-				"Gameplay"	= 25,
+				"Gameplay"	= 10,
 				"Dangerous"	= 80
 				)
 

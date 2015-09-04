@@ -95,14 +95,14 @@ var/datum/controller/event/events
 //checks if we should select a random event yet, and reschedules if necessary
 /datum/controller/event/proc/checkEvent()
 	if(scheduled <= world.time)
-		phase++
-		if(ticker && ticker.intel)
+		if(ticker && ticker.intel && autoratings)
 			ticker.intel.rateStation()
 		pickEvent()
 		reschedule()
 
 //decides which world.time we should select another random event at.
 /datum/controller/event/proc/reschedule()
+	phase++
 	scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
 
 
@@ -166,10 +166,6 @@ I.e, the following is valid:
 	return events_by_weight
 
 /datum/controller/event/proc/pickEvent(var/test=0)
-	//addition by flavo for station rating
-	if(!test && ticker && ticker.intel && autoratings)
-		ticker.intel.rateStation()
-	//addition end
 	var/list/event_list = createEventListByDistance(test)
 	var/chosen_probability = gaussian(0, stddev) //Mean, stddev
 	//We have our probability, and events organised by difference.

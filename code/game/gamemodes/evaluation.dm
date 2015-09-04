@@ -93,9 +93,6 @@
 			ticker.timeline.Add("[time2text(world.time, "hh:mm:ss")] [text]")
 
 /datum/roundintel
-	//rateStation() compares the data and adds "moods" to this list, the contents
-	//of the moods list then is run through "add_danger" would increase the danger rating. for example.
-	var/list/moods = list()
 	//people
 	var/active_crew = 0 //Active crew
 	var/active_heads = 0 //Active heads of staff
@@ -105,6 +102,8 @@
 	var/mining_points = 0
 	var/research = 0
 	var/singularity = 0
+
+	var/list/commands = list() // sets up a list of commands to fire when adjusting the event ratings.
 
 	proc/gather_stats()
 		//people
@@ -146,6 +145,7 @@
 
 
 
+
 	proc/rateStation()
 		if(!ticker || !ticker.intel) return
 		if(ticker.current_state != 3) return
@@ -153,39 +153,51 @@
 			return
 		if(!events.autoratings)
 			return
-		var/list/commands = list() // sets up a list of commands to fire when adjusting the event ratings.
 		//out with the old, in with the new
 		var/datum/roundintel/O = ticker.intel
 		var/datum/roundintel/N = new()
 		ticker.intel = N
+		N.commands = O.commands
 		N.gather_stats()
-		//compare
-		/* blueberries go home
-		if(N.active_perseus)
-			commands.Add("perseus_available")
-		*/
-		if(N.active_antags < O.active_antags)
-			commands.Add("antags_defeated")
-		else
-			commands.Add("antags_progress")
+		var/low = 5
+		var/high = 15
+		if(IsMultiple(events.phase, 3))
+			low = 15
+			high = 30
+		//compare every 4 events
+		if(IsMultiple(events.phase, 4) && events.phase >= 4)
+			commands = list()
+			//reset 60% of the time
+			if(prob(60))
+				events.rating["Dangerous"] = 0
+				events.rating["Gameplay"] = 50
+			/* blueberries go home
+			if(N.active_perseus)
+				commands.Add("perseus_available")
+			*/
+			if(N.active_antags < O.active_antags)
+				commands.Add("antags_defeated")
+			else
+				commands.Add("antags_progress")
 
-		if((N.active_crew - O.active_antags) < (O.active_crew - O.active_antags))
-			commands.Add("lost_crew")
-		else
-			commands.Add("crew_stable")
+			if((N.active_crew - O.active_antags) < (O.active_crew - O.active_antags))
+				commands.Add("lost_crew")
+			else
+				commands.Add("crew_stable")
 
-		if(N.mining_points > O.mining_points)
-			commands.Add("research_up")
+			if(N.mining_points > O.mining_points)
+				commands.Add("research_up")
 
-		if(N.research > O.research)
-			commands.Add("research_up")
+			if(N.research > O.research)
+				commands.Add("research_up")
 
-		if(N.singularity)
-			commands.Add("sing_stable")
-		else
-			commands.Add("SINGLOOSE")
+			if(N.singularity)
+				commands.Add("sing_stable")
+			else
+				commands.Add("SINGLOOSE")
 
 		//Adjust
+		events.rating["Dangerous"] += rand(low,high)
 		for(var/X in commands)
 			switch(X)
 				/* blueberries go home
@@ -209,7 +221,7 @@
 					events.rating["Gameplay"] += rand(0,15)
 				if("sing_stable")
 					//if the sing is stable, we progress down the dangerous line
-					events.rating["Dangerous"] += rand(5,15)
+					events.rating["Dangerous"] += rand(0,15)
 				if("SINGLOOSE")
 					//this means either the engine was never setup or is loose, we want to severely dampen what events can fire until this is rectified
 					//Annoying/Gameplay cannot exceed 20 points
@@ -223,19 +235,12 @@
 						events.rating["Dangerous"] = rand(0,50)
 
 
-		//If we are in the negatives, make it 0
-		events.rating["Gameplay"] = max(events.rating["Gameplay"],0)
-		events.rating["Dangerous"] = max(events.rating["Dangerous"],0)
-		var/scramble = 0
-		//If we exceed 100, time to reset to the middle
-		if(events.rating["Gameplay"] > 100)
-			events.rating["Gameplay"] = 50
-			scramble = 1
-		//If we exceed 100, time to reset to the begining of progression with a little bonus maybe.
-		if(events.rating["Dangerous"] > 100)
-			events.rating["Dangerous"] = rand(0,30)
-			scramble = 1
+		if(events.rating["Gameplay"] >= 100)
+			events.rating["Gameplay"] = rand(75,100)
+		if(events.rating["Gameplay"] <= 0)
+			events.rating["Gameplay"] = rand(0,35)
 
-		if(prob(25) && scramble)
-			events.rating["Dangerous"] = rand(0,100)
-			events.rating["Gameplay"] = rand(0,100)
+		if(events.rating["Dangerous"] >= 100)
+			events.rating["Dangerous"] = rand(75,100)
+		if(events.rating["Dangerous"] <= 0)
+			events.rating["Dangerous"] = rand(0,35)
