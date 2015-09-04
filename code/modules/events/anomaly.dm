@@ -37,11 +37,11 @@
 	newAnomaly.anomalyEffect()
 
 /datum/round_event/anomaly/end()
-	if(newAnomaly && !newAnomaly.loc) //if it doesn't exist in the game world its probably in the GC
-		failed = 0
-		qdel(newAnomaly)
-		return
 	if(newAnomaly)//Kill the anomaly if it still exists at the end.
+		if(!newAnomaly.loc) //if it doesnt exist in the gameworld it likely exists in the GC
+			failed = 0
+			qdel(newAnomaly)
+			return
 		failed = 1
 		qdel(newAnomaly)
 	else

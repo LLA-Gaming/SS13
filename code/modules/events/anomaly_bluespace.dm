@@ -24,11 +24,11 @@
 
 
 /datum/round_event/anomaly/anomaly_bluespace/end()
-	if(newAnomaly && !newAnomaly.loc) //if it doesn't exist in the game world its probably in the GC
-		failed = 0
-		qdel(newAnomaly)
-		return
 	if(newAnomaly)//If it hasn't been neutralized, it's time to warp half the station away jeez
+		if(!newAnomaly.loc) //if it doesnt exist in the gameworld it likely exists in the GC
+			failed = 0
+			qdel(newAnomaly)
+			return
 		var/turf/T = pick(get_area_turfs(impact_area))
 		if(T)
 				// Calculate new position (searches through beacons in world)

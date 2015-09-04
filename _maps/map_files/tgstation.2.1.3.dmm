@@ -3186,7 +3186,7 @@
 "bjn" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{dir = 4},/obj/effect/landmark/start{name = "Assistant"},/turf/simulated/floor,/area/pod_hangar/crew)
 "bjo" = (/obj/structure/grille,/obj/structure/window/reinforced,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/pod_hangar/crew)
 "bjp" = (/turf/simulated/wall/r_wall,/area/quartermaster/sorting)
-"bjq" = (/obj/machinery/door/airlock/maintenance{req_access_txt = "12"},/turf/simulated/floor/plating,/area/quartermaster/sorting)
+"bjq" = (/obj/machinery/door/airlock/maintenance{req_access_txt = "50"},/turf/simulated/floor/plating,/area/quartermaster/sorting)
 "bjr" = (/obj/structure/disposalpipe/segment{dir = 4; icon_state = "pipe-c"},/turf/simulated/wall/r_wall,/area/quartermaster/sorting)
 "bjs" = (/obj/machinery/conveyor{dir = 4; id = "qm_sorting"},/turf/simulated/floor/plating,/area/quartermaster/sorting)
 "bjt" = (/obj/machinery/camera{c_tag = "Central Hallway West"; dir = 8},/turf/simulated/floor{icon_state = "bluecorner"},/area/hallway/primary/central)

@@ -77,7 +77,8 @@
 		for(var/datum/round_event/E in events.queue)
 			qdel(E) //kill off any unqueued events. they don't deserve any light of day.
 		for(var/datum/round_event/E in events.finished)
-			E.end() // end it first
+			if(!E.queued && E.activeFor < E.endWhen)
+				E.end() // end it first (if it wasnt already complete)
 			var/win = E.declare_completion()
 			if(!win) continue
 			world << "[TAB][win]"
