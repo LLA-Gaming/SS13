@@ -4,7 +4,7 @@
 	phases_required = 1
 	max_occurrences = 6
 	rating = list(
-				"Gameplay"	= 30,
+				"Gameplay"	= 5,
 				"Dangerous"	= 40
 				)
 
