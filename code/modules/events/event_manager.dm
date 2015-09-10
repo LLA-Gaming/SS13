@@ -221,6 +221,7 @@ I.e, the following is valid:
 					E.max_occurrences = 0
 					continue
 				add2timeline("[E.name]",1)
+				log_game("EVENTS: [E.name] (dist:[getDistance(E)]/gmply:[E.rating["Gameplay"]]/dnger:[E.rating["Dangerous"]]) was fired | Chosen Difference: [chosen_difference] | Gameplay: [rating["Gameplay"]] | Dangerous: [rating["Dangerous"]]")
 				return //Yes, boom, the event fired.. your work here is done big ol calculator
 			else
 				return //err.. E was null so the list is clearly empty or something. fuck it.

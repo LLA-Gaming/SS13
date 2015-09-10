@@ -161,6 +161,7 @@ var/round_start_time = 0
 		crew = sortList(crew)
 		timeline.Add("[english_list(crew)]")
 		add2timeline("Shift begins!",1)
+		log_game("EVENTS: Round begins ---")
 		if(intel)
 			intel.gather_stats(1)
 		//end timeline stuff
