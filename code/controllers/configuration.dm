@@ -136,7 +136,7 @@
 	var/random_engine = 0 //Whether or not to use one of the random engine templates. If 0, will use whatever the prebuilt engine on the station is.
 
 	//events
-	var/events_stddev				= 0.75
+	var/events_focus				= 0.25
 	var/events_queue_ghost_events	= 1
 	var/events_timelocks				= 1
 
@@ -411,8 +411,8 @@
 					config.mutant_races				= 1
 				if("randomize_engine_template")
 					config.random_engine			= 1
-				if("events_stddev")
-					config.events_stddev			= text2num(value)
+				if("events_focus")
+					config.events_focus			= text2num(value)
 				if("events_queue_ghost_events")
 					config.events_queue_ghost_events= 1
 				if("event_timelocks")

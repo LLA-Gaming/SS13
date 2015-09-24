@@ -17,7 +17,7 @@ var/datum/controller/event/events
 	var/spawnrate_mode = 0 //1 for faster event spawning
 
 	//configs
-	var/stddev = 0.75
+	var/focus = 0.25
 	var/queue_ghost_events = 1
 	var/timelocks = 1
 
@@ -41,7 +41,7 @@ var/datum/controller/event/events
 
 	//configs
 	if(config)
-		stddev = config.events_stddev
+		focus = config.events_focus
 		queue_ghost_events = config.events_queue_ghost_events
 		timelocks = config.events_timelocks
 
@@ -163,23 +163,34 @@ I.e, the following is valid:
 			events_at_current_weight += event
 		else
 			events_by_weight[distance] = list(event)
-	return events_by_weight
+
+	//addition by flavo to even out lists
+	//Even out the list
+	var/list/events_by_weight_even = list()
+	for(var/i=1 , i<=events_by_weight.len , i++)
+		var/list/E = events_by_weight[i]
+		if(E)
+			events_by_weight_even += list(E)
+	//addition end.
+
+	return events_by_weight_even
 
 /datum/controller/event/proc/pickEvent(var/test=0)
 	var/list/event_list = createEventListByDistance(test)
-	var/chosen_probability = gaussian(0, stddev) //Mean, stddev
+	var/chosen_probability = gaussian(0, event_list.len * focus) //Mean, stddev
 	//We have our probability, and events organised by difference.
 	//Difference is between 0 and 500 (as 5 ratings, with a range of 100 each).
 
 	//Convert our random number (which is a decimal, with a 98% chance of being between -3 and 3 for mean = 0, stddev = 1)
 	//into something we can use, so multiply by 100.
 
-	var/chosen_difference = chosen_probability * 100
+	var/chosen_difference = chosen_probability
 
 	//Hurray, we now have an integer between -infinity and infinity, with a 98% chance of being between -75 and 75.
 	//But fuck negatives, let's make it positive!
 
 	chosen_difference = Ceiling(abs(chosen_difference))
+	//world.log << chosen_difference
 
 	//Cool, now it has a 98% chance of being between 0 and 300, a 95% chance of being between 0 and 200, and a 68% chance of being between 0 and 100.
 	//That seems rather high... so perhaps go back and change the stddev to something lower. Maybe 0.1?
@@ -193,9 +204,9 @@ I.e, the following is valid:
 	//And we select the difference with the lowest distance,
 	//I.e, the list of events that have their difficulty closest to our randomly selected one.
 	//(Remembering that our randomly selected difficulty is more likely to throw out certain values)
-	var/selected_event_difference = 200 //Highest difference for a given event, currently.
-	var/selected_distance_from_difference = 200
-	chosen_difference = Clamp(chosen_difference,0,200)
+	var/selected_event_difference = event_list.len //Highest difference for a given event, currently.
+	var/selected_distance_from_difference = event_list.len
+	chosen_difference = Clamp(chosen_difference,0,event_list.len)
 	for(var/difference in event_list)
 		//addition by flavo
 		if(!difference) continue

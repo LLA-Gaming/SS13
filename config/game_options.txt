@@ -198,9 +198,9 @@ DEFAULT_LAWS 0
 #RANDOMIZE_ENGINE_TEMPLATE
 
 ### EVENT CONFIGURATION ###
-## EVENTS_STDDEV should be a number between 0.01 and 2. the lower this number is the more precisely the event controller will chose a event closer to the event's rating
+## EVENTS_FOCUS should be a number between 0.01 and 1. this number will end up deciding the event's stddev by this formula (events_list.len * focus)
 ## EVENTS_QUEUE_GHOST_EVENTS will allow events that require ghosts (Alien,ninja) to fire but if no ghosts are available it will check every tick for candidates, if it finds some. it will start the event
 ## EVENT_TIMELOCKS will prevent some events from firing to early into the round.
-EVENTS_STDDEV 0.75
+EVENTS_FOCUS 0.25
 EVENTS_QUEUE_GHOSTS_EVENTS 1
 EVENT_TIMELOCKS 1
