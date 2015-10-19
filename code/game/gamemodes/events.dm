@@ -137,9 +137,10 @@
 			A.power_environ = 1
 			A.power_change()
 
-/proc/power_restore_quick()
+/proc/power_restore_quick(var/no_announce=0)
 
-	priority_announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", 'sound/AI/poweron.ogg')
+	if(!no_announce)
+		priority_announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", 'sound/AI/poweron.ogg')
 	for(var/obj/machinery/power/smes/S in world)
 		if(S.z != 1)
 			continue

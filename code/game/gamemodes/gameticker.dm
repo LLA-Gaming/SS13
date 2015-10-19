@@ -150,7 +150,18 @@ var/round_start_time = 0
 		if(events.holiday)
 			world << "<font color='blue'>and...</font>"
 			world << "<h4>Happy [events.holiday] Everybody!</h4>"
-
+		//Power restoration on lowpop
+		var/PlayerC = 0
+		var/EngiC = 0
+		for(var/datum/mind/M in minds)
+			PlayerC++
+			if(M.assigned_role == "Chief Engineer" || M.assigned_role == "Station Engineer")
+				EngiC++
+		if(PlayerC <= 10 && !EngiC) // less then 10 players AND no engineers
+			for(var/mob/M in player_list)
+				if(!istype(M,/mob/new_player))
+					M << "<b>The station has been supplied with additional power due to the lack of engineers</b>"
+			power_restore_quick(1)
 		//timeline stuff
 		timeline.Add("<b>[station_name]</b>")
 		timeline.Add("<b>Starting Crew:</b>")
