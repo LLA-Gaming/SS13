@@ -136,12 +136,21 @@ I.e, the following is valid:
 	var/list/events_by_weight = list()
 	//addition by flavo
 	events_by_weight.len = 200 //Highest difference for events, should probably be a DEFINE
+	//gather player count
+	var/PlayerC = 0
+	for(var/client/C in clients)
+		if(istype(C.mob,/mob/new_player/)) //lobby players dont count
+			continue
+		PlayerC++
+	//end gather player count
 	for(var/datum/round_event_control/event in control)
 		if(event.occurrences >= event.max_occurrences)	continue //ran too much
 		if(timelocks)
 			if(event.phases_required > phase)		continue  //time locked
 		if(event.holidayID) 							//holiday
 			if(event.holidayID != holiday)			continue
+		if(event.players_needed > PlayerC)
+			continue
 		if(event.needs_ghosts)
 			var/ghosts = 0
 			for(var/client/C in clients)
@@ -205,6 +214,9 @@ I.e, the following is valid:
 	//I.e, the list of events that have their difficulty closest to our randomly selected one.
 	//(Remembering that our randomly selected difficulty is more likely to throw out certain values)
 	var/selected_event_difference = event_list.len //Highest difference for a given event, currently.
+	if(!selected_event_difference) // just some sanity
+		log_game("EVENTS: No event was fired because the possible event list was empty")
+		return
 	var/selected_distance_from_difference = event_list.len
 	chosen_difference = Clamp(chosen_difference,0,event_list.len)
 	for(var/difference in event_list)

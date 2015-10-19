@@ -14,6 +14,7 @@
 	var/occurrences = 0			//How many times this event has occured
 	var/max_occurrences = 20		//The maximum number of times this event can occur (naturally), it can still be forced.
 								//By setting this to 0 you can effectively disable an event.
+	var/players_needed = 0
 
 	var/holidayID				//string which should match the events.holiday variable if you wish this event to be holiday-specific
 								//anything with a (non-null) holidayID which does not match holiday, cannot run.

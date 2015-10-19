@@ -2,6 +2,7 @@
 	name = "Meteor Wave"
 	typepath = /datum/round_event/meteor_wave
 	max_occurrences = 3
+	players_needed = 10
 	rating = list(
 				"Gameplay"	= 10,
 				"Dangerous"	= 79

@@ -2,6 +2,7 @@
 	name = "Spacevine"
 	typepath = /datum/round_event/spacevine
 	max_occurrences = 3
+	players_needed = 10
 	rating = list(
 				"Gameplay"	= 0,
 				"Dangerous"	= 50

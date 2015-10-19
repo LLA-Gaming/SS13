@@ -3,6 +3,7 @@
 	typepath = /datum/round_event/blob
 	max_occurrences = 1
 	phases_required = 5 //25 to 75 minutes
+	players_needed = 10
 	rating = list(
 				"Gameplay"	= 100,
 				"Dangerous"	= 100

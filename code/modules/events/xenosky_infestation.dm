@@ -3,6 +3,7 @@
 	typepath = /datum/round_event/xenosky_infestation
 	max_occurrences = 0
 	needs_ghosts = 1
+	players_needed = 10
 	rating = list(
 				"Gameplay"	= 90,
 				"Dangerous"	= 90
