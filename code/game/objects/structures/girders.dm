@@ -8,6 +8,10 @@
 	attackby(obj/item/W as obj, mob/user as mob)
 		add_fingerprint(user)
 		if(istype(W, /obj/item/weapon/wrench) && state == 0)
+			var/turf/Tsrc = get_turf(src)
+			if (!istype(Tsrc, /turf/simulated/floor))
+				user << "<span class='warning'>This cant be bolted without a floor!</span>"
+				return
 			if(anchored && !istype(src,/obj/structure/girder/displaced))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
 				user << "<span class='notice'>Now disassembling the girder...</span>"
@@ -76,6 +80,10 @@
 						if(S.amount < 2)
 							user << "<span class='warning'>You need at least two sheets to create a false wall.</span>"
 							return
+						var/turf/Tsrc = get_turf(src)
+						if (!istype(Tsrc, /turf/simulated/floor))
+							user << "<span class='warning'>This cant be created without a floor!</span>"
+							return
 						S.use(2)
 						user << "<span class='notice'>You create a false wall! Push on it to open or close the passage.</span>"
 						var/obj/structure/falsewall/F = new (loc)
@@ -99,6 +107,10 @@
 					if(!anchored)
 						if(S.amount < 2)
 							user << "<span class='warning'>You need at least two sheets to create a false wall.</span>"
+							return
+						var/turf/Tsrc = get_turf(src)
+						if (!istype(Tsrc, /turf/simulated/floor))
+							user << "<span class='warning'>This cant be created without a floor!</span>"
 							return
 						S.use(2)
 						user << "<span class='notice'>You create a false wall! Push on it to open or close the passage.</span>"
