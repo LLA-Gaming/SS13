@@ -7,6 +7,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	flag = "laser"
 	eyeblur = 2
+	light_color = "#FF0000"
 
 /obj/item/projectile/practice
 	name = "laser"
@@ -17,6 +18,7 @@
 	damage_type = BURN
 	flag = "laser"
 	eyeblur = 2
+	light_color = "#FF0000"
 
 /obj/item/projectile/beam/scatter
 	name = "laser pellet"
@@ -35,11 +37,14 @@
 	damage = 15
 	irradiate = 30
 	forcedodge = 1
+	light_color = "#5DFC0A"
 
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
 	damage = 50
+	light_color = "#008080"
+
 	on_hit(var/atom/target, var/blocked = 0)
 		if(istype(target,/turf/)||istype(target,/obj/structure/))
 			target.ex_act(2)
@@ -55,6 +60,7 @@
 	name = "emitter beam"
 	icon_state = "emitter"
 	damage = 30
+	light_color = "#5DFC0A"
 
 
 /obj/item/projectile/lasertag

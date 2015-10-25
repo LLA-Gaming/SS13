@@ -5,7 +5,7 @@
 	damage_type = BURN
 	nodamage = 1
 	flag = "energy"
-
+	light_color = "#00EEEE"
 
 	on_hit(var/atom/target, var/blocked = 0)
 		empulse(target, 1, 1)
@@ -31,6 +31,7 @@
 	nodamage = 1
 	flag = "energy"
 	var/temperature = 100
+	light_color = "#37FDFC"
 
 
 	on_hit(var/atom/target, var/blocked = 0)//These two could likely check temp protection on the mob
@@ -42,6 +43,7 @@
 /obj/item/projectile/temp/hot
 	name = "heat beam"
 	temperature = 400
+	light_color = "#FF0000"
 
 /obj/item/projectile/meteor
 	name = "meteor"

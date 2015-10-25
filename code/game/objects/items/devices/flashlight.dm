@@ -12,12 +12,13 @@
 	action_button_name = "Toggle Light"
 	var/on = 0
 	var/brightness_on = 4 //luminosity when on
+	var/brightness_power = 1
 
 /obj/item/device/flashlight/initialize()
 	..()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
-		SetLuminosity(brightness_on)
+		SetLuminosity(brightness_on, brightness_power, light_color)
 	else
 		icon_state = initial(icon_state)
 		SetLuminosity(0)
@@ -26,13 +27,14 @@
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
 		if(loc == user)
-			user.AddLuminosity(brightness_on)
+			user.AddLuminosity(brightness_on, brightness_power, light_color)
 		else if(isturf(loc))
 			SetLuminosity(brightness_on)
 	else
 		icon_state = initial(icon_state)
 		if(loc == user)
 			user.AddLuminosity(-brightness_on)
+			user.light_color = null
 		else if(isturf(loc))
 			SetLuminosity(0)
 
@@ -95,6 +97,7 @@
 
 /obj/item/device/flashlight/dropped(mob/user)
 	if(on)
+		user.light_color = null
 		user.AddLuminosity(-brightness_on)
 		SetLuminosity(brightness_on)
 
@@ -129,6 +132,7 @@
 	m_amt = 0
 	g_amt = 0
 	on = 1
+	light_color = "#FFC58F"
 
 
 // green-shaded desk lamp
@@ -166,6 +170,7 @@
 	var/fuel = 0
 	var/on_damage = 7
 	var/produce_heat = 1500
+	light_color = "#E58775"
 
 /obj/item/device/flashlight/flare/New()
 	fuel = rand(800, 1000) // Sorry for changing this so much but I keep under-estimating how long X number of ticks last in seconds.

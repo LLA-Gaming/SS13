@@ -89,7 +89,6 @@
 	master_controller = new /datum/controller/game_controller()
 	spawn(-1)
 		master_controller.setup()
-		lighting_controller.Initialize()
 
 	src.update_world_name()
 	src.update_status()
