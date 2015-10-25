@@ -757,7 +757,7 @@
 				var/turf/T = loc
 				var/area/A = T.loc
 				if(A)
-					if(A.lighting_use_dynamic)	light_amount = min(10,T.lighting_lumcount) - 5 //hardcapped so it's not abused by having a ton of flashlights
+					if(A.lighting_use_dynamic)	light_amount = min(10,T.GetLightRange()) - 5 //hardcapped so it's not abused by having a ton of flashlights
 					else						light_amount =  5
 			nutrition += light_amount
 			if(nutrition > 500)
@@ -772,7 +772,7 @@
 				var/turf/T = loc
 				var/area/A = T.loc
 				if(A)
-					if(A.lighting_use_dynamic)	light_amount = T.lighting_lumcount
+					if(A.lighting_use_dynamic)	light_amount = T.GetLightRange()
 					else						light_amount =  10
 			if(light_amount > 2) //if there's enough light, start dying
 				take_overall_damage(1,1)

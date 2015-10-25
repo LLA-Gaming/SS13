@@ -19,6 +19,8 @@
 	var/blocks_air = 0
 	var/icon_old = null
 
+	var/dynamic_lighting = 1
+
 	flags = 0
 
 	//Added these back as overrides to the normal gas quantities. This is the reason I despise varedited instances where a pre-set will do.
@@ -193,11 +195,9 @@
 		qdel(L)
 
 //Creates a new turf
-/turf/proc/ChangeTurf(var/path)
+/turf/proc/ChangeTurf(var/path, var/force_lighting_update = 0)
 	if(!path)			return
 	if(path == type)	return src
-	var/old_lumcount = lighting_lumcount - initial(lighting_lumcount)
-	var/old_opacity = opacity
 	if(air_master)
 		air_master.remove_from_active(src)
 
@@ -207,14 +207,20 @@
 		W:Assimilate_Air()
 		W.RemoveLattice()
 
-	W.lighting_lumcount += old_lumcount
-	if(old_lumcount != W.lighting_lumcount)	//light levels of the turf have changed. We need to shift it to another lighting-subarea
-		W.lighting_changed = 1
-		lighting_controller.changed_turfs += W
+	var/old_opacity = opacity
+	var/old_dynamic_lighting = dynamic_lighting
+	var/list/old_affecting_lights = affecting_lights
+	var/old_lighting_overlay = lighting_overlay
 
-	if(old_opacity != W.opacity)			//opacity has changed. Need to update surrounding lights
-		if(W.lighting_lumcount)				//unless we're being illuminated, don't bother (may be buggy, hard to test)
-			W.UpdateAffectingLights()
+	lighting_overlay = old_lighting_overlay
+	affecting_lights = old_affecting_lights
+	if((old_opacity != opacity) || (dynamic_lighting != old_dynamic_lighting) || force_lighting_update)
+		reconsider_lights()
+	if(dynamic_lighting != old_dynamic_lighting)
+		if(dynamic_lighting)
+			lighting_build_overlays()
+		else
+			lighting_clear_overlays()
 
 	W.levelupdate()
 	W.CalculateAdjacentTurfs()

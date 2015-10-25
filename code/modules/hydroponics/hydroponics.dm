@@ -124,7 +124,7 @@ obj/machinery/hydroponics/process()
 			// Lack of light hurts non-mushrooms
 			if(isturf(loc))
 				var/turf/currentTurf = loc
-				var/lightAmt = currentTurf.lighting_lumcount
+				var/lightAmt = currentTurf.GetLightRange()
 				if(myseed.plant_type == 2) // Mushroom
 					if(lightAmt < 2)
 						adjustHealth(-1)

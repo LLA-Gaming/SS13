@@ -4,7 +4,7 @@
 	damage = 0
 	damage_type = BURN
 	flag = "energy"
-
+	light_color = "#FCDC3B"
 
 /obj/item/projectile/energy/electrode
 	name = "electrode"
@@ -60,6 +60,7 @@
 	damage_type = STAMINA
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	var/range = 7
+	light_color = "#63B8FF"
 
 /obj/item/projectile/energy/disabler/Range()
 	range--
