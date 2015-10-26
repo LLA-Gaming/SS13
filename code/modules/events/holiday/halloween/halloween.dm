@@ -41,7 +41,11 @@
 
 	start()
 		PickWerewolves()
-
+		// Play some sp00ky songs.
+		var/song = pick(list('sound/ambience/scaryskeletons.ogg', 'sound/ambience/thisishalloween.ogg'))
+		for(var/client/C in clients)
+			if(C.prefs.toggles & SOUND_MIDI)
+				C << sound(song, repeat = 0, wait = 0, volume = 50, channel = 1)
 	/*
 		for(var/mob/living/carbon/human/H in mob_list)
 			if(H.dna)
@@ -121,33 +125,11 @@
 		/*
 		* Spawn Cauldrons
 		*/
-
-		//list of coordinates where the candy cauldrons spawn
-		//I realise this is hacky, but I didn't want to put halloween-specific landmarks on the map.
-//		var/list/coords = list(list(122, 99, 1), 		//Science
-//								list(92, 103, 1),		//Medbay
-//								list(102, 134, 1),		//Bridge
-//								list(70, 138, 1),		//Cargo
-//								list(108, 165, 1),		//Security
-//								list(159, 137, 1),		//Engineering
-//							//	list(122, 149, 1),		//Civilian 1
-//							//	list(132, 126, 1),		//Civilian 2
-//							//	list(82, 126, 1),		//Civilian 3
-//							//	list(67, 134, 1),		//Civilian 4
-//								list(128, 149, 1)		//Civilian 5 - Crew Quarters
-//							)
-//
-//		//use coordinates above to place the cauldrons.
-//		for(var/list/coord in coords)
-//			new /obj/structure/candy_cauldron(get_turf(locate(coord[1], coord[2], coord[3])))
-// Ok so... i commented out the cauldrons spawning as we switched maps and the coordinates for there spawn points have not been made, re-make these coords or make landmarks before uncommenting. per don zombie. ~Flavo
-
+		for(var/L in candy_spawn)
+			var/obj/structure/candy_cauldron/C = new /obj/structure/candy_cauldron
+			C.loc = L
 
 	announce()
 		priority_announce(pick("RATTLE ME BONES!","THE RIDE NEVER ENDS!", "A SKELETON POPS OUT!", "SPOOKY SCARY SKELETONS!", "CREWMEMBERS BEWARE, YOU'RE IN FOR A SCARE!") , "THE CALL IS COMING FROM INSIDE THE HOUSE")
-
-		// Play some sp00ky songs.
-		var/song = pick(list('sound/ambience/scaryskeletons.ogg', 'sound/ambience/thisishalloween.ogg'))
-		for(var/client/C in clients)
-			if(C.prefs.toggles & SOUND_MIDI)
-				C << sound(song, repeat = 0, wait = 0, volume = 50, channel = 1)
+		/* moved this to start() because false alarm
+		*/

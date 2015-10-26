@@ -41,6 +41,8 @@ var/list/percSpawnTurfs = list()
 			return
 		if("Holding Facility")
 			holdingfacility += loc
+		if("candy_spawn")
+			candy_spawn	+= loc
 		if("fdome")
 			fdome	+= loc
 		if("fdome1")

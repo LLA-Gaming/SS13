@@ -30,6 +30,7 @@ var/list/latejoin = list()
 var/list/prisonwarp = list()	//prisoners go to these
 var/list/holdingfacility = list()	//captured people go here
 var/list/xeno_spawn = list()//Aliens spawn at these.
+var/list/candy_spawn = list() //halloween
 var/list/fdome = list()
 var/list/fdome1 = list()
 var/list/fdome1items = list()
