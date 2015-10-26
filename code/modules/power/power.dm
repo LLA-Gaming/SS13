@@ -58,6 +58,9 @@
 	if(!use_power)
 		return 1
 
+	if(power_disrupted)
+		return 0
+
 	var/area/A = src.loc.loc		// make sure it's in an area
 	if(!A || !isarea(A) || !A.master)
 		return 0					// if not, then not powered

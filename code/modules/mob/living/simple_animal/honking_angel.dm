@@ -37,6 +37,7 @@
 	var/honktimer = 0
 	var/id = ""
 	var/disrupting = 0
+	var/is_disrupting = 0
 	var/helping = 0
 	var/const/quantum_lock_loop_delay = 1
 
@@ -342,12 +343,12 @@
 
 ///////////////////////
 
-
 /mob/living/simple_animal/hostile/weeping_honk/verb/power_disrupt()
 	set name = "Power Disruption"
 	set desc = "Disrupt and drain power from the local area."
 	set category = "H.Angel"
 	//find current area
+	/*
 	var/area/A = get_area(src.loc)
 	//A = A.loc
 	if (!( istype(A, /area))) // If its not a area, stop!
@@ -357,28 +358,94 @@
 	if (istype(A, /area/space)) // If it is space, LOVE OF GOD PLEASE STOP!
 		src << "\red <b>There is no power to disrupt in space.</b>"
 		return
+	*/
 	//stop if you are already disrupting
 	if(src.disrupting)
 		src << "\red <b>Disruption is not ready yet.</b>"
 		return
 	else disrupting = 1
 	src << "\green <b>Disrupting Power.</b>"
+	is_disrupting = 1
 
-//	if (A == "Space")
-//		return
-//	if (!( istype(A, /area) ))
-//		return
+	//gather affected machines
+	var/list/affected_machines = list()
+	var/list/affected_lights = list()
 
-	//spacecheck
+	for(var/obj/machinery/M in orange(7,src))
+		var/area/A = get_area(M.loc)
+		if (!( istype(A, /area))) // If its not a area, stop!
+			continue
+		if(!A.requires_power) // If it doesn't require power, stop!
+			continue
+		if (istype(A, /area/space)) // If it is space, LOVE OF GOD PLEASE STOP!
+			continue
+		if (istype(M, /obj/machinery/singularity))
+			continue
+		if (istype(M, /obj/machinery/light))
+			affected_lights.Add(M)
+			continue
+		affected_machines.Add(M)
 
-	//flicker lights
-	for(var/obj/machinery/light/L in A)
-		L.flicker(10)
-		var/R = rand(1,3)
-		if (R == 3)
-			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-			s.set_up(4, 2, get_turf(L.loc))
-			s.start()
+	//flicker per tick
+	for(var/i = 0; i < 10; i++)
+
+		//steal power
+		//stealing power from the APC causes too much CPU usage/lag, i feel this is a better alternative
+		var/N = rand(0,Clamp(affected_machines.len,3))
+		src.health += N
+		if(src.health >= maxHealth)
+			src.health = maxHealth
+
+		//lights
+		spawn(0)
+			for(var/obj/machinery/light/L in affected_lights)
+				if(!is_disrupting)
+					break
+				L.flicker(10)
+				if(prob(5))
+					L.broken()
+		//machines
+		for(var/obj/machinery/M in affected_machines)
+			spawn(0)
+				if(IsMultiple(i,2))
+					M.power_disrupted = 0
+				else
+					M.power_disrupted = 1
+				M.power_change()
+		sleep(10)
+	//reset everything
+	is_disrupting = 0
+	for(var/obj/machinery/M in affected_machines)
+		M.power_disrupted = 0
+		M.power_change()
+	sleep(50)
+	disrupting = 0
+	return
+
+/*
+	//machine flickering
+	for(var/obj/machinery/M in orange(7,src))
+		if(istype(M, /obj/machinery/light))
+			var/obj/machinery/light/L = M
+			L.flicker(10)
+			var/R = rand(1,3)
+			if (R == 3)
+				var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+				s.set_up(4, 2, get_turf(L.loc))
+				s.start()
+		var/area/A = get_area(M.loc)
+		if (!( istype(A, /area))) // If its not a area, stop!
+			continue
+		if(!A.requires_power) // If it doesn't require power, stop!
+			continue
+		if (istype(A, /area/space)) // If it is space, LOVE OF GOD PLEASE STOP!
+			continue
+		spawn(0)
+			for(var/i = 0; i < 10; i++)
+				M.power_disrupted = 1
+				sleep(rand(5, 15))
+			M.power_disrupted = 0
+*/
 /*
 	//setup to fuck with flashlights/lamps/hardhats
 	var/list/portable_lights = list()
@@ -397,6 +464,7 @@
 */
 
 	//fuck with the APC
+/*
 	var/obj/machinery/power/apc/O = A.get_apc()
 //	world << "APC name: [O.name]"
 //	world << "First APC equipt: [O.equipment]"
@@ -431,10 +499,12 @@
 										// val 0=off, 1=off(auto) 2=on 3=on(auto)
 										// on 0=off, 1=on, 2=autooff
 		sleep(rand(5, 15))
-
+*/
+/*
 	sleep(50)
 	disrupting = 0
 	return
+*/
 
 
 
@@ -527,10 +597,10 @@
 	set name = "Help"
 	set desc = "Basic instructions on how to play the Honking Angel"
 	set category = "H.Angel"
-	if(src.disrupting)
+	if(src.helping)
 		src << "\red <b>Antispam!</b>"
 		return
-	disrupting = 1
+	helping = 1
 	src << "\red <b>WELCOME TO THE HONKING ANGEL HELP!</b>"
 	src << "\blue <b>About:</b>"
 	src << "Honking Angels are an ancient species of statuesque humanoids. Not to be confused with their weeping cousins, though they do share some similarities. Angels are predatory by nature and feed off forms of energy be it radiation, electricity, or even stealing energy from living beings. It's worth it to note that angels are sadistic and very intellegent. They find great pleasure harrassing and causing their prey anguish before striking. Angels have evolved with a very special defensive ability. They will involuntarily quantum lock when they are under observation to protect themselves to ALMOST all forms of harm. They also possess a voracious appetite and can starve to death in the span of a single round. In fact if you are reading this you are actually on your way to starvation right now so there is no time to waste. "
@@ -556,7 +626,7 @@
 	src << "\blue <b>Goals: </b>"
 	src << "Honking Angels are in it for the hunt. They have come to the station to feed on it, and its inhabitants energy. Honking Angels may kill indiscriminately but it is not neccessarily withing their intrests to do so all of the time. Good luck and have fun. If you have any questions feel free to ask in ahelp."
 	sleep(1200)
-	disrupting = 0
+	helping = 0
 	return
 
 //Door code
