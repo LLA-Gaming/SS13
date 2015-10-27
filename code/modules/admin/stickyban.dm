@@ -18,10 +18,12 @@
 				if (!ckey)
 					return
 				ckey = ckey(ckey)
+				//remove this when lummox fixes the issues with dreamdaemon and keys that start with numbers
 				var/numcheck = text2num(copytext(ckey,1,2))
 				if(numcheck)
 					usr << "<span class='adminnotice'>Error: Can not add a stickyban to a key that starts with a number currently</span>"
 					return
+				//remove the above when lummox fixes
 
 			if (get_stickyban_from_ckey(ckey))
 				usr << "<span class='adminnotice'>Error: Can not add a stickyban: User already has a current sticky ban</span>"

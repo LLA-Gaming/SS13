@@ -65,9 +65,6 @@ world/IsBanned(key,address,computer_id)
 			log_access("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
 			message_admins("\blue Failed Login: [key] id:[computer_id] ip:[address] - Banned [.["reason"]]")
 			return .
-
-		return ..()	//default pager ban stuff
-
 	else
 
 		var/ckeytext = ckey(key)
@@ -117,4 +114,10 @@ world/IsBanned(key,address,computer_id)
 			message_admins("[key] has logged in with a blank computer id in the ban check.")
 		if (failedip)
 			message_admins("[key] has logged in with a blank ip in the ban check.")
-		return ..()	//default pager ban stuff
+
+	//stickyban stuff
+	var/stickyban = ..()	//default pager ban stuff
+	if (stickyban)
+		log_access("Failed Login: [key] [computer_id] [address] - stickyban detected")
+		message_admins("\blue Failed Login: [key] id:[computer_id] ip:[address] - stickyban detected")
+	return stickyban
