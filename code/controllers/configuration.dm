@@ -413,7 +413,7 @@
 					config.random_engine			= 1
 				if("events_focus")
 					config.events_focus			= text2num(value)
-				if("events_queue_ghost_events")
+				if("events_queue_ghosts_events")
 					config.events_queue_ghost_events= 1
 				if("event_timelocks")
 					config.events_timelocks			= 1
