@@ -39,7 +39,17 @@ world/IsBanned(key,address,computer_id)
 
 				return list("reason"="[bantype]", "desc"="[desc]")
 
-		return ..()
+
+		. = ..()	//default pager ban stuff
+		if (.)
+			//byond will not trigger isbanned() for "global" host bans,
+			//ie, ones where the "apply to this game only" checkbox is not checked (defaults to not checked)
+			//So it's safe to let admins walk thru host/sticky bans here
+			log_admin("The admin [key] has been allowed to bypass a matching host/sticky ban")
+			message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching host/sticky ban</span>")
+			return null
+
+		return .
 
 	//Guest Checking
 	if(!guests_allowed && IsGuestKey(key))

@@ -72,7 +72,8 @@ var/list/admin_verbs_admin = list(
 	/proc/Ban_Offline_Player,
 	/client/proc/fill_breach,
 	/client/proc/reenable_gravity_gen,
-	/client/proc/spawncostume
+	/client/proc/spawncostume,
+	/client/proc/stickybanpanel
 	//+Sound
 	)
 

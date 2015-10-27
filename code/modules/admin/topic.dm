@@ -6,6 +6,9 @@
 		log_admin("[key_name(usr)] tried to use the admin panel without authorization.")
 		return
 
+	if(href_list["stickyban"])
+		stickyban(href_list["stickyban"],href_list)
+
 	if(href_list["makeAntag"])
 		switch(href_list["makeAntag"])
 			if("1")
