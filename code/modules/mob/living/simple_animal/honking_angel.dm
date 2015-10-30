@@ -203,7 +203,7 @@
 		var/turf/simulated/t = get_turf(src)
 
 		if (t.lighting_lumcount >= 0.50)
-			for(var/mob/M in viewers(src))
+			for(var/mob/living/carbon/human/M in viewers(src))
 				if (!istype(M, /mob/living) || M.stat == DEAD || M:blinded > 0)
 					continue
 
