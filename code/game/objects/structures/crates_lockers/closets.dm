@@ -261,9 +261,9 @@
 // tk grab then use on self
 /obj/structure/closet/attack_self_tk(mob/user as mob)
 	src.add_fingerprint(user)
-
-	if(!src.toggle())
-		usr << "<span class='notice'>It won't budge!</span>"
+	src.attack_hand(user)
+//	if(!src.toggle())
+//		usr << "<span class='notice'>It won't budge!</span>"
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
