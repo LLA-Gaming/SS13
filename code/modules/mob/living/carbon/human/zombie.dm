@@ -364,9 +364,15 @@
 
 /datum/disease/z_virus/stage_act()
 	..()
-	if(istype(affected_mob, /mob/living/carbon/human/zombie) && !src.carrier)
+
+	if(istype(affected_mob, /mob/living/carbon/human/zombie)) //Possible fix to prevent processing of stage effects (specifically stage 5) after mob has zombified.
+		if(!src.carrier)
+			src.carrier = 1
+		return
+	/*if(istype(affected_mob, /mob/living/carbon/human/zombie) && !src.carrier)
 		src.carrier = 1
 		return
+	*/
 /*	switch(stage)
 		if(1)
 			if (prob(8))
