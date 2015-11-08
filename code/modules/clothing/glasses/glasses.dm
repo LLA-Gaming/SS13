@@ -34,8 +34,30 @@
 	icon_state = "night"
 	item_state = "glasses"
 	origin_tech = "magnets=4"
+	action_button_name = "Toggle Night Vision Goggles."
 	darkness_view = 8
 	invis_view = SEE_INVISIBLE_MINIMUM
+	var/onoff = 1 //1 is on, 0 is off
+
+/obj/item/clothing/glasses/night/proc/toggle()
+	if (onoff)
+		onoff = 0
+		darkness_view = 2
+		invis_view = SEE_INVISIBLE_LIVING
+	else
+		onoff = 1
+		darkness_view = initial(darkness_view)
+		invis_view = initial(invis_view)
+	return
+
+/obj/item/clothing/glasses/night/attack_self(mob/user)
+	toggle()
+	if (onoff)
+		usr << "You switch the [name] on."
+	else
+		usr << "You switch the [name] off."
+	add_fingerprint(user)
+	..()
 
 /obj/item/clothing/glasses/eyepatch
 	name = "eyepatch"
