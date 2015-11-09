@@ -229,6 +229,7 @@
 		new /obj/item/clothing/suit/det_suit(src)
 		new /obj/item/clothing/gloves/black(src)
 		new /obj/item/clothing/head/det_hat(src)
+		new /obj/item/clothing/head/det_hat/grey(src)
 		new /obj/item/clothing/shoes/laceup(src)
 		new /obj/item/weapon/storage/box/evidence(src)
 		//new /obj/item/taperoll/security(src)
