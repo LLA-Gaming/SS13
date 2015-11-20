@@ -40,6 +40,7 @@ var/round_start_time = 0
 
 	var/mining_points = 0
 
+
 /datum/controller/gameticker/proc/pregame()
 
 	login_music = pickweight(list('sound/ambience/title2.ogg' = 49, 'sound/ambience/title1.ogg' = 49, 'sound/ambience/clown.ogg' = 2)) // choose title music!
@@ -134,7 +135,6 @@ var/round_start_time = 0
 	collect_minds()
 	equip_characters()
 	data_core.manifest()
-	intel = new /datum/roundintel
 	current_state = GAME_STATE_PLAYING
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
@@ -173,8 +173,6 @@ var/round_start_time = 0
 		timeline.Add("[english_list(crew)]")
 		add2timeline("Shift begins!",1)
 		log_game("EVENTS: Round begins ---")
-		if(intel)
-			intel.gather_stats(1)
 		//end timeline stuff
 
 	if(!admins.len)

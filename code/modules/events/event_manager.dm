@@ -5,6 +5,7 @@ var/datum/controller/event/events
 	var/list/running = list()	//list of all existing /datum/round_event
 	var/list/queue = list()		//list of all queued events to fire when a candidate is available
 	var/list/finished = list()  //list of all ended events.
+	var/list/last_events = list() //last 3 events
 
 	var/scheduled = 0			//The next world.time that a naturally occuring random event can be selected.
 	var/frequency_lower = 3000	//5 minutes lower bound.
@@ -28,6 +29,7 @@ var/datum/controller/event/events
 						"Gameplay"	= 50,	// 0 to 100: 0 for annoying, 100 for gameplay
 						"Dangerous"	= 0	// 0 to 100: 0 for filler, 100 for dangerous
 						)
+	var/gameplay_offset = 0
 
 	var/holiday					//This will be a string of the name of any realworld holiday which occurs today (GMT time)
 
@@ -95,10 +97,25 @@ var/datum/controller/event/events
 //checks if we should select a random event yet, and reschedules if necessary
 /datum/controller/event/proc/checkEvent()
 	if(scheduled <= world.time)
-		if(ticker && ticker.intel && autoratings)
-			ticker.intel.rateStation()
+		adjust_ratings()
 		pickEvent()
 		reschedule()
+
+//decides the ratings
+/datum/controller/event/proc/adjust_ratings()
+	if(IsMultiple(phase,3))
+		gameplay_offset = 0
+	if(!gameplay_offset)
+		gameplay_offset = pick(-1,1)
+	if(!autoratings)
+		return
+	events.rating["Dangerous"] += rand(0,15)
+	events.rating["Gameplay"] += (rand(0,15) * gameplay_offset)
+	//if gameplay has reached its max, revert it back to the middle
+	if(events.rating["Gameplay"] > 75 || events.rating["Gameplay"] < 25)
+		events.rating["Gameplay"] = 50
+	//wrap around dangerous
+	events.rating["Dangerous"] = Wrap(events.rating["Dangerous"], 0, 100)
 
 //decides which world.time we should select another random event at.
 /datum/controller/event/proc/reschedule()
@@ -151,6 +168,13 @@ I.e, the following is valid:
 			if(event.holidayID != holiday)			continue
 		if(event.players_needed > PlayerC)
 			continue
+		if(last_events.len) //previously ran, ignore it.
+			var/already_ran = 0
+			for(var/datum/round_event_control/previous in last_events)
+				if(event == previous)
+					already_ran = 1
+			if(already_ran)
+				continue
 		if(event.needs_ghosts)
 			var/ghosts = 0
 			for(var/client/C in clients)

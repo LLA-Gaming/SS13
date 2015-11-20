@@ -27,6 +27,13 @@
 			dat += "<A href='?_src_=holder;event_panel=spawnevent;event=\ref[C]'>[C.name] ([events.getDistance(C)])</A><BR>"
 			index++
 		dat += "</td></table>"
+		//possible events
+		dat += "<h3>Next Possible Events</h3>"
+		var/number = 1
+		var/list/possible = events.createEventListByDistance(1)
+		for(var/X in possible)
+			dat += "[number]) [english_list(X,"nothing",", ",", ","" )]<BR>"
+			number++
 
 	popup.set_content(dat)
 	popup.open()

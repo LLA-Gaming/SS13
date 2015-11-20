@@ -1595,7 +1595,7 @@
 				log_admin("[key_name(usr)] forced a random event")
 				message_admins("[key_name(usr)] forced a random event")
 			if("edit")
-				var/amount = input(usr, "How much? (0 to 10). -1 means ignore diffrence check", "Input") as num
+				var/amount = input(usr, "How much? (0 to 100). -1 means ignore diffrence check", "Input") as num
 				amount = Clamp(amount,-1,100)
 				var/value = href_list["value"]
 				events.rating[value] = amount
@@ -1962,7 +1962,7 @@
 
 			if("timeline_logs")
 				var/dat = "<B>Round Timeline</B><HR>"
-				if(ticker && ticker.intel)
+				if(ticker)
 					for(var/X in ticker.timeline)
 						dat += "[X]<BR>"
 				usr << browse(dat, "window=eventslogs;size=800x500")

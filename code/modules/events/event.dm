@@ -25,6 +25,9 @@
 	var/datum/round_event/E = new typepath()
 	E.control = src
 	occurrences++
+	events.last_events.Add(src)
+	if(events.last_events.len > 3)
+		events.last_events.Remove(events.last_events[1])
 
 	testing("[time2text(world.time, "hh:mm:ss")] [E.type]")
 
