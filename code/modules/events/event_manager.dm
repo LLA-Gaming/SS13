@@ -105,8 +105,7 @@ var/datum/controller/event/events
 /datum/controller/event/proc/adjust_ratings()
 	if(IsMultiple(phase,3))
 		gameplay_offset = 0
-	if(!gameplay_offset)
-		gameplay_offset = pick(-1,1)
+		gameplay_offset = pick(-1,0,1)
 	if(!autoratings)
 		return
 	events.rating["Dangerous"] += rand(0,15)
