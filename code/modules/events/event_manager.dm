@@ -54,6 +54,7 @@ var/datum/controller/event/events
 		control += E				//add it to the list of all events (controls)
 
 	reschedule()
+	gameplay_offset = pick(-1,0,1) //set the initial offset
 	getHoliday()
 	handleSchedule(holiday)
 
@@ -103,13 +104,16 @@ var/datum/controller/event/events
 
 //decides the ratings
 /datum/controller/event/proc/adjust_ratings()
+	var/low = 5
+	var/high = 20
 	if(IsMultiple(phase,3))
+		low = 15 // every 3 rounds give a boost maybe.
 		gameplay_offset = 0
 		gameplay_offset = pick(-1,0,1)
 	if(!autoratings)
 		return
-	events.rating["Dangerous"] += rand(0,15)
-	events.rating["Gameplay"] += (rand(0,15) * gameplay_offset)
+	events.rating["Dangerous"] += rand(low,high)
+	events.rating["Gameplay"] += (rand(5,15) * gameplay_offset)
 	//if gameplay has reached its max, revert it back to the middle
 	if(events.rating["Gameplay"] > 75 || events.rating["Gameplay"] < 25)
 		events.rating["Gameplay"] = 50
