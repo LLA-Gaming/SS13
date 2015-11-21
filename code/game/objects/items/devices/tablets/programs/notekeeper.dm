@@ -44,8 +44,6 @@
 				t = copytext(sanitize(t), 1, MAX_MESSAGE_LEN)
 				if (!t)
 					return
-				if (!in_range(src, usr) && tablet.loc != usr)
-					return
 				if(!tablet.can_use(usr))
 					return
 				loadeddoc.name = t
