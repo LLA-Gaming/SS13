@@ -256,10 +256,13 @@
 			msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 
 		if(getorgan(/obj/item/organ/brain))
-			if(!key)
-				msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
-			else if(!client)
-				msg += "[t_He] [t_has] a vacant, braindead stare...\n"
+			if(!istype(src,/mob/living/carbon/human/zombie))
+				if(vr_controller && locate(src) in vr_controller.copies)
+					msg += "[t_He] seems immersed in the virtual reality headset...\n"
+				else if(!key)
+					msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"
+				else if(!client)
+					msg += "[t_He] [t_has] a vacant, braindead stare...\n"
 
 		if(digitalcamo)
 			msg += "[t_He] [t_is] repulsively uncanny!\n"
