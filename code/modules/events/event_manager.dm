@@ -99,19 +99,26 @@ var/datum/controller/event/events
 /datum/controller/event/proc/checkEvent()
 	if(scheduled <= world.time)
 		adjust_ratings()
-		pickEvent()
+		if(pickEvent())
+			phase++
 		reschedule()
 
 //decides the ratings
 /datum/controller/event/proc/adjust_ratings()
+	//no players? don't run this
+	var/PlayerC = 0
+	for(var/client/C in clients)
+		if(istype(C.mob,/mob/new_player/)) //lobby players dont count
+			continue
+		PlayerC++
+	if(!autoratings || !PlayerC)
+		return
 	var/low = 5
 	var/high = 20
 	if(IsMultiple(phase,3))
 		low = 15 // every 3 rounds give a boost maybe.
 		gameplay_offset = 0
 		gameplay_offset = pick(-1,0,1)
-	if(!autoratings)
-		return
 	events.rating["Dangerous"] += rand(low,high)
 	events.rating["Gameplay"] += (rand(5,15) * gameplay_offset)
 	//if gameplay has reached its max, revert it back to the middle
@@ -122,7 +129,6 @@ var/datum/controller/event/events
 
 //decides which world.time we should select another random event at.
 /datum/controller/event/proc/reschedule()
-	phase++
 	scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
 
 
@@ -272,7 +278,7 @@ I.e, the following is valid:
 					continue
 				add2timeline("[E.name]",1)
 				log_game("EVENTS: [E.name] (dist:[getDistance(E)]/gmply:[E.rating["Gameplay"]]/dnger:[E.rating["Dangerous"]]) was fired | Chosen Difference: [chosen_difference] | Gameplay: [rating["Gameplay"]] | Dangerous: [rating["Dangerous"]]")
-				return //Yes, boom, the event fired.. your work here is done big ol calculator
+				return E //Yes, boom, the event fired.. your work here is done big ol calculator
 			else
 				return //err.. E was null so the list is clearly empty or something. fuck it.
 	//addition end
