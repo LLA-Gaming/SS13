@@ -92,7 +92,11 @@
 				return 0
 
 
-			var/obj/item/organ/limb/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+			var/obj/item/organ/limb/affecting
+			if(M.zone_sel)
+				affecting = get_organ(ran_zone(M.zone_sel.selecting))
+			else
+				affecting = get_organ(ran_zone())
 			var/armor_block = run_armor_check(affecting, "melee")
 
 			if(HULK in M.mutations)

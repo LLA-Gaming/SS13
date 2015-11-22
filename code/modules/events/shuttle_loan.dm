@@ -85,12 +85,12 @@
 				O.orderedby = "Syndicate"
 				supply_shuttle.shoppinglist += O
 
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate)
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate)
+				shuttle_spawns.Add(/mob/living/carbon/human/npc/syndicate)
+				shuttle_spawns.Add(/mob/living/carbon/human/npc/syndicate)
 				if(prob(75))
-					shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate)
+					shuttle_spawns.Add(/mob/living/carbon/human/npc/syndicate)
 				if(prob(50))
-					shuttle_spawns.Add(/mob/living/simple_animal/hostile/syndicate)
+					shuttle_spawns.Add(/mob/living/carbon/human/npc/syndicate)
 
 				var/turf/T = pick(empty_shuttle_turfs)
 				new /obj/effect/decal/cleanable/blood(T)
@@ -108,11 +108,11 @@
 				O.orderedby = "Russian Confederation"
 				supply_shuttle.shoppinglist += O
 
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian)
-				shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian/ranged)	//drops a mateba
+				shuttle_spawns.Add(/mob/living/carbon/human/npc/russian)
+				shuttle_spawns.Add(/mob/living/carbon/human/npc/russian_ranged)	//drops a mateba
 				shuttle_spawns.Add(/mob/living/simple_animal/hostile/bear)
 				if(prob(75))
-					shuttle_spawns.Add(/mob/living/simple_animal/hostile/russian)
+					shuttle_spawns.Add(/mob/living/carbon/human/npc/russian)
 				if(prob(50))
 					shuttle_spawns.Add(/mob/living/simple_animal/hostile/bear)
 

@@ -317,6 +317,11 @@
 		if((status_flags & GODMODE))
 			return
 
+		if(istype(src,/mob/living/carbon/human/npc))
+			var/mob/living/carbon/human/npc/NPC = src
+			if(NPC.breath_check())
+				return
+
 		if(!breath || (breath.total_moles() == 0) || suiciding)
 			if(reagents.has_reagent("inaprovaline"))
 				return

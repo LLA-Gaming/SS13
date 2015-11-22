@@ -256,7 +256,7 @@
 			msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 
 		if(getorgan(/obj/item/organ/brain))
-			if(!istype(src,/mob/living/carbon/human/zombie))
+			if(!istype(src,/mob/living/carbon/human/npc))
 				if(vr_controller && locate(src) in vr_controller.copies)
 					msg += "[t_He] seems immersed in the virtual reality headset...\n"
 				else if(!key)
