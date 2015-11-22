@@ -113,6 +113,8 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 				break
 			if(M.faction == faction)
 				continue
+			if(M.stat)
+				continue
 			target = M
 			state = NPC_STATE_MOVING
 
@@ -148,6 +150,8 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 		target = null
 		return
 	if(frustration >= 10)
+		target = null
+	if(target.stat)
 		target = null
 	if(!target)
 		state = NPC_STATE_IDLE
