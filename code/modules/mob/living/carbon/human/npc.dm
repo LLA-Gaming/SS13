@@ -76,7 +76,7 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	can_see = list()
 	if(!client && stat == CONSCIOUS)
 		//in_range
-		for(var/mob/living/M in orange(src,10))
+		for(var/mob/living/M in orange(src,18))
 			if(istype(M,/mob/living/carbon/human/npc))
 				continue
 			in_range.Add(M)
