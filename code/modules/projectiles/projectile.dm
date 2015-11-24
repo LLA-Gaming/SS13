@@ -19,7 +19,6 @@
 	pass_flags = PASSTABLE
 	mouse_opacity = 0
 	hitsound = 'sound/weapons/pierce.ogg'
-	light_range = 2
 	var/bumped = 0		//Prevents it from hitting more than one guy at once
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
@@ -54,17 +53,7 @@
 
 	var/bump_at_ttile = 0
 
-	New()
-		..()
-
-		update_light()
-
 	proc/delete()
-		light.UpdateLighting()
-		for(var/turf/T in light.effect_turf)
-			T.lighting_overlay.update_overlay()
-			T.lighting_overlay.needs_update = 0
-
 		// Garbage collect the projectiles
 		loc = null
 
@@ -170,21 +159,7 @@
 			if((x == 1 || x == world.maxx || y == 1 || y == world.maxy))
 				delete()
 				return
-
-			var/turf/previous_location = get_turf(src)
-
 			step_towards(src, current)
-
-			var/list/to_iterate = light.effect_turf.Copy()
-			if(previous_location && previous_location.light && previous_location.light.effect_turf && length(previous_location.light.effect_turf))
-				previous_location.light.UpdateLighting()
-				to_iterate += (to_iterate ^ previous_location.light.effect_turf)
-
-			light.UpdateLighting()
-			for(var/turf/T in to_iterate)
-				T.lighting_overlay.update_overlay()
-				T.lighting_overlay.needs_update = 0
-
 			sleep(1)
 			if(loc == original && bump_at_ttile)
 				Bump(loc)
