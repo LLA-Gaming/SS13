@@ -202,8 +202,8 @@
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	var/on = 0					// 1 if on, 0 if off
 	var/on_gs = 0
-	var/brightness_range = 8			// luminosity when on, also used in power calculation
-	var/brightness_power = 2
+	var/brightness_range = 9			// luminosity when on, also used in power calculation
+	var/brightness_power = 3
 	var/brightness_color = null
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = 0
@@ -220,8 +220,8 @@
 	icon_state = "bulb1"
 	base_state = "bulb"
 	fitting = "bulb"
-	brightness_range = 4
-	brightness_power = 2
+	brightness_range = 5
+	brightness_power = 3
 	desc = "A small lighting fixture."
 	light_type = /obj/item/weapon/light/bulb
 
@@ -247,13 +247,13 @@
 	spawn(2)
 		switch(fitting)
 			if("tube")
-				brightness_range = 8
+				brightness_range = 9
 				brightness_power = 3
 				if(prob(2))
 					broken(1)
 			if("bulb")
-				brightness_range = 4
-				brightness_power = 2
+				brightness_range = 5
+				brightness_power = 3
 				if(prob(5))
 					broken(1)
 		spawn(1)
@@ -664,7 +664,7 @@
 	base_state = "ltube"
 	item_state = "c_tube"
 	g_amt = 100
-	brightness_range = 8
+	brightness_range = 9
 	brightness_power = 3
 
 /obj/item/weapon/light/bulb
@@ -674,8 +674,8 @@
 	base_state = "lbulb"
 	item_state = "contvapour"
 	g_amt = 100
-	brightness_range = 4
-	brightness_power = 2
+	brightness_range = 5
+	brightness_power = 3
 
 /obj/item/weapon/light/throw_impact(atom/hit_atom)
 	..()
