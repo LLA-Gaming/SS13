@@ -903,6 +903,7 @@
 #include "code\modules\client\achievements.dm"
 #include "code\modules\client\client defines.dm"
 #include "code\modules\client\client procs.dm"
+#include "code\modules\client\dynamic_metadata.dm"
 #include "code\modules\client\factions.dm"
 #include "code\modules\client\preferences.dm"
 #include "code\modules\client\preferences_savefile.dm"
