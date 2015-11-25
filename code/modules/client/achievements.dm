@@ -18,7 +18,7 @@
 		return
 
 	// Check if the medal exists
-	var/existsTxt = "SELECT * FROM medals WHERE medalid = '[id]'"
+	var/existsTxt = "SELECT * FROM medals WHERE medalid = '[sanitizeSQL(id)]'"
 	var/DBQuery/existsQuery = dbcon.NewQuery(existsTxt)
 	if(!existsQuery.Execute())
 		log_game("Query Error while medal checking: [existsQuery.ErrorMsg()]")
@@ -49,7 +49,7 @@
 	*/
 
 	// Award the Medal
-	var/award = "INSERT INTO medals_awarded (ckey, medalid, date) VALUES ('[sanitizeSQL(ckey)]', '[id]', '[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]')"
+	var/award = "INSERT INTO medals_awarded (ckey, medalid, date) VALUES ('[sanitizeSQL(ckey)]', '[sanitizeSQL(id)]', '[time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")]')"
 	var/DBQuery/awardQuery = dbcon.NewQuery(award)
 	if(!awardQuery.Execute())
 		log_game("Error while inserting medal. [awardQuery.ErrorMsg()]")
@@ -102,7 +102,7 @@
 		return 0
 
 	// Check if client has the Medal
-	var/hasMedal = "SELECT * FROM medals_awarded WHERE medalid = '[id]' AND ckey = '[sanitizeSQL(ckey)]'"
+	var/hasMedal = "SELECT * FROM medals_awarded WHERE medalid = '[sanitizeSQL(id)]' AND ckey = '[sanitizeSQL(ckey)]'"
 	var/DBQuery/hasMedalQuery = dbcon.NewQuery(hasMedal)
 	if(!hasMedalQuery.Execute())
 		log_game("Query Error while has-medal checking: [hasMedalQuery.ErrorMsg()]")
