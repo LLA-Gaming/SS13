@@ -12,7 +12,6 @@ var/round_start_time = 0
 
 	var/hide_mode = 0
 	var/datum/game_mode/mode = null
-	var/list/assignments = list()
 	var/list/timeline = list() 	//timeline of events
 	var/event_time = null
 	var/event = 0
@@ -20,8 +19,6 @@ var/round_start_time = 0
 	var/login_music			// music played in pregame lobby
 
 	var/list/datum/mind/minds = list()//The people in the game. Used for objective tracking.
-
-	var/datum/roundintel/intel //Holds the ticker's round intel (deaths, timeline)
 
 	var/Bible_icon_state	// icon_state the chaplain has chosen for his bible
 	var/Bible_item_state	// item_state the chaplain has chosen for his bible

@@ -81,10 +81,6 @@
 /datum/round_event/proc/end()
 	return
 
-//run at the end of the round, decides if a event was succeeded at or not.
-/datum/round_event/proc/declare_completion()
-	return
-
 //Queue procs
 //queue to add a event to the queue, this will pause the event and run tick_queue forever until it is unqueued
 //unqueue to return the event to running

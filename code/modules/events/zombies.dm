@@ -46,13 +46,3 @@
 		ready_dna(Z)
 		var/a = pick("Janitor", "Medical Doctor", "Assistant", "Atmospheric Technician", "Security Officer", "Botanist", "Cargo Technician")
 		job_master.EquipRank(Z, a, 0)
-
-/datum/round_event/zombies/declare_completion()
-	var/zombie_count = 0
-	for(var/mob/living/carbon/human/npc/zombie/Z in world)
-		if(Z.stat != DEAD)
-			zombie_count++
-	if(zombie_count)
-		return "<b>Zombie Outbreak:</b> <font color='red'>The zombies now roam what is left of [station_name]</font>"
-	else
-		return "<b>Zombie Outbreak:</b> <font color='green'>The Z-virus was cleared from [station_name]</font>"

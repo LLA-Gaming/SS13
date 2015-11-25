@@ -1598,6 +1598,6 @@ var/list/the_station_areas = list (
 //	/area/ai_monitored/storage/secure,	//not present on map
 //	/area/ai_monitored/storage/emergency,	//not present on map
 	/area/turret_protected/ai_upload, //do not try to simplify to "/area/turret_protected" --rastaf0
-	/area/turret_protected/ai_upload_foyer,
+//	/area/turret_protected/ai_upload_foyer, //not present on the map
 	/area/turret_protected/ai,
 )

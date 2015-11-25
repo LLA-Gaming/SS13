@@ -85,9 +85,3 @@
 		qdel(newAnomaly)
 	else
 		failed = 0
-
-/datum/round_event/anomaly/anomaly_bluespace/declare_completion()
-	if(failed)
-		return "<b>Bluespace Anomaly:</b> <font color='red'>The anomaly was not deactivated, teleporting most of [impact_area.name] to an unknown location!</font>"
-	else
-		return "<b>Bluespace Anomaly:</b> <font color='green'>The anomaly was deactivated by the crew, preventing [impact_area.name] from teleporting away!</font>"

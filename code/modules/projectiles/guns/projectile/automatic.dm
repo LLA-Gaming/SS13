@@ -121,7 +121,7 @@
 	name = "tommy gun"
 	desc = "A genuine Chicago Typewriter."
 	icon_state = "tommygun"
-	item_state = "tommygun"
+	//item_state = "tommygun"
 	slot_flags = 0
 	origin_tech = "combat=5;materials=1;syndicate=2"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45

@@ -214,6 +214,7 @@
 			comm.messagetext.Add(intercepttext)
 
 	priority_announce("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercept. Security Level Elevated.", 'sound/AI/intercept.ogg')
+	spawn_assignment(/datum/assignment/passive/nuke_disk, 1)
 	if(security_level < SEC_LEVEL_BLUE)
 		set_security_level(SEC_LEVEL_BLUE)
 

@@ -299,7 +299,10 @@ I.e, the following is valid:
 	/area/shuttle/escape_pod4/station,
 	/area/shuttle/mining/station,
 	/area/shuttle/transport1/station,
-	/area/shuttle/specops/station)
+	/area/shuttle/specops/station,
+	/area/security/perseus/,
+	/area/security/perseus/mycenae_centcom,
+	/area/security/perseus/mycenaeiii)
 
 	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
 	var/list/danger_areas = list(

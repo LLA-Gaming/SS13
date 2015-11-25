@@ -1,6 +1,10 @@
 /datum/controller/gameticker/proc/evaluate_station()
 	var/dat = ""
-
+	if(assignments)
+		for(var/datum/assignment/A in assignments.passive)
+			A.check_complete()
+		for(var/datum/assignment/A in assignments.active)
+			A.fail() //fail any incomplete assignments
 	//Round statistics report
 	end_state = new /datum/station_state()
 	end_state.count()
@@ -14,25 +18,19 @@
 
 	//Event timeline
 	dat += "<table>"
-	dat += "<tr><td valign='top' width='60%'>"
+	dat += "<tr><td valign='top' width='30%'>"
 	dat += "<h3>Round Timeline</h3>"
 	if(ticker)
 		for(var/X in ticker.timeline)
 			dat += "[X]<BR>"
 	dat += "</td>"
 	//Assignments
-	dat += "<td valign='top' width='40%'>"
-	dat += "<h3>Crew Assignments:</h3><br>"
-	for(var/datum/assignment/A in assignments)
-		if(A.subtask) continue
-		dat += "<div class='statusDisplay'>"
-		dat += "<u>[A.name]</u> - [A.check_complete() ? "<font color='green'>Success!</font>" : "<font color='red'>Failed.</font>"]<br>"
-		dat += "Assigned to: [A.assigned_to.len ? list2text(A.gather_users(),", ") : "None"]<br>"
-		dat += "Assigned by: [A.assigned_by_actual ? A.assigned_by_actual : A.assigned_by.owner]"
-		dat += "</div>"
+	dat += "<td valign='top' width='70%'>"
+	dat += "<h3>Assignments:</h3><br>"
+	dat += "Stuff to go here later"
 	dat += "</td></tr></table>"
 	for(var/mob/player in player_list)
-		var/datum/browser/popup = new(player, "endroundresults", "<div align='center'>Crew Assignments</div>", 900, 600)
+		var/datum/browser/popup = new(player, "endroundresults", "<div align='center'>Timeline and Assignments</div>", 900, 600)
 		popup.set_content(dat)
 		popup.open(0)
 
@@ -72,16 +70,6 @@
 		if(station_evacuated)
 			world << "<BR>[TAB]Evacuation Rate: <B>[num_escapees] ([round((num_escapees/joined_player_list.len)*100, 0.1)]%)</B>"
 	world << "<BR>"
-	if(events)
-		world << "<b><u>Event Results</u></b>"
-		for(var/datum/round_event/E in events.queue)
-			qdel(E) //kill off any unqueued events. they don't deserve any light of day.
-		for(var/datum/round_event/E in events.finished)
-			if(!E.queued && E.activeFor < E.endWhen)
-				E.end() // end it first (if it wasnt already complete)
-			var/win = E.declare_completion()
-			if(!win) continue
-			world << "[TAB][win]"
 
 /proc/add2timeline(var/text,var/major)
 	if(ticker)

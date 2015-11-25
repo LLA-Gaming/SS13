@@ -55,7 +55,7 @@
 					var/area/a = get_area(t)
 					if ((!a.lighting_use_dynamic || t.lighting_lumcount >= 0.50) || (istype(src.glasses, /obj/item/clothing/glasses/night) || istype(src.glasses, /obj/item/clothing/glasses/thermal)))
 						//despite support for thermal vision on NPCs, i would not reccomend giving them that in the first place unless you want the crew to have some.
-						if (see_all)
+						if (!minimal_vision)
 							can_see.Add(M)
 						else
 							if (src.loc.x > M.loc.x && src.dir == WEST)

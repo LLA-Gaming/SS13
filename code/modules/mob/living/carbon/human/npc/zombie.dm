@@ -2,7 +2,6 @@
 /mob/living/carbon/human/npc/zombie
 	m_intent = "run"
 	idlemove_chance = 0 //zombies have there own idle movecode
-	see_all = 1
 	faction = "zombie"
 	always_melee = 1
 	var/list/zsay = list()

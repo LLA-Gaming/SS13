@@ -10,10 +10,11 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	var/npc_name
 	var/frustration = 0
 	var/state = 0
-	var/see_all = 0 //mainly for zombies or mobs that you want to be able to have full vision (eye in the back of their head)
+	var/minimal_vision = 0 //non-zero to remove the eyes in the back of the head
 	var/ranged = 0
 	var/move_delay = 0
 	var/mob/living/target = null
+	var/mob/living/frustrated_at = null
 	var/idlemove_chance = 45
 	var/always_melee = 0 //for zombies
 	//lists
@@ -93,7 +94,7 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 				var/area/a = get_area(t)
 				if ((!a.lighting_use_dynamic || t.lighting_lumcount >= 0.50) || (istype(src.glasses, /obj/item/clothing/glasses/night) || istype(src.glasses, /obj/item/clothing/glasses/thermal)))
 					//despite support for thermal vision on NPCs, i would not reccomend giving them that in the first place unless you want the crew to have some.
-					if (see_all)
+					if (!minimal_vision)
 						can_see.Add(M)
 					else
 						if (src.loc.x > M.loc.x && src.dir == WEST)
@@ -114,6 +115,8 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 			if(M.faction == faction)
 				continue
 			if(M.stat)
+				continue
+			if(frustrated_at == M && M.lying) //only ignore the frustrated_at mob if its laying down
 				continue
 			target = M
 			state = NPC_STATE_MOVING
@@ -150,8 +153,11 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 		target = null
 		return
 	if(frustration >= 10)
+		frustration = 0
+		if(target)
+			frustrated_at = target
 		target = null
-	if(target.stat)
+	if(target && target.stat)
 		target = null
 	if(!target)
 		state = NPC_STATE_IDLE
@@ -210,11 +216,14 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 					if (src.loc.y > target.loc.y)
 						dir = SOUTH
 				shoot_gun(tturf, src.loc, src)
+				if(target.lying)
+					frustration += 6
 			changeNext_move(8)
 	return 1
 
 /mob/living/carbon/human/npc/proc/attack_at()
 	if(!target || lying || restrained() || target.stat)
+		target = null
 		state = NPC_STATE_MOVING
 		return
 	var/distance = get_dist(src, target)
@@ -260,7 +269,7 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 			return
 	state = NPC_STATE_MOVING
 
-/mob/living/carbon/human/npc/proc/shoot_gun(var/target, var/start, var/user, var/bullet = 0)
+/mob/living/carbon/human/npc/proc/shoot_gun(var/targ, var/start, var/user, var/bullet = 0)
 	var/obj/item/weapon/gun/A
 	if(src.l_hand)
 		if(istype(src.l_hand, /obj/item/weapon/gun))
@@ -269,21 +278,24 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 		if(istype(src.r_hand, /obj/item/weapon/gun))
 			A = src.r_hand
 	if(A)
-		A.shoot_live_shot(src, 0, target)
+		A.shoot_live_shot(src, 0, targ)
 		if(istype(A,/obj/item/weapon/gun/energy))
 			var/obj/item/weapon/gun/energy/E = A
 			if(E.ammo_type && E.ammo_type.len)
 				var/obj/item/projectile/BB
 				var/obj/item/ammo_casing/shot = E.ammo_type[E.select]
 				var/prj_type = shot.projectile_type
-				var/turf/targloc = get_turf(target)
+				var/turf/targloc = get_turf(targ)
 				var/turf/curloc = get_turf(src)
 				BB = new prj_type(src.loc)
 				if(BB && targloc)
-					BB.original = target
+					BB.original = targ
 					BB.firer = user
 					BB.def_zone = ran_zone()
-
+					if(targloc == curloc)
+						target.bullet_act(BB)
+						qdel(BB)
+						return 1
 					BB.loc = get_turf(user)
 					BB.starting = get_turf(user)
 					BB.current = curloc
@@ -294,14 +306,17 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 			var/obj/item/weapon/gun/projectile/P = A
 			if(P && P.chambered && P.chambered.BB)
 				var/obj/item/projectile/BB
-				var/turf/targloc = get_turf(target)
+				var/turf/targloc = get_turf(targ)
 				var/turf/curloc = get_turf(src)
 				BB = new P.chambered.BB.type(src.loc)
 				if(BB && targloc)
-					BB.original = target
+					BB.original = targ
 					BB.firer = user
 					BB.def_zone = ran_zone()
-
+					if(targloc == curloc)
+						target.bullet_act(BB)
+						qdel(BB)
+						return 1
 					BB.loc = get_turf(user)
 					BB.starting = get_turf(user)
 					BB.current = curloc

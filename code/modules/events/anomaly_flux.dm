@@ -35,9 +35,3 @@
 		qdel(newAnomaly)
 	else
 		failed = 0
-
-/datum/round_event/anomaly/anomaly_flux/declare_completion()
-	if(failed)
-		return "<b>Energetic Flux:</b> <font color='red'>The anomaly was not deactivated, causing heavy damage to [impact_area.name]!</font>"
-	else
-		return "<b>Energetic Flux:</b> <font color='green'>The flux wave in [impact_area.name] was deactivated by the crew, averting the imminent explosion.</font>"
