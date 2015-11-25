@@ -49,6 +49,7 @@
 	var/drowsy = 0
 	var/forcedodge = 0
 	var/jitter = 0
+	var/slur = 0
 
 	var/bump_at_ttile = 0
 
@@ -60,7 +61,7 @@
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
-		return L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, blocked, jitter)
+		return L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, blocked, jitter, slur)
 
 	proc/vol_by_damage()
 		if(src.damage)

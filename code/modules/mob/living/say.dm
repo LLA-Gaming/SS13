@@ -146,6 +146,9 @@ var/list/department_radio_keys = list(
 	if (stuttering)
 		message = stutter(message)
 
+	if (slurring)
+		message = slur(message)
+
 /* //qw do not have beesease atm.
 	if(virus)
 		if(virus.name=="beesease" && virus.stage>=2)
