@@ -49,6 +49,7 @@
 	var/drowsy = 0
 	var/forcedodge = 0
 	var/jitter = 0
+	var/slur = 0
 
 	var/bump_at_ttile = 0
 
@@ -67,7 +68,7 @@
 			var/armor = H.getarmor(def_zone, "bullet")
 			if (damage_type == BRUTE && bleedprob)
 				affecting.slice(bleedprob,sharpness,armor)
-		return L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, blocked, jitter)
+		return L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, blocked, jitter, slur)
 
 	proc/vol_by_damage()
 		if(src.damage)
