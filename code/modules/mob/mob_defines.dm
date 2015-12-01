@@ -51,6 +51,7 @@
 	var/ear_deaf = null		//Carbon
 	var/ear_damage = null	//Carbon
 	var/stuttering = null	//Carbon
+	var/slurring = null	//Carbon
 	var/real_name = null
 	var/blinded = null
 	var/bhunger = 0			//Carbon

@@ -17,8 +17,9 @@
 	antag_flag = BE_REV
 	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Perseus Security Enforcer", "Perseus Security Commander")
 	required_players = 18
-	required_enemies = 3
+	required_enemies = 1
 	recommended_enemies = 3
+	minimum_players = 10
 
 
 	uplink_welcome = "Revolutionary Uplink Console:"
@@ -46,11 +47,15 @@
 		restricted_jobs += protected_jobs
 
 	var/head_check = 0
+	var/has_captain = 0
 	for(var/mob/new_player/player in player_list)
 		if(player.mind.assigned_role in command_positions)
-			head_check = 1
-			break
-
+			if(player.mind.assigned_role == "Captain")
+				has_captain = 1
+			head_check++
+	if(minimum_mode)
+		if(!has_captain)
+			return 0
 	for(var/datum/mind/player in antag_candidates)
 		for(var/job in restricted_jobs)//Removing heads and such from the list
 			if(player.assigned_role == job)
@@ -58,6 +63,8 @@
 
 	for (var/i=1 to max_headrevs)
 		if (antag_candidates.len==0)
+			break
+		if (head_revolutionaries >= head_check)
 			break
 		var/datum/mind/lenin = pick(antag_candidates)
 		antag_candidates -= lenin

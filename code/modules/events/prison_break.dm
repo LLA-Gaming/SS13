@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/prison_break
 	max_occurrences = 2
 	rating = list(
-				"Gameplay"	= 50,
+				"Gameplay"	= 5,
 				"Dangerous"	= 60
 				)
 

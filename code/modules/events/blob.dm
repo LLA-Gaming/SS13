@@ -35,13 +35,3 @@
 		return
 	if(IsMultiple(activeFor, 3))
 		Blob.process()
-
-/datum/round_event/blob/declare_completion()
-	var/core_count = 0
-	for(var/obj/effect/blob/core/C in world)
-		if(C.loc)
-			core_count++
-	if(core_count)
-		return "<b>Blob:</b> <font color='red'>The blob was not destroyed</font>"
-	else
-		return "<b>Alien Infestation:</b> <font color='green'>The blob's core was destroyed</font>"

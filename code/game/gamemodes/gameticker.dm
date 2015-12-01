@@ -12,7 +12,6 @@ var/round_start_time = 0
 
 	var/hide_mode = 0
 	var/datum/game_mode/mode = null
-	var/list/assignments = list()
 	var/list/timeline = list() 	//timeline of events
 	var/event_time = null
 	var/event = 0
@@ -20,8 +19,6 @@ var/round_start_time = 0
 	var/login_music			// music played in pregame lobby
 
 	var/list/datum/mind/minds = list()//The people in the game. Used for objective tracking.
-
-	var/datum/roundintel/intel //Holds the ticker's round intel (deaths, timeline)
 
 	var/Bible_icon_state	// icon_state the chaplain has chosen for his bible
 	var/Bible_item_state	// item_state the chaplain has chosen for his bible
@@ -39,6 +36,7 @@ var/round_start_time = 0
 	var/triai = 0//Global holder for Triumvirate
 
 	var/mining_points = 0
+
 
 /datum/controller/gameticker/proc/pregame()
 
@@ -134,7 +132,6 @@ var/round_start_time = 0
 	collect_minds()
 	equip_characters()
 	data_core.manifest()
-	intel = new /datum/roundintel
 	current_state = GAME_STATE_PLAYING
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
@@ -161,7 +158,7 @@ var/round_start_time = 0
 			for(var/mob/M in player_list)
 				if(!istype(M,/mob/new_player))
 					M << "<b>The station has been supplied with additional power due to the lack of engineers</b>"
-			power_restore_quick(1)
+			power_restore_quick(1,1) //no alert and limit to only SMES room SMESs
 		//timeline stuff
 		timeline.Add("<b>[station_name]</b>")
 		timeline.Add("<b>Starting Crew:</b>")
@@ -173,8 +170,6 @@ var/round_start_time = 0
 		timeline.Add("[english_list(crew)]")
 		add2timeline("Shift begins!",1)
 		log_game("EVENTS: Round begins ---")
-		if(intel)
-			intel.gather_stats(1)
 		//end timeline stuff
 
 	if(!admins.len)

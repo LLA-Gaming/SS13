@@ -157,6 +157,13 @@ var/list/ghost_forms = list("ghost","ghostking","ghostian2","ghost_red","ghost_b
 		if(istype(mob,/mob/dead/observer))
 			mob.icon_state = new_form
 
+/client/verb/toggle_event_candidacy()
+	set name = "Toggle Event Candidacy"
+	set category = "Preferences"
+	set desc = "Toggles whether you are picked for a random event or not (for the round only)"
+	prefs.event_disable = !prefs.event_disable
+	src << "You will [prefs.event_disable ? "no longer" : "now"] be considered for random events for the round"
+
 /client/proc/toggle_statpanel()
 	set name = "Toggle Statpanel Information"
 	set category = "Preferences"

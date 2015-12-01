@@ -118,7 +118,11 @@ emp_act
 /mob/living/carbon/human/attacked_by(var/obj/item/I, var/mob/living/user, var/def_zone)
 	if(!I || !user)	return 0
 
-	var/obj/item/organ/limb/affecting = get_organ(ran_zone(user.zone_sel.selecting))
+	var/obj/item/organ/limb/affecting
+	if(user.zone_sel)
+		affecting = get_organ(ran_zone(user.zone_sel.selecting))
+	else
+		affecting = get_organ(ran_zone())
 
 	var/hit_area = parse_zone(affecting.name)
 

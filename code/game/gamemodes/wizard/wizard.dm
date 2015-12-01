@@ -8,6 +8,7 @@
 	required_players = 18 //I'm going to regret moving this to 18 - Flavo
 	required_enemies = 1
 	recommended_enemies = 1
+	minimum_players = 11
 	pre_setup_before_jobs = 1
 
 	uplink_welcome = "Wizardly Uplink Console:"
@@ -23,7 +24,8 @@
 	world << "<B>There is a \red SPACE WIZARD\black on the station. You can't let him achieve his objective!</B>"
 
 /datum/game_mode/wizard/pre_setup()
-
+	if(!antag_candidates)
+		return
 	var/datum/mind/wizard = pick(antag_candidates)
 	wizards += wizard
 	modePlayer += wizard
@@ -36,7 +38,6 @@
 		wiz.current.loc = pick(wizardstart)
 
 	return 1
-
 
 /datum/game_mode/wizard/post_setup()
 	for(var/datum/mind/wizard in wizards)
@@ -163,7 +164,12 @@
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(wizard_mob), slot_in_backpack)
 //	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/scrying_gem(wizard_mob), slot_l_store) For scrying gem.
 	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/teleportation_scroll(wizard_mob), slot_r_store)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/weapon/spellbook(wizard_mob), slot_r_hand)
+
+	var/obj/item/weapon/spellbook/spells = new /obj/item/weapon/spellbook(wizard_mob)
+	if(minimum_mode)
+		spells.uses = 2
+		spells.max_uses = 2
+	wizard_mob.equip_to_slot_or_del(spells, slot_r_hand)
 
 	wizard_mob << "You will find a list of available spells in your spell book. Choose your magic arsenal carefully."
 	wizard_mob << "In your pockets you will find a teleport scroll. Use it as needed."

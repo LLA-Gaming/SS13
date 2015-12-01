@@ -57,16 +57,3 @@
 
 		spawncount--
 		successSpawn = 1
-
-/datum/round_event/alien_infestation/declare_completion()
-	var/alien_count = 0
-	for(var/mob/living/carbon/alien/humanoid/H in world)
-		if(H.stat != DEAD)
-			alien_count++
-	for(var/mob/living/carbon/alien/larva/L in world)
-		if(L.stat != DEAD)
-			alien_count++
-	if(alien_count)
-		return "<b>Alien Infestation:</b> <font color='red'>[alien_count] Alien(s) survived</font>"
-	else
-		return "<b>Alien Infestation:</b> <font color='green'>All aliens were wiped out from [station_name]</font>"

@@ -25,8 +25,3 @@
 		sucker = H
 		H.viruses += D
 		break
-
-/datum/round_event/spontaneous_appendicitis/declare_completion()
-	if(sucker)
-		for(var/datum/disease/appendicitis/A in sucker.viruses)
-			return "<b>Spontaneous Appendicitis:</b> <font color='red'>[sucker.real_name] was not cured of their appendicitis</font>"

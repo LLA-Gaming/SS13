@@ -31,6 +31,7 @@ datum/controller/game_controller
 	var/powernets_cost	= 0
 	var/nano_cost		= 0
 	var/events_cost		= 0
+	var/assignments_cost		= 0
 	var/ticker_cost		= 0
 	var/gc_cost			= 0
 	var/total_cost		= 0
@@ -54,6 +55,9 @@ datum/controller/game_controller/New()
 
 	if(!events)
 		new /datum/controller/event()
+
+	if(!assignments)
+		new /datum/controller/assignment()
 
 	if(!air_master)
 		air_master = new /datum/controller/air_system()
@@ -289,6 +293,11 @@ datum/controller/game_controller/proc/process()
 				events.process()
 				events_cost = (world.timeofday - timer) / 10
 
+				//ASSIGNMENTS
+				timer = world.timeofday
+				assignments.process()
+				assignments_cost = (world.timeofday - timer) / 10
+
 				//TICKER
 				timer = world.timeofday
 				last_thing_processed = ticker.type
@@ -302,7 +311,7 @@ datum/controller/game_controller/proc/process()
 				gc_cost = (world.timeofday - timer) / 10
 
 				//TIMING
-				total_cost = air_cost + sun_cost + mobs_cost + diseases_cost + machines_cost + objects_cost + networks_cost + powernets_cost + nano_cost + events_cost + ticker_cost + gc_cost
+				total_cost = air_cost + sun_cost + mobs_cost + diseases_cost + machines_cost + objects_cost + networks_cost + powernets_cost + nano_cost + events_cost + assignments_cost + ticker_cost + gc_cost
 
 				var/end_time = world.timeofday
 				if(end_time < start_time)

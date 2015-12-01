@@ -317,6 +317,11 @@
 		if((status_flags & GODMODE))
 			return
 
+		if(istype(src,/mob/living/carbon/human/npc))
+			var/mob/living/carbon/human/npc/NPC = src
+			if(NPC.breath_check())
+				return
+
 		if(!breath || (breath.total_moles() == 0) || suiciding)
 			if(reagents.has_reagent("inaprovaline"))
 				return
@@ -961,6 +966,9 @@
 
 			if(stuttering)
 				stuttering = max(stuttering-1, 0)
+
+			if(slurring)
+				slurring = max(slurring-1, 0)
 
 			if(silent)
 				silent = max(silent-1, 0)

@@ -256,7 +256,7 @@
 	qdel(src)
 
 /obj/item/weapon/bombcore/badmin/summon/clown
-	summon_path = /mob/living/simple_animal/hostile/retaliate/clown
+	summon_path = /mob/living/carbon/human/npc/clown
 	amt_summon 	= 100
 
 /obj/item/weapon/bombcore/badmin/summon/clown/defuse()

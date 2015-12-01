@@ -81,11 +81,3 @@
 
 		if(IsMultiple(activeFor, 8))
 			originMachine.speak(pick(rampant_speeches))
-
-/datum/round_event/brand_intelligence/declare_completion()
-	if(!infectedMachines.len)
-		return "<b>Brand Intelligence:</b> <font color='green'>The crew defeated ALL of the uprising vending machines.</font>"
-	if(infectedMachines.len >= 3)
-		return "<b>Brand Intelligence:</b> <font color='red'>The machine uprising was a astounding success</font>"
-	if(infectedMachines.len <= 3)
-		return "<b>Brand Intelligence:</b> <font color='green'>The crew defeated most of the uprising vending machines.</font>"

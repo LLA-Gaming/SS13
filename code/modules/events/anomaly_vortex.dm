@@ -20,9 +20,3 @@
 	var/turf/T = pick(get_area_turfs(impact_area))
 	if(T)
 		newAnomaly = new /obj/effect/anomaly/bhole(T.loc)
-
-/datum/round_event/anomaly/anomaly_vortex/declare_completion()
-	if(failed)
-		return "<b>Vortex Anomaly:</b> <font color='red'>The anomaly was not deactivated, and most of [impact_area.name] was swallowed whole!</font>"
-	else
-		return "<b>Vortex Anomaly:</b> <font color='green'>The anomaly in [impact_area.name] was deactivated by the crew, preventing the worst of the damage that could have been caused.</font>"

@@ -7,6 +7,8 @@
 	idle_power_usage = 4
 	active_power_usage = 250
 	var/obj/item/weapon/charging = null
+	var/emergency = 0
+
 
 
 /obj/machinery/recharger/attackby(obj/item/weapon/G, mob/user)
@@ -18,7 +20,7 @@
 
 		//Checks to make sure he's not in space doing it, and that the area got proper power.
 		var/area/a = get_area(src)
-		if(!isarea(a) || a.power_equip == 0)
+		if(!emergency && (!isarea(a) || a.power_equip == 0))
 			user << "<span class='notice'>[src] blinks red as you try to insert [G].</span>"
 			return
 
@@ -130,3 +132,6 @@
 		icon_state = "recharger1"
 	else
 		icon_state = "recharger0"
+
+/obj/machinery/recharger/emergency
+	emergency = 1

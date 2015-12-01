@@ -167,3 +167,60 @@
 	active = 0
 
 	return
+
+/obj/machinery/door_control/closer
+	normaldoorcontrol = 1
+//Literally identical to the normal one, except this button EXCLUSIVELY closes the linked doors.
+
+/obj/machinery/door_control/closer/attack_hand(mob/user as mob)
+	src.add_fingerprint(usr)
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(!allowed(user) && (wires & 1))
+		user << "\red Access Denied"
+		flick("doorctrl-denied",src)
+		return
+
+	use_power(5)
+	icon_state = "doorctrl1"
+	add_fingerprint(user)
+
+	if(normaldoorcontrol)
+		for(var/obj/machinery/door/airlock/D in world)
+			if(D.id_tag == src.id)
+				if(specialfunctions & OPEN)
+					spawn(0)
+						if(D)
+							if(D.density)
+								return
+							else
+								D.close()
+						return
+				if(specialfunctions & IDSCAN)
+					D.aiDisabledIdScanner = !D.aiDisabledIdScanner
+				if(specialfunctions & BOLTS)
+					if(!D.isWireCut(4) && D.arePowerSystemsOn())
+						D.locked = !D.locked
+						D.update_icon()
+				if(specialfunctions & SHOCK)
+					D.secondsElectrified = D.secondsElectrified ? 0 : -1
+				if(specialfunctions & SAFE)
+					D.safe = !D.safe
+	else
+		var/openclose
+		for(var/obj/machinery/door/poddoor/M in world)
+			if(M.id == src.id)
+				if(openclose == null)
+					openclose = M.density
+				spawn(0)
+					if(M)
+						if(M.density)
+							return
+						else
+							M.close()
+					return
+
+	spawn(15)
+		if(!(stat & NOPOWER))
+			icon_state = "doorctrl0"

@@ -13,7 +13,7 @@
 		/mob/living/simple_animal/hostile/bear=15,
 		/mob/living/simple_animal/hostile/giant_spider/hunter=15,
 		/mob/living/simple_animal/hostile/retaliate/bat=15,
-		/mob/living/simple_animal/hostile/retaliate/clown=5
+		/mob/living/carbon/human/npc/clown=5
 		)
 	var/list/maintareas = list()
 	for(var/area/maintenance/A in world)

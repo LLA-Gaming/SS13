@@ -1,6 +1,10 @@
 /datum/controller/gameticker/proc/evaluate_station()
 	var/dat = ""
-
+	if(assignments)
+		for(var/datum/assignment/A in assignments.passive)
+			A.check_complete()
+		for(var/datum/assignment/A in assignments.active)
+			A.fail() //fail any incomplete assignments
 	//Round statistics report
 	end_state = new /datum/station_state()
 	end_state.count()
@@ -14,25 +18,22 @@
 
 	//Event timeline
 	dat += "<table>"
-	dat += "<tr><td valign='top' width='60%'>"
+	dat += "<tr><td valign='top' width='100%'>"
 	dat += "<h3>Round Timeline</h3>"
-	if(ticker && ticker.intel)
+	if(ticker)
 		for(var/X in ticker.timeline)
 			dat += "[X]<BR>"
 	dat += "</td>"
 	//Assignments
-	dat += "<td valign='top' width='40%'>"
-	dat += "<h3>Crew Assignments:</h3><br>"
-	for(var/datum/assignment/A in assignments)
-		if(A.subtask) continue
-		dat += "<div class='statusDisplay'>"
-		dat += "<u>[A.name]</u> - [A.check_complete() ? "<font color='green'>Success!</font>" : "<font color='red'>Failed.</font>"]<br>"
-		dat += "Assigned to: [A.assigned_to.len ? list2text(A.gather_users(),", ") : "None"]<br>"
-		dat += "Assigned by: [A.assigned_by_actual ? A.assigned_by_actual : A.assigned_by.owner]"
-		dat += "</div>"
-	dat += "</td></tr></table>"
+	/* WORK IN PROGRESS
+	dat += "<td valign='top' width='70%'>"
+	dat += "<h3>Assignments:</h3><br>"
+	dat += "Stuff to go here later"
+	dat += "</td></tr>"
+	*/
+	dat += "</table>"
 	for(var/mob/player in player_list)
-		var/datum/browser/popup = new(player, "endroundresults", "<div align='center'>Crew Assignments</div>", 900, 600)
+		var/datum/browser/popup = new(player, "endroundresults", "<div align='center'>Timeline</div>", 900, 600)
 		popup.set_content(dat)
 		popup.open(0)
 
@@ -72,19 +73,6 @@
 		if(station_evacuated)
 			world << "<BR>[TAB]Evacuation Rate: <B>[num_escapees] ([round((num_escapees/joined_player_list.len)*100, 0.1)]%)</B>"
 	world << "<BR>"
-	if(events)
-		world << "<b><u>Event Results</u></b>"
-		for(var/datum/round_event/E in events.queue)
-			qdel(E) //kill off any unqueued events. they don't deserve any light of day.
-		for(var/datum/round_event/E in events.finished)
-			if(!E.queued && E.activeFor < E.endWhen)
-				E.end() // end it first (if it wasnt already complete)
-			var/win = E.declare_completion()
-			if(!win) continue
-			world << "[TAB][win]"
-
-
-//Round intel
 
 /proc/add2timeline(var/text,var/major)
 	if(ticker)
@@ -92,156 +80,3 @@
 			ticker.timeline.Add("<b>[time2text(world.time, "hh:mm:ss")] [text]</b>")
 		else
 			ticker.timeline.Add("[time2text(world.time, "hh:mm:ss")] [text]")
-
-/datum/roundintel
-	//people
-	var/active_crew = 0 //Active crew
-	var/active_heads = 0 //Active heads of staff
-	var/active_antags = 0 //Active antags (can also be crew)
-	var/active_perseus = 0 //Perseus
-	//things
-	var/mining_points = 0
-	var/research = 0
-	var/singularity = 0
-
-	var/list/commands = list() // sets up a list of commands to fire when adjusting the event ratings.
-
-	proc/gather_stats()
-		//people
-		for(var/datum/mind/M in ticker.minds)
-			if(!(M.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander", "SPECIAL")) && (M.special_role != "MODE")) // crew member?
-				if(M.current) //currently a mob?
-					if(istype(M.current,/mob/living/carbon/human)) // Human?
-						if(M.current.stat != DEAD) //alive?
-							active_crew++
-							if(M.assigned_role in command_positions)
-								active_heads++
-			if(M.special_role && M.assigned_role != "SPECIAL") //antag of any kind?
-				if(M.current) //currently a mob?
-					if(M.current.stat != DEAD) //alive?
-						active_antags++
-			if(M.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander"))
-				if(M.current) //currently a mob?
-					if(M.current.stat != DEAD) //alive?
-						active_perseus++
-		//mining
-		mining_points = ticker.mining_points
-		//research
-		var/obj/machinery/r_n_d/server/core/C
-		for(var/obj/machinery/r_n_d/server/core/found in world)
-			if(found.z == 1)
-				C = found
-		if(C)
-			var/max_designs = C.files.possible_designs.len
-			var/has_designs = C.files.known_designs.len
-			research = round((has_designs / max_designs)*100)
-		//singularity
-		for(var/obj/machinery/singularity/loose in world)
-			if(loose.z != 1) continue
-			for(var/obj/machinery/field/generator/F in orange(7, loose))
-				if(!F.connected_gens)
-					singularity = 0
-				else
-					singularity = 1
-
-
-
-
-	proc/rateStation()
-		if(!ticker || !ticker.intel) return
-		if(ticker.current_state != 3) return
-		if(!events)
-			return
-		if(!events.autoratings)
-			return
-		//out with the old, in with the new
-		var/datum/roundintel/O = ticker.intel
-		var/datum/roundintel/N = new()
-		ticker.intel = N
-		N.commands = O.commands
-		N.gather_stats()
-		var/low = 5
-		var/high = 15
-		if(IsMultiple(events.phase, 3))
-			low = 15
-			high = 30
-		//compare every 4 events
-		if(IsMultiple(events.phase, 4) && events.phase >= 4)
-			commands = list()
-			//reset 60% of the time
-			if(prob(60))
-				events.rating["Dangerous"] = 0
-				events.rating["Gameplay"] = 50
-			/* blueberries go home
-			if(N.active_perseus)
-				commands.Add("perseus_available")
-			*/
-			if(N.active_antags < O.active_antags)
-				commands.Add("antags_defeated")
-			else
-				commands.Add("antags_progress")
-
-			if((N.active_crew - O.active_antags) < (O.active_crew - O.active_antags))
-				commands.Add("lost_crew")
-			else
-				commands.Add("crew_stable")
-
-			if(N.mining_points > O.mining_points)
-				commands.Add("research_up")
-
-			if(N.research > O.research)
-				commands.Add("research_up")
-
-			if(N.singularity)
-				commands.Add("sing_stable")
-			else
-				commands.Add("SINGLOOSE")
-
-		//Adjust
-		events.rating["Dangerous"] += rand(low,high)
-		for(var/X in commands)
-			switch(X)
-				/* blueberries go home
-				if("perseus_available")
-					//boost gameplay up by a bit
-					//but not much. don't kill me
-					if(prob(50))
-						events.rating["Gameplay"] += rand(2,10)
-				*/
-				if("antags_defeated")
-					//Reward gameplay for defeated antags
-					events.rating["Gameplay"] += rand(0,15)
-				if("antags_progress")
-					//Add a bit to annoying if the antags are doing fine
-					events.rating["Gameplay"] -= rand(0,15)
-				if("lost_crew")
-					events.rating["Gameplay"] -= rand(0,15)
-				if("crew_stable")
-					events.rating["Gameplay"] += rand(0,15)
-				if("research_up")
-					events.rating["Gameplay"] += rand(0,15)
-				if("sing_stable")
-					//if the sing is stable, we progress down the dangerous line
-					events.rating["Dangerous"] += rand(0,15)
-				if("SINGLOOSE")
-					//this means either the engine was never setup or is loose, we want to severely dampen what events can fire until this is rectified
-					//Annoying/Gameplay cannot exceed 20 points
-					//Dangerous cannot exceed 50 points
-					events.rating["Dangerous"] += rand(5,15)
-					//If we exceed 30/70, time to reset to the middle
-					if(events.rating["Gameplay"] > 70 || events.rating["Gameplay"] < 30)
-						events.rating["Gameplay"] = 50
-					//If we exceed 500, time to scramble
-					if(events.rating["Dangerous"] > 50)
-						events.rating["Dangerous"] = rand(0,50)
-
-
-		if(events.rating["Gameplay"] >= 100)
-			events.rating["Gameplay"] = rand(75,100)
-		if(events.rating["Gameplay"] <= 0)
-			events.rating["Gameplay"] = rand(0,35)
-
-		if(events.rating["Dangerous"] >= 100)
-			events.rating["Dangerous"] = rand(75,100)
-		if(events.rating["Dangerous"] <= 0)
-			events.rating["Dangerous"] = rand(0,35)

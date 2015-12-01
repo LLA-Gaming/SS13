@@ -115,7 +115,7 @@ Quartermaster
 	flag = QUARTERMASTER
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
-	departments = list("Civilian")
+	departments = list("Supply")
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
@@ -142,7 +142,7 @@ Cargo Technician
 	flag = CARGOTECH
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
-	departments = list("Civilian")
+	departments = list("Supply")
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
@@ -167,7 +167,7 @@ Shaft Miner
 	flag = MINER
 	department_head = list("Head of Personnel")
 	department_flag = CIVILIAN
-	departments = list("Civilian")
+	departments = list("Supply")
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3

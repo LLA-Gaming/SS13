@@ -837,6 +837,17 @@
 				var/job = t_split[2]
 				DB_ban_unban(ckey(key), BANTYPE_JOB_PERMA, job)
 
+	else if(href_list["removeoocban"])
+		if(!check_rights(R_BAN))	return
+
+		var/t = href_list["removeoocban"]
+		if(t)
+			if((alert("Do you want to unoocban [t]?","Unoocban confirmation", "Yes", "No") == "Yes") && t) //No more misclicks! Unless you do it twice.
+				log_admin("[key_name(usr)] removed [t]'s OOC ban")
+				message_admins("\blue [key_name_admin(usr)] removed [t]'s OOC ban", 1)
+				ooc_remove("t")
+				ooc_savebanfile()
+
 	else if(href_list["newban"])
 		if(!check_rights(R_BAN))	return
 
@@ -1595,7 +1606,7 @@
 				log_admin("[key_name(usr)] forced a random event")
 				message_admins("[key_name(usr)] forced a random event")
 			if("edit")
-				var/amount = input(usr, "How much? (0 to 10). -1 means ignore diffrence check", "Input") as num
+				var/amount = input(usr, "How much? (0 to 100). -1 means ignore diffrence check", "Input") as num
 				amount = Clamp(amount,-1,100)
 				var/value = href_list["value"]
 				events.rating[value] = amount
@@ -1962,7 +1973,7 @@
 
 			if("timeline_logs")
 				var/dat = "<B>Round Timeline</B><HR>"
-				if(ticker && ticker.intel)
+				if(ticker)
 					for(var/X in ticker.timeline)
 						dat += "[X]<BR>"
 				usr << browse(dat, "window=eventslogs;size=800x500")

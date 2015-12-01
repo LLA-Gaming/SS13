@@ -104,6 +104,23 @@
 		else
 			user << "You need a working light."
 			return
+	if(istype(W, /obj/item/weapon/storage/box))
+		var/obj/item/weapon/storage/box/B = W
+		var/total = 0
+		if(B.contents) // It needs to actually have things in it, asshole
+			for (var/obj/item/weapon/light/L in B.contents)
+				if((L.status == 0) && (uses < max_uses))
+					AddUses(1)
+					total++
+					qdel(L)
+					if(total == 5)
+						break //For now, only do up to 5 at a time.
+			if (total)
+				user << "You insert [total] bulbs into the [src.name]. You have [uses] lights remaining."
+		else
+			user << "There are no bulbs in this box."
+			return
+
 
 
 /obj/item/device/lightreplacer/attack_self(mob/user)

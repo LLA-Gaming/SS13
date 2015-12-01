@@ -5,8 +5,10 @@ var/datum/controller/event/events
 	var/list/running = list()	//list of all existing /datum/round_event
 	var/list/queue = list()		//list of all queued events to fire when a candidate is available
 	var/list/finished = list()  //list of all ended events.
+	var/list/last_events = list() //last 3 events
 
 	var/scheduled = 0			//The next world.time that a naturally occuring random event can be selected.
+	var/queue_scheduled = 0			//The next world.time that a queued event can fire
 	var/frequency_lower = 3000	//5 minutes lower bound.
 	var/frequency_upper = 9000	//15 minutes upper bound. Basically an event will happen every 15 to 30 minutes.
 	var/phase = 0				//how many times the event scheduler has scheduled itself
@@ -28,6 +30,7 @@ var/datum/controller/event/events
 						"Gameplay"	= 50,	// 0 to 100: 0 for annoying, 100 for gameplay
 						"Dangerous"	= 0	// 0 to 100: 0 for filler, 100 for dangerous
 						)
+	var/gameplay_offset = 0
 
 	var/holiday					//This will be a string of the name of any realworld holiday which occurs today (GMT time)
 
@@ -52,6 +55,7 @@ var/datum/controller/event/events
 		control += E				//add it to the list of all events (controls)
 
 	reschedule()
+	gameplay_offset = pick(-1,0,1) //set the initial offset
 	getHoliday()
 	handleSchedule(holiday)
 
@@ -88,21 +92,46 @@ var/datum/controller/event/events
 			continue
 		running.Cut(i,i+1)
 	//pick one lovely event from the queue to possibly unqueue
-	for(var/datum/round_event/Event in shuffle(queue))
-		Event.tick_queue()
-		break
+	if(queue_scheduled <= world.time)
+		for(var/datum/round_event/Event in shuffle(queue))
+			Event.tick_queue()
+			break
+		queue_scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
 
 //checks if we should select a random event yet, and reschedules if necessary
 /datum/controller/event/proc/checkEvent()
 	if(scheduled <= world.time)
-		if(ticker && ticker.intel && autoratings)
-			ticker.intel.rateStation()
-		pickEvent()
+		adjust_ratings()
+		if(pickEvent())
+			phase++
 		reschedule()
+
+//decides the ratings
+/datum/controller/event/proc/adjust_ratings()
+	//no players? don't run this
+	var/PlayerC = 0
+	for(var/client/C in clients)
+		if(istype(C.mob,/mob/new_player/)) //lobby players dont count
+			continue
+		PlayerC++
+	if(!autoratings || !PlayerC)
+		return
+	var/low = 5
+	var/high = 20
+	if(IsMultiple(phase,3))
+		low = 15 // every 3 rounds give a boost maybe.
+		gameplay_offset = 0
+		gameplay_offset = pick(-1,0,1)
+	events.rating["Dangerous"] += rand(low,high)
+	events.rating["Gameplay"] += (rand(5,15) * gameplay_offset)
+	//if gameplay has reached its max, revert it back to the middle
+	if(events.rating["Gameplay"] > 75 || events.rating["Gameplay"] < 25)
+		events.rating["Gameplay"] = 50
+	//wrap around dangerous
+	events.rating["Dangerous"] = Wrap(events.rating["Dangerous"], 0, 100)
 
 //decides which world.time we should select another random event at.
 /datum/controller/event/proc/reschedule()
-	phase++
 	scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
 
 
@@ -151,6 +180,13 @@ I.e, the following is valid:
 			if(event.holidayID != holiday)			continue
 		if(event.players_needed > PlayerC)
 			continue
+		if(last_events.len) //previously ran, ignore it.
+			var/already_ran = 0
+			for(var/datum/round_event_control/previous in last_events)
+				if(event == previous)
+					already_ran = 1
+			if(already_ran)
+				continue
 		if(event.needs_ghosts)
 			var/ghosts = 0
 			for(var/client/C in clients)
@@ -245,7 +281,7 @@ I.e, the following is valid:
 					continue
 				add2timeline("[E.name]",1)
 				log_game("EVENTS: [E.name] (dist:[getDistance(E)]/gmply:[E.rating["Gameplay"]]/dnger:[E.rating["Dangerous"]]) was fired | Chosen Difference: [chosen_difference] | Gameplay: [rating["Gameplay"]] | Dangerous: [rating["Dangerous"]]")
-				return //Yes, boom, the event fired.. your work here is done big ol calculator
+				return E //Yes, boom, the event fired.. your work here is done big ol calculator
 			else
 				return //err.. E was null so the list is clearly empty or something. fuck it.
 	//addition end
@@ -266,7 +302,10 @@ I.e, the following is valid:
 	/area/shuttle/escape_pod4/station,
 	/area/shuttle/mining/station,
 	/area/shuttle/transport1/station,
-	/area/shuttle/specops/station)
+	/area/shuttle/specops/station,
+	/area/security/perseus/,
+	/area/security/perseus/mycenae_centcom,
+	/area/security/perseus/mycenaeiii)
 
 	//These are needed because /area/engine has to be removed from the list, but we still want these areas to get fucked up.
 	var/list/danger_areas = list(
