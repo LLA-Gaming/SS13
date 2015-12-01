@@ -18,19 +18,22 @@
 
 	//Event timeline
 	dat += "<table>"
-	dat += "<tr><td valign='top' width='30%'>"
+	dat += "<tr><td valign='top' width='100%'>"
 	dat += "<h3>Round Timeline</h3>"
 	if(ticker)
 		for(var/X in ticker.timeline)
 			dat += "[X]<BR>"
 	dat += "</td>"
 	//Assignments
+	/* WORK IN PROGRESS
 	dat += "<td valign='top' width='70%'>"
 	dat += "<h3>Assignments:</h3><br>"
 	dat += "Stuff to go here later"
-	dat += "</td></tr></table>"
+	dat += "</td></tr>"
+	*/
+	dat += "</table>"
 	for(var/mob/player in player_list)
-		var/datum/browser/popup = new(player, "endroundresults", "<div align='center'>Timeline and Assignments</div>", 900, 600)
+		var/datum/browser/popup = new(player, "endroundresults", "<div align='center'>Timeline</div>", 900, 600)
 		popup.set_content(dat)
 		popup.open(0)
 

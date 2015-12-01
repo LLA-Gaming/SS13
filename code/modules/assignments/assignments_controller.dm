@@ -37,7 +37,8 @@ datum/controller/assignment/New()
 
 /datum/controller/assignment/proc/CheckMilestone()
 	if(scheduled <= world.time)
-		//put assignment spawning here.
+		//work in progress
+		//put assignment spawning here
 		reschedule()
 
 /datum/controller/assignment/proc/reschedule()
@@ -49,6 +50,9 @@ datum/controller/assignment/New()
 	return
 
 /datum/controller/assignment/proc/build_assignment_lists()
+	return
+/*
+	this is a WIP
 	//Available at start
 	spawn_assignment(/datum/assignment/engine_setup) //Engineering
 	//spawn_assignment(/datum/assignment/solars_setup) //Engineering
@@ -64,10 +68,11 @@ datum/controller/assignment/New()
 	possible.Add(new /datum/assignment/mining_points) //supply
 	//possible.Add(new /datum/assignment/research_design) //research
 	//possible.Add(new /datum/assignment/recall_item) //supply
-	possible.Add(new /datum/assignment/sample_item/med) //medbay
-	possible.Add(new /datum/assignment/sample_item/bar) //civilian
-	possible.Add(new /datum/assignment/sample_item/kitchen) //civilian
-	possible.Add(new /datum/assignment/sample_item/botany) //civilian
+	possible.Add(new /datum/assignment/passive/sample_item/med) //medbay
+	possible.Add(new /datum/assignment/passive/sample_item/bar) //civilian
+	possible.Add(new /datum/assignment/passive/sample_item/kitchen) //civilian
+	possible.Add(new /datum/assignment/passive/sample_item/botany) //civilian
+*/
 
 /datum/controller/assignment/proc/get_hotzones(var/category) //this proc returns a list of possible places to screw up with progressive events
 	var/list/hotzones = list()

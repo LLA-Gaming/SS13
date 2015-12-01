@@ -877,7 +877,6 @@
 #include "code\modules\assembly\voice.dm"
 #include "code\modules\assignments\assignment.dm"
 #include "code\modules\assignments\assignments_controller.dm"
-#include "code\modules\assignments\item_sampling.dm"
 #include "code\modules\assignments\passive.dm"
 #include "code\modules\assignments\engineering\engine.dm"
 #include "code\modules\assignments\security\hostage_situation.dm"
