@@ -9,6 +9,7 @@
 	required_readies = 5
 	required_enemies = 1
 	recommended_enemies = 1
+	minimum_players = 11
 	pre_setup_before_jobs = 1
 
 	uplink_welcome = "Crazy AI Uplink Console:"
@@ -46,6 +47,8 @@
 	return antag_candidates
 
 /datum/game_mode/malfunction/pre_setup()
+	if(!antag_candidates)
+		return 0
 	var/datum/mind/chosen_ai
 	for(var/i = required_enemies, i > 0, i--)
 		chosen_ai=pick(antag_candidates)
@@ -112,7 +115,10 @@
 
 /datum/game_mode/malfunction/process()
 	if (apcs >= 3 && malf_mode_declared)
-		AI_win_timeleft -= ((apcs/6)*last_tick_duration) //Victory timer now de-increments based on how many APCs are hacked. --NeoFite
+		if(minimum_mode)
+			AI_win_timeleft -= ((apcs/3)*last_tick_duration) //halved for minimum mode
+		else
+			AI_win_timeleft -= ((apcs/6)*last_tick_duration) //Victory timer now de-increments based on how many APCs are hacked. --NeoFite
 	..()
 	if (AI_win_timeleft<=0)
 		check_win()

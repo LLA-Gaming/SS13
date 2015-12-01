@@ -27,8 +27,11 @@
 	var/required_players = 0
 	var/required_enemies = 0
 	var/required_readies = 0
+	var/minimum_players = 0
+	var/minimum_enemies = 1
 	var/recommended_enemies = 0
 	var/pre_setup_before_jobs = 0
+	var/minimum_mode = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 10
 	var/antag_flag = null //preferences flag such as BE_WIZARD that need to be turned on for players to be antag
@@ -50,6 +53,14 @@
 		if((player.ready))
 			readyC++
 	if(!Debug2)
+		if(config.allow_lowpop_modes) // check for scaled gamemodes, only on participating gamemodes. if the gamemodes minimum_players is 0 this is ignored
+			if(minimum_players && readyC >= minimum_players)
+				minimum_mode = 1
+				antag_candidates = get_players_for_role(antag_flag)
+				if(!antag_candidates)
+					return 0
+				if(antag_candidates.len >= minimum_enemies)
+					return 1
 		if(required_readies)
 			if(readyC < required_readies)
 				return 0
@@ -63,6 +74,9 @@
 	else
 		world << "<span class='notice'>DEBUG: GAME STARTING WITHOUT PLAYER NUMBER CHECKS, THIS WILL PROBABLY BREAK SHIT."
 		return 1
+
+/datum/game_mode/proc/minimum_check()
+	return 0 //no by default
 
 
 ///pre_setup()
@@ -223,7 +237,7 @@
 	var/list/players = list()
 	var/list/candidates = list()
 	var/list/drafted = list()
-	var/datum/mind/applicant = null
+	//var/datum/mind/applicant = null
 
 	var/roletext
 	switch(role)
@@ -268,7 +282,7 @@
 			for(var/job in restricted_jobs)
 				if(player.assigned_role == job)
 					drafted -= player
-
+/* Disables drafting for now, if someone has an antag option off they shouldn't have to be forced to play it, might help "Frendly antegs"
 	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
 
 	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
@@ -280,6 +294,7 @@
 
 		else												// Not enough scrubs, ABORT ABORT ABORT
 			break
+*/
 /*
 	if(candidates.len < recommended_enemies && override_jobbans) //If we still don't have enough people, we're going to start drafting banned people.
 		for(var/mob/new_player/player in players)
@@ -294,7 +309,7 @@
 					drafted -= player
 
 	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
+/* Disables drafting for now, if someone has an antag option off they shouldn't have to be forced to play it, might help "Frendly antegs"
 	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
 		if(drafted.len > 0)
 			applicant = pick(drafted)
@@ -304,7 +319,7 @@
 
 		else												// Not enough scrubs, ABORT ABORT ABORT
 			break
-
+*/
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
 							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.

@@ -77,6 +77,7 @@
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 0					// allow ai job
 
+	var/allow_lowpop_modes = 0			//if enabled round types can be chosen with lower population but scaled down
 	var/traitor_scaling_coeff = 6		//how much does the amount of players get divided by to determine traitors
 	var/changeling_scaling_coeff = 7	//how much does the amount of players get divided by to determine changelings
 
@@ -417,6 +418,8 @@
 					config.events_queue_ghost_events= 1
 				if("event_timelocks")
 					config.events_timelocks			= 1
+				if("allow_lowpop_modes")
+					config.allow_lowpop_modes= 1
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 

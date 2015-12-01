@@ -30,6 +30,8 @@
 	required_players = 18
 	required_enemies = 6
 	recommended_enemies = 6
+	minimum_players = 13
+	minimum_enemies = 3
 
 	uplink_welcome = "Nar-Sie Uplink Console:"
 	uplink_uses = 10
@@ -79,8 +81,14 @@
 		antag_candidates -= cultist
 		cult += cultist
 		log_game("[cultist.key] (ckey) has been selected as a cultist")
-
-	return (cult.len>=required_enemies)
+	if(minimum_mode)
+		if(cult.len>= minimum_enemies)
+			acolytes_needed = 5
+			return 1
+	if(cult.len>=required_enemies)
+		return 1
+	else
+		return 0
 
 
 /datum/game_mode/cult/post_setup()
