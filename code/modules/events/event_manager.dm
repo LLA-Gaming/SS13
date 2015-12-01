@@ -8,6 +8,7 @@ var/datum/controller/event/events
 	var/list/last_events = list() //last 3 events
 
 	var/scheduled = 0			//The next world.time that a naturally occuring random event can be selected.
+	var/queue_scheduled = 0			//The next world.time that a queued event can fire
 	var/frequency_lower = 3000	//5 minutes lower bound.
 	var/frequency_upper = 9000	//15 minutes upper bound. Basically an event will happen every 15 to 30 minutes.
 	var/phase = 0				//how many times the event scheduler has scheduled itself
@@ -91,9 +92,11 @@ var/datum/controller/event/events
 			continue
 		running.Cut(i,i+1)
 	//pick one lovely event from the queue to possibly unqueue
-	for(var/datum/round_event/Event in shuffle(queue))
-		Event.tick_queue()
-		break
+	if(queue_scheduled <= world.time)
+		for(var/datum/round_event/Event in shuffle(queue))
+			Event.tick_queue()
+			break
+		queue_scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
 
 //checks if we should select a random event yet, and reschedules if necessary
 /datum/controller/event/proc/checkEvent()

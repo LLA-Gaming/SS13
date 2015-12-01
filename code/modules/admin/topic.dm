@@ -837,6 +837,17 @@
 				var/job = t_split[2]
 				DB_ban_unban(ckey(key), BANTYPE_JOB_PERMA, job)
 
+	else if(href_list["removeoocban"])
+		if(!check_rights(R_BAN))	return
+
+		var/t = href_list["removeoocban"]
+		if(t)
+			if((alert("Do you want to unoocban [t]?","Unoocban confirmation", "Yes", "No") == "Yes") && t) //No more misclicks! Unless you do it twice.
+				log_admin("[key_name(usr)] removed [t]'s OOC ban")
+				message_admins("\blue [key_name_admin(usr)] removed [t]'s OOC ban", 1)
+				ooc_remove("t")
+				ooc_savebanfile()
+
 	else if(href_list["newban"])
 		if(!check_rights(R_BAN))	return
 

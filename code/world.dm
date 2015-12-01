@@ -51,6 +51,7 @@
 
 	jobban_loadbanfile()
 	appearance_loadbanfile()
+	ooc_loadbanfile()
 	jobban_updatelegacybans()
 	LoadBans()
 	investigate_reset()

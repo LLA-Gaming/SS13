@@ -137,15 +137,22 @@
 			A.power_environ = 1
 			A.power_change()
 
-/proc/power_restore_quick(var/no_announce=0)
+/proc/power_restore_quick(var/no_announce=0,var/limited=0)
 
 	if(!no_announce)
 		priority_announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", 'sound/AI/poweron.ogg')
-	for(var/obj/machinery/power/smes/S in world)
+	for(var/obj/machinery/power/smes/S in machines)
 		if(S.z != 1)
 			continue
+		if(limited)
+			var/area/A = get_area(S)
+			if(!istype(A,/area/engine/engine_smes))
+				continue
 		S.charge = S.capacity
-		S.output_level = S.output_level_max
+		if(limited)
+			S.output_level = S.output_level_max / 2
+		else
+			S.output_level = S.output_level_max
 		S.output_attempt = 1
 		S.update_icon()
 		S.power_change()

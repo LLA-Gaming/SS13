@@ -158,7 +158,7 @@ var/round_start_time = 0
 			for(var/mob/M in player_list)
 				if(!istype(M,/mob/new_player))
 					M << "<b>The station has been supplied with additional power due to the lack of engineers</b>"
-			power_restore_quick(1)
+			power_restore_quick(1,1) //no alert and limit to only SMES room SMESs
 		//timeline stuff
 		timeline.Add("<b>[station_name]</b>")
 		timeline.Add("<b>Starting Crew:</b>")

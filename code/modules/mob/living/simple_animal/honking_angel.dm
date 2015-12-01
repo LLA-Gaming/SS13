@@ -15,6 +15,7 @@
 	wander = 0
 	density = 1
 	a_intent = "disarm"
+	environment_smash = 3
 	//temp stuff
 	heat_damage_per_tick = 0	//amount of damage applied if animal's body temperature is higher than maxbodytemp
 	cold_damage_per_tick = 0	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
@@ -114,6 +115,9 @@
 
 		..()
 
+	Process_Spacemove(var/check_drift = 0)
+		return 1
+
 	AttackingTarget()
 		if (quantum_locked)
 			return
@@ -168,6 +172,18 @@
 
 		..()
 
+	blob_act()
+		if (quantum_locked)
+			return
+
+		..()
+
+	hitby()
+		if (quantum_locked)
+			return
+
+		..()
+
 	ex_act(severity)
 		if (quantum_locked)
 			return
@@ -186,6 +202,22 @@
 		if (quantum_locked)
 			src << "You are quantum locked."
 			return
+
+	verb/suicide()
+		set hidden = 1
+
+		if (stat == 2)
+			src << "You're already dead!"
+			return
+
+		if (suiciding)
+			src << "You're already committing suicide! Be patient!"
+			return
+
+		var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
+
+		if(confirm == "Yes")
+			health = 0
 
 	proc/quantum_lock_loop() //Done seperate to master controller for quicker update times. Ideally event driven.
 		quantum_locked = 0
@@ -287,6 +319,9 @@
 	set desc = "Angel telepathic communication."
 	set category = "H.Angel"
 
+	if(stat == DEAD)
+		return
+
 	if(msg)
 		if(src.id == "") //assign a unique ID if you dont have one.
 			var/list/hex = list("A","B","C","D","E","F","1","2","3","4","5","6","7","8","9")
@@ -347,6 +382,9 @@
 	set name = "Power Disruption"
 	set desc = "Disrupt and drain power from the local area."
 	set category = "H.Angel"
+
+	if(stat == DEAD)
+		return
 	//find current area
 	/*
 	var/area/A = get_area(src.loc)
@@ -514,6 +552,9 @@
 	set desc = "Speak through the body of a dead person."
 	set category = "H.Angel"
 
+	if(stat == DEAD)
+		return
+
 	var/mob/living/carbon/target = locate() in range(0)
 	if (!src.quantum_locked)
 		if(target.stat == DEAD)
@@ -537,6 +578,10 @@
 
 //the dredded neck snap.
 /mob/living/proc/necksnap(mob/living/simple_animal/M as mob)
+
+	if(stat == DEAD)
+		return
+
 	if (M.health >=101 && M.health <=500)
 		M << "\blue <b>You cannot use this intent until you are below 20% health. </b>"
 		M << "\blue <b>Defaulting to harm intent. </b>"

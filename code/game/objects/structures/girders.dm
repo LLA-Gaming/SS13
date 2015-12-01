@@ -206,6 +206,27 @@
 			else
 		return
 
+	attack_animal(var/mob/living/simple_animal/M)
+		M.changeNext_move(8)
+		//M.do_attack_animation(src)
+		if(M.environment_smash >= 2)
+			if(istype(src, /obj/structure/girder/reinforced))
+				if(M.environment_smash == 3)
+					var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
+					new remains(loc)
+					qdel(src)
+					playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+					M << "<span class='notice'>You smash through the girder.</span>"
+				else
+					M << "<span class='warning'>This girder is far too strong for you to destroy.</span>"
+			else
+				playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+				M << "<span class='notice'>You smash through the girder.</span>"
+				var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
+				new remains(loc)
+				qdel(src)
+				return
+
 /obj/structure/girder/displaced
 	icon_state = "displaced"
 	anchored = 0

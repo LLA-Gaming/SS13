@@ -117,6 +117,7 @@ var/list/admin_verbs_senior_admin = list(
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
 	/client/proc/jobbans,
+	/client/proc/oocbans,
 	/client/proc/unjobban_panel,
 	/client/proc/DB_ban_panel
 	)
@@ -392,6 +393,14 @@ var/list/admin_verbs_hideable = list(
 			holder.Jobbans()
 		else
 			holder.DB_ban_panel()
+	feedback_add_details("admin_verb","VJB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
+
+/client/proc/oocbans()
+	set name = "Display OOC bans"
+	set category = "Admin"
+	if(holder)
+		holder.OOCbans()
 	feedback_add_details("admin_verb","VJB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 

@@ -389,6 +389,18 @@ var/global/floorIsLava = 0
 	dat += "</table>"
 	usr << browse(dat, "window=ban;size=400x400")
 
+/datum/admins/proc/OOCbans()
+	if(!check_rights(R_BAN))	return
+
+	var/dat = "<B>OOC Bans!</B><HR><table>"
+	for(var/t in ooc_keylist)
+		var/r = t
+		if( findtext(r,"##") )
+			r = copytext( r, 1, findtext(r,"##") )//removes the description
+		dat += text("<tr><td>[t] (<A href='?src=\ref[src];removeoocban=[r]'>unban</A>)</td></tr>")
+	dat += "</table>"
+	usr << browse(dat, "window=ban;size=400x400")
+
 /datum/admins/proc/Game()
 	if(!check_rights(0))	return
 

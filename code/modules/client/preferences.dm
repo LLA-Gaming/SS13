@@ -38,6 +38,7 @@ datum/preferences
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/ooccolor = "#002eb8"
 	var/be_special = 0					//Special role selection
+	var/event_disable = 0				//toggle to quickly ignore all candidacy for random events
 	var/UI_style = "Midnight"
 	var/toggles = TOGGLES_DEFAULT
 	var/ghost_form = "ghost"
