@@ -53,19 +53,25 @@
 		if((player.ready))
 			readyC++
 	if(!Debug2)
-		if(config.allow_lowpop_modes) // check for scaled gamemodes, only on participating gamemodes. if the gamemodes minimum_players is 0 this is ignored
-			if(minimum_players && readyC >= minimum_players)
-				minimum_mode = 1
-				antag_candidates = get_players_for_role(antag_flag)
-				if(!antag_candidates)
-					return 0
-				if(antag_candidates.len >= minimum_enemies)
-					return 1
+		var/minicheck = 0
 		if(required_readies)
 			if(readyC < required_readies)
-				return 0
+				minicheck = 1
 		if(playerC < required_players)
-			return 0
+			minicheck = 1
+		if(minicheck)
+			if(config.allow_lowpop_modes) // check for scaled gamemodes, only on participating gamemodes. if the gamemodes minimum_players is 0 this is ignored
+				if(minimum_players && readyC >= minimum_players)
+					minimum_mode = 1
+					antag_candidates = get_players_for_role(antag_flag)
+					if(!antag_candidates)
+						return 0
+					if(antag_candidates.len >= minimum_enemies)
+						return 1
+				else
+					return 0
+			else
+				return 0
 	antag_candidates = get_players_for_role(antag_flag)
 	if(!Debug2)
 		if(antag_candidates.len < required_enemies)
