@@ -4,6 +4,7 @@
 	flags = null //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
 	hud = 1
+	var/hud_range = 16 // Variable used to configure how far out it pre-loads overlays. Testing showed at 16 provided the most seamless performance. Tiles still must be *in view* to be pre-loaded.
 
 /* /obj/item/clothing/glasses/hud/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
@@ -57,7 +58,7 @@
 		if(!M.client)	return
 		var/client/C = M.client
 		var/image/holder
-		for(var/mob/living/carbon/human/patient in view(M))
+		for(var/mob/living/carbon/human/patient in view(hud_range,M))
 			var/foundVirus = 0
 			for(var/datum/disease/D in patient.viruses)
 				if(!D.hidden[SCANNER])
@@ -171,7 +172,7 @@ obj/item/clothing/glasses/hud/security/supergars
 	if(!M.client)	return
 	var/client/C = M.client
 	var/image/holder
-	for(var/mob/living/carbon/human/perp in view(M))
+	for(var/mob/living/carbon/human/perp in view(hud_range,M))
 		holder = perp.hud_list[ID_HUD]
 		holder.icon_state = "hudno_id"
 		if(perp.wear_id)
@@ -313,7 +314,7 @@ obj/item/clothing/glasses/hud/security/supergars
 	var/image/holder = null
 
 	//Check every viewable turf to see if it needs an overlay
-	for (var/turf/T in view(C))
+	for (var/turf/T in view(hud_range, C))
 		Red = 0
 		Green = 0
 		Blue = 0
