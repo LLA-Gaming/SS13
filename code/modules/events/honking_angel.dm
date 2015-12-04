@@ -20,7 +20,7 @@
 		priority_announce("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert", 'sound/AI/spanomalies.ogg')
 
 /datum/round_event/honking_angel/tick_queue()
-	var/list/candidates = get_candidates(BE_ANGEL)
+	var/list/candidates = get_candidates_event(BE_ANGEL)
 	if(candidates.len)
 		unqueue()
 
@@ -33,7 +33,7 @@
 			possible_floors += temp_floor
 
 //
-	var/list/candidates = get_candidates(BE_ANGEL)
+	var/list/candidates = get_candidates_event(BE_ANGEL)
 
 	if(!candidates.len && events.queue_ghost_events && !loopsafety)
 		queue()

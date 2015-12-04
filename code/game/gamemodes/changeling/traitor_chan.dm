@@ -65,7 +65,7 @@
 		..()
 		return
 	if (prob(100/(config.changeling_scaling_coeff*2)))
-		if(character.client.prefs.be_special & BE_CHANGELING)
+		if(character.client.prefs.be_special_gamemode & BE_CHANGELING)
 			if(!jobban_isbanned(character.client, "changeling") && !jobban_isbanned(character.client, "Syndicate"))
 				if(!(character.job in ticker.mode.restricted_jobs))
 					character.mind.make_Changling()

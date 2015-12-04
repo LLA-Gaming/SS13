@@ -155,7 +155,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 				for(var/datum/paiCandidate/c in paiController.pai_candidates)
 					if(c.key == O.key)
 						hasSubmitted = 1
-				if(!hasSubmitted && (O.client.prefs.be_special & BE_PAI))
+				if(!hasSubmitted && (O.client.prefs.be_special_other & BE_PAI))
 					question(O.client)
 
 	proc/question(var/client/C)

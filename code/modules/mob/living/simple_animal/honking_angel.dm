@@ -15,7 +15,7 @@
 	wander = 0
 	density = 1
 	a_intent = "disarm"
-	environment_smash = 3
+	//environment_smash = 3
 	//temp stuff
 	heat_damage_per_tick = 0	//amount of damage applied if animal's body temperature is higher than maxbodytemp
 	cold_damage_per_tick = 0	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
@@ -35,6 +35,7 @@
 	//see_in_dark = 100
 
 	//var/quantum_locked = 0 //moved to simple animal
+	var/blink_cooldown = 0
 	var/honktimer = 0
 	var/id = ""
 	var/disrupting = 0
@@ -233,8 +234,11 @@
 		if (!istype(loc, /turf))
 			return 0
 		var/turf/simulated/t = get_turf(src)
-
-		if (t.lighting_lumcount >= 0.50)
+		var/area/a = get_area(src)
+		//sanity
+		if(!a || !t)
+			return 0
+		if (t.lighting_lumcount >= 0.50 || !a.lighting_use_dynamic)
 			for(var/mob/living/carbon/human/M in viewers(src))
 				if (!istype(M, /mob/living) || M.stat == DEAD || M:blinded > 0)
 					continue
@@ -623,18 +627,65 @@
 
 
 /mob/living/simple_animal/hostile/weeping_honk/verb/nightvision()
-	set name = "Nightvision"
+	set name = "Thermal Nightvision"
 	set desc = "toggle seeing darkness."
 	set category = "H.Angel"
-	if (src.see_invisible == 25)
-		src.see_invisible = SEE_INVISIBLE_MINIMUM
-		src.see_in_dark = 8
+	if (src.see_invisible == SEE_INVISIBLE_LIVING)
+		sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
+		see_invisible = SEE_INVISIBLE_MINIMUM
 		src << {"\blue You can now see in the dark."}
 	else
-		src.see_invisible = SEE_INVISIBLE_LIVING
-		src.see_in_dark = 8
+		see_invisible = SEE_INVISIBLE_LIVING
+		sight &= ~(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		src << {"\blue You can now see normally."}
 	return
+
+/mob/living/simple_animal/hostile/weeping_honk/verb/blink()
+	set name = "Blink"
+	set desc = "Don't blink."
+	set category = "H.Angel"
+
+	if(blink_cooldown)
+		return
+	blink_cooldown = 1
+
+	var/inner_tele_radius = 6
+	var/outer_tele_radius = 8
+
+	var/include_space = 0 //whether it includes space tiles in possible teleport locations
+	var/include_dense = 0 //whether it includes dense tiles in possible teleport locations
+
+	var/list/turfs = new/list()
+	for(var/turf/T in range(src,outer_tele_radius))
+		if(T in range(src,inner_tele_radius)) continue
+		if(istype(T,/turf/space) && !include_space) continue
+		if(T.density && !include_dense) continue
+		if(T.x>world.maxx-outer_tele_radius || T.x<outer_tele_radius)	continue	//putting them at the edge is dumb
+		if(T.y>world.maxy-outer_tele_radius || T.y<outer_tele_radius)	continue
+		turfs += T
+
+	if(!turfs.len)
+		var/list/turfs_to_pick_from = list()
+		for(var/turf/T in orange(src,outer_tele_radius))
+			if(!(T in orange(src,inner_tele_radius)))
+				turfs_to_pick_from += T
+		turfs += pick(/turf in turfs_to_pick_from)
+
+	var/turf/picked = pick(turfs)
+
+	if(!picked || !isturf(picked))
+		return
+
+	if(!src.Move(picked))
+		src.loc = picked
+
+	for(var/mob/O in viewers(src, null))
+		if(O == src) continue
+		O.show_message("<span class='notice'>You blink for a second</div>", 1)
+	health -= 25 //remove 5% of health
+	spawn(50)
+		blink_cooldown = 0
+
 
 
 
@@ -666,10 +717,12 @@
 	src << "in the event that there are other Angels on board the station you can communicate with them telepathically using the 'hsay' verb the same way you would use 'say'"
 	src << "\red Power Disruption"
 	src << "This power allows you to steal power from the local area APC. It can be done anywhere in an area that has one. The lights and local machines will flicker on and off with power as you steal a small amount of the local power to feed your hunger. Use of this ability is critical for survival. This ability can restore some of your hunger and also provide and opportunity for escape if being observed."
+	src << "\red The Blink"
+	src << "This power causes humans around you to suddenly blink, letting you teleport out of their view. This can save you in dire moments but it uses a bit of your life force. Use it in a pinch"
 	src << "\red Prying Doors Open with Hands"
 	src << "Angels can pry unpowered doors open with their hands to open them. This can be used together with Power disruption to gain access to new areas. One thing to note though, you will only disrupt power in the area you are standing. A good way to determine if you will be able to pry a door is to right click it and check the area it is a part of. If it is not the same as the one you are in, you will need to find an alternative route."
 	src << "\blue <b>Goals: </b>"
-	src << "Honking Angels are in it for the hunt. They have come to the station to feed on it, and its inhabitants energy. Honking Angels may kill indiscriminately but it is not neccessarily withing their intrests to do so all of the time. Good luck and have fun. If you have any questions feel free to ask in ahelp."
+	src << "Honking Angels are in it for the hunt. They have come to the station to feed on it, and its inhabitants energy. Honking Angels may kill indiscriminately but it is not neccessarily withing their intrests to do so all of the time. Good luck and have fun. If you have any questions feel free to ask in mentorhelp."
 	sleep(1200)
 	helping = 0
 	return

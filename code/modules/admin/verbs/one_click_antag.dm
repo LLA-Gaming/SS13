@@ -64,7 +64,7 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_TRAITOR)
+		if(applicant.client.prefs.be_special_gamemode & BE_TRAITOR)
 			if(!applicant.stat)
 				if(applicant.mind)
 					if (!applicant.mind.special_role)
@@ -96,7 +96,7 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_CHANGELING)
+		if(applicant.client.prefs.be_special_gamemode & BE_CHANGELING)
 			if(!applicant.stat)
 				if(applicant.mind)
 					if (!applicant.mind.special_role)
@@ -126,7 +126,7 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_REV)
+		if(applicant.client.prefs.be_special_gamemode & BE_REV)
 			if(applicant.stat == CONSCIOUS)
 				if(applicant.mind)
 					if(!applicant.mind.special_role)
@@ -191,7 +191,7 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/H = null
 
 	for(var/mob/living/carbon/human/applicant in player_list)
-		if(applicant.client.prefs.be_special & BE_CULTIST)
+		if(applicant.client.prefs.be_special_gamemode & BE_CULTIST)
 			if(applicant.stat == CONSCIOUS)
 				if(applicant.mind)
 					if(!applicant.mind.special_role)

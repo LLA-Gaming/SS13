@@ -2,13 +2,16 @@
 	name = "betrayed"
 	config_tag = "betrayed"
 	restricted_jobs = list("Cyborg","AI","Perseus Security Enforcer","Perseus Security Commander") // Humans only / no percs
+	antag_flag = BE_BETRAYED
 	required_players = 4
 	required_readies = 4 //there should be just as many readies as there is players or this wont be very fun
 	traitor_name = "betrayed agent"
 
-	uplink_uses = 2 // User gains TCs over time
+	uplink_uses = 3 // User gains TCs over time
 
 	//betrayed vars
+	var/checkwin_counter = 0
+	var/finished = 0
 	var/max_uplink_uses = 12
 	var/reveal_time = 1950
 	var/reveal_min = 1950 //3 minutes and 25 seconds
@@ -30,14 +33,38 @@
 	if(ping_schedule <= world.time)
 		ping_schedule = world.time + rand(pingagents_low,pingagents_high) // 5 minute to 10 minutes
 		ping_agents()
+	checkwin_counter++
+	if(checkwin_counter >= 5)
+		if(!finished)
+			ticker.mode.check_win()
+		checkwin_counter = 0
+	return 0
+
+/datum/game_mode/traitor/betrayed/check_win()
+	for(var/datum/mind/M in traitors)
+		if(M.current && istype(M.current,/mob/living/carbon/human/) && M.current.stat != DEAD)
+			//if there is a single traitor alive return 0
+			return 0
+	finished = 1
+	return 1
+
+/datum/game_mode/traitor/betrayed/check_finished()
+	if(config.continuous_round_betrayed)
+		return ..()
+	if(finished != 0)
+		return 1
+	else
+		return ..()
 
 /datum/game_mode/traitor/betrayed/proc/ping_agents()
 	var/location_data = ""
 	for(var/datum/mind/M in traitors)
+		if(M.special_role != "betrayed agent") continue
 		if(M.current && istype(M.current,/mob/living/carbon/human/) && M.current.stat != DEAD)
 			var/area/A = get_area(M.current)
 			var/Atext = format_text(A)
-			location_data += "<br> [M.name] ([M.current.x],[M.current.y],[M.current.z]) [Atext ? "(Atext)" : ""]"
+			var/turf/t = get_turf(M.current)
+			location_data += "<br> [M.name] ([t.x],[t.y],[t.z]) [Atext ? "(Atext)" : ""]"
 	if(!location_data) return
 	priority_announce("Location data for the undercover agents has been downloaded and printed out at all communications consoles.", "Undercover Agent Report");
 	locations_pinged++
@@ -52,10 +79,12 @@
 
 /datum/game_mode/traitor/betrayed/proc/give_tc()
 	for(var/datum/mind/M in traitors)
+		if(M.special_role != "betrayed agent") continue
 		if(M.current && istype(M.current,/mob/living/carbon/human/) && M.current.stat != DEAD)
 			var/obj/item/device/uplink/hidden/H = M.find_syndicate_uplink()
 			if(H.uses < max_uplink_uses)
 				H.uses = Clamp(H.uses+2,0,max_uplink_uses)
+				max_uplink_uses -= 2
 				M.current << "<B>Your hidden uplink has been supplied additional points</B>"
 
 
@@ -99,6 +128,7 @@
 		revealed = 1
 		var/revealtxt = "Nanotrasen has been informed of syndicate agents disguised as crew by a anonymous informant.\n"
 		for(var/datum/mind/M in traitors)
+			if(M.special_role != "betrayed agent") continue
 			revealtxt += "\n [M.name], the [M.assigned_role]"
 		priority_announce(revealtxt, "Revealed Undercover Agents");
 	return 1

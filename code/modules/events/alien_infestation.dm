@@ -31,7 +31,7 @@
 		kill()
 
 /datum/round_event/alien_infestation/tick_queue()
-	var/list/candidates = get_candidates(BE_ALIEN, ALIEN_AFK_BRACKET)
+	var/list/candidates = get_candidates_event(BE_ALIEN, ALIEN_AFK_BRACKET)
 	if(candidates.len)
 		unqueue()
 
@@ -42,7 +42,7 @@
 			if(temp_vent.network.normal_members.len > 20)	//Stops Aliens getting stuck in small networks. See: Security, Virology
 				vents += temp_vent
 
-	var/list/candidates = get_candidates(BE_ALIEN, ALIEN_AFK_BRACKET)
+	var/list/candidates = get_candidates_event(BE_ALIEN, ALIEN_AFK_BRACKET)
 
 	if(!candidates.len && events.queue_ghost_events && !loopsafety)
 		queue()

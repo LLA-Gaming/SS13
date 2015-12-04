@@ -17,16 +17,24 @@
 
 #define TOGGLES_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|MEMBER_PUBLIC|CHAT_PULLR|SOUND_MENTORHELP)
 
-#define BE_TRAITOR		1
-#define BE_OPERATIVE	2
-#define BE_CHANGELING	4
-#define BE_WIZARD		8
-#define BE_MALF			16
-#define BE_REV			32
-#define BE_ALIEN		64
-#define BE_PAI			128
-#define BE_CULTIST		256
-#define BE_BLOB			512
-#define BE_NINJA		1024
-#define BE_ANGEL		2048
-#define BE_POSIBRAIN	4096
+//Gamemodes
+#define BE_TRAITOR		1<<0
+#define BE_DOUBLEAGENT	1<<1
+#define BE_BETRAYED		1<<2
+#define BE_OPERATIVE	1<<3
+#define BE_CHANGELING	1<<4
+#define BE_WIZARD		1<<5
+#define BE_MALF			1<<6
+#define BE_REV			1<<7
+#define BE_CULTIST		1<<8
+#define BE_BLOB			1<<9
+
+//Events
+#define BE_ALIEN		1<<0
+#define BE_ANGEL		1<<1
+#define BE_NINJA		1<<2
+#define BE_EXPLORER		1<<3
+
+//Other
+#define BE_POSIBRAIN	1<<0
+#define BE_PAI			1<<1

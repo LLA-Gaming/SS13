@@ -42,12 +42,12 @@
 	priority_announce("Distress signal recieved from nearby unknown spacecrafts", "Distress Signal")
 
 /datum/round_event/space_explorer/tick_queue()
-	var/list/candidates = get_candidates(BE_OPERATIVE)
+	var/list/candidates = get_candidates_event(BE_EXPLORER)
 	if(candidates.len)
 		unqueue()
 
 /datum/round_event/space_explorer/start()
-	var/list/candidates = get_candidates(BE_OPERATIVE)
+	var/list/candidates = get_candidates_event(BE_EXPLORER)
 
 	if(!candidates.len && events.queue_ghost_events && !loopsafety)
 		queue()

@@ -1,8 +1,8 @@
 //This is the lowest supported version, anything below this is completely obsolete and the entire savefile will be wiped.
-#define SAVEFILE_VERSION_MIN	8
+#define SAVEFILE_VERSION_MIN	11
 
 //This is the current version, anything below this will attempt to update (if it's not obsolete)
-#define SAVEFILE_VERSION_MAX	10
+#define SAVEFILE_VERSION_MAX	11
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
 	This proc checks if the current directory of the savefile S needs updating
@@ -166,7 +166,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["backbag"]			>> backbag
 	S["mutant_race"]		>> mutant_race
 	S["prefer_dept"]		>> prefer_dept
-	S["be_special"]			>> be_special
+	S["be_special_gamemode"]>> be_special_gamemode
+	S["be_special_event"]	>> be_special_event
+	S["be_special_other"]	>> be_special_other
 
 	//Jobs
 	S["userandomjob"]		>> userandomjob
@@ -206,7 +208,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		prefer_dept		= initial(prefer_dept)
 	else
 		prefer_dept		= sanitize_text(prefer_dept, initial(prefer_dept))
-	be_special		= sanitize_integer(be_special, 0, 65535, initial(be_special))
+	be_special_gamemode		= sanitize_integer(be_special_gamemode, 0, 65535, initial(be_special_gamemode))
+	be_special_event		= sanitize_integer(be_special_event, 0, 65535, initial(be_special_event))
+	be_special_other		= sanitize_integer(be_special_other, 0, 65535, initial(be_special_other))
 
 	userandomjob	= sanitize_integer(userandomjob, 0, 1, initial(userandomjob))
 	job_civilian_high = sanitize_integer(job_civilian_high, 0, 65535, initial(job_civilian_high))
@@ -247,7 +251,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["backbag"]			<< backbag
 	S["mutant_race"]		<< mutant_race
 	S["prefer_dept"]		<< prefer_dept
-	S["be_special"]			<< be_special
+	S["be_special_gamemode"]<< be_special_gamemode
+	S["be_special_event"]	<< be_special_event
+	S["be_special_other"]	<< be_special_other
 
 	//Jobs
 	S["userandomjob"]		<< userandomjob

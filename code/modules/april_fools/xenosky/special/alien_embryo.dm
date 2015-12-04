@@ -9,7 +9,7 @@
 
 
 /obj/item/alien_embryo/beepsky/AttemptGrow(var/gib_on_success = 1)
-	var/list/candidates = get_candidates(BE_ALIEN, ALIEN_AFK_BRACKET)
+	var/list/candidates = get_candidates_event(BE_ALIEN, ALIEN_AFK_BRACKET)
 	var/client/C = null
 
 	// To stop clientless larva, we will check that our host has a client

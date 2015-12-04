@@ -31,7 +31,7 @@
 	return ..()
 
 /datum/round_event/ninja/tick_queue()
-	var/list/candidates = get_candidates(BE_NINJA)
+	var/list/candidates = get_candidates_event(BE_NINJA)
 	if(candidates.len)
 		unqueue()
 
@@ -52,7 +52,7 @@
 
 	//selecting a candidate player
 	if(!key)
-		var/list/candidates = get_candidates(BE_NINJA)
+		var/list/candidates = get_candidates_event(BE_NINJA)
 		if(!candidates.len && events.queue_ghost_events && !loopsafety)
 			queue()
 			return

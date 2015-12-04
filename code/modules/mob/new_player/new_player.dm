@@ -400,6 +400,7 @@
 		src << browse(null, "window=latechoices") //closes late choices window
 		src << browse(null, "window=playersetup") //closes the player setup window
 		src << browse(null, "window=preferences") //closes job selection
+		src << browse(null, "window=preferences_roles") //closes special role menu
 		src << browse(null, "window=mob_occupation")
 		src << browse(null, "window=latechoices") //closes late job selection
 		src << browse(null, "window=lobby_manifest") //closes crew manifest

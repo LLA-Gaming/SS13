@@ -26,7 +26,7 @@
 			if(!H.mind)	return
 			if(picked >= amount)	break
 
-			if(!(C.prefs.be_special & 1))
+			if(!(C.prefs.be_special_gamemode & 1))
 				continue
 
 			if(C.mob.job in list("Perseus Security Enforcer", "Perseus Security Commander"))	continue

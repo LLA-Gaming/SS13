@@ -3,6 +3,7 @@
 	config_tag = "double_agents"
 	restricted_jobs = list("Cyborg", "AI", "Captain", "Head of Personnel", "Chief Medical Officer", "Research Director", "Chief Engineer", "Head of Security",
 							"Perseus Security Enforcer", "Perseus Security Commander") // Human / Minor roles only.
+	antag_flag = BE_DOUBLEAGENT
 	required_players = 25
 	required_enemies = 5
 	recommended_enemies = 8

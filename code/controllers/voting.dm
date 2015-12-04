@@ -187,6 +187,9 @@ datum/controller/vote
 			mode = vote_type
 			initiator = initiator_key
 			started_timeofday = world.timeofday
+			var/sound/S = sound('sound/effects/alert.ogg',0,1,0)
+			for(var/mob/M in world)
+				M << S
 			var/text = "[capitalize(mode)] vote started by [initiator]."
 			if(mode == "custom")
 				text += "\n[question]"
