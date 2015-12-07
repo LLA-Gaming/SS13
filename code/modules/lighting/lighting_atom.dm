@@ -2,7 +2,6 @@
 	var/light_power = 1 // intensity of the light
 	var/light_range = 0 // range in tiles of the light
 	var/light_color		// RGB string representing the colour of the light
-	var/light_update_immediately = 0
 
 	var/datum/light_source/light
 	var/list/light_sources
@@ -21,10 +20,6 @@
 	if(l_range != null) light_range = l_range
 	if(l_color != null) light_color = l_color
 
-	update_light()
-
-/atom/proc/SetLightingUpdateImmediately()
-	light_update_immediately = 1
 	update_light()
 
 /atom/proc/SetLuminosity(var/lum, var/power, var/_color)

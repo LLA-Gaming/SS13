@@ -91,7 +91,7 @@
 
 /obj/item/device/flashlight/pickup(mob/user)
 	if(on)
-		user.AddLuminosity(brightness_on)
+		user.AddLuminosity(brightness_on, brightness_power, light_color)
 		SetLuminosity(0)
 
 
