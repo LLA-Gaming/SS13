@@ -14,8 +14,9 @@ var/const/supply_science	= 5
 var/const/supply_organic	= 6
 var/const/supply_materials 	= 7
 var/const/supply_misc		= 8
+var/const/supply_lights		= 9
 
-var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engineer,supply_medical,supply_science,supply_organic,supply_materials,supply_misc)
+var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engineer,supply_medical,supply_science,supply_organic,supply_materials,supply_misc, supply_lights)
 
 /proc/get_supply_group_name(var/cat)
 	switch(cat)
@@ -35,7 +36,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 			return "Raw Materials"
 		if(8)
 			return "Miscellaneous"
-
+		if(9)
+			return "Colored Lights"
 
 /datum/supply_packs
 	var/name = null
@@ -936,6 +938,157 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/misc
 	name = "HEADER"
 	group = supply_misc
+
+/datum/supply_packs/misc
+
+/datum/supply_packs/misc/colored_light_tubes
+	group = supply_lights
+	cost = 20
+
+	crimson/
+		name = "Colored Light Tubes (Crimson)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#DC143C"; name = "box of colored light tubes (Crimson)"})
+		containername = "colored light tubes (crimson) crate"
+
+	magenta/
+		name = "Colored Light Tubes (Magenta)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#FF00FF"; name = "box of colored light tubes (Magenta)"})
+		containername = "colored light tubes (magenta) crate"
+
+	purple/
+		name = "Colored Light Tubes (Purple)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#800080"; name = "box of colored light tubes (Purple)"})
+		containername = "colored light tubes (purple) crate"
+
+	green/
+		name = "Colored Light Tubes (Green)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#4BFD00"; name = "box of colored light tubes (Green)"})
+		containername = "colored light tubes (green) crate"
+
+	spring_green/
+		name = "Colored Light Tubes (Spring Green)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#00FF7F"; name = "box of colored light tubes (Spring Green)"})
+		containername = "colored light tubes (spring green) crate"
+
+	cyan/
+		name = "Colored Light Tubes (Cyan)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#00FFFF"; name = "box of colored light tubes (Cyan)"})
+		containername = "colored light tubes (cyan) crate"
+
+	blue/
+		name = "Colored Light Tubes (Blue)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#4169E1"; name = "box of colored light tubes (Blue)"})
+		containername = "colored light tubes (blue) crate"
+
+	faint_blue/
+		name = "Colored Light Tubes (Faint Blue)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#40E0D0"; name = "box of colored light tubes (Faint Blue)"})
+		containername = "colored light tubes (faint blue) crate"
+
+	cornflower_blue/
+		name = "Colored Light Tubes (Cornflower Blue)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#6495ED"; name = "box of colored light tubes (Cornflower Blue)"})
+		containername = "colored light tubes (cornflower blue) crate"
+
+	yellow/
+		name = "Colored Light Tubes (Yellow)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#FFFF00"; name = "box of colored light tubes (Yellow)"})
+		containername = "colored light tubes (yellow) crate"
+
+	orange/
+		name = "Colored Light Tubes (Orange)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#FFA500"; name = "box of colored light tubes (Orange)"})
+		containername = "colored light tubes (orange) crate"
+
+	orange_red/
+		name = "Colored Light Tubes (Orange Red)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#FF4500"; name = "box of colored light tubes (Orange Red)"})
+		containername = "colored light tubes (orange red) crate"
+
+	light_yellow/
+		name = "Colored Light Tubes (Light Yellow)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#F0E68C"; name = "box of colored light tubes (Light Yellow)"})
+		containername = "colored light tubes (light yellow) crate"
+
+	gold/
+		name = "Colored Light Tubes (Gold)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#FFD700"; name = "box of colored light tubes (Gold)"})
+		containername = "colored light tubes (gold) crate"
+
+
+/datum/supply_packs/misc/colored_light_bulbs
+	group = supply_lights
+	cost = 15
+
+	crimson/
+		name = "Colored Light Bulbs (Crimson)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#DC143C"; name = "box of colored light bulbs (Crimson)"})
+		containername = "colored light bulbs (crimson) crate"
+
+	magenta/
+		name = "Colored Light Bulbs (Magenta)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#FF00FF"; name = "box of colored light bulbs (Magenta)"})
+		containername = "colored light bulbs (magenta) crate"
+
+	purple/
+		name = "Colored Light Bulbs (Purple)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#800080"; name = "box of colored light bulbs (Purple)"})
+		containername = "colored light bulbs (purple) crate"
+
+	green/
+		name = "Colored Light Bulbs (Green)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#4BFD00"; name = "box of colored light bulbs (Green)"})
+		containername = "colored light bulbs (green) crate"
+
+	spring_green/
+		name = "Colored Light Bulbs (Spring Green)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#00FF7F"; name = "box of colored light bulbs (Spring Green)"})
+		containername = "colored light bulbs (spring green) crate"
+
+	cyan/
+		name = "Colored Light Bulbs (Cyan)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#00FFFF"; name = "box of colored light bulbs (Cyan)"})
+		containername = "colored light bulbs (cyan) crate"
+
+	blue/
+		name = "Colored Light Bulbs (Blue)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#4169E1"; name = "box of colored light bulbs (Blue)"})
+		containername = "colored light bulbs (blue) crate"
+
+	faint_blue/
+		name = "Colored Light Bulbs (Faint Blue)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#40E0D0"; name = "box of colored light bulbs (Faint Blue)"})
+		containername = "colored light bulbs (faint blue) crate"
+
+	cornflower_blue/
+		name = "Colored Light Bulbs (Cornflower Blue)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#6495ED"; name = "box of colored light bulbs (Cornflower Blue)"})
+		containername = "colored light bulbs (cornflower blue) crate"
+
+	yellow/
+		name = "Colored Light Bulbs (Yellow)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#FFFF00"; name = "box of colored light bulbs (Yellow)"})
+		containername = "colored light bulbs (yellow) crate"
+
+	orange/
+		name = "Colored Light Bulbs (Orange)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#FFA500"; name = "box of colored light bulbs (Orange)"})
+		containername = "colored light bulbs (orange) crate"
+
+	orange_red/
+		name = "Colored Light Bulbs (Orange Red)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#FF4500"; name = "box of colored light bulbs (Orange Red)"})
+		containername = "colored light bulbs (orange red) crate"
+
+	light_yellow/
+		name = "Colored Light Bulbs (Light Yellow)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#F0E68C"; name = "box of colored light bulbs (Light Yellow)"})
+		containername = "colored light bulbs (light yellow) crate"
+
+	gold/
+		name = "Colored Light Bulbs (Gold)"
+		contains = list(/obj/item/weapon/storage/box/lights/tubes{lights_color = "#FFD700"; name = "box of colored light bulbs (Gold)"})
+		containername = "colored light bulbs (gold) crate"
 
 //"Hello? Pizza delivery for, uh ... I.C. Wiener?"
 /datum/supply_packs/misc/randomised/pizza

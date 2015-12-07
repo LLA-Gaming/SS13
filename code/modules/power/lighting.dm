@@ -287,28 +287,29 @@
 
 	update_icon()
 	if(on)
-		if(luminosity != brightness_range)
+		if(light_range != brightness_range || light_power != brightness_power || light_color != brightness_color)
 			switchcount++
 			if(rigged)
 				if(status == LIGHT_OK && trigger)
+					log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast]")
+					message_admins("LOG: Rigged light explosion, last touched by [fingerprintslast]")
 					explode()
 			else if( prob( min(60, switchcount*switchcount*0.01) ) )
 				if(status == LIGHT_OK && trigger)
 					status = LIGHT_BURNED
 					icon_state = "[base_state]-burned"
 					on = 0
-					SetLuminosity(0)
+					set_light(0)
 			else
 				use_power = 2
-				SetLuminosity(brightness_range, brightness_power, brightness_color)
+				set_light(brightness_range, brightness_power, brightness_color)
 	else
 		use_power = 1
-		SetLuminosity(0)
+		set_light(0)
 
-	active_power_usage = (luminosity * 10)
+	active_power_usage = ((light_range + light_power) * 10)
 	if(on != on_gs)
 		on_gs = on
-
 
 // attempt to set the light's on/off status
 // will not switch on if broken/burned/empty
@@ -334,8 +335,9 @@
 			if(LIGHT_BROKEN)
 				usr.send_text_to_tab("The [fitting] has been smashed.", "ic")
 				usr << "The [fitting] has been smashed."
-
-
+		if(brightness_color)
+			usr.send_text_to_tab("The [src]'s color code reads '[uppertext(brightness_color)]'", "ic")
+			usr << "The [src]'s color code reads '[uppertext(brightness_color)]'"
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
@@ -363,6 +365,7 @@
 				switchcount = L.switchcount
 				rigged = L.rigged
 				brightness_range = L.brightness_range
+				brightness_color = L.brightness_color
 				on = has_power()
 				update()
 
@@ -524,6 +527,11 @@
 	L.rigged = rigged
 	L.brightness_range = brightness_range
 
+	L.light_color = light_color
+	L.brightness_color = brightness_color
+	light_color = 0
+	brightness_color = 0
+
 	// light item inherits the switchcount, then zero it
 	L.switchcount = switchcount
 	switchcount = 0
@@ -574,6 +582,8 @@
 			s.set_up(3, 1, src)
 			s.start()
 	status = LIGHT_BROKEN
+	light_color = 0
+	brightness_color = 0
 	update()
 
 /obj/machinery/light/proc/fix()
@@ -688,6 +698,12 @@
 		if(LIGHT_OK)
 			icon_state = base_state
 			desc = "A replacement [name]."
+			if(brightness_color)
+				overlays.Cut()
+				var/image/overlay = image(icon, "[icon_state]_overlay")
+				overlay.color = brightness_color
+				overlays += overlay
+
 		if(LIGHT_BURNED)
 			icon_state = "[base_state]-burned"
 			desc = "A burnt-out [name]."

@@ -486,11 +486,23 @@
 	can_hold = list(/obj/item/weapon/light/tube, /obj/item/weapon/light/bulb)
 	max_combined_w_class = 21
 	use_to_pickup = 1 // for picking up broken bulbs, not that most people will try
+	var/lights_color = 0
+
+/obj/item/weapon/storage/box/lights
+	New()
+		..()
+		if(lights_color)
+			overlays.Cut()
+			var/image/overlay = image(icon, "[icon_state]_overlay")
+			overlay.color = lights_color
+			overlays += overlay
 
 /obj/item/weapon/storage/box/lights/bulbs/New()
 	..()
 	for(var/i = 0; i < 21; i++)
-		new /obj/item/weapon/light/bulb(src)
+		var/obj/item/weapon/light/bulb/B = new(src)
+		B.brightness_color = lights_color
+		B.update()
 
 /obj/item/weapon/storage/box/lights/tubes
 	name = "box of replacement tubes"
@@ -499,7 +511,9 @@
 /obj/item/weapon/storage/box/lights/tubes/New()
 	..()
 	for(var/i = 0; i < 21; i++)
-		new /obj/item/weapon/light/tube(src)
+		var/obj/item/weapon/light/tube/T = new(src)
+		T.brightness_color = lights_color
+		T.update()
 
 /obj/item/weapon/storage/box/lights/mixed
 	name = "box of replacement lights"
@@ -508,9 +522,13 @@
 /obj/item/weapon/storage/box/lights/mixed/New()
 	..()
 	for(var/i = 0; i < 14; i++)
-		new /obj/item/weapon/light/tube(src)
+		var/obj/item/weapon/light/tube/T = new(src)
+		T.brightness_color = lights_color
+		T.update()
 	for(var/i = 0; i < 7; i++)
-		new /obj/item/weapon/light/bulb(src)
+		var/obj/item/weapon/light/bulb/B =  new(src)
+		B.brightness_color = lights_color
+		B.update()
 
 /obj/item/weapon/storage/box/conveyor_boards
 	name = "box of conveyor boards"
