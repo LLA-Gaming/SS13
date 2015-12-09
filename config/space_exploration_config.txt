@@ -51,3 +51,16 @@ low_plasma_chance 1
 low_iron_chance 50
 low_gibtonite_chance 4
 
+#####################################
+
+[Template]
+
+place_amount_min 0
+place_amount_max 0
+
+zs 3
+zs 4
+zs 6
+
+tries 10
+

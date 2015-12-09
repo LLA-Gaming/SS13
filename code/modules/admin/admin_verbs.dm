@@ -145,7 +145,8 @@ var/list/admin_verbs_debug = list(
 	/client/proc/restart_controller,
 	/client/proc/enable_debug_verbs,
 	/client/proc/becomePAI,
-	/client/proc/callproc
+	/client/proc/callproc,
+	/client/proc/LoadTemplate
 	)
 
 var/list/admin_verbs_possess = list(
