@@ -78,7 +78,7 @@
 							affecting.take_damage(rand(1,7), 0)
 					else
 						T.apply_damage(rand(1,7))
-					playsound(src.loc, 'eatfood.ogg', 50, 1)
+					playsound(src.loc, 'sound/items/eatfood.ogg', 50, 1)
 					if(prob(25))
 						target.contract_disease(new/datum/disease/z_virus)
 					src.add_blood(src.target)
@@ -345,7 +345,7 @@
 /obj/item/weapon/reagent_containers/glass/bottle/t_virus
 	name = "Z-Virus culture bottle"
 	desc = "A small bottle. Contains Z-Virus virion in synthblood medium."
-	icon = 'chemical.dmi'
+	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
 	amount_per_transfer_from_this = 5
 
