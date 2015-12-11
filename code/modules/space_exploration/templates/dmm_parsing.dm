@@ -11,7 +11,7 @@
 				return obj
 		return 0
 
-	proc/Place(var/turf/origin)
+	proc/Place(var/turf/origin, var/template_name)
 		for(var/turf/T in block(origin, locate(origin.x + (x_size - 1), origin.y + (y_size - 1), origin.z)))
 			for(var/atom/movable/M in T)
 				if(istype(M, /mob))
@@ -21,27 +21,48 @@
 				qdel(M)
 			T.ChangeTurf(/turf/space)
 
+		var/area/A = new()
+		A.name = template_name
+		A.tagbase = "[A.type]_[md5(template_name)]"
+
 		for(var/y = 0; y < y_size; y++)
 			var/list/row = grid["[y]"]
 			var/x = 0
 			for(var/datum/dmm_object/object in row)
-				object.Instantiate(locate(origin.x + x, origin.y + y, origin.z))
+				object.Instantiate(locate(origin.x + x, origin.y + y, origin.z), ((!object.HasArea() && !object.GetSubByType(/turf/space, 1)) ? A : null))
 				x++
+
+		A.SetDynamicLighting()
+
 		location = origin
 
 /datum/dmm_object
 	var/id
 	var/list/sub_objects = list()
 
-	proc/Instantiate(var/turf/position)
+	proc/Instantiate(var/turf/position, var/area/AR)
 		for(var/datum/dmm_sub_object/sub in sub_objects)
 			var/atom/A = new sub.object_path(position)
 			for(var/or in sub.var_overrides)
-				var/formatted = sub.var_overrides[or]
-				if(text2num(formatted))
-					formatted = text2num(formatted)
+				A.vars[or] = sub.var_overrides[or]
+			if(AR && istype(A, /turf))
+				AR.contents.Add(A)
 
-				A.vars[or] = formatted
+	proc/GetSubByType(var/path, var/strict = 0)
+		for(var/datum/dmm_sub_object/sub in sub_objects)
+			if(strict)
+				if(istype(sub.object_path, path))
+					return sub
+			else
+				if(sub.object_path == path)
+					return sub
+
+		return 0
+
+	// Has area other than space
+	proc/HasArea()
+		var/datum/dmm_sub_object/sub = GetSubByType(/area)
+		return (sub && sub.object_path != /area)
 
 /datum/dmm_sub_object
 	var/object_path
@@ -50,8 +71,13 @@
 	proc/SanitizeOverrides()
 		for(var/key in var_overrides)
 			var/value = var_overrides[key]
+			if(istext(value))
+				value = replacetext(value, "\"", "")
 
-			var_overrides[key] = replacetext(value, "\"", "")
+			if(text2num(value))
+				value = text2num(value)
+
+			var_overrides[key] = value
 
 /datum/dmm_parser
 

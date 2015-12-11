@@ -1,56 +1,45 @@
 var/datum/template_controller/template_controller
 
 /datum/template_controller
+	var/list/placed_templates = list()
+	var/datum/dmm_parser/parser
 
 	New()
 		..()
-
 		world << "\red <b>Placing random structures...</b>"
 
-		spawn(0)
-			PlaceTemplates()
+		parser = new()
+		PlaceTemplates()
 
-	proc/PlaceTemplateAt(var/turf/location, var/name)
-		var/datum/dmm_parser/parser = new()
-		var/datum/dmm_object_collection/collection = parser.GetCollection(name)
-		collection.Place(location)
+	proc/PlaceTemplateAt(var/turf/location, var/path, var/name)
+		var/datum/dmm_object_collection/collection = parser.GetCollection(path)
+		collection.Place(location, name)
 
 		return collection
 
 	proc/PlaceTemplates()
+		set background = 1
+
 		var/list/picked = PickTemplates()
-
 		var/started = world.timeofday
-
-		var/list/space_turfs = list()
-
-		for(var/turf/T in world)
-			if(istype(T, /turf/space))
-				if(T.z in template_config.zs)
-					space_turfs += T
 
 		for(var/template in picked)
 			var/category = GetCategoryFromTemplate(template)
-			var/list/size = GetTemplateSize("data/templates/[category]/" + template)
 
+			var/list/size = GetTemplateSize(template)
 			var/x = size[1]
 			var/y = size[2]
 
 			var/tries = 20
 			var/turf/origin
 			do
-				if(tries <= 0)
-					break
+				var/turf/pick = locate(rand(1, world.maxx), rand(1, world.maxy), text2num(pick(template_config.zs)))
 
-				var/turf/pick = pick(space_turfs)
-
-				if(!(pick.z in template_config.zs))
+				// Keep a buffer of TRANSITIONEDGE+10 between the edges of the map
+				if(((pick.x + x) >= (world.maxx - TRANSITIONEDGE - 10)) || (pick.x < (TRANSITIONEDGE + 10)))
 					continue
 
-				if((pick.x + x) >= (world.maxx - TRANSITIONEDGE))
-					continue
-
-				if((pick.y + y) >= (world.maxy - TRANSITIONEDGE))
+				if(((pick.y + y) >= (world.maxy - TRANSITIONEDGE - 10)) || (pick.y < (TRANSITIONEDGE + 10)))
 					continue
 
 				var/list/turfs = block(pick, locate(pick.x + x, pick.y + y, pick.z))
@@ -61,48 +50,55 @@ var/datum/template_controller/template_controller
 						breakout = 1
 						break
 
+				tries--
+
 				if(breakout)
 					continue
 
 				origin = pick
-			while(!origin)
+			while(!origin && tries > 0)
 
-			template_config.placed_templates += PlaceTemplateAt(origin, "data/templates/[category]/" + template)
+			var/datum/dmm_object_collection/collection = PlaceTemplateAt(origin, template, category)
+			placed_templates += collection
 
-		message_admins("<font color='green'>Finished after [time2text((world.timeofday - started), "mm:ss")]</font>")
+		log_game("Finished placing templates after [time2text((world.timeofday - started), "mm:ss")]")
+		world << "\red <b>Finished placing random structures...</b>"
 
+	// TODO: Implement new algorithm
 	proc/PickTemplates()
 		var/list/picked = list()
-		var/iterations = rand(template_config.place_amount_min, template_config.place_amount_max)
-		var/category_index = 1
-		var/list/categories = GetCategories(1)
-		var/max_category_index = length(categories)
 
-		if(!max_category_index)
+		template_config.place_amount_min = min(template_config.place_amount_min, GetTemplateCount())
+		template_config.place_amount_max = min(template_config.place_amount_max, GetTemplateCount())
+
+		var/pick_num = rand(template_config.place_amount_min, template_config.place_amount_max)
+
+		log_game("TEMPL: Picking [pick_num] template(s).")
+
+		if(!length(template_config.chances))
+			log_game("TEMPL: Aborting PickTemplates: no chances configured.")
 			return 0
 
-		if(!length(categories))
-			return 0
+		while(pick_num > length(picked))
+			// Pick a category
+			var/max_tries = template_config.tries
+			var/picked_category
+			do
+				for(var/c in template_config.chances)
+					if(prob(text2num(template_config.chances[c])))
+						picked_category = c
+				max_tries--
+			while(!picked_category && max_tries > 0)
 
-		var/pick_tries = template_config.tries
-		while(iterations && pick_tries)
-			var/current_category = categories[category_index]
-			var/picked_template
+			world.log << "TEMPL: Picked category: [picked_category]"
+			var/list/category_templates = GetTemplatesFromCategory(picked_category)
 
-			if(category_index >= max_category_index)
-				category_index = 1
+			// Pick a template from that category
+			var/picked_template = category_templates[rand(1, length(category_templates))]
+			log_game("TEMPL: Picked template: [picked_template]")
 
-			if(prob(template_config.chances[current_category]))
-				picked_template = safepick(GetTemplatesFromCategory(current_category) - picked)
+			picked += "[template_config.directory]/[picked_category]/[picked_template]"
 
-			if(!picked_template)
-				pick_tries--
-				category_index++
-				continue
-
-			picked += picked_template
-			iterations--
-			category_index++
-			pick_tries = template_config.tries
+			pick_num--
 
 		return picked

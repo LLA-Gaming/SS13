@@ -62,5 +62,8 @@ zs 3
 zs 4
 zs 6
 
+chances misc=100
+
 tries 10
 
+directory data/templates
