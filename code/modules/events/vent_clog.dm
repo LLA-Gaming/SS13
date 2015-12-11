@@ -1,11 +1,8 @@
 /datum/round_event_control/vent_clog
 	name = "Clogged Vents"
 	typepath = /datum/round_event/vent_clog
-	phases_required = 0
-	rating = list(
-				"Gameplay"	= 40,
-				"Dangerous"	= 30
-				)
+	weight = 35
+	earliest_start = 0
 
 /datum/round_event/vent_clog
 	announceWhen	= 0

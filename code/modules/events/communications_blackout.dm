@@ -1,10 +1,7 @@
 /datum/round_event_control/communications_blackout
 	name = "Communications Blackout"
 	typepath = /datum/round_event/communications_blackout
-	rating = list(
-				"Gameplay"	= 25,
-				"Dangerous"	= 40
-				)
+	weight = 30
 
 /datum/round_event/communications_blackout/announce()
 	var/alert = pick(	"Ionospheric anomalies detected. Temporary telecommunication failure imminent. Please contact you*%fj00)`5vc-BZZT", \

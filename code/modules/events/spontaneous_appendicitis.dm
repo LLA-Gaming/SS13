@@ -1,12 +1,9 @@
 /datum/round_event_control/spontaneous_appendicitis
 	name = "Spontaneous Appendicitis"
 	typepath = /datum/round_event/spontaneous_appendicitis
-	phases_required = 0
+	weight = 20
 	max_occurrences = 4
-	rating = list(
-				"Gameplay"	= 65,
-				"Dangerous"	= 30
-				)
+	earliest_start = 6000
 
 /datum/round_event/spontaneous_appendicitis
 	var/mob/living/carbon/sucker = null //the mob which is affected by disease.

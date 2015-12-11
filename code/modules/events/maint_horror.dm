@@ -2,10 +2,7 @@
 	name = "Maintenance Horror"
 	typepath = /datum/round_event/maint_horror
 	max_occurrences = 3
-	rating = list(
-				"Gameplay"	= 15,
-				"Dangerous"	= 40
-				)
+	weight = 15
 
 
 /datum/round_event/maint_horror/start(loop=0)

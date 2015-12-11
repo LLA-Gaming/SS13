@@ -3,7 +3,7 @@
 	holidayID = "Halloween"
 	typepath = /datum/round_event/spooky
 	max_occurrences = 1
-	phases_required = -1 //round start
+	weight = -1
 
 /datum/round_event/spooky/
 	var/minWerewolfAmt = 1

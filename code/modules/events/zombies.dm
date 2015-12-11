@@ -2,11 +2,7 @@
 	name = "Zombie Outbreak"
 	typepath = /datum/round_event/zombies
 	max_occurrences = 1
-	players_needed = 10
-	rating = list(
-				"Gameplay"	= 100,
-				"Dangerous"	= 100
-				)
+	weight = 5
 
 /datum/round_event/zombies
 	var/SpawnNum = 15

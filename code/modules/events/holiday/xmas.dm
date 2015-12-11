@@ -19,7 +19,7 @@
 	holidayID = "Xmas"
 	typepath = /datum/round_event/presents
 	max_occurrences = 1
-	phases_required = -1 //round start
+	weight = -1
 
 /datum/round_event/presents/start()
 	for(var/obj/structure/flora/tree/pine/xmas in world)

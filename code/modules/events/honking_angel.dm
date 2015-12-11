@@ -3,10 +3,7 @@
 	typepath = /datum/round_event/honking_angel
 	max_occurrences = 1
 	needs_ghosts = 1
-	rating = list(
-				"Gameplay"	= 70,
-				"Dangerous"	= 60
-				)
+	weight = 5
 
 /datum/round_event/honking_angel
 	var/spawncount = 1

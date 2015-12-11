@@ -2,10 +2,7 @@
 	name = "Hivebot Invasion"
 	typepath = /datum/round_event/hivebots
 	max_occurrences = 1
-	rating = list(
-				"Gameplay"	= 70,
-				"Dangerous"	= 70
-				)
+	weight = 5
 
 /datum/round_event/hivebots
 	announceWhen	= 5

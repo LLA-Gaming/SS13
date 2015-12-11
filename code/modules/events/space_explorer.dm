@@ -3,10 +3,7 @@
 	typepath = /datum/round_event/space_explorer
 	max_occurrences = 1
 	needs_ghosts = 1
-	rating = list(
-				"Gameplay"	= 75,
-				"Dangerous"	= 35
-				)
+	weight = 10
 
 /datum/round_event/space_explorer
 	announceWhen	= 5

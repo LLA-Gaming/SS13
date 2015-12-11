@@ -1,13 +1,9 @@
 /datum/round_event_control/xenosky_infestation
 	name = "Xenosky Infestation"
 	typepath = /datum/round_event/xenosky_infestation
-	max_occurrences = 0
+	max_occurrences = 1
 	needs_ghosts = 1
-	players_needed = 10
-	rating = list(
-				"Gameplay"	= 90,
-				"Dangerous"	= 90
-				)
+	weight = 5
 
 /datum/round_event/xenosky_infestation
 	announceWhen	= 400

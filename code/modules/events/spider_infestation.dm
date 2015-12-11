@@ -2,11 +2,7 @@
 	name = "Spider Infestation"
 	typepath = /datum/round_event/spider_infestation
 	max_occurrences = 1
-	players_needed = 10
-	rating = list(
-				"Gameplay"	= 80,
-				"Dangerous"	= 70
-				)
+	weight = 5
 
 /datum/round_event/spider_infestation
 	announceWhen	= 400

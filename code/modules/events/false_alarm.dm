@@ -1,12 +1,9 @@
 /datum/round_event_control/falsealarm
 	name 			= "False Alarm"
 	typepath 		= /datum/round_event/falsealarm
-	phases_required = 0
+	weight			= 9
 	max_occurrences = 5
-	rating = list(
-				"Gameplay"	= 75, // I'm telling you man, there is something about the crew trying to lynch fake aliens that adds to gameplay
-				"Dangerous"	= 10
-				)
+	earliest_start = 0
 
 /datum/round_event/falsealarm
 	announceWhen	= 0

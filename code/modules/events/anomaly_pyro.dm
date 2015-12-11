@@ -2,10 +2,7 @@
 	name = "Pyroclastic Anomaly"
 	typepath = /datum/round_event/anomaly/anomaly_pyro
 	max_occurrences = 2
-	rating = list(
-				"Gameplay"	= 20,
-				"Dangerous"	= 60
-				)
+	weight = 15
 
 /datum/round_event/anomaly/anomaly_pyro
 	startWhen = 10

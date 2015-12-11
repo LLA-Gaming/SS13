@@ -1,12 +1,9 @@
 /datum/round_event_control/meteor_wave/dust
 	name = "Minor Space Dust"
 	typepath = /datum/round_event/meteor_wave/dust
-	phases_required = 0
+	weight = 300
 	max_occurrences = 1000
-	rating = list(
-				"Gameplay"	= 50, //stuck in the middle of the grid, neither annoying nor gameplay..
-				"Dangerous"	= 0
-				)
+	earliest_start = 0
 
 /datum/round_event/meteor_wave/dust
 	startWhen		= 1

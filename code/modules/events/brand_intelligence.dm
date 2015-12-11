@@ -2,11 +2,7 @@
 	name = "Brand Intelligence"
 	typepath = /datum/round_event/brand_intelligence
 	max_occurrences = 1
-	players_needed = 10
-	rating = list(
-				"Gameplay"	= 75,
-				"Dangerous"	= 80
-				)
+	weight = 5
 
 /datum/round_event/brand_intelligence
 	announceWhen	= 21

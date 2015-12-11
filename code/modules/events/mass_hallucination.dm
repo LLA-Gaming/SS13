@@ -2,10 +2,7 @@
 	name = "Mass Hallucination"
 	typepath = /datum/round_event/mass_hallucination
 	max_occurrences = 2
-	rating = list(
-				"Gameplay"	= 0,
-				"Dangerous"	= 50
-				)
+	weight = 7
 
 /datum/round_event/mass_hallucination/start()
 	for(var/mob/living/carbon/C in living_mob_list)

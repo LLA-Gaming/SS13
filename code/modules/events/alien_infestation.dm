@@ -3,11 +3,7 @@
 	typepath = /datum/round_event/alien_infestation
 	max_occurrences = 1
 	needs_ghosts = 1
-	players_needed = 10
-	rating = list(
-				"Gameplay"	= 90,
-				"Dangerous"	= 90
-				)
+	weight = 5
 
 /datum/round_event/alien_infestation
 	announceWhen	= 400

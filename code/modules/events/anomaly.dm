@@ -3,7 +3,7 @@
 	//typepath = /datum/round_event/anomaly
 	//see anomaly_flux.dm for this event. /this/ event is just a base for anomaly events.
 	max_occurrences = 0 //This one probably shouldn't occur! It'd work, but it wouldn't be very fun.
-	players_needed = 10
+	weight = 15
 
 /datum/round_event/anomaly
 	var/area/impact_area

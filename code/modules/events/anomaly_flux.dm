@@ -2,10 +2,7 @@
 	name = "Energetic Flux"
 	typepath = /datum/round_event/anomaly/anomaly_flux
 	max_occurrences = 2
-	rating = list(
-				"Gameplay"	= 10,
-				"Dangerous"	= 90
-				)
+	weight = 15
 
 
 /datum/round_event/anomaly/anomaly_flux

@@ -101,191 +101,68 @@ var/datum/controller/event/events
 //checks if we should select a random event yet, and reschedules if necessary
 /datum/controller/event/proc/checkEvent()
 	if(scheduled <= world.time)
-		adjust_ratings()
-		if(pickEvent())
+		var/datum/round_event_control/event_to_run = spawnEvent()
+		if(event_to_run)
+			add2timeline("[event_to_run.name]",1)
+			log_game("EVENTS: [E.name] fired")
 			phase++
-		reschedule()
-
-//decides the ratings
-/datum/controller/event/proc/adjust_ratings()
-	//no players? don't run this
-	var/PlayerC = 0
-	for(var/client/C in clients)
-		if(istype(C.mob,/mob/new_player/)) //lobby players dont count
-			continue
-		PlayerC++
-	if(!autoratings || !PlayerC)
-		return
-	var/low = 5
-	var/high = 20
-	if(IsMultiple(phase,3))
-		low = 15 // every 3 rounds give a boost maybe.
-		gameplay_offset = 0
-		gameplay_offset = pick(-1,0,1)
-	events.rating["Dangerous"] += rand(low,high)
-	events.rating["Gameplay"] += (rand(5,15) * gameplay_offset)
-	//if gameplay has reached its max, revert it back to the middle
-	if(events.rating["Gameplay"] > 75 || events.rating["Gameplay"] < 25)
-		events.rating["Gameplay"] = 50
-	//wrap around dangerous
-	events.rating["Dangerous"] = Wrap(events.rating["Dangerous"], 0, 100)
+			reschedule()
+		else
+			reschedule(1) // quick reschedule if no event was fired
 
 //decides which world.time we should select another random event at.
-/datum/controller/event/proc/reschedule()
+/datum/controller/event/proc/reschedule(var/quick=0)
+	if(quick)
+		scheduled = world.time + 600
+		return
 	scheduled = world.time + rand(frequency_lower, max(frequency_lower,frequency_upper))
 
 
-/datum/controller/event/proc/getDistance(var/datum/round_event_control/E)
-	var/distance = 0
-	for(var/X in rating)
-		if(rating[X] < 0) continue
-		distance += abs(rating[X] - E.rating[X])
-	if(true_random)
-		distance = 1 //ALL HELL BREAKS LOOSE
-	return Clamp(distance,1,200)
+/datum/controller/event/proc/possible_events()
+	var/list/possible = list()
 
-/*
-/datum/controller/event/proc/getWeight(var/datum/round_event_control/E)
-	var/distance = 0
-	for(var/X in rating)
-		if(rating[X] < 0) continue
-		distance += abs(rating[X] - E.rating[X])
-	if(distance <= 0)
-		return 300 //just so events that hit the dot arent in the THOUSANDS PLACE
-	return round((1 / distance)*1000)
-*/
-
-//Spoffy code below. Thank you based spoffy
-/*
-Gets the event list, organised into lists of a events of a specific difficulty.
-I.e, the following is valid:
-	events_list[distance_from_difficulty] = list(event1, event2)
-*/
-/datum/controller/event/proc/createEventListByDistance(var/test=0)
-	var/list/events_by_weight = list()
-	//addition by flavo
-	events_by_weight.len = 200 //Highest difference for events, should probably be a DEFINE
-	//gather player count
-	var/PlayerC = 0
-	for(var/client/C in clients)
-		if(istype(C.mob,/mob/new_player/)) //lobby players dont count
-			continue
-		PlayerC++
-	//end gather player count
-	for(var/datum/round_event_control/event in control)
-		if(event.occurrences >= event.max_occurrences)	continue //ran too much
-		if(timelocks)
-			if(event.phases_required > phase)		continue  //time locked
-		if(event.holidayID) 							//holiday
-			if(event.holidayID != holiday)			continue
-		if(event.players_needed > PlayerC)
-			continue
-		if(last_events.len) //previously ran, ignore it.
-			var/already_ran = 0
-			for(var/datum/round_event_control/previous in last_events)
-				if(event == previous)
-					already_ran = 1
-			if(already_ran)
-				continue
-		if(event.needs_ghosts)
+	for(var/datum/round_event_control/E in control)
+		if(E.occurrences >= E.max_occurrences)	continue
+		if(E.earliest_start >= world.time)		continue
+		if(E.holidayID)
+			if(E.holidayID != holiday)			continue
+		if(E.needs_ghosts)
 			var/ghosts = 0
 			for(var/client/C in clients)
 				if(istype(C.mob,/mob/dead/observer))
 					ghosts++
 			if(!ghosts && !queue_ghost_events)
 				continue
-		if(event.phases_required < 0 && !test)				//for round-start events etc.
-			if(event.runEvent() == PROCESS_KILL)
-				event.max_occurrences = 0
+
+		possible.Add(E)
+	return possible
+
+//selects a random event based on whether it can occur and it's 'weight'(probability)
+/datum/controller/event/proc/spawnEvent()
+	if(!config.allow_random_events)
+		return
+
+	var/list/possible = possible_events()
+
+	var/sum_of_weights = 0
+	for(var/datum/round_event_control/E in possible)
+		if(E.weight < 0)						//for round-start events etc.
+			if(E.runEvent() == PROCESS_KILL)
+				E.max_occurrences = 0
 				continue
-			add2timeline("[event.name]",1)
-			return
+			return E
+		sum_of_weights += E.weight
 
-		var/distance = getDistance(event)
-		if(events_by_weight[distance])
-			var/list/events_at_current_weight = events_by_weight[distance]
-		//addition end
-			events_at_current_weight += event
-		else
-			events_by_weight[distance] = list(event)
+	sum_of_weights = rand(0,sum_of_weights)	//reusing this variable. It now represents the 'weight' we want to select
 
-	//addition by flavo to even out lists
-	//Even out the list
-	var/list/events_by_weight_even = list()
-	for(var/i=1 , i<=events_by_weight.len , i++)
-		var/list/E = events_by_weight[i]
-		if(E)
-			events_by_weight_even += list(E)
-	//addition end.
+	for(var/datum/round_event_control/E in possible)
+		sum_of_weights -= E.weight
 
-	return events_by_weight_even
-
-/datum/controller/event/proc/pickEvent(var/test=0)
-	var/list/event_list = createEventListByDistance(test)
-	var/chosen_probability = gaussian(0, event_list.len * focus) //Mean, stddev
-	//We have our probability, and events organised by difference.
-	//Difference is between 0 and 500 (as 5 ratings, with a range of 100 each).
-
-	//Convert our random number (which is a decimal, with a 98% chance of being between -3 and 3 for mean = 0, stddev = 1)
-	//into something we can use, so multiply by 100.
-
-	var/chosen_difference = chosen_probability
-
-	//Hurray, we now have an integer between -infinity and infinity, with a 98% chance of being between -75 and 75.
-	//But fuck negatives, let's make it positive!
-
-	chosen_difference = Ceiling(abs(chosen_difference))
-	//world.log << chosen_difference
-
-	//Cool, now it has a 98% chance of being between 0 and 300, a 95% chance of being between 0 and 200, and a 68% chance of being between 0 and 100.
-	//That seems rather high... so perhaps go back and change the stddev to something lower. Maybe 0.1?
-	//Moving on, so we have our chosen difference, as something useful. Let's find out which event set it's closest to*!
-	//
-	//* In the most inefficient way possible!
-
-	//Nice and simple, we loop through all the possible event differences in the event_list,
-	//And calculate how far it is from the difference we've chosen.
-	//We'll call this the distance from the difference.
-	//And we select the difference with the lowest distance,
-	//I.e, the list of events that have their difficulty closest to our randomly selected one.
-	//(Remembering that our randomly selected difficulty is more likely to throw out certain values)
-	var/selected_event_difference = event_list.len //Highest difference for a given event, currently.
-	if(!selected_event_difference) // just some sanity
-		log_game("EVENTS: No event was fired because the possible event list was empty")
-		return
-	var/selected_distance_from_difference = event_list.len
-	chosen_difference = Clamp(chosen_difference,0,event_list.len)
-	for(var/difference in event_list)
-		//addition by flavo
-		if(!difference) continue
-		difference = event_list.Find(difference)
-		//world.log << "[difference]: [list2text(event_list[difference],", ")]"
-		//addition end
-		var/distance_from_chosen_difference = abs(chosen_difference - difference)
-		if(distance_from_chosen_difference < selected_distance_from_difference)
-			selected_event_difference = difference
-			selected_distance_from_difference = distance_from_chosen_difference
-
-	var/list/selected_events = event_list[selected_event_difference]
-	//addition by flavo
-	if(!selected_events)
-		return
-	if(test)
-		return "[list2text(selected_events,", ")]<br>chosen diff: [chosen_difference]" //only a test, return the event
-	else
-		for(var/i=0, i<10, i++) // try at least 10 times before deciding "fuck it"
-			var/datum/round_event_control/E = safepick(selected_events)
-			if(E)
-				if(E.runEvent() == PROCESS_KILL)//we couldn't run this event for some reason, set its max_occurrences to 0
-					E.max_occurrences = 0
-					continue
-				add2timeline("[E.name]",1)
-				log_game("EVENTS: [E.name] (dist:[getDistance(E)]/gmply:[E.rating["Gameplay"]]/dnger:[E.rating["Dangerous"]]) was fired | Chosen Difference: [chosen_difference] | Gameplay: [rating["Gameplay"]] | Dangerous: [rating["Dangerous"]]")
-				return E //Yes, boom, the event fired.. your work here is done big ol calculator
-			else
-				return //err.. E was null so the list is clearly empty or something. fuck it.
-	//addition end
-//spoffy code above
+		if(sum_of_weights <= 0)				//we've hit our goal
+			if(E.runEvent() == PROCESS_KILL)//we couldn't run this event for some reason, set its max_occurrences to 0
+				E.max_occurrences = 0
+				continue
+			return E
 
 /datum/round_event/proc/findEventArea() //Here's a nice proc to use to find an area for your event to land in!
 	var/list/safe_areas = list(
@@ -452,3 +329,185 @@ I.e, the following is valid:
 				holiday = "Friday the 13th"
 
 	world.update_status()
+
+
+/*
+//Below is commented out code from the newer rating based event system.
+//shouldn't really apply to how events are run now since events that are worth this system are now progressive events
+
+//decides the ratings
+/datum/controller/event/proc/adjust_ratings()
+	//no players? don't run this
+	var/PlayerC = 0
+	for(var/client/C in clients)
+		if(istype(C.mob,/mob/new_player/)) //lobby players dont count
+			continue
+		PlayerC++
+	if(!autoratings || !PlayerC)
+		return
+	var/low = 5
+	var/high = 20
+	if(IsMultiple(phase,3))
+		low = 15 // every 3 rounds give a boost maybe.
+		gameplay_offset = 0
+		gameplay_offset = pick(-1,0,1)
+	events.rating["Dangerous"] += rand(low,high)
+	events.rating["Gameplay"] += (rand(5,15) * gameplay_offset)
+	//if gameplay has reached its max, revert it back to the middle
+	if(events.rating["Gameplay"] > 75 || events.rating["Gameplay"] < 25)
+		events.rating["Gameplay"] = 50
+	//wrap around dangerous
+	events.rating["Dangerous"] = Wrap(events.rating["Dangerous"], 0, 100)
+
+/datum/controller/event/proc/getDistance(var/datum/round_event_control/E)
+	var/distance = 0
+	for(var/X in rating)
+		if(rating[X] < 0) continue
+		distance += abs(rating[X] - E.rating[X])
+	if(true_random)
+		distance = 1 //ALL HELL BREAKS LOOSE
+	return Clamp(distance,1,200)
+
+/*
+/datum/controller/event/proc/getWeight(var/datum/round_event_control/E)
+	var/distance = 0
+	for(var/X in rating)
+		if(rating[X] < 0) continue
+		distance += abs(rating[X] - E.rating[X])
+	if(distance <= 0)
+		return 300 //just so events that hit the dot arent in the THOUSANDS PLACE
+	return round((1 / distance)*1000)
+*/
+
+//Spoffy code below. Thank you based spoffy
+/*
+Gets the event list, organised into lists of a events of a specific difficulty.
+I.e, the following is valid:
+	events_list[distance_from_difficulty] = list(event1, event2)
+*/
+/datum/controller/event/proc/createEventListByDistance(var/test=0)
+	var/list/events_by_weight = list()
+	//addition by flavo
+	events_by_weight.len = 200 //Highest difference for events, should probably be a DEFINE
+	//gather player count
+	var/PlayerC = 0
+	for(var/client/C in clients)
+		if(istype(C.mob,/mob/new_player/)) //lobby players dont count
+			continue
+		PlayerC++
+	//end gather player count
+	for(var/datum/round_event_control/event in control)
+		if(event.occurrences >= event.max_occurrences)	continue //ran too much
+		if(timelocks)
+			if(event.phases_required > phase)		continue  //time locked
+		if(event.holidayID) 							//holiday
+			if(event.holidayID != holiday)			continue
+		if(event.players_needed > PlayerC)
+			continue
+		if(last_events.len) //previously ran, ignore it.
+			var/already_ran = 0
+			for(var/datum/round_event_control/previous in last_events)
+				if(event == previous)
+					already_ran = 1
+			if(already_ran)
+				continue
+		if(event.needs_ghosts)
+			var/ghosts = 0
+			for(var/client/C in clients)
+				if(istype(C.mob,/mob/dead/observer))
+					ghosts++
+			if(!ghosts && !queue_ghost_events)
+				continue
+		if(event.phases_required < 0 && !test)				//for round-start events etc.
+			if(event.runEvent() == PROCESS_KILL)
+				event.max_occurrences = 0
+				continue
+			add2timeline("[event.name]",1)
+			return
+
+		var/distance = getDistance(event)
+		if(events_by_weight[distance])
+			var/list/events_at_current_weight = events_by_weight[distance]
+		//addition end
+			events_at_current_weight += event
+		else
+			events_by_weight[distance] = list(event)
+
+	//addition by flavo to even out lists
+	//Even out the list
+	var/list/events_by_weight_even = list()
+	for(var/i=1 , i<=events_by_weight.len , i++)
+		var/list/E = events_by_weight[i]
+		if(E)
+			events_by_weight_even += list(E)
+	//addition end.
+
+	return events_by_weight_even
+
+/datum/controller/event/proc/pickEvent(var/test=0)
+	var/list/event_list = createEventListByDistance(test)
+	var/chosen_probability = gaussian(0, event_list.len * focus) //Mean, stddev
+	//We have our probability, and events organised by difference.
+	//Difference is between 0 and 500 (as 5 ratings, with a range of 100 each).
+
+	//Convert our random number (which is a decimal, with a 98% chance of being between -3 and 3 for mean = 0, stddev = 1)
+	//into something we can use, so multiply by 100.
+
+	var/chosen_difference = chosen_probability
+
+	//Hurray, we now have an integer between -infinity and infinity, with a 98% chance of being between -75 and 75.
+	//But fuck negatives, let's make it positive!
+
+	chosen_difference = Ceiling(abs(chosen_difference))
+	//world.log << chosen_difference
+
+	//Cool, now it has a 98% chance of being between 0 and 300, a 95% chance of being between 0 and 200, and a 68% chance of being between 0 and 100.
+	//That seems rather high... so perhaps go back and change the stddev to something lower. Maybe 0.1?
+	//Moving on, so we have our chosen difference, as something useful. Let's find out which event set it's closest to*!
+	//
+	//* In the most inefficient way possible!
+
+	//Nice and simple, we loop through all the possible event differences in the event_list,
+	//And calculate how far it is from the difference we've chosen.
+	//We'll call this the distance from the difference.
+	//And we select the difference with the lowest distance,
+	//I.e, the list of events that have their difficulty closest to our randomly selected one.
+	//(Remembering that our randomly selected difficulty is more likely to throw out certain values)
+	var/selected_event_difference = event_list.len //Highest difference for a given event, currently.
+	if(!selected_event_difference) // just some sanity
+		log_game("EVENTS: No event was fired because the possible event list was empty")
+		return
+	var/selected_distance_from_difference = event_list.len
+	chosen_difference = Clamp(chosen_difference,0,event_list.len)
+	for(var/difference in event_list)
+		//addition by flavo
+		if(!difference) continue
+		difference = event_list.Find(difference)
+		//world.log << "[difference]: [list2text(event_list[difference],", ")]"
+		//addition end
+		var/distance_from_chosen_difference = abs(chosen_difference - difference)
+		if(distance_from_chosen_difference < selected_distance_from_difference)
+			selected_event_difference = difference
+			selected_distance_from_difference = distance_from_chosen_difference
+
+	var/list/selected_events = event_list[selected_event_difference]
+	//addition by flavo
+	if(!selected_events)
+		return
+	if(test)
+		return "[list2text(selected_events,", ")]<br>chosen diff: [chosen_difference]" //only a test, return the event
+	else
+		for(var/i=0, i<10, i++) // try at least 10 times before deciding "fuck it"
+			var/datum/round_event_control/E = safepick(selected_events)
+			if(E)
+				if(E.runEvent() == PROCESS_KILL)//we couldn't run this event for some reason, set its max_occurrences to 0
+					E.max_occurrences = 0
+					continue
+				add2timeline("[E.name]",1)
+				log_game("EVENTS: [E.name] (dist:[getDistance(E)]/gmply:[E.rating["Gameplay"]]/dnger:[E.rating["Dangerous"]]) was fired | Chosen Difference: [chosen_difference] | Gameplay: [rating["Gameplay"]] | Dangerous: [rating["Dangerous"]]")
+				return E //Yes, boom, the event fired.. your work here is done big ol calculator
+			else
+				return //err.. E was null so the list is clearly empty or something. fuck it.
+	//addition end
+//spoffy code above
+*/

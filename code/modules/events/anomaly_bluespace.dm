@@ -2,10 +2,7 @@
 	name = "Bluespace Anomaly"
 	typepath = /datum/round_event/anomaly/anomaly_bluespace
 	max_occurrences = 1
-	rating = list(
-				"Gameplay"	= 10,
-				"Dangerous"	= 75
-				)
+	weight = 5
 
 /datum/round_event/anomaly/anomaly_bluespace
 	startWhen = 3

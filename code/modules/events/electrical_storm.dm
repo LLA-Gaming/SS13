@@ -1,12 +1,10 @@
 /datum/round_event_control/electrical_storm
 	name = "Electrical Storm"
 	typepath = /datum/round_event/electrical_storm
-	phases_required = 0
 	max_occurrences = 3
-	rating = list(
-				"Gameplay"	= 20,
-				"Dangerous"	= 10
-				)
+	earliest_start = 6000
+	weight = 40
+
 /datum/round_event/electrical_storm
 	var/lightsoutAmount	= 1
 	var/lightsoutRange	= 25

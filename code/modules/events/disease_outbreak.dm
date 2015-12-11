@@ -2,10 +2,7 @@
 	name = "Disease Outbreak"
 	typepath = /datum/round_event/disease_outbreak
 	max_occurrences = 1
-	rating = list(
-				"Gameplay"	= 55,
-				"Dangerous"	= 60
-				)
+	weight = 5
 
 /datum/round_event/disease_outbreak
 	announceWhen	= 15

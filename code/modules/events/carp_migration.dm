@@ -1,12 +1,9 @@
 /datum/round_event_control/carp_migration
 	name = "Carp Migration"
 	typepath = /datum/round_event/carp_migration
-	phases_required = 1
+	earliest_start = 6000
 	max_occurrences = 6
-	rating = list(
-				"Gameplay"	= 5,
-				"Dangerous"	= 40
-				)
+	weight = 15
 
 
 /datum/round_event/carp_migration

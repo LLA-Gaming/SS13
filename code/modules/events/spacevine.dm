@@ -2,11 +2,7 @@
 	name = "Spacevine"
 	typepath = /datum/round_event/spacevine
 	max_occurrences = 3
-	players_needed = 10
-	rating = list(
-				"Gameplay"	= 0,
-				"Dangerous"	= 50
-				)
+	weight = 15
 
 /datum/round_event/spacevine/start()
 	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas

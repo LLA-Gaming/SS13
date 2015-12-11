@@ -2,10 +2,8 @@
 	name = "Gravitational Anomaly"
 	typepath = /datum/round_event/anomaly/anomaly_grav
 	max_occurrences = 2
-	rating = list(
-				"Gameplay"	= 10,
-				"Dangerous"	= 35
-				)
+	weight = 15
+
 /datum/round_event/anomaly/anomaly_grav
 	startWhen = 3
 	announceWhen = 20
