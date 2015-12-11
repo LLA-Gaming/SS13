@@ -15,6 +15,12 @@
 					value = values[val]
 				vars[val] = value
 
+		PostInit()
+
+	// Used for special variable handling, etc.
+	proc/PostInit()
+		return 0
+
 /proc/GetSpaceExplorationConfigFromCategory(var/category)
 	if(!category)
 		return 0

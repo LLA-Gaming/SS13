@@ -11,14 +11,14 @@
 	if(category == "Cancel")
 		return
 
-	templates = flist("data/templates/[category]/")
+	templates = flist("[template_config.directory]/[category]/")
 
 	var/name = input("Which Template?", "Selection") in templates
 
-	name = "data/templates/[category]/[name]"
+	var/path = "[template_config.directory]/[category]/[name]"
 
-	if(!fexists(name))
+	if(!fexists(path))
 		usr << "[name] does not exist."
 		return
 
-	template_controller.PlaceTemplateAt(get_turf(mob), name)
+	template_controller.PlaceTemplateAt(get_turf(mob), path, name)
