@@ -24,6 +24,7 @@
 		var/area/A = new()
 		A.name = template_name
 		A.tagbase = "[A.type]_[md5(template_name)]"
+		A.lighting_use_dynamic = 0
 
 		for(var/y = 0; y < y_size; y++)
 			var/list/row = grid["[y]"]
@@ -32,7 +33,8 @@
 				object.Instantiate(locate(origin.x + x, origin.y + y, origin.z), ((!object.HasArea() && !object.GetSubByType(/turf/space, 1)) ? A : null))
 				x++
 
-		A.SetDynamicLighting()
+		A.InitializeLighting()
+		A.SetLightLevel(4)
 
 		location = origin
 
@@ -40,8 +42,21 @@
 	var/id
 	var/list/sub_objects = list()
 
+	// We want the turf first and area second.
+	proc/SortSubObjects()
+		var/datum/dmm_sub_object/sub = GetSubByType(/turf)
+		if(sub)
+			sub_objects.Swap(1, sub_objects.Find(sub))
+			sub = null
+		sub = GetSubByType(/area)
+		if(sub)
+			sub_objects.Swap(2, sub_objects.Find(sub))
+			sub = null
+
+		return sub_objects
+
 	proc/Instantiate(var/turf/position, var/area/AR)
-		for(var/datum/dmm_sub_object/sub in sub_objects)
+		for(var/datum/dmm_sub_object/sub in SortSubObjects())
 			var/atom/A = new sub.object_path(position)
 			for(var/or in sub.var_overrides)
 				A.vars[or] = sub.var_overrides[or]

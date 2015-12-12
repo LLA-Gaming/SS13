@@ -90,11 +90,17 @@ var/datum/template_controller/template_controller
 				max_tries--
 			while(!picked_category && max_tries > 0)
 
-			world.log << "TEMPL: Picked category: [picked_category]"
 			var/list/category_templates = GetTemplatesFromCategory(picked_category)
+
+			if(length(category_templates) <= 0)
+				continue
 
 			// Pick a template from that category
 			var/picked_template = category_templates[rand(1, length(category_templates))]
+
+			if(!picked_template)
+				continue
+
 			log_game("TEMPL: Picked template: [picked_template]")
 
 			picked += "[template_config.directory]/[picked_category]/[picked_template]"
