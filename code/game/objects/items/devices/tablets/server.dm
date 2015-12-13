@@ -13,6 +13,7 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	var/list/convos = list()
 	var/active = 1
 	var/list/programs = list()
+	var/list/assignments = list()
 
 /obj/machinery/nanonet_server/New()
 	nanonet_servers += src

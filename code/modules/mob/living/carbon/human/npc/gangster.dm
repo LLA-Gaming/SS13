@@ -16,6 +16,9 @@
 		W.update_label()
 		equip_to_slot_or_del(W, slot_wear_id)
 
+		npc_say += "ey wise guy"
+		npc_say += "you talkin' to me?"
+
 /mob/living/carbon/human/npc/gangster_ranged
 	npc_name = "Gunman"
 	faction = "mafia"
@@ -34,3 +37,6 @@
 		W.registered_name = real_name
 		W.update_label()
 		equip_to_slot_or_del(W, slot_wear_id)
+
+		npc_say += "ey wise guy"
+		npc_say += "you talkin' to me?"

@@ -17,6 +17,9 @@
 		W.update_label()
 		equip_to_slot_or_del(W, slot_wear_id)
 
+		npc_say += "YAAAARRR"
+		npc_say += "Lootin' and plunderin'"
+
 		//activate weapons
 		for(var/obj/item/weapon/melee/energy/sword/E in contents)
 			E.attack_self(src)
@@ -40,3 +43,6 @@
 		W.registered_name = real_name
 		W.update_label()
 		equip_to_slot_or_del(W, slot_wear_id)
+
+		npc_say += "YAAAARRR"
+		npc_say += "Lootin' and plunderin'"

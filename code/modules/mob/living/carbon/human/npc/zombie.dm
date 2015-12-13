@@ -4,43 +4,35 @@
 	idlemove_chance = 0 //zombies have there own idle movecode
 	faction = "zombie"
 	always_melee = 1
-	var/list/zsay = list()
 
 	New()
 		..()
-		zsay += "braaaaains"
-		zsay += "Mrrrhrrrrrrmmmm"
-		zsay += "BRAIIIIIIIIINSSSSS"
-		zsay += "uuuuuuuuuuuhhhh"
-		zsay += "grrrr-grrrii-gggrii-fffee-rrr"
-		zsay += "UHhuHUhuhhhh"
-		zsay += "thriii-thirriiill--errrr"
-		zsay += "GRRRRRRRRR"
-		zsay += "ahhhaaaarraaghh"
-		zsay += "eeemmmmmmaaarrrrrrraggh"
-		zsay += "AAARRAAAGGGGHHHHHH"
-		zsay += "FFFFEEEEERRAAAAG"
-		zsay += "bbbb-bbbr-ainnnnnns"
+		npc_say += "braaaaains"
+		npc_say += "Mrrrhrrrrrrmmmm"
+		npc_say += "BRAIIIIIIIIINSSSSS"
+		npc_say += "uuuuuuuuuuuhhhh"
+		npc_say += "grrrr-grrrii-gggrii-fffee-rrr"
+		npc_say += "UHhuHUhuhhhh"
+		npc_say += "thriii-thirriiill--errrr"
+		npc_say += "GRRRRRRRRR"
+		npc_say += "ahhhaaaarraaghh"
+		npc_say += "eeemmmmmmaaarrrrrrraggh"
+		npc_say += "AAARRAAAGGGGHHHHHH"
+		npc_say += "FFFFEEEEERRAAAAG"
+		npc_say += "bbbb-bbbr-ainnnnnns"
 
 		src.contract_disease(new/datum/disease/z_virus)
 
-	Life()
-		..()
-		if(prob(3) && !client && stat == CONSCIOUS)
-			if(prob(50))
-				src.say(pick(zsay))
-			else
-				src.emote("moan")
-
 	process()
-		if(!target)
-			if(world.time > move_delay && !lying)
-				m_intent = "walk"
-				var/direction = pick(NORTH,SOUTH,EAST,WEST)
-				step(src,direction)
-				set_move_delay(2)
-		else
-			m_intent = "run"
+		if(!client && stat == CONSCIOUS)
+			if(!target)
+				if(world.time > move_delay && !lying)
+					m_intent = "walk"
+					var/direction = pick(NORTH,SOUTH,EAST,WEST)
+					step(src,direction)
+					set_move_delay(2)
+			else
+				m_intent = "run"
 		..()
 
 	attack_at()

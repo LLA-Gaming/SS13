@@ -26,6 +26,8 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	var/list/friendly_factions = list("npc")
 	var/list/in_range = list()
 	var/list/can_see = list()
+	var/list/npc_say = list()
+	var/retaliate = 0
 	//constants
 	var/const/NPC_STATE_INACTIVE = 0
 	var/const/NPC_STATE_IDLE = 1
@@ -62,7 +64,22 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 
 /mob/living/carbon/human/npc/Life()
 	..()
+	if(prob(3) && !client && stat == CONSCIOUS)
+		if(npc_say.len)
+			src.say(pick(npc_say))
 	if(!client && stat == CONSCIOUS)
+		in_range = list()
+		can_see = list()
+		if(!client && stat == CONSCIOUS)
+			//in_range
+			for(var/mob/living/M in oviewers(src,18))
+				if(M.stat != CONSCIOUS)
+					continue
+				if(!M.client)
+					continue
+				if(istype(M,/mob/living/carbon/human/npc))
+					continue
+				in_range.Add(M)
 		nutrition = initial(nutrition)
 		//idle_movement
 		if(!target)
@@ -73,15 +90,8 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 					dir = turn(dir,pick(90,-90))
 
 /mob/living/carbon/human/npc/proc/targeting()
-	in_range = list()
 	can_see = list()
 	if(!client && stat == CONSCIOUS)
-		//in_range
-		for(var/mob/living/M in orange(src,18))
-			if(istype(M,/mob/living/carbon/human/npc))
-				continue
-			in_range.Add(M)
-
 		if(!in_range.len) //needs a living mob in range to process
 			state = NPC_STATE_INACTIVE
 			return
@@ -110,7 +120,7 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 							can_see.Add(M)
 
 		for(var/mob/living/M in shuffle(can_see))
-			if(target)
+			if(target || retaliate)
 				break
 			if(M.faction == faction)
 				continue
@@ -200,6 +210,8 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 			set_move_delay()
 		//shoot guns
 		if(next_move <= world.time && ranged)
+			if(!target)
+				return
 			var/tturf = get_turf(target)
 			if(prob(80))
 				if(!buckled)
@@ -245,6 +257,8 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 			dir = SOUTH
 		changeNext_move(8)
 		if(src.l_hand)
+			if(get_active_hand() != l_hand)
+				src.hand = !( src.hand )
 			if(istype(src.l_hand, /obj/item/weapon))
 				var/obj/item/weapon/A = src.l_hand
 				if(istype(A,/obj/item/weapon/gun) && !always_melee)
@@ -252,15 +266,23 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 					ranged = 1
 					G.shoot_live_shot(src, 1, target)
 					return
+				if(!A.force)
+					throw_item(src.target)
+					return
 				A.attack(src.target, src)
 				return
 		else if(src.r_hand)
+			if(get_active_hand() != r_hand)
+				src.hand = !( src.hand )
 			if(istype(src.r_hand, /obj/item/weapon))
 				var/obj/item/weapon/A = src.r_hand
 				if(istype(A,/obj/item/weapon/gun) && !always_melee)
 					var/obj/item/weapon/gun/G = A
 					ranged = 1
 					G.shoot_live_shot(src, 1, target)
+					return
+				if(!A.force)
+					throw_item(src.target)
 					return
 				A.attack(src.target, src)
 				return
@@ -361,6 +383,8 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 /mob/living/carbon/human/npc/attack_hand(mob/living/carbon/human/M as mob)
 	..()
 	if(M)
+		if(M.a_intent == "help")
+			return
 		if(src.faction != M.faction)
 			target = M
 
@@ -371,3 +395,51 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 		else
 			target = Proj.firer
 	..()
+
+/mob/living/carbon/human/npc/throw_item(atom/target)
+	if(usr.stat || !target)
+		return
+
+	var/atom/movable/item = src.get_active_hand()
+
+	if(!item || (item.flags & NODROP)) return
+
+	if(istype(item, /obj/item/weapon/grab))
+		var/obj/item/weapon/grab/G = item
+		item = G.toss() //throw the person instead of the grab
+		qdel(G)			//We delete the grab, as it needs to stay around until it's returned.
+		if(ismob(item))
+			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
+			var/turf/end_T = get_turf(target)
+			if(start_T && end_T)
+				var/mob/M = item
+				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
+				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
+
+				add_logs(usr, M, "thrown", admin=0, addition="from [start_T_descriptor] with the target [end_T_descriptor]")
+
+	if(!item) return //Grab processing has a chance of returning null
+
+	if(!ismob(item)) //Honk mobs don't have a dropped() proc honk
+		unEquip(item)
+	//actually throw it!
+	if(item)
+		item.layer = initial(item.layer)
+		src.visible_message("\red [src] has thrown [item].")
+
+		if(!src.lastarea)
+			src.lastarea = get_area(src.loc)
+		if(!has_gravity(src))
+			src.inertia_dir = get_dir(target, src)
+			step(src, inertia_dir)
+
+
+/*
+		if(istype(src.loc, /turf/space) || (src.flags & NOGRAV)) //they're in space, move em one space in the opposite direction
+			src.inertia_dir = get_dir(target, src)
+			step(src, inertia_dir)
+*/
+
+
+
+		item.throw_at(target, item.throw_range, item.throw_speed)

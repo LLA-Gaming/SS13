@@ -38,7 +38,7 @@
 	return
 
 
-/client/proc/debug_controller(controller in list("Master","Failsafe","Ticker","Lighting","Garbage","Air","Jobs","Sun","Radio","Supply Shuttle","Emergency Shuttle","Configuration","pAI", "Cameras", "Events", "Assignments", "Virtual Reality","Firedome", "Pod Configuration"))
+/client/proc/debug_controller(controller in list("Master","Failsafe","Ticker","Lighting","Garbage","Air","Jobs","Sun","Radio","Supply Shuttle","Emergency Shuttle","Configuration","pAI", "Cameras", "Events", "Virtual Reality","Firedome", "Pod Configuration"))
 	set category = "Debug"
 	set name = "Debug Controller"
 	set desc = "Debug the various periodic loop controllers for the game (be careful!)"
@@ -90,9 +90,6 @@
 		if("Events")
 			debug_variables(events)
 			feedback_add_details("admin_verb","DEvents")
-		if("Assignments")
-			debug_variables(assignments)
-			feedback_add_details("admin_verb","DAssignments")
 		if("Virtual Reality")
 			debug_variables(vr_controller)
 			feedback_add_details("admin_verb", "VRevents")

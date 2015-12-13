@@ -20,6 +20,9 @@
 		W.update_label()
 		equip_to_slot_or_del(W, slot_wear_id)
 
+		npc_say += "Patrolling deep space almost makes you wish for a nuclear explosion"
+		npc_say += "Death to Nanotrasen!"
+
 /mob/living/carbon/human/npc/syndicate_melee
 	npc_name = "Syndicate"
 	faction = "syndicate"
@@ -50,6 +53,9 @@
 		for(var/obj/item/weapon/shield/energy/E in contents)
 			E.attack_self(src)
 
+		npc_say += "Patrolling deep space almost makes you wish for a nuclear explosion"
+		npc_say += "Death to Nanotrasen!"
+
 /mob/living/carbon/human/npc/syndicate_ranged
 	npc_name = "Syndicate"
 	faction = "syndicate"
@@ -72,6 +78,9 @@
 		W.registered_name = real_name
 		W.update_label()
 		equip_to_slot_or_del(W, slot_wear_id)
+
+		npc_say += "Patrolling deep space almost makes you wish for a nuclear explosion"
+		npc_say += "Death to Nanotrasen!"
 
 /mob/living/carbon/human/npc/syndicate_melee_s
 	npc_name = "Syndicate"
@@ -103,6 +112,9 @@
 		for(var/obj/item/weapon/shield/energy/E in contents)
 			E.attack_self(src)
 
+		npc_say += "Patrolling deep space almost makes you wish for a nuclear explosion"
+		npc_say += "Death to Nanotrasen!"
+
 	Process_Spacemove(var/check_drift = 0)
 		for(var/obj/item/weapon/tank/jetpack/O in contents)
 			return 1
@@ -130,6 +142,9 @@
 		W.registered_name = real_name
 		W.update_label()
 		equip_to_slot_or_del(W, slot_wear_id)
+
+		npc_say += "Patrolling deep space almost makes you wish for a nuclear explosion"
+		npc_say += "Death to Nanotrasen!"
 
 	Process_Spacemove(var/check_drift = 0)
 		for(var/obj/item/weapon/tank/jetpack/O in contents)

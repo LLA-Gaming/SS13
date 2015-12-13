@@ -9,6 +9,9 @@
 		equip_to_appropriate_slot(new /obj/item/clothing/shoes/jackboots)
 		equip_to_appropriate_slot(new /obj/item/clothing/head/bearpelt)
 
+		npc_say += "Cyka blyat"
+		npc_say += "I need another vodka"
+
 /mob/living/carbon/human/npc/russian_ranged
 	name = "Russian"
 	npc_name = "Russian"
@@ -21,3 +24,6 @@
 		equip_to_appropriate_slot(new /obj/item/clothing/under/soviet)
 		equip_to_appropriate_slot(new /obj/item/clothing/shoes/jackboots)
 		equip_to_appropriate_slot(new /obj/item/clothing/head/ushanka)
+
+		npc_say += "Cyka blyat"
+		npc_say += "I need another vodka"

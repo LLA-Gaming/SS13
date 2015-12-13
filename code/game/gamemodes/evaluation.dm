@@ -1,10 +1,5 @@
 /datum/controller/gameticker/proc/evaluate_station()
 	var/dat = ""
-	if(assignments)
-		for(var/datum/assignment/A in assignments.passive)
-			A.check_complete()
-		for(var/datum/assignment/A in assignments.active)
-			A.fail() //fail any incomplete assignments
 	//Round statistics report
 	end_state = new /datum/station_state()
 	end_state.count()
@@ -24,13 +19,6 @@
 		for(var/X in ticker.timeline)
 			dat += "[X]<BR>"
 	dat += "</td>"
-	//Assignments
-	/* WORK IN PROGRESS
-	dat += "<td valign='top' width='70%'>"
-	dat += "<h3>Assignments:</h3><br>"
-	dat += "Stuff to go here later"
-	dat += "</td></tr>"
-	*/
 	dat += "</table>"
 	for(var/mob/player in player_list)
 		var/datum/browser/popup = new(player, "endroundresults", "<div align='center'>Timeline</div>", 900, 600)

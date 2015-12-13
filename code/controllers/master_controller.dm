@@ -56,9 +56,6 @@ datum/controller/game_controller/New()
 	if(!events)
 		new /datum/controller/event()
 
-	if(!assignments)
-		new /datum/controller/assignment()
-
 	if(!air_master)
 		air_master = new /datum/controller/air_system()
 		air_master.setup()
@@ -292,11 +289,6 @@ datum/controller/game_controller/proc/process()
 				last_thing_processed = /datum/round_event
 				events.process()
 				events_cost = (world.timeofday - timer) / 10
-
-				//ASSIGNMENTS
-				timer = world.timeofday
-				assignments.process()
-				assignments_cost = (world.timeofday - timer) / 10
 
 				//TICKER
 				timer = world.timeofday

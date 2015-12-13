@@ -209,13 +209,13 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 				return
 			if(MS.active)
 				if(MS.z == T.z)//on the same z-level?
-					return 1
+					return MS
 					break
 				else
 					for (var/list/obj/machinery/nanonet_router/router in nanonet_routers)
 						if(router.z == T.z)//on the same z-level?
 							if(router.active)
-								return 1
+								return MS
 								break
 
 /obj/item/device/tablet/proc/check_alerts()
