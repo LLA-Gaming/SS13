@@ -21,4 +21,4 @@
 		usr << "[name] does not exist."
 		return
 
-	template_controller.PlaceTemplateAt(get_turf(mob), path, name)
+	template_controller.placed_templates += template_controller.PlaceTemplateAt(get_turf(mob), path, name)

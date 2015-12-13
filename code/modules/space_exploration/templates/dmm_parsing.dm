@@ -53,10 +53,15 @@
 			sub_objects.Swap(2, sub_objects.Find(sub))
 			sub = null
 
+		listclearnulls(sub_objects)
+
 		return sub_objects
 
 	proc/Instantiate(var/turf/position, var/area/AR)
 		for(var/datum/dmm_sub_object/sub in SortSubObjects())
+			if(!sub.object_path)
+				continue
+
 			var/atom/A = new sub.object_path(position)
 			for(var/or in sub.var_overrides)
 				A.vars[or] = sub.var_overrides[or]
@@ -157,7 +162,13 @@
 					var/cbe_pos = findtext(pi, "}") // Curly-brace ending position
 
 					if(cbs_pos)
-						sub.object_path = text2path(copytext(pi, 1, cbs_pos))
+						var/obj_path = text2path(copytext(pi, 1, cbs_pos))
+						if(length(obj_path) <= 0)
+							sub.object_path = obj_path
+						else
+							sub = null
+							continue
+
 						var/string = copytext(pi, cbs_pos + 1, cbe_pos)
 
 						// Start hack. Why? Because byond.

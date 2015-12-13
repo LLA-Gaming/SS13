@@ -85,6 +85,9 @@ var/datum/template_controller/template_controller
 			var/picked_category
 			do
 				for(var/c in template_config.chances)
+					if(!(c in GetCategories(1)))
+						log_game("TEMPL: Configured folder '[c]' not found.")
+						return list()
 					if(prob(text2num(template_config.chances[c])))
 						picked_category = c
 				max_tries--
