@@ -1605,21 +1605,6 @@
 				events.scheduled = 0
 				log_admin("[key_name(usr)] forced a random event")
 				message_admins("[key_name(usr)] forced a random event")
-			if("edit")
-				var/amount = input(usr, "How much? (0 to 100). -1 means ignore diffrence check", "Input") as num
-				amount = Clamp(amount,-1,100)
-				var/value = href_list["value"]
-				events.rating[value] = amount
-			if("settings")
-				switch(href_list["mode"])
-					if("auto")
-						events.autoratings = !events.autoratings
-					if("ender")
-						events.allow_enders = !events.allow_enders
-					if("random")
-						events.true_random = !events.true_random
-					if("unlucky")
-						events.adjust_spawnrate()
 		event_panel()
 
 	else if(href_list["secretsfun"])

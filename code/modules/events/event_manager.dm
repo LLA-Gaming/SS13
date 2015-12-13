@@ -13,24 +13,9 @@ var/datum/controller/event/events
 	var/frequency_upper = 9000	//15 minutes upper bound. Basically an event will happen every 15 to 30 minutes.
 	var/phase = 0				//how many times the event scheduler has scheduled itself
 
-	var/autoratings = 1 // to adjust the ratings
-	var/allow_enders = 0 // allow finales (no finales made yet)
-	var/true_random = 0 //1 to ignore the ratings and make everything equal
-	var/spawnrate_mode = 0 //1 for faster event spawning
-
 	//configs
 	var/focus = 0.25
 	var/queue_ghost_events = 1
-	var/timelocks = 1
-
-	//This list decides how to modify the difficulty variable in running a event based on
-	//the distance between the targets (the values below) and the events values with the same title
-	//Think of these like a 100 x 100 grid with 50,50 being the absolute middle
-	var/list/rating = list(
-						"Gameplay"	= 50,	// 0 to 100: 0 for annoying, 100 for gameplay
-						"Dangerous"	= 0	// 0 to 100: 0 for filler, 100 for dangerous
-						)
-	var/gameplay_offset = 0
 
 	var/holiday					//This will be a string of the name of any realworld holiday which occurs today (GMT time)
 
@@ -46,7 +31,6 @@ var/datum/controller/event/events
 	if(config)
 		focus = config.events_focus
 		queue_ghost_events = config.events_queue_ghost_events
-		timelocks = config.events_timelocks
 
 	for(var/type in typesof(/datum/round_event_control))
 		var/datum/round_event_control/E = new type()
@@ -55,7 +39,6 @@ var/datum/controller/event/events
 		control += E				//add it to the list of all events (controls)
 
 	reschedule()
-	gameplay_offset = pick(-1,0,1) //set the initial offset
 	getHoliday()
 	handleSchedule(holiday)
 
@@ -69,16 +52,6 @@ var/datum/controller/event/events
 	if(_holiday == "Halloween")
 		//Make sure Halloween starts after 5 minutes exactly.
 		scheduled = 3000
-
-/datum/controller/event/proc/adjust_spawnrate()
-	if(frequency_lower == initial(frequency_lower) || frequency_upper == initial(frequency_upper))
-		frequency_lower = frequency_lower/2
-		frequency_upper = frequency_upper/2
-		spawnrate_mode = 1
-	else
-		frequency_lower = initial(frequency_lower)
-		frequency_upper = initial(frequency_upper)
-		spawnrate_mode = 0
 
 //This is called by the MC every MC-tick (*neatfreak*).
 /datum/controller/event/proc/process()
@@ -104,7 +77,7 @@ var/datum/controller/event/events
 		var/datum/round_event_control/event_to_run = spawnEvent()
 		if(event_to_run)
 			add2timeline("[event_to_run.name]",1)
-			log_game("EVENTS: [E.name] fired")
+			log_game("EVENTS: [event_to_run.name] fired")
 			phase++
 			reschedule()
 		else
