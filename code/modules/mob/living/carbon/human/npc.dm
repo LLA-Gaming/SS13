@@ -64,9 +64,6 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 
 /mob/living/carbon/human/npc/Life()
 	..()
-	if(prob(3) && !client && stat == CONSCIOUS)
-		if(npc_say.len)
-			src.say(pick(npc_say))
 	if(!client && stat == CONSCIOUS)
 		in_range = list()
 		can_see = list()
@@ -81,6 +78,11 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 					continue
 				in_range.Add(M)
 		nutrition = initial(nutrition)
+		if(!in_range.len)
+			return
+		if(prob(3))
+			if(npc_say.len)
+				src.say(pick(npc_say))
 		//idle_movement
 		if(!target)
 			if(prob(idlemove_chance) && canmove && isturf(loc) && !pulledby && !grabbed_by.len)
