@@ -1,6 +1,7 @@
 /datum/round_event_control/xenosky_infestation
 	name = "Xenosky Infestation"
 	typepath = /datum/round_event/xenosky_infestation
+	holidayID = "April Fool's Day"
 	max_occurrences = 1
 	needs_ghosts = 1
 	weight = 5
