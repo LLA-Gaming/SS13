@@ -457,6 +457,25 @@ proc/is_special_character(mob/M) // returns 1 for special characters and 2 for h
 /mob/proc/has_mutation(var/mutation)
 	return mutation in src.mutations ? 1 : 0
 
+
+//for mobs larger then 32x32
+/mob/proc/GetDirectionalTurfs(var/direction, var/corners = 0)
+	var/size_x = (bound_width/32)
+	var/size_y = (bound_height/32)
+	var/turf/origin = get_turf(src)
+
+	switch(direction)
+		if(NORTH)
+			return block(locate(origin.x + (corners?-1:0), origin.y + size_y, origin.z), locate(origin.x + size_x - (corners?0:1), origin.y + size_y, origin.z))
+		if(WEST)
+			return block(locate(origin.x - 1, origin.y - (corners?1:0), origin.z), locate(origin.x - 1, origin.y + size_y - (corners?0:1), origin.z))
+		if(SOUTH)
+			return block(locate(origin.x - (corners?1:0), origin.y - 1, origin.z), locate(origin.x + size_x - (corners?0:1), origin.y - 1, origin.z))
+		if(EAST)
+			return block(locate(origin.x + size_x, origin.y - (corners?1:0), origin.z), locate(origin.x + size_x, origin.y + size_y - (corners?0:1), origin.z))
+
+	return list()
+
 /proc/get_both_hands(mob/living/carbon/M)
 	var/list/hands = list(M.l_hand, M.r_hand)
 	return hands

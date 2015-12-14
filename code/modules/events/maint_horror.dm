@@ -19,6 +19,7 @@
 	if(safety_loop > 50)
 		kill()
 		end()
+		return
 	var/impact_area = safepick(maintareas)
 	if(!impact_area)
 		setup(safety_loop)

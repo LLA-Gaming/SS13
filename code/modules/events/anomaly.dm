@@ -16,6 +16,7 @@
 	if(safety_loop > 50)
 		kill()
 		end()
+		return
 	impact_area = findEventArea()
 	if(!impact_area)
 		setup(safety_loop)

@@ -34,6 +34,7 @@
 #define BE_ANGEL		1<<1
 #define BE_NINJA		1<<2
 #define BE_EXPLORER		1<<3
+#define BE_CBEAR		1<<4
 
 //Other
 #define BE_POSIBRAIN	1<<0

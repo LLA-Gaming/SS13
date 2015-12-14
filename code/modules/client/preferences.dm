@@ -21,7 +21,8 @@ var/global/list/special_roles_event = list(
 	"alien" = 1, //always show   						 // 0
 	"honking angel candidate" = 1, //zombie    		     // 1
 	"ninja" = 1,										 // 2
-	"explorer" = 1										 // 3
+	"explorer" = 1,										 // 3
+	"cosmic bear of death" = 1							 // 4
 
 )
 var/global/list/special_roles_other = list(
