@@ -1394,6 +1394,7 @@
 #include "code\modules\sorting\sorting_machinery.dm"
 #include "code\modules\sorting\~_defines.dm"
 #include "code\modules\space_exploration\config.dm"
+#include "code\modules\space_exploration\content\spawners.dm"
 #include "code\modules\space_exploration\mining\config.dm"
 #include "code\modules\space_exploration\mining\crate_teleporter.dm"
 #include "code\modules\space_exploration\mining\mining_bot.dm"
