@@ -98,16 +98,10 @@
 				value = replacetext(value, "\"", "")
 
 				if(copytext(value, 1, 9) == "newlist(")
-					var/list/split = text2list(copytext(value, 9, findtext(value, ")")), ",")
-					var/list/parsed = list()
-					for(var/x in split)
-						parsed += text2path(x)
-
-					var_overrides[key] = parsed
-
+					var_overrides[key] = text2list(copytext(value, 9, findtext(value, ")")), ",")
 					continue
 
-			if(text2num(value))
+			if(!istext(text2num(value)))
 				value = text2num(value)
 
 			var_overrides[key] = value
