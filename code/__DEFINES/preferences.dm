@@ -35,6 +35,7 @@
 #define BE_NINJA		1<<2
 #define BE_EXPLORER		1<<3
 #define BE_CBEAR		1<<4
+#define BE_TIMEAGENT	1<<5
 
 //Other
 #define BE_POSIBRAIN	1<<0

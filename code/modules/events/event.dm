@@ -38,6 +38,7 @@
 	var/startWhen		= 0	//When in the lifetime to call start().
 	var/announceWhen	= 0	//When in the lifetime to call announce().
 	var/endWhen			= 0	//When in the lifetime the event should end.
+	var/endless			= 0 //round event doesn't end until the round ends
 
 	var/activeFor		= 0	//How long the event has existed. You don't need to change this.
 
@@ -114,14 +115,14 @@
 	if(!queued && activeFor == announceWhen)
 		announce()
 
-	if(!queued && startWhen < activeFor && activeFor < endWhen)
+	if(!queued && (startWhen < activeFor && activeFor < endWhen) || endless)
 		tick()
 
 	if(!queued && activeFor == endWhen)
 		end()
 
 	// Everything is done, let's clean up.
-	if(!queued && activeFor >= endWhen && activeFor >= announceWhen && activeFor >= startWhen)
+	if(!queued && activeFor >= endWhen && activeFor >= announceWhen && activeFor >= startWhen && !endless)
 		events.finished += src //save these for end round stuff
 		kill()
 
