@@ -30,7 +30,7 @@
 			var/list/row = grid["[y]"]
 			var/x = 0
 			for(var/datum/dmm_object/object in row)
-				object.Instantiate(locate(origin.x + x, origin.y + y, origin.z), ((!object.HasArea() && !object.GetSubByType(/turf/space, 1)) ? A : null))
+				object.Instantiate(locate(origin.x + x, origin.y + y, origin.z), ((!object.HasArea()) && (!object.GetSubByType(/turf/space, 1))) ? A : null)
 				x++
 
 		A.InitializeLighting()
@@ -65,8 +65,11 @@
 			var/atom/A = new sub.object_path(position)
 			for(var/or in sub.var_overrides)
 				A.vars[or] = sub.var_overrides[or]
+
 			if(AR && istype(A, /turf))
 				AR.contents.Add(A)
+
+		return position
 
 	proc/GetSubByType(var/path, var/strict = 0)
 		for(var/datum/dmm_sub_object/sub in sub_objects)
@@ -93,6 +96,16 @@
 			var/value = var_overrides[key]
 			if(istext(value))
 				value = replacetext(value, "\"", "")
+
+				if(copytext(value, 1, 9) == "newlist(")
+					var/list/split = text2list(copytext(value, 9, findtext(value, ")")), ",")
+					var/list/parsed = list()
+					for(var/x in split)
+						parsed += text2path(x)
+
+					var_overrides[key] = parsed
+
+					continue
 
 			if(text2num(value))
 				value = text2num(value)
@@ -127,17 +140,29 @@
 		for(var/line in lines)
 			if(!line || !length(line))
 				continue
-			if(copytext(line, 1, 2) == "\"")
+
+			if(copytext(line, 1, 2) == "\"" && copytext(line, 2, 3) != "}")
 				object = new()
 				object.id = copytext(line, 2, findtext(line, "\"", 2))
 				id_el = length(object.id) - 1
 
 				var/sp_pos = findtext(line, "(") // Starting Parenthesis
-				var/lp_pos = findtext(line, ")") // Last Parenthesis
+				var/lp_pos = findtext(line, ")", length(line) - 1) // Last Parenthesis
 				var/inner_text = copytext(line, sp_pos + 1, lp_pos)
 				var/comma_pos = findtext(line, ",")
 
 				var/list/path_groups = list()
+
+				var/list/cb_starting_positions = list()
+				var/list/cb_ending_positions = list()
+
+				var/cb_start = findtext(line, "{")
+				while(cb_start)
+					var/cb_end = findtext(line, "}", cb_start)
+					cb_starting_positions += cb_start
+					cb_ending_positions += cb_end
+
+					cb_start = findtext(line, "{", cb_end + 1)
 
 				// Extract each comma-seperated path out of the text
 				if(comma_pos)
@@ -145,11 +170,18 @@
 					var/next_comma_pos
 					do
 						next_comma_pos = findtext(line, ",", comma_pos + 1)
+
+						// Ignore commas in {} blocks
+						for(var/c in cb_starting_positions)
+							while(next_comma_pos in (c to cb_ending_positions[cb_starting_positions.Find(c)]))
+								next_comma_pos = findtext(line, ",", next_comma_pos + 1)
+
 						if(next_comma_pos)
 							path_groups.Add(copytext(line, comma_pos + 1, next_comma_pos))
 							comma_pos = next_comma_pos
 						else
 							path_groups.Add(copytext(line, comma_pos + 1, lp_pos))
+
 					while(next_comma_pos)
 				else
 					path_groups.Add(inner_text)
