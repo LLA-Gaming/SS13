@@ -79,7 +79,9 @@
 
 	var/allow_lowpop_modes = 0			//if enabled round types can be chosen with lower population but scaled down
 	var/traitor_scaling_coeff = 6		//how much does the amount of players get divided by to determine traitors
+	var/traitor_scaling_minimum = 1		//Minimun number of traitors when scaling is enabled
 	var/changeling_scaling_coeff = 7	//how much does the amount of players get divided by to determine changelings
+	var/changeling_scaling_minimum = 1	//Minimun number of changelings when scaling is enabled
 
 	var/protect_roles_from_antagonist = 0// If security and such can be traitor/cult/other
 	var/allow_latejoin_antagonists = 0 // If late-joining players can be traitor/changeling
@@ -370,8 +372,12 @@
 					config.ghost_interaction		= 1
 				if("traitor_scaling_coeff")
 					config.traitor_scaling_coeff	= text2num(value)
+				if("traitor_scaling_minimum")
+					config.traitor_scaling_minimum = text2num(value)
 				if("changeling_scaling_coeff")
 					config.changeling_scaling_coeff	= text2num(value)
+				if("changeling_scaling_minimum")
+					config.changeling_scaling_minimum = text2num(value)
 				if("probability")
 					var/prob_pos = findtext(value, " ")
 					var/prob_name = null

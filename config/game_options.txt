@@ -116,6 +116,8 @@ SHUTTLE_REFUEL_DELAY 12000
 ## Set to 0 to disable scaling and use default numbers instead.
 TRAITOR_SCALING_COEFF 6
 CHANGELING_SCALING_COEFF 7
+TRAITOR_SCALING_MINIMUM 4
+CHANGELING_SCALING_MINIMUM 2
 
 ## Uncomment to prohibit jobs that start with loyalty
 ## implants from being most antagonists.
