@@ -51,7 +51,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/num_changelings = 1
 
 	if(config.changeling_scaling_coeff)
-		num_changelings = max(1, round((num_players())/(config.changeling_scaling_coeff)))
+		num_changelings = max(config.changeling_scaling_minimum, round((num_players())/(config.changeling_scaling_coeff)))
 	else
 		num_changelings = max(1, min(num_players(), changeling_amount))
 
