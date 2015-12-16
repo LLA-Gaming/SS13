@@ -116,7 +116,7 @@
 	if(islarva(user))
 		return
 	user.changeNext_move(8)
-	//user.do_attack_animation(src)
+	user.do_attack_animation(src, 1)
 	user.visible_message("<span class='danger'>[user] claws at the resin!</span>")
 	playsound(loc, hitnoise, 100, 1)
 	health -= 50

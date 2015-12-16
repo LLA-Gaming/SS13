@@ -345,7 +345,7 @@ proc/isInSight(var/atom/A, var/atom/B)
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I
-	sleep(duration)
+	spawn(duration)
 	for(var/client/C in show_to)
 		C.images -= I
 

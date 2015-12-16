@@ -3,7 +3,7 @@
 	if (M.a_intent == "help")
 		help_shake_act(M)
 	else
-		//M.do_attack_animation(src)
+		M.do_attack_animation(src, 1)
 		if (istype(wear_mask, /obj/item/clothing/mask/muzzle))
 			return
 

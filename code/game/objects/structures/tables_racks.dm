@@ -459,7 +459,7 @@
 
 /obj/structure/table/attack_paw(mob/living/user)
 	if(HULK in user.mutations)
-		//user.do_attack_animation(src)
+		user.do_attack_animation(src, 1)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		visible_message("<span class='danger'>[user] smashes the table apart!</span>")
 		if(istype(src, /obj/structure/table/reinforced))
@@ -473,7 +473,7 @@
 
 
 /obj/structure/table/attack_alien(mob/living/user)
-	//user.do_attack_animation(src)
+	user.do_attack_animation(src, 1)
 	visible_message("<span class='danger'>[user] slices [src] apart!</span>")
 	if(istype(src, /obj/structure/table/reinforced))
 		new /obj/item/weapon/table_parts/reinforced(loc)
@@ -487,7 +487,7 @@
 
 /obj/structure/table/attack_animal(mob/living/simple_animal/user)
 	if(user.environment_smash)
-		//user.do_attack_animation(src)
+		user.do_attack_animation(src, 1)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		if(istype(src, /obj/structure/table/reinforced))
 			new /obj/item/weapon/table_parts/reinforced(loc)
@@ -503,7 +503,7 @@
 
 /obj/structure/table/attack_hand(mob/living/user)
 	if(HULK in user.mutations)
-		//user.do_attack_animation(src)
+		user.do_attack_animation(src, 1)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		if(istype(src, /obj/structure/table/reinforced))
