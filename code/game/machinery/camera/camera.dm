@@ -117,7 +117,7 @@
 		return
 	if(!(istype(user, /mob/living/carbon/alien/humanoid/) || istype(user, /mob/living/carbon/alien/beepsky/humanoid)))
 		return
-	//user.do_attack_animation(src)
+	user.do_attack_animation(src, 1)
 	status = 0
 	visible_message("<span class='warning'>\The [user] slashes at [src]!</span>")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)

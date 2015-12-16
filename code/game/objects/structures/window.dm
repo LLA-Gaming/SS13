@@ -122,7 +122,7 @@
 /obj/structure/window/proc/attack_generic(mob/living/user as mob, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
 	if(!can_be_reached(user))
 		return
-	//user.do_attack_animation(src)
+	user.do_attack_animation(src, 1)
 	user.changeNext_move(8)
 	health -= damage
 	if(health <= 0)

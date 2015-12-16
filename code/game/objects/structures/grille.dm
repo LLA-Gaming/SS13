@@ -43,7 +43,7 @@
 /obj/structure/grille/attack_alien(mob/living/user as mob)
 	if(istype(user, /mob/living/carbon/alien/larva))	return
 	user.changeNext_move(8)
-	//user.do_attack_animation(src)
+	user.do_attack_animation(src, 1)
 	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
 	user.visible_message("<span class='warning'>[user] mangles [src].</span>", \
 						 "<span class='warning'>You mangle [src].</span>", \
@@ -56,7 +56,7 @@
 
 /obj/structure/grille/attack_slime(mob/living/carbon/slime/user as mob)
 	user.changeNext_move(8)
-	//user.do_attack_animation(src)
+	user.do_attack_animation(src, 1)
 	if(!user.is_adult)	return
 
 	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)
@@ -70,7 +70,7 @@
 
 /obj/structure/grille/attack_animal(var/mob/living/simple_animal/M as mob)
 	M.changeNext_move(8)
-	//M.do_attack_animation(src)
+	M.do_attack_animation(src, 1)
 	if(M.melee_damage_upper == 0)	return
 
 	playsound(loc, 'sound/effects/grillehit.ogg', 80, 1)

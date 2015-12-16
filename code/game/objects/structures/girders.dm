@@ -208,7 +208,7 @@
 
 	attack_animal(var/mob/living/simple_animal/M)
 		M.changeNext_move(8)
-		//M.do_attack_animation(src)
+		M.do_attack_animation(src, 1)
 		if(M.environment_smash >= 2)
 			if(istype(src, /obj/structure/girder/reinforced))
 				if(M.environment_smash == 3)

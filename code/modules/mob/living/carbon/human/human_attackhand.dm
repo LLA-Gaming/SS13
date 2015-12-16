@@ -61,7 +61,7 @@
 		if("harm")
 			var/damage = rand(0, 9)
 			var/do_brute = 0
-			//M.do_attack_animation(src)
+			M.do_attack_animation(src, 1)
 			if (src.stat == DEAD)
 				add_logs(M, src, "punched", addition=" (DAMAGE: [damage]) (REMHP: DEAD)")
 			else
@@ -128,7 +128,7 @@
 
 		if("disarm")
 			add_logs(M, src, "disarmed")
-			//M.do_attack_animation(src)
+			M.do_attack_animation(src, 1)
 
 			if(w_uniform)
 				w_uniform.add_fingerprint(M)

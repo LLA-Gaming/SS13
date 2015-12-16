@@ -457,7 +457,7 @@
 		user << "\green That object is useless to you."
 		return
 	else if (status == LIGHT_OK||status == LIGHT_BURNED)
-		//user.do_attack_animation(src)
+		user.do_attack_animation(src)
 		for(var/mob/M in viewers(src))
 			M.show_message("\red [user.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
 		broken()
@@ -469,7 +469,7 @@
 		M << "\red That object is useless to you."
 		return
 	else if (status == LIGHT_OK||status == LIGHT_BURNED)
-		//M.do_attack_animation(src)
+		M.do_attack_animation(src)
 		for(var/mob/O in viewers(src))
 			O.show_message("\red [M.name] smashed the light!", 3, "You hear a tinkle of breaking glass", 2)
 		broken()

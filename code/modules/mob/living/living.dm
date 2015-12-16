@@ -687,37 +687,50 @@ var/list/slotTakeOffTime = list(slot_back = 80, slot_wear_mask = 40, slot_handcu
 				src.unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
 
-//////////Animations removed, the community does not want them////////////
-/*
-
-/mob/living/proc/do_attack_animation(atom/A)
-	if(buckled || resting)
+/mob/living/proc/do_attack_animation(atom/A, var/showfist=0)
+	//Show an image of the wielded weapon over the person who got dunked.
+	if(A == src)
 		return
-	var/pixel_x_diff = 0
-	var/pixel_y_diff = 0
-	var/direction = get_dir(src, A)
-	switch(direction)
-		if(NORTH)
-			pixel_y_diff = 8
-		if(SOUTH)
-			pixel_y_diff = -8
-		if(EAST)
-			pixel_x_diff = 8
-		if(WEST)
-			pixel_x_diff = -8
-		if(NORTHEAST)
-			pixel_x_diff = 8
-			pixel_y_diff = 8
-		if(NORTHWEST)
-			pixel_x_diff = -8
-			pixel_y_diff = 8
-		if(SOUTHEAST)
-			pixel_x_diff = 8
-			pixel_y_diff = -8
-		if(SOUTHWEST)
-			pixel_x_diff = -8
-			pixel_y_diff = -8
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, time = 2)
-	animate(pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 2)
-	floating = 0
-*/
+	var/image/I
+	if(!showfist)
+		if(hand)
+			if(l_hand)
+				I = image(l_hand.icon,A,l_hand.icon_state,A.layer+1)
+		else
+			if(r_hand)
+				I = image(r_hand.icon,A,r_hand.icon_state,A.layer+1)
+	else
+		I = image('icons/obj/weapons.dmi',A,"fist",A.layer+1)
+	if(I)
+		var/list/viewing = list()
+		for(var/mob/M in viewers(A))
+			if(M.client)
+				viewing |= M.client
+		flick_overlay(I,viewing,5)
+		var/direction = get_dir(src,A.loc)
+		switch(direction)
+			if(NORTH)
+				I.pixel_y = -16
+			if(NORTHEAST)
+				I.pixel_x = -8
+				I.pixel_y = -16
+			if(NORTHWEST)
+				I.pixel_x = 8
+				I.pixel_y = -16
+			if(SOUTH)
+				I.pixel_y = 16
+			if(SOUTHWEST)
+				I.pixel_x = 8
+				I.pixel_y = 16
+			if(SOUTHEAST)
+				I.pixel_x = -8
+				I.pixel_y = 16
+			if(EAST)
+				I.pixel_x = -16
+			if(WEST)
+				I.pixel_x = 16
+			else
+				I.pixel_y = 16
+		I.transform = turn(I.transform, pick(45,-45))
+		I.transform *= 0.60
+		animate(I,transform = turn(matrix()*0.60, 0), pixel_x = 0, pixel_y = 0, alpha = 125, time = 3) //smash it down into them!
