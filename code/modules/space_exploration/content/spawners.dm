@@ -40,8 +40,28 @@
 					_loot -= picked
 
 		grenades/
+			name = "grenade spawner"
 			_loot = list(/obj/item/weapon/grenade/empgrenade, /obj/item/weapon/grenade/flashbang, /obj/item/weapon/grenade/smokebomb,
 					/obj/item/weapon/grenade/flashbang/clusterbang)
+
+		tool/
+			name = "tool spawner"
+			_loot = list(/obj/item/weapon/screwdriver, /obj/item/weapon/wrench, /obj/item/weapon/weldingtool, /obj/item/weapon/crowbar, /obj/item/weapon/wirecutters)
+
+		makeshift_weapon/
+			name = "makeshift weapon spawner"
+			_loot = list(/obj/item/weapon/melee/baton/cattleprod, /obj/item/weapon/twohanded/spear)
+
+		battery/
+			name = "battery spawner"
+			_loot = list(/obj/item/weapon/stock_parts/cell, /obj/item/weapon/stock_parts/cell/crap, /obj/item/weapon/stock_parts/cell/high,
+						/obj/item/weapon/stock_parts/cell/hyper, /obj/item/weapon/stock_parts/cell/super)
+
+		cash/
+			name = "cash spawner"
+			_loot = list(/obj/item/weapon/spacecash, /obj/item/weapon/spacecash/c10, /obj/item/weapon/spacecash/c100, /obj/item/weapon/spacecash/c1000,
+					 /obj/item/weapon/spacecash/c20, , /obj/item/weapon/spacecash/c200, /obj/item/weapon/spacecash/c50, /obj/item/weapon/spacecash/c500)
+
 
 	// The set spawner will spawn sets of items (e.g. the master will pick an item and the slaves will spawn the corresponding item)
 	spawner_set/
