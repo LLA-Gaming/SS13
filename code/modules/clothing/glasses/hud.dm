@@ -4,7 +4,7 @@
 	flags = null //doesn't protect eyes because it's a monocle, duh
 	origin_tech = "magnets=3;biotech=2"
 	hud = 1
-	var/hud_range = 16 // Variable used to configure how far out it pre-loads overlays. Testing showed at 16 provided the most seamless performance. Tiles still must be *in view* to be pre-loaded.
+	var/hud_range = 10 // Variable used to configure how far out it pre-loads overlays. Testing showed at 16 provided the most seamless performance. Tiles still must be *in view* to be pre-loaded.
 
 /* /obj/item/clothing/glasses/hud/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
