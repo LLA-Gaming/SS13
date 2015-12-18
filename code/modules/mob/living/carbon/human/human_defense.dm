@@ -33,7 +33,8 @@ emp_act
 		if(bp && istype(bp ,/obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(C.body_parts_covered & def_zone.body_part)
-				protection += C.armor[type]
+				if(C.armor[type] > protection)
+					protection = C.armor[type]
 	return protection
 
 /mob/living/carbon/human/bullet_act(var/obj/item/projectile/P, var/def_zone)
