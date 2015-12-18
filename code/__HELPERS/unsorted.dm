@@ -413,13 +413,15 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	return .
 
 //Returns a list of all mobs with their name
-/proc/getmobs()
+/proc/getmobs(var/ignore_mindless=0)
 
 	var/list/mobs = sortmobs()
 	var/list/names = list()
 	var/list/creatures = list()
 	var/list/namecounts = list()
 	for(var/mob/M in mobs)
+		if(ignore_mindless)
+			if(!M.mind && !istype(M, /mob/dead/observer/)) continue
 		var/name = M.name
 		if (name in names)
 			namecounts[name]++

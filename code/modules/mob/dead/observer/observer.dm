@@ -64,6 +64,7 @@ var/list/image/ghost_darkness_images = list() //this is a list of images for thi
 		qdel(ghostimage)
 		ghostimage = null
 		updateallghostimages()
+	return ..()
 
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
@@ -113,6 +114,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 
 /mob/dead/observer/Move(NewLoc, direct)
+	following = null
 	if(NewLoc)
 		loc = NewLoc
 		for(var/obj/effect/step_trigger/S in NewLoc)
@@ -213,7 +215,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Follow" // "Haunt"
 	set desc = "Follow and haunt a mob."
 
-	var/list/mobs = getmobs()
+	var/list/mobs = getmobs(1)
 	var/input = input("Please, select a mob!", "Haunt", null, null) as null|anything in mobs
 	var/mob/target = mobs[input]
 	ManualFollow(target)
@@ -225,18 +227,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			return
 		following = target
 		src << "\blue Now following [target]"
-		spawn(0)
-			var/turf/pos = get_turf(src)
-			while(loc == pos && target && following == target && client)
-				var/turf/T = get_turf(target)
-				if(!T)
-					break
-				// To stop the ghost flickering.
-				if(loc != T)
-					loc = T
-				pos = loc
-				sleep(15)
-			if (target == following) following = null
+		loc = following
 
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
