@@ -661,16 +661,14 @@ var/list/slotTakeOffTime = list(slot_back = 80, slot_wear_mask = 40, slot_handcu
 
 /mob/living/stripPanelUnequip(mob/who, obj/item/what, where)
 	if(what.flags & NODROP)
-		if(istype(who,/mob/living/carbon/human/npc))
-			src << "<span class='notice'>You can't remove \the [what.name] yet!</span>" //better fluff text for the context
-		else
-			src << "<span class='notice'>You can't remove \the [what.name], it appears to be stuck!</span>"
+		src << "<span class='notice'>You can't remove \the [what.name], it appears to be stuck!</span>"
 		return
 	visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
 					"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
 	what.add_fingerprint(src)
 	if(do_mob(src, who, slotTakeOffTime[where]))
 		if(what && Adjacent(who))
+			what.item_stripped()
 			who.unEquip(what)
 
 // The src mob is trying to place an item on someone

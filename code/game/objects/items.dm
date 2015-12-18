@@ -261,6 +261,10 @@
 /obj/item/proc/equipped(mob/user, slot)
 	return
 
+//Runs when a item is stripped that has the flag NODROP but also has the var allow_strip_on_nodrop
+/obj/item/proc/item_stripped(mob/user)
+	return
+
 //the mob M is attempting to equip this item into the slot passed through as 'slot'. Return 1 if it can do this and 0 if it can't.
 //If you are making custom procs but would like to retain partial or complete functionality of this one, include a 'return ..()' to where you want this to happen.
 //Set disable_warning to 1 if you wish it to not give you outputs.

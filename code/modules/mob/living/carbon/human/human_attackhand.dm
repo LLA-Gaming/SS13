@@ -7,6 +7,20 @@
 		visible_message("<span class='warning'>[M] attempted to touch [src]!</span>")
 		return 0
 
+	//Do power armor fist if available instead a regular PUNCH or whatever
+	if(istype(M.wear_suit,/obj/item/clothing/suit/space/powersuit/))
+		if(M.a_intent != "help")
+			var/obj/item/clothing/suit/space/powersuit/P = M.wear_suit
+			if(P && P.powered)
+				var/obj/item/organ/limb/affecting
+				if(M.zone_sel)
+					affecting = get_organ(ran_zone(M.zone_sel.selecting))
+				else
+					affecting = get_organ(ran_zone())
+				var/armor_block = run_armor_check(affecting, "melee")
+				if(P.power_punch(src, M, affecting, armor_block, M.a_intent))
+					return
+
 	switch(M.a_intent)
 		if("help")
 			if(health >= 0)
@@ -62,10 +76,6 @@
 			var/damage = rand(0, 9)
 			var/do_brute = 0
 			//M.do_attack_animation(src)
-			if (src.stat == DEAD)
-				add_logs(M, src, "punched", addition=" (DAMAGE: [damage]) (REMHP: DEAD)")
-			else
-				add_logs(M, src, "punched", addition=" (DAMAGE: [damage]) (REMHP: [src.health - damage])")
 
 			var/attack_verb = "punch"
 			if(lying)
@@ -118,6 +128,14 @@
 				apply_damage(damage, BRUTE, affecting, armor_block)
 				if(do_brute == 2) // Should only do a bleed check if they are being kicked, slashed, cut, or hulkpunched
 					affecting.slice(0,0,armor_block)
+
+			//logging
+			if (src.stat == DEAD)
+				add_logs(M, src, "punched", addition=" (DAMAGE: [do_brute]) (REMHP: DEAD)")
+			else
+				add_logs(M, src, "punched", addition=" (DAMAGE: [do_brute]) (REMHP: [src.health - do_brute])")
+
+
 			if((stat != DEAD) && damage >= 9)
 				visible_message("<span class='danger'>[M] has weakened [src]!</span>", \
 								"<span class='userdanger'>[M] has weakened [src]!</span>")

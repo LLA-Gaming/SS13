@@ -132,8 +132,8 @@
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
-		if (istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)&&wear_suit:s_initialized)
-			stat("Energy Charge", round(wear_suit:cell:charge/100))
+		if ((istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)&&wear_suit:s_initialized) || (istype(wear_suit, /obj/item/clothing/suit/space/powersuit)&&wear_suit:powered))
+			stat("Energy Charge", round(wear_suit:cell:charge/100)) // This seems like a horrible way to do but ok
 		if(istype(loc, /obj/pod))
 			var/obj/pod/pod = loc
 			if(pod.pilot == src)
