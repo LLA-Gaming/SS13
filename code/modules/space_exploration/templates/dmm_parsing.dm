@@ -94,14 +94,15 @@
 	proc/SanitizeOverrides()
 		for(var/key in var_overrides)
 			var/value = var_overrides[key]
-			if(istext(value))
+
+			if(istext(value) && (text2num(value) == null))
 				value = replacetext(value, "\"", "")
 
 				if(copytext(value, 1, 9) == "newlist(")
 					var_overrides[key] = text2list(copytext(value, 9, findtext(value, ")")), ",")
 					continue
 
-			if(!istext(text2num(value)))
+			else if(text2num(value) != null)
 				value = text2num(value)
 
 			var_overrides[key] = value
