@@ -8,6 +8,7 @@ var/datum/space_exploration_config/template/template_config
 	var/list/chances = list()
 	var/list/ignore_types = list()
 	var/list/zs = list()
+	var/list/place_last = list()
 	var/tries = 10
 	var/directory
 
@@ -23,4 +24,11 @@ var/datum/space_exploration_config/template/template_config
 		else
 			chances = params2list(chances)
 
+		var/list/parsed_place_last_paths = list()
+		if(istype(place_last, /list))
+			for(var/path in place_last)
+				parsed_place_last_paths += text2path(path)
+		else
+			parsed_place_last_paths = list(text2path(place_last))
 
+		place_last = parsed_place_last_paths

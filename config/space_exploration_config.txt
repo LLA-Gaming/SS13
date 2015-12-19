@@ -62,6 +62,9 @@ zs 3
 zs 4
 zs 6
 
+# These objects will be placed last
+place_last /obj/machinery/power/apc
+
 tries 10
 
 directory data/templates

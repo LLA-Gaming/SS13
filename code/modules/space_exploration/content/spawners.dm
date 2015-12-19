@@ -60,7 +60,7 @@
 		cash/
 			name = "cash spawner"
 			_loot = list(/obj/item/weapon/spacecash, /obj/item/weapon/spacecash/c10, /obj/item/weapon/spacecash/c100, /obj/item/weapon/spacecash/c1000,
-					 /obj/item/weapon/spacecash/c20, , /obj/item/weapon/spacecash/c200, /obj/item/weapon/spacecash/c50, /obj/item/weapon/spacecash/c500)
+					 /obj/item/weapon/spacecash/c20, /obj/item/weapon/spacecash/c200, /obj/item/weapon/spacecash/c50, /obj/item/weapon/spacecash/c500)
 
 
 	// The set spawner will spawn sets of items (e.g. the master will pick an item and the slaves will spawn the corresponding item)

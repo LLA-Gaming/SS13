@@ -4,12 +4,29 @@
 	var/x_size
 	var/y_size
 	var/turf/location // Filled after collection is placed
+	var/list/turfs = list()
+
+	// Because associative lists are a pain in byond
+	var/list/place_last_turfs = list()
+	var/list/place_last_paths = list()
 
 	proc/GetObjectFromId(var/id)
 		for(var/datum/dmm_object/obj in objects)
 			if(obj.id == id)
 				return obj
 		return 0
+
+	proc/HandleEdgeCases()
+		for(var/turf/T in turfs)
+			if(istype(T, /turf/space))
+				T:shift_to_subarea()
+				continue
+
+			var/area/turf_area = get_area(T)
+			turf_area.SetDynamicLighting()
+
+			for(var/obj/machinery/light/L in T)
+				L.update(0)
 
 	proc/Place(var/turf/origin, var/template_name)
 		for(var/turf/T in block(origin, locate(origin.x + (x_size - 1), origin.y + (y_size - 1), origin.z)))
@@ -19,28 +36,33 @@
 					if(mob.client || mob.key)
 						continue
 				qdel(M)
-			T.ChangeTurf(/turf/space)
 
 		var/area/A = new()
 		A.name = template_name
 		A.tagbase = "[A.type]_[md5(template_name)]"
-		A.lighting_use_dynamic = 0
+		A.lighting_use_dynamic = 1
+		A.requires_power = 1
 
 		for(var/y = 0; y < y_size; y++)
 			var/list/row = grid["[y]"]
 			var/x = 0
 			for(var/datum/dmm_object/object in row)
-				object.Instantiate(locate(origin.x + x, origin.y + y, origin.z), ((!object.HasArea()) && (!object.GetSubByType(/turf/space, 1))) ? A : null)
+				turfs += object.Instantiate(locate(origin.x + x, origin.y + y, origin.z), ((!object.HasArea()) && (!object.GetSubByType(/turf/space, 0))) ? A : null)
 				x++
 
-		A.InitializeLighting()
-		A.SetLightLevel(4)
+		HandleEdgeCases()
+
+		spawn(10)
+			for(var/turf/T in place_last_turfs)
+				var/path = place_last_paths[place_last_turfs.Find(T)]
+				new path(T)
 
 		location = origin
 
 /datum/dmm_object
 	var/id
 	var/list/sub_objects = list()
+	var/datum/dmm_object_collection/parent
 
 	// We want the turf first and area second.
 	proc/SortSubObjects()
@@ -60,6 +82,12 @@
 	proc/Instantiate(var/turf/position, var/area/AR)
 		for(var/datum/dmm_sub_object/sub in SortSubObjects())
 			if(!sub.object_path)
+				continue
+
+			if(sub.object_path in template_config.place_last)
+				parent.place_last_turfs += position
+				parent.place_last_paths += sub.object_path
+
 				continue
 
 			var/atom/A = new sub.object_path(position)
@@ -85,7 +113,7 @@
 	// Has area other than space
 	proc/HasArea()
 		var/datum/dmm_sub_object/sub = GetSubByType(/area)
-		return (sub && sub.object_path != /area)
+		return (sub && sub.object_path != /area/space)
 
 /datum/dmm_sub_object
 	var/object_path
@@ -139,6 +167,7 @@
 			if(copytext(line, 1, 2) == "\"" && copytext(line, 2, 3) != "}")
 				object = new()
 				object.id = copytext(line, 2, findtext(line, "\"", 2))
+				object.parent = collection
 				id_el = length(object.id) - 1
 
 				var/sp_pos = findtext(line, "(") // Starting Parenthesis

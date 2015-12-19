@@ -11,7 +11,12 @@ var/datum/template_controller/template_controller
 		parser = new()
 		PlaceTemplates()
 
+		spawn(0)
+			makepowernets()
+
 	proc/PlaceTemplateAt(var/turf/location, var/path, var/name)
+		set background = 1
+
 		var/datum/dmm_object_collection/collection = parser.GetCollection(path)
 		collection.Place(location, name)
 
@@ -66,6 +71,8 @@ var/datum/template_controller/template_controller
 
 	// TODO: Implement new algorithm
 	proc/PickTemplates()
+		set background = 1
+
 		var/list/picked = list()
 
 		template_config.place_amount_min = min(template_config.place_amount_min, GetTemplateCount())
