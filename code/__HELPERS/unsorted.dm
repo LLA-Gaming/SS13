@@ -421,7 +421,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/list/namecounts = list()
 	for(var/mob/M in mobs)
 		if(ignore_mindless)
-			if(!M.mind && !istype(M, /mob/dead/observer/)) continue
+			if(!istype(M,/mob/camera/aiEye))
+				if(!M.mind && !istype(M, /mob/dead/observer/)) continue
 		var/name = M.name
 		if (name in names)
 			namecounts[name]++
