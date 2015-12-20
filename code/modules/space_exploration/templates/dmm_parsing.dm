@@ -29,6 +29,9 @@
 			for(var/obj/machinery/light/L in T)
 				L.update(0)
 
+			for(var/atom/movable/M in T)
+				M.initialize()
+
 	proc/Place(var/turf/origin, var/template_name)
 		name = template_name
 
