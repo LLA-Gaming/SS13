@@ -101,6 +101,12 @@
 	if(!mining_config)
 		mining_config = new()
 
+	if(!template_config)
+		template_config = new()
+
+	if(!template_controller)
+		template_controller = new()
+
 	process_teleport_locs()			//Sets up the wizard teleport locations
 	process_ghost_teleport_locs()	//Sets up ghost teleport locations.
 	sleep_offline = 1
