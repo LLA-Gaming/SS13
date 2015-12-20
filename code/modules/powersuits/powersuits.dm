@@ -20,6 +20,8 @@
 
 	var/obj/item/weapon/stock_parts/cell/fusion/cell
 
+	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/device/flashlight/seclite)
+
 	//default stats
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	slowdown = 4 // super slow unless powered
@@ -34,13 +36,19 @@
 		if(cell_type)
 			cell = new cell_type
 		if(primary_attachment_type)
-			primary_attachment = new primary_attachment_type
+			primary_attachment = new primary_attachment_type(src)
+			primary_attachment.attached_to = src
 		if(secondary_attachment_type)
-			secondary_attachment = new secondary_attachment_type
+			secondary_attachment = new secondary_attachment_type(src)
+			secondary_attachment.attached_to = src
 		if(armor_attachment_type)
-			armor_attachment = new armor_attachment_type
+			armor_attachment = new armor_attachment_type(src)
+			armor_attachment.attached_to = src
 
 		update_stats()
+
+	update_icon()
+
 
 	MouseDrop_T(var/atom/dropping, var/mob/user)
 		if(istype(dropping, /mob/living/carbon/human))
@@ -55,6 +63,7 @@
 		return //too heavy to pick up
 
 	emp_act()
+		cell.charge = cell.charge / 2 // half the power cell
 		unpower()
 
 	attackby(var/obj/item/I, mob/user as mob)
@@ -63,6 +72,7 @@
 				return
 			if(powered)
 				user << "You must turn off the suit before adding attachments"
+				return
 			var/obj/item/weapon/powersuit_attachment/P = I
 			if(P)
 				switch(P.attachment_type)
@@ -261,21 +271,28 @@
 		if(armor_attachment)
 			armor = armor_attachment.armor_stats
 			slowdown = armor_attachment.slowdown_stats
+			if(helmet)
+				helmet.armor = armor_attachment.armor_stats
+
 		else
 			armor = initial(armor)
 			slowdown = initial(slowdown)
+			if(helmet)
+				helmet.armor = initial(armor)
 	else
 		slowdown = initial(slowdown)
+
+	update_icon()
 
 
 
 /obj/item/clothing/suit/space/powersuit/proc/power_punch(var/mob/living/victim, var/mob/living/assaulter, var/obj/item/organ/limb/affecting, var/armor_block, var/a_intent)
 	if(powered)
 		if(primary_attachment)
-			if(primary_attachment.power_punch(victim, assaulter, affecting, armor_block))
+			if(primary_attachment.power_punch(victim, assaulter, affecting, armor_block, a_intent))
 				return 1
 		else if(secondary_attachment)
-			if(secondary_attachment.power_punch(victim, assaulter, affecting, armor_block))
+			if(secondary_attachment.power_punch(victim, assaulter, affecting, armor_block, a_intent))
 				return 1
 		if(a_intent == "harm")
 			var/fist_damage = 9

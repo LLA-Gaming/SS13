@@ -14,9 +14,9 @@
 		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
 		//logging
 		if (victim.stat == DEAD)
-			add_logs(assaulter, victim, "stun punched", addition=" (DAMAGE: 0) (REMHP: DEAD)")
+			add_logs(assaulter, victim, "stun punched", addition=" (DAMAGE: [fist_damage]) (REMHP: DEAD)")
 		else
-			add_logs(assaulter, victim, "stun punched", addition=" (DAMAGE: 0) (REMHP: [victim.health - 0])")
+			add_logs(assaulter, victim, "stun punched", addition=" (DAMAGE: [fist_damage]) (REMHP: [victim.health - fist_damage])")
 
 		//dunk
 		victim.Weaken(4)

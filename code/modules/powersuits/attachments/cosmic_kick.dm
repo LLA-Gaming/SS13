@@ -1,13 +1,13 @@
 /obj/item/weapon/powersuit_attachment/cosmic_kick
 	name = "cosmic kick module"
 	attachment_type = POWERSUIT_PRIMARY
+	fist_damage = 13
 
 	power_punch(var/mob/living/victim, var/mob/living/assaulter, var/obj/item/organ/limb/affecting, var/armor_block, var/a_intent)
 
 		if(!victim.lying)
 			return
 
-		var/fist_damage = 13
 		attached_to.cell.charge -= 100
 
 		victim.visible_message("<span class='danger'>[assaulter] kicks [victim]!</span>", \

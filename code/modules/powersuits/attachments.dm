@@ -13,6 +13,7 @@
 	var/on = 0
 	var/armor_stats = list()
 	var/slowdown_stats = 1
+	var/fist_damage = 0
 
 	var/obj/item/clothing/suit/space/powersuit/attached_to
 

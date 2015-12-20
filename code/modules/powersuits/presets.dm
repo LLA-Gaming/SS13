@@ -19,6 +19,8 @@
 	model_name = "security"
 	icon_state = "p-armor2"
 	helmet_type = /obj/item/clothing/head/space/powerhelmet/security
+	primary_attachment_type = /obj/item/weapon/powersuit_attachment/krav_maga
+	secondary_attachment_type = /obj/item/weapon/powersuit_attachment/adrenaline_injector
 	armor_attachment_type = /obj/item/weapon/powersuit_attachment/armor/security
 
 /obj/item/clothing/suit/space/powersuit/syndicate
