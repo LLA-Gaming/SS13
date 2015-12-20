@@ -94,7 +94,8 @@ var/list/admin_verbs_primary_admin = list(
 	/client/proc/cmd_admin_dress,
 	/client/proc/respawn_character,
 	/datum/admins/proc/event_panel,
-	/datum/admins/proc/toggle_vr
+	/datum/admins/proc/toggle_vr,
+	/client/proc/TemplatePanel
 	)
 
 var/list/admin_verbs_senior_admin = list(

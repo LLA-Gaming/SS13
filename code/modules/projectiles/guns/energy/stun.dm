@@ -9,7 +9,7 @@
 
 /obj/item/weapon/gun/energy/taser/adv
 	name = "hybrid taser"
-	desc = "A dual-mode taser designed to fire both short-range high-power electrodes and long-range disabler beams."
+	desc = "A dual-mode taser designed to fire both long-range high-power electrodes and short-range disabler beams."
 	icon_state = "advtaser"
 	modifystate = 2
 	item_state = null	//so the human update icon uses the icon_state instead.
