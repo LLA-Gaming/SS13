@@ -17,7 +17,7 @@ var/datum/template_controller/template_controller
 	proc/PlaceTemplateAt(var/turf/location, var/path, var/name)
 		set background = 1
 
-		var/datum/dmm_object_collection/collection = parser.GetCollection(path)
+		var/datum/dmm_object_collection/collection = parser.GetCollection(file2list(path))
 		collection.Place(location, name)
 
 		return collection

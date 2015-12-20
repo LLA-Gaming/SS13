@@ -1,24 +1,43 @@
-/client/proc/LoadTemplate()
-	set name = "Load Template"
+/client/proc/TemplatePanel()
+	set name = "Template Panel"
 	set category = "Debug"
 
-	var/list/categories = template_controller.GetCategories(1)
+	// Place
+	var/primary = check_rights(R_PRIMARYADMIN)
+	// Upload, Delete, Reset
+	var/senior = check_rights(R_SENIORADMIN)
 
-	var/category = input("Which category?", "Input") as anything in categories + "Cancel"
+	if(!primary)
+		return 0
 
-	var/list/templates
+	var/dat = "<center><span class='statusDisplay'>"
 
-	if(category == "Cancel")
-		return
+	if(primary)
+		dat += "<a href='?_src_=holder;template_panel=1;action=place'>Place</a>"
 
-	templates = flist("[template_config.directory]/[category]/")
+	if(senior)
+		dat += " | <a href='?_src_=holder;template_panel=1;action=upload'>Upload and Place</a>"
 
-	var/name = input("Which Template?", "Selection") in templates
+	dat += "</span><br><br>"
 
-	var/path = "[template_config.directory]/[category]/[name]"
+	if(length(template_controller.placed_templates))
+		dat += "<table>"
+		dat += "<tr><th>Name</th><th>Position</th>[senior ? "<th>Actions</th>" : ""]"
 
-	if(!fexists(path))
-		usr << "[name] does not exist."
-		return
+		for(var/datum/dmm_object_collection/template in template_controller.placed_templates)
+			dat += "<tr><td>[template.name]</td><td>{[template.location.x], [template.location.y], [template.location.z]}</td>"
+			if(senior)
+				dat += "<td>"
+				dat += "<a href='?_src_=holder;template_panel=1;action=delete;template=\ref[template]'>Delete</a> | "
+				dat += "<a href='?_src_=holder;template_panel=1;action=reset;template=\ref[template]'>Reset</a>"
+				dat += "</td>"
 
-	template_controller.placed_templates += template_controller.PlaceTemplateAt(get_turf(mob), path, name)
+			dat += "</tr>"
+
+		dat += "</table>"
+
+	dat += "</center>"
+
+	var/datum/browser/popup = new(mob, "templ_panel", "Template Panel")
+	popup.set_content(dat)
+	popup.open()

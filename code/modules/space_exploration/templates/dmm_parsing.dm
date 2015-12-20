@@ -5,6 +5,7 @@
 	var/y_size
 	var/turf/location // Filled after collection is placed
 	var/list/turfs = list()
+	var/name
 
 	// Because associative lists are a pain in byond
 	var/list/place_last_turfs = list()
@@ -29,6 +30,8 @@
 				L.update(0)
 
 	proc/Place(var/turf/origin, var/template_name)
+		name = template_name
+
 		for(var/turf/T in block(origin, locate(origin.x + (x_size - 1), origin.y + (y_size - 1), origin.z)))
 			for(var/atom/movable/M in T)
 				if(istype(M, /mob))
@@ -58,6 +61,31 @@
 				new path(T)
 
 		location = origin
+
+		return 1
+
+	proc/Reset()
+		Delete()
+
+		spawn(10)
+			Place(location, name)
+
+	proc/Delete(var/delete_src = 0, var/remove_from_list = 0)
+		if(remove_from_list)
+			template_controller.placed_templates -= src
+
+		for(var/turf/T in block(location, locate(location.x + (x_size - 1), location.y + (y_size - 1), location.z)))
+			for(var/atom/movable/M in T)
+				if(istype(M, /mob))
+					var/mob/mob = M
+					if(mob.client || mob.key)
+						continue
+				qdel(M)
+
+			T.ChangeTurf(/turf/space)
+
+		if(delete_src)
+			qdel(src)
 
 /datum/dmm_object
 	var/id
@@ -89,13 +117,17 @@
 				parent.place_last_paths += sub.object_path
 
 				continue
+			try
+				var/atom/A = new sub.object_path(position)
+				for(var/or in sub.var_overrides)
+					A.vars[or] = sub.var_overrides[or]
 
-			var/atom/A = new sub.object_path(position)
-			for(var/or in sub.var_overrides)
-				A.vars[or] = sub.var_overrides[or]
+				if(AR && istype(A, /turf))
+					AR.contents.Add(A)
 
-			if(AR && istype(A, /turf))
-				AR.contents.Add(A)
+			catch(var/exception/ex)
+				message_admins("Error while creating template object: [ex.name]: [ex.desc] @[ex.file]L:[ex.line]")
+				break
 
 		return position
 
@@ -137,11 +169,10 @@
 
 /datum/dmm_parser
 
-	proc/GetCollection(var/filename)
-		var/list/lines = file2list(filename)
+	proc/GetCollection(var/list/lines)
 		var/datum/dmm_object_collection/collection = new()
 
-		var/mb = 0// Map block
+		var/mb = 0 // Map block
 		var/mb_row = 1
 		var/id_el = 0 // id extra-length (e.g. "a" extra length is 0, "aa" extra length is 1)
 
