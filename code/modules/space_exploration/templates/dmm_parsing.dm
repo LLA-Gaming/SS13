@@ -9,7 +9,7 @@
 
 	// Because associative lists are a pain in byond
 	var/list/place_last_turfs = list()
-	var/list/place_last_paths = list()
+	var/list/place_last_objects = list()
 
 	proc/GetObjectFromId(var/id)
 		for(var/datum/dmm_object/obj in objects)
@@ -60,8 +60,10 @@
 
 		spawn(10)
 			for(var/turf/T in place_last_turfs)
-				var/path = place_last_paths[place_last_turfs.Find(T)]
-				new path(T)
+				var/datum/dmm_sub_object/sub = place_last_objects[place_last_turfs.Find(T)]
+				var/atom/last = new sub.object_path(T)
+				for(var/or in sub.var_overrides)
+					last.vars[or] = sub.var_overrides[or]
 
 		location = origin
 
@@ -117,7 +119,7 @@
 
 			if(sub.object_path in template_config.place_last)
 				parent.place_last_turfs += position
-				parent.place_last_paths += sub.object_path
+				parent.place_last_objects += sub
 
 				continue
 			try
@@ -129,7 +131,7 @@
 					AR.contents.Add(A)
 
 			catch(var/exception/ex)
-				message_admins("Error while creating template object: [ex.name]: [ex.desc] @[ex.file]L:[ex.line]")
+				message_admins("Error while creating template object: [ex.name]: [ex.desc] @ [ex.file] L:[ex.line]. Additional info: object_path = [sub.object_path] position = [position ? position : "null"]")
 				break
 
 		return position
@@ -261,8 +263,45 @@
 
 						var/string = copytext(pi, cbs_pos + 1, cbe_pos)
 
+						var/list/quote_sp = list() // Quote starting positions
+						var/list/quote_ep = list() // Quote ending positions
+
+						var/quote_start = findtext(string, "\"")
+						while(quote_start)
+							var/quote_end = findtext(string, "\"", quote_start + 1)
+
+							quote_sp += quote_start
+							quote_ep += quote_end
+
+							quote_start = findtext(string, "\"", quote_end + 1)
+
 						// Start hack. Why? Because byond.
-						var/list/string_list = text2list(string, ";")
+						var/list/string_list = list()
+						var/next_sc_pos
+						var/sc_pos = 0
+						if(sc_pos != null)
+							do
+								next_sc_pos = findtext(string, ";", sc_pos + 1)
+
+								// Ignore commas in quote blocks
+								for(var/sc in quote_sp)
+									while(next_sc_pos in (sc to quote_ep[quote_sp.Find(sc)]))
+										next_sc_pos = findtext(string, ";", next_sc_pos + 1)
+
+								if(!length(string_list) && findtext(string, ";"))
+									var/part = copytext(string, sc_pos + 1, next_sc_pos)
+									string_list.Add(part)
+									sc_pos = (length(part) + 1)
+									next_sc_pos = findtext(string, ";", sc_pos + 1)
+									continue
+
+								if(next_sc_pos)
+									string_list.Add(copytext(string, sc_pos + 1, next_sc_pos))
+									sc_pos = next_sc_pos
+								else
+									string_list.Add(copytext(string, sc_pos + 1, length(string) + 1))
+							while(next_sc_pos)
+
 						var/list/space_removal_list = list()
 						var/list/space_removal_pass2 = list()
 
@@ -276,10 +315,16 @@
 							var/equal_pos = findtext(s, "=")
 							space_removal_pass2 += "[copytext(s, 1, equal_pos - 1)]=[copytext(s, equal_pos + 2)]"
 
-						string = list2text(space_removal_pass2, ";")
+						var/list/overrides = list()
+						for(var/s in space_removal_pass2)
+							var/key = copytext(s, 1, findtext(s, "="))
+							overrides += key
+							var/value = copytext(s, length(key) + 2)
+							overrides[key] = value
+
 						// End hack.
 
-						sub.var_overrides = params2list(string)
+						sub.var_overrides = overrides
 					else
 						sub.object_path = text2path(pi)
 
