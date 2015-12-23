@@ -117,6 +117,7 @@
 	desc = "The Maltese Falcon, Space Bar and Grill."
 
 /obj/structure/sign/bar/left
+	req_access = list(access_bar)
 	icon_state = "maltesefalcon-left"
 	var/obj/structure/sign/bar/right/linked
 
@@ -136,6 +137,10 @@
 		icon_state = "[icon_state]-left"
 
 	attack_hand(var/mob/living/M)
+		if(!src.allowed(M))
+			M << "<span class='warning'>Access denied.</span>"
+			return 0
+
 		var/list/possible_signs = list("Maltese Falcon" = "maltesefalcon", "Plasma Fire" = "plasmafire", "Winking Corgi" = "winkingcorgi")
 		var/selected = input("Select a new bar sign design", "Input") in possible_signs + "Cancel"
 		if(!selected || selected == "Cancel")
