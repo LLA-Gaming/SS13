@@ -116,10 +116,36 @@
 	name = "The Maltese Falcon"
 	desc = "The Maltese Falcon, Space Bar and Grill."
 
-/obj/structure/sign/maltesefalcon/left
+/obj/structure/sign/bar/left
 	icon_state = "maltesefalcon-left"
+	var/obj/structure/sign/bar/right/linked
 
-/obj/structure/sign/maltesefalcon/right
+	New()
+		..()
+		spawn(5)
+			linked = locate() in get_step(get_turf(src), EAST)
+
+			if(!linked)
+				qdel(src)
+
+	update_icon()
+		if(!linked)
+			return 0
+
+		linked.icon_state = "[icon_state]-right"
+		icon_state = "[icon_state]-left"
+
+	attack_hand(var/mob/living/M)
+		var/list/possible_signs = list("Maltese Falcon" = "maltesefalcon", "Plasma Fire" = "plasmafire", "Winking Corgi" = "winkingcorgi")
+		var/selected = input("Select a new bar sign design", "Input") in possible_signs + "Cancel"
+		if(!selected || selected == "Cancel")
+			return 0
+
+		icon_state = possible_signs[selected]
+
+		update_icon()
+
+/obj/structure/sign/bar/right
 	icon_state = "maltesefalcon-right"
 
 /obj/structure/sign/science			//These 3 have multiple types, just var-edit the icon_state to whatever one you want on the map

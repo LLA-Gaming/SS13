@@ -29,8 +29,6 @@ var/datum/template_controller/template_controller
 		var/started = world.timeofday
 
 		for(var/template in picked)
-			var/category = GetCategoryFromTemplate(template)
-
 			var/list/size = GetTemplateSize(template)
 			var/x = size[1]
 			var/y = size[2]
@@ -63,13 +61,15 @@ var/datum/template_controller/template_controller
 				origin = pick
 			while(!origin && tries > 0)
 
-			var/datum/dmm_object_collection/collection = PlaceTemplateAt(origin, template, category)
+			var/reversed = reverse_text(template)
+			var/name = reverse_text(copytext(reversed, 1, findtext(reversed, "/")))
+
+			var/datum/dmm_object_collection/collection = PlaceTemplateAt(origin, template, name)
 			placed_templates += collection
 
 		log_game("Finished placing templates after [time2text((world.timeofday - started), "mm:ss")]")
 		world << "\red <b>Finished placing random structures...</b>"
 
-	// TODO: Implement new algorithm
 	proc/PickTemplates()
 		set background = 1
 
@@ -91,7 +91,7 @@ var/datum/template_controller/template_controller
 			var/max_tries = template_config.tries
 			var/picked_category
 			do
-				for(var/c in template_config.chances)
+				for(var/c in shuffle(template_config.chances))
 					if(!(c in GetCategories(1)))
 						log_game("TEMPL: Configured folder '[c]' not found.")
 						return list()
@@ -111,10 +111,12 @@ var/datum/template_controller/template_controller
 			if(!picked_template)
 				continue
 
+			var/formatted = "[template_config.directory]/[picked_category]/[picked_template]"
+			if(formatted in picked)
+				continue
+
 			log_game("TEMPL: Picked template: [picked_template]")
 
-			picked += "[template_config.directory]/[picked_category]/[picked_template]"
-
-			pick_num--
+			picked += formatted
 
 		return picked
