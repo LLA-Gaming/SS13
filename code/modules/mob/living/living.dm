@@ -332,6 +332,9 @@
 		for(var/datum/reagent/R in H.blood.reagent_list)
 			H.blood.clear_reagents()
 		H.blood.add_reagent("blood",145)
+		//unhusk
+		H.mutations.Remove(HUSK)
+		H.status_flags ^= DISFIGURED
 	for(var/datum/disease/D in viruses)
 		D.cure(0)
 	if(stat == 2)
