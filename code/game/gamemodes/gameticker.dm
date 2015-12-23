@@ -128,6 +128,7 @@ var/round_start_time = 0
 
 	sleep(10)
 
+	spawn_landmarks_list = shuffle(spawn_landmarks_list)
 	create_characters() //Create player characters and transfer them
 	collect_minds()
 	equip_characters()

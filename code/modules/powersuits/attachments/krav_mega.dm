@@ -28,3 +28,12 @@
 
 
 		return 1
+
+datum/design/ps_krav_maga
+	name = "Power Suit Module Design (Krav Maga)"
+	desc = "Krav Maga"
+	id = "ps_krav_maga"
+	build_type = 16
+	req_tech = list("combat" = 4, "engineering" = 3)
+	build_path = /obj/item/weapon/powersuit_attachment/krav_maga
+	category = "Power Suit Equipment"

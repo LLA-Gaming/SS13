@@ -22,3 +22,12 @@
 		victim.Weaken(4)
 
 		return 1
+
+datum/design/ps_stun_punch
+	name = "Power Suit Module Design (Stun Punch)"
+	desc = "Stun Punch"
+	id = "ps_stun_punch"
+	build_type = 16
+	req_tech = list("combat" = 6,"engineering" = 5)
+	build_path = /obj/item/weapon/powersuit_attachment/cosmic_kick
+	category = "Power Suit Equipment"

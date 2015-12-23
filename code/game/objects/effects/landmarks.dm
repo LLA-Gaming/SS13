@@ -87,6 +87,7 @@ var/list/percSpawnTurfs = list()
 	if(name == "Perseus Security Enforcer")
 		percSpawnTurfs += get_turf(src)
 	invisibility = 101
+	spawn_landmarks_list += src
 
 	return 1
 

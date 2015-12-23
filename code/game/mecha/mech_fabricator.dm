@@ -383,7 +383,10 @@
 			sleep(30) //only sleep if called by user
 
 		var/found = 0
-		for(var/obj/machinery/computer/rdconsole/RDC in area_contents(get_area(src)))
+		for(var/turf/TURF in area_contents(get_area(src)))
+			var/obj/machinery/computer/rdconsole/RDC = locate() in TURF
+			if(!RDC)
+				continue
 			if(!RDC.sync)
 				continue
 			found = 1
@@ -748,6 +751,25 @@
 							/obj/item/mecha_parts/part/honker_left_leg,
 							/obj/item/mecha_parts/part/honker_right_leg
 							),
+
+		"Power Suit"=list(
+							/obj/item/weapon/powersuit_assembly/stand,
+							/obj/item/weapon/powersuit_assembly/l_arm,
+							/obj/item/weapon/powersuit_assembly/r_arm,
+							/obj/item/weapon/powersuit_assembly/l_leg,
+							/obj/item/weapon/powersuit_assembly/r_leg,
+							/obj/item/weapon/powersuit_assembly/torso
+							),
+
+		"Power Suit Equipment"=list(
+							/obj/item/weapon/powersuit_attachment/armor,
+							/obj/item/clothing/head/helmet/space/powerhelmet/hunter,
+							/obj/item/clothing/head/helmet/space/powerhelmet/chameleon,
+							/obj/item/clothing/head/helmet/space/powerhelmet/bugman,
+							/obj/item/weapon/powersuit_attachment/enhanced_fist,
+							/obj/item/weapon/powersuit_attachment/hudvision
+							),
+
 		"Exosuit Equipment"=list(
 							/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp,
 							/obj/item/mecha_parts/mecha_equipment/tool/drill,

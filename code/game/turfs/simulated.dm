@@ -42,7 +42,18 @@
 		if(M.lying)	return
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
-			if(istype(H.shoes, /obj/item/clothing/shoes/clown_shoes))
+			if(istype(H.wear_suit, /obj/item/clothing/suit/space/powersuit))
+				var/obj/item/clothing/suit/space/powersuit/O = H.wear_suit
+				if(O.armor_attachment)
+					if(H.m_intent == "run" && O.powered)
+						if(O.footstep >= 2)
+							O.footstep = 0
+							playsound(src, "powersuitstep", 10, 1) // this will get annoying very fast.
+						else
+							O.footstep++
+					else
+						playsound(src, "powersuitstep", 5, 1)
+			else if(istype(H.shoes, /obj/item/clothing/shoes/clown_shoes))
 				var/obj/item/clothing/shoes/clown_shoes/O = H.shoes
 				if(H.m_intent == "run")
 					if(O.footstep >= 2)

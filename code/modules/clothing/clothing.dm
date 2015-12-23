@@ -149,6 +149,7 @@ BLIND     // can't see anything
 	var/can_toggle = 1
 	var/has_hood = null
 	var/coat_color = null
+	var/heavy = 0 //if non-zero hyperzine is not effective while wearing this
 
 //Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.

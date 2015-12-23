@@ -1106,6 +1106,19 @@
 			else
 				hud_used.lingchemdisplay.invisibility = 101
 
+			var/helmet_hud = 0
+
+			if(istype(wear_suit, /obj/item/clothing/suit/space/powersuit))
+				var/obj/item/clothing/suit/space/powersuit/P = wear_suit
+				if(P && P.current_vision && head == P.helmet)
+					helmet_hud = 1
+					var/obj/item/clothing/glasses/G = P.current_vision
+					sight |= G.vision_flags
+					see_in_dark = G.darkness_view
+					see_invisible = G.invis_view
+					if(G.hud)
+						G.process_hud(src)
+
 			if(istype(wear_mask, /obj/item/clothing/mask/gas/voice/space_ninja))
 				var/obj/item/clothing/mask/gas/voice/space_ninja/O = wear_mask
 				switch(O.mode)
@@ -1127,7 +1140,7 @@
 						sight |= SEE_TURFS
 						see_invisible = SEE_INVISIBLE_LIVING
 
-			if(glasses)
+			if(glasses && !helmet_hud) //Dont use any goggle stuff if the powersuit helmet is using something
 				if(istype(glasses, /obj/item/clothing/glasses))
 					var/obj/item/clothing/glasses/G = glasses
 					sight |= G.vision_flags

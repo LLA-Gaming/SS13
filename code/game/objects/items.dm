@@ -261,7 +261,7 @@
 /obj/item/proc/equipped(mob/user, slot)
 	return
 
-//Runs when a item is stripped that has the flag NODROP but also has the var allow_strip_on_nodrop
+//Runs when a item is stripped
 /obj/item/proc/item_stripped(mob/user)
 	return
 

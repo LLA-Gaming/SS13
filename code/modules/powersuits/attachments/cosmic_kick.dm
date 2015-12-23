@@ -33,3 +33,12 @@
 				sleep(0.3)
 
 		return 1
+
+datum/design/ps_cosmic_kick
+	name = "Power Suit Module Design (Cosmic Kick)"
+	desc = "Cosmic Kick"
+	id = "ps_cosmic_kick"
+	build_type = 16
+	req_tech = list("combat" = 5)
+	build_path = /obj/item/weapon/powersuit_attachment/cosmic_kick
+	category = "Power Suit Equipment"

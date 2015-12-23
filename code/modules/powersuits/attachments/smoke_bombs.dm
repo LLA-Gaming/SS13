@@ -15,3 +15,12 @@
 		cooldown = 1
 		spawn(100)
 			cooldown = 0
+
+datum/design/ps_smoke_bombs
+	name = "Power Suit Module Design (Smoke Bombs)"
+	desc = "Smoke Bomb"
+	id = "ps_smoke_bomb"
+	build_type = 16
+	req_tech = list("combat" = 3)
+	build_path = /obj/item/weapon/powersuit_attachment/smoke_bombs
+	category = "Power Suit Equipment"
