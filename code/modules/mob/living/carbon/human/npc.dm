@@ -7,6 +7,7 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	faction = "npc"
 	a_intent = "harm"
 	m_intent = "run"
+	universal_speak = 1
 	var/npc_name
 	var/frustration = 0
 	var/state = 0
@@ -61,6 +62,15 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	if(I2)
 		equip_to_slot_or_del(I2, slot_r_hand)
 	process()
+
+/mob/living/carbon/human/npc/initialize()
+	..()
+	//under clothing second
+	for(var/obj/item/clothing/under/U in get_turf(src))
+		equip_to_appropriate_slot(U)
+	//anything else
+	for(var/obj/item/I in get_turf(src))
+		equip_to_appropriate_slot(I)
 
 /mob/living/carbon/human/npc/Life()
 	..()
