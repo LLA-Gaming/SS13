@@ -64,6 +64,12 @@ zs 6
 
 # These objects will be placed last
 place_last /obj/machinery/power/apc
+place_last /obj/machinery/light_switch
+place_last /obj/machinery/disposal
+place_last /obj/machinery/atmospherics/unary/vent_pump
+place_last /obj/machinery/atmospherics/unary/vent_scrubber
+place_last /obj/machinery/disposalpipe/segment
+place_last /obj/effect/spawner/space/set_spawner/master
 
 tries 10
 
