@@ -183,10 +183,6 @@
 	name = "hardening"
 	hue = "#997700"
 
-/datum/spacevine_mutation/woodening/on_grow(obj/effect/spacevine/holder)
-	if(holder.energy)
-		holder.density = 1
-
 /datum/spacevine_mutation/woodening/on_hit(obj/effect/spacevine/holder, mob/hitter, obj/item/I)
 	if(hitter)
 		var/chance
