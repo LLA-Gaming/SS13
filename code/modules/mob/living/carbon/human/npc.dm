@@ -29,6 +29,7 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	var/list/can_see = list()
 	var/list/npc_say = list()
 	var/retaliate = 0
+	var/mutant_race
 	//constants
 	var/const/NPC_STATE_INACTIVE = 0
 	var/const/NPC_STATE_IDLE = 1
@@ -41,6 +42,11 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	var/datum/preferences/A = new()//Randomize appearance for the npc
 	A.copy_to(src)
 	ready_dna(src)
+	if(mutant_race)
+		dna.mutantrace = mutant_race
+	undershirt = "Nude"
+	underwear = "Nude"
+	socks = "Nude"
 
 	if(!npc_name)
 		if(src.gender == MALE)
