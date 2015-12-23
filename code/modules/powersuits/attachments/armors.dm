@@ -9,6 +9,8 @@
 	compatible = "standard"
 	display_name = "standard"
 
+	construction_cost = list("metal"=20000,"glass"=5000)
+
 /obj/item/weapon/powersuit_attachment/armor/accelerated
 	name = "accelerated power armor"
 	display_name = "accelerated"

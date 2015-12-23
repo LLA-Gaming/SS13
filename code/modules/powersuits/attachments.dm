@@ -23,7 +23,7 @@
 	var/obj/item/clothing/suit/space/powersuit/attached_to
 
 	var/construction_time = 500
-	var/list/construction_cost = list("metal"=20000,"glass"=5000)
+	var/list/construction_cost = list("metal"=20000,"glass"=5000, "plasma" = 2000)
 
 
 /obj/item/weapon/powersuit_attachment/proc/power_punch(var/mob/living/victim, var/mob/living/assaulter, var/obj/item/organ/limb/affecting, var/armor_block, var/a_intent)
@@ -41,6 +41,18 @@
 	maxcharge = 10000
 	g_amt = 60
 	rating = 5
+	construction_time = 500
+	construction_cost = list("metal" = 400, "plasma" = 2000, "glass" = 70)
+
+datum/design/power_core
+	name = "Power Core"
+	desc = "A power core that holds 10000 units of energy. for power suits"
+	id = "power_core"
+	req_tech = list("powerstorage" = 4, "materials" = 4)
+	build_type = 2 | 16
+	materials = list("$metal" = 400, "$plasma" = 2000, "$glass" = 70)
+	build_path = /obj/item/weapon/stock_parts/cell/fusion
+	category = "Power Suit Equipment"
 
 /obj/item/weapon/stock_parts/cell/fusion/extended
 	name = "extended-capacity power core"
