@@ -34,19 +34,17 @@
 	if(active)
 		user << "<span class='notice'>[src] is now energised.</span>"
 		force = 150 //these are the drugs, friend
+		damtype = "fire"
 		hitsound = 'sound/weapons/blade1.ogg'
 		icon_state = "axe1"
 		w_class = 5
-		sharpness = 3
-		bleedprob = 100
 	else
 		user << "<span class='notice'>[src] can now be concealed.</span>"
 		force = 40
+		damtype = "brute"
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		icon_state = "axe0"
 		w_class = 3 //it goes back to three you goose
-		sharpness = 0
-		bleedprob = 0
 	add_fingerprint(user)
 
 /obj/item/weapon/melee/energy/sword
@@ -81,9 +79,8 @@
 	active = !active
 	if (active)
 		force = 30
+		damtype = "fire"
 		throwforce = 20
-		sharpness = 3
-		bleedprob = 35
 		hitsound = 'sound/weapons/blade1.ogg'
 		attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 		if(istype(src,/obj/item/weapon/melee/energy/sword/pirate))
@@ -95,9 +92,8 @@
 		user << "<span class='notice'>[src] is now active.</span>"
 	else
 		force = 3
+		damtype = "brute"
 		throwforce = 5.0
-		sharpness = 0
-		bleedprob = 0
 		hitsound = "swing_hit"
 		attack_verb = null
 		if(istype(src,/obj/item/weapon/melee/energy/sword/pirate))
@@ -176,8 +172,9 @@
 	desc = "A concentrated beam of energy in the shape of a blade. Very stylish... and lethal."
 	icon_state = "blade"
 	force = 70.0//Normal attacks deal very high damage.
-	sharpness = 3
-	bleedprob = 40
+	damtype = "fire"
+	sharpness = 0
+	bleedprob = 0
 	hitsound = 'sound/weapons/blade1.ogg'
 	throwforce = 1//Throwing or dropping the item deletes it.
 	throw_speed = 3
