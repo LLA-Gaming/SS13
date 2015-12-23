@@ -71,7 +71,7 @@
 		unwield()
 		user << "<span class='notice'>You are now carrying the [name] with one hand.</span>"
 		if (src.unwieldsound)
-			playsound(src.loc, unwieldsound, 50, 1)
+			playsound(get_turf(src), unwieldsound, 50, 1)
 
 		var/obj/item/weapon/twohanded/offhand/O = user.get_inactive_hand()
 		if(O && istype(O))
@@ -85,7 +85,7 @@
 		wield()
 		user << "<span class='notice'>You grab the [initial(name)] with both hands.</span>"
 		if (src.wieldsound)
-			playsound(src.loc, wieldsound, 50, 1)
+			playsound(get_turf(src), wieldsound, 50, 1)
 
 		var/obj/item/weapon/twohanded/offhand/O = new(user) ////Let's reserve his other hand~
 		O.name = "[initial(name)] - offhand"
@@ -247,15 +247,12 @@ obj/item/weapon/twohanded/
 		if (HULK in M.mutations)
 			loc << "<span class='warning'>You lack the grace to wield this to its full extent.</span>"
 	hitsound = 'sound/weapons/blade1.ogg'
-	sharpness = 3
-	bleedprob = 40
-
+	damtype = "fire"
 
 /obj/item/weapon/twohanded/dualsaber/unwield() //Specific unwield () to switch hitsounds.
 	..()
 	hitsound = "swing_hit"
-	sharpness = 0
-	bleedprob = 0
+	damtype = "brute"
 
 /obj/item/weapon/twohanded/dualsaber/IsReflect()
 	if(wielded)
