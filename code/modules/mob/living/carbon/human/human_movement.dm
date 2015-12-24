@@ -1,7 +1,10 @@
 /mob/living/carbon/human/movement_delay()
 	if(!has_gravity(src))
 		return -1	//It's hard to be slowed down in space by... anything
-	else if((status_flags & GOTTAGOFAST) && (!(HULK in mutations)) && (istype(wear_suit,/obj/item/clothing/suit) && !wear_suit:heavy))
+	var/heavy_suit = 0
+	if(istype(wear_suit,/obj/item/clothing/suit) && wear_suit:heavy)
+		heavy_suit = 1
+	else if((status_flags & GOTTAGOFAST) && (!(HULK in mutations)) && !heavy_suit) // GOTTAGOFAST and not hulk
 		return -1
 
 	. = 0
