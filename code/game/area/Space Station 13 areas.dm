@@ -1547,32 +1547,27 @@ proc/process_ghost_teleport_locs()
 	name = "Strange Location"
 	icon_state = "away"
 
-//templates
-/area/template
-
-/area/template/lit
+//all
+/area/template/gravity/powered/lit
+	requires_power = 0
 	luminosity = 1
 	lighting_use_dynamic = 0
-/area/template/lit/powered
-	requires_power = 0
-/area/template/lit/powered/gravity
 	has_gravity = 1
 
+//variations
 /area/template/gravity
 	has_gravity = 1
-/area/template/gravity/powered
-	requires_power = 0
-/area/template/gravity/powered/lit
+/area/template/gravity/lit
 	luminosity = 1
 	lighting_use_dynamic = 0
+/area/template/gravity/powered
+	requires_power = 0
 
 /area/template/powered
 	requires_power = 0
 /area/template/powered/lit
 	luminosity = 1
 	lighting_use_dynamic = 0
-/area/template/powered/lit/gravity
-	has_gravity = 1
 
 /////////////////////////////////////////////////////////////////////
 /*

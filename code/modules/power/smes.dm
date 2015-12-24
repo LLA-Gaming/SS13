@@ -68,7 +68,10 @@
 	capacity = C / (15000) * 1e6
 	var/obj/item/weapon/circuitboard/smes/smes_board = locate() in component_parts
 	if(smes_board && smes_board.previous_charge)
-		charge = smes_board.previous_charge
+		if(smes_board.previous_charge > capacity)
+			charge = 0
+		else
+			charge = smes_board.previous_charge
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
