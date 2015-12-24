@@ -87,9 +87,9 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	if(custom_skintone)
 		skin_tone = custom_skintone
 	if(custom_hair)
-		hair_style = custom_skintone
+		hair_style = custom_hair
 	if(custom_facial_hair)
-		facial_hair_style = custom_skintone
+		facial_hair_style = custom_facial_hair
 	if(custom_haircolor)
 		hair_color = custom_haircolor
 		facial_hair_color = custom_haircolor
