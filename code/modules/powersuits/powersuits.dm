@@ -253,6 +253,9 @@
 	set src in usr
 	if(powered || s_busy || occupant.restrained() || occupant.stat)
 		return
+	if(!isturf(loc.loc)) //raptorblaze, if you find this hear in your search for loc.loc, its here for a reason
+		occupant << "You cannot take off [src] here!"
+		return
 	if(occupant.head == helmet)
 		toggle_helmet()
 	occupant.unEquip(occupant.wear_suit, 1)
