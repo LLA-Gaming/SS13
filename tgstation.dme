@@ -1251,7 +1251,7 @@
 #include "code\modules\powersuits\attachments\cosmic_kick.dm"
 #include "code\modules\powersuits\attachments\enhanced_fist.dm"
 #include "code\modules\powersuits\attachments\huds.dm"
-#include "code\modules\powersuits\attachments\krav_mega.dm"
+#include "code\modules\powersuits\attachments\krav_maga.dm"
 #include "code\modules\powersuits\attachments\smoke_bombs.dm"
 #include "code\modules\powersuits\attachments\stun_punch.dm"
 #include "code\modules\projectiles\ammunition.dm"

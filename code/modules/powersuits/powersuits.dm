@@ -254,7 +254,7 @@
 	if(powered || s_busy || occupant.restrained() || occupant.stat)
 		return
 	if(occupant.head == helmet)
-		store_helmet()
+		toggle_helmet()
 	occupant.unEquip(occupant.wear_suit, 1)
 	occupant = null
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
@@ -421,6 +421,7 @@
 	icon_state = "p-helmet1-1"
 	//flags = HEADCOVERSEYES | BLOCKHAIR | HEADCOVERSMOUTH | STOPSPRESSUREDMAGE | THICKMATERIAL
 	//flags_inv = HIDEMASK | HIDEEARS | HIDEEYES | HIDEFACE
+	unacidable = 1
 	armor = list(melee = 30, bullet = 15, laser = 30,energy = 10, bomb = 10, bio = 50, rad = 50)
 	var/compatible
 	var/on_state = 0
