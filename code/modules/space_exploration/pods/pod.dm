@@ -164,6 +164,9 @@ var/list/pod_list = list()
 
 		H << "<span class='info'>You start to enter the [src]..</span>"
 		if(do_after(H, enter_delay))
+			if(!HasOpenSeat())
+				H << "<span class='warning'>The [src] is already manned[seats ? " and all the seats are occupied" : ""]."
+				return 0
 			H << "<span class='info'>You enter the [src].</span>"
 			H.loc = src
 			if(!as_passenger)
