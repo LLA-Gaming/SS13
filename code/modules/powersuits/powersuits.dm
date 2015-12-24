@@ -542,7 +542,7 @@
 	dat += "<div class='statusDisplay'>"
 	if(occupant)
 		dat += "Occupant: [occupant]<br>"
-	dat += "Power Core: [cell ? "[cell.charge] / [cell.maxcharge]" : "N/A"][cell ? "<a href='byond://?src=\ref[src];choice=remove_cell;target=\ref[cell]'> - Remove</a>" : ""]<br>"
+	dat += "Power Core: [cell ? "[cell.charge] / [cell.maxcharge]" : "N/A"][cell ? " - <a href='byond://?src=\ref[src];choice=remove_cell;target=\ref[cell]'>Remove</a>" : ""]<br>"
 	dat += "Armor Ratings:<br>"
 	for(var/X in armor)
 		dat += "[TAB][X]: [armor[X]]%<br>"
@@ -578,7 +578,7 @@
 		if ("remove_helmet")
 			remove_helmet(locate(href_list["target"]))
 		if ("remove_cell")
-			if(cell)
+			if(cell && !powered)
 				cell.loc = get_turf(src)
 				cell = null
 		if ("activate")
