@@ -50,5 +50,5 @@ var/list/_TempTemplateTurfs = list()
 		return flist("[template_config.directory]/[category]/")
 
 	proc/GetTemplateSize(var/path)
-		var/datum/dmm_object_collection/collection = parser.GetCollection(path)
+		var/datum/dmm_object_collection/collection = parser.GetCollection(file2list(path))
 		return list(collection.x_size, collection.y_size)

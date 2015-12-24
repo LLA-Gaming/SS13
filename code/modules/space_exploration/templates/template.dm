@@ -23,17 +23,16 @@ var/datum/template_controller/template_controller
 		return collection
 
 	proc/PlaceTemplates()
-		set background = 1
-
 		var/list/picked = PickTemplates()
 		var/started = world.timeofday
 
 		for(var/template in picked)
 			var/list/size = GetTemplateSize(template)
+
 			var/x = size[1]
 			var/y = size[2]
 
-			var/tries = 20
+			var/tries = template_config.tries
 			var/turf/origin
 			do
 				var/turf/pick = locate(rand(1, world.maxx), rand(1, world.maxy), text2num(pick(template_config.zs)))
@@ -66,6 +65,9 @@ var/datum/template_controller/template_controller
 
 			var/datum/dmm_object_collection/collection = PlaceTemplateAt(origin, template, name)
 			placed_templates += collection
+
+			// Wait for templates to spawn before continuing so they don't spawn into each other.
+			sleep(15)
 
 		log_game("Finished placing templates after [time2text((world.timeofday - started), "mm:ss")]")
 		world << "\red <b>Finished placing random structures...</b>"

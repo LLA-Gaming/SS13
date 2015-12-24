@@ -349,6 +349,6 @@
 				mb_row++
 
 		collection.y_size = length(collection.grid)
-		collection.x_size = (length(collection.grid["1"]) * (id_el + 1))
+		collection.x_size = length(collection.grid["1"])
 
 		return collection
