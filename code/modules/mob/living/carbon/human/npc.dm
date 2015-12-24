@@ -72,6 +72,10 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 
 /mob/living/carbon/human/npc/initialize()
 	..()
+	//name
+	if(npc_name)
+		real_name = npc_name
+		name = npc_name
 	//power suit?
 	for(var/obj/item/clothing/suit/space/powersuit/P in get_turf(src))
 		P.enter_suit(src)
