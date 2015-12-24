@@ -29,7 +29,12 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	var/list/can_see = list()
 	var/list/npc_say = list()
 	var/retaliate = 0
+	//custom stuff
 	var/mutant_race
+	var/custom_skintone
+	var/custom_hair
+	var/custom_facial_hair
+	var/custom_haircolor
 	//constants
 	var/const/NPC_STATE_INACTIVE = 0
 	var/const/NPC_STATE_IDLE = 1
@@ -42,11 +47,6 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	var/datum/preferences/A = new()//Randomize appearance for the npc
 	A.copy_to(src)
 	ready_dna(src)
-	if(mutant_race)
-		dna.mutantrace = mutant_race
-	undershirt = "Nude"
-	underwear = "Nude"
-	socks = "Nude"
 
 	if(!npc_name)
 		if(src.gender == MALE)
@@ -77,6 +77,22 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	//anything else
 	for(var/obj/item/I in get_turf(src))
 		equip_to_appropriate_slot(I)
+	//underwear and mutant race
+	if(mutant_race && dna)
+		dna.mutantrace = mutant_race
+	undershirt = "Nude"
+	underwear = "Nude"
+	socks = "Nude"
+	//hairs and stuff
+	if(custom_skintone)
+		skin_tone = custom_skintone
+	if(custom_hair)
+		hair_style = custom_skintone
+	if(custom_facial_hair)
+		facial_hair_style = custom_skintone
+	if(custom_haircolor)
+		hair_color = custom_haircolor
+		facial_hair_color = custom_haircolor
 
 /mob/living/carbon/human/npc/Life()
 	..()
