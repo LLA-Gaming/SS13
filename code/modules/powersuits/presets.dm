@@ -30,16 +30,11 @@
 	cell_type = /obj/item/weapon/stock_parts/cell/fusion/extended
 	armor_attachment_type = /obj/item/weapon/powersuit_attachment/armor/syndicate
 
-/obj/item/clothing/suit/space/powersuit/syndicate
-	model_name = "syndicate"
-	icon_state = "p-armor3"
-	helmet_type = /obj/item/clothing/head/helmet/space/powerhelmet/syndicate
-	cell_type = /obj/item/weapon/stock_parts/cell/fusion/extended
-	armor_attachment_type = /obj/item/weapon/powersuit_attachment/armor/syndicate
-
 /obj/item/clothing/suit/space/powersuit/mangled
 	model_name = "mangled"
 	icon_state = "p-armor4"
 	helmet_type = /obj/item/clothing/head/helmet/space/powerhelmet/mangled
 	cell_type = /obj/item/weapon/stock_parts/cell/fusion/enhanced
 	armor_attachment_type = /obj/item/weapon/powersuit_attachment/armor/mangled
+	primary_attachment_type = /obj/item/weapon/powersuit_attachment/stun_punch
+	secondary_attachment_type = /obj/item/weapon/powersuit_attachment/smoke_bombs
