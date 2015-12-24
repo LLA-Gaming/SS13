@@ -190,24 +190,20 @@
 			speed = initial(speed)
 
 /mob/living/simple_animal/hostile/cosmic_bear/proc/devour(var/mob/living/carbon/target)
-	if(power_cooldown)
-		src << "you need to wait at least 30 seconds before using powers again"
-		return
-	if(!power_cooldown)
-		src.visible_message("<span class='danger'>[src] begins to devour [target]</span>")
-		spawn(100)
-			if(target in bounds(1))
-				src.visible_message("<span class='danger'>[src] devours [target]</span>")
-				if(ishuman(target) || ismonkey(target))
-					var/mob/living/carbon/C_target = target
-					var/obj/item/organ/brain/B = C_target.getorgan(/obj/item/organ/brain)
-					if(B)
-						B.loc = get_turf(C_target)
-						B.transfer_identity(C_target)
-						C_target.internal_organs -= B
-				target.gib()
-				health = maxHealth
-		cooldown()
+	src.visible_message("<span class='danger'>[src] begins to devour [target]</span>")
+	playsound(src, 'sound/effects/bear_eating.ogg', 100, 1)
+	spawn(100)
+		if(target in bounds(1))
+			src.visible_message("<span class='danger'>[src] devours [target]</span>")
+			if(ishuman(target) || ismonkey(target))
+				var/mob/living/carbon/C_target = target
+				var/obj/item/organ/brain/B = C_target.getorgan(/obj/item/organ/brain)
+				if(B)
+					B.loc = get_turf(C_target)
+					B.transfer_identity(C_target)
+					C_target.internal_organs -= B
+			target.gib()
+			health = maxHealth
 
 
 //////Disables automatic control (this is a player only mob)
