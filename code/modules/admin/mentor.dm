@@ -64,8 +64,9 @@ var/mentor_salt = 0
 	for(var/client/C in clients)
 		if(C.ckey in mentors)
 			C << mentor_formatted
-			if(C.prefs.toggles & SOUND_MENTORHELP)
-				C << 'sound/effects/-adminhelp.ogg'
+			C << 'sound/effects/-mentorhelp.ogg'
+			//if(C.prefs.toggles & SOUND_MENTORHELP)
+			//	C << 'sound/effects/-mentorhelp.ogg'
 
 	var/admin_formatted = "<font color='#91219E'><b>MENTORHELP by [key_name(src)]:</b> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src]'>Reply</a><font>"
 	admins << admin_formatted
@@ -131,7 +132,7 @@ var/mentor_salt = 0
 
 	if(as_player)
 		target << "<font color='#91219E'><b>MENTOR</b><i>-Reply from '[id]':</i> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src]'>Reply</a></font>"
-		target << 'sound/effects/-adminhelp.ogg'
+		target << 'sound/effects/-mentorhelp.ogg'
 		admins << "<font color='#91219E'><b>MENTOR:</b><i> [key_name(src)] (player, id: '[id]') replied to [key_name(target, 1)] (mentor):</i> [msg]</font>"
 		var/shown_to_mentors = "<font color='#91219E'><b>MENTOR</b><i>-'[id]' replied to [target.key]:</i> [msg] - <a href='?src=\ref[src];mentor_reply=\ref[src]'>Reply</a></font>"
 		for(var/client/C in (clients - target))

@@ -256,8 +256,8 @@
 			msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
 
 		if(getorgan(/obj/item/organ/brain))
-			if(!istype(src,/mob/living/carbon/human/npc))
-				if(vr_controller && locate(src) in vr_controller.copies)
+			if(!istype(glasses,/mob/living/carbon/human/npc))
+				if(!mind && istype(head,/obj/item/clothing/glasses/virtual))
 					msg += "[t_He] seems immersed in the virtual reality headset...\n"
 				else if(!key)
 					msg += "<span class='deadsay'>[t_He] [t_is] totally catatonic. The stresses of life in deep-space must have been too much for [t_him]. Any recovery is unlikely.</span>\n"

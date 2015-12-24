@@ -24,7 +24,7 @@
 				continue
 
 			var/area/turf_area = get_area(T)
-			turf_area.SetDynamicLighting()
+			if(turf_area.lighting_use_dynamic) turf_area.SetDynamicLighting()
 
 			for(var/obj/machinery/light/L in T)
 				L.update(0)

@@ -1542,6 +1542,38 @@ proc/process_ghost_teleport_locs()
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg')
 
 
+//templates
+/area/template/
+	name = "Strange Location"
+	icon_state = "away"
+
+//templates
+/area/template
+
+/area/template/lit
+	luminosity = 1
+	lighting_use_dynamic = 0
+/area/template/lit/powered
+	requires_power = 0
+/area/template/lit/powered/gravity
+	has_gravity = 1
+
+/area/template/gravity
+	has_gravity = 1
+/area/template/gravity/powered
+	requires_power = 0
+/area/template/gravity/powered/lit
+	luminosity = 1
+	lighting_use_dynamic = 0
+
+/area/template/powered
+	requires_power = 0
+/area/template/powered/lit
+	luminosity = 1
+	lighting_use_dynamic = 0
+/area/template/powered/lit/gravity
+	has_gravity = 1
+
 /////////////////////////////////////////////////////////////////////
 /*
  Lists of areas to be used with is_type_in_list.
