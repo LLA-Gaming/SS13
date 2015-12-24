@@ -72,6 +72,8 @@
 /mob/living/carbon/human/slip(var/s_amount, var/w_amount, var/obj/O, var/lube)
 	if(isobj(shoes) && (shoes.flags&NOSLIP) && !(lube&GALOSHES_DONT_HELP))
 		return 0
+	if(istype(src,/mob/living/carbon/human/npc) && !src:can_slip)
+		return 0
 	.=..()
 
 /mob/living/carbon/human/mob_has_gravity()

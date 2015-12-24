@@ -92,6 +92,15 @@
 			var/move_to_z = src.z
 			var/safety = 1
 
+			//Check if it's a mob pulling an object
+			var/obj/was_pulling = null
+			var/mob/living/MOB = null
+			if(isliving(A))
+				MOB = A
+				if(MOB.pulling)
+					was_pulling = MOB.pulling //Store the object to transition later
+
+
 			while(move_to_z == src.z)
 				var/move_to_z_str = pickweight(accessable_z_levels)
 				move_to_z = text2num(move_to_z_str)
@@ -124,6 +133,10 @@
 
 
 			spawn (0)
+				if(was_pulling && MOB) //Carry the object they were pulling over when they transition
+					was_pulling.loc = MOB.loc
+					MOB.pulling = was_pulling
+					was_pulling.pulledby = MOB
 				if ((A && A.loc))
 					A.loc.Entered(A)
 

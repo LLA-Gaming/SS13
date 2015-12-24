@@ -18,6 +18,7 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 	var/mob/living/frustrated_at = null
 	var/idlemove_chance = 45
 	var/always_melee = 0 //for zombies
+	var/can_slip = 1
 	//lists
 	var/list/path = list()
 	//NPCs are left handed, keep this in mind when equiping them. they can still attack with their right hand but only if the left is empty
