@@ -432,11 +432,12 @@
 
 	attack_hand(mob/living/user)
 		var/mob/living/carbon/human/H = user
-		if(ishuman(user))
-			if(H.head == src)
-				if(H.wear_suit == attached_to)
-					attached_to.remove_helmet(src)
-					return
+		if(attached_to)
+			if(ishuman(user))
+				if(H.head == src)
+					if(H.wear_suit == attached_to)
+						attached_to.remove_helmet(src)
+						return
 		..()
 
 	mob_can_equip(mob/M, slot, disable_warning = 0)
