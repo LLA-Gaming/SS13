@@ -23,7 +23,7 @@
 	attacktext = "smacks"
 	a_intent = "harm"
 
-	unsuitable_atoms_damage = 500
+	unsuitable_atoms_damage = 25
 
 	status_flags = 0
 

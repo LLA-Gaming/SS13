@@ -71,6 +71,14 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 
 /mob/living/carbon/human/npc/initialize()
 	..()
+	//power suit?
+	for(var/obj/item/clothing/suit/space/powersuit/P in get_turf(src))
+		P.enter_suit(src)
+		if(P.helmet)
+			P.toggle_helmet()
+		if(P.cell)
+			P.power()
+		break
 	//under clothing second
 	for(var/obj/item/clothing/under/U in get_turf(src))
 		equip_to_appropriate_slot(U)

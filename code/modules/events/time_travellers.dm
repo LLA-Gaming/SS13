@@ -25,9 +25,9 @@
 /datum/round_event/time_travellers/tick()
 	if(IsMultiple(activeFor, 4))
 		var/mission_complete = 0
-		if((mother.current) && (mother.current.stat == DEAD || issilicon(mother.current) || isbrain(mother.current) || mother.current.z > 6))
+		if((mother.current) && (mother.current.stat == DEAD || issilicon(mother.current) || isbrain(mother.current) || mother.current.z > MAX_Z_LEVELS))
 			mission_complete = 1
-		if((father.current) && (father.current.stat == DEAD || issilicon(father.current) || isbrain(father.current) || father.current.z > 6))
+		if((father.current) && (father.current.stat == DEAD || issilicon(father.current) || isbrain(father.current) || father.current.z > MAX_Z_LEVELS))
 			mission_complete = 1
 
 		if(mission_complete)

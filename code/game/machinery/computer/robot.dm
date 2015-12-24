@@ -29,7 +29,7 @@
 	interact(user)
 
 /obj/machinery/computer/robotics/interact(var/mob/user as mob)
-	if (src.z > 6)
+	if (src.z > MAX_Z_LEVELS)
 		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
 	user.set_machine(src)

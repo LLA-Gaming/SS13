@@ -362,7 +362,7 @@ var/perseusMissionCooldown = 3000
 /obj/machinery/computer/communications/attack_hand(var/mob/user as mob)
 	if(..())
 		return
-	if (src.z > 6)
+	if (src.z > MAX_Z_LEVELS)
 		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 		return
 

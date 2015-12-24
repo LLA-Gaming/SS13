@@ -28,7 +28,7 @@
 					vision.attack_self(user)
 
 		if(!stat)
-			if (src.z > 6)
+			if (src.z > MAX_Z_LEVELS)
 				user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
 				return
 

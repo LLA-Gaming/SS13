@@ -298,9 +298,9 @@
 		telefail()
 		temp_msg = "ERROR!<BR>Elevation is less than 1 or greater than 90."
 		return
-	if(z_co == 2 || z_co < 1 || z_co > 6)
+	if(z_co == 2 || z_co < 1 || z_co > MAX_Z_LEVELS)
 		telefail()
-		temp_msg = "ERROR! Sector is less than 1, <BR>greater than 6, or equal to 2."
+		temp_msg = "ERROR! Sector is less than 1, <BR>greater than [MAX_Z_LEVELS], or equal to 2."
 		return
 	if(teles_left > 0)
 		doteleport(user)
@@ -349,7 +349,7 @@
 		var/new_z = input("Please input desired sector.", name, z_co) as num
 		if(..())
 			return
-		z_co = Clamp(round(new_z), 1, 10)
+		z_co = Clamp(round(new_z), 1, MAX_Z_LEVELS)
 
 	if(href_list["ejectGPS"])
 		inserted_gps.loc = loc

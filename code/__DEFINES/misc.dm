@@ -14,6 +14,7 @@
 #define MANIFEST_ERROR_ITEM		4
 
 #define TRANSITIONEDGE			7 //Distance from edge to move to another z-level
+#define MAX_Z_LEVELS			7 //how many Z levels are on the map
 
 
 

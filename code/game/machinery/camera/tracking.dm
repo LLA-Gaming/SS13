@@ -60,7 +60,7 @@
 			continue
 		if(T.z == 2)
 			continue
-		if(T.z > 6)
+		if(T.z > MAX_Z_LEVELS)
 			continue
 		if(M == usr)
 			continue
