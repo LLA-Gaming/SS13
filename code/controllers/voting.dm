@@ -272,9 +272,9 @@ datum/controller/vote
 					initiate_vote("restart",usr.key)
 			if("crewtransfer")
 				if(world.time <= (10*60*30))
-					user << "\red It is too early for that"
+					usr << "\red It is too early for that"
 					return
-				var/input = stripped_input(user, "Please supply a reason", "Reason", "I ded: please restart" , 30)
+				var/input = stripped_input(usr, "Please supply a reason", "Reason", "I ded: please restart" , 30)
 				if(input == "I ded: please restart")
 					message_admins("[usr.ckey] Asked for a crew transfer vote: [input] (AUTO DENIED)")
 					return
