@@ -538,6 +538,19 @@
 /obj/machinery/gun_turret/proc/die()
 	state = 2
 	update_icon()
+	sleep(3)
+	visible_message("\red <B>[src] blows apart!</B>")
+	var/turf/Tsec = get_turf(src)
+
+	new /obj/item/stack/rods(Tsec)
+
+	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	s.set_up(3, 1, src)
+	s.start()
+
+	explosion(src.loc,-1,-1,0)
+	if(src)
+		qdel(src)
 
 /obj/machinery/gun_turret/attack_hand(mob/user)
 	return
@@ -545,6 +558,10 @@
 /obj/machinery/gun_turret/attack_ai(mob/user)
 	return attack_hand(user)
 
+/obj/machinery/gun_turret/attackby(obj/item/weapon/I as obj, mob/living/user as mob)
+	user.changeNext_move(8)
+	take_damage(I.force)
+	..()
 
 /obj/machinery/gun_turret/attack_alien(mob/living/user as mob)
 	user.changeNext_move(8)
