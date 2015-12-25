@@ -72,6 +72,7 @@
 				enter_suit(dropping)
 
 	item_stripped()
+		store_helmet()
 		unpower()
 		leave_suit()
 
