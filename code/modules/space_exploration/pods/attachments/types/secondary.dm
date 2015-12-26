@@ -200,3 +200,33 @@
 							pod.PrintSystemAlert("\The [src] reports: [cargo.TranslateError(result)]. Shutting off.")
 							active = P_ATTACHMENT_INACTIVE
 							return 0
+
+	seating_module/
+		name = "seating module"
+		active = P_ATTACHMENT_PASSIVE
+		power_usage = 0
+		power_usage_condition = P_ATTACHMENT_USAGE_ONUSE
+		construction_cost = list("metal" = 3000)
+		origin_tech = "engineering=1"
+		var/seat_amount = 2 // Well this surely can't go wrong
+
+		examine()
+			..()
+			usr << "<span class='info'>The tag says it adds [seat_amount] new seat(s).</span>"
+
+		GetAvailableKeybinds()
+			return list()
+
+		OnAttach(var/obj/pod/pod, var/mob/user)
+			..()
+			pod.seats += seat_amount
+
+		OnDetach(var/obj/pod/pod, var/mob/user)
+			..()
+			pod.seats -= seat_amount
+
+		// Pshhhh
+		bluespace/
+			name = "bluespace seating module"
+			seat_amount = 6
+

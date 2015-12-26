@@ -452,6 +452,14 @@
 		build_path = /obj/item/weapon/pod_attachment/secondary/wormhhole_generator
 		req_tech = list("engineering" = 4, "materials" = 4, "bluespace" = 3)
 
+	p_seating_module/
+		name = "seating module"
+		id = "pseatingmodule"
+		category = "Secondary"
+		build_type = PODFAB
+		build_path = /obj/item/weapon/pod_attachment/secondary/seating_module
+		req_tech = list("engineering" = 1)
+
 	/*
 	* Sensors
 	*/
