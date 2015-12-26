@@ -288,7 +288,7 @@
 			for(var/obj/machinery/flasher/F in targets)
 				F.flash()
 		else if(href_list["prisoner"])
-			var/_prisoner = input("Who is in the cell?", "Prisoner") as text
+			var/_prisoner = stripped_input("Who is in the cell?", "Prisoner") as text
 			if(_prisoner)
 				if(length(_prisoner) > 24)
 					usr << "<div class='warning'>Error: Prisoner Name too long.</div>"
