@@ -98,10 +98,10 @@ var/const/COMMANDER = (1<<1)
 	total_positions = 3
 	spawn_positions = 3
 
-	equip(var/mob/living/carbon/human/H)
+	equip(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 		if(!H)	return 0
-
-		logPerseusLogin(H, "Enforcer")
+		if(!visualsOnly)
+			logPerseusLogin(H, "Enforcer")
 
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hos (H), slot_ears)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/space/skinsuit(H), slot_w_uniform)
@@ -114,7 +114,8 @@ var/const/COMMANDER = (1<<1)
 		H.equip_to_slot_or_del(new /obj/item/weapon/tank/perseus(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box(H.back), slot_in_backpack)
 		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
-
+		if(visualsOnly)
+			return
 		var/obj/item/weapon/implant/enforcer/implant = new /obj/item/weapon/implant/enforcer(H)
 		implant.imp_in = H
 		implant.implanted = 1
@@ -150,10 +151,10 @@ var/const/COMMANDER = (1<<1)
 	total_positions = 1
 	spawn_positions = 1
 
-	equip(var/mob/living/carbon/human/H)
+	equip(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 		if(!H) return 0
-
-		logPerseusLogin(H, "Commander")
+		if(!visualsOnly)
+			logPerseusLogin(H, "Commander")
 
 		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hos (H), slot_ears)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/space/skinsuit(H), slot_w_uniform)
@@ -166,7 +167,8 @@ var/const/COMMANDER = (1<<1)
 		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/specops(H), slot_gloves)
 		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/lightarmor(H), slot_wear_suit)
-
+		if(visualsOnly)
+			return
 		var/obj/item/weapon/implant/commander/implant = new /obj/item/weapon/implant/commander(H)
 		implant.imp_in = H
 		implant.implanted = 1

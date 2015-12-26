@@ -52,7 +52,7 @@
 	var/default_storagebox= /obj/item/weapon/storage/box/survival
 
 //Only override this proc
-/datum/job/proc/equip_items(var/mob/living/carbon/human/H)
+/datum/job/proc/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 
 //Or this proc
 /datum/job/proc/equip_backpack(var/mob/living/carbon/human/H)
@@ -69,7 +69,7 @@
 			H.equip_to_slot_or_del(BPK, slot_back,1)
 
 //But don't override this
-/datum/job/proc/equip(var/mob/living/carbon/human/H)
+/datum/job/proc/equip(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(!H)
 		return 0
 
@@ -77,23 +77,29 @@
 	equip_backpack(H)
 
 	//Equip the rest of the gear
-	equip_items(H)
+	equip_items(H,visualsOnly)
+
+	if(visualsOnly)
+		return
 
 	//Equip ID
 	var/obj/item/weapon/card/id/C = new default_id(H)
-	C.access = get_access()
-	C.registered_name = H.real_name
-	C.assignment = H.job
-	C.update_label()
-	H.equip_to_slot_or_del(C, slot_wear_id)
+	if(istype(C))
+		C.access = get_access()
+		C.registered_name = H.real_name
+		C.assignment = H.job
+		C.update_label()
+		H.equip_to_slot_or_del(C, slot_wear_id)
 
 	//Equip PDA
 	var/obj/item/device/tablet/tablet = new default_tablet(H)
-	var/obj/item/device/tablet_core/core = tablet.core
-	core.owner = H.real_name
-	core.ownjob = H.job
-	tablet.update_label()
-	H.equip_to_slot_or_del(tablet, default_tablet_slot)
+	if(istype(tablet))
+		var/obj/item/device/tablet_core/core = tablet.core
+		if(istype(core))
+			core.owner = H.real_name
+			core.ownjob = H.job
+			tablet.update_label()
+			H.equip_to_slot_or_del(tablet, default_tablet_slot)
 
 	//Equip headset
 	H.equip_to_slot_or_del(new src.default_headset(H), slot_ears)

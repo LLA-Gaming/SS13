@@ -74,8 +74,7 @@ datum/preferences
 	var/prefer_dept = "Any"				//What security department you prefer
 
 		//Mob preview
-	var/icon/preview_icon_front = null
-	var/icon/preview_icon_side = null
+	var/icon/preview_icon = null
 
 		//Jobs, uses bitflags
 	var/job_civilian_high = 0
@@ -125,9 +124,8 @@ datum/preferences
 /datum/preferences
 	proc/ShowChoices(mob/user)
 		if(!user || !user.client)	return
-		update_preview_icon()
-		user << browse_rsc(preview_icon_front, "previewicon.png")
-		user << browse_rsc(preview_icon_side, "previewicon2.png")
+		update_preview_icon(user.client)
+		user << browse_rsc(preview_icon, "previewicon.png")
 		var/dat = "<center>"
 
 		dat += "<a href='?_src_=prefs;preference=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Character Settings</a> "
@@ -175,7 +173,7 @@ datum/preferences
 
 				dat += "</td><td valign='center'>"
 
-				dat += "<div class='statusDisplay'><center><img src=previewicon.png height=64 width=64><img src=previewicon2.png height=64 width=64></center></div>"
+				dat += "<div class='statusDisplay'><center><img src=previewicon.png width=[preview_icon.Width()] height=[preview_icon.Height()]></center></div>"
 
 				dat += "</td></tr></table>"
 

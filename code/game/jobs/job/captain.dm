@@ -24,7 +24,7 @@ Captain
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
 
-/datum/job/captain/equip_items(var/mob/living/carbon/human/H)
+/datum/job/captain/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/obj/item/clothing/under/U = new /obj/item/clothing/under/rank/captain(H)
 	U.attachTie(new /obj/item/clothing/tie/medal/gold/captain())
 	H.equip_to_slot_or_del(U, slot_w_uniform)
@@ -40,7 +40,8 @@ Captain
 	else
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/ids(H.back), slot_in_backpack)
 		H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
-
+	if(visualsOnly)
+		return
 	//Implant him
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 	L.imp_in = H
@@ -86,12 +87,13 @@ Head of Personnel
 			            access_hop, access_RC_announce, access_keycard_auth, access_therapist, access_mineral_storeroom)
 
 
-/datum/job/hop/equip_items(var/mob/living/carbon/human/H)
+/datum/job/hop/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/head_of_personnel(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/brown(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/hopcap(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_r_store) // Equips the telebaton
-
+	if(visualsOnly)
+		return
 	//Equip ID box
 	if(H.backbag == 1)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/ids(H), slot_l_hand)

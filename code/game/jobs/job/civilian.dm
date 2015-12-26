@@ -39,11 +39,12 @@ Bartender
 			new default_storagebox(BPK)
 			H.equip_to_slot_or_del(BPK, slot_back,1)
 
-/datum/job/bartender/equip_items(var/mob/living/carbon/human/H)
+/datum/job/bartender/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/bartender(H), slot_w_uniform)
-
+	if(visualsOnly)
+		return
 	if(H.backbag != 1)
 		H.equip_to_slot_or_del(new /obj/item/ammo_casing/shotgun/beanbag(H), slot_in_backpack)
 		H.equip_to_slot_or_del(new /obj/item/ammo_casing/shotgun/beanbag(H), slot_in_backpack)
@@ -71,7 +72,7 @@ Chef
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue)
 	minimal_access = list(access_kitchen, access_morgue)
 
-/datum/job/chef/equip_items(var/mob/living/carbon/human/H)
+/datum/job/chef/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/chef(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/chef(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
@@ -100,7 +101,7 @@ Botanist
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
 	minimal_access = list(access_hydroponics, access_morgue) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS // //Removed medical access because WHAT THE FUCK YOU AREN'T A DOCTOR YOU GROW WHEAT //Given Morgue access because they have a viable means of cloning.
 
-/datum/job/hydro/equip_items(var/mob/living/carbon/human/H)
+/datum/job/hydro/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/hydroponics(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/botanic_leather(H), slot_gloves)
@@ -128,7 +129,7 @@ Quartermaster
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 	minimal_access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 
-/datum/job/qm/equip_items(var/mob/living/carbon/human/H)
+/datum/job/qm/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/cargo(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/brown(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(H), slot_glasses)
@@ -155,7 +156,7 @@ Cargo Technician
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station)
 	minimal_access = list(access_maint_tunnels, access_cargo, access_cargo_bot, access_mailsorting)
 
-/datum/job/cargo_tech/equip_items(var/mob/living/carbon/human/H)
+/datum/job/cargo_tech/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/cargotech(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
 
@@ -183,10 +184,11 @@ Shaft Miner
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 	minimal_access = list(access_mining, access_mint, access_mining_station, access_mailsorting, access_mineral_storeroom)
 
-/datum/job/mining/equip_items(var/mob/living/carbon/human/H)
+/datum/job/mining/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/miner(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
-
+	if(visualsOnly)
+		return
 	if(H.backbag == 1)
 		H.equip_to_slot_or_del(new /obj/item/weapon/crowbar(H), slot_l_hand)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/bag/ore(H), slot_l_store)
@@ -227,15 +229,17 @@ Clown
 
 	H.equip_to_slot_or_del(BPK, slot_back)
 
-/datum/job/clown/equip_items(var/mob/living/carbon/human/H)
-	H.fully_replace_character_name(H.real_name, pick(clown_names)) // Give him a temporary random name to prevent identity revealing
+/datum/job/clown/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(!visualsOnly)
+		H.fully_replace_character_name(H.real_name, pick(clown_names)) // Give him a temporary random name to prevent identity revealing
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/weapon/bikehorn(H), slot_l_store)
 	H.equip_to_slot_or_del(new /obj/item/toy/crayon/rainbow(H), slot_r_store)
-
+	if(visualsOnly)
+		return
 	H.mutations.Add(CLUMSY)
 	H.rename_self("clown")
 
@@ -269,14 +273,15 @@ Mime
 
 	H.equip_to_slot_or_del(BPK, slot_back)
 
-/datum/job/mime/equip_items(var/mob/living/carbon/human/H)
+/datum/job/mime/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/mime(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/white(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime(H), slot_wear_mask)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders(H), slot_wear_suit)
-
+	if(visualsOnly)
+		return
 	if(H.mind)
 		H.mind.spell_list += new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null)
 		H.mind.spell_list += new /obj/effect/proc_holder/spell/targeted/mime/speak(null)
@@ -305,7 +310,7 @@ Janitor
 	access = list(access_janitor, access_maint_tunnels)
 	minimal_access = list(access_janitor, access_maint_tunnels)
 
-/datum/job/janitor/equip_items(var/mob/living/carbon/human/H)
+/datum/job/janitor/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/janitor(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
 
@@ -329,7 +334,7 @@ Librarian
 	access = list(access_library, access_maint_tunnels)
 	minimal_access = list(access_library)
 
-/datum/job/librarian/equip_items(var/mob/living/carbon/human/H)
+/datum/job/librarian/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket/red(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/bag/books(H), slot_l_hand)
@@ -358,10 +363,11 @@ Lawyer
 	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors)
 
-/datum/job/lawyer/equip_items(var/mob/living/carbon/human/H)
-	lawyers += 1
+/datum/job/lawyer/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(!visualsOnly)
+		lawyers += 1
 
-	if(lawyers%2 != 0)
+	if(lawyers%2 != 0 || visualsOnly)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/bluesuit(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/lawyer/bluejacket(H), slot_wear_suit)
 	else

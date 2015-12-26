@@ -81,9 +81,11 @@ Chaplain
 
 		usr << browse(null, "window=editicon") // Close window
 
-/datum/job/chaplain/equip_items(var/mob/living/carbon/human/H)
+/datum/job/chaplain/equip_items(var/mob/living/carbon/human/H, visualsOnly = FALSE)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/chaplain(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(H), slot_shoes)
+	if(visualsOnly)
+		return
 
 	var/obj/item/weapon/storage/book/bible/B = new /obj/item/weapon/storage/book/bible/booze(H)
 	spawn(0)
