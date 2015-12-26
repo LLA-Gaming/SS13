@@ -107,7 +107,7 @@
 				spread.set_up(5, 0, T, 0)
 				spread.start()
 
-	wormhhole_generator/
+	wormhole_generator/
 		name = "wormhole generator"
 		overlay_icon_state = "wormhole_generator"
 		power_usage = 500

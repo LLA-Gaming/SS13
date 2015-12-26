@@ -100,6 +100,46 @@
 			name = "rare energy weapon spawner"
 			_loot = list(/obj/item/weapon/gun/energy/xray, /obj/item/weapon/gun/energy/lasercannon, /obj/item/weapon/gun/energy/temperature, /obj/item/weapon/gun/energy/ionrifle)
 
+		pod/
+			pod_primary_energy_attachment/
+				name = "pod primary energy attachment spawner"
+				_loot = list(/obj/item/weapon/pod_attachment/primary/projectile/taser, /obj/item/weapon/pod_attachment/primary/projectile/disabler,
+						/obj/item/weapon/pod_attachment/primary/projectile/phaser, /obj/item/weapon/pod_attachment/primary/projectile/neutron_cannon,
+						/obj/item/weapon/pod_attachment/primary/projectile/laser)
+
+			pod_secondary_attachment/
+				name = "pod secondary attachment spawner"
+				_loot = list(/obj/item/weapon/pod_attachment/secondary/autoloader, /obj/item/weapon/pod_attachment/secondary/seating_module,
+							/obj/item/weapon/pod_attachment/secondary/smoke_screen, /obj/item/weapon/pod_attachment/secondary/ore_collector)
+
+			rare_pod_primary_energy_attachment/
+				name = "pod rare primary energy attachment spawner"
+				_loot = list(/obj/item/weapon/pod_attachment/primary/projectile/heavylaser, /obj/item/weapon/pod_attachment/primary/projectile/xray)
+
+			ultra_rare_primary_energy_attachment/
+				name = "pod ultra-rare primary energy attachment spawner"
+				_loot = list(/obj/item/weapon/pod_attachment/primary/projectile/deathlaser)
+
+			rare_pod_secondary_attachment/
+				name = "pod rare secondary attachment spawner"
+				_loot = list(/obj/item/weapon/pod_attachment/secondary/gimbal, /obj/item/weapon/pod_attachment/secondary/bluespace_ripple,
+							/obj/item/weapon/pod_attachment/secondary/bluespace_ripple/inward, /obj/item/weapon/pod_attachment/secondary/wormhole_generator)
+
+			pod_nondefault_shield_spawner/
+				name = "pod non-default shield spawner"
+				_loot = list(/obj/item/weapon/pod_attachment/shield/neutron, /obj/item/weapon/pod_attachment/shield/antimatter,
+							/obj/item/weapon/pod_attachment/shield/higgs_boson)
+
+			pod_misc_attachment_spawner/
+				name = "pod misc attachment spawner"
+				_loot = list(/obj/item/weapon/pod_attachment/sensor/gps, /obj/item/weapon/pod_attachment/sensor/lifeform,
+							/obj/item/weapon/pod_attachment/cargo/industrial, /obj/item/weapon/pod_attachment/cargo/large,
+							/obj/item/weapon/pod_attachment/cargo/medium)
+
+			pod_advanced_engine/
+				name = "pod advanced engine spawner"
+				_loot = list(/obj/item/weapon/pod_attachment/engine/plasma/advanced, /obj/item/weapon/pod_attachment/engine/uranium/advanced,
+							/obj/item/weapon/pod_attachment/engine/wood/advanced)
 
 	// The set spawner will spawn sets of items (e.g. the master will pick an item and the slaves will spawn the corresponding item)
 	set_spawner/
@@ -108,6 +148,7 @@
 
 		var/_id
 
+		// In case of guns: should be used for the actual weapon.
 		master/
 			name = "set spawner master"
 			icon_state = "set_master"
@@ -121,6 +162,18 @@
 				name = "rare projectile weapon set spawner master"
 				_loot = list(/obj/item/weapon/gun/projectile/revolver, /obj/item/weapon/gun/projectile/revolver/mateba, /obj/item/weapon/gun/projectile/shotgun,
 							/obj/item/weapon/gun/projectile/shotgun/combat, /obj/item/weapon/gun/projectile/automatic/mini_uzi, /obj/item/weapon/gun/projectile/automatic/deagle)
+
+
+			pod_primary_projectile_attachment/
+				name = "pod primary projectile attachment master"
+				_loot = list(/obj/item/weapon/pod_attachment/primary/projectile/bullet/r9mm,
+							/obj/item/weapon/pod_attachment/primary/projectile/bullet/r10mm,
+							/obj/item/weapon/pod_attachment/primary/projectile/bullet/r45)
+
+			pod_rare_primary_projectile_attachment/
+				name = "pod rare primary projectile attachment master"
+				_loot = list(/obj/item/weapon/pod_attachment/primary/projectile/bullet/r75,
+							/obj/item/weapon/pod_attachment/primary/projectile/missile)
 
 			Spawn()
 				var/list/slaves = list()
@@ -147,6 +200,8 @@
 						new path(get_turf(slave))
 
 					qdel(slave)
+
+		// In case of guns: should be used for the ammunition.
 		slave/
 			_delete_after_spawn = 0
 
@@ -159,4 +214,11 @@
 				_loot = list(/obj/item/ammo_box/a357, /obj/item/ammo_box/a357, /obj/item/ammo_casing/shotgun/buckshot, /obj/item/ammo_casing/shotgun/buckshot,
 							/obj/item/ammo_box/magazine/uzim45, /obj/item/ammo_box/magazine/m50)
 
+			pod_primary_projectile_attachment/
+				name = "pod primary projectile attachment slave"
+				_loot = list(/obj/item/ammo_box/c9mm, /obj/item/ammo_box/c10mm, /obj/item/ammo_box/c45)
+
+			pod_rare_primary_projectile_attachment/
+				name = "pod rare primary projectile attachment slave"
+				_loot = list(/obj/item/ammo_box/magazine/m75, /obj/item/missile)
 
