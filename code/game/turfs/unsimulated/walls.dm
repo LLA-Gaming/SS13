@@ -22,9 +22,9 @@
 turf/unsimulated/wall/splashscreen
 	name = "Space Station 13"
 	icon = 'icons/misc/fullscreen.dmi'
-	icon_state = "title"
+	icon_state = "title1"
 	layer = FLY_LAYER
-	var/possible_titles = 2
+	var/possible_titles = 1
 
 	New()
 		..()
