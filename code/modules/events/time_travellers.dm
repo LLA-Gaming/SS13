@@ -226,6 +226,8 @@
 /obj/structure/closet/time_machine/AltClick(var/mob/user)
 	if(user.loc != src)
 		return
+	if(user.stat || user.restrained())
+		return
 	var/A
 
 	A = input(user, "Area to teleport to", "Teleporting", A) in teleportlocs
