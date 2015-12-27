@@ -114,9 +114,12 @@
 				</div>
 			</body>
 			</html>"}
-	usr << browse(dat, "window=pai;size=640x480;border=0;can_close=1;can_resize=1;can_minimize=1;titlebar=1")
-	onclose(usr, "pai")
-	temp = null
+	if(!istype(usr,/mob/living/silicon/pai))
+		dat = null
+	if(dat)
+		usr << browse(dat, "window=pai;size=640x480;border=0;can_close=1;can_resize=1;can_minimize=1;titlebar=1")
+		onclose(usr, "pai")
+		temp = null
 	return
 
 

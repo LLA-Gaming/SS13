@@ -165,7 +165,11 @@
 			if(9) src.overlays += "pai-what"
 
 /obj/item/device/paicard/proc/alertUpdate()
-	visible_message("<span class ='info'>[src] flashes a message across its screen, \"Additional personalities available for download.\"", 3, "\blue [src] bleeps electronically.</span>", 2)
+	var/turf/T = get_turf(src)
+	if(T)
+		T.visible_message("<span class ='info'>[src] flashes a message across its screen, \"Additional personalities available for download.\"", 3, "\blue [src] bleeps electronically.</span>", 2)
+	else
+		visible_message("<span class ='info'>[src] flashes a message across its screen, \"Additional personalities available for download.\"", 3, "\blue [src] bleeps electronically.</span>", 2)
 
 /obj/item/device/paicard/emp_act(severity)
 	if(pai)

@@ -28,6 +28,8 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 	var/obj/item/radio/integrated/mule/m_radio = null
 	var/obj/item/radio/integrated/beepsky/b_radio = null
 
+	var/obj/item/device/paicard/pai = null
+
 	var/list/apps_builtin = list()
 	var/list/apps_primary = list()
 	var/list/apps_secondary = list()
@@ -136,6 +138,8 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 						dat += "<br>"
 					dat += {"<a href='byond://?src=\ref[src];choice=Network'>[core.neton ? "Network \[On\]" : "Network \[Off\]"]</a><br>"}
 					dat += {"<a href='byond://?src=\ref[src];choice=Light'>[fon ? "Flashlight \[On\]" : "Flashlight \[Off\]"]</a><br>"}
+					if(pai)
+						dat += {"<a href='byond://?src=\ref[src];choice=eject_pai'>Eject pAI[pai.pai ? ": [pai.pai]" : ""]</a><br>"}
 		var/device = "tablet"
 		if(laptop)
 			device = "laptop"
@@ -188,6 +192,10 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 					fon = 1
 					if(src in U.contents)	U.AddLuminosity(f_lum)
 					else					SetLuminosity(f_lum)
+			if("eject_pai")
+				if(pai)
+					pai.loc = get_turf(src.loc)
+					pai = null
 
 		if(core && core.loaded)
 			core.loaded.use_app()
@@ -372,6 +380,14 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 				user.drop_item()
 				C.loc = src
 				user << "<span class='notice'>You slide \the [C] into \the [src].</span>"
+		if(istype(C, /obj/item/device/paicard))
+			if(pai)
+				user << "<span class='notice'>There is already a pai in [src].</span>"
+			else
+				user.drop_item()
+				C.loc = src
+				src.pai = C
+				user << "<span class='notice'>You put [C] in [src].</span>"
 	else
 		if(istype(C, /obj/item/device/tablet_core))
 			var/obj/item/device/tablet_core/D = C
