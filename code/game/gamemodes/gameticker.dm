@@ -40,9 +40,12 @@ var/round_start_time = 0
 
 /datum/controller/gameticker/proc/pregame()
 
-	login_music = pickweight(list('sound/ambience/title2.ogg' = 49, 'sound/ambience/title1.ogg' = 49, 'sound/ambience/clown.ogg' = 2)) // choose title music!
-	if(events.holiday == "April Fool's Day")
-		login_music = 'sound/ambience/clown.ogg'
+	login_music = pickweight(list('sound/ambience/title3.mid' = 60, 'sound/ambience/title4.ogg' = 38, 'sound/ambience/clown.ogg' = 2)) // choose title music!
+	switch(events.holiday)
+		if("April Fool's Day")
+			login_music = 'sound/ambience/clown.ogg'
+		if("Halloween") //spooky
+			login_music = 'sound/ambience/thisishalloween.ogg'
 	for(var/client/C in clients)
 		C.playtitlemusic()
 
