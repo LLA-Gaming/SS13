@@ -11,6 +11,9 @@
 		if(!stolen)
 			return
 
+		if(stolen.flags & NODROP)
+			return
+
 		attached_to.cell.charge -= 500
 
 		victim.visible_message("<span class='danger'>[assaulter] takes [stolen] from [victim]!</span>", \
