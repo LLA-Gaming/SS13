@@ -28,6 +28,7 @@ obj/machinery/atmospherics/valve
 			flick("valve[src.open][!src.open]",src)
 		else
 			icon_state = "valve[open]"
+		color = pipe_color
 
 	New()
 		..()

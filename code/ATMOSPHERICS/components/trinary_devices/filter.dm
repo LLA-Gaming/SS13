@@ -48,6 +48,7 @@ Filter types:
 		else
 			icon_state = "intact_off"
 			on = 0
+		color = pipe_color
 
 		return
 

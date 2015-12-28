@@ -57,9 +57,17 @@ obj/machinery/atmospherics/proc/return_network_air(datum/network/reference)
 obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
 
 obj/machinery/atmospherics/update_icon()
+	color = pipe_color
 	return null
 
 obj/machinery/atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+
+	if(istype(W, /obj/item/weapon/pipe_painter))
+		var/obj/item/weapon/pipe_painter/P = W
+		src.pipe_color = P.colors[P.paint_color]
+		update_icon()
+		return 1
+
 	if(can_unwrench && istype(W, /obj/item/weapon/wrench))
 		var/turf/T = src.loc
 		if (level==1 && isturf(T) && T.intact)
@@ -81,6 +89,8 @@ obj/machinery/atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user a
 				"You hear ratchet.")
 			var/obj/item/pipe/newpipe = new(loc, make_from=src)
 			transfer_fingerprints_to(newpipe)
+			newpipe.pipe_color = src.pipe_color
+			newpipe.color = src.color
 			if(istype(src, /obj/machinery/atmospherics/pipe))
 				for(var/obj/machinery/meter/meter in T)
 					if(meter.target == src)

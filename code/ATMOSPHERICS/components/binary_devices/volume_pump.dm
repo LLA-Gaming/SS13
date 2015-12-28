@@ -44,6 +44,7 @@ obj/machinery/atmospherics/binary/volume_pump
 				icon_state = "exposed_2_off"
 			else
 				icon_state = "exposed_3_off"
+		color = pipe_color
 		return
 
 	process()

@@ -91,6 +91,7 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 			icon_state = "exposed[have_node1][have_node2]"
 		if(!node1&&!node2)
 			qdel(src)
+		color = pipe_color
 
 	initialize()
 		for(var/obj/machinery/atmospherics/target in get_step(src,initialize_directions))

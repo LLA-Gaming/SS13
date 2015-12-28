@@ -31,6 +31,7 @@
 			dir = get_dir(src, node)
 		else
 			icon_state = "exposed"
+		color = pipe_color
 
 		return
 

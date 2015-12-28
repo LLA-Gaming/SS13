@@ -26,6 +26,7 @@
 		else
 			icon_state = "exposed"
 			on = 0
+		color = pipe_color
 
 		return
 

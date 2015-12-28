@@ -28,6 +28,7 @@ Buildable meters
 	var/pipe_type = 0
 	//var/pipe_dir = 0
 	var/pipename
+	var/pipe_color
 	force = 7
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "simple"
@@ -132,6 +133,7 @@ Buildable meters
 		"dvalve", \
 	)
 	icon_state = islist[pipe_type + 1]
+	color = pipe_color
 
 //called when a turf is attacked with a pipe item
 // place the pipe on the turf, setting pipe level to 1 (underfloor) if the turf is not intact
@@ -261,6 +263,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/pipe/simple/P = new( src.loc )
 			P.dir = src.dir
 			P.initialize_directions = pipe_dir
+			P.pipe_color = src.pipe_color
 			var/turf/T = P.loc
 			P.level = T.intact ? 2 : 1
 			P.initialize()
@@ -278,6 +281,7 @@ Buildable meters
 		if(PIPE_HE_STRAIGHT, PIPE_HE_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/P = new ( src.loc )
 			P.dir = src.dir
+			P.pipe_color = src.pipe_color
 			P.initialize_directions = pipe_dir
 			P.initialize_directions_he = pipe_dir
 			//var/turf/T = P.loc
@@ -298,6 +302,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/portables_connector/C = new( src.loc )
 			C.dir = dir
 			C.initialize_directions = pipe_dir
+			C.pipe_color = src.pipe_color
 			if (pipename)
 				C.name = pipename
 			var/turf/T = C.loc
@@ -313,6 +318,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/pipe/manifold/M = new( src.loc )
 			M.dir = dir
 			M.initialize_directions = pipe_dir
+			M.pipe_color = src.pipe_color
 			//M.New()
 			var/turf/T = M.loc
 			M.level = T.intact ? 2 : 1
@@ -336,6 +342,7 @@ Buildable meters
 			P.dir = src.dir
 			P.initialize_directions = src.get_pdir()
 			P.initialize_directions_he = src.get_hdir()
+			P.pipe_color = src.pipe_color
 			//var/turf/T = P.loc
 			//P.level = T.intact ? 2 : 1
 			P.initialize()
@@ -354,6 +361,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/unary/vent_pump/V = new( src.loc )
 			V.dir = dir
 			V.initialize_directions = pipe_dir
+			V.pipe_color = src.pipe_color
 			if (pipename)
 				V.name = pipename
 			var/turf/T = V.loc
@@ -369,6 +377,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/valve/V = new(src.loc)
 			V.dir = dir
 			V.initialize_directions = pipe_dir
+			V.pipe_color = src.pipe_color
 			if (pipename)
 				V.name = pipename
 			var/turf/T = V.loc
@@ -388,6 +397,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/valve/digital/V = new(src.loc)
 			V.dir = dir
 			V.initialize_directions = pipe_dir
+			V.pipe_color = src.pipe_color
 			if (pipename)
 				V.name = pipename
 			var/turf/T = V.loc
@@ -405,6 +415,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/binary/pump/P = new(src.loc)
 			P.dir = dir
 			P.initialize_directions = pipe_dir
+			P.pipe_color = src.pipe_color
 			if (pipename)
 				P.name = pipename
 			var/turf/T = P.loc
@@ -422,6 +433,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/trinary/filter/P = new(src.loc)
 			P.dir = dir
 			P.initialize_directions = pipe_dir
+			P.pipe_color = src.pipe_color
 			if (pipename)
 				P.name = pipename
 			var/turf/T = P.loc
@@ -442,6 +454,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/trinary/mixer/P = new(src.loc)
 			P.dir = dir
 			P.initialize_directions = pipe_dir
+			P.pipe_color = src.pipe_color
 			if (pipename)
 				P.name = pipename
 			var/turf/T = P.loc
@@ -462,6 +475,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/unary/vent_scrubber/S = new(src.loc)
 			S.dir = dir
 			S.initialize_directions = pipe_dir
+			S.pipe_color = src.pipe_color
 			if (pipename)
 				S.name = pipename
 			var/turf/T = S.loc
@@ -476,6 +490,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/pipe/simple/insulated/P = new( src.loc )
 			P.dir = src.dir
 			P.initialize_directions = pipe_dir
+			P.pipe_color = src.pipe_color
 			var/turf/T = P.loc
 			P.level = T.intact ? 2 : 1
 			P.initialize()
@@ -494,6 +509,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/binary/passive_gate/P = new(src.loc)
 			P.dir = dir
 			P.initialize_directions = pipe_dir
+			P.pipe_color = src.pipe_color
 			if (pipename)
 				P.name = pipename
 			var/turf/T = P.loc
@@ -511,6 +527,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/binary/volume_pump/P = new(src.loc)
 			P.dir = dir
 			P.initialize_directions = pipe_dir
+			P.pipe_color = src.pipe_color
 			if (pipename)
 				P.name = pipename
 			var/turf/T = P.loc
@@ -528,6 +545,7 @@ Buildable meters
 			var/obj/machinery/atmospherics/unary/heat_exchanger/C = new( src.loc )
 			C.dir = dir
 			C.initialize_directions = pipe_dir
+			C.pipe_color = src.pipe_color
 			if (pipename)
 				C.name = pipename
 			var/turf/T = C.loc

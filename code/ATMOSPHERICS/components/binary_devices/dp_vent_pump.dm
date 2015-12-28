@@ -40,6 +40,7 @@
 		else
 			icon_state = "[level == 1 && istype(loc, /turf/simulated) ? "h" : "" ]off"
 			on = 0
+		color = pipe_color
 
 		return
 

@@ -17,6 +17,7 @@
 			icon_state = "intact"
 		else
 			icon_state = "exposed"
+		color = pipe_color
 
 		return
 

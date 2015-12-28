@@ -188,6 +188,7 @@ obj/machinery/atmospherics/pipe
 
 		update_icon()
 			if(node1&&node2)
+				/*
 				var/C = ""
 				switch(pipe_color)
 					if ("red") C = "-r"
@@ -196,7 +197,8 @@ obj/machinery/atmospherics/pipe
 					if ("green") C = "-g"
 					if ("yellow") C = "-y"
 					if ("purple") C = "-p"
-				icon_state = "intact[C][invisibility ? "-f" : "" ]"
+				*/
+				icon_state = "intact[invisibility ? "-f" : "" ]"
 
 				//var/node1_direction = get_dir(src, node1)
 				//var/node2_direction = get_dir(src, node2)
@@ -209,6 +211,7 @@ obj/machinery/atmospherics/pipe
 				var/have_node1 = node1?1:0
 				var/have_node2 = node2?1:0
 				icon_state = "exposed[have_node1][have_node2][invisibility ? "-f" : "" ]"
+			color = pipe_color
 
 
 		initialize()
@@ -466,6 +469,7 @@ obj/machinery/atmospherics/pipe
 
 			else
 				icon_state = "exposed"
+			color = pipe_color
 
 		initialize()
 
@@ -550,6 +554,7 @@ obj/machinery/atmospherics/pipe
 
 			else
 				icon_state = "exposed"
+			color = pipe_color
 
 		initialize()
 			var/connect_direction = dir
@@ -676,6 +681,7 @@ obj/machinery/atmospherics/pipe
 
 		update_icon()
 			if(node1&&node2&&node3)
+				/*
 				var/C = ""
 				switch(pipe_color)
 					if ("red") C = "-r"
@@ -684,7 +690,8 @@ obj/machinery/atmospherics/pipe
 					if ("green") C = "-g"
 					if ("yellow") C = "-y"
 					if ("purple") C = "-p"
-				icon_state = "manifold[C][invisibility ? "-f" : ""]"
+				*/
+				icon_state = "manifold[invisibility ? "-f" : ""]"
 
 			else
 				var/connected = 0
@@ -704,7 +711,7 @@ obj/machinery/atmospherics/pipe
 
 				if(!connected)
 					qdel(src)
-
+			color = pipe_color
 			return
 
 		initialize()
