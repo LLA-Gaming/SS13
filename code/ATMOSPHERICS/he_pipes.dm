@@ -14,30 +14,7 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging
 		..()
 		initialize_directions_he = initialize_directions	// The auto-detection from /pipe is good enough for a simple HE pipe
 	// BubbleWrap END
-/*
-	initialize()
-		normalize_dir()
-		var/node1_dir
-		var/node2_dir
 
-		for(var/direction in cardinal)
-			if(direction&initialize_directions_he)
-				if (!node1_dir)
-					node1_dir = direction
-				else if (!node2_dir)
-					node2_dir = direction
-
-		for(var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/target in get_step(src,node1_dir))
-			if(target.initialize_directions_he & get_dir(target,src))
-				node1 = target
-				break
-		for(var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/target in get_step(src,node2_dir))
-			if(target.initialize_directions_he & get_dir(target,src))
-				node2 = target
-				break
-		update_icon()
-		return
-*/
 
 	process()
 		if(!parent)
@@ -93,18 +70,3 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 		if(!NODE_1&&!NODE_2)
 			qdel(src)
 		color = pipe_color
-/*
-
-	initialize()
-		for(var/obj/machinery/atmospherics/target in get_step(src,initialize_directions))
-			if(target.initialize_directions & get_dir(target,src))
-				node1 = target
-				break
-		for(var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/target in get_step(src,initialize_directions_he))
-			if(target.initialize_directions_he & get_dir(target,src))
-				node2 = target
-				break
-
-		update_icon()
-		return
-*/

@@ -113,13 +113,7 @@ obj/machinery/atmospherics/valve
 		build_network()
 
 		return 1
-/*
-	proc/normalize_dir()
-		if(dir==3)
-			dir = 1
-		else if(dir==12)
-			dir = 4
-*/
+
 	attack_ai(mob/user as mob)
 		return
 
@@ -139,19 +133,7 @@ obj/machinery/atmospherics/valve
 		..()
 		. = PROCESS_KILL
 
-/*		if(open && (!node1 || !node2))
-			close()
-		if(!node1)
-			if(!nodealert)
-				//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
-				nodealert = 1
-		else if (!node2)
-			if(!nodealert)
-				//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
-				nodealert = 1
-		else if (nodealert)
-			nodealert = 0
-*/
+
 
 		return
 
@@ -177,39 +159,6 @@ obj/machinery/atmospherics/valve
 			open()
 			openDuringInit = 0
 
-/*
-		var/connect_directions
-		switch(dir)
-			if(NORTH)
-				connect_directions = NORTH|SOUTH
-			if(SOUTH)
-				connect_directions = NORTH|SOUTH
-			if(EAST)
-				connect_directions = EAST|WEST
-			if(WEST)
-				connect_directions = EAST|WEST
-			else
-				connect_directions = dir
-
-		for(var/direction in cardinal)
-			if(direction&connect_directions)
-				for(var/obj/machinery/atmospherics/target in get_step(src,direction))
-					if(target.initialize_directions & get_dir(target,src))
-						connect_directions &= ~direction
-						node1 = target
-						break
-				if(node1)
-					break
-
-		for(var/direction in cardinal)
-			if(direction&connect_directions)
-				for(var/obj/machinery/atmospherics/target in get_step(src,direction))
-					if(target.initialize_directions & get_dir(target,src))
-						node2 = target
-						break
-				if(node1)
-					break
-*/
 	build_network()
 
 		if(!network_node1 && node[1])
