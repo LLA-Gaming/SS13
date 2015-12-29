@@ -42,7 +42,7 @@
 			src.broadcast_status()
 
 	update_icon()
-		if(node && on && !(stat & (NOPOWER|BROKEN)))
+		if(NODE_1 && on && !(stat & (NOPOWER|BROKEN)))
 			if(scrubbing)
 				icon_state = "[level == 1 && istype(loc, /turf/simulated) ? "h" : "" ]on"
 			else
@@ -98,7 +98,7 @@
 		..()
 		if(stat & (NOPOWER|BROKEN))
 			return
-		if (!node)
+		if (!NODE_1)
 			on = 0
 		//broadcast_status()
 		if(!on)

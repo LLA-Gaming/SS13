@@ -4,6 +4,7 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging
 	icon_state = "intact"
 	level = 2
 	var/initialize_directions_he
+	nodecount = 2
 
 	minimum_temperature_difference = 20
 	thermal_conductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
@@ -13,7 +14,7 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging
 		..()
 		initialize_directions_he = initialize_directions	// The auto-detection from /pipe is good enough for a simple HE pipe
 	// BubbleWrap END
-
+/*
 	initialize()
 		normalize_dir()
 		var/node1_dir
@@ -36,7 +37,7 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging
 				break
 		update_icon()
 		return
-
+*/
 
 	process()
 		if(!parent)
@@ -83,15 +84,16 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 	// BubbleWrap END
 
 	update_icon()
-		if(node1&&node2)
+		if(NODE_1&&NODE_2)
 			icon_state = "intact"
 		else
-			var/have_node1 = node1?1:0
-			var/have_node2 = node2?1:0
+			var/have_node1 = NODE_1?1:0
+			var/have_node2 = NODE_2?1:0
 			icon_state = "exposed[have_node1][have_node2]"
-		if(!node1&&!node2)
+		if(!NODE_1&&!NODE_2)
 			qdel(src)
 		color = pipe_color
+/*
 
 	initialize()
 		for(var/obj/machinery/atmospherics/target in get_step(src,initialize_directions))
@@ -105,3 +107,4 @@ obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
 
 		update_icon()
 		return
+*/

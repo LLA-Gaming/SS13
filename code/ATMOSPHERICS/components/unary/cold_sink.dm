@@ -13,7 +13,7 @@
 	var/current_heat_capacity = 50000 //totally random
 
 	update_icon()
-		if(node)
+		if(NODE_1)
 			icon_state = "intact_[on?("on"):("off")]"
 		else
 			icon_state = "exposed"
