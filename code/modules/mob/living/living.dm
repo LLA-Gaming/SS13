@@ -324,13 +324,11 @@
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 		C.handcuffed = initial(C.handcuffed)
-		if(C.reagents)
-			for(var/datum/reagent/R in C.reagents.reagent_list)
-				C.reagents.clear_reagents()
+		if(C.reagents && C.reagents.reagent_list.len)
+			C.reagents.clear_reagents()
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
-		for(var/datum/reagent/R in H.blood.reagent_list)
-			H.blood.clear_reagents()
+		H.blood.clear_reagents()
 		H.blood.add_reagent("blood",145)
 		//unhusk
 		H.mutations.Remove(HUSK)
