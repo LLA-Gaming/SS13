@@ -24,11 +24,10 @@ turf/unsimulated/wall/splashscreen
 	icon = 'icons/misc/fullscreen.dmi'
 	icon_state = "title1"
 	layer = FLY_LAYER
-	var/possible_titles = 1
 
 	New()
 		..()
-		icon_state = "title[rand(1,possible_titles)]"
+		icon_state = "title[rand(1, length(icon_states('icons/misc/fullscreen.dmi')))]"
 
 /turf/unsimulated/wall/other
 	icon_state = "r_wall"
