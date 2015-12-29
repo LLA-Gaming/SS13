@@ -18,7 +18,7 @@
 	level = 1
 
 	update_icon()
-		if(node)
+		if(NODE_1)
 			if(on && !(stat & NOPOWER))
 				icon_state = "[level == 1 && istype(loc, /turf/simulated) ? "h" : "" ]on"
 			else
@@ -140,7 +140,7 @@
 		update_icon()
 
 	hide(var/i) //to make the little pipe section invisible, the icon changes.
-		if(node)
+		if(NODE_1)
 			if(on)
 				icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]on"
 			else

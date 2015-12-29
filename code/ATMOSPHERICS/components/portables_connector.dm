@@ -7,12 +7,11 @@
 
 	dir = SOUTH
 	initialize_directions = SOUTH
+	nodecount = 1
 
 	can_unwrench = 1
 
 	var/obj/machinery/portable_atmospherics/connected_device
-
-	var/obj/machinery/atmospherics/node
 
 	var/datum/pipe_network/network
 
@@ -26,9 +25,9 @@
 		..()
 
 	update_icon()
-		if(node)
+		if(node[1])
 			icon_state = "[level == 1 && istype(loc, /turf/simulated) ? "h" : "" ]intact"
-			dir = get_dir(src, node)
+			dir = get_dir(src, node[1])
 		else
 			icon_state = "exposed"
 		color = pipe_color
@@ -36,9 +35,9 @@
 		return
 
 	hide(var/i) //to make the little pipe section invisible, the icon changes.
-		if(node)
+		if(node[1])
 			icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]intact"
-			dir = get_dir(src, node)
+			dir = get_dir(src, node[1])
 		else
 			icon_state = "exposed"
 
@@ -55,7 +54,7 @@
 
 // Housekeeping and pipe network stuff below
 	network_expand(datum/pipe_network/new_network, obj/machinery/atmospherics/pipe/reference)
-		if(reference == node)
+		if(reference == node[1])
 			network = new_network
 
 		if(new_network.normal_members.Find(src))
@@ -69,8 +68,9 @@
 		if(connected_device)
 			connected_device.disconnect()
 
-		if(node)
-			node.disconnect(src)
+		if(node[1])
+			var/obj/machinery/atmospherics/A = node[1]
+			A.disconnect(src)
 			del(network)
 
 		node = null
@@ -84,22 +84,22 @@
 
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
 			if(target.initialize_directions & get_dir(target,src))
-				node = target
+				node[1] = target
 				break
 
 		update_icon()
 
 	build_network()
-		if(!network && node)
+		if(!network && NODE_1)
 			network = new /datum/pipe_network()
 			network.normal_members += src
-			network.build_network(node, src)
+			network.build_network(NODE_1, src)
 
 
 	return_network(obj/machinery/atmospherics/reference)
 		build_network()
 
-		if(reference==node)
+		if(reference==node[1])
 			return network
 
 		if(reference==connected_device)
@@ -122,9 +122,9 @@
 		return results
 
 	disconnect(obj/machinery/atmospherics/reference)
-		if(reference==node)
+		if(reference==node[1])
 			del(network)
-			node = null
+			node[1] = null
 
 		return null
 

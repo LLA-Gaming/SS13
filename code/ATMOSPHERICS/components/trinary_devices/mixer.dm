@@ -20,7 +20,7 @@ obj/machinery/atmospherics/trinary/mixer
 	update_icon()
 		if(stat & NOPOWER)
 			icon_state = "intact_off"
-		else if(node2 && node3 && node1)
+		else if(NODE_2 && NODE_3 && NODE_1)
 			icon_state = "intact_[on?("on"):("off")]"
 		else
 			icon_state = "intact_off"

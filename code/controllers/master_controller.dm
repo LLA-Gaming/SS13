@@ -112,28 +112,14 @@ datum/controller/game_controller/proc/setup_engineering()
 		for(var/turf/simulated/wall/wall in world)
 			wall.relativewall() // Reconnect all walls moved
 
-		for(var/obj/machinery/atmospherics/pipe/simple/M in world)
-			M.initialize()
-			M.build_network() //Re-attach all the now moved atmos pipes.
-			if(M.node1)
-				M.node1.initialize()
-				M.node1.build_network()
-			if(M.node2)
-				M.node2.initialize()
-				M.node2.build_network()
+		for(var/obj/machinery/atmospherics/pipe/P in world)
+			P.initialize()
+			P.build_network() // Force re-connect all atmos pipes.
+			for(var/I; I <= P.nodecount; I++)
+				var/obj/machinery/atmospherics/pipe/M = P.node[I]
+				M.initialize()
+				M.build_network()
 
-		for(var/obj/machinery/atmospherics/pipe/manifold/M in world)
-			M.initialize()
-			M.build_network() //Re-attach all the now moved atmos pipes.
-			if(M.node1)
-				M.node1.initialize()
-				M.node1.build_network()
-			if(M.node2)
-				M.node2.initialize()
-				M.node2.build_network()
-			if(M.node3)
-				M.node3.initialize()
-				M.node3.build_network()
 
 		for(var/B in typesof(/area/engine/alternate))
 			var/template = locate(B)

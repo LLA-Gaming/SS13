@@ -83,7 +83,7 @@
 		..()
 		if(stat & (NOPOWER|BROKEN))
 			return
-		if (!node)
+		if (!NODE_1)
 			on = 0
 		//broadcast_status() // from now air alarm/control computer should request update purposely --rastaf0
 		if(!on)
@@ -265,7 +265,7 @@
 		if(welded)
 			icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]weld"
 			return
-		if(on&&node)
+		if(on&&NODE_1)
 			if(pump_direction)
 				icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]out"
 			else

@@ -10,11 +10,10 @@ obj/machinery/atmospherics/valve
 
 	can_unwrench = 1
 
+	nodecount = 2
+
 	var/open = 0
 	var/openDuringInit = 0
-
-	var/obj/machinery/atmospherics/node1
-	var/obj/machinery/atmospherics/node2
 
 	var/datum/pipe_network/network_node1
 	var/datum/pipe_network/network_node2
@@ -41,11 +40,11 @@ obj/machinery/atmospherics/valve
 	network_expand(datum/pipe_network/new_network, obj/machinery/atmospherics/pipe/reference)
 
 
-		if(reference == node1)
+		if(reference == node[1])
 			network_node1 = new_network
 			if(open)
 				network_node2 = new_network
-		else if(reference == node2)
+		else if(reference == node[2])
 			network_node2 = new_network
 			if(open)
 				network_node1 = new_network
@@ -56,25 +55,27 @@ obj/machinery/atmospherics/valve
 		new_network.normal_members += src
 
 		if(open)
-			if(reference == node1)
-				if(node2)
-					return node2.network_expand(new_network, src)
-			else if(reference == node2)
-				if(node1)
-					return node1.network_expand(new_network, src)
+			if(reference == node[1])
+				if(node[2])
+					var/obj/machinery/atmospherics/A =  node[2]
+					return A.network_expand(new_network, src)
+			else if(reference == node[2])
+				if(node[1])
+					var/obj/machinery/atmospherics/A =  node[1]
+					return A.network_expand(new_network, src)
 
 		return null
 
 	Destroy()
-		if(node1)
-			node1.disconnect(src)
-			del(network_node1)
-		if(node2)
-			node2.disconnect(src)
-			del(network_node2)
-
-		node1 = null
-		node2 = null
+		for(NODE_LOOP)
+			if(NODE_I)
+				var/obj/machinery/atmospherics/A = NODE_I
+				A.disconnect(src)
+				if(I == 1)
+					del(network_node1)
+				if(I == 2)
+					del(network_node2)
+				NODE_I = null
 
 		..()
 
@@ -112,13 +113,13 @@ obj/machinery/atmospherics/valve
 		build_network()
 
 		return 1
-
+/*
 	proc/normalize_dir()
 		if(dir==3)
 			dir = 1
 		else if(dir==12)
 			dir = 4
-
+*/
 	attack_ai(mob/user as mob)
 		return
 
@@ -156,25 +157,18 @@ obj/machinery/atmospherics/valve
 
 	initialize()
 		normalize_dir()
-
-		var/node1_dir
-		var/node2_dir
-
-		for(var/direction in cardinal)
+		var/list/node_dir = list(1=null,2=null,3=null,4=null)
+		for (var/direction in cardinal)
 			if(direction&initialize_directions)
-				if (!node1_dir)
-					node1_dir = direction
-				else if (!node2_dir)
-					node2_dir = direction
-
-		for(var/obj/machinery/atmospherics/target in get_step(src,node1_dir))
-			if(target.initialize_directions & get_dir(target,src))
-				node1 = target
-				break
-		for(var/obj/machinery/atmospherics/target in get_step(src,node2_dir))
-			if(target.initialize_directions & get_dir(target,src))
-				node2 = target
-				break
+				for(var/I=1; I <= nodecount; I++)
+					if(!node_dir[I])
+						node_dir[I] = direction
+						break
+		for(NODE_LOOP)
+			for(var/obj/machinery/atmospherics/target in get_step(src,node_dir[I]))
+				if(target.initialize_directions & get_dir(target, src))
+					node[I] = target
+					break
 
 		build_network()
 
@@ -217,24 +211,25 @@ obj/machinery/atmospherics/valve
 					break
 */
 	build_network()
-		if(!network_node1 && node1)
+
+		if(!network_node1 && node[1])
 			network_node1 = new /datum/pipe_network()
 			network_node1.normal_members += src
-			network_node1.build_network(node1, src)
+			network_node1.build_network(node[1], src)
 
-		if(!network_node2 && node2)
+		if(!network_node2 && node[2])
 			network_node2 = new /datum/pipe_network()
 			network_node2.normal_members += src
-			network_node2.build_network(node2, src)
+			network_node2.build_network(node[2], src)
 
 
 	return_network(obj/machinery/atmospherics/reference)
 		build_network()
 
-		if(reference==node1)
+		if(reference==node[1])
 			return network_node1
 
-		if(reference==node2)
+		if(reference==node[2])
 			return network_node2
 
 		return null
@@ -251,13 +246,13 @@ obj/machinery/atmospherics/valve
 		return null
 
 	disconnect(obj/machinery/atmospherics/reference)
-		if(reference==node1)
+		if(reference==node[1])
 			del(network_node1)
-			node1 = null
+			node[1] = null
 
-		else if(reference==node2)
+		else if(reference==node[2])
 			del(network_node2)
-			node2 = null
+			node[2] = null
 
 		return null
 

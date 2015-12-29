@@ -258,6 +258,81 @@ Buildable meters
 
 	var/pipefailtext = "\red There's nothing to connect this pipe section to! (with how the pipe code works, at least one end needs to be connected to something, otherwise the game deletes the segment)"
 
+	var/pipe_path
+
+	//Identify which pipe path to spawn
+	switch(pipe_type)
+		if(PIPE_SIMPLE_STRAIGHT, PIPE_SIMPLE_BENT)
+			pipe_path = /obj/machinery/atmospherics/pipe/simple
+		if(PIPE_HE_STRAIGHT, PIPE_HE_BENT)
+			pipe_path = /obj/machinery/atmospherics/pipe/simple/heat_exchanging
+		if(PIPE_CONNECTOR)
+			pipe_path = /obj/machinery/atmospherics/portables_connector
+		if(PIPE_MANIFOLD)
+			pipe_path = /obj/machinery/atmospherics/pipe/manifold
+			pipefailtext = "\red There's nothing to connect this manifold to! (with how the pipe code works, at least one end needs to be connected to something, otherwise the game deletes the segment)"
+		if(PIPE_JUNCTION)
+			pipe_path = /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction
+			pipefailtext = "\red There's nothing to connect this junction to! (with how the pipe code works, at least one end needs to be connected to something, otherwise the game deletes the segment)"
+		if(PIPE_UVENT)
+			pipe_path = /obj/machinery/atmospherics/unary/vent_pump
+		if(PIPE_MVALVE)
+			pipe_path = /obj/machinery/atmospherics/valve
+		if(PIPE_DVALVE)
+			pipe_path = /obj/machinery/atmospherics/valve/digital
+		if(PIPE_PUMP)
+			pipe_path = /obj/machinery/atmospherics/binary/pump
+		if(PIPE_GAS_FILTER)
+			pipe_path = /obj/machinery/atmospherics/trinary/filter
+		if(PIPE_GAS_MIXER)
+			pipe_path = /obj/machinery/atmospherics/trinary/mixer
+		if(PIPE_SCRUBBER)
+			pipe_path = /obj/machinery/atmospherics/unary/vent_scrubber
+		if(PIPE_INSULATED_STRAIGHT, PIPE_INSULATED_BENT)
+			pipe_path = /obj/machinery/atmospherics/pipe/simple/insulated
+		if(PIPE_PASSIVE_GATE)
+			pipe_path = /obj/machinery/atmospherics/binary/passive_gate
+		if(PIPE_VOLUME_PUMP)
+			pipe_path = /obj/machinery/atmospherics/binary/volume_pump
+		if(PIPE_HEAT_EXCHANGE)
+			pipe_path = /obj/machinery/atmospherics/unary/heat_exchanger
+	//Spawn it
+	var/obj/machinery/atmospherics/A = new pipe_path(get_turf(src))
+	//Initialize variables
+	A.dir = dir
+	A.initialize_directions = pipe_dir
+	A.pipe_color = pipe_color
+	//Check if pipe should be on the floor or the underfloor
+	if(pipe_type != (PIPE_HE_STRAIGHT || PIPE_HE_BENT || PIPE_JUNCTION)) //Listed pipe types do not check if turf is intact.
+		var/turf/T = get_turf(src)
+		A.level = T.intact ? 2 : 1
+	//If it's not a plain pipe, allow name setting
+	if(pipe_type != (PIPE_SIMPLE_STRAIGHT || PIPE_SIMPLE_BENT || PIPE_HE_STRAIGHT || PIPE_HE_BENT || PIPE_MANIFOLD || PIPE_JUNCTION || PIPE_INSULATED_STRAIGHT || PIPE_INSULATED_BENT)) //It was actually easier to list pipes DIDN'T set the pipename
+		if(pipename)
+			A.name = pipename
+	//Initialize the pipe
+	A.initialize()
+	if(!A)
+		//If the pipe was deleted, alert the user
+		usr << pipefailtext
+		return 1
+	A.build_network()
+	//Force re-initialization of connected pipes. All atmos machinery now has a list node[] containing nodecount nodes.
+	for(var/I = 1; I <= A.nodecount; I++)
+		var/obj/machinery/atmospherics/B = A.node[I]
+		if(!B) continue
+		B.initialize()
+		B.build_network()
+
+	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+	user.visible_message( \
+		"[user] fastens the [src].", \
+		"\blue You have fastened the [src].", \
+		"You hear ratchet.")
+	qdel(src)	// remove the pipe item
+
+	return
+/*
 	switch(pipe_type)
 		if(PIPE_SIMPLE_STRAIGHT, PIPE_SIMPLE_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/P = new( src.loc )
@@ -271,12 +346,12 @@ Buildable meters
 				usr << pipefailtext
 				return 1
 			P.build_network()
-			if (P.node1)
-				P.node1.initialize()
-				P.node1.build_network()
-			if (P.node2)
-				P.node2.initialize()
-				P.node2.build_network()
+			if (P.NODE_1)
+				P.NODE_1:initialize()
+				P.NODE_1:build_network()
+			if (P.NODE_2)
+				P.NODE_2:initialize()
+				P.NODE_2:build_network()
 
 		if(PIPE_HE_STRAIGHT, PIPE_HE_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/P = new ( src.loc )
@@ -291,12 +366,12 @@ Buildable meters
 				usr << pipefailtext
 				return 1
 			P.build_network()
-			if (P.node1)
-				P.node1.initialize()
-				P.node1.build_network()
-			if (P.node2)
-				P.node2.initialize()
-				P.node2.build_network()
+			if (P.NODE_1)
+				P.NODE_1:initialize()
+				P.NODE_1:build_network()
+			if (P.NODE_2)
+				P.NODE_2:initialize()
+				P.NODE_2:build_network()
 
 		if(PIPE_CONNECTOR)		// connector
 			var/obj/machinery/atmospherics/portables_connector/C = new( src.loc )
@@ -309,9 +384,9 @@ Buildable meters
 			C.level = T.intact ? 2 : 1
 			C.initialize()
 			C.build_network()
-			if (C.node)
-				C.node.initialize()
-				C.node.build_network()
+			if (C.NODE_1)
+				C.NODE_1:initialize()
+				C.NODE_1:build_network()
 
 
 		if(PIPE_MANIFOLD)		//manifold
@@ -327,15 +402,15 @@ Buildable meters
 				usr << "There's nothing to connect this manifold to! (with how the pipe code works, at least one end needs to be connected to something, otherwise the game deletes the segment)"
 				return 1
 			M.build_network()
-			if (M.node1)
-				M.node1.initialize()
-				M.node1.build_network()
-			if (M.node2)
-				M.node2.initialize()
-				M.node2.build_network()
-			if (M.node3)
-				M.node3.initialize()
-				M.node3.build_network()
+			if (M.NODE_1)
+				M.NODE_1:initialize()
+				M.NODE_!.build_network()
+			if (M.NODE_2)
+				M.NODE_2:initialize()
+				M.NODE_2:build_network()
+			if (M.NODE_3)
+				M.NODE_3:initialize()
+				M.NODE_3:build_network()
 
 		if(PIPE_JUNCTION)
 			var/obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/P = new ( src.loc )
@@ -350,12 +425,12 @@ Buildable meters
 				usr << "There's nothing to connect this junction to! (with how the pipe code works, at least one end needs to be connected to something, otherwise the game deletes the segment)"
 				return 1
 			P.build_network()
-			if (P.node1)
-				P.node1.initialize()
-				P.node1.build_network()
-			if (P.node2)
-				P.node2.initialize()
-				P.node2.build_network()
+			if (P.NODE_1)
+				P.NODE_1:initialize()
+				P.NODE_1:build_network()
+			if (P.NODE_2)
+				P.NODE_2:initialize()
+				P.NODE_2:build_network()
 
 		if(PIPE_UVENT)		//unary vent
 			var/obj/machinery/atmospherics/unary/vent_pump/V = new( src.loc )
@@ -368,9 +443,9 @@ Buildable meters
 			V.level = T.intact ? 2 : 1
 			V.initialize()
 			V.build_network()
-			if (V.node)
-				V.node.initialize()
-				V.node.build_network()
+			if (V.NODE_1)
+				V.NODE_1:initialize()
+				V.NODE_1:build_network()
 
 
 		if(PIPE_MVALVE)		//manual valve
@@ -384,14 +459,14 @@ Buildable meters
 			V.level = T.intact ? 2 : 1
 			V.initialize()
 			V.build_network()
-			if (V.node1)
-//					world << "[V.node1.name] is connected to valve, forcing it to update its nodes."
-				V.node1.initialize()
-				V.node1.build_network()
-			if (V.node2)
-//					world << "[V.node2.name] is connected to valve, forcing it to update its nodes."
-				V.node2.initialize()
-				V.node2.build_network()
+			if (V.NODE_1)
+//					world << "[V.NODE_1:name] is connected to valve, forcing it to update its nodes."
+				V.NODE_1:initialize()
+				V.NODE_1:build_network()
+			if (V.NODE_2)
+//					world << "[V.NODE_2:name] is connected to valve, forcing it to update its nodes."
+				V.NODE_2:initialize()
+				V.NODE_2:build_network()
 
 		if(PIPE_DVALVE) //Digital valves. Shameless copypaste from manual valves because I don't into atmos code.
 			var/obj/machinery/atmospherics/valve/digital/V = new(src.loc)
@@ -404,12 +479,12 @@ Buildable meters
 			V.level = T.intact ? 2 : 1
 			V.initialize()
 			V.build_network()
-			if (V.node1)
-				V.node1.initialize()
-				V.node1.build_network()
-			if (V.node2)
-				V.node2.initialize()
-				V.node2.build_network()
+			if (V.NODE_1)
+				V.NODE_1:initialize()
+				V.NODE_1:build_network()
+			if (V.NODE_2)
+				V.NODE_2:initialize()
+				V.NODE_2:build_network()
 
 		if(PIPE_PUMP)		//gas pump
 			var/obj/machinery/atmospherics/binary/pump/P = new(src.loc)
@@ -422,12 +497,12 @@ Buildable meters
 			P.level = T.intact ? 2 : 1
 			P.initialize()
 			P.build_network()
-			if (P.node1)
-				P.node1.initialize()
-				P.node1.build_network()
-			if (P.node2)
-				P.node2.initialize()
-				P.node2.build_network()
+			if (P.NODE_1)
+				P.NODE_1:initialize()
+				P.NODE_1:build_network()
+			if (P.NODE_2)
+				P.NODE_2:initialize()
+				P.NODE_2:build_network()
 
 		if(PIPE_GAS_FILTER)		//gas filter
 			var/obj/machinery/atmospherics/trinary/filter/P = new(src.loc)
@@ -440,15 +515,15 @@ Buildable meters
 			P.level = T.intact ? 2 : 1
 			P.initialize()
 			P.build_network()
-			if (P.node1)
-				P.node1.initialize()
-				P.node1.build_network()
-			if (P.node2)
-				P.node2.initialize()
-				P.node2.build_network()
-			if (P.node3)
-				P.node3.initialize()
-				P.node3.build_network()
+			if (P.NODE_1)
+				P.NODE_1:initialize()
+				P.NODE_1:build_network()
+			if (P.NODE_2)
+				P.NODE_2:initialize()
+				P.NODE_2:build_network()
+			if (P.NODE_3)
+				P.NODE_3:initialize()
+				P.NODE_3:build_network()
 
 		if(PIPE_GAS_MIXER)		//gas filter
 			var/obj/machinery/atmospherics/trinary/mixer/P = new(src.loc)
@@ -461,15 +536,15 @@ Buildable meters
 			P.level = T.intact ? 2 : 1
 			P.initialize()
 			P.build_network()
-			if (P.node1)
-				P.node1.initialize()
-				P.node1.build_network()
-			if (P.node2)
-				P.node2.initialize()
-				P.node2.build_network()
-			if (P.node3)
-				P.node3.initialize()
-				P.node3.build_network()
+			if (P.NODE_1)
+				P.NODE_1:initialize()
+				P.NODE_1:build_network()
+			if (P.NODE_2)
+				P.NODE_2:initialize()
+				P.NODE_2:build_network()
+			if (P.NODE_3)
+				P.NODE_3:initialize()
+				P.NODE_3:build_network()
 
 		if(PIPE_SCRUBBER)		//scrubber
 			var/obj/machinery/atmospherics/unary/vent_scrubber/S = new(src.loc)
@@ -482,9 +557,9 @@ Buildable meters
 			S.level = T.intact ? 2 : 1
 			S.initialize()
 			S.build_network()
-			if (S.node)
-				S.node.initialize()
-				S.node.build_network()
+			if (S.NODE_1)
+				S.NODE_1:initialize()
+				S.NODE_1:build_network()
 
 		if(PIPE_INSULATED_STRAIGHT, PIPE_INSULATED_BENT)
 			var/obj/machinery/atmospherics/pipe/simple/insulated/P = new( src.loc )
@@ -498,12 +573,12 @@ Buildable meters
 				usr << pipefailtext
 				return 1
 			P.build_network()
-			if (P.node1)
-				P.node1.initialize()
-				P.node1.build_network()
-			if (P.node2)
-				P.node2.initialize()
-				P.node2.build_network()
+			if (P.NODE_1)
+				P.NODE_1:initialize()
+				P.NODE_1:build_network()
+			if (P.NODE_2)
+				P.NODE_2:initialize()
+				P.NODE_2:build_network()
 
 		if(PIPE_PASSIVE_GATE)		//passive gate
 			var/obj/machinery/atmospherics/binary/passive_gate/P = new(src.loc)
@@ -516,12 +591,12 @@ Buildable meters
 			P.level = T.intact ? 2 : 1
 			P.initialize()
 			P.build_network()
-			if (P.node1)
-				P.node1.initialize()
-				P.node1.build_network()
-			if (P.node2)
-				P.node2.initialize()
-				P.node2.build_network()
+			if (P.NODE_1)
+				P.NODE_1:initialize()
+				P.NODE_1:build_network()
+			if (P.NODE_2)
+				P.NODE_2:initialize()
+				P.NODE_2:build_network()
 
 		if(PIPE_VOLUME_PUMP)		//volume pump
 			var/obj/machinery/atmospherics/binary/volume_pump/P = new(src.loc)
@@ -534,12 +609,12 @@ Buildable meters
 			P.level = T.intact ? 2 : 1
 			P.initialize()
 			P.build_network()
-			if (P.node1)
-				P.node1.initialize()
-				P.node1.build_network()
-			if (P.node2)
-				P.node2.initialize()
-				P.node2.build_network()
+			if (P.NODE_1)
+				P.NODE_1:initialize()
+				P.NODE_1:build_network()
+			if (P.NODE_2)
+				P.NODE_2:initialize()
+				P.NODE_2:build_network()
 
 		if(PIPE_HEAT_EXCHANGE)		// heat exchanger
 			var/obj/machinery/atmospherics/unary/heat_exchanger/C = new( src.loc )
@@ -552,9 +627,9 @@ Buildable meters
 			C.level = T.intact ? 2 : 1
 			C.initialize()
 			C.build_network()
-			if (C.node)
-				C.node.initialize()
-				C.node.build_network()
+			if (C.NODE_1)
+				C.NODE_1:initialize()
+				C.NODE_1:build_network()
 
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user.visible_message( \
@@ -564,6 +639,7 @@ Buildable meters
 	qdel(src)	// remove the pipe item
 
 	return
+*/
 	 //TODO: DEFERRED
 
 // ensure that setterm() is called for a newly connected pipeline
