@@ -57,10 +57,20 @@
 		GetCase()
 			return new/datum/sorting_case/typeof(/obj/structure/closet/crate/secure)
 
+	is_delivery/
+		name = "is delivery"
+		GetCase()
+			return new/datum/sorting_case/typeof_any(list(/obj/item/smallDelivery,/obj/structure/bigDelivery))
+
 	is_glass/
 		name = "is glass"
 		GetCase()
 			return new/datum/sorting_case/typeof(/obj/item/stack/sheet/glass)
+
+	is_trash/
+		name = "is trash"
+		GetCase()
+			return new/datum/sorting_case/typeof_any(trash_items)
 
 	has_contents/
 		name = "crate has contents"

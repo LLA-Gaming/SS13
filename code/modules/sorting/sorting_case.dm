@@ -121,3 +121,16 @@
 					list_length = L.len
 
 			return Compare(value, list_length, operator)
+
+	typeof_any/
+		var/list/possible_types = list()
+
+		New(var/list/possibilities)
+			possible_types = possibilities
+
+		Evaluate(var/atom/A)
+			for(var/path in possible_types)
+				if(istype(A, path))
+					return 1
+
+			return 0

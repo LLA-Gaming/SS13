@@ -12,3 +12,19 @@ var/global/list/chemical_reactions_list				//list of all /datum/chemical_reactio
 var/global/list/chemical_reagents_list				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
 var/global/list/surgeries_list = list()				//list of all surgeries by name, associated with their path.
 var/global/list/table_recipes = list()				//list of all table craft recipes
+
+
+//Trash list, list of items people would generally throw out
+//This is used in the sorting conveyer is_trash
+//mobs are on this list because a thrown out body is generally trash
+var/global/list/trash_items = list(
+								/obj/item/trash,
+								/obj/item/weapon/shard,
+								/obj/item/weapon/reagent_containers/glass,
+								/obj/item/weapon/reagent_containers/syringe,
+								/obj/item/weapon/rack_parts,
+								/obj/item/weapon/table_parts,
+								/obj/item/device/tablet_carts,
+								/obj/item/weapon/reagent_containers/spacebong,
+								/mob/living
+								)
