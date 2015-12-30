@@ -26,11 +26,11 @@ BONUS
 
 /datum/symptom/cirrhosis/Activate(var/datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB / 2))
+	if(prob(SYMPTOM_ACTIVATION_PROB * 2))
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(3,4)
-				M.adjustToxLoss(rand(1,6))	//1d6
+				M.adjustToxLoss(rand(1,2))
 			if(5)
-				M.adjustToxLoss(rand(2,12))	//2d6
+				M.adjustToxLoss(rand(2,4))
 	return

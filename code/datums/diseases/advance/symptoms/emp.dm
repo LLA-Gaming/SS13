@@ -26,7 +26,7 @@ BONUS
 
 /datum/symptom/emp/Activate(var/datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB / 2))
+	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
 		M << "<span class='notice'>You discharge.</span>"
 		switch(A.stage)
@@ -38,5 +38,5 @@ BONUS
 				M.adjustStaminaLoss(20)
 			else
 				empulse(get_turf(M), 3, 6)
-				M.adjustStaminaLoss(40)
+				M.adjustStaminaLoss(30)
 	return

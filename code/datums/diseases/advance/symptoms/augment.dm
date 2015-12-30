@@ -26,7 +26,7 @@ BONUS
 
 /datum/symptom/augment/Activate(var/datum/disease/advance/A)
 	..()
-	if(prob(SYMPTOM_ACTIVATION_PROB / 5) && A.stage == 5)
+	if(prob(SYMPTOM_ACTIVATION_PROB / 3) && A.stage == 5)
 		var/mob/living/carbon/human/M = A.affected_mob
 		var/obj/item/organ/limb/L = M.get_organ(pick("chest", "head", "l_leg", "r_leg", "l_arm", "r_arm"))
 		if(L.status == ORGAN_ORGANIC)
