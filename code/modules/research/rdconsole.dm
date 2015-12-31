@@ -555,7 +555,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				linked_imprinter = null
 
 	else if(href_list["reset"]) //Reset the R&D console's database.
-		if(!src.allowed(usr) || !emagged)
+		if(!src.allowed(usr) && !emagged)
 			usr << "Unauthorized Access."
 			return
 		griefProtection()
