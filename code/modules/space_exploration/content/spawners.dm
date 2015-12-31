@@ -2,7 +2,7 @@
 
 /obj/effect/spawner/space
 	name = "spawner"
-	icon = 'icons/effects/spawners.dmi'
+	icon = 'icons/effects/space_exploration.dmi'
 	icon_state = "undefined"
 	invisibility = 101
 
@@ -99,6 +99,10 @@
 		rare_energy_weapon/
 			name = "rare energy weapon spawner"
 			_loot = list(/obj/item/weapon/gun/energy/xray, /obj/item/weapon/gun/energy/lasercannon, /obj/item/weapon/gun/energy/temperature, /obj/item/weapon/gun/energy/ionrifle)
+
+		beam_weapon/
+			name = "beam weapon"
+			_loot = list(/obj/item/weapon/gun/energy/beam/emr7)
 
 		pod/
 			pod_primary_energy_attachment/

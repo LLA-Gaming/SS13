@@ -23,6 +23,8 @@ var/datum/template_controller/template_controller
 		return collection
 
 	proc/PlaceTemplates()
+		set background = 1
+
 		var/list/picked = PickTemplates()
 		var/started = world.timeofday
 
