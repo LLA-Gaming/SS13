@@ -148,46 +148,75 @@
 
 	update()
 
-// mouse drop another mob or self
+// mouse drop crate, another mob, or self
 //
-/obj/machinery/disposal/MouseDrop_T(mob/target, mob/user)
-	if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
-		return
-	src.add_fingerprint(user)
-	var/target_loc = target.loc
-	var/msg
-	for (var/mob/V in viewers(usr))
-		if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-			V.show_message("[usr] starts climbing into \the [src].", 3)
+/obj/machinery/disposal/MouseDrop_T(atom/AM, mob/user)
+	if(istype(AM,/obj/structure/closet/crate))
+		var/obj/structure/closet/crate/target = AM
 		if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+			var/target_loc = target.loc
+			var/msg
 			if(target.anchored) return
 			if(!ishuman(user) && !ismonkey(user)) return
-			V.show_message("[usr] starts stuffing [target.name] into \the [src].", 3)
-	if(!do_after(usr, 20))
-		return
-	if(target_loc != target.loc)
-		return
-	if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)	// if drop self, then climbed in
-											// must be awake, not stunned or whatever
-		msg = "[user.name] climbs into \the [src]."
-		user << "<span class='notice'>You climb into \the [src].</span>"
-	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
-		msg = "[user.name] stuffs [target.name] into \the [src]!"
-		user << "<span class='notice'>You stuff [target.name] into \the [src]!</span>"
-	else
-		return
-	if (target.client)
-		target.client.perspective = EYE_PERSPECTIVE
-		target.client.eye = src
-	target.loc = src
+			for (var/mob/V in viewers(usr))
+				V.show_message("[usr] starts stuffing [target] into \the [src].", 3)
+			if(!do_after(usr, 20))
+				return
+			if(target_loc != target.loc)
+				return
+			if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+				msg = "[user.name] stuffs [target.name] into \the [src]!"
+				user << "<span class='notice'>You stuff [target.name] into \the [src]!</span>"
+			else
+				return
+			target.loc = src
 
-	for (var/mob/C in viewers(src))
-		if(C == user)
-			continue
-		C.show_message(msg, 3)
+			for (var/mob/C in viewers(src))
+				if(C == user)
+					continue
+				C.show_message(msg, 3)
 
-	update()
-	return
+			update()
+			return
+	if(istype(AM,/mob))
+		var/mob/target = AM
+		if (!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
+			return
+		src.add_fingerprint(user)
+		var/target_loc = target.loc
+		var/msg
+		for (var/mob/V in viewers(usr))
+			if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+				V.show_message("[usr] starts climbing into \the [src].", 3)
+			if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+				if(target.anchored) return
+				if(!ishuman(user) && !ismonkey(user)) return
+				V.show_message("[usr] starts stuffing [target.name] into \the [src].", 3)
+		if(!do_after(usr, 20))
+			return
+		if(target_loc != target.loc)
+			return
+		if(target == user && !user.stat && !user.weakened && !user.stunned && !user.paralysis)	// if drop self, then climbed in
+												// must be awake, not stunned or whatever
+			msg = "[user.name] climbs into \the [src]."
+			user << "<span class='notice'>You climb into \the [src].</span>"
+		else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+			msg = "[user.name] stuffs [target.name] into \the [src]!"
+			user << "<span class='notice'>You stuff [target.name] into \the [src]!</span>"
+		else
+			return
+		if (target.client)
+			target.client.perspective = EYE_PERSPECTIVE
+			target.client.eye = src
+		target.loc = src
+
+		for (var/mob/C in viewers(src))
+			if(C == user)
+				continue
+			C.show_message(msg, 3)
+
+		update()
+		return
 
 // can breath normally in the disposal
 /obj/machinery/disposal/alter_health()
