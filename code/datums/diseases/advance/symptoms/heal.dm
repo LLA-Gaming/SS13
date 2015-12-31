@@ -120,3 +120,110 @@ Bonus
 
 /datum/symptom/heal/longevity/Start(var/datum/disease/advance/A)
 	longevity = rand(initial(longevity) - 5, initial(longevity) + 5)
+
+/*
+//////////////////////////////////////
+
+Hemoglobic Acceleration
+
+	Low hidden boost.
+	Medium resistance penalty.
+	Low stage speed penalty.
+	Low transmittablity penalty.
+	Medium Level.
+
+Bonus
+	Heals bloodloss.
+
+//////////////////////////////////////
+*/
+
+/datum/symptom/heal/bloodregen
+
+	name = "Hemoglobic Acceleration"
+	stealth = 1
+	resistance = -2
+	stage_speed = -1
+	transmittable = -1
+	level = 3
+
+/datum/symptom/heal/bloodregen/Heal(var/mob/living/carbon/human/M, var/datum/disease/advance/A)
+	switch(A.stage)
+		if(4,5)
+			if (M.blood.get_reagent_amount("blood") < 135)
+				M.blood.add_reagent("blood", 5)
+		else
+			if (M.blood.get_reagent_amount("blood") < 135)
+				M.blood.add_reagent("blood", 2.5)
+
+	return
+
+/*
+//////////////////////////////////////
+
+Ocular Restoration
+
+	Noticable.
+	Lowers resistance.
+	Decreases stage speed..
+	Decreases transmittablity.
+	Moderate Level.
+
+Bonus
+	The body generates Imidazonline.
+
+//////////////////////////////////////
+*/
+
+/datum/symptom/heal/eyeregen
+
+	name = "Ocular Restoration"
+	stealth = -1
+	resistance = -2
+	stage_speed = -1
+	transmittable = -2
+	level = 3
+
+/datum/symptom/heal/eyeregen/Heal(var/mob/living/M, var/datum/disease/advance/A)
+	..()
+	switch(A.stage)
+		if(4,5)
+			if (M.reagents.get_reagent_amount("imidazoline") < 5)
+				M.reagents.add_reagent("imidazoline", 1)
+	return
+
+/*
+//////////////////////////////////////
+
+Tympanic Repair
+
+	Noticable.
+	Lowers resistance.
+	Decreases stage speed..
+	Decreases transmittablity.
+	Moderate Level.
+
+Bonus
+	Heals ear damage..
+
+//////////////////////////////////////
+*/
+
+/datum/symptom/heal/ear_regen
+
+	name = "Tympanic Repair"
+	stealth = -1
+	resistance = -1
+	stage_speed = -1
+	transmittable = -2
+	level = 2
+
+/datum/symptom/heal/ear_regen/Heal(var/mob/living/M, var/datum/disease/advance/A)
+	..()
+	switch(A.stage)
+		if(4,5)
+			if (M.ear_damage > 4)
+				M.ear_damage -= 4
+			if(M.ear_deaf > 2)
+				M.ear_deaf -= 2
+	return
