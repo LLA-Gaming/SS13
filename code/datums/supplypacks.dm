@@ -1192,7 +1192,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/under/overalls,
 					/obj/item/clothing/under/color/brownoveralls,
 					/obj/item/clothing/under/redoveralls,
-					/obj/item/clothing/tie/red)
+					/obj/item/clothing/tie/red,
+					/obj/item/clothing/tie/scarf)
 	name = "Surplus Clothing Crate"
 	cost = 15
 	containername = "surplus clothing crate"

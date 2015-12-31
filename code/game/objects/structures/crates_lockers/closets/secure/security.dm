@@ -29,6 +29,7 @@
 		new /obj/item/clothing/gloves/captain(src)
 		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/clothing/glasses/sunglasses/supergarb(src)
+		new /obj/item/clothing/tie/scarf/captain(src)
 		return
 
 /obj/structure/closet/secure_closet/hop

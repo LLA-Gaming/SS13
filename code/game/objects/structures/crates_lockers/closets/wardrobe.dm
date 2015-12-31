@@ -55,6 +55,7 @@
 	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/clothing/head/soft/sec(src)
 	new /obj/item/clothing/head/soft/sec(src)
+	new /obj/item/clothing/tie/scarf{color = "#e32636"}(src)
 	return
 
 /obj/structure/closet/wardrobe/hos
@@ -72,6 +73,7 @@
 	new /obj/item/clothing/under/hosformalmale(src)
 	new /obj/item/clothing/under/rank/head_of_security/jensen(src)
 	new /obj/item/clothing/under/rank/head_of_security/navyblue(src)
+	new /obj/item/clothing/tie/scarf{color = "#e32636"}(src)
 	return
 
 /obj/structure/closet/wardrobe/pink
@@ -123,6 +125,7 @@
 	new /obj/item/clothing/head/soft/black(src)
 	new /obj/item/clothing/head/soft/black(src)
 	new /obj/item/clothing/head/soft/black(src)
+	new /obj/item/clothing/tie/scarf{color = "#262626"}(src)
 	return
 
 
@@ -164,6 +167,7 @@
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
 	new /obj/item/clothing/shoes/sneakers/black(src)
+	new /obj/item/clothing/tie/scarf{color = "#009933"}(src)
 	return
 
 
@@ -390,6 +394,9 @@
 	new /obj/item/clothing/under/color/grey(src)
 	new /obj/item/clothing/under/color/grey(src)
 	new /obj/item/clothing/under/color/grey(src)
+	new /obj/item/clothing/tie/scarf(src)
+	new /obj/item/clothing/tie/scarf(src)
+	new /obj/item/clothing/tie/scarf(src)
 	new /obj/item/clothing/head/beanie(src)
 	new /obj/item/clothing/head/beanie(src)
 	new /obj/item/clothing/head/beanie(src)
@@ -418,6 +425,9 @@
 	new /obj/item/clothing/under/color/orange(src)
 	new /obj/item/clothing/under/color/pink(src)
 	new /obj/item/clothing/under/lightpink(src)
+	new /obj/item/clothing/tie/scarf{color = "#999966"}(src) //tan
+	new /obj/item/clothing/tie/scarf{color = "#CCCCFF"}(src) //periwinkle
+	new /obj/item/clothing/tie/scarf{color = "#ff6699"}(src) //pink
 	if(prob(40))
 		new /obj/item/clothing/under/color/lightred(src)
 	if(prob(40))
