@@ -17,6 +17,8 @@ obj/machinery/atmospherics
 	power_channel = ENVIRON
 	var/nodealert = 0
 	var/can_unwrench = 0
+	var/list/node = list(1=null, 2=null, 3=null, 4=null)
+	var/nodecount = 0
 
 
 
@@ -55,6 +57,12 @@ obj/machinery/atmospherics/proc/return_network_air(datum/network/reference)
 	// Is permitted to return null
 
 obj/machinery/atmospherics/proc/disconnect(obj/machinery/atmospherics/reference)
+
+obj/machinery/atmospherics/proc/normalize_dir()
+	if(dir==3)
+		dir = 1
+	else if(dir==12)
+		dir = 4
 
 obj/machinery/atmospherics/update_icon()
 	color = pipe_color

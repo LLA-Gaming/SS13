@@ -2,10 +2,9 @@
 	dir = SOUTH
 	initialize_directions = SOUTH
 	layer = TURF_LAYER+0.1
+	nodecount = 1
 
 	var/datum/gas_mixture/air_contents
-
-	var/obj/machinery/atmospherics/node
 
 	var/datum/pipe_network/network
 
@@ -18,7 +17,7 @@
 
 // Housekeeping and pipe network stuff below
 	network_expand(datum/pipe_network/new_network, obj/machinery/atmospherics/pipe/reference)
-		if(reference == node)
+		if(reference == NODE_1)
 			network = new_network
 
 		if(new_network.normal_members.Find(src))
@@ -29,11 +28,12 @@
 		return null
 
 	Destroy()
-		if(node)
-			node.disconnect(src)
+		if(NODE_1)
+			var/obj/machinery/atmospherics/A = NODE_1
+			A.disconnect(src)
 			del(network)
 
-		node = null
+		NODE_1 = null
 
 		..()
 
@@ -45,7 +45,7 @@
 
 		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
 			if(target.initialize_directions & get_dir(target,src))
-				node = target
+				NODE_1 = target
 				if(!infiniteloop)
 					target.initialize(1)
 				break
@@ -56,22 +56,22 @@
 	default_change_direction_wrench(mob/user, obj/item/weapon/wrench/W)
 		if(..())
 			initialize_directions = dir
-			if(node)
-				disconnect(node)
+			if(NODE_1)
+				disconnect(NODE_1)
 			initialize()
 			. = 1
 
 	build_network()
-		if(!network && node)
+		if(!network && NODE_1)
 			network = new /datum/pipe_network()
 			network.normal_members += src
-			network.build_network(node, src)
+			network.build_network(NODE_1, src)
 
 
 	return_network(obj/machinery/atmospherics/reference)
 		build_network()
 
-		if(reference==node)
+		if(reference==NODE_1)
 			return network
 
 		return null
@@ -91,8 +91,8 @@
 		return results
 
 	disconnect(obj/machinery/atmospherics/reference)
-		if(reference==node)
-			node = null
+		if(reference==NODE_1)
+			NODE_1 = null
 			reference.disconnect(src)
 			del(network)
 

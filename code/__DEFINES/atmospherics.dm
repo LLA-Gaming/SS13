@@ -107,3 +107,15 @@
 #define PRESSURE_SUIT_REDUCTION_COEFFICIENT 0.8		//This is how much (percentual) a suit with the flag STOPSPRESSUREDMAGE reduces pressure.
 #define PRESSURE_HEAD_REDUCTION_COEFFICIENT 0.4		//This is how much (percentual) a helmet/hat with the flag STOPSPRESSUREDMAGE reduces pressure.
 
+//Atmos Pipe stuff. Taking a hint from TG here.
+
+ //Standardized for loop.
+#define NODE_LOOP 							var/I = 1; I <= nodecount; I++
+
+//Standardized node references
+#define NODE_I 								node[I]
+#define NODE_1								node[1]
+#define NODE_2								node[2]
+#define NODE_3								node[3]
+#define NODE_4								node[4]
+

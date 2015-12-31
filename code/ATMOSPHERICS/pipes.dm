@@ -1,5 +1,4 @@
 obj/machinery/atmospherics/pipe
-
 	var/datum/gas_mixture/air_temporary //used when reconstructing a pipeline that broke
 	var/datum/pipeline/parent
 
@@ -15,7 +14,10 @@ obj/machinery/atmospherics/pipe
 		//minimum pressure before check_pressure(...) should be called
 
 	proc/pipeline_expansion()
-		return null
+		if (node.len)
+			return node
+		else
+			return null
 
 	proc/check_pressure(pressure)
 		//Return 1 if parent should continue checking other pipes
@@ -53,11 +55,45 @@ obj/machinery/atmospherics/pipe
 
 	Destroy()
 		del(parent)
+
 		if(air_temporary)
 			loc.assume_air(air_temporary)
 			del(air_temporary)
 
+		for(NODE_LOOP)
+			if(!NODE_I) continue
+			var/obj/machinery/atmospherics/pipe/P = NODE_I
+			P.disconnect(src)
+
 		..()
+
+	disconnect(obj/machinery/atmospherics/reference)
+		for (NODE_LOOP)
+			if(reference == NODE_I)
+				if(istype(NODE_I, /obj/machinery/atmospherics/pipe))
+					del(parent)
+					NODE_I = null
+		update_icon()
+		return null
+
+	initialize()
+		normalize_dir()
+		var/list/node_dir = list(1=null,2=null,3=null,4=null)
+		for (var/direction in cardinal)
+			if(direction&initialize_directions)
+				for(var/I=1; I <= nodecount; I++)
+					if(!node_dir[I])
+						node_dir[I] = direction
+						break
+		for(NODE_LOOP)
+			for(var/obj/machinery/atmospherics/target in get_step(src,node_dir[I]))
+				if(target.initialize_directions & get_dir(target, src))
+					node[I] = target
+					break
+		var/turf/T = src.loc
+		if(T)
+			hide(T.intact)
+		update_icon()
 
 	simple
 		icon = 'icons/obj/pipes.dmi'
@@ -70,9 +106,9 @@ obj/machinery/atmospherics/pipe
 
 		dir = SOUTH
 		initialize_directions = SOUTH|NORTH
+		nodecount = 2
 
-		var/obj/machinery/atmospherics/node1
-		var/obj/machinery/atmospherics/node2
+
 
 		var/minimum_temperature_difference = 300
 		var/thermal_conductivity = 0 //WALL_HEAT_TRANSFER_COEFFICIENT No
@@ -112,40 +148,6 @@ obj/machinery/atmospherics/pipe
 			else
 				. = PROCESS_KILL
 
-			/*if(!node1)
-				parent.mingle_with_turf(loc, volume)
-				if(!nodealert)
-					//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
-					nodealert = 1
-
-			else if(!node2)
-				parent.mingle_with_turf(loc, volume)
-				if(!nodealert)
-					//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
-					nodealert = 1
-			else if (nodealert)
-				nodealert = 0
-
-
-			else if(parent)
-				var/environment_temperature = 0
-
-				if(istype(loc, /turf/simulated/))
-					if(loc:blocks_air)
-						environment_temperature = loc:temperature
-					else
-						var/datum/gas_mixture/environment = loc.return_air()
-						environment_temperature = environment.temperature
-
-				else
-					environment_temperature = loc:temperature
-
-				var/datum/gas_mixture/pipe_air = return_air()
-
-				if(abs(environment_temperature-pipe_air.temperature) > minimum_temperature_difference)
-					parent.temperature_interact(loc, volume, thermal_conductivity)
-			*/  //Screw you heat lag
-
 		check_pressure(pressure)
 			var/datum/gas_mixture/environment = loc.return_air()
 
@@ -169,93 +171,17 @@ obj/machinery/atmospherics/pipe
 			smoke.start()
 			qdel(src)
 
-		proc/normalize_dir()
-			if(dir==3)
-				dir = 1
-			else if(dir==12)
-				dir = 4
-
-		Destroy()
-			if(node1)
-				node1.disconnect(src)
-			if(node2)
-				node2.disconnect(src)
-
-			..()
-
-		pipeline_expansion()
-			return list(node1, node2)
-
 		update_icon()
-			if(node1&&node2)
-				/*
-				var/C = ""
-				switch(pipe_color)
-					if ("red") C = "-r"
-					if ("blue") C = "-b"
-					if ("cyan") C = "-c"
-					if ("green") C = "-g"
-					if ("yellow") C = "-y"
-					if ("purple") C = "-p"
-				*/
+			if(NODE_1&&NODE_2)
 				icon_state = "intact[invisibility ? "-f" : "" ]"
-
-				//var/node1_direction = get_dir(src, node1)
-				//var/node2_direction = get_dir(src, node2)
-
-				//dir = node1_direction|node2_direction
-
 			else
-				if(!node1&&!node2)
+				if(!NODE_1&&!NODE_2)
 					qdel(src) //TODO: silent deleting looks weird
-				var/have_node1 = node1?1:0
-				var/have_node2 = node2?1:0
+				var/have_node1 = NODE_1?1:0
+				var/have_node2 = NODE_2?1:0
 				icon_state = "exposed[have_node1][have_node2][invisibility ? "-f" : "" ]"
 			color = pipe_color
 
-
-		initialize()
-			normalize_dir()
-			var/node1_dir
-			var/node2_dir
-
-			for(var/direction in cardinal)
-				if(direction&initialize_directions)
-					if (!node1_dir)
-						node1_dir = direction
-					else if (!node2_dir)
-						node2_dir = direction
-
-			for(var/obj/machinery/atmospherics/target in get_step(src,node1_dir))
-				if(target.initialize_directions & get_dir(target,src))
-					node1 = target
-					break
-			for(var/obj/machinery/atmospherics/target in get_step(src,node2_dir))
-				if(target.initialize_directions & get_dir(target,src))
-					node2 = target
-					break
-
-
-			var/turf/T = src.loc			// hide if turf is not intact
-			if(T)
-				hide(T.intact)
-			update_icon()
-			//update_icon()
-
-		disconnect(obj/machinery/atmospherics/reference)
-			if(reference == node1)
-				if(istype(node1, /obj/machinery/atmospherics/pipe))
-					del(parent)
-				node1 = null
-
-			if(reference == node2)
-				if(istype(node2, /obj/machinery/atmospherics/pipe))
-					del(parent)
-				node2 = null
-
-			update_icon()
-
-			return null
 
 	simple/scrubbers
 		name="Scrubbers pipe"
@@ -352,7 +278,7 @@ obj/machinery/atmospherics/pipe
 
 		can_unwrench = 0
 
-		var/obj/machinery/atmospherics/node1
+		nodecount = 1
 
 		New()
 			initialize_directions = dir
@@ -363,14 +289,7 @@ obj/machinery/atmospherics/pipe
 				..()
 			else
 				. = PROCESS_KILL
-/*			if(!node1)
-				parent.mingle_with_turf(loc, 200)
-				if(!nodealert)
-					//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
-					nodealert = 1
-			else if (nodealert)
-				nodealert = 0
-*/
+
 		carbon_dioxide
 			name = "pressure tank (Carbon Dioxide)"
 
@@ -452,45 +371,15 @@ obj/machinery/atmospherics/pipe
 
 				..()
 
-		Destroy()
-			if(node1)
-				node1.disconnect(src)
-
-			..()
-
-		pipeline_expansion()
-			return list(node1)
-
 		update_icon()
-			if(node1)
+			if(NODE_1)
 				icon_state = "intact"
 
-				dir = get_dir(src, node1)
+				dir = get_dir(src, NODE_1)
 
 			else
 				icon_state = "exposed"
 			color = pipe_color
-
-		initialize()
-
-			var/connect_direction = dir
-
-			for(var/obj/machinery/atmospherics/target in get_step(src,connect_direction))
-				if(target.initialize_directions & get_dir(target,src))
-					node1 = target
-					break
-
-			update_icon()
-
-		disconnect(obj/machinery/atmospherics/reference)
-			if(reference == node1)
-				if(istype(node1, /obj/machinery/atmospherics/pipe))
-					del(parent)
-				node1 = null
-
-			update_icon()
-
-			return null
 
 		attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 			if (istype(W, /obj/item/device/analyzer) && get_dist(user, src) <= 1)
@@ -529,14 +418,7 @@ obj/machinery/atmospherics/pipe
 				return
 			else
 				parent.mingle_with_turf(loc, 250)
-/*
-			if(!node1)
-				if(!nodealert)
-					//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
-					nodealert = 1
-			else if (nodealert)
-				nodealert = 0
-*/
+
 		Destroy()
 			if(node1)
 				node1.disconnect(src)
@@ -594,10 +476,7 @@ obj/machinery/atmospherics/pipe
 
 		dir = SOUTH
 		initialize_directions = EAST|NORTH|WEST
-
-		var/obj/machinery/atmospherics/node1
-		var/obj/machinery/atmospherics/node2
-		var/obj/machinery/atmospherics/node3
+		nodecount = 3
 
 		level = 1
 		layer = 2.4 //under wires with their 2.44
@@ -622,75 +501,14 @@ obj/machinery/atmospherics/pipe
 				invisibility = i ? 101 : 0
 			update_icon()
 
-		pipeline_expansion()
-			return list(node1, node2, node3)
-
 		process()
 			if(!parent)
 				..()
 			else
 				. = PROCESS_KILL
-/*
-			if(!node1)
-				parent.mingle_with_turf(loc, 70)
-				if(!nodealert)
-					//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
-					nodealert = 1
-			else if(!node2)
-				parent.mingle_with_turf(loc, 70)
-				if(!nodealert)
-					//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
-					nodealert = 1
-			else if(!node3)
-				parent.mingle_with_turf(loc, 70)
-				if(!nodealert)
-					//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
-					nodealert = 1
-			else if (nodealert)
-				nodealert = 0
-*/
-		Destroy()
-			if(node1)
-				node1.disconnect(src)
-			if(node2)
-				node2.disconnect(src)
-			if(node3)
-				node3.disconnect(src)
-
-			..()
-
-		disconnect(obj/machinery/atmospherics/reference)
-			if(reference == node1)
-				if(istype(node1, /obj/machinery/atmospherics/pipe))
-					del(parent)
-				node1 = null
-
-			if(reference == node2)
-				if(istype(node2, /obj/machinery/atmospherics/pipe))
-					del(parent)
-				node2 = null
-
-			if(reference == node3)
-				if(istype(node3, /obj/machinery/atmospherics/pipe))
-					del(parent)
-				node3 = null
-
-			update_icon()
-
-			..()
 
 		update_icon()
-			if(node1&&node2&&node3)
-				/*
-				var/C = ""
-				switch(pipe_color)
-					if ("red") C = "-r"
-					if ("blue") C = "-b"
-					if ("cyan") C = "-c"
-					if ("green") C = "-g"
-					if ("yellow") C = "-y"
-					if ("purple") C = "-p"
-				*/
+			if(NODE_1 && NODE_2 && NODE_3)
 				icon_state = "manifold[invisibility ? "-f" : ""]"
 
 			else
@@ -698,12 +516,10 @@ obj/machinery/atmospherics/pipe
 				var/unconnected = 0
 				var/connect_directions = (NORTH|SOUTH|EAST|WEST)&(~dir)
 
-				if(node1)
-					connected |= get_dir(src, node1)
-				if(node2)
-					connected |= get_dir(src, node2)
-				if(node3)
-					connected |= get_dir(src, node3)
+				for(NODE_LOOP)
+					if(NODE_I)
+						connected |= get_dir(src, NODE_I)
+
 
 				unconnected = (~connected)&(connect_directions)
 
@@ -713,47 +529,6 @@ obj/machinery/atmospherics/pipe
 					qdel(src)
 			color = pipe_color
 			return
-
-		initialize()
-			var/connect_directions = (NORTH|SOUTH|EAST|WEST)&(~dir)
-
-			for(var/direction in cardinal)
-				if(direction&connect_directions)
-					for(var/obj/machinery/atmospherics/target in get_step(src,direction))
-						if(target.initialize_directions & get_dir(target,src))
-							node1 = target
-							connect_directions &= ~direction
-							break
-					if (node1)
-						break
-
-
-			for(var/direction in cardinal)
-				if(direction&connect_directions)
-					for(var/obj/machinery/atmospherics/target in get_step(src,direction))
-						if(target.initialize_directions & get_dir(target,src))
-							node2 = target
-							connect_directions &= ~direction
-							break
-					if (node2)
-						break
-
-
-			for(var/direction in cardinal)
-				if(direction&connect_directions)
-					for(var/obj/machinery/atmospherics/target in get_step(src,direction))
-						if(target.initialize_directions & get_dir(target,src))
-							node3 = target
-							connect_directions &= ~direction
-							break
-					if (node3)
-						break
-
-			var/turf/T = src.loc			// hide if turf is not intact
-			if(T)
-				hide(T.intact)
-			//update_icon()
-			update_icon()
 
 	manifold/scrubbers
 		name="Scrubbers pipe"
