@@ -153,6 +153,8 @@ datum/preferences
 							if(!name)	name = "Character[i]"
 							//if(i!=1) dat += " | "
 							dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;num=[i];' [i == default_slot ? "class='linkOn'" : ""]>[name]</a> "
+							if(IsMultiple(i,4))
+								dat += "<br>"
 						dat += "</center>"
 
 				dat += "<center><h2>Occupation Choices</h2>"
@@ -290,7 +292,7 @@ datum/preferences
 		dat += "</center>"
 
 		//user << browse(dat, "window=preferences;size=560x560")
-		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 740, 690)
+		var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 740, 720)
 		popup.set_content(dat)
 		popup.open(0)
 
