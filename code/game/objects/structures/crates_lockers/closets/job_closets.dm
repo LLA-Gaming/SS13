@@ -108,3 +108,5 @@
 	new /obj/item/clothing/suit/lawyer/blackjacket(src)
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/shoes/laceup(src)
+	new /obj/item/clothing/tie/scarf{color = "#e32636"}(src)
+	new /obj/item/clothing/tie/scarf{color = "#009999"}(src)

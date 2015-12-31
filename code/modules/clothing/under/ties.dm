@@ -199,3 +199,33 @@
 	desc = "An armband, worn by the station's security forces to display which department they're assigned to. This one is white and blue."
 	icon_state = "medblue"
 	item_color = "medblue"
+
+////////////
+// Scarfs //
+////////////
+
+/obj/item/clothing/tie/scarf
+	name = "scarf"
+	desc = "It is cold in space."
+	icon_state = "scarf"
+	item_color = "scarf"
+	var/list/colors = list(
+						"#e32636", //red-ish
+						"#009933", //green-ish
+						"#009999",  //blue-ish
+						"#999966",  //tan-ish
+						"#CCCCFF",  //periwinkle-ish
+						"#E59400",  //orange-ish
+						"#262626",  //black-ish
+						"#f2f2f2",  //white-ish
+						"#ff6699"  //pink
+						)
+
+	New() //should be a hex code
+		..()
+		if(!color)
+			color = pick(colors)
+
+/obj/item/clothing/tie/scarf/captain
+	name = "captain's scarf"
+	color = "#FFD700" //gold

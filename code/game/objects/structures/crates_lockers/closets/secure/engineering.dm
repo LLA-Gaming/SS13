@@ -32,6 +32,7 @@
 		//new /obj/item/taperoll/engineering(src)
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/flash(src)
+		new /obj/item/clothing/tie/scarf{color = "#E59400"}(src)
 		return
 
 /obj/structure/closet/secure_closet/engineering_electrical
@@ -117,6 +118,7 @@
 		new /obj/item/clothing/mask/gas(src)
 		//new /obj/item/taperoll/engineering(src)
 		new /obj/item/clothing/glasses/meson(src)
+		new /obj/item/clothing/tie/scarf{color = "#E59400"}(src)
 		return
 
 /obj/structure/closet/secure_closet/atmospherics
@@ -141,4 +143,5 @@
 	new /obj/item/clothing/suit/fire/atmos(src)
 	new /obj/item/clothing/head/hardhat/atmos(src)
 	new /obj/item/weapon/pipe_painter(src)
+	new /obj/item/clothing/tie/scarf{color = "#E59400"}(src)
 	return
