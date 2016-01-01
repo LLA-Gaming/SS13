@@ -56,6 +56,7 @@
 		A.tagbase = "[A.type]_[md5(template_name)]"
 		A.lighting_use_dynamic = 1
 		A.requires_power = 1
+		A.generated = 1
 
 		for(var/y = 0; y < y_size; y++)
 			var/list/row = grid["[y]"]

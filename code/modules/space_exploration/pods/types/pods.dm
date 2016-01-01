@@ -18,6 +18,9 @@
 		GetAdditionalAttachments()
 			return list(new /obj/item/weapon/pod_attachment/shield/plasma(src), new /obj/item/weapon/pod_attachment/cargo/small(src))
 
+		GetSeats()
+			return 1
+
 	light/
 		name = "light pod"
 

@@ -48,6 +48,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/area/master				// master area used for power calcluations
 								// (original area before splitting due to sd_DAL)
 	var/list/related			// the other areas of the same type as this
+	var/generated = 0
 //	var/list/lights				// list of all lights on this area
 
 /*Adding a wizard area teleport list because motherfucking lag -- Urist*/
@@ -56,11 +57,12 @@ var/list/teleportlocs = list()
 
 proc/process_teleport_locs()
 	for(var/area/AR in world)
-		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station)) continue
+		if(istype(AR, /area/shuttle) || istype(AR, /area/syndicate_station) || istype(AR, /area/wizard_station ) || istype(AR, /area/template )) continue
 		if(teleportlocs.Find(AR.name)) continue
 		var/turf/picked = safepick(get_area_turfs(AR.type)) //Changed to safepick to resolve an error that was occuring where it would get asked to pick from an empty list. Runtime errors, man.
 		if(!picked) continue
-		else if (picked.z == 1)
+		if (AR.generated) continue
+		if (picked.z == 1)
 			teleportlocs += AR.name
 			teleportlocs[AR.name] = AR
 
