@@ -34,5 +34,8 @@ var/global/const/SYMPTOM_ACTIVATION_PROB = 3
 	return
 
 /datum/symptom/proc/Activate(var/datum/disease/advance/A)
+	var/mob/living/M = A.affected_mob
+	if(M.stat)
+		return
 	return
 
