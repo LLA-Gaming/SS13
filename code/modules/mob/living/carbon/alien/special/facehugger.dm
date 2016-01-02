@@ -105,8 +105,8 @@ var/const/MAX_ACTIVE_TIME = 400
 		icon_state = "[initial(icon_state)]"
 		Attach(hit_atom)
 
-/obj/item/clothing/mask/facehugger/proc/Attach(M as mob)
-	if( (!iscorgi(M) && !iscarbon(M)) || isalien(M))
+/obj/item/clothing/mask/facehugger/proc/Attach(mob/M as mob)
+	if( (!iscorgi(M) && !iscarbon(M)) || isalien(M) || (M.status_flags & XENO_HOST))
 		return 0
 	if(attached)
 		return 0
