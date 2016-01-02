@@ -84,6 +84,7 @@
 #include "code\ATMOSPHERICS\datum_pipeline.dm"
 #include "code\ATMOSPHERICS\he_pipes.dm"
 #include "code\ATMOSPHERICS\pipe_painter.dm"
+#include "code\ATMOSPHERICS\pipe_presets.dm"
 #include "code\ATMOSPHERICS\pipes.dm"
 #include "code\ATMOSPHERICS\components\portables_connector.dm"
 #include "code\ATMOSPHERICS\components\valve.dm"
