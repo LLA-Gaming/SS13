@@ -1110,7 +1110,7 @@
 
 			if(istype(wear_suit, /obj/item/clothing/suit/space/powersuit))
 				var/obj/item/clothing/suit/space/powersuit/P = wear_suit
-				if(P && P.current_vision && head == P.helmet)
+				if(P && P.powered && P.current_vision && head == P.helmet)
 					helmet_hud = 1
 					var/obj/item/clothing/glasses/G = P.current_vision
 					sight |= G.vision_flags

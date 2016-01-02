@@ -19,6 +19,12 @@
 
 	proc/HandleEdgeCases()
 		for(var/turf/T in turfs)
+
+			if(istype(T,/turf/simulated))
+				air_master.remove_from_active(T)
+				T.CalculateAdjacentTurfs()
+				air_master.add_to_active(T,1)
+
 			if(istype(T, /turf/space))
 				T:shift_to_subarea()
 				continue
@@ -43,12 +49,14 @@
 					if(mob.client || mob.key)
 						continue
 				qdel(M)
+			qdel(T)
 
 		var/area/A = new()
 		A.name = template_name
 		A.tagbase = "[A.type]_[md5(template_name)]"
 		A.lighting_use_dynamic = 1
 		A.requires_power = 1
+		A.generated = 1
 
 		for(var/y = 0; y < y_size; y++)
 			var/list/row = grid["[y]"]
