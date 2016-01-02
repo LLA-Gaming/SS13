@@ -21,6 +21,7 @@ Buildable meters
 #define PIPE_VOLUME_PUMP        16
 #define PIPE_HEAT_EXCHANGE      17
 #define PIPE_DVALVE             18
+#define PIPE_MANIFOLD_4WAY		19
 
 /obj/item/pipe
 	name = "pipe"
@@ -78,6 +79,8 @@ Buildable meters
 			src.pipe_type = PIPE_VOLUME_PUMP
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/heat_exchanger))
 			src.pipe_type = PIPE_HEAT_EXCHANGE
+		else if(istype(make_from, /obj/machinery/atmospherics/pipe/fourway_manifold))
+			src.pipe_type = PIPE_MANIFOLD_4WAY
 	else
 		src.pipe_type = pipe_type
 		src.dir = dir
@@ -109,6 +112,7 @@ Buildable meters
 		"volume pump", \
 		"heat exchanger", \
 		"digital valve", \
+		"4way manifold",\
 	)
 	name = nlist[pipe_type+1] + " fitting"
 	var/list/islist = list( \
@@ -131,6 +135,7 @@ Buildable meters
 		"volumepump", \
 		"heunary", \
 		"dvalve", \
+		"manifold4w", \
 	)
 	icon_state = islist[pipe_type + 1]
 	color = pipe_color
@@ -155,6 +160,8 @@ Buildable meters
 			dir = 1
 		else if(dir==8)
 			dir = 4
+	if (pipe_type == PIPE_MANIFOLD_4WAY)
+		usr << "You feel silly rotating a 4-way manifold"
 	//src.pipe_dir = get_pipe_dir()
 	return
 
@@ -199,6 +206,8 @@ Buildable meters
 			return flip|cw|acw
 		if(PIPE_GAS_FILTER, PIPE_GAS_MIXER)
 			return dir|flip|cw
+		if(PIPE_MANIFOLD_4WAY)
+			return NORTH|SOUTH|EAST|WEST // 4way manifold connects in all four directions!
 	return 0
 
 /obj/item/pipe/proc/get_pdir() //endpoints for regular pipes
@@ -296,6 +305,9 @@ Buildable meters
 			pipe_path = /obj/machinery/atmospherics/binary/volume_pump
 		if(PIPE_HEAT_EXCHANGE)
 			pipe_path = /obj/machinery/atmospherics/unary/heat_exchanger
+		if(PIPE_MANIFOLD_4WAY)
+			pipe_path = /obj/machinery/atmospherics/pipe/fourway_manifold
+			pipefailtext = "\red There's nothing to connect this manifold to! (with how the pipe code works, at least one end needs to be connected to something, otherwise the game deletes the segment)"
 	//Spawn it
 	var/obj/machinery/atmospherics/A = new pipe_path(get_turf(src))
 	//Initialize variables
@@ -328,7 +340,7 @@ Buildable meters
 	user.visible_message( \
 		"[user] fastens the [src].", \
 		"\blue You have fastened the [src].", \
-		"You hear ratchet.")
+		"You hear ratcheting.")
 	qdel(src)	// remove the pipe item
 
 	return
