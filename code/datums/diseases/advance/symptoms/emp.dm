@@ -26,8 +26,8 @@ BONUS
 
 /datum/symptom/emp/Activate(var/datum/disease/advance/A)
 	..()
-	var/mob/living/M = A.affected_mob
-	if(prob(SYMPTOM_ACTIVATION_PROB) && !M.stat)
+	if(prob(SYMPTOM_ACTIVATION_PROB))
+		var/mob/living/M = A.affected_mob
 		M << "<span class='notice'>You discharge.</span>"
 		switch(A.stage)
 			if(1,2)
