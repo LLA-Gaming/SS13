@@ -151,7 +151,7 @@
 	set background = BACKGROUND_ENABLED
 
 	//Runs in the background while the powersuit is powered.
-	spawn while(cell && cell.charge>=0 && occupant && powered)
+	spawn while(cell && occupant && powered)
 
 		//gather energy cost
 		var/total_cost = 5
