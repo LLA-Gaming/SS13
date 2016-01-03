@@ -83,6 +83,10 @@
 
 /obj/item/weapon/grenade/flashbang/clusterbang/prime()
 	update_mob()
+	var/turf/flashbang_turf = get_turf(src)
+	if(!istype(flashbang_turf))
+		world.log << "AAAAAAAAAAAAA"
+		return
 	var/numspawned = rand(4,8)
 	var/again = 0
 	for(var/more = numspawned,more > 0,more--)
@@ -92,13 +96,13 @@
 
 	for(,numspawned > 0, numspawned--)
 		spawn(0)
-			new /obj/item/weapon/grenade/flashbang/cluster(src.loc)//Launches flashbangs
-			playsound(src.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+			new /obj/item/weapon/grenade/flashbang/cluster(flashbang_turf)//Launches flashbangs
+			playsound(flashbang_turf, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 
 	for(,again > 0, again--)
 		spawn(0)
-			new /obj/item/weapon/grenade/flashbang/clusterbang/segment(src.loc)//Creates a 'segment' that launches a few more flashbangs
-			playsound(src.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+			new /obj/item/weapon/grenade/flashbang/clusterbang/segment(flashbang_turf)//Creates a 'segment' that launches a few more flashbangs
+			playsound(flashbang_turf, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 	qdel(src)
 
 /obj/item/weapon/grenade/flashbang/clusterbang/segment
@@ -120,6 +124,7 @@
 
 /obj/item/weapon/grenade/flashbang/clusterbang/segment/prime()
 	update_mob()
+	var/turf/flashbang_turf = get_turf(src)
 	var/numspawned = rand(4,8)
 	for(var/more = numspawned,more > 0,more--)
 		if(prob(35))
@@ -127,8 +132,8 @@
 
 	for(,numspawned > 0, numspawned--)
 		spawn(0)
-			new /obj/item/weapon/grenade/flashbang/cluster(src.loc)
-			playsound(src.loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+			new /obj/item/weapon/grenade/flashbang/cluster(flashbang_turf)
+			playsound(flashbang_turf, 'sound/weapons/armbomb.ogg', 75, 1, -3)
 	qdel(src)
 
 /obj/item/weapon/grenade/flashbang/cluster/New()//Same concept as the segments, so that all of the parts don't become reliant on the clusterbang
