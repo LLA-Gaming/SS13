@@ -78,14 +78,14 @@ var/list/advance_cures = 	list(
 // Randomly pick a symptom to activate.
 /datum/disease/advance/stage_act()
 	..()
-	if(affected_mob && affected_mob.stat != DEAD && symptoms && symptoms.len)
-
-		if(!processing)
-			processing = 1
+	if(symptoms && symptoms.len)
+		if(affected_mob && affected_mob.stat != DEAD)
+			if(!processing)
+				processing = 1
+				for(var/datum/symptom/S in symptoms)
+					S.Start(src)
 			for(var/datum/symptom/S in symptoms)
-				S.Start(src)
-		for(var/datum/symptom/S in symptoms)
-			S.Activate(src)
+				S.Activate(src)
 	else
 		CRASH("We do not have any symptoms during stage_act()!")
 
