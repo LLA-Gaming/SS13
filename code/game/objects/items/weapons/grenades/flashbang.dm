@@ -84,9 +84,6 @@
 /obj/item/weapon/grenade/flashbang/clusterbang/prime()
 	update_mob()
 	var/turf/flashbang_turf = get_turf(src)
-	if(!istype(flashbang_turf))
-		world.log << "AAAAAAAAAAAAA"
-		return
 	var/numspawned = rand(4,8)
 	var/again = 0
 	for(var/more = numspawned,more > 0,more--)
