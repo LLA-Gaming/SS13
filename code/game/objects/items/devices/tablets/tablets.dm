@@ -523,7 +523,13 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 /obj/item/device/tablet/AltClick(var/mob/user)
 	if(!Adjacent(user)) return // Adjacent check
 	if(user.stat || user.restrained() || user.paralysis || user.stunned || user.weakened) return
-	remove_id()
+
+	if(id)
+		remove_id()
+		return
+	else
+		verb_remove_pen()
+		return
 
 /obj/item/device/tablet/proc/can_use(mob/user)
 	if(laptop && !istype(user, /mob/living/silicon))
