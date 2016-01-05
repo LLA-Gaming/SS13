@@ -77,7 +77,6 @@ datum/controller/game_controller/proc/setup()
 
 	setup_objects()
 	setupgenetics()
-	setupfactions()
 	setup_engineering()
 
 	spawn(0)
