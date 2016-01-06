@@ -1088,6 +1088,7 @@ datum/mind
 			return 0
 		if(J.faction == "Station")
 			return 1
+		return 0
 
 /mob/proc/sync_mind()
 	mind_initialize()	//updates the mind (or creates and initializes one if one doesn't exist)
