@@ -95,6 +95,8 @@ var/datum/controller/firedome/firedome = new()
 				C.mob.mind = mind_storage[C.ckey]
 				C.mob.ghostize(1)
 				return
+		if(C.mob.mind.assigned_role == "FIREDOME")
+			C.mob.mind.assigned_role = null
 
 
 //Modes
@@ -201,7 +203,7 @@ var/datum/controller/firedome/firedome = new()
 				H.real_name = "Mr. " + pick(last_names)
 				H.name = H.real_name
 				if(H.mind)
-					H.mind.assigned_role = "SPECIAL"
+					H.mind.assigned_role = "FIREDOME"
 					H.mind.name = saved_name
 			else
 				firedome.candidates.Remove(C)

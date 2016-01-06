@@ -290,7 +290,7 @@
 	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
 		if (ticker.current_state == GAME_STATE_PLAYING)
 			if(character.mind)
-				if(!(character.mind.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander", "SPECIAL")) && (character.mind.special_role != "MODE"))
+				if(character.mind.is_crewmember())
 					add2timeline("[character.real_name] ([character.mind.assigned_role]) arrived at [station_name]")
 			var/ailist[] = list()
 			for (var/mob/living/silicon/ai/A in living_mob_list)
@@ -298,7 +298,7 @@
 			if (ailist.len)
 				var/mob/living/silicon/ai/announcer = pick(ailist)
 				if(character.mind)
-					if(!(character.mind.assigned_role in list("Cyborg", "Perseus Security Enforcer", "Perseus Security Commander")) && (character.mind.special_role != "MODE"))
+					if (!(character.mind.assigned_role in nonhuman_positions) && character.mind.is_crewmember())
 						announcer.say("[character.real_name] has signed up as [rank].")
 
 	proc/LateChoices()

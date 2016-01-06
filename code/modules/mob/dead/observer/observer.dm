@@ -107,7 +107,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(response != "Ghost")	return	//didn't want to ghost after-all
 		resting = 1
 		if(mind)
-			if(!(mind.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander", "SPECIAL")) && (mind.special_role != "MODE"))
+			if(mind.is_crewmember())
 				add2timeline("[src.mind.name] ([src.mind.assigned_role]) went catatonic")
 		ghostize(0)						//0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
 	return

@@ -56,11 +56,7 @@
 
 	var/list/possible_targets = list()
 	for(var/datum/mind/possible_target in ticker.minds)
-		if(possible_target.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander")) // No Percs
-			continue
-		if(possible_target.assigned_role == "SPECIAL") //No Firedome or protagonists
-			continue
-		if(possible_target.assigned_role == "MODE") //No nukeops/ninjas/whatever
+		if(!possible_target.is_crewmember())
 			continue
 		if(ishuman(possible_target.current) && (possible_target.current.stat != 2))
 			possible_targets += possible_target

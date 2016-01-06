@@ -432,6 +432,8 @@ proc/is_special_character(mob/M) // returns 1 for special characters and 2 for h
 				return 1
 		return 0
 	if(M.mind && M.mind.special_role)//If they have a mind and special role, they are some type of traitor or antagonist.
+		if(M.mind.assigned_role == "SPECIAL") // unless they are special..
+			return 0
 		switch(ticker.mode.config_tag)
 			if("revolution")
 				if((M.mind in ticker.mode.head_revolutionaries) || (M.mind in ticker.mode.revolutionaries))

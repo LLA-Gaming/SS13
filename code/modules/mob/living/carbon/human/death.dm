@@ -18,9 +18,8 @@
 	if(healths)		healths.icon_state = "health5"
 	stat = DEAD
 	if(mind)
-		if(!(mind.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander", "SPECIAL")) && (mind.special_role != "MODE"))
-			if(mind.assigned_role || !mind.assigned_role == "MODE")
-				add2timeline("[src.mind.name] ([src.mind.assigned_role]) died")
+		if(mind.is_crewmember())
+			add2timeline("[src.mind.name] ([src.mind.assigned_role]) died")
 	attack_log += text("\[[time_stamp()]\] <font color ='red'>[key_name(src)] has died</font>")
 	log_attack("<font color ='red'>[key_name(src)] has died</font>")
 	dizziness = 0

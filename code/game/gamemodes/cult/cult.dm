@@ -101,9 +101,7 @@
 			for(var/mob/living/carbon/human/player in player_list)
 				if(!player.mind)
 					continue
-				if(player.mind.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander"))
-					continue
-				if(player.mind.assigned_role == "SPECIAL")
+				if(!player.mind.is_crewmember())
 					continue
 				if(!(player.mind in cult))
 					possible_targets += player.mind

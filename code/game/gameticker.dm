@@ -168,7 +168,7 @@ var/round_start_time = 0
 		timeline.Add("<b>Starting Crew:</b>")
 		var/list/crew = list()
 		for(var/datum/mind/M in minds)
-			if(!(M.assigned_role in list("Perseus Security Enforcer", "Perseus Security Commander", "SPECIAL")) && (M.special_role != "MODE"))
+			if(M.is_crewmember())
 				crew.Add("[M.name] ([M.assigned_role])")
 		crew = sortList(crew)
 		timeline.Add("[english_list(crew)]")
@@ -305,7 +305,7 @@ var/round_start_time = 0
 			if(player && player.mind && player.mind.assigned_role)
 				if(player.mind.assigned_role == "Captain")
 					captainless=0
-				if(player.mind.assigned_role != "MODE")
+				if(player.mind.is_crewmember())
 					job_master.EquipRank(player, player.mind.assigned_role, 0)
 		if(captainless)
 			for(var/mob/M in player_list)

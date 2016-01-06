@@ -1082,6 +1082,13 @@ datum/mind
 		fail |= !ticker.mode.equip_revolutionary(current)
 
 
+	proc/is_crewmember()
+		var/datum/job/J = job_master.GetJob(assigned_role)
+		if(!J)
+			return 0
+		if(J.faction == "Station")
+			return 1
+
 /mob/proc/sync_mind()
 	mind_initialize()	//updates the mind (or creates and initializes one if one doesn't exist)
 	mind.active = 1		//indicates that the mind is currently synced with a client
