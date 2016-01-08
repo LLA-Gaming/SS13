@@ -51,7 +51,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/num_changelings = 1
 
 	if(config.changeling_scaling_coeff)
-		num_changelings = max(config.changeling_scaling_minimum, round((num_players())/(config.changeling_scaling_coeff)))
+		num_changelings = Clamp(max(config.changeling_scaling_minimum, round((num_players())/((config.changeling_scaling_coeff)))),1,round(num_players() / 2))
 	else
 		num_changelings = max(1, min(num_players(), changeling_amount))
 
@@ -85,7 +85,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	return
 
 /datum/game_mode/changeling/make_antag_chance(var/mob/living/carbon/human/character) //Assigns changeling to latejoiners
-	if(changelings.len >= round(joined_player_list.len / config.changeling_scaling_coeff) + 1) //Caps number of latejoin antagonists
+	if(changelings.len >= round(joined_player_list.len / 2)) //Caps number of latejoin antagonists. Basically changelings cannot out number crew
 		return
 	if (prob(100/config.changeling_scaling_coeff))
 		if(character.client.prefs.be_special_gamemode & BE_CHANGELING)
