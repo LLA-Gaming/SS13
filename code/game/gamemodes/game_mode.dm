@@ -44,7 +44,7 @@
 
 ///can_start()
 ///Checks to see if the game can be setup and ran with the current number of players or whatnot.
-/datum/game_mode/proc/can_start()
+/datum/game_mode/proc/can_start(var/forced=0)
 	var/playerC = 0
 	var/readyC = 0
 	for(var/mob/new_player/player in player_list)
@@ -59,7 +59,7 @@
 				minicheck = 1
 		if(playerC < required_players)
 			minicheck = 1
-		if(minicheck)
+		if(minicheck && !forced)
 			if(config.allow_lowpop_modes) // check for scaled gamemodes, only on participating gamemodes. if the gamemodes minimum_players is 0 this is ignored
 				if(minimum_players && readyC >= minimum_players)
 					minimum_mode = 1
