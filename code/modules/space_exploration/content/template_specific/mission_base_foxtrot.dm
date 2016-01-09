@@ -22,13 +22,8 @@
 		var/picked = pick(alphabet + list("1", "2", "3", "4", "5", "6", "7", "8", "9", "0"))
 		var/rand_num = rand(1, amount)
 
-		var/list/index_list = code[num2text(rand_num)]
-		if(!index_list)
-			index_list = list()
+		code[num2text(rand_num)][num2text(char_index)] = picked
 
-		index_list += picked
-		index_list[index_list.Find(picked, length(index_list) - 1)] = char_index
-		code[num2text(rand_num)] = index_list
 		char_index++
 
 	var/list/complete_code = list()
@@ -44,13 +39,10 @@
 		for(var/x in (1 to code_length))
 			formatted += "-"
 
-		for(var/char in code[num2text(i)])
-			var/list/index_list = code[num2text(i)]
-			var/index = index_list.Find(char)
-			formatted[index] = char
-			complete_code[index] = char
-			index_list.Cut(index, index + 1)
-			code[num2text(i)] = index_list
+		for(var/index in code[num2text(i)])
+			var/char = code[num2text(i)][index]
+			formatted[text2num(index)] = char
+			complete_code[text2num(index)] = char
 
 		generated.info += list2text(formatted)
 

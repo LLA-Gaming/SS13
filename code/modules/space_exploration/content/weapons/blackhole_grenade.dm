@@ -12,6 +12,7 @@
 		var/obj/effect/effect = new(location)
 		effect.icon = 'icons/effects/effects.dmi'
 		effect.icon_state = "bhole3"
+		effect.transform *= 3
 
 		// Badmin prevention
 		range = Clamp(range, 1, 7)
