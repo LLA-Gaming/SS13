@@ -147,6 +147,12 @@
 
 ///Bomb Subtypes///
 
+/obj/machinery/syndicatebomb/bluespace
+	name = "bluespace bomb"
+	icon_state = "bluespace-bomb"
+	desc = "The space around this device seems to be warping.. best not get too close"
+	payload = /obj/item/weapon/bombcore/bluespace
+
 /obj/machinery/syndicatebomb/training
 	name = "training bomb"
 	icon_state = "training-bomb"
@@ -271,6 +277,66 @@
 
 /obj/item/weapon/bombcore/badmin/explosion/detonate()
 	explosion(get_turf(src),HeavyExplosion,MediumExplosion,LightExplosion, flame_range = Flames)
+
+/obj/item/weapon/bombcore/bluespace
+	name = "bluespace bomb core"
+	desc = "A pulsating mass of crystallized bluespace energy"
+	icon_state = "bsbombcore"
+	origin_tech = "syndicate=6;combat=5;bluespace=5"
+	var/radius = 10
+	var/failure_factor = 7
+
+/obj/item/weapon/bombcore/bluespace/detonate()
+	//Logging
+	if(adminlog)
+		message_admins(adminlog)
+		log_game(adminlog)
+
+	//Get requisite lists and data
+	var/turf/epicenter = get_turf(src)
+	var/list/stuff = range(radius, epicenter)
+
+	//Process the teleport
+	for (var/atom/movable/A in stuff)
+		//Check for exemptions to teleport
+		if(A == src || istype(A, /obj/machinery/syndicatebomb/bluespace)) continue
+		if(A.anchored && istype(A, /obj/machinery)) continue
+		if(istype(A, /obj/structure/disposalpipe )) continue
+		if(istype(A, /obj/structure/cable )) continue
+		if(istype(A, /turf)) continue
+
+		//
+		if(prob((get_dist(A, epicenter)-1)*failure_factor)) continue
+
+		//Get new location
+		var/turf/newloc = locate(rand(TRANSITIONEDGE,world.maxx),rand(TRANSITIONEDGE,world.maxy),epicenter.z)
+
+		//Move
+		if (!A.Move(newloc))
+			A.loc = newloc
+
+		playsound(newloc, 'sound/effects/phasein.ogg', 100, 1)
+
+		//Handle graphical effect for clients
+		spawn()
+			if(ismob(A))
+				var/mob/M = A
+				if(M.client)
+					var/obj/blueeffect = new /obj(src)
+					blueeffect.screen_loc = "WEST,SOUTH to EAST,NORTH"
+					blueeffect.icon = 'icons/effects/effects.dmi'
+					blueeffect.icon_state = "shieldsparkles"
+					blueeffect.layer = 17
+					blueeffect.mouse_opacity = 0
+					M.client.screen += blueeffect
+					sleep(20)
+					M.client.screen -= blueeffect
+					qdel(blueeffect)
+
+	//Destroy the evidence
+	explosion(epicenter,1,2,4, flame_range = 0)
+	qdel(src)
+
 
 ///Syndicate Detonator (aka the big red button)///
 
