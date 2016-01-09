@@ -109,6 +109,7 @@ obj/machinery/atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user a
 		//Flavo threatened to call the police if i committed the comment that used to be here.
 		if(src.rename(newname, ispipe))
 			user << "You rename the pipe to [newname]."
+			log_game("[key_name(user)] has renamed the pipe at ([src.x],[src.y],[src.z]) to [newname].")
 			return 1
 		else
 			user << "\red Someone is already naming this pipeline!" //Realistically? Chances of this are tiny
