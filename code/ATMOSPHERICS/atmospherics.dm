@@ -68,7 +68,51 @@ obj/machinery/atmospherics/update_icon()
 	color = pipe_color
 	return null
 
+obj/machinery/atmospherics/proc/rename(var/newname, var/pipe)
+	if(newname)
+		src.name = newname
+	else
+		src.name = initial(src.name)
+	if(pipe)
+		//typecast because i just want this all in one damned place.
+		var/obj/machinery/atmospherics/pipe/P = src
+		//force parent to exist
+		if(!P.parent)
+			P.parent = new /datum/pipeline()
+			P.parent.build_pipeline(src)
+		if(P.parent.naming_pipe)
+			return 0
+		//if no name entered, reset.
+		if(newname == "")
+			P.parent.resetname()
+		else
+			P.parent.naming_pipe = P
+		//build_pipeline propagates the new name.
+		P.parent.build_pipeline(src)
+	return 1
+
+
+
 obj/machinery/atmospherics/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+
+	if(istype(W, /obj/item/weapon/pen))
+		var/newname = stripped_input(user,"Enter a name. Leave blank for default.","Rename",src.name) //Sanitize sanitize sanitize
+		var/ispipe
+		if (istype(src, /obj/machinery/atmospherics/pipe))
+			ispipe = 1
+		else
+			ispipe = 0
+		if(istype(src, /obj/machinery/atmospherics/unary/vent_pump) || istype(src, /obj/machinery/atmospherics/unary/vent_scrubber))
+			user << "You cannot name this machine!"
+			return 1
+		//user << "You begin to rename the pipe.."
+		//Flavo threatened to call the police if i committed the comment that used to be here.
+		if(src.rename(newname, ispipe))
+			user << "You rename the pipe to [newname]."
+			return 1
+		else
+			user << "\red Someone is already naming this pipeline!" //Realistically? Chances of this are tiny
+			return 1
 
 	if(istype(W, /obj/item/weapon/pipe_painter))
 		var/obj/item/weapon/pipe_painter/P = W

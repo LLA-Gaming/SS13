@@ -8,6 +8,11 @@ datum/pipeline
 
 	var/alert_pressure = 0
 
+	//naming pipe doubles as a check to prevent asshats from trying to name the pipeline at the same time.
+	//pipeline_name holds that name to allow expansions to the pipeline to persist with the new name
+	var/obj/machinery/atmospherics/pipe/naming_pipe = null
+	var/pipeline_name
+
 	Del()
 		if(network)
 			del(network)
@@ -68,8 +73,16 @@ datum/pipeline
 		else
 			air = new
 
+		if(naming_pipe)
+			pipeline_name = naming_pipe.name
+
 		while(possible_expansions.len>0)
 			for(var/obj/machinery/atmospherics/pipe/borderline in possible_expansions)
+				//rename all pipes to the pipeline's name
+				if(pipeline_name)
+					borderline.name = pipeline_name
+				else
+					borderline.name = initial(borderline.name) // if no name, revert.
 
 				var/list/result = borderline.pipeline_expansion()
 				var/edge_check = result.len
@@ -95,6 +108,7 @@ datum/pipeline
 
 				possible_expansions -= borderline
 
+		naming_pipe = null
 		air.volume = volume
 
 	proc/network_expand(datum/pipe_network/new_network, obj/machinery/atmospherics/pipe/reference)
@@ -192,3 +206,6 @@ datum/pipeline
 				air.temperature -= heat/total_heat_capacity
 		if(network)
 			network.update = 1
+
+	proc/resetname()
+		src.pipeline_name = null
