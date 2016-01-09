@@ -278,7 +278,7 @@ var/list/department_radio_keys = list(
 			listening|=M
 
 	var/turf/T = get_turf(src)
-	var/list/W = hear(message_range, T)
+	var/list/W = range(message_range, T)
 
 	for (var/obj/O in ((W | contents)-used_radios))
 		W |= O

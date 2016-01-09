@@ -146,6 +146,9 @@
 					continue
 				if(T.y > (world.maxy - 8) || T.y < 8)
 					continue
+				if(T.flags & NOJAUNT)
+					continue
+
 				ranged_turfs += T
 
 			if(length(ranged_turfs))
@@ -165,6 +168,10 @@
 			T.visible_message("<span class='notice'>Locked In.</span>")
 
 			T = targets[_target]
+
+			if(T.flags & NOJAUNT)
+				attached_to.PrintSystemAlert("Failed to lock on to target.")
+				return 0
 
 			var/obj/effect/portal/P = new(get_turf(attached_to), T, user)
 			try_move_adjacent(P)

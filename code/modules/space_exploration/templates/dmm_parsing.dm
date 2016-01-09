@@ -18,6 +18,11 @@
 		return 0
 
 	proc/HandleEdgeCases()
+		var/bare_name = copytext(name, 1, findtext(name, ".dmm"))
+		var/datum/template_setups/setups = new()
+		if(hascall(setups, "setup_" + bare_name))
+			call(setups, "setup_" + bare_name)(src)
+
 		for(var/turf/T in turfs)
 
 			if(istype(T,/turf/simulated))
