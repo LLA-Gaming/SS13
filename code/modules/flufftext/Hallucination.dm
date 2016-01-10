@@ -298,6 +298,8 @@ proc/check_panel(mob/M)
 				updateimage()
 			else
 				if(prob(15))
+					my_target.attack_log += text("<font color='orange'>[key_name(my_target)] has been attacked by [src] (HALLUCINATION)</font>")
+					log_attack("[key_name(my_target)] has been attacked by [src] (HALLUCINATION)")
 					if(weapon_name)
 						my_target << sound(pick('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg'))
 						my_target.show_message("<span class='danger'>[my_target] has been attacked with [weapon_name] by [src.name]!</span>", 1)
