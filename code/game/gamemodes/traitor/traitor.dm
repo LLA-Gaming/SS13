@@ -40,7 +40,7 @@
 	var/num_traitors = 1
 
 	if(config.traitor_scaling_coeff)
-		num_traitors = max(config.traitor_scaling_minimum, round((num_players())/((config.traitor_scaling_coeff * scale_modifier))))
+		num_traitors = Clamp(max(config.traitor_scaling_minimum, round((num_players())/((config.traitor_scaling_coeff * scale_modifier)))),1,round(num_players() / 2))
 	else
 		num_traitors = max(1, min(num_players(), traitors_possible))
 
@@ -77,7 +77,7 @@
 	return 1
 
 /datum/game_mode/traitor/make_antag_chance(var/mob/living/carbon/human/character) //Assigns traitor to latejoiners
-	if(traitors.len >= round(joined_player_list.len / (config.traitor_scaling_coeff * scale_modifier)) + 1) //Caps number of latejoin antagonists
+	if(traitors.len >= round(joined_player_list.len / 2)) //Caps number of latejoin antagonists. Basically traitors cannot out number crew
 		return
 	if (prob(100/(config.traitor_scaling_coeff * scale_modifier)))
 		if(character.client.prefs.be_special_gamemode & BE_TRAITOR)
