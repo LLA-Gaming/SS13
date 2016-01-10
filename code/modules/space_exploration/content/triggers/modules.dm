@@ -110,29 +110,6 @@
 			OnCompleted()
 				playsound(get_turf(src), _soundfile, _volume, _vary, _extra_range, _falloff, _surround)
 
-		flicker_lights_in_area/
-			var/_break_chance = 0
-			var/_explode_chance = 0
-			var/_flicker_amount_min = 15
-			var/_flicker_amount_max = 30
-
-			icon_state = "trigger_flicker"
-
-			OnCompleted()
-				world << "Called!"
-				for(var/turf/T in get_area(src))
-					for(var/obj/machinery/light/L in T)
-						world << "L!"
-						if(prob(_break_chance))
-							L.broken()
-							continue
-
-						if(prob(_explode_chance))
-							L.explode()
-							continue
-
-						L.flicker(rand(_flicker_amount_min, _flicker_amount_max))
-
 		spawn_effect/
 			var/_effect_type = "*choose from (smoke, spark, lightning, foam, steam)*"
 			var/_amount = 5

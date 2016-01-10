@@ -231,12 +231,16 @@
 				var/list/cb_ending_positions = list()
 
 				var/cb_start = findtext(line, "{")
-				while(cb_start)
+				var/tries = 20
+				while(cb_start && tries)
 					var/cb_end = findtext(line, "}", cb_start)
 					cb_starting_positions += cb_start
 					cb_ending_positions += cb_end
 
 					cb_start = findtext(line, "{", cb_end + 1)
+					tries--
+
+				tries = 20
 
 				// Extract each comma-seperated path out of the text
 				if(comma_pos)
@@ -247,8 +251,9 @@
 
 						// Ignore commas in {} blocks
 						for(var/c in cb_starting_positions)
-							while(next_comma_pos in (c to cb_ending_positions[cb_starting_positions.Find(c)]))
+							while(tries && next_comma_pos in (c to cb_ending_positions[cb_starting_positions.Find(c)]))
 								next_comma_pos = findtext(line, ",", next_comma_pos + 1)
+								tries--
 
 						if(next_comma_pos)
 							path_groups.Add(copytext(line, comma_pos + 1, next_comma_pos))
@@ -256,7 +261,9 @@
 						else
 							path_groups.Add(copytext(line, comma_pos + 1, lp_pos))
 
-					while(next_comma_pos)
+						tries--
+
+					while(next_comma_pos && tries)
 				else
 					path_groups.Add(inner_text)
 
@@ -280,14 +287,18 @@
 						var/list/quote_sp = list() // Quote starting positions
 						var/list/quote_ep = list() // Quote ending positions
 
+						tries = 20
 						var/quote_start = findtext(string, "\"")
-						while(quote_start)
+						while(quote_start && tries)
 							var/quote_end = findtext(string, "\"", quote_start + 1)
 
 							quote_sp += quote_start
 							quote_ep += quote_end
 
 							quote_start = findtext(string, "\"", quote_end + 1)
+							tries--
+
+						tries = 20
 
 						// Start hack. Why? Because byond.
 						var/list/string_list = list()
@@ -299,8 +310,9 @@
 
 								// Ignore commas in quote blocks
 								for(var/sc in quote_sp)
-									while(next_sc_pos in (sc to quote_ep[quote_sp.Find(sc)]))
+									while(tries && next_sc_pos in (sc to quote_ep[quote_sp.Find(sc)]))
 										next_sc_pos = findtext(string, ";", next_sc_pos + 1)
+										tries--
 
 								if(!length(string_list) && findtext(string, ";"))
 									var/part = copytext(string, sc_pos + 1, next_sc_pos)
@@ -314,7 +326,9 @@
 									sc_pos = next_sc_pos
 								else
 									string_list.Add(copytext(string, sc_pos + 1, length(string) + 1))
-							while(next_sc_pos)
+
+								tries--
+							while(next_sc_pos && tries)
 
 						var/list/space_removal_list = list()
 						var/list/space_removal_pass2 = list()
