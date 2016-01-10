@@ -342,6 +342,7 @@
 				else
 					if(D.category)
 						add_part_set(D.category, list(D.build_path))
+						i++
 					else if(add_part_to_set("Misc", D.build_path))//If in doubt, chunk it into the Misc
 						i++
 		return i
