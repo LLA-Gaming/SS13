@@ -4,7 +4,6 @@
  *		Detective
  *		Head of Security + Jensen cosplay gear
  *		Navy uniforms
- *		Skirt-curity
  */
 
 /*
@@ -105,25 +104,3 @@
 	icon_state = "wardenblueclothes"
 	item_state = "wardenblueclothes"
 	item_color = "wardenblueclothes"
-
-/*
- * Skirt-curity
- */
-
-
-/obj/item/clothing/under/rank/security/redskirt
-	name = "security officer's skirt"
-	desc = "The latest in fashionable security skirts."
-	icon_state = "officerskirtred"
-	item_state = "officerskirtred"
-	item_color = "officerskirtred"
-	fitted = 0
-
-/obj/item/clothing/under/rank/security/blueskirt
-	name = "security officer's skirt"
-	desc = "The latest in fashionable security skirts."
-	icon_state = "officerskirtblue"
-	item_state = "officerskirtblue"
-	item_color = "officerskirtblue"
-	fitted = 0
-

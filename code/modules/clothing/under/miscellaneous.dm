@@ -470,3 +470,20 @@
 	icon_state = "ntsuit"
 	item_state = "syndicate-blue"
 	item_color = "ntsuit"
+
+
+/obj/item/clothing/under/formalredskirt
+	name = "formal red skirt"
+	desc = "The latest in fashionable skirts."
+	icon_state = "skirtred"
+	item_state = "skirtred"
+	item_color = "skirtred"
+	fitted = 0
+
+/obj/item/clothing/under/formalblueskirt
+	name = "formal blue skirt"
+	desc = "The latest in fashionable skirts."
+	icon_state = "skirtblue"
+	item_state = "skirtblue"
+	item_color = "skirtblue"
+	fitted = 0
