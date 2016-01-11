@@ -49,6 +49,8 @@
 	new /obj/item/clothing/under/rank/security/navyblue(src)
 	new /obj/item/clothing/under/rank/security/navyblue(src)
 	new /obj/item/clothing/under/rank/security/navyblue(src)
+	new /obj/item/clothing/under/rank/security/redskirt(src)
+	new /obj/item/clothing/under/rank/security/blueskirt(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/shoes/jackboots(src)
 	new /obj/item/clothing/shoes/jackboots(src)
