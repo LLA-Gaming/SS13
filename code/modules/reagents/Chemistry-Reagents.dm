@@ -70,6 +70,9 @@ datum
 				holder.remove_reagent(src.id, REAGENTS_METABOLISM) //By default it slowly disappears.
 				return
 
+			on_mob_speech(var/speech)
+				return 0
+
 			on_move(var/mob/M)
 				return
 
@@ -421,6 +424,11 @@ datum
 				if(prob(7)) M.emote(pick("twitch","drool","moan","giggle"))
 				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
 				return
+
+			on_mob_speech(var/speech)
+				if(!speech)
+					return null
+				return sedated(speech)
 
 		serotrotium
 			name = "Serotrotium"
@@ -902,6 +910,11 @@ datum
 				..()
 				return
 
+			on_mob_speech(var/speech)
+				if(!speech)
+					return null
+				return stutter(speech)
+
 		kelotane
 			name = "Kelotane"
 			id = "kelotane"
@@ -1166,6 +1179,11 @@ datum
 				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
 	//			..()		//this was causing hyperzine to be consumed twice...
 				return
+
+			on_mob_speech(var/speech)
+				if(!speech)
+					return null
+				return overcaffeinated(speech)
 
 		hyperzine/hyperfine_punch
 			name = "Hyperfine Punch"
@@ -1526,6 +1544,11 @@ datum
 				..()
 				return
 
+			on_mob_speech(var/speech)
+				if(!speech)
+					return null
+				return stutter(speech)
+
 		toxin/plantbgone
 			name = "Plant-B-Gone"
 			id = "plantbgone"
@@ -1609,6 +1632,10 @@ datum
 				..()
 				return
 
+			on_mob_speech(var/speech)
+				if(!speech)
+					return null
+				return sedated(speech)
 
 		toxin/spore
 			name = "Spore Toxin"

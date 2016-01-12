@@ -149,6 +149,20 @@ var/list/department_radio_keys = list(
 	if (slurring)
 		message = slur(message)
 
+	//reagent speech
+	if (istype(src,/mob/living/carbon/human))
+		var/datum/reagents/H = src:reagents
+		var/datum/reagent/chosen_reagent
+		for(var/datum/reagent/R in H.reagent_list)
+			if(R.on_mob_speech() == 0)
+				continue //reagents without on_mob_speech() should not be considered
+			if(!chosen_reagent)
+				chosen_reagent = R
+			if(chosen_reagent.volume < R)
+				chosen_reagent = R
+		if(chosen_reagent && message)
+			message = chosen_reagent.on_mob_speech(message)
+
 /* //qw do not have beesease atm.
 	if(virus)
 		if(virus.name=="beesease" && virus.stage>=2)

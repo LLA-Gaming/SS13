@@ -258,6 +258,34 @@ proc/slur(n)
 		p++//for each letter p is increased to find where the next letter will be.
 	return copytext(sanitize(t),1,MAX_MESSAGE_LEN)
 
+//reagent speechs
+/proc/sedated(n)
+	var/speech = lowertext(n)
+	var/phrase = html_decode(speech)
+	var/leng = lentext(phrase)
+	var/counter = lentext(phrase)
+	var/newphrase = ""
+	var/newletter = ""
+	while(counter>=1)
+		newletter = copytext(phrase, (leng - counter) + 1 , (leng - counter) + 2)
+		if(newletter == " " && prob(25))
+			newletter = pick("... ",".. ")
+		if(newletter == "," || newletter == "." || newletter == "!" || newletter == "-") // removes puncuation to add its own
+			newletter = ""
+		newphrase += "[newletter]"
+		counter -= 1
+	return newphrase
+
+/proc/overcaffeinated(n)
+	n = replacetext(n, " ", "")
+	n = replacetext(n, ".", "")
+	n = replacetext(n, ",", "")
+	n = replacetext(n, "!", "")
+	n = replacetext(n, "-", "")
+	n += pick("!", "!!", "!!!")
+
+	return n
+
 /proc/derpspeech(message, stuttering)
 	message = replacetext(message, " am ", " ")
 	message = replacetext(message, " is ", " ")
