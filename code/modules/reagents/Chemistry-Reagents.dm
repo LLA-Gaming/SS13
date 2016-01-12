@@ -1180,11 +1180,6 @@ datum
 	//			..()		//this was causing hyperzine to be consumed twice...
 				return
 
-			on_mob_speech(var/speech)
-				if(!speech)
-					return null
-				return overcaffeinated(speech)
-
 		hyperzine/hyperfine_punch
 			name = "Hyperfine Punch"
 			id = "hyperfinepunch"

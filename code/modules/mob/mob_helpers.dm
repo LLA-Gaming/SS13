@@ -276,19 +276,7 @@ proc/slur(n)
 		counter -= 1
 	return newphrase
 
-/proc/overcaffeinated(n)
-	n = replacetext(n, " ", "")
-	n = replacetext(n, ".", "")
-	n = replacetext(n, ",", "")
-	n = replacetext(n, "'", "")
-	n = replacetext(n, "!", "")
-	n = replacetext(n, "-", "")
-	n = replacetext(n, "'", "")
-	n = replacetext(n, "`", "")
-	n = replacetext(n, "~", "")
-	n += pick("!", "!!", "!!!")
-
-	return n
+//reagent speechs end
 
 /proc/derpspeech(message, stuttering)
 	message = replacetext(message, " am ", " ")
