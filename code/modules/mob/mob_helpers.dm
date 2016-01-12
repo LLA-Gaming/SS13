@@ -270,7 +270,7 @@ proc/slur(n)
 		newletter = copytext(phrase, (leng - counter) + 1 , (leng - counter) + 2)
 		if(newletter == " " && prob(25))
 			newletter = pick("... ",".. ")
-		if(newletter == "," || newletter == "." || newletter == "!" || newletter == "-") // removes puncuation to add its own
+		if(newletter == "," || newletter == "." || newletter == "!" || newletter == "-" || newletter == "'" || newletter == "~" || newletter == "`") // removes puncuation to add its own
 			newletter = ""
 		newphrase += "[newletter]"
 		counter -= 1
@@ -280,8 +280,12 @@ proc/slur(n)
 	n = replacetext(n, " ", "")
 	n = replacetext(n, ".", "")
 	n = replacetext(n, ",", "")
+	n = replacetext(n, "'", "")
 	n = replacetext(n, "!", "")
 	n = replacetext(n, "-", "")
+	n = replacetext(n, "'", "")
+	n = replacetext(n, "`", "")
+	n = replacetext(n, "~", "")
 	n += pick("!", "!!", "!!!")
 
 	return n
