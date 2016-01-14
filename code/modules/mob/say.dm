@@ -79,6 +79,8 @@
 			return "gibbers, \"[text]\"";
 	if (ending == "?")
 		return "asks, \"[text]\"";
+	if (copytext(text, length(text) - 1) == "!!")
+		return "yells, \"<span class = 'yell'>[text]</span>\""
 	if (ending == "!")
 		return "exclaims, \"[text]\"";
 

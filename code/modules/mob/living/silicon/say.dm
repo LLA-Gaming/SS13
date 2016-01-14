@@ -57,14 +57,14 @@
 		var/message_a = say_quote(message)
 
 		//Human-like, sorta, heard by those who understand humans.
-		var/rendered_a = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[message_a]</span></span>"
+		var/rendered_a = "<span class='game say'><span class='name'>[name]</span> <span class='message'><span class = 'robot'>[message_a]</span></span></span>"
 
 		//Speach distorted, heard by those who do not understand AIs.
 		message = stars(message)
 		var/message_b = say_quote(message)
-		var/rendered_b = "<span class='game say'><span class='name'>[voice_name]</span> <span class='message'>[message_b]</span></span>"
+		var/rendered_b = "<span class='game say'><span class='name'>[voice_name]</span> <span class='message'><span class = 'robot'>[message_b]</span></span></span>"
 
-		src << "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> <span class='message'>[message_a]</span></span></i>"//The AI can "hear" its own message.
+		src << "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> <span class='message'><span class = 'robot'>[message_a]</span></span></span></i>"//The AI can "hear" its own message.
 		var/list/speech_bubble_recipients = list()
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
 			if(M.say_understands(src))//If they understand AI speak. Humans and the like will be able to.
@@ -97,12 +97,12 @@
 		var/mob/living/silicon/S = src
 		desig = trim_left(S.designation + " " + S.job)
 	var/message_a = say_quote(message)
-	var/rendered = "<i><span class='game say'>Robotic Talk, <span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i>"
+	var/rendered = "<i><span class='game say'>Robotic Talk, <span class='name'>[name]</span> <span class='message'><span class = 'robot'>[message_a]</span></span></span></i>"
 
 	for (var/mob/living/S in living_mob_list)
 		if(S.robot_talk_understand && (S.robot_talk_understand == robot_talk_understand)) // This SHOULD catch everything caught by the one below, but I'm not going to change it.
 			if(istype(S , /mob/living/silicon/ai))
-				var/renderedAI = "<i><span class='game say'>Robotic Talk, <a href='byond://?src=\ref[S];track2=\ref[S];track=\ref[src]'><span class='name'>[name] ([desig])</span></a> <span class='message'>[message_a]</span></span></i>"
+				var/renderedAI = "<i><span class='game say'>Robotic Talk, <a href='byond://?src=\ref[S];track2=\ref[S];track=\ref[src]'><span class='name'>[name] ([desig])</span></a> <span class='message'><span class = 'robot'>[message_a]</span></span></span></i>"
 				S.show_message(renderedAI, 2)
 			else
 				S.show_message(rendered, 2)
@@ -110,7 +110,7 @@
 
 		else if (S.binarycheck())
 			if(istype(S , /mob/living/silicon/ai))
-				var/renderedAI = "<i><span class='game say'>Robotic Talk, <a href='byond://?src=\ref[S];track2=\ref[S];track=\ref[src]'><span class='name'>[name] ([desig])</span></a> <span class='message'>[message_a]</span></span></i>"
+				var/renderedAI = "<i><span class='game say'>Robotic Talk, <a href='byond://?src=\ref[S];track2=\ref[S];track=\ref[src]'><span class='name'>[name] ([desig])</span></a> <span class='message'><span class = 'robot'>[message_a]</span></span></span></i>"
 				S.show_message(renderedAI, 2)
 			else
 				S.show_message(rendered, 2)
@@ -131,14 +131,14 @@
 		message_b = say_quote(message_b)
 		message_b = "<i>[message_b]</i>"
 
-		rendered = "<i><span class='game say'><span class='name'>[voice_name]</span> <span class='message'>[message_b]</span></span></i>"
+		rendered = "<i><span class='game say'><span class='name'>[voice_name]</span> <span class='message'><span class = 'robot'>[message_a]</span></span></span></i>"
 
 		for (var/mob/M in heard)
 			M.show_message(rendered, 2)
 
 	message = say_quote(message)
 
-	rendered = "<i><span class='game say'>Robotic Talk, <span class='name'>[name]</span> <span class='message'>[message_a]</span></span></i>"
+	rendered = "<i><span class='game say'>Robotic Talk, <span class='name'>[name]</span> <span class='message'><span class = 'robot'>[message_a]</span></span></span></i>"
 
 	for (var/mob/M in dead_mob_list)
 		if(!istype(M,/mob/new_player) && !(istype(M,/mob/living/carbon/brain)))//No meta-evesdropping

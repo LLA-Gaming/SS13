@@ -17,11 +17,13 @@
 	var/ending = copytext(text, length(text))
 
 	if (ending == "?")
-		return "[src.speakQuery], \"[text]\"";
+		return "[src.speakQuery], \"<span class = 'robot'>[text]</span>\"";
+	else if (copytext(text, length(text) - 1) == "!!")
+		return "yells, \"<span class = 'yell'><span class = 'robot'>[text]</span></span>\""
 	else if (ending == "!")
-		return "[src.speakExclamation], \"[text]\"";
+		return "[src.speakExclamation], \"<span class = 'robot'>[text]</span>\"";
 
-	return "[src.speakStatement], \"[text]\"";
+	return "[src.speakStatement], \"<span class = 'robot'>[text]</span>\"";
 
 /mob/living/silicon/pai/say(var/msg)
 	if(silence_time)
