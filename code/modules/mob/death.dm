@@ -10,4 +10,5 @@
 	return
 
 /mob/proc/death(gibbed)
+	if(ticker) ticker.stalemate_check() // stalemate check
 	return
