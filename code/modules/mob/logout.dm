@@ -34,4 +34,6 @@
 		var/obj/Loc=loc
 		Loc.on_log()
 
+	if(ticker) ticker.stalemate_check() // stalemate check
+
 	return 1

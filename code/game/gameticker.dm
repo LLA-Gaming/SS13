@@ -9,6 +9,7 @@ var/round_start_time = 0
 /datum/controller/gameticker
 	var/const/restart_timeout = 250
 	var/current_state = GAME_STATE_PREGAME
+	var/stalemate = 0 // 0: business as usual | 1: crew transfer votes will be instant
 
 	var/hide_mode = 0
 	var/datum/game_mode/mode = null
@@ -431,4 +432,12 @@ var/round_start_time = 0
 
 	logPerseusMissions()
 
+	return 1
+
+/datum/controller/gameticker/proc/stalemate_check()
+	for(var/mob/M in player_list)
+		if(M.stat != 2)
+			stalemate = 0
+			return 0
+	stalemate = 1
 	return 1
