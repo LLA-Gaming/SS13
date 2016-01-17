@@ -12,12 +12,21 @@
 	density = 1
 	layer = 3.3
 
-	var/obj/machinery/hangar_forcefield_generator/generator
+	New()
+		var/turf/simulated/S = get_turf(src)
+		if(S)
+			S.blocks_air = 1
+		air_update_turf(1)
+		..()
 
-	CanAtmosPass()
-		if(!generator)
-			return 1
-		return generator.CanAtmosPass()
+	Destroy()
+		var/turf/simulated/S = get_turf(src)
+		if(S)
+			S.blocks_air = 0
+		air_update_turf(1)
+		..()
+
+	var/obj/machinery/hangar_forcefield_generator/generator
 
 	CanPass(var/atom/movable/M, var/turf/T, var/height = 0, var/air_group = 0)
 		if(!generator)
@@ -62,13 +71,10 @@
 
 		active_power_usage =  (500 * (length(shields))) / 2
 
-	Del()
-		..()
+	Destroy()
 		DestroyShields()
 		qdel(linked)
-
-	CanAtmosPass()
-		return ("Atmospherics" in permeable)
+		..()
 
 	process()
 		if(stat & (NOPOWER|BROKEN))

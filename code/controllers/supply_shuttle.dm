@@ -65,6 +65,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		var/turf/T = get_turf(loc)
 		if(T)
 			T.blocks_air = 1
+		air_update_turf(1)
 		..()
 
 	Destroy() //lazy hack to set the turf to allow air to pass if it's a simulated floor //wow this is terrible
@@ -72,6 +73,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		if(T)
 			if(istype(T, /turf/simulated/floor))
 				T.blocks_air = 0
+		air_update_turf(1)
 		..()
 
 /obj/machinery/computer/supplycomp
