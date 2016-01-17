@@ -16,7 +16,7 @@ datum/controller/vote
 				del(vote)
 			vote = src
 
-	proc/process()	//called by master_controller
+	proc/process()
 		if(mode)
 			time_remaining = started_timeofday + config.vote_period
 			if(world.timeofday < started_timeofday)
