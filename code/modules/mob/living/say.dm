@@ -359,6 +359,10 @@ var/list/department_radio_keys = list(
 	var/list/heard_a = list() // understood us
 	var/list/heard_b = list() // didn't understand us
 
+	for(var/mob/living/simple_animal/borer/B in listening)
+		if(!B.host || B.controlling) // borers cant hear anything without a host
+			return
+
 	for (var/M in listening)
 		if(hascall(M,"say_understands"))
 			if (M:say_understands(src))

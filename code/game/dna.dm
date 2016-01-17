@@ -302,7 +302,7 @@
 //////////////////////////////////////////////////////////// Monkey Block
 	if(blocks[RACEBLOCK])
 		if(istype(M, /mob/living/carbon/human))	// human > monkey
-			var/mob/living/carbon/monkey/O = M.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPVIRUS)
+			var/mob/living/carbon/monkey/O = M.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPBORER)
 			if(connected) //inside dna thing
 				var/obj/machinery/dna_scannernew/C = connected
 				O.loc = C
@@ -311,7 +311,7 @@
 			return 1
 	else
 		if(istype(M, /mob/living/carbon/monkey))	// monkey > human,
-			var/mob/living/carbon/human/O = M.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPVIRUS)
+			var/mob/living/carbon/human/O = M.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPBORER)
 			if(O && connected) //inside dna thing
 				var/obj/machinery/dna_scannernew/C = connected
 				O.loc = C
