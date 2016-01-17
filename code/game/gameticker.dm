@@ -6,6 +6,9 @@ var/round_start_time = 0
 #define GAME_STATE_PLAYING		3
 #define GAME_STATE_FINISHED		4
 
+var/global/last_tick_timeofday = world.timeofday
+var/global/last_tick_duration = 0
+
 /datum/controller/gameticker
 	var/const/restart_timeout = 250
 	var/current_state = GAME_STATE_PREGAME
@@ -126,9 +129,7 @@ var/round_start_time = 0
 
 	round_start_time = world.time
 
-	supply_shuttle.process() 		//Start the supply shuttle regenerating points
-	master_controller.process()		//Start master_controller.process()
-	lighting_controller.process()	//Start processing DynamicAreaLighting updates
+	processScheduler.start()
 
 	sleep(10)
 
@@ -320,7 +321,9 @@ var/round_start_time = 0
 
 		mode.process()
 
-		emergency_shuttle.process()
+		var/currenttime = world.timeofday
+		last_tick_duration = (currenttime - last_tick_timeofday) / 10
+		last_tick_timeofday = currenttime
 
 		if(!mode.explosion_in_progress && mode.check_finished())
 			current_state = GAME_STATE_FINISHED

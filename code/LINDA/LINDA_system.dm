@@ -14,6 +14,13 @@ datum/controller/air_system
 
 	var/current_cycle = 0
 
+	//These were in the old master controller, putting them here to keep track of those specific values
+	var/air_turfs		= 0
+	var/air_groups		= 0
+	var/air_highpressure= 0
+	var/air_hotspots	= 0
+	var/air_superconductivity = 0
+
 
 /datum/controller/air_system/proc/setup()
 	set background = BACKGROUND_ENABLED
@@ -44,23 +51,23 @@ datum/controller/air_system
 	current_cycle++
 	var/timer = world.timeofday
 	process_active_turfs()
-	master_controller.air_turfs = (world.timeofday - timer) / 10
+	air_turfs = (world.timeofday - timer) / 10
 
 	timer = world.timeofday
 	process_excited_groups()
-	master_controller.air_groups = (world.timeofday - timer) / 10
+	air_groups = (world.timeofday - timer) / 10
 
 	timer = world.timeofday
 	process_high_pressure_delta()
-	master_controller.air_highpressure = (world.timeofday - timer) / 10
+	air_highpressure = (world.timeofday - timer) / 10
 
 	timer = world.timeofday
 	process_hotspots()
-	master_controller.air_hotspots = (world.timeofday - timer) / 10
+	air_hotspots = (world.timeofday - timer) / 10
 
 	timer = world.timeofday
 	process_super_conductivity()
-	master_controller.air_superconductivity = (world.timeofday - timer) / 10
+	air_superconductivity = (world.timeofday - timer) / 10
 
 /datum/controller/air_system/proc/process_hotspots()
 	for(var/obj/effect/hotspot/H in hotspots)
