@@ -2,6 +2,7 @@
 	name = "pAI"
 	icon = 'icons/obj/status_display.dmi' //invisibility!
 	mouse_opacity = 0
+	invisibility = 100
 	density = 0
 
 	robot_talk_understand = 0
