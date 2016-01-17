@@ -30,5 +30,5 @@
 /mob/living/silicon/pai/proc/follow_pai()
 	while(card)
 		loc = get_turf(card)
-		sleep(0.6)
+		sleep(5)
 	qdel(src) //if there's no pAI we shouldn't exist
