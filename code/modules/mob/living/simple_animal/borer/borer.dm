@@ -53,14 +53,15 @@
 				if(docile)
 					src << "\blue You shake off your lethargy as the sugar leaves your host's blood."
 					docile = 0
-			if(!ismonkey(host))
-				host.nutrition -= HUNGER_FACTOR
+//			if(!ismonkey(host))
+			host.nutrition -= HUNGER_FACTOR
 			if(chemicals < 200 && !controlling)
 				chemicals++
 
 		if(controlling)
 			chemicals--
 			if(docile || chemicals <= 0)
+				host << "<span class='notice'>Your control over your host's body fades away.</span>"
 				return_control()
 
 

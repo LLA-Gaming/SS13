@@ -53,6 +53,10 @@
 //			src << "<span class='notice'>You cannot get through that host's protective gear.</span>"
 //			return
 
+	if(M.stat == 2)
+		src << "<span class='notice'>That is not an appropriate target.</span>"
+		return
+
 	ventcrawler = 0
 	src << "<span class='notice'>You slither up [M] and begin probing at their ear canal...</span>"
 	M << "<span class='notice'>You feel something slithering up your leg...</span>"
@@ -66,31 +70,33 @@
 		ventcrawler = 2
 		return
 
-	if(!M || !src) return
-
-	if(src.stat)
-		src << "<span class='notice'>You cannot infest a target in your current state.</span>"
-		return
-
-	if(M.stat == 2)
-		src << "<span class='notice'>That is not an appropriate target.</span>"
-		return
-
 	if(M in view(1, src))
 		src << "<span class='notice'>You wiggle into [M]'s ear.</span>"
 		host = M
 		attach()
 		return
 
+	if(!M || !src)
+		ventcrawler = 2
+		return
+
+	if(src.stat)
+		src << "<span class='notice'>You cannot infest a target in your current state.</span>"
+		ventcrawler = 2
+		return
+
 	else
 		src << "<span class='notice'>They are no longer in range!</span>"
+		ventcrawler = 2
 		return
 
 /mob/living/simple_animal/borer/proc/attach()
-		src.verbs -= detached
-		src.verbs |= attached
-		sleep(1) // verbs wouldnt update properly otherwise
-		host.contents += src
+	if(layer != MOB_LAYER)
+		layer = MOB_LAYER
+	src.verbs -= detached
+	src.verbs |= attached
+	sleep(1) // verbs wouldnt update properly otherwise
+	host.contents += src
 
 /mob/living/simple_animal/borer/proc/hide()
 	set name = "Hide"
@@ -118,8 +124,16 @@
 	set name = "Lay Egg (200)"
 	set desc = "Lay an egg to reproduce."
 
+	if(stat)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
 	if(chemicals < 200)
 		src << "<span class='warning'>You do not have enough chemicals to reproduce.</span>"
+		return
+
+	if(locate(/turf/space) in get_turg(src))
+		src << "You can't lay an egg here."
 		return
 
 	if(locate(/obj/structure/borer_egg) in get_turf(src))
@@ -138,6 +152,10 @@
 	set name = "Instill Fear (50)"
 	set desc = "Instill fear in a target to make it easier for you to infest it."
 
+	if(stat)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
 	if(chemicals < 50)
 		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
 		return
@@ -153,6 +171,7 @@
 		if(!M || !src) return
 
 		if(M)
+			src << "<span class='notice'>You instill fear into your victim.</span>"
 			M << "<span class='warning'>Your muscles don't seem to listen to you.</span>"
 			M.paralysis += 10
 			chemicals -= 50
@@ -167,9 +186,10 @@
 
 	if(!host)
 		src << "<span class='warning'>You are not inside a host body.</span>"
+		detach()
 		return
 
-	if(stat)
+	if(stat || docile)
 		src << "<span class='warning'>You cannot leave your host in your current state.</span>"
 		return
 
@@ -182,7 +202,7 @@
 
 		if((!host) || !src) return
 
-		if(src.stat)
+		if(src.stat || src.docile)
 			src << "<span class='warning'>You cannot abandon [host] in your current state.</span>"
 			return
 
@@ -216,19 +236,37 @@
 	set name = "Secrete Chemicals (75)"
 	set desc = "Secrete chemicals into your host's bloodstream."
 
+	if(host.stat == 2)
+		src << "<span class='info'>That wouldn't have an effect on [host]'s body.</span>"
+		return
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
 	if(chemicals < 75)
 		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
 		return
 
 	if(chemicals >= 75)
 		var/chem = input(src,"What do you want to secrete?") in null|chems
-		host.reagents.add_reagent(chem, 5)
-		chemicals -= 75
+		if(chem)
+			src << "<span class='info'>You secrete some of the chemical into [host]'s body.</span>"
+			host.reagents.add_reagent(chem, 5)
+			chemicals -= 75
 
 /mob/living/simple_animal/borer/proc/adrenalin()
 	set category = "Borer"
 	set name = "Adrenalin (150)"
 	set desc = "Order your host's body to produce epinephrine, increasing its speed for a short time."
+
+	if(host.stat == 2)
+		src << "<span class='info'>That wouldn't have an effect on [host]'s body.</span>"
+		return
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
 
 	if(chemicals < 150)
 		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
@@ -246,13 +284,21 @@
 	set name = "Paralyze (125)"
 	set desc = "Paralyze your host to prevent it from doing something stupid."
 
+	if(host.stat == 2)
+		src << "<span class='info'>That wouldn't have an effect on [host]'s body.</span>"
+		return
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
 	if(chemicals < 125)
 		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
 		return
 
 	if(chemicals >= 125)
 		src << "<span class='info'>You secrete a paralyzing reactant into [host]'s body.</span>"
-		host << "<span class='info'>Your muscles don't seem to listen to you.</span>"
+		host << "<span class='warning'>Your muscles don't seem to listen to you.</span>"
 		host.paralysis += 10
 		chemicals -= 125
 		return
@@ -261,6 +307,17 @@
 	set category = "Borer"
 	set name = "Assume Control"
 	set desc = "Assume control over your host's body for a period of time."
+
+	if(!host)
+		return
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
+	if(host.stat == 2)
+		src << "<span class='notice'>You can't control a dead body.</span>"
+		return
 
 	var/list/protected_roles = list("Wizard","Changeling","Cultist")
 	var/mob/borer = src
@@ -276,6 +333,8 @@
 		src << "<span class='warning'>Their mind is resisting you.</span>"
 		return
 
+	host << "<span class='warning'>Your mind fades away.</span>"
+	src << "<span class='notice'>You take control over your host's body.</span>"
 	var/mob/dead/observer/ghost = host.ghostize(0)
 	host.verbs |= /mob/living/simple_animal/borer/proc/release_control
 	borer.mind.transfer_to(host)
@@ -289,6 +348,10 @@
 /mob/living/simple_animal/borer/proc/return_control()
 	var/mob/borer = src
 
+	if(!host)
+		controlling = 0
+		return
+
 	if(!borer.key || !borer.mind)
 		src.verbs |= attached
 		host.verbs -= /mob/living/simple_animal/borer/proc/release_control
@@ -299,6 +362,7 @@
 	var/mob/dead/observer/ghost = host.ghostize(0)
 	host.verbs -= /mob/living/simple_animal/borer/proc/release_control
 	borer.mind.transfer_to(host)
+	host << "<span class='notice'>You suddenly find yourself back in control.</span>"
 
 	src.verbs |= attached
 	ghost.mind.transfer_to(borer)
