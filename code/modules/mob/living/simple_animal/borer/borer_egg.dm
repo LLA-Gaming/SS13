@@ -6,6 +6,7 @@
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "borer_egg"
 	var/health = 100
+	var/hitnoise = 'sound/items/Welder.ogg'
 	layer = TURF_LAYER
 
 /obj/structure/borer_egg/New()
@@ -39,6 +40,9 @@
 		if(icon_state != "borer_egg_grown")
 			icon_state = "borer_egg_grown"
 
+/obj/structure/borer_egg/proc/healthcheck()
+	if(src.health <= 0)
+		qdel(src)
 
 /obj/structure/borer_egg/attackby(obj/item/I, mob/user)
 	if(I.attack_verb.len)
@@ -54,22 +58,18 @@
 			damage = 15
 			playsound(loc, hitnoise, 100, 1)
 
-	health -= damage
-	healthcheck()
+	src.health -= damage
+	src.healthcheck()
 
 /obj/structure/borer_egg/bullet_act(obj/item/projectile/Proj)
-	health -= Proj.damage
+	src.health -= Proj.damage
 	..()
-	healthcheck()
+	src.healthcheck()
 
 /obj/structure/borer_egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(exposed_temperature > 500)
-		health -= 5
-		healthcheck()
+		src.health -= 5
+		src.healthcheck()
 
 /obj/structure/borer_egg/attack_hand(mob/user)
 	user << "<span class='notice'>It feels slimy.</span>"
-
-/obj/structur/borer_egg/proc/healthcheck()
-	if(health <= 0)
-		qdel(src)

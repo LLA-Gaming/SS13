@@ -132,7 +132,7 @@
 		src << "<span class='warning'>You do not have enough chemicals to reproduce.</span>"
 		return
 
-	if(locate(/turf/space) in get_turg(src))
+	if(locate(/turf/space) in get_turf(src))
 		src << "You can't lay an egg here."
 		return
 
