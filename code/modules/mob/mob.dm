@@ -589,7 +589,11 @@ var/list/slot_equipment_priority = list( \
 
 			if(processScheduler && processScheduler.isRunning)
 				for (var/datum/controller/process/p in processScheduler.processes)
-					stat(null , "[uppertext(p.name)]-[p.getStatusText()]")
+					var/status_txt = p.getStatusText()
+					if(status_txt == "idle")
+						stat(null , "[uppertext(p.name)]-[status_txt]")
+					else
+						stat(null , "[uppertext(p.name)]-[status_txt][p.last_task ? "-[p.last_task]" : ""][p.last_object ? "-[p.last_object]" : ""]")
 
 			else
 				stat(null, "processScheduler is not running.")
