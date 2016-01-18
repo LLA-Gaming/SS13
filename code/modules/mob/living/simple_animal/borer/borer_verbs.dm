@@ -8,14 +8,14 @@
 					 /mob/living/simple_animal/borer/proc/adrenalin,
 					 /mob/living/simple_animal/borer/proc/paralyze)
 
-	chems += list("kelotane","bicaridine","hyronalin","imidazoline","ethylredoxrazine","anti_toxin")
+	chems += list("Kelotane","Bicaridine","Hyronalin","Imidazoline","Ethylredoxrazine","Anti Toxin")
 
 	if(evil)
 		detached += list(/mob/living/simple_animal/borer/proc/instill_fear)
 
 		attached += list(/mob/living/simple_animal/borer/proc/assume_control)
 
-		chems += list("impedrezene","lexorin","mindbreaker","toxin")
+		chems += list("Impedrezene","Lexorin","Mindbreaker","Toxin")
 
 // Available verbs when detached //
 
@@ -46,6 +46,9 @@
 	for(var/mob/living/simple_animal/borer/B in M.contents)
 		src << "<span class='notice'>You cannot infest someone who is already infested.</span>"
 		return
+	if (istype(M.glasses, /obj/item/clothing/glasses/virtual) && M.glasses:is_in_use)
+		src << "<span class='notice'>Their equipment prevents you from infesting them.</span>"
+		return
 
 //	if(istype(M,/mob/living/carbon/human))
 //		var/mob/living/carbon/human/H = M
@@ -62,15 +65,18 @@
 	M << "<span class='notice'>You feel something slithering up your leg...</span>"
 
 	if(!do_after(M,50) && !do_after(src,50))
-		for(var/mob/living/simple_animal/borer/B in M.contents)
-			src << "<span class='notice'>You stop probing at [M]'s ear canal as you realize that [M] has already been infested.</span>"
-			ventcrawler = 2
-			return
 		src << "<span class='notice'>As [M] moves away, you are dislodged and fall to the ground.</span>"
 		ventcrawler = 2
 		return
 
 	if(M in view(1, src))
+		if (istype(M.glasses, /obj/item/clothing/glasses/virtual) && M.glasses:is_in_use)
+			src << "<span class='notice'>Their equipment prevents you from infesting them.</span>"
+			return
+		for(var/mob/living/simple_animal/borer/B in M.contents)
+			src << "<span class='notice'>You stop probing at [M]'s ear canal as you realize that [M] has already been infested.</span>"
+			ventcrawler = 2
+			return
 		src << "<span class='notice'>You wiggle into [M]'s ear.</span>"
 		host = M
 		attach()
@@ -251,6 +257,7 @@
 	if(chemicals >= 75)
 		var/chem = input(src,"What do you want to secrete?") in null|chems
 		if(chem)
+			chem = replacetext(lowertext(chem), " ", "_")
 			src << "<span class='info'>You secrete some of the chemical into [host]'s body.</span>"
 			host.reagents.add_reagent(chem, 5)
 			chemicals -= 75
@@ -323,6 +330,7 @@
 	var/mob/borer = src
 
 	if(!host.key || !host.mind)
+		src << "<span class='notice'>You effortlessly take control over your host's body.</span>"
 		src.verbs -= attached
 		host.verbs |= /mob/living/simple_animal/borer/proc/release_control
 		borer.mind.transfer_to(host)

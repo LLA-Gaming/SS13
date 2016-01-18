@@ -29,7 +29,7 @@
 
 /mob/living/simple_animal/borer/New()
 	..()
-	real_name = "[pick("Primary","Secondary","Tertiary","Quaternary")] [rand(1000,9999)]"
+	real_name = "[pick("Pai'Luxar","Bai'Luxar","Zai'Luxar","Dai'Luxar")] [rand(1000,9999)]"
 //	if(prob(5))
 	evil = 1
 	initialize_lists()
@@ -47,8 +47,11 @@
 			src.see_invisible = host.see_invisible
 			if(host.reagents.has_reagent("sugar"))
 				if(!docile)
-					src << "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility."
 					docile = 1
+					if(!controlling)
+						src << "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility."
+					else
+						host << "\blue You feel the soporific flow of sugar in your host's blood, lulling you into docility."
 			else
 				if(docile)
 					src << "\blue You shake off your lethargy as the sugar leaves your host's blood."
@@ -109,6 +112,7 @@
 						var/obj/item/weapon/pod_attachment/sensor/sensor = pod.GetAttachmentOnHardpoint(16)
 						if(sensor && istype(sensor, /obj/item/weapon/pod_attachment/sensor/gps))
 							stat("Pod Position: ", "([pod.x], [pod.y], [pod.z])")
+				stat(null)
 				if(ticker && ticker.mode && ticker.mode.name == "AI malfunction")
 					if(ticker.mode:malf_mode_declared)
 						stat("Station Override", "Time left: [max(ticker.mode:AI_win_timeleft/(ticker.mode:apcs/3), 0)]")
@@ -118,3 +122,6 @@
 						if (timeleft)
 							stat("Emergency Shuttle","ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
+/mob/living/simple_animal/borer/UnarmedAttack(var/atom/A)
+	if(host) return
+	else return ..()

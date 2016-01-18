@@ -77,6 +77,8 @@
 	for(var/mob/living/simple_animal/borer/B in borer)
 		B.host = O
 		O.contents += B
+		if(B.controlling)
+			O.verbs |= /mob/living/simple_animal/borer/proc/release_control
 
 	//transfer mind and delete old mob
 	if(mind)
@@ -185,6 +187,8 @@
 	for(var/mob/living/simple_animal/borer/B in borer)
 		B.host = O
 		O.contents += B
+		if(B.controlling)
+			O.verbs |= /mob/living/simple_animal/borer/proc/release_control
 
 	if(mind)
 		mind.transfer_to(O)

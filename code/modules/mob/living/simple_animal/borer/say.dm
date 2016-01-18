@@ -16,7 +16,10 @@
 		return
 
 	if (length(message) >= 2)
-		if((copytext(message, 1, 2) == ";") || (copytext(message, 1, 2) == ":") || (copytext(message, 1, 2) == "#") || (copytext(message, 1, 2) == "."))
+		if(!host)
+			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
+			borer_talk(message)
+		else if((copytext(message, 1, 2) == ";") || (copytext(message, 1, 2) == ":") || (copytext(message, 1, 2) == "#") || (copytext(message, 1, 2) == "."))
 			message = copytext(message, 2)
 			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 			borer_talk(message)
@@ -37,16 +40,15 @@
 
 	log_say("[real_name] as [name]/[key] : [message]")
 	message = trim(message)
+	message = say_quote(message)
 
 	if (!message)
 		return
 
 	var/rendered = "<i><span class='game say'>Hivemind, <span class='name'>[real_name]</span> <span class='message'>[message]</span></span></i>"
 	for(var/mob/living/simple_animal/borer/B in player_list)
-		if(!B.stat && !controlling)
+		if(!B.stat && !B.controlling)
 			B.show_message(rendered, 2)
-		if(B.host && B.controlling)
-			B.host.show_message(rendered, 2)
 
 	for (var/mob/M in dead_mob_list)
 		if(!istype(M,/mob/new_player) && !(istype(M,/mob/living/carbon/brain)))//No meta-evesdropping
