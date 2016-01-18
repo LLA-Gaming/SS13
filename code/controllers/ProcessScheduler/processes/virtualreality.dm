@@ -5,6 +5,6 @@
 	if(!vr_controller)
 		vr_controller = new
 
-/datum/controller/process/vr_controller/doWork()
+/datum/controller/process/virtualreality/doWork()
 	vr_controller.process()
 	scheck()
