@@ -198,13 +198,8 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 /mob/living/carbon/human/npc/proc/process()
 	targeting()
 	if(state == NPC_STATE_MOVING)
-		if(ranged)
-			m_intent = "run"
-		else
-			m_intent = "walk"
 		move_to()
 	if(state == NPC_STATE_MELEE)
-		m_intent = "run"
 		attack_at()
 
 /mob/living/carbon/human/npc/proc/move_to()

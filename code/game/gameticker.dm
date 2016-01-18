@@ -45,7 +45,7 @@ var/global/last_tick_duration = 0
 /datum/controller/gameticker/proc/pregame()
 
 	login_music = pickweight(list('sound/ambience/title3.mid' = 60, 'sound/ambience/title4.ogg' = 38, 'sound/ambience/clown.ogg' = 2)) // choose title music!
-	switch(events.holiday)
+	switch(holiday)
 		if("April Fool's Day")
 			login_music = 'sound/ambience/clown.ogg'
 		if("Halloween") //spooky
@@ -150,9 +150,9 @@ var/global/last_tick_duration = 0
 		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
 		world << sound('sound/AI/welcome.ogg') // Skie
 		//Holiday Round-start stuff	~Carn
-		if(events.holiday)
+		if(holiday)
 			world << "<font color='blue'>and...</font>"
-			world << "<h4>Happy [events.holiday] Everybody!</h4>"
+			world << "<h4>Happy [holiday] Everybody!</h4>"
 		//Power restoration on lowpop
 		var/PlayerC = 0
 		var/EngiC = 0

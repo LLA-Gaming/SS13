@@ -1,6 +1,6 @@
 /datum/controller/process/npcs/setup()
 	name = "npc"
-	schedule_interval = 20
+	schedule_interval = 1 //NPCs process faster then lighting. zoom zoom vroom vroom
 
 /datum/controller/process/npcs/doWork()
 	for(var/mob/living/carbon/human/npc/M in npc_list)

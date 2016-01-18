@@ -17,6 +17,8 @@
 	setup_engineering()
 	setup_mining()
 
+	getHoliday()
+
 	if(!mining_config)
 		mining_config = new()
 

@@ -17,8 +17,6 @@ var/datum/controller/event/events
 	var/focus = 0.25
 	var/queue_ghost_events = 1
 
-	var/holiday					//This will be a string of the name of any realworld holiday which occurs today (GMT time)
-
 //Initial controller setup.
 /datum/controller/event/New()
 	//There can be only one events manager. Out with the old and in with the new.
@@ -39,7 +37,6 @@ var/datum/controller/event/events
 		control += E				//add it to the list of all events (controls)
 
 	reschedule()
-	getHoliday()
 	handleSchedule(holiday)
 
 /*
@@ -201,7 +198,7 @@ var/datum/controller/event/events
 ~Carn */
 
 //sets up the holiday string in the events manager.
-/datum/controller/event/proc/getHoliday()
+/proc/getHoliday()
 	if(!config.allow_holidays)	return		// Holiday stuff was not enabled in the config!
 	holiday = null
 
