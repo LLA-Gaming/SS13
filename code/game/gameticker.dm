@@ -6,6 +6,9 @@ var/round_start_time = 0
 #define GAME_STATE_PLAYING		3
 #define GAME_STATE_FINISHED		4
 
+var/global/last_tick_timeofday = world.timeofday
+var/global/last_tick_duration = 0
+
 /datum/controller/gameticker
 	var/const/restart_timeout = 250
 	var/current_state = GAME_STATE_PREGAME
@@ -42,7 +45,7 @@ var/round_start_time = 0
 /datum/controller/gameticker/proc/pregame()
 
 	login_music = pickweight(list('sound/ambience/title3.mid' = 60, 'sound/ambience/title4.ogg' = 38, 'sound/ambience/clown.ogg' = 2)) // choose title music!
-	switch(events.holiday)
+	switch(holiday)
 		if("April Fool's Day")
 			login_music = 'sound/ambience/clown.ogg'
 		if("Halloween") //spooky
@@ -126,9 +129,7 @@ var/round_start_time = 0
 
 	round_start_time = world.time
 
-	supply_shuttle.process() 		//Start the supply shuttle regenerating points
-	master_controller.process()		//Start master_controller.process()
-	lighting_controller.process()	//Start processing DynamicAreaLighting updates
+	processScheduler.start()
 
 	sleep(10)
 
@@ -149,9 +150,9 @@ var/round_start_time = 0
 		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
 		world << sound('sound/AI/welcome.ogg') // Skie
 		//Holiday Round-start stuff	~Carn
-		if(events.holiday)
+		if(holiday)
 			world << "<font color='blue'>and...</font>"
-			world << "<h4>Happy [events.holiday] Everybody!</h4>"
+			world << "<h4>Happy [holiday] Everybody!</h4>"
 		//Power restoration on lowpop
 		var/PlayerC = 0
 		var/EngiC = 0
@@ -320,7 +321,9 @@ var/round_start_time = 0
 
 		mode.process()
 
-		emergency_shuttle.process()
+		var/currenttime = world.timeofday
+		last_tick_duration = (currenttime - last_tick_timeofday) / 10
+		last_tick_timeofday = currenttime
 
 		if(!mode.explosion_in_progress && mode.check_finished())
 			current_state = GAME_STATE_FINISHED

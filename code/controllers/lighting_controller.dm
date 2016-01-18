@@ -1,4 +1,4 @@
-var/datum/controller/lighting/lighting_controller = new ()
+var/datum/controller/lighting/lighting_controller = new
 
 datum/controller/lighting
 	var/processing = 0
@@ -31,6 +31,7 @@ datum/controller/lighting/New()
 //All queue lists prune themselves, which will cause lights with no luminosity to be garbage collected (cheaper and safer
 //than deleting them). Processing interval should be roughly half a second for best results.
 //By using queues we are ensuring we don't perform more updates than are necessary
+/* process() commented out, all this is handled in the lighting process for the scheduler
 datum/controller/lighting/proc/process()
 	processing = 1
 	spawn(0)
@@ -60,7 +61,7 @@ datum/controller/lighting/proc/process()
 				process_cost = (world.timeofday - started)
 
 			sleep(processing_interval)
-
+*/
 //same as above except it attempts to shift ALL turfs in the world regardless of lighting_changed status
 //Does not loop. Should be run prior to process() being called for the first time.
 //Note: if we get additional z-levels at runtime (e.g. if the gateway thin ever gets finished) we can initialize specific

@@ -1,4 +1,4 @@
-var/datum/virtual_reality_controller/vr_controller = new()
+var/datum/virtual_reality_controller/vr_controller
 
 
 /*

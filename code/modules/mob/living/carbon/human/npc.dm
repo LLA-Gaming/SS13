@@ -68,7 +68,11 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 		equip_to_slot_or_del(I1, slot_l_hand)
 	if(I2)
 		equip_to_slot_or_del(I2, slot_r_hand)
-	process()
+	npc_list.Add(src)
+
+/mob/living/carbon/human/npc/Destroy()
+	npc_list.Remove(src)
+	..()
 
 /mob/living/carbon/human/npc/initialize()
 	..()
@@ -194,16 +198,9 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 /mob/living/carbon/human/npc/proc/process()
 	targeting()
 	if(state == NPC_STATE_MOVING)
-		if(ranged)
-			m_intent = "run"
-		else
-			m_intent = "walk"
 		move_to()
 	if(state == NPC_STATE_MELEE)
-		m_intent = "run"
 		attack_at()
-	spawn(2)
-		process()
 
 /mob/living/carbon/human/npc/proc/move_to()
 	if(!(locate(target) in hearers(src)))
