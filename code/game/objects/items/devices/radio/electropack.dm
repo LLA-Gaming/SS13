@@ -11,6 +11,15 @@
 	m_amt = 10000
 	var/code = 2
 
+	MouseDrop(obj/over_object as obj, src_location, over_location)
+		var/mob/M = usr
+		if(istype(M,/mob/living/carbon))
+			if(M:back == src)
+				return
+		if((!istype(over_object, /obj/screen)) && src.loc == M)
+			return attack_self(M)
+		return
+
 /obj/item/device/radio/electropack/attack_hand(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user

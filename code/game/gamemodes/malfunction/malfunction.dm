@@ -76,6 +76,10 @@
 			sleep(50)
 			world.Reboot()
 			return
+		//just a bit of a sanity check for some case i cant seem to figure out
+		if(!istype(AI_mind.current,/mob/living/silicon/ai))
+			AI_mind.current.AIize()
+		//ok business as usual
 		AI_mind.current.verbs += /mob/living/silicon/ai/proc/choose_modules
 		AI_mind.current:laws = new /datum/ai_laws/malfunction
 		AI_mind.current:malf_picker = new /datum/module_picker

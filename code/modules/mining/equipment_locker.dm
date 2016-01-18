@@ -318,7 +318,7 @@
 
 /obj/item/device/wormhole_jaunter/attack_self(mob/user as mob)
 	var/turf/device_turf = get_turf(user)
-	if(!device_turf||device_turf.z==2||device_turf.z>=7)
+	if(!device_turf||device_turf.z==2||device_turf.z>7)
 		user << "<span class='notice'>You're having difficulties getting the [src.name] to work.</span>"
 		return
 	else

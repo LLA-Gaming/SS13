@@ -42,7 +42,7 @@
 		grenades/
 			name = "grenade spawner"
 			_loot = list(/obj/item/weapon/grenade/empgrenade, /obj/item/weapon/grenade/flashbang, /obj/item/weapon/grenade/smokebomb,
-					/obj/item/weapon/grenade/flashbang/clusterbang)
+					/obj/item/weapon/grenade/flashbang/clusterbang, /obj/item/weapon/grenade/blackhole)
 
 		tool/
 			name = "tool spawner"

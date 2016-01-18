@@ -125,6 +125,10 @@
 	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
 	droptype = /obj/machinery/syndicatebomb
 
+/obj/item/device/sbeacondrop/bluespacebomb
+	desc = "A label on it reads: <i>Warning: Activating this device will send a high-ordinance explosive to your location</i>."
+	droptype = /obj/machinery/syndicatebomb/bluespace
+
 #define SCREWED 32
 
 /obj/machinery/singularity_beacon //not the best place for it but it's a hack job anyway -- Urist

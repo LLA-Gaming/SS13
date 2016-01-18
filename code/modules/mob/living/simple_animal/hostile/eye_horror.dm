@@ -30,3 +30,17 @@
 	minbodytemp = 0
 
 	faction = "horror"
+
+	var/victims = 0 //Archive the number of victims, used for strength scaling.
+
+/mob/living/simple_animal/hostile/eyehorror/Life()
+	.=..()
+	//Anyone who can hear this mob will begin to hallucinate. As the number of victims increases, range and strength of the hallucinations do as well.
+	if(!.) return 0
+	var/victimcount = 0
+	for (var/mob/living/M in hearers(7+victims,src))
+		if (istype(M,/mob/living/simple_animal/hostile/eyehorror)) continue
+		M.hallucination += 4*(1+victims)
+		victimcount++
+	victims = victimcount
+

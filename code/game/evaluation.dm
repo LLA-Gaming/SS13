@@ -1,9 +1,11 @@
 /datum/controller/gameticker/proc/evaluate_station()
 	var/dat = ""
 	//Round statistics report
-	end_state = new /datum/station_state()
-	end_state.count()
-	var/station_integrity = round( 100.0 *  start_state.score(end_state), 0.1)
+	var/station_integrity = 100
+	if(start_state)
+		end_state = new /datum/station_state()
+		end_state.count()
+		station_integrity = round( 100.0 *  start_state.score(end_state), 0.1)
 	var/disk_rescued = 1
 	for(var/obj/item/weapon/disk/nuclear/D in world)
 		var/disk_area = get_area(D)

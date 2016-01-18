@@ -144,7 +144,11 @@ datum/controller/vote
 			world.Reboot()
 
 		if(crew_transfer)
-			if(emergency_shuttle)
+			if(ticker) ticker.stalemate_check() // stalemate check
+			if(ticker && ticker.stalemate)
+				//if no living clients
+				if(emergency_shuttle) emergency_shuttle.location = 2
+			else if(emergency_shuttle)
 				emergency_shuttle.incall(1)
 				emergency_shuttle.prevent_recall = 1
 				priority_announce("The crew transfer shuttle is en route. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.", "Crew Transfer")
@@ -190,7 +194,7 @@ datum/controller/vote
 			var/sound/S = sound('sound/effects/alert.ogg',0,1,0)
 			for(var/mob/M in world)
 				M << S
-			var/text = "[capitalize(mode)] vote started by [initiator]."
+			var/text = "[capitalize(mode)] vote started[initiator ? " by [initiator]" : ""]."
 			if(mode == "custom")
 				text += "\n[question]"
 			log_vote(text)

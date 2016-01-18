@@ -6,6 +6,8 @@
 	w_class = 4
 	flags = STOPSPRESSUREDMAGE | THICKMATERIAL
 	heavy = 1
+	unacidable = 1
+	anchored = 1
 	var/model_name = "standard"
 	var/powered = 0
 	var/s_busy = 0

@@ -18,6 +18,13 @@
 			return
 
 	. = src.say_dead(message)
+
+/mob/dead/observer/say_quote(var/text)
+	if(!text)
+		return "says, \"...\"";
+	return "says, \"[text]\"";
+	//no special says for ghosts
+
 /*
 	for (var/mob/M in hearers(null, null))
 		if (!M.stat)

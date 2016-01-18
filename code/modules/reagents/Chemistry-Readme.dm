@@ -146,6 +146,11 @@ About Reagents:
 			unless you write your own piece of code to slowly remove it.
 			(Should be pretty easy, 1 line of code)
 
+		on_mob_speech(var/speech)
+			This proc is called in say code when the reagent has the most units
+			out of every other reagent in the mob's system, this should always
+			return a string
+
 	Important variables:
 
 		holder

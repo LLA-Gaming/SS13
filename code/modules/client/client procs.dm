@@ -187,6 +187,11 @@ var/next_external_rsc = 0
 		player_age = text2num(query.item[2])
 		break
 
+	if(player_age == "--")
+		player_age = 0
+		message_admins("[key_name(src)] is connecting here for the first time.")
+		log_access("[key_name(src)] is connecting here for the first time.")
+
 	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM erro_player WHERE ip = '[address]'")
 	query_ip.Execute()
 	related_accounts_ip = list()

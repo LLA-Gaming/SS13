@@ -62,6 +62,9 @@ h1.alert, h2.alert		{color: #000000;}
 
 .interface				{color: #330033;}
 
+.robot					{font-family: "Courier New", cursive, sans-serif;}
+.yell					{font-weight: bold;}
+
 BIG IMG.icon 			{width: 32px; height: 32px;}
 
 

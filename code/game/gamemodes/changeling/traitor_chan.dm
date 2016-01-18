@@ -31,7 +31,7 @@
 	var/num_changelings = 1
 
 	if(config.changeling_scaling_coeff)
-		num_changelings = max(1, round((num_players())/(config.changeling_scaling_coeff*2)))
+		num_changelings = Clamp(max(config.changeling_scaling_minimum, round((num_players())/((config.changeling_scaling_coeff * scale_modifier)))),1,round(num_players() / 2))
 	else
 		num_changelings = max(1, min(num_players(), changeling_amount))
 
@@ -61,7 +61,7 @@
 	return
 
 /datum/game_mode/traitor/changeling/make_antag_chance(var/mob/living/carbon/human/character) //Assigns changeling to latejoiners
-	if(changelings.len >= round(joined_player_list.len / (config.changeling_scaling_coeff*2)) + 1) //Caps number of latejoin antagonists
+	if(changelings.len >= round(joined_player_list.len / 2)) //Caps number of latejoin antagonists. Basically changelings cannot out number crew
 		..()
 		return
 	if (prob(100/(config.changeling_scaling_coeff*2)))
