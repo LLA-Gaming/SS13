@@ -8,8 +8,6 @@
 		return -1
 
 	. = 0
-	if(istype(src,/mob/living/carbon/human/npc))
-		. += 0.10 //NPCs naturally move slower then everyone else becaues of there lagless, ASTAR, aimboting nature.
 	var/leg_damage = 0
 	for(var/obj/item/organ/limb/L in organs)
 		if(L.body_part == LEG_LEFT || L.body_part == LEG_RIGHT)
