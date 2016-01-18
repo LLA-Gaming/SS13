@@ -7,3 +7,4 @@
 
 /datum/controller/process/supply_shuttle/doWork()
 	supply_shuttle.process()
+	scheck()

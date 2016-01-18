@@ -7,3 +7,4 @@
 
 /datum/controller/process/firedome/doWork()
 	firedome.process()
+	scheck()

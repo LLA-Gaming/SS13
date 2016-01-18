@@ -7,3 +7,4 @@
 
 /datum/controller/process/emergency_shuttle/doWork()
 	emergency_shuttle.process()
+	scheck()

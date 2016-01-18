@@ -9,5 +9,6 @@ var/global/pipe_processing_killed = 0
 	for(var/datum/pipe_network/P in pipe_networks)
 		if(istype(P) && !P.gc_destroyed)
 			P.process()
+			scheck()
 		else
 			pipe_networks -= P

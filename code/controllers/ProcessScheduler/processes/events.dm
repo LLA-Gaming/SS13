@@ -7,3 +7,4 @@
 
 /datum/controller/process/events/doWork()
 	events.process()
+	scheck()

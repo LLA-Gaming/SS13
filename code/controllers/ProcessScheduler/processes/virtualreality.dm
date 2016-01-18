@@ -7,3 +7,4 @@
 
 /datum/controller/process/vr_controller/doWork()
 	vr_controller.process()
+	scheck()

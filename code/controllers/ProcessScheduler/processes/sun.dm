@@ -7,3 +7,4 @@
 
 /datum/controller/process/sun/doWork()
 	sun.calc_position()
+	scheck()

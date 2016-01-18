@@ -6,5 +6,6 @@
 	for(var/datum/nanoui/ui in nanomanager.processing_uis)
 		if(istype(ui) && !ui.gc_destroyed)
 			ui.process()
+			scheck()
 		else
 			nanomanager.processing_uis -= ui

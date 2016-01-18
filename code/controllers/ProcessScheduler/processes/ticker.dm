@@ -11,3 +11,4 @@
 
 /datum/controller/process/ticker/doWork()
 	ticker.process()
+	scheck()

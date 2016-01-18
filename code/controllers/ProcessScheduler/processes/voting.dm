@@ -7,3 +7,4 @@
 
 /datum/controller/process/voting/doWork()
 	vote.process()
+	scheck()

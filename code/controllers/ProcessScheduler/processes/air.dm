@@ -12,3 +12,4 @@ var/global/air_processing_killed = 0
 /datum/controller/process/air/doWork()
 	if(air_processing_killed) return
 	air_master.process()
+	scheck()
