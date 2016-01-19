@@ -2,7 +2,7 @@
 /mob/living/simple_animal/alpaca
 	name = "\improper alpaca"
 	real_name = "alpaca"
-	desc = "It's a alpaca."
+	desc = "It's an alpaca."
 	icon_state = "alpaca"
 	icon_living = "alpaca"
 	icon_dead = "alpaca_dead"
