@@ -250,7 +250,9 @@
 /obj/machinery/alarm/proc/return_status()
 	var/turf/location = src.loc
 	var/datum/gas_mixture/environment = location.return_air()
-	var/total = environment.gasses[OXYGEN] + environment.gasses[CARBONDIOXIDE] + environment.gasses[PLASMA] + environment.gasses[NITROGEN]
+	var/total = 0
+	for (var/G in environment.gasses)
+		total += environment.gasses[G]
 	var/output = "<h3>Air Status:</h3>"
 
 	if(total == 0)
@@ -285,8 +287,9 @@
 
 	cur_tlv = TLV["other"]
 	var/other_moles = 0.0
-	for(var/G in (environment.gasses - list(OXYGEN, PLASMA, CARBONDIOXIDE, NITROUS)))
-		other_moles += environment.gasses[G]
+	for(var/G in (environment.gasses))
+		if(!(G in list(OXYGEN, PLASMA, CARBONDIOXIDE,NITROGEN)) //No one cares about nitrogen
+			other_moles += environment.gasses[G]
 	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
 
 	cur_tlv = TLV["temperature"]
@@ -705,8 +708,9 @@ table tr:first-child th:first-child { border: none;}
 
 	cur_tlv = TLV["other"]
 	var/other_moles = 0.0
-	for(var/G in (environment.gasses - list(OXYGEN, PLASMA, CARBONDIOXIDE, NITROUS)))
-		other_moles += environment.gasses[G]
+	for(var/G in (environment.gasses))
+		if(!(G in list(OXYGEN, PLASMA, CARBONDIOXIDE, NITROGEN)))
+			other_moles += environment.gasses[G]
 	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
 
 	cur_tlv = TLV["temperature"]
