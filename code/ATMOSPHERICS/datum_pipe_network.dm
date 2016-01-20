@@ -109,7 +109,7 @@ datum/pipe_network
 
 			//Update individual gas_mixtures by volume ratio
 			for(var/datum/gas_mixture/gas in gases)
-				for(var/G in air_transient)
+				for(var/G in air_transient.gasses)
 					gas.gasses[G] = air_transient.gasses[G]*gas.volume/air_transient.volume
 				gas.temperature = air_transient.temperature
 
