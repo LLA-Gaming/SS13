@@ -288,7 +288,7 @@
 	cur_tlv = TLV["other"]
 	var/other_moles = 0.0
 	for(var/G in (environment.gasses))
-		if(!(G in list(OXYGEN, PLASMA, CARBONDIOXIDE,NITROGEN)) //No one cares about nitrogen
+		if(!(G in list(OXYGEN, PLASMA, CARBONDIOXIDE,NITROGEN))) //No one cares about nitrogen
 			other_moles += environment.gasses[G]
 	var/other_dangerlevel = cur_tlv.get_danger_level(other_moles*GET_PP)
 
