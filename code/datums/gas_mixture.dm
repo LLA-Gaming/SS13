@@ -666,7 +666,7 @@ What are the archived variables for?
 		force_exist(src, sample)
 
 		for (var/G in sample.gasses)
-			if((abs(sample.gasses[G]) > MINIMUM_AIR_TO_SUSPEND) && ((gasses[G] < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.gasses[G]) || (gasses[G] > (1+MINIMUM_AIR_RATIO_TO_SUSPEND))))
+			if((abs(gasses[G]-sample.gasses[G]) > MINIMUM_AIR_TO_SUSPEND) && ((gasses[G] < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.gasses[G]) || (gasses[G] > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.gasses[G])))
 				return 0
 
 		if(total_moles() > MINIMUM_AIR_TO_SUSPEND)
