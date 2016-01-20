@@ -248,10 +248,10 @@
 		if(pod.HasDamageFlag(P_DAMAGE_FIRE) && ((last_fire_tick + pod_config.fire_damage_cooldown) <= world.time))
 			// If we are in space, the fire consumes a bit of oxygen from the internal air (which is refilled by the gas canister in the pod)
 			if(istype(get_turf(pod), /turf/space))
-				if(!pod.internal_air || pod.internal_air.oxygen < pod_config.fire_damage_oygen_cutoff)
+				if(!pod.internal_air || pod.internal_air.gasses[OXYGEN] < pod_config.fire_damage_oxygen_cutoff)
 					pod.RemoveDamageFlag(P_DAMAGE_FIRE)
 
-				pod.internal_air.oxygen = (pod.internal_air.oxygen - (pod.internal_air.oxygen * pod_config.fire_oxygen_consumption_percent))
+				pod.internal_air.gasses[OXYGEN] = (pod.internal_air.gasses[OXYGEN] - (pod.internal_air.gasses[OXYGEN] * pod_config.fire_oxygen_consumption_percent))
 
 			pod.TakeDamage(pod_config.fire_damage)
 			last_fire_tick = world.time

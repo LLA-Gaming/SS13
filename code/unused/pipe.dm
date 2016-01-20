@@ -1742,7 +1742,7 @@ var/linenums = 0
 
 		if(!vnode)	return leak_to_turf()
 		var/obj/substance/gas/exterior = new()
-		exterior.oxygen = T.oxygen
+		exterior.gasses[OXYGEN] = T.gasses[OXYGEN]
 		exterior.n2 = T.n2
 		exterior.plasma = T.poison
 		exterior.co2 = T.co2
@@ -1755,7 +1755,7 @@ var/linenums = 0
 		if(flow_rate <= 0)
 			return
 		flowing.set_frac(exterior,flow_rate)
-		if(!(src.f_mask & GAS_O2))	flowing.oxygen	= 0
+		if(!(src.f_mask & GAS_O2))	flowing.gasses[OXYGEN]	= 0
 		if(!(src.f_mask & GAS_N2))	flowing.n2		= 0
 		if(!(src.f_mask & GAS_PL))	flowing.plasma	= 0
 		if(!(src.f_mask & GAS_CO2))	flowing.co2		= 0

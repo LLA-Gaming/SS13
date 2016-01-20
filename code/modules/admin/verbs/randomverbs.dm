@@ -647,7 +647,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			T.poison = 0
 			T.oldpoison = 0
 			T.tmppoison = 0
-			T.oxygen = 755985
+			T.gasses[OXYGEN] = 755985
 			T.oldoxy = 755985
 			T.tmpoxy = 755985
 			T.co2 = 14.8176
@@ -819,12 +819,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			var/datum/gas_mixture/A = T.air
 			T.overlays.Cut()
 			if(A)
-				A.oxygen = T.oxygen
-				A.carbon_dioxide = T.carbon_dioxide
-				A.nitrogen = T.nitrogen
-				A.toxins = T.toxins
+				A.gasses.Cut()
+				A.gasses += T.gasses
 				A.graphic = null
-				A.trace_gases = list()
 				A.temperature = T20C
 	message_admins("[key_name(src)] cleaned air within [size] tiles.")
 	log_game("[key_name(src)] cleaned air within [size] tiles.")
@@ -861,12 +858,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			var/datum/gas_mixture/A = T.air
 			T.overlays.Cut()
 			if(A)
-				A.oxygen = T.oxygen
-				A.carbon_dioxide = T.carbon_dioxide
-				A.nitrogen = T.nitrogen
-				A.toxins = T.toxins
+				A.gasses.Cut()
+				A.gasses += T.gasses
 				A.graphic = null
-				A.trace_gases = list()
 				A.temperature = T20C
 	message_admins("[key_name(src)] filled the hullbreachs in [size] tiles.")
 	log_game("[key_name(src)] filled the hullbreachs in [size] tiles.")

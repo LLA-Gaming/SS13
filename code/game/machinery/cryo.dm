@@ -280,7 +280,7 @@
 		if(occupant.bodytemperature < T0C)
 			occupant.sleeping = max(5/efficiency, (1 / occupant.bodytemperature)*2000/efficiency)
 			occupant.Paralyse(max(5/efficiency, (1 / occupant.bodytemperature)*3000/efficiency))
-			if(air_contents.oxygen > 2)
+			if(air_contents.gasses[OXYGEN] > 2)
 				if(occupant.getOxyLoss()) occupant.adjustOxyLoss(-1)
 			else
 				occupant.adjustOxyLoss(-1)

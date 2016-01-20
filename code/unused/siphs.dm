@@ -76,7 +76,7 @@
 	/*
 	..()
 	if(!empty)
-		src.gas.oxygen = 2.73E7
+		src.gas.gasses[OXYGEN] = 2.73E7
 		src.gas.n2 = 1.027E8
 	return
 	*/ //TODO: FIX
@@ -357,7 +357,7 @@
 						src.f_time = world.time + 300
 					else
 						if (world.time > src.f_time)
-							var/difference = CELLSTANDARD - (T.oxygen + T.n2)
+							var/difference = CELLSTANDARD - (T.gasses[OXYGEN] + T.n2)
 							if (difference > 0)
 								var/t1 = src.gas.total_moles()
 								if (difference > t1)

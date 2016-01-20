@@ -14,7 +14,7 @@ var/datum/space_exploration_config/pod/pod_config
 	var/fire_damage
 	var/fire_damage_cooldown
 	var/fire_oxygen_consumption_percent
-	var/fire_damage_oygen_cutoff
+	var/fire_damage_oxygen_cutoff
 	var/pod_pullout_delay
 	var/list/drivable = list()
 	var/metal_repair_threshold_percent

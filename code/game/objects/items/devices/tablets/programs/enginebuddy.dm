@@ -73,10 +73,10 @@
 		for(var/obj/machinery/power/rad_collector/rad in orange(14, tablet.loc))
 			if(!rad) return
 			if(rad.P)
-				if(round(rad.P.air_contents.toxins/0.29) <= 50)
-					dat += "[rad.name]: [rad.active?"<font color='green'>on</font>":"<font color='red'>off</font>"] -  <font color='red'>[rad.P?"Fuel: [round(rad.P.air_contents.toxins/0.29)]%</font>":"<font color='red'>0%</font>"]<br>"
-				if(round(rad.P.air_contents.toxins/0.29) >= 51)
-					dat += "[rad.name]: [rad.active?"<font color='green'>on</font>":"<font color='red'>off</font>"] -  <font color='green'>[rad.P?"Fuel: [round(rad.P.air_contents.toxins/0.29)]%</font>":"<font color='red'>0%</font>"]<br>"
+				if(round(rad.P.air_contents.gasses[PLASMA]/0.29) <= 50)
+					dat += "[rad.name]: [rad.active?"<font color='green'>on</font>":"<font color='red'>off</font>"] -  <font color='red'>[rad.P?"Fuel: [round(rad.P.air_contents.gasses[PLASMA]/0.29)]%</font>":"<font color='red'>0%</font>"]<br>"
+				if(round(rad.P.air_contents.gasses[PLASMA]/0.29) >= 51)
+					dat += "[rad.name]: [rad.active?"<font color='green'>on</font>":"<font color='red'>off</font>"] -  <font color='green'>[rad.P?"Fuel: [round(rad.P.air_contents.gasses[PLASMA]/0.29)]%</font>":"<font color='red'>0%</font>"]<br>"
 			else
 				dat += "[rad.name]:[rad.active?"<font color='green'>on</font>":"<font color='red'>off</font>"] - <font color='red'>0%</font><br>"
 

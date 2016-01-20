@@ -6,10 +6,8 @@
 	var/intact = 1
 
 	//Properties for open tiles (/floor)
-	var/oxygen = 0
-	var/carbon_dioxide = 0
-	var/nitrogen = 0
-	var/toxins = 0
+	var/list/gasses = list(OXYGEN = 0, CARBONDIOXIDE = 0, NITROGEN = 0, PLASMA = 0)
+
 
 	//Properties for airtight tiles (/wall)
 	var/thermal_conductivity = 0.05
@@ -23,8 +21,23 @@
 
 	flags = 0
 
+	//Added these back as overrides to the normal gas quantities. This is the reason I despise varedited instances where a pre-set will do.
+	var/oxygen
+	var/nitrogen
+	var/toxins
+	var/carbon_dioxide
+
 /turf/New()
 	..()
+	if(nitrogen)
+		gasses[NITROGEN] = nitrogen
+	if(oxygen)
+		gasses[OXYGEN] = oxygen
+	if(toxins)
+		gasses[PLASMA] = toxins
+	if(carbon_dioxide)
+		gasses[CARBONDIOXIDE] = carbon_dioxide
+
 	for(var/atom/movable/AM as mob|obj in src)
 		spawn( 0 )
 			src.Entered(AM)
@@ -208,10 +221,9 @@
 //////Assimilate Air//////
 /turf/simulated/proc/Assimilate_Air()
 	if(air)
-		var/aoxy = 0//Holders to assimilate air from nearby turfs
-		var/anitro = 0
-		var/aco = 0
-		var/atox = 0
+		var/list/air_gasses = list() //Holder list to assimilate air from nearby turfs
+		for (var/G in air.gasses)
+			air_gasses[G] = 0
 		var/atemp = 0
 		var/turf_count = 0
 
@@ -223,16 +235,15 @@
 			else if(istype(T,/turf/simulated/floor))
 				var/turf/simulated/S = T
 				if(S.air)//Add the air's contents to the holders
-					aoxy += S.air.oxygen
-					anitro += S.air.nitrogen
-					aco += S.air.carbon_dioxide
-					atox += S.air.toxins
+					for (var/G in S.air.gasses)
+						if (!(G in air_gasses))
+							air_gasses[G] = S.air.gasses[G]
+						else
+							air_gasses[G] += S.air.gasses[G]
 					atemp += S.air.temperature
 				turf_count ++
-		air.oxygen = (aoxy/max(turf_count,1))//Averages contents of the turfs, ignoring walls and the like
-		air.nitrogen = (anitro/max(turf_count,1))
-		air.carbon_dioxide = (aco/max(turf_count,1))
-		air.toxins = (atox/max(turf_count,1))
+		for (var/G in air_gasses)
+			air.gasses[G] = (air_gasses[G]/max(turf_count,1))//Averages contents of the turfs, ignoring walls and the like
 		air.temperature = (atemp/max(turf_count,1))//Trace gases can get bant
 		if(air_master)
 			air_master.add_to_active(src)

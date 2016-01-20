@@ -11,10 +11,12 @@
 		var/turf/simulated/T = target
 		if(T.active_hotspot)
 			burning = 1
+	var/message = "\blue @[target.x],[target.y]:"
+	for(var/G in GM.gasses)
+		message +=" [G]:[GM.gasses[G]]"
+	message += " w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("\red BURNING"):(null)]"
+	usr << message
 
-	usr << "\blue @[target.x],[target.y]: O:[GM.oxygen] T:[GM.toxins] N:[GM.nitrogen] C:[GM.carbon_dioxide] w [GM.temperature] Kelvin, [GM.return_pressure()] kPa [(burning)?("\red BURNING"):(null)]"
-	for(var/datum/gas/trace_gas in GM.trace_gases)
-		usr << "[trace_gas.type]: [trace_gas.moles]"
 	feedback_add_details("admin_verb","DAST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/fix_next_move()

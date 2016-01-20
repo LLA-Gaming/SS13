@@ -14,36 +14,9 @@ What are the archived variables for?
 #define MINIMUM_HEAT_CAPACITY	0.0003
 #define QUANTIZE(variable)		(round(variable,0.0001))
 
-//Gas name definitions
-#define OXYGEN "O2"
-#define NITROGEN "N2"
-#define CARBONDIOXIDE "CO2"
-#define PLASMA "Plasma"
-#define NITROUS "N2O"
-/*
-/datum/gas
-	sleeping_agent
-		specific_heat = 40
-
-	oxygen_agent_b
-		specific_heat = 300
-
-	volatile_fuel
-		specific_heat = 30
-
-	var/moles = 0
-	var/specific_heat = 0
-
-	var/moles_archived = 0
-*/
 
 /datum/gas_mixture
-/*
-	var/oxygen = 0
-	var/carbon_dioxide = 0
-	var/nitrogen = 0
-	var/toxins = 0
-*/
+
 	//replacement lists for moles vars
 	var/list/gasses = list(OXYGEN = 0,CARBONDIOXIDE = 0, NITROGEN = 0,PLASMA = 0,NITROUS = 0)
 	var/tmp/list/gasses_archived = list(OXYGEN = 0,CARBONDIOXIDE = 0, NITROGEN = 0,PLASMA = 0,NITROUS = 0)
@@ -55,14 +28,6 @@ What are the archived variables for?
 	var/last_share
 
 	var/graphic
-
-	/*
-	var/list/datum/gas/trace_gases = list()
-	var/tmp/oxygen_archived
-	var/tmp/carbon_dioxide_archived
-	var/tmp/nitrogen_archived
-	var/tmp/toxins_archived
-	*/
 
 	var/tmp/temperature_archived
 
@@ -113,9 +78,23 @@ What are the archived variables for?
 			gasses[gname] = Clamp(amount+gasses[gname], 0, INFINITY)
 			return
 		else
-			gas_dictionary.lookup(gname)
-			gasses |= list(gname = amount)
+			if(!(gname in gas_dictionary.gastypes))
+				gas_dictionary.lookup(gname)
+			gasses[gname] = amount
 			return
+
+	proc/force_exist(var/datum/gas_mixture/A, var/datum/gas_mixture/B)
+		//Updates the gas mixture's list of gasses to ensure all of each participant's list exists in the other's
+		//add_gas is used because this proc also takes care of ensuring the gas_dictionary has been updated.
+		if((!B) || (!A)) return 0 //This is pointless without both
+		var/list/diff = A.gasses ^ B.gasses
+
+		if(diff.len)
+			for(var/G in (diff))
+				if (!(G in A.gasses)) A.add_gas(G, 0)
+				if (!(G in A.gasses_archived)) A.gasses_archived[G] = 0
+				if (!(G in B.gasses)) B.add_gas(G, 0)
+				if (!(G in B.gasses_archived)) B.gasses_archived[G] = 0
 
 
 
@@ -149,6 +128,12 @@ What are the archived variables for?
 	proc/fire()
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
+		if(!(OXYGEN in gasses))
+			gasses[OXYGEN] = 0
+		if(!(PLASMA in gasses))
+			gasses[PLASMA] = 0
+		if(!(CARBONDIOXIDE in gasses))
+			gasses[CARBONDIOXIDE] = 0
 
 		//Handle plasma burning
 		if(gasses[PLASMA] > MINIMUM_HEAT_CAPACITY)
@@ -162,14 +147,14 @@ What are the archived variables for?
 				temperature_scale = (temperature-PLASMA_MINIMUM_BURN_TEMPERATURE)/(PLASMA_UPPER_TEMPERATURE-PLASMA_MINIMUM_BURN_TEMPERATURE)
 			if(temperature_scale > 0)
 				oxygen_burn_rate = 1.4 - temperature_scale
-				if(oxygen > toxins*PLASMA_OXYGEN_FULLBURN)
-					plasma_burn_rate = (toxins*temperature_scale)/4
+				if(gasses[OXYGEN] > gasses[PLASMA]*PLASMA_OXYGEN_FULLBURN)
+					plasma_burn_rate = (gasses[PLASMA]*temperature_scale)/4
 				else
-					plasma_burn_rate = (temperature_scale*(oxygen/PLASMA_OXYGEN_FULLBURN))/4
+					plasma_burn_rate = (temperature_scale*(gasses[OXYGEN]/PLASMA_OXYGEN_FULLBURN))/4
 				if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-					toxins -= plasma_burn_rate
-					oxygen -= plasma_burn_rate*oxygen_burn_rate
-					carbon_dioxide += plasma_burn_rate
+					gasses[PLASMA] -= plasma_burn_rate
+					gasses[OXYGEN] -= plasma_burn_rate*oxygen_burn_rate
+					gasses[CARBONDIOXIDE] += plasma_burn_rate
 
 					energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)
 
@@ -263,9 +248,9 @@ What are the archived variables for?
 			//Compares sample to self to see if within acceptable ranges that group processing may be enabled
 
 	archive()
-		for(var/G in gasses)
+		for(var/tmp/G in gasses)
 			if(!(G in gasses_archived))
-				gasses_archived |= list(G = 0)
+				gasses_archived[G] = 0
 			gasses_archived[G] = gasses[G]
 
 		temperature_archived = temperature
@@ -277,6 +262,8 @@ What are the archived variables for?
 	check_then_merge(datum/gas_mixture/giver)
 		if(!giver)
 			return 0
+		force_exist(src, giver)
+
 		for (var/G in giver.gasses)
 			if((giver.gasses[G] > MINIMUM_AIR_TO_SUSPEND) && (giver.gasses[G] >= gasses[G]*MINIMUM_AIR_RATIO_TO_SUSPEND))
 				return 0
@@ -288,6 +275,7 @@ What are the archived variables for?
 	merge(datum/gas_mixture/giver)
 		if(!giver)
 			return 0
+		force_exist(src, giver)
 
 		if(abs(temperature-giver.temperature)>MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 			var/self_heat_capacity = heat_capacity()
@@ -311,7 +299,7 @@ What are the archived variables for?
 		var/datum/gas_mixture/removed = new
 
 		for (var/G in gasses)
-			var/spec_amount = QUANTIZE((gasses[G]/sum)*amount
+			var/spec_amount = QUANTIZE((gasses[G]/sum)*amount)
 			removed.add_gas(G, spec_amount)
 			src.add_gas(G, (-1*spec_amount))
 
@@ -365,95 +353,87 @@ What are the archived variables for?
 
 	check_gas_mixture(datum/gas_mixture/sharer)
 		if(!sharer)	return 0
+		force_exist(src, sharer)
 
 		var/list/delta = list()
 
 		for (var/G in sharer.gasses_archived)
-			if (!(G in gasses))
-				add_gas(G, 0) //Forces it to be added to the mixture's list.
 			delta[G] = (gasses_archived[G] - sharer.gasses_archived[G])/5
 
 		var/delta_temperature = (temperature_archived - sharer.temperature_archived)
 
 		for(var/G in delta)
-			if((abs(delta[G]) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta[G] >= gasses_archived[G]*MINIMUM_AIR_RATIO_TO_SUSPEND))
+			if((abs(delta[G]) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta[G] >= gasses_archived[G]*MINIMUM_AIR_RATIO_TO_SUSPEND)))
 				return 0
 
 		if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
 			return 0
 
 		for(var/G in delta)
-			if((abs(delta[G]) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta[G] >= sharer.gasses_archived[G]*MINIMUM_AIR_RATIO_TO_SUSPEND))
+			if((abs(delta[G]) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta[G] >= sharer.gasses_archived[G]*MINIMUM_AIR_RATIO_TO_SUSPEND)))
 				return -1
 
 		return 1
 
 	check_turf(turf/model)
-	//REVISIT
-		var/delta_oxygen = (oxygen_archived - model.oxygen)/5
-		var/delta_carbon_dioxide = (carbon_dioxide_archived - model.carbon_dioxide)/5
-		var/delta_nitrogen = (nitrogen_archived - model.nitrogen)/5
-		var/delta_toxins = (toxins_archived - model.toxins)/5
+		var/list/delta = list()
+		for (var/G in model.gasses)
+			if (!(G in gasses_archived)) gasses_archived[G] = 0
+			delta[G] = (gasses_archived[G] - model.gasses[G])/5
 
 		var/delta_temperature = (temperature_archived - model.temperature)
 
-		if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= oxygen_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-			|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= carbon_dioxide_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-			|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= nitrogen_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-			|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= toxins_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)))
-			return 0
+		for (var/G in delta)
+			if (((abs(delta[G]) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta[G]) >= gasses_archived[G]*MINIMUM_AIR_RATIO_TO_SUSPEND)))
+				return 0
+
 		if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
 			return 0
-
-		if(trace_gases.len)
-			for(var/datum/gas/trace_gas in trace_gases)
-				if(trace_gas.moles_archived > MINIMUM_AIR_TO_SUSPEND*4)
-					return 0
 
 		return 1
 
 	share(datum/gas_mixture/sharer, var/atmos_adjacent_turfs = 4)
 		if(!sharer)	return 0
+		var/tmp/list/delta = list()
 
-		var/list/delta = list()
-
-		for (var/G in sharer.gasses_archived)
-			if (!(G in gasses))
-				add_gas(G, 0) //Forces it to be added to the mixture's list.
+		for (var/tmp/G in sharer.gasses_archived)
 			delta[G] = QUANTIZE((gasses_archived[G] - sharer.gasses_archived[G])/(atmos_adjacent_turfs+1))
 
-		var/delta_temperature = (temperature_archived - sharer.temperature_archived)
+		var/tmp/delta_temperature = (temperature_archived - sharer.temperature_archived)
 
-		var/old_self_heat_capacity = 0
-		var/old_sharer_heat_capacity = 0
+		var/tmp/old_self_heat_capacity = 0
+		var/tmp/old_sharer_heat_capacity = 0
 
-		var/heat_capacity_self_to_sharer = 0
-		var/heat_capacity_sharer_to_self = 0
+		var/tmp/heat_capacity_self_to_sharer = 0
+		var/tmp/heat_capacity_sharer_to_self = 0
 
 		if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
 
-			for(var/G in delta)
+			for(var/tmp/G in delta)
 				if(delta[G])
-					var/gas_heat_capacity = gas_dictionary.lookup_specific_heat(G)
+					//var/gas_heat_capacity = gas_dictionary.lookup_specific_heat(G)
+					if(!(G in gas_dictionary.gastypes))
+						gas_dictionary.lookup(G)
+					var/tmp/datum/gas_type/GT = gas_dictionary.gastypes[G]
 					if(delta[G] > 0)
-						heat_capacity_self_to_sharer += gas_heat_capacity
+						heat_capacity_self_to_sharer += GT.specific_heat
 					else
-						heat_capacity_sharer_to_self -= gas_heat_capacity
+						heat_capacity_sharer_to_self -= GT.specific_heat
 
 			old_self_heat_capacity = heat_capacity()
 			old_sharer_heat_capacity = sharer.heat_capacity()
 
-		var/moved_moles = 0
+		var/tmp/moved_moles = 0
 		last_share = 0
-		for(var/G in delta)
-			src.add_gas(G, (-1*delta[G]))
-			sharer.add_gas(G, delta[G])
+		for(var/tmp/G in delta)
+			src.gasses[G] -= delta[G]
+			sharer.gasses[G] += delta[G]
 			moved_moles += delta[G]
 			last_share += abs(delta[G])
 
 		if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER)
-			var/new_self_heat_capacity = old_self_heat_capacity + heat_capacity_sharer_to_self - heat_capacity_self_to_sharer
-			var/new_sharer_heat_capacity = old_sharer_heat_capacity + heat_capacity_self_to_sharer - heat_capacity_sharer_to_self
+			var/tmp/new_self_heat_capacity = old_self_heat_capacity + heat_capacity_sharer_to_self - heat_capacity_self_to_sharer
+			var/tmp/new_sharer_heat_capacity = old_sharer_heat_capacity + heat_capacity_self_to_sharer - heat_capacity_sharer_to_self
 
 			if(new_self_heat_capacity > MINIMUM_HEAT_CAPACITY)
 				temperature = (old_self_heat_capacity*temperature - heat_capacity_self_to_sharer*temperature_archived + heat_capacity_sharer_to_self*sharer.temperature_archived)/new_self_heat_capacity
@@ -466,14 +446,19 @@ What are the archived variables for?
 						temperature_share(sharer, OPEN_HEAT_TRANSFER_COEFFICIENT)
 
 		if((delta_temperature > MINIMUM_TEMPERATURE_TO_MOVE) || abs(moved_moles) > MINIMUM_MOLES_DELTA_TO_MOVE)
-			var/delta_pressure = temperature_archived*(total_moles() + moved_moles) - sharer.temperature_archived*(sharer.total_moles() - moved_moles)
+			var/tmp/delta_pressure = temperature_archived*(total_moles() + moved_moles) - sharer.temperature_archived*(sharer.total_moles() - moved_moles)
 			return delta_pressure*R_IDEAL_GAS_EQUATION/volume
 
-	mimic(turf/model, border_multiplier, var/atmos_adjacent_turfs = 4)
+	mimic(turf/model, border_multiplier, var/tmp/atmos_adjacent_turfs = 4)
+		for(var/G in model.gasses)
+			if(!(G in src.gasses))
+				src.gasses[G] = 0
+			if(!(G in src.gasses_archived))
+				src.gasses_archived[G] = 0
 
-		for (var/G in model.gasses_archived)
-			if (!(G in gasses))
-				add_gas(G, 0) //Forces it to be added to the mixture's list.
+		var/list/delta = list()
+
+		for (var/G in model.gasses)
 			delta[G] = QUANTIZE((gasses_archived[G] - model.gasses[G])/(atmos_adjacent_turfs+1))
 
 		var/delta_temperature = (temperature_archived - model.temperature)
@@ -486,9 +471,9 @@ What are the archived variables for?
 
 			for(var/G in delta)
 				if(delta[G])
-				var/gas_heat_capacity = gas_dictionary.lookup_specific_heat(G)*delta[G]
-				heat_transferred -= gas_heat_capacity*model.temperature
-				heat_capacity_transferred -= gas_heat_capacity
+					var/gas_heat_capacity = gas_dictionary.lookup_specific_heat(G)*delta[G]
+					heat_transferred -= gas_heat_capacity*model.temperature
+					heat_capacity_transferred -= gas_heat_capacity
 
 			old_self_heat_capacity = heat_capacity()
 
@@ -525,6 +510,9 @@ What are the archived variables for?
 			return 0
 
 	check_both_then_temperature_share(datum/gas_mixture/sharer, conduction_coefficient)
+
+		force_exist(src, sharer)
+
 		var/delta_temperature = (temperature_archived - sharer.temperature_archived)
 
 		var/self_heat_capacity = heat_capacity_archived()
@@ -675,11 +663,10 @@ What are the archived variables for?
 				sharer.temperature += heat/sharer.heat_capacity
 
 	compare(datum/gas_mixture/sample)
+		force_exist(src, sample)
+
 		for (var/G in sample.gasses)
-			if (!(G in gasses))
-				add_gas(G, 0) //Forces gas to exist for the tile
-		for (var/G in sample.gasses) //using a second loop for actual processing. The first merely forces existence which needs to complete for all gasses prior to terminating.
-			if((abs(sample.gasses[G]) > MINIMUM_AIR_TO_SUSPEND) && ((gasses[G] < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.gasses[G]) || (gasses[G] > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)))
+			if((abs(sample.gasses[G]) > MINIMUM_AIR_TO_SUSPEND) && ((gasses[G] < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.gasses[G]) || (gasses[G] > (1+MINIMUM_AIR_RATIO_TO_SUSPEND))))
 				return 0
 
 		if(total_moles() > MINIMUM_AIR_TO_SUSPEND)

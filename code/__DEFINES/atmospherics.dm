@@ -14,6 +14,14 @@
 #define GAS_CO2	(1 << 3)
 #define GAS_N2O	(1 << 4)
 
+//Gas name definitions
+#define OXYGEN "O2"
+#define NITROGEN "N2"
+#define CARBONDIOXIDE "CO2"
+#define PLASMA "Plasma"
+#define NITROUS "N2O"
+
+
 //stuff you should probably leave well alone!
 //ATMOS
 #define CELL_VOLUME							2500	//liters in a cell

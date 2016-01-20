@@ -241,7 +241,7 @@
 				pullin.icon_state = "pull0"
 
 //Oxygen and fire does nothing yet!!
-//	if (src.oxygen) src.oxygen.icon_state = "oxy[src.oxygen_alert ? 1 : 0]"
+//	if (src.gasses[OXYGEN]) src.oxygen.icon_state = "oxy[src.gasses[OXYGEN]_alert ? 1 : 0]"
 //	if (src.fire) src.fire.icon_state = "fire[src.fire_alert ? 1 : 0]"
 
 	client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
