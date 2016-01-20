@@ -31,7 +31,7 @@
 		igniting = 1
 
 	if(igniting)
-		if(air_contents.gasses[OXYGEN] < 0.5 || air_contents.[PLASMA] < 0.5)
+		if((OXYGEN in gasses) && air_contents.gasses[OXYGEN] < 0.5 || (PLASMA in gasses) && air_contents.[PLASMA] < 0.5)
 			return 0
 
 		active_hotspot = new(src)
