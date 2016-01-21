@@ -40,6 +40,10 @@
 				if(slot != slot_glasses)
 					return 1
 
+				for(var/mob/living/simple_animal/borer/B in H.contents)
+					H << "<span class='notice'>Something prevents you from entering VR.</span>"
+					return 1
+
 				if(!H.client)
 					return 1
 
