@@ -52,6 +52,13 @@ Also, you never added distance checking after target is selected. I've went ahea
 	var/mob/living/victim = target//The target of the spell whos body will be transferred to.
 	var/mob/caster = user//The wizard/whomever doing the body transferring.
 
+	mind_trade(caster,victim)
+
+	//Here we paralyze both mobs and knock them out for a time.
+	caster.Paralyse(paralysis_amount_caster)
+	victim.Paralyse(paralysis_amount_victim)
+
+/proc/mind_trade(var/mob/caster,var/mob/victim)
 	//MIND TRANSFER BEGIN
 	if(caster.mind.special_verbs.len)//If the caster had any special verbs, remove them from the mob verb list.
 		for(var/V in caster.mind.special_verbs)//Since the caster is using an object spell system, this is mostly moot.
@@ -61,21 +68,20 @@ Also, you never added distance checking after target is selected. I've went ahea
 		for(var/V in victim.mind.special_verbs)
 			victim.verbs -= V
 
-	var/mob/dead/observer/ghost = victim.ghostize(0)
-	caster.mind.transfer_to(victim)
+	var/mob/dead/observer/victim_ghost = victim.ghostize(1)
+	var/mob/dead/observer/caster_ghost = caster.ghostize(1)
+
+	victim_ghost.mind.transfer_to(caster)
+	caster_ghost.mind.transfer_to(victim)
 
 	if(victim.mind.special_verbs.len)//To add all the special verbs for the original caster.
 		for(var/V in caster.mind.special_verbs)//Not too important but could come into play.
 			caster.verbs += V
 
-	ghost.mind.transfer_to(caster)
-	caster.key = ghost.key	//have to transfer the key since the mind was not active
-
 	if(caster.mind.special_verbs.len)//If they had any special verbs, we add them here.
 		for(var/V in caster.mind.special_verbs)
 			caster.verbs += V
-	//MIND TRANSFER END
 
-	//Here we paralyze both mobs and knock them out for a time.
-	caster.Paralyse(paralysis_amount_caster)
-	victim.Paralyse(paralysis_amount_victim)
+	caster.key = victim_ghost.key
+	victim.key = caster_ghost.key
+	//MIND TRANSFER END

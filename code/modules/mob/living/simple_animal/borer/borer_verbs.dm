@@ -350,13 +350,10 @@
 
 	host << "<span class='warning'>Your mind fades away.</span>"
 	src << "<span class='notice'>You take control over your host's body.</span>"
-	var/mob/dead/observer/ghost = host.ghostize(0)
 	host.verbs |= /mob/living/simple_animal/borer/proc/release_control
-	borer.mind.transfer_to(host)
-
 	src.verbs -= attached
-	ghost.mind.transfer_to(borer)
-	borer.key = ghost.key
+
+	mind_trade(host,src)
 
 	controlling = 1
 
@@ -374,15 +371,12 @@
 		controlling = 0
 		return
 
-	var/mob/dead/observer/ghost = host.ghostize(0)
 	host.verbs -= /mob/living/simple_animal/borer/proc/release_control
-	borer.mind.transfer_to(host)
-	host << "<span class='notice'>You suddenly find yourself back in control.</span>"
-
 	src.verbs |= attached
-	ghost.mind.transfer_to(borer)
-	borer.key = ghost.key
 
+	mind_trade(host,src)
+
+	host << "<span class='notice'>You suddenly find yourself back in control.</span>"
 	controlling = 0
 
 /mob/living/simple_animal/borer/proc/release_control()

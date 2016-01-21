@@ -30,15 +30,13 @@
 /mob/living/simple_animal/borer/New()
 	..()
 	real_name = "[pick("Pai'Luxar","Bai'Luxar","Zai'Luxar","Dai'Luxar")] [rand(1000,9999)]"
-//	if(prob(5))
-	evil = 1
+	if(prob(5))
+		evil = 1
 	initialize_lists()
 	verbs += detached
 
 /mob/living/simple_animal/borer/Life()
 	..()
-	if(src.mind && evil && !src.mind.special_role && !controlling)
-		make_special()
 	if(host)
 		if(!ishuman(host) && !ismonkey(host))
 			detach()

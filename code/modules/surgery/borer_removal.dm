@@ -26,7 +26,7 @@
 		return 1
 
 
-/datum/surgery_step/xenomorph_removal/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/borer_removal/failure(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/simple_animal/borer/B = locate() in target.contents
 	if(B)
 		user.visible_message("<span class='warning'>[user] accidentally pokes the cortical borer in [target]!</span>")
