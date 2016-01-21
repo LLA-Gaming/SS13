@@ -1,8 +1,7 @@
 /turf/simulated/floor/airless
 	icon_state = "floor"
 	name = "airless floor"
-	oxygen = 0.01
-	nitrogen = 0.01
+	gasses = list(OXYGEN = 0.01, NITROGEN = 0.01)
 	temperature = TCMB
 
 	New()
@@ -72,10 +71,7 @@
 	New()
 		..()
 		var/datum/gas_mixture/adding = new
-		var/datum/gas/sleeping_agent/trace_gas = new
-
-		trace_gas.moles = 6000
-		adding.trace_gases += trace_gas
+		adding.gasses[NITROUS] = 6000
 		adding.temperature = T20C
 
 		assume_air(adding)
@@ -83,8 +79,7 @@
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
 	icon_state = "engine"
-	oxygen = 0
-	nitrogen = 0.001
+	gasses = list(OXYGEN = 0, NITROGEN = 0.001)
 	temperature = TCMB
 
 /turf/simulated/floor/plating
@@ -96,8 +91,7 @@
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"
 	name = "airless plating"
-	oxygen = 0.01
-	nitrogen = 0.01
+	gasses = list(OXYGEN = 0.01, NITROGEN = 0.01)
 	temperature = TCMB
 
 	New()

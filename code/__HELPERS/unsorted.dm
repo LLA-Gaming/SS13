@@ -1307,10 +1307,10 @@ var/list/WALLITEMS = list(
 
 	user << "\blue Results of analysis of \icon[icon] [target]."
 	if(total_moles>0)
-		var/o2_concentration = air_contents.oxygen/total_moles
-		var/n2_concentration = air_contents.nitrogen/total_moles
-		var/co2_concentration = air_contents.carbon_dioxide/total_moles
-		var/plasma_concentration = air_contents.toxins/total_moles
+		var/o2_concentration = air_contents.gasses[OXYGEN]/total_moles
+		var/n2_concentration = air_contents.gasses[NITROGEN]/total_moles
+		var/co2_concentration = air_contents.gasses[CARBONDIOXIDE]/total_moles
+		var/plasma_concentration = air_contents.gasses[PLASMA]/total_moles
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 

@@ -47,13 +47,13 @@ obj/machinery/air_sensor/process()
 			var/total_moles = air_sample.total_moles()
 			if(total_moles > 0)
 				if(output&4)
-					signal.data["oxygen"] = round(100*air_sample.oxygen/total_moles,0.1)
+					signal.data["oxygen"] = round(100*air_sample.gasses[OXYGEN]/total_moles,0.1)
 				if(output&8)
-					signal.data["toxins"] = round(100*air_sample.toxins/total_moles,0.1)
+					signal.data["toxins"] = round(100*air_sample.gasses[PLASMA]/total_moles,0.1)
 				if(output&16)
-					signal.data["nitrogen"] = round(100*air_sample.nitrogen/total_moles,0.1)
+					signal.data["nitrogen"] = round(100*air_sample.gasses[NITROGEN]/total_moles,0.1)
 				if(output&32)
-					signal.data["carbon_dioxide"] = round(100*air_sample.carbon_dioxide/total_moles,0.1)
+					signal.data["carbon_dioxide"] = round(100*air_sample.gasses[CARBONDIOXIDE]/total_moles,0.1)
 			else
 				signal.data["oxygen"] = 0
 				signal.data["toxins"] = 0

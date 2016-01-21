@@ -214,10 +214,10 @@ MASS SPECTROMETER
 	else
 		user.show_message("\red Pressure: [round(pressure,0.1)] kPa", 1)
 	if(total_moles)
-		var/o2_concentration = environment.oxygen/total_moles
-		var/n2_concentration = environment.nitrogen/total_moles
-		var/co2_concentration = environment.carbon_dioxide/total_moles
-		var/plasma_concentration = environment.toxins/total_moles
+		var/o2_concentration = environment.gasses[OXYGEN]/total_moles
+		var/n2_concentration = environment.gasses[NITROGEN]/total_moles
+		var/co2_concentration = environment.gasses[CARBONDIOXIDE]/total_moles
+		var/plasma_concentration = environment.gasses[PLASMA]/total_moles
 
 		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)

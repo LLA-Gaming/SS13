@@ -26,8 +26,8 @@
 		var/datum/gas_mixture/air = new()
 		air.temperature = T20C
 		air.volume = volume
-		air.oxygen = (O2STANDARD * volume) / (R_IDEAL_GAS_EQUATION * air.temperature)
-		air.nitrogen = (N2STANDARD * volume) / (R_IDEAL_GAS_EQUATION * air.temperature)
+		air.gasses[OXYGEN] = (O2STANDARD * volume) / (R_IDEAL_GAS_EQUATION * air.temperature)
+		air.gasses[NITROGEN] = (N2STANDARD * volume) / (R_IDEAL_GAS_EQUATION * air.temperature)
 		return air
 
 	proc/HasTraction()

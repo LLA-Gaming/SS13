@@ -19,14 +19,14 @@
 
 	New()
 		..()
-		src.air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		src.air_contents.gasses[OXYGEN] = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 		return
 
 
 	examine()
 		set src in usr
 		..()
-		if(air_contents.oxygen < 10)
+		if(air_contents.gasses[OXYGEN] < 10)
 			usr.send_text_to_tab("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>", "ic")
 			usr << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
 			playsound(usr, 'sound/effects/alert.ogg', 50, 1)
@@ -53,12 +53,8 @@
 /obj/item/weapon/tank/anesthetic/New()
 	..()
 
-	src.air_contents.oxygen = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
-
-	var/datum/gas/sleeping_agent/trace_gas = new()
-	trace_gas.moles = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
-
-	src.air_contents.trace_gases += trace_gas
+	src.air_contents.gasses[OXYGEN] = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
+	src.air_contents.gasses[NITROUS] = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
 	return
 
 /*
@@ -73,7 +69,7 @@
 	examine()
 		set src in usr
 		..()
-		if(air_contents.oxygen < 1 && loc==usr)
+		if(air_contents.gasses[OXYGEN] < 1 && loc==usr)
 			usr.send_text_to_tab("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>", "ic")
 			usr << "\red <B>The meter on the [src.name] indicates you are almost out of air!</B>"
 			usr << sound('sound/effects/alert.ogg')
@@ -81,8 +77,8 @@
 /obj/item/weapon/tank/air/New()
 	..()
 
-	src.air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
-	src.air_contents.nitrogen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
+	src.air_contents.gasses[OXYGEN] = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
+	src.air_contents.gasses[NITROGEN] = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C) * N2STANDARD
 	return
 
 
@@ -100,7 +96,7 @@
 /obj/item/weapon/tank/plasma/New()
 	..()
 
-	src.air_contents.toxins = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+	src.air_contents.gasses[PLASMA] = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 	return
 
 /obj/item/weapon/tank/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -117,7 +113,7 @@
 
 /obj/item/weapon/tank/plasma/full/New()
 	..()
-	src.air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+	src.air_contents.gasses[PLASMA] = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 	return
 
 /*
@@ -137,14 +133,14 @@
 
 	New()
 		..()
-		src.air_contents.oxygen = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
+		src.air_contents.gasses[OXYGEN] = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 		return
 
 
 	examine()
 		set src in usr
 		..()
-		if(air_contents.oxygen < 0.2 && loc==usr)
+		if(air_contents.gasses[OXYGEN] < 0.2 && loc==usr)
 			usr.send_text_to_tab("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>", "ic")
 			usr << text("\red <B>The meter on the [src.name] indicates you are almost out of air!</B>")
 			usr << sound('sound/effects/alert.ogg')

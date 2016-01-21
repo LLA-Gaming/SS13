@@ -12,9 +12,13 @@
 	var/datum/gas_mixture/air_contents = return_air()
 	if(!air_contents)
 		return 0
+	if(!(PLASMA in air_contents.gasses)) //If no entries for plasma, this is gonna be a short burn.
+		air_contents.gasses[PLASMA] = 0
+	if (!(OXYGEN in air_contents.gasses))
+		air_contents.gasses[OXYGEN] = 0
 	if(active_hotspot)
 		if(soh)
-			if(air_contents.toxins > 0.5 && air_contents.oxygen > 0.5)
+			if(air_contents.gasses[PLASMA] > 0.5 && air_contents.gasses[OXYGEN] > 0.5)
 				if(active_hotspot.temperature < exposed_temperature)
 					active_hotspot.temperature = exposed_temperature
 				if(active_hotspot.volume < exposed_volume)
@@ -23,11 +27,11 @@
 
 	var/igniting = 0
 
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && air_contents.toxins > 0.5)
+	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && air_contents.gasses[PLASMA] > 0.5)
 		igniting = 1
 
 	if(igniting)
-		if(air_contents.oxygen < 0.5 || air_contents.toxins < 0.5)
+		if((OXYGEN in gasses) && air_contents.gasses[OXYGEN] < 0.5 || (PLASMA in gasses) && air_contents.[PLASMA] < 0.5)
 			return 0
 
 		active_hotspot = new(src)
@@ -101,7 +105,7 @@
 		Kill()
 		return
 
-	if(location.air.toxins < 0.5 || location.air.oxygen < 0.5)
+	if(location.air.gasses[PLASMA] < 0.5 || location.air.gasses[OXYGEN] < 0.5)
 		Kill()
 		return
 

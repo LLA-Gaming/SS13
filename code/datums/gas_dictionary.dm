@@ -1,5 +1,5 @@
 //gas type bitflags
-/*
+
 #define GTOXIC 1
 #define GFLAMMABLE 2
 #define GREAGENT 4
@@ -11,14 +11,9 @@ var/global/datum/dictionary/gas/gas_dictionary = new
 	var/list/gastypes = list()
 
 
+
 /datum/dictionary/gas/New()
-	if (gas_dictionary != src)
-		message_admins("New Gas Dictionary spawned, overwriting previous...")
-		var/datum/dictionary/gas/previous = gas_dictionary
-		gas_dictionary = src
-		if (previous != gas_dictionary) // triple checking due to some weird errors.
-			del(previous)
-		//THERE CAN BE ONLY ONE!
+	gas_dictionary = src
 
 	for(var/T in typesof(/datum/gas_type/normal))
 		if (T == /datum/gas_type/normal) continue
@@ -34,14 +29,17 @@ var/global/datum/dictionary/gas/gas_dictionary = new
 /datum/dictionary/gas/proc/handle_unknown_gas(var/gname)
 
 	if(gname in list("O2","N2","N2O","Plasma","CO2"))
-		//Someone deleted a normal gas using varedit, alert admins and reset them
-		message_admins("ERROR: GAS DICTIONARY ILLEGAL MODIFICATION FOUND, RESETTING NORMAL GASSES")
-		log_game("ERROR: GAS DICTIONARY ILLEGAL MODIFICATION FOUND, RESETTING NORMAL GASSES")
-
-		for(var/T in typesof(/datum/gas_type/normal))
-			if (T == /datum/gas_type/normal) continue
-			var/datum/gas_type/normal/G = new T
-			gastypes[G.name] = G
+		switch (gname)
+			if("O2")
+				gastypes["O2"] = new /datum/gas_type/normal/oxygen
+			if("N2")
+				gastypes["N2"] = new /datum/gas_type/normal/nitrogen
+			if("N2O")
+				gastypes["N2O"] = new /datum/gas_type/normal/nitrous_oxide
+			if("Plasma")
+				gastypes["Plasma"] = new /datum/gas_type/normal/plasma
+			if("CO2")
+				gastypes["CO2"] = new /datum/gas_type/normal/carbon_dioxide
 		return 0
 	else
 		gas_dictionary.create_gas(gname,"reagent")
@@ -116,4 +114,4 @@ var/global/datum/dictionary/gas/gas_dictionary = new
 	name = "REAGENT_TEMPLATE"
 	specific_heat = 20
 	typeflag = GREAGENT
-*/
+

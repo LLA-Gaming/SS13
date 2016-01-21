@@ -11,8 +11,8 @@
 /obj/structure/transit_tube_pod/New(loc)
 	..(loc)
 
-	air_contents.oxygen = MOLES_O2STANDARD * 2
-	air_contents.nitrogen = MOLES_N2STANDARD
+	air_contents.gasses[OXYGEN] = MOLES_O2STANDARD * 2
+	air_contents.gasses[NITROGEN] = MOLES_N2STANDARD
 	air_contents.temperature = T20C
 
 	// Give auto tubes time to align before trying to start moving
@@ -104,10 +104,8 @@
 //  datum, there might be problems if I don't...
 /obj/structure/transit_tube_pod/return_air()
 	var/datum/gas_mixture/GM = new()
-	GM.oxygen			= air_contents.oxygen
-	GM.carbon_dioxide	= air_contents.carbon_dioxide
-	GM.nitrogen			= air_contents.nitrogen
-	GM.toxins			= air_contents.toxins
+	GM.gasses.Cut()
+	GM.gasses += air_contents.gasses
 	GM.temperature		= air_contents.temperature
 	return GM
 
@@ -149,7 +147,7 @@
 	loc.assume_air(from_int)
 	air_contents.merge(from_env)
 
-	
+
 /obj/structure/transit_tube_pod/proc/eject_contents()
 	for(var/atom/movable/AM in contents)
 		AM.loc = loc

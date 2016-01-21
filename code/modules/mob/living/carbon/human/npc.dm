@@ -414,7 +414,7 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 
 /mob/living/carbon/human/npc/proc/breath_check()
 	for(var/obj/item/weapon/tank/O in contents)
-		if(O.air_contents && O.air_contents.oxygen)
+		if(O.air_contents && O.air_contents.gasses[OXYGEN])
 			return 1
 	return 0
 

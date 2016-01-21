@@ -92,7 +92,7 @@
 	/*
 	var/datum/gas_mixture/ndelta = new()
 	if (src.f_mask & GAS_O2)
-		ndelta.oxygen = min(src.f_per, src.ngas.oxygen)
+		ndelta.gasses[OXYGEN] = min(src.f_per, src.ngas.gasses[OXYGEN])
 	if (src.f_mask & GAS_N2)
 		ndelta.n2 = min(src.f_per, src.ngas.n2)
 	if (src.f_mask & GAS_PL)
@@ -173,7 +173,7 @@
 		var/totalgas = gas.total_moles()
 		var/pressure = round(totalgas / gas.maximum * 100)
 		var/nitrogen = gas.n2 / totalgas * 100
-		var/oxygen = gas.oxygen / totalgas * 100
+		var/oxygen = gas.gasses[OXYGEN] / totalgas * 100
 		var/plasma = gas.plasma / totalgas * 100
 		var/co2 = gas.co2 / totalgas * 100
 		var/no2 = gas.sl_gas / totalgas * 100

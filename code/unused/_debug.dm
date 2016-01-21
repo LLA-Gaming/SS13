@@ -534,7 +534,7 @@ Doing this because FindTurfs() isn't even used
 						P.poison = 0
 						P.oldpoison = 0
 						P.tmppoison = 0
-						P.oxygen = 755985
+						P.gasses[OXYGEN] = 755985
 						P.oldoxy = 755985
 						P.tmpoxy = 755985
 	usr << "\blue Blowing up station ..."
@@ -552,7 +552,7 @@ Doing this because FindTurfs() isn't even used
 			T.poison = 0
 			T.oldpoison = 0
 			T.tmppoison = 0
-			T.oxygen = 755985
+			T.gasses[OXYGEN] = 755985
 			T.oldoxy = 755985
 			T.tmpoxy = 755985
 			T.co2 = 14.8176
