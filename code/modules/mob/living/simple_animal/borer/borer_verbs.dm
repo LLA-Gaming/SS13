@@ -181,7 +181,7 @@
 		if(M)
 			src << "<span class='notice'>You instill fear into your victim.</span>"
 			M << "<span class='warning'>Your muscles don't seem to listen to you.</span>"
-			M.paralysis += 5
+			M.weakened += 5
 			chemicals -= 50
 			return
 
