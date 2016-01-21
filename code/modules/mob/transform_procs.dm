@@ -9,6 +9,11 @@
 		for(var/obj/item/weapon/implant/W in src)
 			implants += W
 
+	var/list/borer = list()
+	if(tr_flags & TR_KEEPBORER)
+		for(var/mob/living/simple_animal/borer/B in src.contents)
+			borer += B
+
 	if(tr_flags & TR_KEEPITEMS)
 		for(var/obj/item/W in (src.contents-implants))
 			unEquip(W)
@@ -69,6 +74,12 @@
 		I.loc = O
 		I.implanted = O
 
+	for(var/mob/living/simple_animal/borer/B in borer)
+		B.host = O
+		O.contents += B
+		if(B.controlling)
+			O.verbs |= /mob/living/simple_animal/borer/proc/release_control
+
 	//transfer mind and delete old mob
 	if(mind)
 		mind.transfer_to(O)
@@ -95,6 +106,11 @@
 	if (tr_flags & TR_KEEPIMPLANTS)
 		for(var/obj/item/weapon/implant/W in src)
 			implants += W
+
+	var/list/borer = list()
+	if(tr_flags & TR_KEEPBORER)
+		for(var/mob/living/simple_animal/borer/B in src.contents)
+			borer += B
 
 	//now the rest
 	if (tr_flags & TR_KEEPITEMS)
@@ -167,6 +183,12 @@
 	for(var/obj/item/weapon/implant/I in implants)
 		I.loc = O
 		I.implanted = O
+
+	for(var/mob/living/simple_animal/borer/B in borer)
+		B.host = O
+		O.contents += B
+		if(B.controlling)
+			O.verbs |= /mob/living/simple_animal/borer/proc/release_control
 
 	if(mind)
 		mind.transfer_to(O)

@@ -814,7 +814,7 @@ datum/mind
 									sleep(0) //because deleting of virus is doing throught spawn(0)
 							log_admin("[key_name(usr)] attempting to humanize [key_name(current)]")
 							message_admins("\blue [key_name_admin(usr)] attempting to humanize [key_name_admin(current)]")
-							H = M.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG)
+							H = M.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPBORER)
 							if(H)
 								src = H.mind
 
@@ -1080,7 +1080,6 @@ datum/mind
 		var/fail = 0
 	//	fail |= !ticker.mode.equip_traitor(current, 1)
 		fail |= !ticker.mode.equip_revolutionary(current)
-
 
 	proc/is_crewmember()
 		var/datum/job/J = job_master.GetJob(assigned_role)

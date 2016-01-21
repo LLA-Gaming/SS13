@@ -19,6 +19,6 @@
 			if(istype(D, /datum/disease/jungle_fever))
 				var/mob/living/carbon/human/H = src
 				if(src.stat != 2)
-					H.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE)
+					H.monkeyize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_KEEPSE | TR_KEEPBORER)
 					contract_disease(D,1,0)
 	return

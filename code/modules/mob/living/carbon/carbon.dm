@@ -51,6 +51,8 @@
 					src.gib()
 
 /mob/living/carbon/gib(var/animation = 1)
+	for(var/mob/living/simple_animal/borer/B in src)
+		qdel(B)
 	for(var/mob/M in src)
 		if(M in stomach_contents)
 			stomach_contents.Remove(M)

@@ -114,6 +114,10 @@ proc/wabbajack(mob/living/M)
 			M.overlays.Cut()
 			M.invisibility = 101
 
+			for(var/mob/living/simple_animal/borer/B in M.contents)
+				B.detach()
+				B << "<span class='warning'>You are forced outside of your host as its body begins to change rapidly.</span>"
+
 			if(istype(M, /mob/living/silicon/robot))
 				var/mob/living/silicon/robot/Robot = M
 				if(Robot.mmi)	qdel(Robot.mmi)

@@ -52,6 +52,9 @@
 					W.layer = initial(W.layer)
 					W.loc = affected_mob.loc
 					W.dropped(affected_mob)
+				for(var/mob/living/simple_animal/borer/B in affected_mob.contents)
+					B.detach()
+					B << "<span class='warning'>You are forced outside of your host as its body begins to change rapidly.</span>"
 				var/mob/living/new_mob = new new_form(affected_mob.loc)
 				if(istype(new_mob))
 					new_mob.a_intent = "harm"
