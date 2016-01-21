@@ -6,6 +6,21 @@
 	health = 75
 	fire_resist = 2
 
+	New()
+		var/turf/simulated/S = get_turf(src)
+		if(S)
+			S.blocks_air = 1
+			S.thermal_conductivity = 0
+		air_update_turf(1)
+		..()
+
+	Destroy()
+		var/turf/simulated/S = get_turf(src)
+		if(S)
+			S.blocks_air = 0
+			S.thermal_conductivity = initial(S.thermal_conductivity)
+		air_update_turf(1)
+		..()
 
 /obj/effect/blob/shield/update_icon()
 	if(health <= 0)
