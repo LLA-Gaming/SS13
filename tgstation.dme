@@ -1437,6 +1437,7 @@
 #include "code\modules\spacelaw\spacelaw.dm"
 #include "code\modules\spacelaw\spacelaw_book.dm"
 #include "code\modules\surgery\appendectomy.dm"
+#include "code\modules\surgery\borer_removal.dm"
 #include "code\modules\surgery\brain_removal.dm"
 #include "code\modules\surgery\cavity_implant.dm"
 #include "code\modules\surgery\core_removal.dm"

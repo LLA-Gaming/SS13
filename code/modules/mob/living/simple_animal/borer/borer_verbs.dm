@@ -1,4 +1,13 @@
 /mob/living/simple_animal/borer/proc/initialize_lists()
+
+	if(evil)
+		detached += list(/mob/living/simple_animal/borer/proc/instill_fear)
+
+		attached += list(/mob/living/simple_animal/borer/proc/assume_control)
+
+		chems += list("Impedrezene","Lexorin","Mindbreaker","Toxin")
+
+
 	detached += list(/mob/living/simple_animal/borer/proc/infest,
 					 /mob/living/simple_animal/borer/proc/hide,
 					 /mob/living/simple_animal/borer/proc/reproduce)
@@ -8,14 +17,7 @@
 					 /mob/living/simple_animal/borer/proc/adrenalin,
 					 /mob/living/simple_animal/borer/proc/paralyze)
 
-	chems += list("Kelotane","Bicaridine","Hyronalin","Imidazoline","Ethylredoxrazine","Anti Toxin")
-
-	if(evil)
-		detached += list(/mob/living/simple_animal/borer/proc/instill_fear)
-
-		attached += list(/mob/living/simple_animal/borer/proc/assume_control)
-
-		chems += list("Impedrezene","Lexorin","Mindbreaker","Toxin")
+	chems += list("Kelotane","Bicaridine","Hyronalin","Imidazoline","Ethylredoxrazine","Anti-Toxin","Cancel") // These just get converted into lowercase and stuff. Be careful when adding chems that have a different ID than their name. I.e. "Sleep Toxin"'s ID is "stoxin"
 
 // Available verbs when detached //
 
@@ -179,7 +181,7 @@
 		if(M)
 			src << "<span class='notice'>You instill fear into your victim.</span>"
 			M << "<span class='warning'>Your muscles don't seem to listen to you.</span>"
-			M.paralysis += 10
+			M.stunned += 5
 			chemicals -= 50
 			return
 
@@ -257,7 +259,12 @@
 	if(chemicals >= 75)
 		var/chem = input(src,"What do you want to secrete?") in null|chems
 		if(chem)
-			chem = replacetext(lowertext(chem), " ", "_")
+			if(chem == "Cancel") return
+			if(chemicals < 75)
+				src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
+				return
+			chem = replacetext(lowertext(chem), "-", "_")
+			chem = replacetext(chem, " ", "")
 			src << "<span class='info'>You secrete some of the chemical into [host]'s body.</span>"
 			host.reagents.add_reagent(chem, 5)
 			chemicals -= 75
@@ -306,7 +313,7 @@
 	if(chemicals >= 125)
 		src << "<span class='info'>You secrete a paralyzing reactant into [host]'s body.</span>"
 		host << "<span class='warning'>Your muscles don't seem to listen to you.</span>"
-		host.paralysis += 10
+		host.stunned += 10
 		chemicals -= 125
 		return
 

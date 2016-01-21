@@ -35,9 +35,10 @@
 	initialize_lists()
 	verbs += detached
 
-
 /mob/living/simple_animal/borer/Life()
 	..()
+	if(src.mind && evil && !src.mind.special_role && !controlling)
+		make_special()
 	if(host)
 		if(!ishuman(host) && !ismonkey(host))
 			detach()
@@ -125,3 +126,23 @@
 /mob/living/simple_animal/borer/UnarmedAttack(var/atom/A)
 	if(host) return
 	else return ..()
+
+/mob/living/simple_animal/borer/proc/make_special()
+	var/datum/mind/Mind = src.mind
+	Mind.special_role = "Special Borer"
+	ticker.mode.traitors |= Mind
+
+	var/datum/objective/protect/P = new
+	P.owner = Mind
+	P.find_target()
+	Mind.objectives += P
+
+	var/datum/objective/survive/S = new
+	S.owner = Mind
+	Mind.objectives += S
+
+	var/obj_count = 1
+	src << "\blue Your current objectives:"
+	for(var/datum/objective/objective in Mind.objectives)
+		src << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
+		obj_count++

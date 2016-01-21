@@ -37,6 +37,10 @@ Also, you never added distance checking after target is selected. I've went ahea
 		user << "You don't particularly want to be dead."
 		return
 
+	for(var/mob/living/simple_animal/borer/B in target.contents)
+		user << "Their mind is resisting your spell."
+		return
+
 	if(!target.key || !target.mind)
 		user << "They appear to be catatonic. Not even magic can affect their vacant mind."
 		return

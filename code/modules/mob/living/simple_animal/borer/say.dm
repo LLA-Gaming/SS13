@@ -4,7 +4,7 @@
 	return ..()
 
 /mob/living/simple_animal/borer/say(var/message)
-	if (!message || controlling)
+	if (!message || controlling || docile)
 		return
 
 	if (stat == 2)
