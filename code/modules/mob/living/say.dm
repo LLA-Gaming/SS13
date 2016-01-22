@@ -365,13 +365,8 @@ var/list/department_radio_keys = list(
 				var/mob/living/simple_animal/borer/B = M
 				if(!B.host)
 					continue
-				else
-					if (M:say_understands(src))
-						heard_a += M
-					else
-						heard_b += M
 
-			else if (M:say_understands(src))
+			if(M:say_understands(src))
 				heard_a += M
 			else
 				heard_b += M
