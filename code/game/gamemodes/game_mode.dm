@@ -21,17 +21,18 @@
 	var/station_was_nuked = 0 //see nuclearbomb.dm and malfunction.dm
 	var/explosion_in_progress = 0 //sit back and relax
 	var/list/datum/mind/modePlayer = new
+	var/list/datum/mind/reserved_minds = list()
 	var/list/datum/mind/antag_candidates = list()	// List of possible starting antags goes here
 	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
 	var/list/protected_jobs = list()	// Jobs that can't be traitors because
+	var/list/required_jobs_on_minimum = list()	// Jobs that are required for minimum mode
 	var/required_players = 0
 	var/required_enemies = 0
 	var/required_readies = 0
-	var/minimum_players = 0
 	var/minimum_enemies = 1
 	var/recommended_enemies = 0
-	var/pre_setup_before_jobs = 0
 	var/minimum_mode = 0
+	var/can_run_at_minimum = 0
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 10
 	var/antag_flag = null //preferences flag such as BE_WIZARD that need to be turned on for players to be antag
@@ -60,16 +61,28 @@
 		if(playerC < required_players)
 			minicheck = 1
 		if(minicheck && !forced)
-			if(config.allow_lowpop_modes) // check for scaled gamemodes, only on participating gamemodes. if the gamemodes minimum_players is 0 this is ignored
-				if(minimum_players && readyC >= minimum_players)
-					minimum_mode = 1
-					antag_candidates = get_players_for_role(antag_flag)
-					if(!antag_candidates)
-						return 0
-					if(antag_candidates.len >= minimum_enemies)
-						return 1
-				else
+			if(config.allow_lowpop_modes && can_run_at_minimum) // check for scaled gamemodes, only on participating gamemodes.
+				var/list/jobs_needed = required_jobs_on_minimum
+				for(var/datum/mind/player in ticker.minds)
+					for(var/job in jobs_needed)
+						if(islist(job))
+							for(var/J in job)
+								if(player.assigned_role == J)
+									jobs_needed.Remove(job)
+									reserved_minds |= player
+									continue
+						else if(player.assigned_role == job)
+							jobs_needed.Remove(job)
+							reserved_minds |= player
+							continue
+				if(jobs_needed.len)
 					return 0
+				minimum_mode = 1
+				antag_candidates = get_players_for_role(antag_flag)
+				if(!antag_candidates)
+					return 0
+				if(antag_candidates.len >= minimum_enemies)
+					return 1
 			else
 				return 0
 	antag_candidates = get_players_for_role(antag_flag)
@@ -268,6 +281,10 @@
 			if(player.client.prefs.be_special_gamemode & role)
 				if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
 					candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
+
+	if(reserved_minds.len) 									// Remove players who are reserved for required jobs for the gamemode (minimum only)
+		for(var/datum/mind/player in reserved_minds)
+			candidates -= player
 
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)

@@ -9,10 +9,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	antag_flag = BE_CHANGELING
 	restricted_jobs = list("AI", "Cyborg", "Perseus Security Enforcer", "Perseus Security Commander")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
+	required_jobs_on_minimum = list(security_positions,command_positions + "AI")//security of any kind + head or AI needed
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
-	minimum_players = 10
+	can_run_at_minimum = 1
 
 	uplink_welcome = "Syndicate Uplink Console:"
 	uplink_uses = 10

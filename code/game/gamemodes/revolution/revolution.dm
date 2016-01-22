@@ -16,10 +16,11 @@
 	config_tag = "revolution"
 	antag_flag = BE_REV
 	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Perseus Security Enforcer", "Perseus Security Commander")
+	required_jobs_on_minimum = list("Captain",command_positions,security_positions)//Captain + Any command + 1 Sec
 	required_players = 18
 	required_enemies = 1
 	recommended_enemies = 3
-	minimum_players = 10
+	can_run_at_minimum = 1
 
 
 	uplink_welcome = "Revolutionary Uplink Console:"
@@ -41,21 +42,32 @@
 ///////////////////////////////////////////////////////////////////////////////
 //Gets the round setup, cancelling if there's not enough players at the start//
 ///////////////////////////////////////////////////////////////////////////////
+/datum/game_mode/revolution/can_start()
+	if(!..())
+		return 0
+	var/has_heads = 0
+	var/has_captain = 0
+	for(var/mob/new_player/player in player_list)
+		if(player.mind.assigned_role in command_positions)
+			has_heads++
+			if(player.mind.assigned_role == "Captain")
+				has_captain++
+	if(minimum_mode)
+		if(!has_captain)
+			return 0
+	else
+		if(!has_heads)
+			return 0
+
 /datum/game_mode/revolution/pre_setup()
 
 	if(config.protect_roles_from_antagonist)
 		restricted_jobs += protected_jobs
 
 	var/head_check = 0
-	var/has_captain = 0
 	for(var/mob/new_player/player in player_list)
 		if(player.mind.assigned_role in command_positions)
-			if(player.mind.assigned_role == "Captain")
-				has_captain = 1
 			head_check++
-	if(minimum_mode)
-		if(!has_captain)
-			return 0
 	for(var/datum/mind/player in antag_candidates)
 		for(var/job in restricted_jobs)//Removing heads and such from the list
 			if(player.assigned_role == job)
@@ -71,7 +83,7 @@
 		head_revolutionaries += lenin
 		log_game("[lenin.key] (ckey) has been selected as a head rev")
 
-	if((head_revolutionaries.len < required_enemies)||(!head_check))
+	if((head_revolutionaries.len < required_enemies))
 		return 0
 
 	return 1
