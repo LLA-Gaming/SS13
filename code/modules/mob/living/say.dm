@@ -362,7 +362,15 @@ var/list/department_radio_keys = list(
 	for (var/M in listening)
 		if(hascall(M,"say_understands"))
 			if(istype(M,/mob/living/simple_animal/borer))
-				continue
+				var/mob/living/simple_animal/borer/B = M
+				if(!B.host)
+					continue
+				else
+					if (M:say_understands(src))
+						heard_a += M
+					else
+						heard_b += M
+
 			else if (M:say_understands(src))
 				heard_a += M
 			else
