@@ -81,7 +81,7 @@
 				antag_candidates = get_players_for_role(antag_flag)
 				if(!antag_candidates)
 					return 0
-				if(antag_candidates.len >= minimum_enemies)
+				if(antag_candidates.len >= minimum_enemies && ReadyC / 2 >= minimum_enemies)
 					return 1
 			else
 				return 0
