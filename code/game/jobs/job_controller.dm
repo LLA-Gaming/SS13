@@ -74,8 +74,8 @@ var/global/datum/controller/occupations/job_master
 
 /datum/controller/occupations/proc/UnassignRole(var/mob/new_player/player)
 	if(player && player.mind)
+		var/datum/job/job = GetJob(player.mind.assigned_role)
 		player.mind.assigned_role = null
-		unassigned += player
 		job.current_positions--
 		return 1
 	return 0
@@ -294,15 +294,19 @@ var/global/datum/controller/occupations/job_master
 		AssignRole(player, "Assistant")
 	return 1
 
-/datum/controller/occupations/proc/ReassignJob(var/mob/new_player/player)
-	for(var/datum/job/job in shuffle(occupations))
-		if(player.client && player.client.prefs.GetJobDepartment(job, level) & job.flag)
+/datum/controller/occupations/proc/ReassignRole(var/mob/new_player/player)
+	var/list/shuffledoccupations = shuffle(occupations)
+	for(var/level = 1 to 3)
+		//Check the head jobs first each level
+		CheckHeadPositions(level)
+		for(var/datum/job/job in shuffledoccupations) // SHUFFLE ME BABY
+			if(player.client && player.client.prefs.GetJobDepartment(job, level) & job.flag)
 
-			// If the job isn't filled
-			if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
-				AssignRole(player, job.title)
-				unassigned -= player
-				return
+				// If the job isn't filled
+				if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
+					AssignRole(player, job.title)
+					unassigned -= player
+					return
 
 	if(player.client.prefs.userandomjob)
 		GiveRandomJob(player)

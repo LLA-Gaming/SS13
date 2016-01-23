@@ -4,7 +4,11 @@
 /datum/game_mode/malfunction
 	name = "AI malfunction"
 	config_tag = "malfunction"
-	required_jobs_on_minimum = list(security_positions,security_positions,command_positions,engineering_positions)//2 Security + 1 Head + Engineer
+	required_jobs_on_minimum = list(list("Security Officer", "Warden","Head of Security"),
+									list("Security Officer", "Warden","Head of Security"),
+									list("Captain","Head of Personnel","Head of Security","Chief Engineer","Research Director","Chief Medical Officer"),
+									list("Chief Engineer","Station Engineer")
+									)//2 Security + 1 Head + Engineer
 	antag_flag = BE_MALF
 	required_players = 18
 	required_enemies = 1
@@ -64,12 +68,12 @@
 		if(!player.mind) continue
 		if(player in malf_ai) continue
 		if(player.mind.assigned_role == "AI")
-			UnassignRole(player)
-			ReassignRole(player)
+			job_master.UnassignRole(player)
+			job_master.ReassignRole(player)
 	//then setup the actual malf AIs
 	for(var/mob/new_player/malfs in malf_ai)
-		UnassignRole(malfs)
-		AssignRole(malfs, "AI")
+		job_master.UnassignRole(malfs)
+		job_master.AssignRole(malfs, "AI")
 	return 1
 
 

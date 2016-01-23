@@ -9,7 +9,12 @@ var/list/blob_nodes = list()
 /datum/game_mode/blob
 	name = "blob"
 	config_tag = "blob"
-	required_jobs_on_minimum = list("Captain"+ security_positions,"Captain"+ security_positions,"Captain"+ security_positions,engineering_positions,engineering_positions) //Oh boy im in for it now
+	required_jobs_on_minimum = list(
+								list("Security Officer", "Warden","Head of Security", "Captain"),
+								list("Security Officer", "Warden","Head of Security", "Captain"),
+								list("Security Officer", "Warden","Head of Security", "Captain"),
+								list("Chief Engineer","Station Engineer"),
+								list("Chief Engineer","Station Engineer")) //Oh boy im in for it now
 	antag_flag = BE_BLOB
 
 	required_players = 30

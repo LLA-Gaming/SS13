@@ -16,7 +16,10 @@
 	config_tag = "revolution"
 	antag_flag = BE_REV
 	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Perseus Security Enforcer", "Perseus Security Commander")
-	required_jobs_on_minimum = list("Captain",command_positions,security_positions)//Captain + Any command + 1 Sec
+	required_jobs_on_minimum = list(list("Captain"),
+									list("Captain","Head of Personnel","Head of Security","Chief Engineer","Research Director","Chief Medical Officer"),
+									list("Security Officer", "Warden","Head of Security")
+									)//Captain + Any command + 1 Sec
 	required_players = 18
 	required_enemies = 1
 	recommended_enemies = 3
