@@ -63,6 +63,9 @@
 		ai_mind.assigned_role = "MODE" //So they aren't chosen for other jobs.
 		ai_mind.special_role = "malfunctioning AI"//So they actually have a special role/N
 		log_game("[ai_mind.key] (ckey) has been selected as a malf AI")
+	//reserve AI position for malf
+	var/datum/job/J = job_master.GetJob("AI")
+	J.current_positions = J.total_positions
 	// kick out any AI if they werent selected for malf
 	for(var/mob/new_player/player in player_list)
 		if(!player.mind) continue

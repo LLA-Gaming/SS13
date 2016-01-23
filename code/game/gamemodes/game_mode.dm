@@ -63,19 +63,30 @@
 		if(minicheck && !forced)
 			if(config.allow_lowpop_modes && can_run_at_minimum) // check for scaled gamemodes, only on participating gamemodes.
 				var/list/jobs_needed = required_jobs_on_minimum
-				for(var/datum/mind/player in ticker.minds)
-					for(var/job in jobs_needed)
-						if(islist(job))
-							for(var/J in job)
-								if(player.assigned_role == J)
-									jobs_needed.Remove(job)
-									reserved_minds |= player
-									continue
-						else if(player.assigned_role == job)
-							jobs_needed.Remove(job)
-							reserved_minds |= player
-							continue
-				if(jobs_needed.len)
+				var/reserved_count = 0
+				for(var/job in jobs_needed)
+					if(islist(job))
+						var/match = 0
+						for(var/J in job)
+							for(var/mob/new_player/player in shuffle(player_list))
+								if(!player.ready || !player.mind || player.mind in reserved_minds) continue
+								if(player.mind.assigned_role == J)
+									reserved_count++
+									reserved_minds |= player.mind
+									match = 1
+									break
+							if(match) break
+					else
+						var/match = 0
+						for(var/mob/new_player/player in shuffle(player_list))
+							if(!player.ready || !player.mind || player.mind in reserved_minds) continue
+							if(player.mind.assigned_role == job)
+								reserved_count++
+								reserved_minds |= player.mind
+								match = 1
+								break
+						if(match) continue
+				if(reserved_count < jobs_needed.len)
 					return 0
 				minimum_mode = 1
 				antag_candidates = get_players_for_role(antag_flag)
