@@ -71,6 +71,8 @@ var/global/last_tick_duration = 0
 	while (!setup())
 
 /datum/controller/gameticker/proc/setup()
+	//Distribute jobs
+	job_master.DivideOccupations()
 	//Create and announce mode
 	if(master_mode=="secret")
 		src.hide_mode = 1
@@ -103,9 +105,8 @@ var/global/last_tick_duration = 0
 
 	//Configure mode and assign player to special mode stuff
 	var/can_continue = 0
-	if (src.mode.pre_setup_before_jobs)	can_continue = src.mode.pre_setup()
-	job_master.DivideOccupations() 				//Distribute jobs
-	if (!src.mode.pre_setup_before_jobs)	can_continue = src.mode.pre_setup()
+
+	can_continue = src.mode.pre_setup()
 
 	if(!Debug2)
 		if(!can_continue)

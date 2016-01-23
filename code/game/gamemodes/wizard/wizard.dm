@@ -6,10 +6,12 @@
 	config_tag = "wizard"
 	antag_flag = BE_WIZARD
 	required_players = 18 //I'm going to regret moving this to 18 - Flavo
+	required_jobs_on_minimum = list(list("Security Officer", "Warden","Head of Security", "Captain"),
+									list("Security Officer", "Warden","Head of Security", "Captain"),
+									list("Security Officer", "Warden","Head of Security", "Captain"))//Captain or sec + Captain or sec + Captain or sec
 	required_enemies = 1
 	recommended_enemies = 1
-	minimum_players = 11
-	pre_setup_before_jobs = 1
+	can_run_at_minimum = 1
 
 	uplink_welcome = "Wizardly Uplink Console:"
 	uplink_uses = 10

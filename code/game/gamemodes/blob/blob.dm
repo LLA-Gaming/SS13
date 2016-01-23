@@ -9,6 +9,12 @@ var/list/blob_nodes = list()
 /datum/game_mode/blob
 	name = "blob"
 	config_tag = "blob"
+	required_jobs_on_minimum = list(
+								list("Security Officer", "Warden","Head of Security", "Captain"),
+								list("Security Officer", "Warden","Head of Security", "Captain"),
+								list("Security Officer", "Warden","Head of Security", "Captain"),
+								list("Chief Engineer","Station Engineer"),
+								list("Chief Engineer","Station Engineer")) //Oh boy im in for it now
 	antag_flag = BE_BLOB
 
 	required_players = 30
@@ -16,6 +22,8 @@ var/list/blob_nodes = list()
 	recommended_enemies = 1
 
 	restricted_jobs = list("Cyborg", "AI")
+
+	can_run_at_minimum = 1
 
 	var/const/waittime_l = 600 //lower bound on time before intercept arrives (in tenths of seconds)
 	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)

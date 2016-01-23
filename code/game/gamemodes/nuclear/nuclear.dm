@@ -5,12 +5,13 @@
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
+	required_jobs_on_minimum = list(list("Captain"),
+									list("Security Officer", "Warden","Head of Security"),
+									list("Security Officer", "Warden","Head of Security"))//Captain + sec + sec
 	required_players = 18 // 18 players - 5 players to be the nuke ops = 13 players remaining
-	required_readies = 10
 	required_enemies = 5
 	recommended_enemies = 5
-	minimum_players = 15
-	pre_setup_before_jobs = 1
+	can_run_at_minimum = 1
 	antag_flag = BE_OPERATIVE
 
 	uplink_welcome = "Corporate Backed Uplink Console:"

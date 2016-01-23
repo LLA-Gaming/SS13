@@ -4,13 +4,16 @@
 /datum/game_mode/malfunction
 	name = "AI malfunction"
 	config_tag = "malfunction"
+	required_jobs_on_minimum = list(list("Security Officer", "Warden","Head of Security"),
+									list("Security Officer", "Warden","Head of Security"),
+									list("Captain","Head of Personnel","Head of Security","Chief Engineer","Research Director","Chief Medical Officer"),
+									list("Chief Engineer","Station Engineer")
+									)//2 Security + 1 Head + Engineer
 	antag_flag = BE_MALF
 	required_players = 18
-	required_readies = 5
 	required_enemies = 1
 	recommended_enemies = 1
-	minimum_players = 11
-	pre_setup_before_jobs = 1
+	can_run_at_minimum = 1
 
 	uplink_welcome = "Crazy AI Uplink Console:"
 	uplink_uses = 10
@@ -60,6 +63,20 @@
 		ai_mind.assigned_role = "MODE" //So they aren't chosen for other jobs.
 		ai_mind.special_role = "malfunctioning AI"//So they actually have a special role/N
 		log_game("[ai_mind.key] (ckey) has been selected as a malf AI")
+	//reserve AI position for malf
+	var/datum/job/J = job_master.GetJob("AI")
+	J.current_positions = J.total_positions
+	// kick out any AI if they werent selected for malf
+	for(var/mob/new_player/player in player_list)
+		if(!player.mind) continue
+		if(player in malf_ai) continue
+		if(player.mind.assigned_role == "AI")
+			job_master.UnassignRole(player)
+			job_master.ReassignRole(player)
+	//then setup the actual malf AIs
+	for(var/mob/new_player/malfs in malf_ai)
+		job_master.UnassignRole(malfs)
+		job_master.AssignRole(malfs, "AI")
 	return 1
 
 

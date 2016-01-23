@@ -72,6 +72,13 @@ var/global/datum/controller/occupations/job_master
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
+/datum/controller/occupations/proc/UnassignRole(var/mob/new_player/player)
+	if(player && player.mind)
+		var/datum/job/job = GetJob(player.mind.assigned_role)
+		player.mind.assigned_role = null
+		job.current_positions--
+		return 1
+	return 0
 
 /datum/controller/occupations/proc/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
@@ -160,12 +167,6 @@ var/global/datum/controller/occupations/job_master
 	var/ai_selected = 0
 	var/datum/job/job = GetJob("AI")
 	if(!job)	return 0
-	if(ticker.mode.name == "AI malfunction")	// malf. AIs are pre-selected before jobs
-		for (var/datum/mind/mAI in ticker.mode.malf_ai)
-			AssignRole(mAI.current, "AI")
-			ai_selected++
-		if(ai_selected)	return 1
-		return 0
 
 	for(var/i = job.total_positions, i > 0, i--)
 		for(var/level = 1 to 3)
@@ -292,6 +293,25 @@ var/global/datum/controller/occupations/job_master
 		Debug("AC2 Assistant located, Player: [player]")
 		AssignRole(player, "Assistant")
 	return 1
+
+/datum/controller/occupations/proc/ReassignRole(var/mob/new_player/player)
+	var/list/shuffledoccupations = shuffle(occupations)
+	for(var/level = 1 to 3)
+		//Check the head jobs first each level
+		CheckHeadPositions(level)
+		for(var/datum/job/job in shuffledoccupations) // SHUFFLE ME BABY
+			if(player.client && player.client.prefs.GetJobDepartment(job, level) & job.flag)
+
+				// If the job isn't filled
+				if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
+					AssignRole(player, job.title)
+					unassigned -= player
+					return
+
+	if(player.client.prefs.userandomjob)
+		GiveRandomJob(player)
+	else
+		AssignRole(player, "Assistant")
 
 //Gives the player the stuff he should have with his rank
 /datum/controller/occupations/proc/EquipRank(var/mob/living/H, var/rank, var/joined_late = 0)
