@@ -309,11 +309,12 @@
 			cooked.loc = src.loc
 			return
 		cooked = recipe.make_food(src)
-		stop()
-		if(cooked)
-			cooked.loc = src.loc
+		cooked.loc = src.loc
 		for(var/i=1,i<efficiency,i++)
-			cooked = new cooked.type(loc)
+			var/obj/extra
+			extra = new cooked.type(loc)
+			extra.name = cooked.name
+		stop()
 		return
 
 /obj/machinery/microwave/proc/microwave_operate(var/seconds as num)
