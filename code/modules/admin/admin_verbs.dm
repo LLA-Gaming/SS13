@@ -16,6 +16,7 @@ var/list/admin_verbs_default = list(
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/toggle_statpanel,
 	/client/proc/toggleahelp,
+	/client/proc/metawho,
 	/client/proc/reloadBadges
 	)
 
@@ -158,27 +159,20 @@ var/list/admin_verbs_permissions = list(
 	/client/proc/edit_admin_permissions
 	)
 
-//verbs which can be hidden - needs work
+//verbs which can be hidden
+//please keep this up to date
 var/list/admin_verbs_hideable = list(
 	/client/proc/set_ooc,
 	/client/proc/deadmin_self,
-	/client/proc/deadchat,
-	/client/proc/toggleprayers,
-	/client/proc/toggle_hear_radio,
 	/datum/admins/proc/show_traitor_panel,
 	/datum/admins/proc/toggleenter,
 	/datum/admins/proc/toggleguests,
 	/datum/admins/proc/announce,
 	/datum/admins/proc/set_admin_notice,
-	/client/proc/admin_ghost,
 	/client/proc/toggle_view_range,
-	/datum/admins/proc/view_txt_log,
-	/datum/admins/proc/view_atk_log,
 	/client/proc/cmd_admin_subtle_message,
 	/client/proc/cmd_admin_check_contents,
 	/datum/admins/proc/access_news_network,
-	/client/proc/admin_call_shuttle,
-	/client/proc/admin_cancel_shuttle,
 	/client/proc/cmd_admin_direct_narrate,
 	/client/proc/cmd_admin_world_narrate,
 	/client/proc/check_words,
@@ -228,7 +222,27 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/cmd_admin_pm_context,
 	/datum/admins/proc/show_player_panel,
 	/proc/possess,
-	/proc/release
+	/proc/release,
+	/client/proc/becomePAI,
+	/client/proc/reloadBadges,
+	/datum/admins/proc/spawn_atom,
+	/client/proc/stop_sounds,
+	/client/proc/TemplatePanel,
+	/client/proc/createPerseusMission,
+	/client/proc/spawncostume,
+	/client/proc/zombie_verb,
+	/client/proc/admin_memo,
+	/datum/admins/proc/toggleooc,
+	/datum/admins/proc/toggle_vr,
+	/client/proc/delete_fire,
+	/client/proc/reset_atmos,
+	/datum/admins/proc/event_panel,
+	/client/proc/fill_breach,
+	/datum/admins/proc/toggleoocdead,
+	/client/proc/togglebuildmodeself,
+	/client/proc/reenable_gravity_gen,
+	/client/proc/view_pod_logs,
+	/client/proc/respawn_character
 	)
 
 /client/proc/add_admin_verbs()
