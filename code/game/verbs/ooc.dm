@@ -89,7 +89,7 @@ var/global/normal_ooc_colour = "#002eb8"
 	set name = "OOC Text Color"
 	set category = "Preferences"
 
-	if(!holder || check_rights_for(src, R_ADMIN))
+	if(!holder)
 		if(!is_content_unlocked())	return
 
 	var/new_ooccolor = input(src, "Please select your OOC colour.", "OOC colour", prefs.ooccolor) as color|null
