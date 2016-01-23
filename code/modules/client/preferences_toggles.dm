@@ -17,6 +17,24 @@
 	prefs.save_preferences()
 	feedback_add_details("admin_verb","TGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/toggle_ghost_messenger()
+	set name = "Show/Hide GhostMessengers"
+	set category = "Preferences"
+	set desc = ".Toggle Between seeing tablet messages or not as a ghost"
+	prefs.toggles ^= GHOST_MESSENGER
+	src << "As a ghost, you will now [(prefs.toggles & GHOST_MESSENGER) ? "see all tablet messages" : "no longer see tablet messages"]."
+	prefs.save_preferences()
+	feedback_add_details("admin_verb","TGM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/verb/toggle_ghost_radio()
+	set name = "Show/Hide GhostRadio"
+	set category = "Preferences"
+	set desc = ".Toggle Between seeing all radio all the time, and only radio from nearby speakers as a ghost"
+	prefs.toggles ^= GHOST_RADIO
+	src << "As a ghost, you will now [(prefs.toggles & GHOST_RADIO) ? "see all radio messages" : "radio from nearby speakers/radios"]."
+	prefs.save_preferences()
+	feedback_add_details("admin_verb","TGR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/proc/toggle_hear_radio()
 	set name = "Show/Hide RadioChatter"
 	set category = "Preferences"

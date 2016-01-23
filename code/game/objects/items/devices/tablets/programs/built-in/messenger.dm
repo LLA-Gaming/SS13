@@ -225,6 +225,12 @@
 								for(var/datum/program/builtin/messenger/M in T.core.programs)
 									T.alert_self("Messenger:","<b>Message from [tablet.owner], </b>\"[t]\" <a href='byond://?src=\ref[M];choice=Message;target=\ref[chat]'>Reply</a>","messenger")
 									break
+
+						//send messages to ghosts
+						for(var/mob/M in player_list)
+							if(isobserver(M) && M.client && (M.client.prefs.toggles & GHOST_MESSENGER))
+								M.show_message("<span class='game say'>Tablet Message - \[<span class='name'>[chat.name]</span>\] <span class='name'>[tablet.owner]</span>: <span class='message'>[t]</span></span>")
+
 					spamcheck = 0
 					if(quick_reply)
 						return

@@ -275,6 +275,13 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	// Get a list of mobs who can hear from the radios we collected.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
 
+	//Add ghosts to the recieve list IF they have the toggle on
+	if(data != 3)
+		for(var/mob/G in player_list)
+			if(isobserver(G) && G.client && (G.client.prefs.toggles & GHOST_RADIO))
+				receive |= G
+
+
   /* ###### Organize the receivers into categories for displaying the message ###### */
 
   	// Understood the message:

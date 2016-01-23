@@ -232,6 +232,8 @@ datum/preferences
 				dat += "<b>Play lobby music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & SOUND_LOBBY) ? "Yes" : "No"]</a><br>"
 				dat += "<b>Ghost ears:</b> <a href='?_src_=prefs;preference=ghost_ears'>[(toggles & CHAT_GHOSTEARS) ? "Nearest Creatures" : "All Speech"]</a><br>"
 				dat += "<b>Ghost sight:</b> <a href='?_src_=prefs;preference=ghost_sight'>[(toggles & CHAT_GHOSTSIGHT) ? "Nearest Creatures" : "All Emotes"]</a><br>"
+				dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'>[(toggles & GHOST_RADIO) ? "Yes" : "No"]</a><br>"
+				dat += "<b>Ghost Tablets:</b> <a href='?_src_=prefs;preference=ghost_tablet'>[(toggles & GHOST_MESSENGER) ? "Yes" : "No"]</a><br>"
 				dat += "<b>Pull requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(toggles & CHAT_PULLR) ? "Yes" : "No"]</a><br>"
 				dat += "<b>Statpanel Info</b> <a href='?_src_=prefs;preference=statpanel'>[(toggles & STATPANEL) ? "Yes" : "No"]</a><br>"
 
@@ -842,6 +844,11 @@ datum/preferences
 
 					if("ghost_sight")
 						toggles ^= CHAT_GHOSTSIGHT
+					if("ghost_radio")
+						toggles ^= GHOST_RADIO
+					if("ghost_tablet")
+						toggles ^= GHOST_MESSENGER
+
 					if("pull_requests")
 						toggles ^= CHAT_PULLR
 					if("ui")
