@@ -662,6 +662,118 @@ steam.start() -- spawns the effect
 						smoke.delete()
 					src.total_smoke--
 
+//////////////////////////////////
+//Tile-wise smoke spread        //
+//////////////////////////////////
+
+
+/datum/effect/effect/system/tile_smoke_spread
+	var/total_smoke = 0 //Used to calculate how many tiles to fill
+	var/list/tiles = list()
+	var/list/spreading_tiles = list()
+	var/list/obj/effect/effect/chem_smoke/smokeclouds = list()
+	var/obj/chemholder
+
+	New()
+		..()
+		chemholder = new/obj()
+		var/datum/reagents/R = new/datum/reagents(500)
+		chemholder.reagents = R
+		R.my_atom = chemholder
+
+
+	set_up(n = 5, loca as turf, var/datum/reagents/payload, silent = 0)
+		total_smoke = (abs(n) * 4) + 1
+		if(istype(loca, /turf/))
+			location = loca
+		else
+			location = get_turf(loca)
+
+		payload.copy_to(chemholder, payload.total_volume)
+
+		if(!silent)
+			var/contained = ""
+			for(var/reagent in payload.reagent_list)
+				contained += " [reagent] "
+			if(contained)
+				contained = "\[[contained]\]"
+			var/area/A = get_area(location)
+
+			var/where = "[A.name] | [location.x], [location.y]"
+			var/whereLink = "<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[location.x];Y=[location.y];Z=[location.z]'>[where]</a>"
+
+			if(payload.my_atom.fingerprintslast)
+				var/mob/M = get_mob_by_key(payload.my_atom.fingerprintslast)
+				var/more = ""
+				if(M)
+					more = "(<A HREF='?_src_=holder;adminmoreinfo=\ref[M]'>?</a>)"
+				message_admins("A chemical smoke reaction has taken place in ([whereLink])[contained]. Last associated key is [payload.my_atom.fingerprintslast][more].", 0, 1)
+				log_game("A chemical smoke reaction has taken place in ([where])[contained]. Last associated key is [payload.my_atom.fingerprintslast].")
+			else
+				message_admins("A chemical smoke reaction has taken place in ([whereLink]). No associated key.", 0, 1)
+				log_game("A chemical smoke reaction has taken place in ([where])[contained]. No associated key.")
+
+	start()
+		var/color = mix_color_from_reagents(chemholder.reagents.reagent_list)
+
+		//Begin spread
+		spreading_tiles += location
+		get_spread_turfs(total_smoke)
+		for(var/A in tiles)
+			if(total_smoke <= 0) break
+			if(smokeclouds.len >= total_smoke) break
+			var/obj/effect/effect/chem_smoke/smoke = new /obj/effect/effect/chem_smoke(location)
+			smokeclouds += smoke
+			if(chemholder.reagents.total_volume >= total_smoke/2) //more than .5 unit of reagent per smoke cloud.
+				chemholder.reagents.copy_to(smoke, chemholder.reagents.total_volume / total_smoke)
+			smoke.layer = 5.1 //by request
+			if(color)
+				smoke.color = color
+			else
+				smoke.icon = 'icons/effects/96x96.dmi'
+				smoke.icon_state = "smoke"
+		//spawn off smokecloud movements
+		for(var/obj/effect/effect/chem_smoke/smoke in smokeclouds)
+			spawn(0)
+				var/destination = pick(tiles)
+				tiles -= destination
+				while(smoke.loc != destination)
+					step_towards(smoke, destination)
+					sleep(2+rand(0,1))
+		//spawn off smokecloud fadeouts
+		for(var/obj/effect/effect/chem_smoke/smoke in smokeclouds)
+			spawn(150 + rand(10,30))
+				if(smoke)
+					fadeOut(smoke)
+					smoke.delete()
+
+	proc/get_spread_turfs(var/amount)
+	//Recursively gather the tiles you can spread to, limited by amount
+		if(tiles.len >= amount) return
+		if(!(spreading_tiles.len)) return
+		var/list/next_spreads = list()
+		for(var/turf/T in spreading_tiles)
+			for(var/turf/TD in orange(T,1))
+				var/canpass = 1
+				for(var/obj/O in TD.contents)
+					if (O.density)
+						canpass = 0
+				if (!(TD.density) && (canpass) && !(TD in tiles) && !(TD in spreading_tiles)) // Flows wherever air can flow
+					next_spreads |= TD
+				if((tiles.len + spreading_tiles.len + next_spreads.len) >= amount)
+					///spreading_tiles += "Step" //Block to pause smoke spread during activation
+					spreading_tiles |= next_spreads
+					next_spreads.Cut()
+					break
+		///tiles += "Step"
+		tiles |= spreading_tiles
+		spreading_tiles.Cut()
+		if(next_spreads.len)
+			spreading_tiles = next_spreads
+			get_spread_turfs(amount) //#RECURSION
+		return
+
+
 
 /////////////////////////////////////////////
 //////// Attach an Ion trail to any object, that spawns when it moves (like for the jetpack)
