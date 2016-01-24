@@ -17,6 +17,9 @@
 		loc = locate(1,1,1)
 	lastarea = loc
 
+	if(ckey in deadmins)
+		verbs += /client/proc/readmin
+
 	sight |= SEE_TURFS
 	player_list |= src
 

@@ -39,6 +39,9 @@
 	next_move = 1
 	sight |= SEE_SELF
 
+	if(ckey in deadmins)
+		verbs += /client/proc/readmin
+
 	..()
 
 	if(loc && !isturf(loc))
