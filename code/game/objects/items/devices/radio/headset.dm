@@ -161,21 +161,21 @@
 	item_state = "headset"
 	keyslot2 = new /obj/item/device/encryptionkey/heads/captain
 
-/obj/item/device/radio/headset/headset_sec_alt
+/obj/item/device/radio/headset/bowman/sec
 	name = "security bowman headset"
 	desc = "A tactical version of the classic radio headset with secured straps used by security. To access the security channel, use :s."
 	icon_state = "sec_headset_alt"
 	item_state = "null"
 	keyslot2 = new /obj/item/device/encryptionkey/headset_sec
 
-/obj/item/device/radio/headset/heads/hos_alt
+/obj/item/device/radio/headset/bowman/sec/hos
 	name = "\proper the head of security's bowman headset"
 	desc = "A tactical version of the classic radio headset for the man in charge of keeping the station secure. To access the security channel, use :s. For command, use :c."
 	icon_state = "com_headset_alt"
 	item_state = "null"
 	keyslot2 = new /obj/item/device/encryptionkey/heads/hos
 
-/obj/item/device/radio/headset/headset_med_alt
+/obj/item/device/radio/headset/bowman/med
 	name = "medical bowman headset"
 	desc = "A tactical version of the classic radio headset for first responders in medical departments. To access the medical channel, use :m."
 	icon_state = "med_headset_alt"

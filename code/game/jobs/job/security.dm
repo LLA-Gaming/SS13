@@ -23,7 +23,7 @@ Head of Security
 
 	default_id = /obj/item/weapon/card/id/silver
 	default_tablet = /obj/item/device/tablet/hos
-	default_headset = /obj/item/device/radio/headset/heads/hos_alt
+	default_headset = /obj/item/device/radio/headset/bowman/sec/hos
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	default_tablet_slot = slot_wear_id
@@ -73,7 +73,7 @@ Warden
 	req_spacelaw_notify = 1
 
 	default_tablet = /obj/item/device/tablet/warden
-	default_headset = /obj/item/device/radio/headset/headset_sec_alt
+	default_headset = /obj/item/device/radio/headset/bowman/sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	default_tablet_slot = slot_wear_id
@@ -172,7 +172,7 @@ Security Officer
 	var/list/dep_access = null
 
 	default_tablet = /obj/item/device/tablet/security
-	default_headset = /obj/item/device/radio/headset/headset_sec_alt
+	default_headset = /obj/item/device/radio/headset/bowman/sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	default_tablet_slot = slot_wear_id
@@ -241,30 +241,30 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science", "
 		switch(department)
 			if("Supply")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/cargo(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/headset_sec_alt/department/supply
+				default_headset = /obj/item/device/radio/headset/bowman/sec/department/supply
 				dep_access = list(access_mailsorting, access_mining)
 				destination = /area/security/checkpoint/supply
 			if("Engineering")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/engine(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/headset_sec_alt/department/engi
+				default_headset = /obj/item/device/radio/headset/bowman/sec/department/engi
 				dep_access = list(access_construction, access_engine)
 				destination = /area/security/checkpoint/engineering
 			if("Medical")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/med(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/headset_sec_alt/department/med
+				default_headset = /obj/item/device/radio/headset/bowman/sec/department/med
 				dep_access = list(access_medical)
 				destination = /area/security/checkpoint/medical
 			if("Science")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/science(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/headset_sec_alt/department/sci
+				default_headset = /obj/item/device/radio/headset/bowman/sec/department/sci
 				dep_access = list(access_research)
 				destination = /area/security/checkpoint/science
 			if("Brig")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/headset_sec_alt
+				default_headset = /obj/item/device/radio/headset/bowman/sec
 			else
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/headset_sec_alt
+				default_headset = /obj/item/device/radio/headset/bowman/sec
 		var/teleport = 0
 		if(!config.sec_start_brig)
 			if(destination)
@@ -308,19 +308,19 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science", "
 	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/device/encryptionkey/headset_sci
 
-/obj/item/device/radio/headset/headset_sec_alt/department/engi
+/obj/item/device/radio/headset/bowman/sec/department/engi
 	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/device/encryptionkey/headset_eng
 
-/obj/item/device/radio/headset/headset_sec_alt/department/supply
+/obj/item/device/radio/headset/bowman/sec/department/supply
 	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/device/encryptionkey/headset_cargo
 
-/obj/item/device/radio/headset/headset_sec_alt/department/med
+/obj/item/device/radio/headset/bowman/sec/department/med
 	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/device/encryptionkey/headset_med
 
-/obj/item/device/radio/headset/headset_sec_alt/department/sci
+/obj/item/device/radio/headset/bowman/sec/department/sci
 	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/device/encryptionkey/headset_sci
 
