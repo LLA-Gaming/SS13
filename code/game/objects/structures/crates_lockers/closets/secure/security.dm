@@ -78,7 +78,7 @@
 		new /obj/item/clothing/suit/armor/hos/jensen(src)
 		new /obj/item/clothing/head/helmet/HoS/dermal(src)
 		new /obj/item/clothing/glasses/hud/security/supergars(src)
-		new /obj/item/device/radio/headset/heads/hos_alt(src)
+		new /obj/item/device/radio/headset/heads/hos(src)
 		new /obj/item/device/tablet_carts/hos(src)
 		new /obj/item/weapon/contraband/poster/legit(src)
 		new /obj/item/weapon/storage/lockbox/loyalty(src)
@@ -87,8 +87,6 @@
 		new /obj/item/weapon/storage/box/flashbangs(src)
 		//new /obj/item/taperoll/security(src)
 		new /obj/item/device/flash(src)
-		new /obj/item/weapon/melee/baton/loaded(src)
-		new /obj/item/weapon/gun/energy/gun(src)
 		new /obj/item/weapon/storage/belt/security(src)
 		new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 		return
@@ -121,16 +119,13 @@
 		//new /obj/item/taperoll/security(src)
 		//new /obj/item/taperoll/security(src)
 		//new /obj/item/taperoll/security(src)
-		new /obj/item/device/radio/headset/headset_sec_alt(src)
+		new /obj/item/device/radio/headset/headset_sec(src)
 		new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 		new /obj/item/clothing/mask/gas/sechailer/warden(src)
 		new /obj/item/weapon/storage/box/flashbangs(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
-		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/weapon/storage/belt/security(src)
 		new /obj/item/weapon/clipboard(src)
-		new /obj/item/clothing/under/rank/warden/navyblue(src)
-		new /obj/item/clothing/head/beret/sec/navywarden(src)
 		return
 
 
@@ -152,14 +147,13 @@
 		new /obj/item/clothing/suit/wintercoat/security(src)
 		new /obj/item/clothing/head/beret/sec(src)
 		new /obj/item/weapon/contraband/poster/legit(src)
-		new /obj/item/device/radio/headset/headset_sec_alt(src)
+		new /obj/item/device/radio/headset/headset_sec(src)
 		new /obj/item/clothing/mask/gas/sechailer(src)
 		//new /obj/item/taperoll/security(src)
 		new /obj/item/weapon/storage/backpack/dufflebag/sec(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
-		new /obj/item/clothing/under/rank/security/navyblue(src)
-		new /obj/item/clothing/head/beret/sec/navyofficer(src)
+		new /obj/item/weapon/grenade/flashbang(src)
 		return
 
 
@@ -168,7 +162,7 @@
 	New()
 		new /obj/item/weapon/melee/baton/loaded(src)
 		new /obj/item/clothing/glasses/hud/security/sunglasses(src)
-		new /obj/item/weapon/gun/energy/taser/adv(src)
+		new /obj/item/weapon/gun/energy/taser(src)
 		new /obj/item/weapon/grenade/flashbang(src)
 		new /obj/item/clothing/head/helmet(src)
 		new /obj/item/clothing/suit/armor/vest(src)
