@@ -116,6 +116,10 @@
 	name = "circuit board (Arcade Battle)"
 	build_path = /obj/machinery/computer/arcade/battle
 	origin_tech = "programming=1"
+/obj/item/weapon/circuitboard/slot_machine
+	name = "circuit board (Slot Machine)"
+	build_path = /obj/machinery/computer/slot_machine
+	origin_tech = "programming=1"
 /obj/item/weapon/circuitboard/arcade/orion_trail
 	name = "circuit board (Orion_Trail)"
 	build_path = /obj/machinery/computer/arcade/orion_trail
