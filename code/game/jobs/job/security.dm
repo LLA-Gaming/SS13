@@ -5,7 +5,7 @@
 	return list()
 
 /*
-Head of Shitcurity
+Head of Security
 */
 /datum/job/hos
 	title = "Head of Security"
@@ -45,6 +45,7 @@ Head of Shitcurity
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/HoS(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/device/flash(H), slot_l_store)
@@ -88,6 +89,7 @@ Warden
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black/sec(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
+	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
 	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_r_store)
 	H.equip_to_slot_or_del(new /obj/item/device/flash(H), slot_l_store)
