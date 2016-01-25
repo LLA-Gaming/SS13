@@ -537,14 +537,26 @@
 			var/obj/C = loc
 			C.container_resist(L)
 
-	//Stop drop and roll & Handcuffs
+	//Stop drop and roll & Handcuffs // There was no roll - Ahbahl
 	else if(iscarbon(L))
 		var/mob/living/carbon/CM = L
 		if(CM.on_fire && CM.canmove)
 			CM.fire_stacks -= 5
 			CM.weakened = 5
+			CM.update_canmove()
 			CM.visible_message("<span class='danger'>[CM] rolls on the floor, trying to put themselves out!</span>", \
 				"<span class='notice'>You stop, drop, and roll!</span>")
+			for(var/i=1,i<14,i++) // There is now - Ahbahl
+				sleep(3)
+				switch(CM.dir)
+					if(SOUTH)
+						CM.dir = WEST
+					if(WEST)
+						CM.dir = NORTH
+					if(NORTH)
+						CM.dir = EAST
+					if(EAST)
+						CM.dir = SOUTH
 			if(fire_stacks <= 0)
 				CM.visible_message("<span class='danger'>[CM] has successfully extinguished themselves!</span>", \
 					"<span class='notice'>You extinguish yourself.</span>")
