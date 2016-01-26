@@ -49,6 +49,9 @@ var/datum/controller/event/events
 	if(_holiday == "Halloween")
 		//Make sure Halloween starts after 5 minutes exactly.
 		scheduled = 3000
+	if(_holiday == "Valentine's Day")
+		//Make sure Halloween starts after 3 minutes exactly.
+		scheduled = 1500
 
 //This is called by the MC every MC-tick (*neatfreak*).
 /datum/controller/event/proc/process()

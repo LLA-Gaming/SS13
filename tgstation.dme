@@ -973,6 +973,7 @@
 #include "code\modules\events\wormholes.dm"
 #include "code\modules\events\xenosky_infestation.dm"
 #include "code\modules\events\zombies.dm"
+#include "code\modules\events\holiday\valentines.dm"
 #include "code\modules\events\holiday\xmas.dm"
 #include "code\modules\events\holiday\halloween\candy.dm"
 #include "code\modules\events\holiday\halloween\costumes.dm"
