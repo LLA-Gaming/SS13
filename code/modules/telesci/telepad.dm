@@ -8,10 +8,17 @@
 	use_power = 1
 	idle_power_usage = 200
 	active_power_usage = 5000
+	var/obj/machinery/computer/telescience/computer = null
+	var/datum/wires/telepad/wires = null
+	var/cant_activate = 0
+	var/cant_switch = 0
+	var/cant_calibrate = 0
+	var/cant_link = 0
 	var/efficiency
 
 /obj/machinery/telepad/New()
 	..()
+	wires = new(src)
 	component_parts = list()
 	component_parts += new /obj/item/weapon/circuitboard/telesci_pad(null)
 	component_parts += new /obj/item/bluespace_crystal/artificial(null)
@@ -27,12 +34,18 @@
 		E += C.rating
 	efficiency = E
 
+/obj/machinery/telepad/attack_hand(mob/user)
+	if(panel_open)
+		wires.Interact(user)
+	..()
+	return
+
 /obj/machinery/telepad/attackby(obj/item/I, mob/user)
 	if(default_deconstruction_screwdriver(user, "pad-idle-o", "pad-idle", I))
 		return
 
 	if(panel_open)
-		if(istype(I, /obj/item/device/multitool))
+		if(istype(I, /obj/item/device/multitool) && !cant_link)
 			var/obj/item/device/multitool/M = I
 			M.buffer = src
 			user << "<span class = 'caution'>You save the data in the [I.name]'s buffer.</span>"
@@ -41,6 +54,10 @@
 		return
 
 	default_deconstruction_crowbar(I)
+
+/obj/machinery/telepad/Destroy()
+	qdel(wires)
+	wires = null
 
 
 //CARGO TELEPAD//

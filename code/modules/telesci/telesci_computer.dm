@@ -84,8 +84,14 @@
 	else if(istype(W, /obj/item/device/multitool))
 		var/obj/item/device/multitool/M = W
 		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
+			if(telepad)
+				telepad.computer = null
 			telepad = M.buffer
+			telepad.computer = src
 			M.buffer = null
+			if(telepad.cant_link)
+				telepad.computer = null
+				telepad = null
 			user << "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>"
 	else
 		..()
@@ -363,17 +369,22 @@
 			temp_msg = "ERROR!<BR>No data stored."
 
 	if(href_list["send"])
-		sending = 1
-		teleport(usr)
+		if(!telepad.cant_activate)
+			if(!telepad.cant_switch)
+				sending = 1
+			teleport(usr)
 
 	if(href_list["receive"])
-		sending = 0
-		teleport(usr)
+		if(!telepad.cant_activate)
+			if(!telepad.cant_switch)
+				sending = 0
+			teleport(usr)
 
 	if(href_list["recal"])
-		recalibrate()
-		sparks()
-		temp_msg = "NOTICE:<BR>Calibration successful."
+		if(!telepad.cant_calibrate || !telepad.cant_activate)
+			recalibrate()
+			sparks()
+			temp_msg = "NOTICE:<BR>Calibration successful."
 
 	if(href_list["eject"])
 		eject()
