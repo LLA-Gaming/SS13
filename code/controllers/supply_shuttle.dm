@@ -119,6 +119,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 	var/processing_interval = 300
 	var/iteration = 0
 	//supply points
+	var/givepoints_schedule = 0
 	var/points = 50
 	var/points_per_process = 1
 	var/points_per_slip = 2
@@ -141,6 +142,8 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 	var/eta
 	//shuttle loan
 	var/datum/round_event/shuttle_loan/shuttle_loan
+	//list of ATOMS to never delete when the shuttle moves, build at round start
+	var/list/protected_atoms = list()
 
 	New()
 		ordernum = rand(1,9000)
@@ -149,26 +152,31 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 			if(P.name == "HEADER") continue		// To filter out group headers
 			supply_packs[P.name] = P
 
+		//setup the protected_atoms list
+		var/shuttle_at
+		if(at_station)	shuttle_at = SUPPLY_STATION_AREATYPE
+		else			shuttle_at = SUPPLY_DOCK_AREATYPE
+
+		var/area/shuttle = locate(shuttle_at)
+		if(shuttle)
+			for(var/atom/movable/MA in shuttle)
+				protected_atoms.Add(MA)
+
 	//Supply shuttle ticker - handles supply point regenertion and shuttle travelling between centcom and the station
 	proc/process()
+		if(processing)
+			iteration++
+			if(givepoints_schedule <= world.time)
+				points += points_per_process
+				givepoints_schedule = world.time + processing_interval
 
-		spawn(0)
-			set background = BACKGROUND_ENABLED
-			while(1)
-				if(processing)
-					iteration++
-					points += points_per_process
-
-					if(moving == 1)
-						var/ticksleft = (eta_timeofday - world.timeofday)
-						if(ticksleft > 0)
-							eta = round(ticksleft/600,1)
-						else
-							eta = 0
-							send()
-
-
-				sleep(processing_interval)
+			if(moving == 1)
+				var/ticksleft = (eta_timeofday - world.timeofday)
+				if(ticksleft > 0)
+					eta = round(ticksleft/600,1)
+				else
+					eta = 0
+					send()
 
 	proc/send()
 		var/area/from
@@ -237,7 +245,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		centcom_message = ""
 
 		for(var/atom/movable/MA in shuttle)
-			if(MA.anchored)	continue
+			if(MA in protected_atoms)	continue
 
 
 			// Must be in a crate (or a critter crate)!
