@@ -141,7 +141,7 @@
 			M << "<span class='warning'>Access denied.</span>"
 			return 0
 
-		var/list/possible_signs = list("Maltese Falcon" = "maltesefalcon", "Plasma Fire" = "plasmafire", "Winking Corgi" = "winkingcorgi")
+		var/list/possible_signs = list("Maltese Falcon" = "maltesefalcon", "Plasma Fire" = "plasmafire", "Winking Corgi" = "winkingcorgi", "Hole in The Hull" = "holeinthehull")
 		var/selected = input("Select a new bar sign design", "Input") in possible_signs + "Cancel"
 		if(!selected || selected == "Cancel")
 			return 0
