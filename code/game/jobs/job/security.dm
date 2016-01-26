@@ -23,7 +23,7 @@ Head of Security
 
 	default_id = /obj/item/weapon/card/id/silver
 	default_tablet = /obj/item/device/tablet/hos
-	default_headset = /obj/item/device/radio/headset/bowman/sec/hos
+	default_headset = /obj/item/device/radio/headset/heads/hos
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	default_tablet_slot = slot_wear_id
@@ -73,7 +73,7 @@ Warden
 	req_spacelaw_notify = 1
 
 	default_tablet = /obj/item/device/tablet/warden
-	default_headset = /obj/item/device/radio/headset/bowman/sec
+	default_headset = /obj/item/device/radio/headset/headset_sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	default_tablet_slot = slot_wear_id
@@ -172,7 +172,7 @@ Security Officer
 	var/list/dep_access = null
 
 	default_tablet = /obj/item/device/tablet/security
-	default_headset = /obj/item/device/radio/headset/bowman/sec
+	default_headset = /obj/item/device/radio/headset/headset_sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
 	default_tablet_slot = slot_wear_id
@@ -241,30 +241,30 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science", "
 		switch(department)
 			if("Supply")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/cargo(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/bowman/sec/department/supply
+				default_headset = /obj/item/device/radio/headset/headset_sec/department/supply
 				dep_access = list(access_mailsorting, access_mining)
 				destination = /area/security/checkpoint/supply
 			if("Engineering")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/engine(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/bowman/sec/department/engi
+				default_headset = /obj/item/device/radio/headset/headset_sec/department/engi
 				dep_access = list(access_construction, access_engine)
 				destination = /area/security/checkpoint/engineering
 			if("Medical")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/med(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/bowman/sec/department/med
+				default_headset = /obj/item/device/radio/headset/headset_sec/department/med
 				dep_access = list(access_medical)
 				destination = /area/security/checkpoint/medical
 			if("Science")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/science(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/bowman/sec/department/sci
+				default_headset = /obj/item/device/radio/headset/headset_sec/department/sci
 				dep_access = list(access_research)
 				destination = /area/security/checkpoint/science
 			if("Brig")
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/bowman/sec
+				default_headset = /obj/item/device/radio/headset/headset_sec
 			else
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
-				default_headset = /obj/item/device/radio/headset/bowman/sec
+				default_headset = /obj/item/device/radio/headset/headset_sec
 		var/teleport = 0
 		if(!config.sec_start_brig)
 			if(destination)

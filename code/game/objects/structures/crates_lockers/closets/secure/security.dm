@@ -150,7 +150,6 @@
 		new /obj/item/clothing/suit/wintercoat/security(src)
 		new /obj/item/clothing/head/beret/sec(src)
 		new /obj/item/weapon/contraband/poster/legit(src)
-		new /obj/item/device/radio/headset/bowman/sec(src)
 		new /obj/item/clothing/mask/gas/sechailer(src)
 		//new /obj/item/taperoll/security(src)
 		new /obj/item/weapon/storage/backpack/dufflebag/sec(src)
@@ -166,6 +165,7 @@
 		new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 		new /obj/item/weapon/gun/energy/taser/adv(src)
 		new /obj/item/weapon/grenade/flashbang(src)
+		new /obj/item/device/radio/headset/bowman/sec(src)
 		new /obj/item/clothing/head/helmet(src)
 		new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/weapon/storage/belt/security(src)
@@ -176,6 +176,7 @@
 
 	New()
 		new /obj/item/clothing/tie/armband/cargo(src)
+		new /obj/item/device/radio/headset/bowman/sec/department/supply(src)
 		new /obj/item/device/encryptionkey/headset_cargo(src)
 		..()
 		return
@@ -184,6 +185,7 @@
 
 	New()
 		new /obj/item/clothing/tie/armband/engine(src)
+		new /obj/item/device/radio/headset/bowman/sec/department/engi(src)
 		new /obj/item/device/encryptionkey/headset_eng(src)
 		..()
 		return
@@ -192,6 +194,7 @@
 
 	New()
 		new /obj/item/clothing/tie/armband/science(src)
+		new /obj/item/device/radio/headset/bowman/sec/department/sci(src)
 		new /obj/item/device/encryptionkey/headset_sci(src)
 		..()
 		return
@@ -200,6 +203,7 @@
 
 	New()
 		new /obj/item/clothing/tie/armband/medblue(src)
+		new /obj/item/device/radio/headset/bowman/sec/department/med(src)
 		new /obj/item/device/encryptionkey/headset_med(src)
 		..()
 		return
