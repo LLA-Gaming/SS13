@@ -5,7 +5,7 @@
 	return list()
 
 /*
-Head of Shitcurity
+Head of Security
 */
 /datum/job/hos
 	title = "Head of Security"
@@ -26,7 +26,7 @@ Head of Shitcurity
 	default_headset = /obj/item/device/radio/headset/heads/hos
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	default_tablet_slot = slot_r_store
+	default_tablet_slot = slot_wear_id
 
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court,
 			            access_forensics_lockers, access_morgue, access_maint_tunnels, access_all_personal_lockers,
@@ -45,9 +45,10 @@ Head of Shitcurity
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/HoS(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
-	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
-	H.equip_to_slot_or_del(new /obj/item/weapon/melee/classic_baton/telescopic(H), slot_l_store) // Equips the telebaton
 	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
+	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
+	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_r_store)
+	H.equip_to_slot_or_del(new /obj/item/device/flash(H), slot_l_store)
 	if(visualsOnly)
 		return
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
@@ -75,7 +76,7 @@ Warden
 	default_headset = /obj/item/device/radio/headset/headset_sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	default_tablet_slot = slot_r_store
+	default_tablet_slot = slot_wear_id
 
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court) //See /datum/job/warden/get_access()
@@ -87,10 +88,11 @@ Warden
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet/warden(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black/sec(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
-	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_store)
 	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
-	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
 	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
+	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/gun(H), slot_s_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_r_store)
+	H.equip_to_slot_or_del(new /obj/item/device/flash(H), slot_l_store)
 	if(visualsOnly)
 		return
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
@@ -173,7 +175,7 @@ Security Officer
 	default_headset = /obj/item/device/radio/headset/headset_sec
 	default_backpack = /obj/item/weapon/storage/backpack/security
 	default_satchel = /obj/item/weapon/storage/backpack/satchel_sec
-	default_tablet_slot = slot_r_store
+	default_tablet_slot = slot_wear_id
 
 	access = list(access_security, access_sec_doors, access_brig, access_court, access_maint_tunnels, access_morgue)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_court) //But see /datum/job/warden/get_access()
@@ -182,18 +184,20 @@ Security Officer
 	if(!visualsOnly)
 		assign_sec_to_department(H)
 	if(visualsOnly)
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security/science(H), slot_w_uniform)
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/security(H), slot_w_uniform)
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/jackboots(H), slot_shoes)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/helmet(H), slot_head)
-	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_r_store)
+	H.equip_to_slot_or_del(new /obj/item/device/flash(H), slot_l_store)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black/sec(H), slot_gloves)
-	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/hud/security/sunglasses(H), slot_glasses)
 
 	H.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/taser/adv(H), slot_s_store)
 	H.equip_to_slot_or_del(new /obj/item/weapon/book/manual/spacelaw(H), slot_l_hand)
+	H.equip_to_slot_or_del(new /obj/item/weapon/storage/belt/security/full(H), slot_belt)
+
 	if(visualsOnly)
 		return
 	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
@@ -301,6 +305,22 @@ var/list/sec_departments = list("Engineering", "Supply", "Medical", "Science", "
 	keyslot2 = new /obj/item/device/encryptionkey/headset_med
 
 /obj/item/device/radio/headset/headset_sec/department/sci
+	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
+	keyslot2 = new /obj/item/device/encryptionkey/headset_sci
+
+/obj/item/device/radio/headset/bowman/sec/department/engi
+	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
+	keyslot2 = new /obj/item/device/encryptionkey/headset_eng
+
+/obj/item/device/radio/headset/bowman/sec/department/supply
+	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
+	keyslot2 = new /obj/item/device/encryptionkey/headset_cargo
+
+/obj/item/device/radio/headset/bowman/sec/department/med
+	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
+	keyslot2 = new /obj/item/device/encryptionkey/headset_med
+
+/obj/item/device/radio/headset/bowman/sec/department/sci
 	keyslot1 = new /obj/item/device/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/device/encryptionkey/headset_sci
 

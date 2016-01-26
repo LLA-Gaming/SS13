@@ -89,7 +89,8 @@
 		C.registered_name = H.real_name
 		C.assignment = H.job
 		C.update_label()
-		H.equip_to_slot_or_del(C, slot_wear_id)
+		if(default_tablet_slot != slot_wear_id)
+			H.equip_to_slot_or_del(C, slot_wear_id)
 
 	//Equip PDA
 	var/obj/item/device/tablet/tablet = new default_tablet(H)
@@ -99,6 +100,9 @@
 			core.owner = H.real_name
 			core.ownjob = H.job
 			tablet.update_label()
+			if(default_tablet_slot == slot_wear_id)
+				C.loc = tablet
+				tablet.id = C
 			H.equip_to_slot_or_del(tablet, default_tablet_slot)
 
 	//Equip headset

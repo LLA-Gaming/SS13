@@ -25,6 +25,8 @@
 	var/detail = ""
 	var/prisoner = ""
 
+	var/startup = 0			//this is set when the round starts to prevent spaming sec HUDs immediately
+
 	maptext_height = 26
 	maptext_width = 32
 
@@ -71,12 +73,15 @@
 				src.timer_end() // open doors, reset timer, clear status screen
 				timing = 0
 				timeset(0)
-				var/datum/data/record/R = find_record("name", prisoner, data_core.security)
-				if(R)
-					R.fields["criminal"] = "Released"
-					broadcast_hud_message("[src] deactivated! [prisoner] has been released! <b>*Record Updated*</b>", src)
+				if(startup) //this should send alerts after the round has started, not before.
+					var/datum/data/record/R = find_record("name", prisoner, data_core.security)
+					if(R)
+						R.fields["criminal"] = "Released"
+						broadcast_hud_message("[src] deactivated! [prisoner] has been released! <b>*Record Updated*</b>", src)
+					else
+						broadcast_hud_message("[src] deactivated! [prisoner] has been released! <b>*No Record Found*</b>", src)
 				else
-					broadcast_hud_message("[src] deactivated! [prisoner] has been released! <b>*No Record Found*</b>", src)
+					startup = 1
 				detail = ""
 				prisoner = ""
 				reset = 0
