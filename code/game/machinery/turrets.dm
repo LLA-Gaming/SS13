@@ -87,7 +87,43 @@
 	anchored = 1
 	layer = 3.5
 	density = 0
+	var/maintenance = 0
+	var/cable_cut = 0
 	var/obj/machinery/turret/host = null
+
+/obj/machinery/turretcover/attackby(obj/item/I, mob/user)
+	if(host && !host.enabled)
+		if(istype(I, /obj/item/weapon/screwdriver))
+			if(maintenance)
+				playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
+				user << "<span class='notice'>You close the covers panel.</span>"
+				maintenance = 0
+				return
+			else if(!maintenance)
+				playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
+				user << "<span class='notice'>You open the covers panel.</span>"
+				maintenance = 1
+				return
+		if(maintenance)
+			if(istype(I, /obj/item/weapon/wirecutters))
+				if(host.health != 80 && !cable_cut)
+					playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
+					user << "<span class='notice'>You remove the damaged wires.</span>"
+					cable_cut = 1
+				return
+			if(istype(I, /obj/item/stack/cable_coil))
+				var/obj/item/stack/cable_coil/coil = I
+				if(host.health != 80 && cable_cut)
+					coil.use(1)
+					host.health += 10
+					if(host.health < 80)
+						user << "<span class='notice'>You fix some of the turrets damage.</span>"
+					if(host.health >= 80)
+						user << "<span class='notice'>You fully repair the turret.</span>"
+						host.health = 80
+						cable_cut = 0
+				return
+	..()
 
 /obj/machinery/turret/proc/isPopping()
 	return (popping!=0)
@@ -303,7 +339,69 @@
 	sleep(3)
 	flick("explosion", src)
 	spawn(13)
+		var/obj/machinery/destroyed_turret/D = new /obj/machinery/destroyed_turret
+		D.loc = src.loc
+		D.lasertype = src.lasertype
 		qdel(src)
+
+/obj/machinery/destroyed_turret
+	name = "destroyed turret"
+	icon = 'icons/obj/turrets.dmi'
+	icon_state = "destroyed_target_prism"
+	anchored = 1
+	density = 1
+	layer = 3
+	var/lasertype = 0
+	var/repair_state = 0
+
+/obj/machinery/destroyed_turret/attackby(obj/item/I, mob/user)
+	if(repair_state == 0)
+		if(istype(I, /obj/item/weapon/wirecutters))
+			playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
+			user << "<span class='notice'>You remove the damaged wires.</span>"
+			repair_state = 1
+	else if(repair_state == 1)
+		if(istype(I, /obj/item/stack/cable_coil))
+			var/obj/item/stack/cable_coil/coil = I
+			if(coil.amount >= 10)
+				coil.use(10)
+				user << "<span class='notice'>You add some wires.</span>"
+				repair_state = 2
+			else
+				user << "<span class='warning'>You don't have enough cable to do that.</span>"
+	else if(repair_state == 2)
+		if(istype(I, /obj/item/stack/sheet/metal))
+			var/obj/item/stack/sheet/metal/M = I
+			if(M.amount>=5)
+				user << "<span class='notice'>You add some metal armor to the turret frame.</span>"
+				repair_state = 3
+				M.amount -= 2
+				if(M.amount <= 0)
+					user.unEquip(M, 1)
+					qdel(M)
+			else
+				user << "<span class='warning'>You need five sheets of metal for that.</span>"
+	else if(repair_state == 3)
+		if(istype(I, /obj/item/weapon/weldingtool))
+			var/obj/item/weapon/weldingtool/WT = I
+			if(!WT.isOn()) return
+			if(WT.get_fuel() < 5)
+				user << "<span class='notice'>You need more fuel to complete this task.</span>"
+
+			playsound(loc, pick('sound/items/Welder.ogg', 'sound/items/Welder2.ogg'), 50, 1)
+			if(do_after(user, 30))
+				if(!src || !WT.remove_fuel(5, user))
+					return
+				user << "<span class='notice'>You repair the turret.</span>"
+				var/obj/machinery/turret/T = new /obj/machinery/turret
+				T.loc = src.loc
+				T.lasertype = src.lasertype
+				T.enabled = 0
+				src.icon_state = "turretCover"
+				sleep(10)
+				qdel(src)
+	else
+		..()
 
 /obj/machinery/turretid
 	name = "turret deactivation control"
