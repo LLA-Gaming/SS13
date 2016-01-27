@@ -92,7 +92,7 @@
 	var/obj/machinery/turret/host = null
 
 /obj/machinery/turretcover/attackby(obj/item/I, mob/user)
-	if(!host.enabled)
+	if(host && !host.enabled)
 		if(istype(I, /obj/item/weapon/screwdriver))
 			if(maintenance)
 				playsound(loc, 'sound/items/Screwdriver.ogg', 100, 1)
@@ -110,6 +110,7 @@
 					playsound(loc, 'sound/items/Wirecutter.ogg', 100, 1)
 					user << "<span class='notice'>You remove the damaged wires.</span>"
 					cable_cut = 1
+				return
 			if(istype(I, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/coil = I
 				if(host.health != 80 && cable_cut)
@@ -121,8 +122,8 @@
 						user << "<span class='notice'>You fully repair the turret.</span>"
 						host.health = 80
 						cable_cut = 0
-	else
-		..()
+				return
+	..()
 
 /obj/machinery/turret/proc/isPopping()
 	return (popping!=0)
