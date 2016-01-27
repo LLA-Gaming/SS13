@@ -306,9 +306,10 @@
 			C = new /obj/item/weapon/spacecash/c10(loc)
 		else if(amount >= 1)
 			C = new /obj/item/weapon/spacecash(loc)
-		amount -= C.credits
-		if(throwit && target)
-			C.throw_at(target, 3, 10)
+		if(C)
+			amount -= C.credits
+			if(throwit && target)
+				C.throw_at(target, 3, 10)
 
 	return amount
 
