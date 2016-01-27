@@ -1029,6 +1029,29 @@
 		log_admin("[key_name(usr)] forced [key_name(M)] to say: [speech]")
 		message_admins("\blue [key_name_admin(usr)] forced [key_name_admin(M)] to say: [speech]")
 
+	else if(href_list["forcelobby"])
+		if(!check_rights(R_FUN))	return
+		var/mob/O = locate(href_list["forcelobby"])
+		if(!O) return
+		log_admin("[key_name(usr)] sent [key_name(O)] back to the lobby")
+		message_admins("\blue [key_name(usr)] sent [key_name(O)] back to the lobby")
+
+		if(!O.client)
+			log_game("[usr.key] Sendtolobby failed due to disconnect.")
+			return
+		O.client.screen.Cut()
+		if(!O.client)
+			log_game("[usr.key] Sendtolobby failed due to disconnect.")
+			return
+
+		var/mob/new_player/M = new /mob/new_player()
+		if(!O.client)
+			log_game("[usr.key] Sendtolobby failed due to disconnect.")
+			qdel(M)
+			return
+
+		M.key = O.key
+
 	else if(href_list["sendtoprison"])
 		if(!check_rights(R_SECONDARYADMIN))	return
 

@@ -160,6 +160,7 @@ var/global/floorIsLava = 0
 		body += "<b>Other actions:</b>"
 		body += "<br>"
 		body += "<A href='?_src_=holder;forcespeech=\ref[M]'>Forcesay</A> | "
+		body += "<A href='?_src_=holder;forcelobby=\ref[M]'>Send to Lobby</A> | "
 		if(M.client.related_accounts_cid.len)
 			body += "<br><br><b>Related accounts by CID:</b> [list2text(M.client.related_accounts_cid, " - ")]<br>"
 		if(M.client.related_accounts_ip.len)
