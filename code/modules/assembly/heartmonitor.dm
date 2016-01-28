@@ -15,4 +15,7 @@
 		if(istype(holder.loc, /mob/living))
 			var/mob/living/L = holder.loc
 			if(L.stat || L.stunned || L.weakened)
-				pulse()
+				pulse(0)
+				cooldown = 2
+				spawn(10)
+					process_cooldown()
