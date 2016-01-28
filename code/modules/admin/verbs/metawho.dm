@@ -23,6 +23,8 @@
 								entry += " - <font color='gray'>Observing</font>"
 							else
 								entry += " - <font color='black'><b>DEAD</b></font>"
+						else if(istype(C.mob,/mob/new_player))
+							entry += " - <font color='black'><b>In Lobby</b></font>"
 						else
 							entry += " - <font color='black'><b>DEAD</b></font>"
 				if(C.mob && C.mob.mind && C.mob.mind.assigned_role == "FIREDOME")
