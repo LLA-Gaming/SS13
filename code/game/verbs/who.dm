@@ -55,5 +55,8 @@
 				msg += "\t[C] is a [C.holder.rank]\n"
 				admins_on = 1
 	src << msg
-	if(config.banrequest && !admins_on)
-		src << "There are currently no administrators online. Please follow this link to create a report: <a href='[config.banrequest]'>[config.banrequest]</a>"
+	if(!admins_on)
+		src << "<b>There are currently no administrators online.</b>"
+		src << "<b>Adminhelps sent when no admins are online <font color = 'red'>will be redirected</font> to proper channels.</b>"
+		if(config.banrequest)
+			src << "<b>You may also file a report here:</b> <a href='[config.banrequest]'>[config.banrequest]</a>"
