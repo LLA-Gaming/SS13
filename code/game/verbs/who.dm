@@ -57,6 +57,7 @@
 	src << msg
 	if(!admins_on)
 		src << "<b>There are currently no administrators online.</b>"
+		//remove this line below if you are running this source not as a LLA server. ahelps on our server redirect to our discord
 		src << "<b>Adminhelps sent when no admins are online <font color = 'red'>will be redirected</font> to proper channels.</b>"
 		if(config.banrequest)
 			src << "<b>You may also file a report here:</b> <a href='[config.banrequest]'>[config.banrequest]</a>"
