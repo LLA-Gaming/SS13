@@ -28,10 +28,6 @@
 		return 1
 	return 0
 
-/proc/ismonitor(O)
-	if(istype(O, /obj/item/device/assembly/heartmonitor))
-		return 1
-	return 0
 /*
 Name:	IsSpecialAssembly
 Desc:	If true is an object that can be attached to an assembly holder but is a special thing like a plasma can or door
