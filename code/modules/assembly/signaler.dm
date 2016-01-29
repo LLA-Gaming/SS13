@@ -109,7 +109,12 @@
 
 		var/time = time2text(world.realtime,"hh:mm:ss")
 		var/turf/T = get_turf(src)
-		lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		if(usr)
+			lastsignalers.Add("[time] <B>:</B> [key_name_admin(usr)] triggered [holder ? holder.name : src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		if(!usr && holder)
+			if(istype(holder.loc, /mob/living))
+				var/mob/living/L = holder.loc
+				lastsignalers.Add("[time] <B>:</B> [key_name_admin(L)] triggered [holder.name] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
 
 		return
 /*
