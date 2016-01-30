@@ -41,13 +41,15 @@
 
 	attackby(obj/item/I, mob/user)
 		if(istype(I, /obj/item/stack/cable_coil))
+			if(isrobot(user)) return
 			var/obj/item/stack/cable_coil/coil = I
 			if(coil.amount >= 5)
 				coil.use(5)
 				var/obj/item/device/assembly/autoinjector/A = new(get_turf(src))
 				spawn(1)
 					reagents.trans_to(A, reagents.total_volume)
-					qdel(src)
+					src.loc = A //places the syringe inside of the auto-injector
+					A.loaded = src
 
 
 		return

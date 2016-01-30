@@ -4,7 +4,17 @@
 	icon_state = "autoinjector"
 	g_amt = 500
 	m_amt = 500
-	reagents = new()
+	flags = OPENCONTAINER
+	var/obj/item/weapon/reagent_containers/syringe/loaded
+
+	New()
+		..()
+		create_reagents(15)
+
+	attackby(obj/item/I, mob/user)
+		if(istype(I, /obj/item/weapon/wirecutters))
+			loaded.loc = get_turf(src)
+			qdel(src)
 
 	proc/Inject(var/mob/living/L)
 		if(!reagents || reagents.total_volume <= 0)

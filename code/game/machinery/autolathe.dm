@@ -49,6 +49,7 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/newscaster_frame(), \
 		new /obj/item/weapon/reagent_containers/syringe(), \
 		new /obj/item/device/assembly/prox_sensor(), \
+		new /obj/item/device/assembly/heartmonitor(), \
 		new /obj/item/clothing/glasses/virtual(),
 		new /obj/item/sorting_cartridge(),
 		new /obj/item/weapon/circuitboard/sorting_conveyor(),

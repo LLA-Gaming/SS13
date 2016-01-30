@@ -577,6 +577,12 @@ obj/structure/cable/proc/avail()
 
 //remove cables from the stack
 /obj/item/stack/cable_coil/use(var/used)
+	if(src.amount <= 0)
+		if(ismob(loc)) //handle mob icon update
+			var/mob/M = loc
+			M.unEquip(src)
+		qdel(src)
+		return
 	if(src.amount < used)
 		return 0
 	else if (src.amount == used)
