@@ -289,7 +289,7 @@
 /obj/machinery/computer/slot_machine/proc/dispense(amount = 0, mob/living/target, throwit = 0)
 	var/obj/item/weapon/spacecash/C
 
-	while(amount >= 0)
+	while(amount > 0)
 		if(amount >= 1000)
 			C = new /obj/item/weapon/spacecash/c1000(loc)
 		else if(amount >= 500)
@@ -310,6 +310,10 @@
 			amount -= C.credits
 			if(throwit && target)
 				C.throw_at(target, 3, 10)
+		var/tries = 0
+		tries++
+		if(tries > 24)
+			break
 
 	return amount
 
