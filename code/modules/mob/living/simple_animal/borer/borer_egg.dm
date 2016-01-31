@@ -40,7 +40,7 @@
 			if(B.evil)
 				B.make_special()
 			qdel(src)
-	else if((PLASMA in environment.gasses && environment.gasses[PLASMA] >= MOLES_PLASMA_VISIBLE) || ghost)
+	else if(((PLASMA in environment.gasses) && environment.gasses[PLASMA] >= MOLES_PLASMA_VISIBLE) || ghost)
 		if(icon_state != "borer_egg_pulsing")
 			icon_state = "borer_egg_pulsing"
 

@@ -308,7 +308,7 @@ var/global/last_tick_duration = 0
 			if(player && player.mind && player.mind.assigned_role)
 				if(player.mind.assigned_role == "Captain")
 					captainless=0
-				if(player.mind.is_crewmember())
+				if(player.mind.is_crewmember() || player.mind.is_perseus())
 					job_master.EquipRank(player, player.mind.assigned_role, 0)
 		if(captainless)
 			for(var/mob/M in player_list)

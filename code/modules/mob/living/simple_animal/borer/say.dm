@@ -34,7 +34,8 @@
 	else
 		return
 
-
+/mob/living/simple_animal/borer/emote(var/act)
+	return
 
 /mob/living/simple_animal/borer/proc/borer_talk(var/message)
 
