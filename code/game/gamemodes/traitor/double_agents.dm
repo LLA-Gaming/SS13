@@ -13,6 +13,7 @@
 
 	traitors_possible = 8 //hard limit on traitors if scaling is turned off
 	scale_modifier = 0.5 // Nearly twice as many double agents
+	minimum_enemies = 3 // please fix all my issues please i beg
 
 	var/list/target_list = list()
 	var/list/late_joining_list = list()

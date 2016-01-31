@@ -238,8 +238,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 					loc = T
 				pos = loc
 				alpha = 0
+				mouse_opacity = 0
 				sleep(0.6)
 			alpha = initial(alpha)
+			mouse_opacity = initial(mouse_opacity)
 			if (target == following) following = null
 
 

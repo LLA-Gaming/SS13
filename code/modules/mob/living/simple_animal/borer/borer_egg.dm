@@ -29,7 +29,7 @@
 
 	var/turf/location = get_turf(src)
 	var/datum/gas_mixture/environment = location.return_air()
-	if(PLASMA in environment.gasses && environment.gasses[PLASMA] >= MOLES_PLASMA_VISIBLE && ghost)
+	if((PLASMA in environment.gasses) && environment.gasses[PLASMA] >= MOLES_PLASMA_VISIBLE && ghost)
 		var/response = alert(ghost, "This egg is ready to hatch. Do you want to be a cortical borer?",, "Yes", "No")
 		if(!src || src.gc_destroyed)
 			return

@@ -116,7 +116,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 							<center>
 							Owner: [core.owner], [core.ownjob]<br>
 							ID: <A href='?src=\ref[src];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]</A><A href='?src=\ref[src];choice=UpdateInfo'>[id ? "Update Tablet Info" : ""]</A><br>
-							[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
+							[station_name]<br>[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
 							"}
 					for(var/datum/program/P in apps_builtin)
 						dat += "<a href='byond://?src=\ref[src];choice=load;target=\ref[P]'>[P.name][P.notifications ? " \[[P.notifications]\]" : ""]</a>"
