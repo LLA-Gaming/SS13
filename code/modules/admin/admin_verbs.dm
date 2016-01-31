@@ -16,7 +16,7 @@ var/list/admin_verbs_default = list(
 	/client/proc/cmd_admin_pm_panel,		/*admin-pm list*/
 	/client/proc/toggle_statpanel,
 	/client/proc/toggleahelp,
-	/client/proc/metawho,
+	/client/proc/barewho,
 	/client/proc/reloadBadges
 	)
 
