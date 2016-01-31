@@ -17,7 +17,8 @@
 
 /obj/item/device/radio/headset/New()
 	..()
-	keyslot1 = new /obj/item/device/encryptionkey/
+	if(!keyslot1)
+		keyslot1 = new /obj/item/device/encryptionkey
 	recalculateChannels()
 
 /obj/item/device/radio/headset/talk_into(mob/living/M as mob, message, channel)
