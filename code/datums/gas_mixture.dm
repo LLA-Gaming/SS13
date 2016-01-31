@@ -416,9 +416,9 @@ What are the archived variables for?
 						gas_dictionary.lookup(G)
 					var/tmp/datum/gas_type/GT = gas_dictionary.gastypes[G]
 					if(delta[G] > 0)
-						heat_capacity_self_to_sharer += GT.specific_heat
+						heat_capacity_self_to_sharer += GT.specific_heat * delta[G]
 					else
-						heat_capacity_sharer_to_self -= GT.specific_heat
+						heat_capacity_sharer_to_self -= GT.specific_heat * delta[G]
 
 			old_self_heat_capacity = heat_capacity()
 			old_sharer_heat_capacity = sharer.heat_capacity()

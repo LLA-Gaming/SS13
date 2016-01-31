@@ -320,7 +320,7 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 
 	for(var/turf/simulated/T in turf_list)
 		for(var/G in A.gasses)
-			T.air.add_gas(G, A.gasses[G]/turf_list.len)
+			T.air.gasses[G] = A.gasses[G]/turf_list.len
 
 		if(T.air.check_tile_graphic())
 			T.update_visuals(T.air)
