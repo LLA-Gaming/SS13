@@ -1,6 +1,6 @@
 ##Liberty Station
 
-[![Build Status](https://api.travis-ci.org/Spoffy/LLA-Station-13.png)](https://travis-ci.org/Spoffy/LLA-Station-13)
+[![Build Status](https://api.travis-ci.org/LLA-Gaming/SS13.svg?branch=master)](https://travis-ci.org/LLA-Gaming/SS13)
 
 
 **Website:** http://www.llagaming.net/forums/ <BR>
