@@ -54,6 +54,11 @@
 		return 1
 	return 0
 
+/proc/isborer(A)
+	if(istype(A, /mob/living/simple_animal/borer))
+		return 1
+	return 0
+
 /proc/iscorgi(A)
 	if(istype(A, /mob/living/simple_animal/corgi))
 		return 1

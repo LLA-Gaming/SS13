@@ -15,7 +15,8 @@
 	attached += list(/mob/living/simple_animal/borer/proc/abandon_host,
 					 /mob/living/simple_animal/borer/proc/secrete_chems,
 					 /mob/living/simple_animal/borer/proc/adrenalin,
-					 /mob/living/simple_animal/borer/proc/paralyze)
+					 /mob/living/simple_animal/borer/proc/paralyze,
+					 /mob/living/simple_animal/borer/proc/suck)
 
 	chems += list("Kelotane","Bicaridine","Hyronalin","Imidazoline","Ethylredoxrazine","Anti-Toxin","Cancel") // These just get converted into lowercase and stuff. Be careful when adding chems that have a different ID than their name. I.e. "Sleep Toxin"'s ID is "stoxin"
 
@@ -316,6 +317,40 @@
 		host.paralysis += 10
 		chemicals -= 125
 		return
+
+/mob/living/simple_animal/borer/proc/suck()
+	set category = "Borer"
+	set name = "Rapid Suction"
+	set desc = "Filter your host's bloodstream for nutriments to rapdily generate chemicals."
+
+	if(!host)
+		return
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
+	if(host.stat == 2)
+		src << "<span class='warning'>You attempt to filter nutriments, but the blood doesn't flow.</span>"
+		return
+
+	if(suction_cooldown)
+		src << "<span class='warning'>You have to wait before you can use this ability again.</span>"
+		return
+
+	src << "<span class='notice'>You filter nutriments out of [host]'s bloodstream.</span>"
+	suction_cooldown = 1
+	for(var/i=0, i<5, i++)
+		if(host)
+			host.nutrition -= 15
+			if(src.chemicals < 191)
+				src.chemicals += 10
+			else if(src.chemicals >= 191)
+				src.chemicals = 200
+				break
+		sleep(20)
+	sleep(600)
+	suction_cooldown = 0
 
 /mob/living/simple_animal/borer/proc/assume_control()
 	set category = "Borer"

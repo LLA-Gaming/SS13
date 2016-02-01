@@ -24,10 +24,6 @@
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
 
-#define BLOODLOSS_DEFAULT		145
-#define BLOODLOSS_SAFE			100
-#define BLOODLOSS_CRIT			0
-
 /mob/living/carbon/human
 	var/oxygen_alert = 0
 	var/toxins_alert = 0
@@ -1364,7 +1360,3 @@
 
 #undef HUMAN_MAX_OXYLOSS
 #undef HUMAN_CRIT_MAX_OXYLOSS
-
-#undef BLOODLOSS_DEFAULT
-#undef BLOODLOSS_SAFE
-#undef BLOODLOSS_CRIT
