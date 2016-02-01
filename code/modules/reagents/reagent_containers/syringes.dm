@@ -48,6 +48,8 @@
 				var/obj/item/device/assembly/autoinjector/A = new(get_turf(src))
 				spawn(1)
 					reagents.trans_to(A, reagents.total_volume)
+					if(ismob(loc))
+						loc:unEquip(src)
 					src.loc = A //places the syringe inside of the auto-injector
 					A.loaded = src
 

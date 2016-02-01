@@ -15,6 +15,8 @@
 		if(istype(I, /obj/item/weapon/wirecutters))
 			loaded.loc = get_turf(src)
 			qdel(src)
+		else
+			..()
 
 	proc/Inject(var/mob/living/L)
 		if(!reagents || reagents.total_volume <= 0)
