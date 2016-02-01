@@ -59,7 +59,7 @@
 		antag_candidates.Remove(traitor)
 
 
-	if(traitors.len < required_enemies)
+	if(!traitors.len)
 		return 0
 	return 1
 

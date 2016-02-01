@@ -13,7 +13,6 @@
 
 	traitors_possible = 8 //hard limit on traitors if scaling is turned off
 	scale_modifier = 0.5 // Nearly twice as many double agents
-	minimum_enemies = 3 // please fix all my issues please i beg
 
 	var/list/target_list = list()
 	var/list/late_joining_list = list()
@@ -21,6 +20,11 @@
 /datum/game_mode/traitor/double_agents/announce()
 	world << "<B>The current game mode is - Double Agents!</B>"
 	world << "<B>There are double agents killing eachother! Do not let them succeed!</B>"
+
+/datum/game_mode/traitor/double_agents/pre_setup()
+	if(antag_candidates.len % 2 == 0) //If its even
+		antag_candidates.Remove(antag_candidates[rand(1, length(antag_candidates))]) // remove 1 (un)lucky agent.
+	return ..()
 
 /datum/game_mode/traitor/double_agents/post_setup()
 	var/i = 0
