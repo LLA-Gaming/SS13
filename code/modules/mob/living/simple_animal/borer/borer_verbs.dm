@@ -130,15 +130,15 @@
 
 /mob/living/simple_animal/borer/proc/reproduce()
 	set category = "Borer"
-	set name = "Lay Egg (200)"
+	set name = "Lay Egg"
 	set desc = "Lay an egg to reproduce."
 
 	if(stat)
 		src << "<span class='warning'>You can't do that in your current state.</span>"
 		return
 
-	if(chemicals < 200)
-		src << "<span class='warning'>You do not have enough chemicals to reproduce.</span>"
+	if(!can_lay && world.time < egg_timer)
+		src << "<span class='warning'>You have to wait [round((egg_timer - world.time) / 10)] seconds before you can lay an egg.</span>"
 		return
 
 	if(locate(/turf/space) in get_turf(src))
@@ -149,8 +149,9 @@
 		src << "There's already an egg here."
 		return
 
-	if(chemicals >= 200)
-		chemicals -= 200
+	if(can_lay)
+		can_lay = 0
+		egg_timer = world.time + 3000
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("\green <B>The [src] has laid an egg!</B>"), 1)
 		new /obj/structure/borer_egg(loc)
@@ -349,7 +350,7 @@
 				src.chemicals = 200
 				break
 		sleep(20)
-	sleep(600)
+	sleep(1200)
 	suction_cooldown = 0
 
 /mob/living/simple_animal/borer/proc/assume_control()

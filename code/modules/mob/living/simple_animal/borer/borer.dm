@@ -24,6 +24,8 @@
 	var/docile = 0
 	var/controlling = 0
 	var/suction_cooldown = 0
+	var/can_lay = 0
+	var/egg_timer
 	var/list/detached = list()
 	var/list/attached = list()
 	var/list/chems = list()
@@ -34,10 +36,15 @@
 	if(prob(5))
 		evil = 1
 	initialize_lists()
+	egg_timer = world.time + 3000
 	verbs += detached
 
 /mob/living/simple_animal/borer/Life()
 	..()
+	if(!stat)
+		if(!can_lay && egg_timer < world.time)
+			can_lay = 1
+			src << "<span class='notice'>You can lay an egg.</span>"
 	if(host)
 		if(!ishuman(host) && !ismonkey(host))
 			detach()
