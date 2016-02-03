@@ -15,7 +15,8 @@
 	attached += list(/mob/living/simple_animal/borer/proc/abandon_host,
 					 /mob/living/simple_animal/borer/proc/secrete_chems,
 					 /mob/living/simple_animal/borer/proc/adrenalin,
-					 /mob/living/simple_animal/borer/proc/paralyze)
+					 /mob/living/simple_animal/borer/proc/paralyze,
+					 /mob/living/simple_animal/borer/proc/suck)
 
 	chems += list("Kelotane","Bicaridine","Hyronalin","Imidazoline","Ethylredoxrazine","Anti-Toxin","Cancel") // These just get converted into lowercase and stuff. Be careful when adding chems that have a different ID than their name. I.e. "Sleep Toxin"'s ID is "stoxin"
 
@@ -35,11 +36,15 @@
 		return
 
 	var/list/choices = list()
-	for(var/mob/living/carbon/human/C in view(1,src))
-		if(C.stat != 2 && src.Adjacent(C))
+	for(var/mob/living/carbon/C in view(1,src))
+		if(C.stat != 2 && src.Adjacent(C) && ishuman(C) || ismonkey(C))
 			choices += C
 
-	var/mob/living/carbon/human/M = input(src,"Who do you wish to infest?") in null|choices
+	var/mob/living/carbon/M = input(src,"Who do you wish to infest?") in null|choices
+	var/mob/living/carbon/human/H
+
+	if(ishuman(M))
+		H = M
 
 	if(!M || !src) return
 
@@ -48,7 +53,7 @@
 	for(var/mob/living/simple_animal/borer/B in M.contents)
 		src << "<span class='notice'>You cannot infest someone who is already infested.</span>"
 		return
-	if (istype(M.glasses, /obj/item/clothing/glasses/virtual) && M.glasses:is_in_use)
+	if (ishuman(M) && istype(H.glasses, /obj/item/clothing/glasses/virtual) && H.glasses:is_in_use)
 		src << "<span class='notice'>Their equipment prevents you from infesting them.</span>"
 		return
 
@@ -67,12 +72,11 @@
 	M << "<span class='notice'>You feel something slithering up your leg...</span>"
 
 	if(!do_after(M,50) && !do_after(src,50))
-		src << "<span class='notice'>As [M] moves away, you are dislodged and fall to the ground.</span>"
 		ventcrawler = 2
 		return
 
 	if(M in view(1, src))
-		if (istype(M.glasses, /obj/item/clothing/glasses/virtual) && M.glasses:is_in_use)
+		if (ishuman(M) && istype(H.glasses, /obj/item/clothing/glasses/virtual) && H.glasses:is_in_use)
 			src << "<span class='notice'>Their equipment prevents you from infesting them.</span>"
 			return
 		for(var/mob/living/simple_animal/borer/B in M.contents)
@@ -105,6 +109,12 @@
 	src.verbs |= attached
 	sleep(1) // verbs wouldnt update properly otherwise
 	host.contents += src
+	var/list/borer = list()
+	for(var/mob/living/simple_animal/borer/B in host.contents)
+		borer += B
+	if(borer.len != 1)
+		src << "<span class='warning'>You were forced outside because [host]'s brain has already been infested.</span>"
+		detach()
 
 /mob/living/simple_animal/borer/proc/hide()
 	set name = "Hide"
@@ -129,15 +139,15 @@
 
 /mob/living/simple_animal/borer/proc/reproduce()
 	set category = "Borer"
-	set name = "Lay Egg (200)"
+	set name = "Lay Egg"
 	set desc = "Lay an egg to reproduce."
 
 	if(stat)
 		src << "<span class='warning'>You can't do that in your current state.</span>"
 		return
 
-	if(chemicals < 200)
-		src << "<span class='warning'>You do not have enough chemicals to reproduce.</span>"
+	if(!can_lay && world.time < egg_timer)
+		src << "<span class='warning'>You have to wait [round((egg_timer - world.time) / 10)] seconds before you can lay an egg.</span>"
 		return
 
 	if(locate(/turf/space) in get_turf(src))
@@ -148,8 +158,9 @@
 		src << "There's already an egg here."
 		return
 
-	if(chemicals >= 200)
-		chemicals -= 200
+	if(can_lay)
+		can_lay = 0
+		egg_timer = world.time + 3000
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("\green <B>The [src] has laid an egg!</B>"), 1)
 		new /obj/structure/borer_egg(loc)
@@ -170,11 +181,11 @@
 
 	if(chemicals >= 50)
 		var/list/choices = list()
-		for(var/mob/living/carbon/human/C in view(7,src))
-			if(C.stat != 2)
+		for(var/mob/living/carbon/C in view(7,src))
+			if(C.stat != 2 && ishuman(C) || ismonkey(C))
 				choices += C
 
-		var/mob/living/carbon/human/M = input(src,"Pick your target.") in null|choices
+		var/mob/living/carbon/M = input(src,"Pick your target.") in null|choices
 
 		if(!M || !src) return
 
@@ -316,6 +327,40 @@
 		host.paralysis += 10
 		chemicals -= 125
 		return
+
+/mob/living/simple_animal/borer/proc/suck()
+	set category = "Borer"
+	set name = "Rapid Suction"
+	set desc = "Filter your host's bloodstream for nutriments to rapdily generate chemicals."
+
+	if(!host)
+		return
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
+	if(host.stat == 2)
+		src << "<span class='warning'>You attempt to filter nutriments, but the blood doesn't flow.</span>"
+		return
+
+	if(suction_cooldown)
+		src << "<span class='warning'>You have to wait before you can use this ability again.</span>"
+		return
+
+	src << "<span class='notice'>You filter nutriments out of [host]'s bloodstream.</span>"
+	suction_cooldown = 1
+	for(var/i=0, i<5, i++)
+		if(host)
+			host.nutrition -= 15
+			if(src.chemicals < 191)
+				src.chemicals += 10
+			else if(src.chemicals >= 191)
+				src.chemicals = 200
+				break
+		sleep(20)
+	sleep(1200)
+	suction_cooldown = 0
 
 /mob/living/simple_animal/borer/proc/assume_control()
 	set category = "Borer"

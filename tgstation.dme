@@ -72,6 +72,7 @@
 #include "code\_onclick\hud\_defines.dm"
 #include "code\_onclick\hud\alien.dm"
 #include "code\_onclick\hud\alien_larva.dm"
+#include "code\_onclick\hud\borer.dm"
 #include "code\_onclick\hud\drones.dm"
 #include "code\_onclick\hud\hud.dm"
 #include "code\_onclick\hud\human.dm"

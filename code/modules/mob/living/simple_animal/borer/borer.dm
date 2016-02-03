@@ -17,26 +17,35 @@
 	max_tox = 0
 	stop_automated_movement = 1
 	pass_flags = PASSTABLE
+	status_flags = CANWEAKEN
 
 	var/evil = 0
 	var/chemicals = 50
 	var/mob/living/carbon/human/host
 	var/docile = 0
 	var/controlling = 0
+	var/suction_cooldown = 0
+	var/can_lay = 0
+	var/egg_timer
 	var/list/detached = list()
 	var/list/attached = list()
 	var/list/chems = list()
 
 /mob/living/simple_animal/borer/New()
 	..()
-	real_name = "[pick("Pai'Luxar","Bai'Luxar","Zai'Luxar","Dai'Luxar")] [rand(1000,9999)]"
+	real_name = "[pick("Pai","Bai","Zai","Dai")]'[pick("Luxar","Vorir","Kotar","Ranir")] [rand(1000,9999)]"
 	if(prob(5))
 		evil = 1
 	initialize_lists()
+	egg_timer = world.time + 3000
 	verbs += detached
 
 /mob/living/simple_animal/borer/Life()
 	..()
+	if(!stat)
+		if(!can_lay && egg_timer < world.time)
+			can_lay = 1
+			src << "<span class='notice'>You can lay an egg.</span>"
 	if(host)
 		if(!ishuman(host) && !ismonkey(host))
 			detach()
@@ -65,7 +74,10 @@
 			if(docile || chemicals <= 0)
 				host << "<span class='notice'>Your control over your host's body fades away.</span>"
 				return_control()
+	if(client)
+		handle_regular_hud_updates()
 
+	update_canmove()
 
 /mob/living/simple_animal/borer/Stat()
 	statpanel("Status")
@@ -88,7 +100,7 @@
 			stat("Intent:", "[host.a_intent]")
 			stat("Move Mode:", "[host.m_intent]")
 
-			if(!ismonkey(host))
+			if(ishuman(host))
 				if (host.internal)
 					if (!host.internal.air_contents)
 						qdel(host.internal)
@@ -124,6 +136,72 @@
 /mob/living/simple_animal/borer/UnarmedAttack(var/atom/A)
 	if(host) return
 	else return ..()
+
+/mob/living/simple_animal/borer/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if(istype(O, /obj/item/weapon/reagent_containers/food/condiment/saltshaker))
+		var/obj/item/weapon/reagent_containers/food/condiment/saltshaker/shaker = O
+		if(shaker.reagents.has_reagent("sodiumchloride"))
+			shaker.reagents.remove_reagent("sodiumchloride", 1)
+			src.Weaken(5)
+			src.visible_message("<span class='danger'>[src] has been sprinkled with salt by [user]!</span>")
+			add_logs(user, src, "weakened", object="saltshaker")
+			return
+	..()
+
+/mob/living/simple_animal/borer/update_canmove()
+	if(weakened) canmove = 0
+	else canmove = 1
+	return canmove
+
+/mob/living/simple_animal/borer/proc/handle_regular_hud_updates()
+	if(hud_used)
+		for(var/image/hud in client.images)
+			if(copytext(hud.icon_state,1,4) == "hud")
+				client.images.Remove(hud)
+
+		hud_used.lingchemdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'> <font color='#dd66dd'>[chemicals]</font></div>"
+
+		if(!host)
+			if(healths)
+				healths.icon_state = null
+			if(staminas)
+				staminas.icon_state = null
+			if(nutrition_icon)
+				nutrition_icon.icon_state = null
+
+		if(host)
+			if(healths)
+				switch(host.health - (host.getBloodLoss() * host.health / 100))
+					if(100 to INFINITY)		healths.icon_state = "health0"
+					if(80 to 100)			healths.icon_state = "health1"
+					if(60 to 80)			healths.icon_state = "health2"
+					if(40 to 60)			healths.icon_state = "health3"
+					if(20 to 40)			healths.icon_state = "health4"
+					if(0 to 20)				healths.icon_state = "health5"
+					else					healths.icon_state = "health6"
+				if(ishuman(host) && host.blood.total_volume <= BLOODLOSS_CRIT)
+					healths.icon_state = "health6"
+
+			if(staminas)
+				if (host.stat != 2)
+					var/threshold = Clamp((host.health - host.getBloodLoss()),1,100)
+					var/display = 100 - round((Clamp(host.staminaloss,0,threshold) / threshold * 100))
+					switch(display)
+						if(99 to 100)		staminas.icon_state = "stamina0"
+						if(75 to 98)			staminas.icon_state = "stamina1"
+						if(50 to 74)			staminas.icon_state = "stamina2"
+						if(25 to 49)			staminas.icon_state = "stamina3"
+						if(6 to 24)				staminas.icon_state = "stamina4"
+						if(-INFINITY to 5)		staminas.icon_state = "stamina5"
+						else					staminas.icon_state = "stamina5"
+
+			if(nutrition_icon)
+				switch(host.nutrition)
+					if(450 to INFINITY)				nutrition_icon.icon_state = "nutrition0"
+					if(350 to 450)					nutrition_icon.icon_state = "nutrition1"
+					if(250 to 350)					nutrition_icon.icon_state = "nutrition2"
+					if(150 to 250)					nutrition_icon.icon_state = "nutrition3"
+					else
 
 /mob/living/simple_animal/borer/proc/make_special()
 	var/datum/mind/Mind = src.mind

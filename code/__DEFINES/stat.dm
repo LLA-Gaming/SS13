@@ -7,6 +7,11 @@
 #define UNCONSCIOUS	1
 #define DEAD		2
 
+//defines for blood
+#define BLOODLOSS_DEFAULT		145
+#define BLOODLOSS_SAFE			100
+#define BLOODLOSS_CRIT			0
+
 // bitflags for machine stat variable
 #define BROKEN		1
 #define NOPOWER		2
