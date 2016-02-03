@@ -36,11 +36,15 @@
 		return
 
 	var/list/choices = list()
-	for(var/mob/living/carbon/human/C in view(1,src))
-		if(C.stat != 2 && src.Adjacent(C))
+	for(var/mob/living/carbon/C in view(1,src))
+		if(C.stat != 2 && src.Adjacent(C) && ishuman(C) || ismonkey(C))
 			choices += C
 
-	var/mob/living/carbon/human/M = input(src,"Who do you wish to infest?") in null|choices
+	var/mob/living/carbon/M = input(src,"Who do you wish to infest?") in null|choices
+	var/mob/living/carbon/human/H
+
+	if(ishuman(M))
+		H = M
 
 	if(!M || !src) return
 
@@ -49,7 +53,7 @@
 	for(var/mob/living/simple_animal/borer/B in M.contents)
 		src << "<span class='notice'>You cannot infest someone who is already infested.</span>"
 		return
-	if (istype(M.glasses, /obj/item/clothing/glasses/virtual) && M.glasses:is_in_use)
+	if (ishuman(M) && istype(H.glasses, /obj/item/clothing/glasses/virtual) && H.glasses:is_in_use)
 		src << "<span class='notice'>Their equipment prevents you from infesting them.</span>"
 		return
 
@@ -68,12 +72,11 @@
 	M << "<span class='notice'>You feel something slithering up your leg...</span>"
 
 	if(!do_after(M,50) && !do_after(src,50))
-		src << "<span class='notice'>As [M] moves away, you are dislodged and fall to the ground.</span>"
 		ventcrawler = 2
 		return
 
 	if(M in view(1, src))
-		if (istype(M.glasses, /obj/item/clothing/glasses/virtual) && M.glasses:is_in_use)
+		if (ishuman(M) && istype(H.glasses, /obj/item/clothing/glasses/virtual) && H.glasses:is_in_use)
 			src << "<span class='notice'>Their equipment prevents you from infesting them.</span>"
 			return
 		for(var/mob/living/simple_animal/borer/B in M.contents)
@@ -106,6 +109,12 @@
 	src.verbs |= attached
 	sleep(1) // verbs wouldnt update properly otherwise
 	host.contents += src
+	var/list/borer = list()
+	for(var/mob/living/simple_animal/borer/B in host.contents)
+		borer += B
+	if(borer.len != 1)
+		src << "<span class='warning'>You were forced outside because [host]'s brain has already been infested.</span>"
+		detach()
 
 /mob/living/simple_animal/borer/proc/hide()
 	set name = "Hide"
@@ -172,11 +181,11 @@
 
 	if(chemicals >= 50)
 		var/list/choices = list()
-		for(var/mob/living/carbon/human/C in view(7,src))
-			if(C.stat != 2)
+		for(var/mob/living/carbon/C in view(7,src))
+			if(C.stat != 2 && ishuman(C) || ismonkey(C))
 				choices += C
 
-		var/mob/living/carbon/human/M = input(src,"Pick your target.") in null|choices
+		var/mob/living/carbon/M = input(src,"Pick your target.") in null|choices
 
 		if(!M || !src) return
 

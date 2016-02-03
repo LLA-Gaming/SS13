@@ -17,6 +17,7 @@
 	max_tox = 0
 	stop_automated_movement = 1
 	pass_flags = PASSTABLE
+	status_flags = CANWEAKEN
 
 	var/evil = 0
 	var/chemicals = 50
@@ -76,6 +77,7 @@
 	if(client)
 		handle_regular_hud_updates()
 
+	update_canmove()
 
 /mob/living/simple_animal/borer/Stat()
 	statpanel("Status")
@@ -135,6 +137,22 @@
 	if(host) return
 	else return ..()
 
+/mob/living/simple_animal/borer/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if(istype(O, /obj/item/weapon/reagent_containers/food/condiment/saltshaker))
+		var/obj/item/weapon/reagent_containers/food/condiment/saltshaker/shaker = O
+		if(shaker.reagents.has_reagent("sodiumchloride"))
+			shaker.reagents.remove_reagent("sodiumchloride", 1)
+			src.Weaken(5)
+			src.visible_message("<span class='danger'>[src] has been sprinkled with salt by [user]!</span>")
+			add_logs(user, src, "weakened", object="saltshaker")
+			return
+	..()
+
+/mob/living/simple_animal/borer/update_canmove()
+	if(weakened) canmove = 0
+	else canmove = 1
+	return canmove
+
 /mob/living/simple_animal/borer/proc/handle_regular_hud_updates()
 	if(hud_used)
 		for(var/image/hud in client.images)
@@ -161,10 +179,10 @@
 					if(20 to 40)			healths.icon_state = "health4"
 					if(0 to 20)				healths.icon_state = "health5"
 					else					healths.icon_state = "health6"
-				if(host.blood.total_volume <= BLOODLOSS_CRIT)
+				if(ishuman(host) && host.blood.total_volume <= BLOODLOSS_CRIT)
 					healths.icon_state = "health6"
 
-			if (staminas)
+			if(staminas)
 				if (host.stat != 2)
 					var/threshold = Clamp((host.health - host.getBloodLoss()),1,100)
 					var/display = 100 - round((Clamp(host.staminaloss,0,threshold) / threshold * 100))
