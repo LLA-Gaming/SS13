@@ -65,7 +65,7 @@
 		log_game("[ai_mind.key] (ckey) has been selected as a malf AI")
 	//reserve AI position for malf
 	var/datum/job/J = job_master.GetJob("AI")
-	J.current_positions = J.total_positions
+	J.current_positions = J.spawn_positions
 	// kick out any AI if they werent selected for malf
 	for(var/mob/new_player/player in player_list)
 		if(!player.mind) continue
