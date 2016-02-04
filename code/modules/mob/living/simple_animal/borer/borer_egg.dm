@@ -30,16 +30,14 @@
 	var/turf/location = get_turf(src)
 	var/datum/gas_mixture/environment = location.return_air()
 	if((PLASMA in environment.gasses) && environment.gasses[PLASMA] >= MOLES_PLASMA_VISIBLE && ghost)
-		var/response = alert(ghost, "This egg is ready to hatch. Do you want to be a cortical borer?",, "Yes", "No")
 		if(!src || src.gc_destroyed)
 			return
-		if(response == "Yes")
-			var/mob/living/simple_animal/borer/B = new /mob/living/simple_animal/borer
-			B.loc = src.loc
-			B.key = ghost.key
-			if(B.evil)
-				B.make_special()
-			qdel(src)
+		var/mob/living/simple_animal/borer/B = new /mob/living/simple_animal/borer
+		B.loc = src.loc
+		B.key = ghost.key
+		if(B.evil)
+			B.make_special()
+		qdel(src)
 	else if(((PLASMA in environment.gasses) && environment.gasses[PLASMA] >= MOLES_PLASMA_VISIBLE) || ghost)
 		if(icon_state != "borer_egg_pulsing")
 			icon_state = "borer_egg_pulsing"
