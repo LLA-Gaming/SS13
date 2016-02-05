@@ -43,6 +43,7 @@
 		if(B.evil)
 			B.make_special()
 		qdel(src)
+
 	else if(ghost || special_conditions)
 		if(icon_state != "borer_egg_pulsing")
 			icon_state = "borer_egg_pulsing"

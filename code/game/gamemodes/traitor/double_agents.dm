@@ -8,6 +8,7 @@
 	required_enemies = 5
 	recommended_enemies = 8
 	can_run_at_minimum = 1
+	minimum_enemies = 5
 
 	traitor_name = "double agent"
 

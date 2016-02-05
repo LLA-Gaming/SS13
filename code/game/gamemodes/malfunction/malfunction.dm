@@ -65,14 +65,14 @@
 		log_game("[ai_mind.key] (ckey) has been selected as a malf AI")
 	//reserve AI position for malf
 	var/datum/job/J = job_master.GetJob("AI")
-	J.current_positions = J.total_positions
+	J.current_positions = J.spawn_positions
 	// kick out any AI if they werent selected for malf
 	for(var/mob/new_player/player in player_list)
 		if(!player.mind) continue
 		if(player in malf_ai) continue
 		if(player.mind.assigned_role == "AI")
 			job_master.UnassignRole(player)
-			job_master.ReassignRole(player)
+			job_master.ReassignRole(player,1) //no_ai
 	//then setup the actual malf AIs
 	for(var/mob/new_player/malfs in malf_ai)
 		job_master.UnassignRole(malfs)
@@ -103,6 +103,12 @@
 		AI_mind.current:show_laws()
 
 		greet_malf(AI_mind)
+		//your soul is mine
+		for(var/mob/living/silicon/robot/robot in mob_list)
+			if(!robot.connected_ai)
+				robot.connected_ai = AI_mind.current
+				robot.connected_ai.connected_robots += robot
+				robot.lawsync()
 
 		AI_mind.special_role = "malfunction"
 

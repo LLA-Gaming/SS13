@@ -58,6 +58,7 @@
 /obj/machinery/telepad/Destroy()
 	qdel(wires)
 	wires = null
+	..()
 
 
 //CARGO TELEPAD//

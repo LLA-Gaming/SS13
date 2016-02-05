@@ -8,7 +8,7 @@
 	var/list/Lines = list()
 
 	if(holder)
-		if(check_rights(R_ADMIN,0))
+		if(check_rights(R_ADMIN,0))//If they have +ADMIN, show hidden admins, player IC names and IC status
 			for(var/client/C in clients)
 				var/entry = "\t[C.key]"
 				if(C.holder && C.holder.fakekey)
@@ -24,8 +24,6 @@
 								entry += " - <font color='gray'>Observing</font>"
 							else
 								entry += " - <font color='black'><b>DEAD</b></font>"
-						else if(istype(C.mob,/mob/new_player))
-							entry += " - <font color='black'><b>In Lobby</b></font>"
 						else
 							entry += " - <font color='black'><b>DEAD</b></font>"
 				if(C.mob && C.mob.mind && C.mob.mind.assigned_role == "FIREDOME")
@@ -35,7 +33,12 @@
 						entry += " - <b><font color='red'>Antagonist</font></b>"
 				entry += " (<A HREF='?_src_=holder;adminmoreinfo=\ref[C.mob]'>?</A>)"
 				Lines += entry
-
+		else//If they don't have +ADMIN, only show hidden admins
+			for(var/client/C in clients)
+				var/entry = "\t[C.key]"
+				if(C.holder && C.holder.fakekey)
+					entry += " <i>(as [C.holder.fakekey])</i>"
+				Lines += entry
 	else
 		for(var/client/C in clients)
 			if(C.holder && C.holder.fakekey)

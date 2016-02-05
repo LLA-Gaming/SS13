@@ -3,7 +3,7 @@
 	schedule_interval = 20
 
 /datum/controller/process/diseases/doWork()
-	for(var/obj/D in active_diseases)
+	for(var/datum/disease/D in active_diseases)
 		if(istype(D) && !D.gc_destroyed)
 			setLastTask("process()", "[D.type]")
 			D.process()
