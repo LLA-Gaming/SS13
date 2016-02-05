@@ -10,7 +10,8 @@
 
 	detached += list(/mob/living/simple_animal/borer/proc/infest,
 					 /mob/living/simple_animal/borer/proc/hide,
-					 /mob/living/simple_animal/borer/proc/reproduce)
+					 /mob/living/simple_animal/borer/proc/reproduce,
+					 /mob/living/simple_animal/borer/proc/build_nest)
 
 	attached += list(/mob/living/simple_animal/borer/proc/abandon_host,
 					 /mob/living/simple_animal/borer/proc/secrete_chems,
@@ -165,6 +166,35 @@
 			O.show_message(text("\green <B>The [src] has laid an egg!</B>"), 1)
 		new /obj/structure/borer_egg(loc)
 	return
+
+/mob/living/simple_animal/borer/proc/build_nest()
+	set category = "Borer"
+	set name = "Build Nest (200)"
+	set desc = "Build a nest that helps your eggs grow without plasma."
+
+	if(stat)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
+	if(locate(/turf/space) in get_turf(src))
+		src << "You can't build a nest here."
+		return
+
+	if(locate(/obj/structure/borer_nest) in get_turf(src))
+		src << "There's already a nest here."
+		return
+
+	if(chemicals < 200)
+		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
+		return
+
+	if(chemicals >= 200)
+		chemicals -= 200
+		for(var/mob/O in viewers(src, null))
+			O.show_message(text("\green <B>The [src] has built a nest!</B>"), 1)
+		new /obj/structure/borer_nest(loc)
+	return
+
 
 /mob/living/simple_animal/borer/proc/instill_fear()
 	set category = "Borer"
@@ -432,3 +462,27 @@
 	for(var/mob/living/simple_animal/borer/B in src.contents)
 		B.host << "<span class='info'>You release control over your host's body.</span>"
 		B.return_control()
+
+// Upgrade Verbs //
+
+/mob/living/simple_animal/borer/proc/heal()
+	set category = "Borer"
+	set name = "Heal (25)"
+	set desc = "Heal yourself"
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
+	if(health == maxHealth)
+		src << "<span class='info'>Your body is already in perfect condition.</span>"
+		return
+
+	if(chemicals < 25)
+		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
+		return
+
+	if(chemicals >= 25)
+		src << "<span class='info'>You begin to heal your body.</span>"
+		health = maxHealth
+		chemicals -= 25

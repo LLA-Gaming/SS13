@@ -27,6 +27,7 @@
 	var/suction_cooldown = 0
 	var/can_lay = 0
 	var/egg_timer
+	var/purchasedupgrades = list()
 	var/list/detached = list()
 	var/list/attached = list()
 	var/list/chems = list()
