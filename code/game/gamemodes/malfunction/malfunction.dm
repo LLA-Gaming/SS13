@@ -72,7 +72,7 @@
 		if(player in malf_ai) continue
 		if(player.mind.assigned_role == "AI")
 			job_master.UnassignRole(player)
-			job_master.ReassignRole(player)
+			job_master.ReassignRole(player,1) //no_ai
 	//then setup the actual malf AIs
 	for(var/mob/new_player/malfs in malf_ai)
 		job_master.UnassignRole(malfs)
@@ -103,6 +103,12 @@
 		AI_mind.current:show_laws()
 
 		greet_malf(AI_mind)
+		//your soul is mine
+		for(var/mob/living/silicon/robot/robot in mob_list)
+			if(!robot.connected_ai)
+				robot.connected_ai = AI_mind.current
+				robot.connected_ai.connected_robots += robot
+				robot.lawsync()
 
 		AI_mind.special_role = "malfunction"
 

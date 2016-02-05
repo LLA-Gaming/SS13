@@ -98,11 +98,15 @@ var/global/datum/controller/occupations/job_master
 			candidates += player
 	return candidates
 
-/datum/controller/occupations/proc/GiveRandomJob(var/mob/new_player/player)
+/datum/controller/occupations/proc/GiveRandomJob(var/mob/new_player/player,var/no_ai)
 	Debug("GRJ Giving random job, Player: [player]")
 	for(var/datum/job/job in shuffle(occupations))
 		if(!job)
 			continue
+
+		if(no_ai)
+			if(istype(job, GetJob("AI")))
+				continue
 
 		if(istype(job, GetJob("Assistant"))) // We don't want to give him assistant, that's boring!
 			continue
@@ -294,12 +298,15 @@ var/global/datum/controller/occupations/job_master
 		AssignRole(player, "Assistant")
 	return 1
 
-/datum/controller/occupations/proc/ReassignRole(var/mob/new_player/player)
+/datum/controller/occupations/proc/ReassignRole(var/mob/new_player/player,var/no_ai)
 	var/list/shuffledoccupations = shuffle(occupations)
 	for(var/level = 1 to 3)
 		//Check the head jobs first each level
 		CheckHeadPositions(level)
 		for(var/datum/job/job in shuffledoccupations) // SHUFFLE ME BABY
+			if(no_ai)
+				if(istype(job, GetJob("AI")))
+					continue
 			if(player.client && player.client.prefs.GetJobDepartment(job, level) & job.flag)
 
 				// If the job isn't filled
@@ -309,7 +316,7 @@ var/global/datum/controller/occupations/job_master
 					return
 
 	if(player.client.prefs.userandomjob)
-		GiveRandomJob(player)
+		GiveRandomJob(player,1)
 	else
 		AssignRole(player, "Assistant")
 
