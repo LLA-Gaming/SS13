@@ -171,7 +171,8 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 		onclose(user, "servermanager")
 
 	Topic(href, href_list)
-		..()
+		if(..())
+			return
 		switch(href_list["choice"])
 			if("Open Chat")
 				var/datum/tablet_data/conversation/C = locate(href_list["target"])
