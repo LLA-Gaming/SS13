@@ -1434,6 +1434,7 @@
 #include "code\modules\space_exploration\pods\structures\designs.dm"
 #include "code\modules\space_exploration\pods\structures\fabricator.dm"
 #include "code\modules\space_exploration\pods\structures\forcefield.dm"
+#include "code\modules\space_exploration\pods\structures\induction_charger.dm"
 #include "code\modules\space_exploration\pods\types\pods.dm"
 #include "code\modules\space_exploration\templates\config.dm"
 #include "code\modules\space_exploration\templates\dmm_parsing.dm"

@@ -146,28 +146,45 @@ var/list/pod_list = list()
 
 		pod_log.LogOccupancy(H, as_pilot)
 
-	proc/HandleEnter(var/mob/living/carbon/human/H)
+	proc/HandleEnter(var/mob/living/carbon/human/H, var/mob/living/carbon/human/dragged_by)
 		if(!CanOpenPod(H))
 			return 0
 
 		var/as_passenger = 0
-		if(pilot)
-			if(HasOpenSeat())
-				var/enter_anyways = input("The [src] is already manned. Do you want to enter as a passenger?") in list("Yes", "No")
-				if(enter_anyways == "Yes")
-					as_passenger = 1
+		if(dragged_by)
+			as_passenger = 1
+		else
+			if(pilot)
+				if(HasOpenSeat())
+					var/enter_anyways = input("The [src] is already manned. Do you want to enter as a passenger?") in list("Yes", "No")
+					if(enter_anyways == "Yes")
+						as_passenger = 1
+					else
+						return 0
 				else
+					H << "<span class='warning'>The [src] is already manned[seats ? " and all the seats are occupied" : ""]."
 					return 0
-			else
-				H << "<span class='warning'>The [src] is already manned[seats ? " and all the seats are occupied" : ""]."
-				return 0
 
-		H << "<span class='info'>You start to enter the [src]..</span>"
+		if(!dragged_by)
+			H << "<span class='info'>You start to enter \the [src]..</span>"
+		else
+			H << "<span class='warning'>You are being put into \the [src] by [dragged_by.name]...</span>"
+			dragged_by << "<span class='info'>You start to put [H] into \the [src].</span>"
+
 		if(do_after(H, enter_delay))
 			if(!HasOpenSeat())
-				H << "<span class='warning'>The [src] is already manned[seats ? " and all the seats are occupied" : ""]."
+				if(!dragged_by)
+					H << "<span class='warning'>\The [src] is already manned[seats ? " and all the seats are occupied" : ""]."
+				else
+					dragged_by << "<span class='warning'>\The [src] is full.</span>"
 				return 0
-			H << "<span class='info'>You enter the [src].</span>"
+
+			if(!dragged_by)
+				H << "<span class='info'>You enter the [src].</span>"
+			else
+				H << "<span class='warning'>You are placed into \the [src] by [dragged_by.name].</span>"
+				dragged_by << "<span class='info'>You place [H.name] into \the [src].</span>"
+
 			H.loc = src
 			if(!as_passenger)
 				pilot = H
@@ -178,12 +195,14 @@ var/list/pod_list = list()
 					PrintSystemAlert("No power source installed.")
 				PrintSystemNotice("Integrity: [round((health / max_health) * 100)]%.")
 
-		pod_log.LogOccupancy(H, !as_passenger)
+		pod_log.LogOccupancy(H, !as_passenger, dragged_by)
 
 	MouseDrop_T(var/atom/dropping, var/mob/user)
 		if(istype(dropping, /mob/living/carbon/human))
 			if(dropping == user)
 				HandleEnter(dropping)
+			else
+				HandleEnter(dropping, user)
 
 	relaymove(var/mob/user, var/_dir)
 		if(user == pilot)
