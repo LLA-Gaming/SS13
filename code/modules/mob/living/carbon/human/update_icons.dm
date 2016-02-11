@@ -522,6 +522,9 @@ Please contact me on #coderbus IRC. ~Carnie x
 			var/obj/item/clothing/suit/S = wear_suit
 			standing.overlays	+= image("icon"='icons/effects/blood.dmi', "icon_state"="[S.blood_overlay_type]blood")
 
+		if(wear_suit.color)
+			standing.color = wear_suit.color
+
 	apply_overlay(SUIT_LAYER)
 
 

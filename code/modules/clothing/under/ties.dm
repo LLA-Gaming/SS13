@@ -29,6 +29,12 @@
 	icon_state = "horribletie"
 	item_color = "horribletie"
 
+/obj/item/clothing/tie/bowtie
+	name = "bow tie"
+	desc = "The doctor is in"
+	icon_state = "redbowtie"
+	item_color = "redbowtie"
+
 /obj/item/clothing/tie/waistcoat
 	name = "waistcoat"
 	desc = "For some classy, murderous fun."
