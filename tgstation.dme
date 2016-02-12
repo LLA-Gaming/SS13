@@ -593,6 +593,7 @@
 #include "code\game\objects\items\devices\tablets\programs\built-in\nanostore.dm"
 #include "code\game\objects\items\devices\tablets\programs\built-in\settings.dm"
 #include "code\game\objects\items\devices\tablets\programs\built-in\wallet.dm"
+#include "code\game\objects\items\devices\tablets\programs\toggleutilities\camera.dm"
 #include "code\game\objects\items\devices\tablets\programs\toggleutilities\gasscanner.dm"
 #include "code\game\objects\items\devices\tablets\programs\toggleutilities\medicalscanner.dm"
 #include "code\game\objects\items\devices\tablets\programs\toggleutilities\radscanner.dm"
