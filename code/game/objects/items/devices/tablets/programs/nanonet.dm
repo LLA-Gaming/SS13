@@ -111,6 +111,7 @@
 			dat += "<a href='byond://?src=\ref[src];mode=2'>Documents</a><br>"
 			switch(display_mode)
 				if(0) //front page
+					dat += "<h3>Feed</h3>"
 					dat += "<a href='byond://?src=\ref[src];choice=add_status'>Create New Post</a><br>"
 					dat += "Recent Posts:<br>"
 					for(var/datum/nanonet_message/M in server.statuses)
@@ -120,9 +121,11 @@
 						dat += "<br><a href='byond://?src=\ref[src];choice=view_post;post=\ref[M]'>View</a>"
 						dat += "</div>"
 				if(1) //users list
+					dat += "<h3>NanoNet Profiles</h3>"
 					for(var/datum/nanonet_profile/P in server.profiles)
 						dat += "<br><a href='byond://?src=\ref[src];choice=view_profile;post=\ref[P]'>[P.username]</a>"
 				if(2) //"websites"
+					dat += "<h3>NanoNet Document Database</h3>"
 					dat += "<br><a href='byond://?src=\ref[src];choice=upload'>Upload</a><br><br>"
 					for(var/datum/tablet_data/document/D in server.pages)
 						dat += "<br><a href='byond://?src=\ref[src];choice=view_doc;post=\ref[D]'>[D.name]</a>"
@@ -213,12 +216,11 @@
 									continue
 								skip_me_txt.Add(mentioned_text)
 								var/datum/nanonet_profile/target
-								for(var/obj/item/device/tablet/T in tablets_list)
-									var/datum/program/nanonet/N = locate(/datum/program/nanonet) in T.core.programs
-									if(N && N.auth)
-										if(lowertext(N.auth.username) == mentioned_text)
-											target = N.auth
-											mentioned.Add(lowertext(N.auth.username))
+								for(var/datum/nanonet_profile/N in server.profiles)
+									if(N)
+										if(lowertext(N.username) == lowertext(mentioned_text))
+											target = N
+											mentioned.Add(lowertext(N.username))
 											break
 								if(target)
 									displayed_post.message = replacetext(displayed_post.message, "@[target.username]", "<a href='byond://?src=SAUCE;choice=view_profile;post=\ref[target]'>@[target.username]</a>")
@@ -350,12 +352,11 @@
 									continue
 								skip_me_txt.Add(mentioned_text)
 								var/datum/nanonet_profile/target
-								for(var/obj/item/device/tablet/T in tablets_list)
-									var/datum/program/nanonet/N = locate(/datum/program/nanonet) in T.core.programs
-									if(N && N.auth)
-										if(lowertext(N.auth.username) == mentioned_text)
-											target = N.auth
-											mentioned.Add(lowertext(N.auth.username))
+								for(var/datum/nanonet_profile/N in server.profiles)
+									if(N)
+										if(lowertext(N.username) == lowertext(mentioned_text))
+											target = N
+											mentioned.Add(lowertext(N.username))
 											break
 								if(target)
 									draft = replacetext(draft, "@[target.username]", "<a href='byond://?src=SAUCE;choice=view_profile;post=\ref[target]'>@[target.username]</a>")
@@ -385,6 +386,7 @@
 						for(var/obj/item/device/tablet/T in tablets_list)
 							var/datum/program/nanonet/N = locate(/datum/program/nanonet) in T.core.programs
 							if(N)
+								if(N.auth && N.auth == auth) continue
 								if(displayed_post.author_profile == N.auth)
 									T.alert_self("NanoNet:","@[auth.username] commented on your status: [draft_plain]","nanonet")
 								for(var/X in mentioned)
