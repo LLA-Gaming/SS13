@@ -4,6 +4,10 @@
 	var/icon/photo = null
 	var/data_type = "Data"
 
+	New()
+		..()
+		name = "[initial(name)] #[rand(0,65536)]"
+
 /datum/tablet_data/document
 	name = "Untitled Document"
 	data_type = "Document"

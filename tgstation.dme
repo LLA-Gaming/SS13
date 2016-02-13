@@ -578,6 +578,7 @@
 #include "code\game\objects\items\devices\tablets\programs\hackingtools.dm"
 #include "code\game\objects\items\devices\tablets\programs\honk.dm"
 #include "code\game\objects\items\devices\tablets\programs\medrecords.dm"
+#include "code\game\objects\items\devices\tablets\programs\nanonet.dm"
 #include "code\game\objects\items\devices\tablets\programs\notekeeper.dm"
 #include "code\game\objects\items\devices\tablets\programs\oriontrail.dm"
 #include "code\game\objects\items\devices\tablets\programs\percapps.dm"
