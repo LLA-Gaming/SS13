@@ -674,6 +674,10 @@
 		name = "Watson Mustache"
 		icon_state = "facial_watson"
 
+	handlebars
+		name = "Handlebars"
+		icon_state = "facial_handlebars"
+
 	hogan
 		name = "Hulk Hogan Mustache"
 		icon_state = "facial_hogan" //-Neek
