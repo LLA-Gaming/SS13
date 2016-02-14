@@ -131,3 +131,9 @@
 	desc = "A pair of costume boots fashioned after bird talons."
 	icon_state = "griffinboots"
 	item_state = "griffinboots"
+
+/obj/item/clothing/shoes/femoffice
+	name = "female office shoes"
+	desc = "female office shoes"
+	icon_state = "femoffice"
+	item_state = "femoffice"
