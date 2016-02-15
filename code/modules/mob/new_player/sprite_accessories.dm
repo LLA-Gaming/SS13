@@ -250,6 +250,21 @@
 		icon_state = "hair_spikey"
 		gender = MALE
 
+	fade_grown
+		name = "Fade Grown"
+		icon_state = "hair_fade_grown"
+		gender = MALE
+
+	short_sweep
+		name = "Short Sweep"
+		icon_state = "hair_shortsweep"
+		gender = MALE
+
+	short_sweep
+		name = "Short Spike"
+		icon_state = "hair_short_spike"
+		gender = MALE
+
 	//kinda mixed long/short
 	floof
 		name = "Floof"
@@ -378,6 +393,16 @@
 		name = "Sideshaved"
 		icon_state = "hair_sideshaved"
 
+	rapunzel
+		name = "Rapunzel"
+		icon_state = "hair_rapunzel"
+		gender = FEMALE
+
+	conditioner
+		name = "Conditioner"
+		icon_state = "hair_conditioner"
+		gender = FEMALE
+
 	//ponytails/braids
 	ponytail1
 		name = "Ponytail 1"
@@ -436,6 +461,11 @@
 	jen
 		name = "Jen"
 		icon_state = "hair_jen"
+		gender = FEMALE
+
+	jenjen
+		name = "Jen Jen"
+		icon_state = "hair_jenjen"
 		gender = FEMALE
 
 	front_braid
@@ -500,6 +530,11 @@
 	shortbraid
 		name = "Short Floorlength Braid"
 		icon_state = "hair_shortbraid"
+		gender = FEMALE
+
+	twintails
+		name = "Twintails"
+		icon_state = "hair_twintails"
 		gender = FEMALE
 
 	//bedheads/poofys
@@ -639,6 +674,10 @@
 		name = "Watson Mustache"
 		icon_state = "facial_watson"
 
+	handlebars
+		name = "Handlebars"
+		icon_state = "facial_handlebars"
+
 	hogan
 		name = "Hulk Hogan Mustache"
 		icon_state = "facial_hogan" //-Neek
@@ -683,6 +722,14 @@
 		name = "Chinstrap"
 		icon_state = "facial_chin"
 
+	chinstrap_ii
+		name = "Chinstrap 2"
+		icon_state = "facial_chinstrap_ii"
+
+	swire
+		name = "Swire"
+		icon_state = "facial_swire"
+
 	hip
 		name = "Hipster Beard"
 		icon_state = "facial_hip"
@@ -690,6 +737,10 @@
 	gt
 		name = "Goatee"
 		icon_state = "facial_gt"
+
+	stark
+		name = "Stark"
+		icon_state = "facial_stark"
 
 	jensen
 		name = "Adam Jensen Beard"
