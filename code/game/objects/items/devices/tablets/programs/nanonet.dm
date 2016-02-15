@@ -18,6 +18,7 @@
 		if(!server)
 			dat += "ERROR: No connection found"
 			return
+		var/convertmentions = 0
 		if(!auth)
 			dat += "<center>"
 			dat += "<h3>NanoNet</h3>"
@@ -32,14 +33,14 @@
 					dat += "<a href='byond://?src=\ref[src];choice=login'>Login</a>"
 				else
 					dat += "<A href='?src=\ref[tablet];choice=Authenticate'>[tablet.id.registered_name], [tablet.id.assignment]</a><br>"
-					dat += "<a href='byond://?src=\ref[src];choice=login'>Create Account</a>"
+					dat += "<a href='byond://?src=\ref[src];choice=login'>Create Profile</a>"
 			else
 				dat += "<A href='?src=\ref[tablet];choice=Authenticate'>----------</a><br>"
 				dat += "<a href='byond://?src=\ref[src];choice=login'>Login</a>"
 			dat += "</center>"
 			return
 
-		dat += "<a href='byond://?src=\ref[src];choice=logout'>Logout</a><br>"
+		dat += "<a href='byond://?src=\ref[src];choice=logout'>Logout</a> - @[auth.username]<br>"
 		if(displayed_post && !(displayed_post in server.statuses)) //new post
 			dat += "<div class='statusDisplay'>@[auth.username]: [displayed_post.message]<br>"
 			if(displayed_post.photo)
@@ -59,8 +60,9 @@
 				dat += D.doc
 			dat += "</div'>"
 		else if(displayed_post)
+			convertmentions = 1
 			dat += "<a href='byond://?src=\ref[src];choice=cancel'>\<--</a><br>"
-			dat += "<div class='statusDisplay'>[displayed_post.timestamp] - [displayed_post.author_link]: [displayed_post.message]<br>"
+			dat += "<div class='statusDisplay'>[displayed_post.timestamp] - @[displayed_post.author]: [displayed_post.message]<br>"
 			if(displayed_post.photo)
 				var/datum/tablet_data/photo/P = displayed_post.photo
 				usr << browse_rsc(P.photoinfo, "tmp_photo.png")
@@ -76,6 +78,7 @@
 				dat += "[X]<br>"
 			dat += "</div>"
 		else if(displayed_profile)
+			convertmentions = 1
 			dat += "<a href='byond://?src=\ref[src];choice=cancel'>\<--</a><br>"
 			var/is_followed = (auth in displayed_profile.followers)
 			dat += "@[displayed_profile.username] - <a href='byond://?src=\ref[src];choice=follow;profile=\ref[displayed_profile]'>[is_followed ? "Unfollow" : "Follow"]</a>"
@@ -90,6 +93,7 @@
 				dat += "<br><a href='byond://?src=\ref[src];choice=view_post;post=\ref[M]'>View</a>"
 				dat += "</div>"
 		else if(displayed_hashtag)
+			convertmentions = 1
 			dat += "<a href='byond://?src=\ref[src];choice=cancel'>\<--</a><br>"
 			var/is_followed = (auth in displayed_hashtag.followers)
 			dat += "#[displayed_hashtag.hashtag] - <a href='byond://?src=\ref[src];choice=follow;profile=\ref[displayed_profile]'>[is_followed ? "Unfollow" : "Follow"]</a>"
@@ -106,6 +110,7 @@
 				dat += "<br><a href='byond://?src=\ref[src];choice=view_post;post=\ref[M]'>View</a>"
 				dat += "</div>"
 		else
+			convertmentions = 1
 			dat += "<br><a href='byond://?src=\ref[src];mode=0'>Feed</a> | "
 			dat += "<a href='byond://?src=\ref[src];mode=1'>Profiles</a> | "
 			dat += "<a href='byond://?src=\ref[src];mode=2'>Documents</a><br>"
@@ -115,7 +120,7 @@
 					dat += "<a href='byond://?src=\ref[src];choice=add_status'>Create New Post</a><br>"
 					dat += "Recent Posts:<br>"
 					for(var/datum/nanonet_message/M in server.statuses)
-						dat += "<div class='statusDisplay'>[M.author_link]: [M.message] ([M.liked.len] likes) ([M.comments.len] comments)"
+						dat += "<div class='statusDisplay'>@[M.author]: [M.message] ([M.liked.len] likes) ([M.comments.len] comments)"
 						if(M.photo)
 							dat += "<br>\<File Attached\>"
 						dat += "<br><a href='byond://?src=\ref[src];choice=view_post;post=\ref[M]'>View</a>"
@@ -123,14 +128,15 @@
 				if(1) //users list
 					dat += "<h3>NanoNet Profiles</h3>"
 					for(var/datum/nanonet_profile/P in server.profiles)
-						dat += "<br><a href='byond://?src=\ref[src];choice=view_profile;post=\ref[P]'>[P.username]</a>"
+						dat += "<br>@[P.username]"
 				if(2) //"websites"
+					convertmentions = 0
 					dat += "<h3>NanoNet Document Database</h3>"
 					dat += "<br><a href='byond://?src=\ref[src];choice=upload'>Upload</a><br><br>"
 					for(var/datum/tablet_data/document/D in server.pages)
 						dat += "<br><a href='byond://?src=\ref[src];choice=view_doc;post=\ref[D]'>[D.name]</a>"
-		//sanity stuff
-		dat = replacetext(dat,"SAUCE","\ref[src]")
+		if(convertmentions)
+			dat = mention2url(dat,server)
 
 	Topic(href, href_list)
 		if (!..()) return
@@ -183,14 +189,12 @@
 				if(displayed_post)
 					if(!auth.post_cooldown && displayed_post.message)
 						displayed_post.timestamp = "[worldtime2text()]"
-						displayed_post.author_link = "<a href='byond://?src=SAUCE;choice=view_profile;post=\ref[auth]'>@[auth.username]</a>"
 						displayed_post.author_profile = auth
 						server.statuses.Insert(1,displayed_post)
 						auth.uploaded_photos.Add(displayed_post.photo)
 						var/list/mentioned = list()
 						//gather mentions
 						var/msg = html_decode(lowertext(displayed_post.message))
-						displayed_post.message_plain = displayed_post.message
 						var/leng = lentext(msg)
 						var/counter =1
 						var/current
@@ -215,15 +219,11 @@
 									counter++
 									continue
 								skip_me_txt.Add(mentioned_text)
-								var/datum/nanonet_profile/target
 								for(var/datum/nanonet_profile/N in server.profiles)
 									if(N)
 										if(lowertext(N.username) == lowertext(mentioned_text))
-											target = N
 											mentioned.Add(lowertext(N.username))
 											break
-								if(target)
-									displayed_post.message = replacetext(displayed_post.message, "@[target.username]", "<a href='byond://?src=SAUCE;choice=view_profile;post=\ref[target]'>@[target.username]</a>")
 							if(current == "#")
 								var/tend = findtext(msg," ",counter,leng+1)
 								var/mentioned_text = copytext(msg,counter,tend)
@@ -243,7 +243,6 @@
 									continue
 								skip_me_txt.Add(mentioned_text)
 								displayed_post.hashtags.Add(mentioned_text)
-								displayed_post.message = replacetext(displayed_post.message, "#[mentioned_text]","<a href='byond://?src=SAUCE;choice=view_hashtag;post=[mentioned_text]'>#[mentioned_text]</a>")
 							counter++
                         //end mentions
 						var/list/skip_me = list()
@@ -253,20 +252,20 @@
 								if(N.auth && N.auth == auth) continue
 								if(N.auth in auth.followers)
 									if(!(T in skip_me))
-										T.alert_self("NanoNet:","@[auth.username] posted a new status: [displayed_post.message_plain]","nanonet")
+										T.alert_self("NanoNet:","@[auth.username] posted a new status: [displayed_post.message]","nanonet")
 									skip_me.Add(T)
 								for(var/X in displayed_post.hashtags)
 									for(var/datum/nanonet_hashtag/H in server.hashtags)
 										if(X == H.hashtag)
 											if(N.auth in H.followers)
 												if(!(T in skip_me))
-													T.alert_self("NanoNet:","@[auth.username] mentioned #[H.hashtag] in a status: [displayed_post.message_plain]","nanonet")
+													T.alert_self("NanoNet:","@[auth.username] mentioned #[H.hashtag] in a status: [displayed_post.message]","nanonet")
 												skip_me.Add(T)
 								for(var/X in mentioned)
 									if(X == lowertext(auth.username)) continue
 									if(N.auth && lowertext(N.auth.username) == X)
 										if(!(T in skip_me))
-											T.alert_self("NanoNet:","@[auth.username] mentioned you in a status: [displayed_post.message_plain]","nanonet")
+											T.alert_self("NanoNet:","@[auth.username] mentioned you in a status: [displayed_post.message]","nanonet")
 										skip_me.Add(T)
 						displayed_post = null
 						spawn(300)
@@ -326,7 +325,6 @@
 						var/list/mentioned = list()
 						//gather mentions
 						var/msg = html_decode(lowertext(draft))
-						var/draft_plain = draft
 						var/leng = lentext(msg)
 						var/counter =1
 						var/current
@@ -351,15 +349,11 @@
 									counter++
 									continue
 								skip_me_txt.Add(mentioned_text)
-								var/datum/nanonet_profile/target
 								for(var/datum/nanonet_profile/N in server.profiles)
 									if(N)
 										if(lowertext(N.username) == lowertext(mentioned_text))
-											target = N
 											mentioned.Add(lowertext(N.username))
 											break
-								if(target)
-									draft = replacetext(draft, "@[target.username]", "<a href='byond://?src=SAUCE;choice=view_profile;post=\ref[target]'>@[target.username]</a>")
 							if(current == "#")
 								var/tend = findtext(msg," ",counter,leng+1)
 								var/mentioned_text = copytext(msg,counter,tend)
@@ -378,22 +372,21 @@
 									counter++
 									continue
 								skip_me_txt.Add(mentioned_text)
-								draft = replacetext(draft, "#[mentioned_text]", "<a href='byond://?src=SAUCE;choice=view_hashtag;post=[mentioned_text]'>#[mentioned_text]</a>")
 							counter++
                         //end mentions
 						var/list/skip_me = list()
-						displayed_post.comments.Insert(1,"[worldtime2text()] - <a href='byond://?src=SAUCE;choice=view_profile;post=\ref[auth]'>@[auth.username]</a>: [draft]")
+						displayed_post.comments.Insert(1,"[worldtime2text()] - @[auth.username]</a>: [draft]")
 						for(var/obj/item/device/tablet/T in tablets_list)
 							var/datum/program/nanonet/N = locate(/datum/program/nanonet) in T.core.programs
 							if(N)
 								if(N.auth && N.auth == auth) continue
 								if(displayed_post.author_profile == N.auth)
-									T.alert_self("NanoNet:","@[auth.username] commented on your status: [draft_plain]","nanonet")
+									T.alert_self("NanoNet:","@[auth.username] commented on your status: [draft]","nanonet")
 								for(var/X in mentioned)
 									if(X == lowertext(auth.username)) continue
 									if(N.auth && lowertext(N.auth.username) == X)
 										if(!(T in skip_me))
-											T.alert_self("NanoNet:","@[auth.username] mentioned you in a comment: [draft_plain]","nanonet")
+											T.alert_self("NanoNet:","@[auth.username] mentioned you in a comment: [draft]","nanonet")
 										skip_me.Add(T)
 		//profile editing
 			if("follow")
@@ -445,6 +438,67 @@
 		use_app()
 		tablet.attack_self(usr)
 
+
+	proc/mention2url(var/data, var/obj/machinery/nanonet_server/server)
+		//gather mentions
+		var/list/mentioned = list()
+		var/msg = html_decode(lowertext(data))
+		var/leng = lentext(msg)
+		var/counter =1
+		var/current
+		var/list/skip_me_txt = list()
+		while(counter<=leng)
+			current = copytext(msg, counter , counter+1)
+			if(current == "@")
+				var/tend = findtext(msg," ",counter,leng+1)
+				var/mentioned_text = copytext(msg,counter+1,tend)
+				for(var/i=0, i<=255, i++)
+					switch(i)
+						// A  .. Z
+						if(65 to 90) continue //Uppercase Letters
+						// a  .. z
+						if(97 to 122) continue //Lowercase Letters
+						// 0  .. 9
+						if(48 to 57) continue //Numbers
+						// _
+						if(95) continue // underscore
+					mentioned_text = replacetext(mentioned_text,ascii2text(i),"")
+				if(mentioned_text in skip_me_txt)
+					counter++
+					continue
+				skip_me_txt.Add(mentioned_text)
+				var/datum/nanonet_profile/target
+				for(var/datum/nanonet_profile/N in server.profiles)
+					if(N)
+						if(lowertext(N.username) == lowertext(mentioned_text))
+							mentioned.Add(lowertext(N.username))
+							target = N
+							break
+				if(target)
+					data = replacetext(data, "@[target.username]", "<a href='byond://?src=\ref[src];choice=view_profile;post=\ref[target]'>@[target.username]</a>")
+			if(current == "#")
+				var/tend = findtext(msg," ",counter,leng+1)
+				var/mentioned_text = copytext(msg,counter,tend)
+				for(var/i=0, i<=255, i++)
+					switch(i)
+						// A  .. Z
+						if(65 to 90) continue //Uppercase Letters
+						// a  .. z
+						if(97 to 122) continue //Lowercase Letters
+						// 0  .. 9
+						if(48 to 57) continue //Numbers
+						// _
+						if(95) continue // underscore
+					mentioned_text = replacetext(mentioned_text,ascii2text(i),"")
+				if(mentioned_text in skip_me_txt)
+					counter++
+					continue
+				skip_me_txt.Add(mentioned_text)
+				data = replacetext(data, "#[mentioned_text]", "<a href='byond://?src=\ref[src];choice=view_hashtag;post=[mentioned_text]'>#[mentioned_text]</a>")
+			counter++
+        //end mentions
+		return data
+
 //nanonet datums
 /datum/nanonet_profile/
 	var/username = null
@@ -460,10 +514,8 @@
 
 /datum/nanonet_message/
 	var/author
-	var/author_link
 	var/datum/nanonet_profile/author_profile
 	var/message
-	var/message_plain
 	var/timestamp
 	var/list/comments = list()
 	var/datum/tablet_data/photo/photo
