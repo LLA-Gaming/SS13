@@ -58,9 +58,11 @@
 	if(minimum_mode)
 		if(!has_captain)
 			return 0
+		return 1
 	else
 		if(!has_heads)
 			return 0
+		return 1
 
 /datum/game_mode/revolution/pre_setup()
 
