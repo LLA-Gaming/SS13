@@ -391,13 +391,15 @@ var/global/floorIsLava = 0
 	var/obj/machinery/nanonet_server/server = locate(/obj/machinery/nanonet_server) in nanonet_servers
 	if(server)
 		for(var/datum/tablet_data/document/D in server.pages)
-			dat += "[D.name] <A href='?src=\ref[src];nanonet_removepage=\ref[D]'>\[X\]</A><br>"
-			dat += "[TAB][D.doc]<br>"
+			dat += "[TAB][D.name] <A href='?src=\ref[src];nanonet_removepage=\ref[D]'>\[X\]</A><br>"
+			dat += "[D.doc]<br>"
 		dat += "<hr>"
 		for(var/datum/nanonet_message/M in server.statuses)
 			dat += "@[M.author]: [M.message] <A href='?src=\ref[src];nanonet_removecomment=\ref[M]'>\[X\]</A><br>"
+			var/ccount = 0
 			for(var/X in M.comments)
-				dat += "[X] <A href='?src=\ref[src];nanonet_removecomment=\ref[M];comment=[X]'>\[X\]</A>"
+				ccount++
+				dat += "[X] <A href='?src=\ref[src];nanonet_removecomment=\ref[M];comment=[ccount]'>\[X\]</A><br>"
 
 	usr << browse(dat, "window=nanonet_adminpanel;size=640x480")
 	onclose(usr, "nanonet_adminpanel")
