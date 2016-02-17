@@ -1,7 +1,5 @@
 // Totally not stolen from changeling evolution menu or anything - Ahbahl
-var/list/upgrade_paths
-
-/mob/living/simple_animal/borer/verb/upgrade_menu()
+/mob/living/simple_animal/borer/proc/upgrade_menu()
 	set category = "Borer"
 	set name = "-Upgrade Menu-" //Dashes are so it's listed before all the other abilities.
 	set desc = "Choose an upgrade to make yourself stronger."
@@ -9,9 +7,6 @@ var/list/upgrade_paths
 	if(!usr || !usr.mind || !isborer(usr))
 		return
 	var/mob/living/simple_animal/borer/B = usr
-
-	if(!upgrade_paths)
-		upgrade_paths = init_paths(/datum/borer_upgrade)
 
 	var/dat = create_menu(B)
 	usr << browse(dat, "window=upgrades;size=600x700")//900x480
@@ -225,9 +220,21 @@ var/list/upgrade_paths
 		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable_data'>"}
 
 	var/i = 1
-	for(var/path in upgrade_paths)
+	for(var/datum/borer_upgrade/U in upgrades)
 
-		var/datum/borer_upgrade/U = new path()
+		if(U.evil && !B.evil)
+			continue
+
+		if(U.good && B.evil)
+			continue
+
+		var/list/purchased = params2list(list2params(B.purchasedupgrades))
+		var/list/required = U.requirements&purchased
+
+		if(!U.requirements) // show them if they have no requirements
+		else if(U.requirements.len == required.len) // show them if they have and meet their requirements
+		else
+			continue // otherwise dont show them
 
 		var/ownsthis = has_upgrade(U)
 
@@ -288,10 +295,7 @@ var/list/upgrade_paths
 /mob/living/simple_animal/borer/proc/purchaseUpgrade(var/mob/living/simple_animal/borer/user, var/upgrade_name)
 	var/datum/borer_upgrade/theupgrade = null
 
-	if(!upgrade_paths)
-		upgrade_paths = init_paths(/datum/borer_upgrade)
-	for(var/path in upgrade_paths)
-		var/datum/borer_upgrade/S = new path()
+	for(var/datum/borer_upgrade/S in upgrades)
 		if(S.name == upgrade_name)
 			theupgrade = S
 

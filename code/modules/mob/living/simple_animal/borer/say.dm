@@ -1,6 +1,20 @@
 /mob/living/simple_animal/borer/say_understands(var/other)
 	if (istype(other, /mob/living/simple_animal/borer))
 		return 1
+	if (istype(other, /mob/living/silicon/ai))
+		return 1
+	if (istype(other, /mob/living/silicon/decoy))
+		return 1
+	if (istype(other, /mob/living/silicon/pai))
+		return 1
+	if (istype(other, /mob/living/silicon/robot))
+		return 1
+	if (istype(other, /mob/living/carbon/brain))
+		return 1
+	if (istype(other, /mob/living/carbon/human))
+		return 1
+	if (istype(other, /mob/living/carbon/monkey))
+		return 1
 	return ..()
 
 /mob/living/simple_animal/borer/say(var/message)
