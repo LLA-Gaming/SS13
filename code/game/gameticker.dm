@@ -110,9 +110,12 @@ var/global/last_tick_duration = 0
 
 	if(!Debug2)
 		if(!can_continue)
+			var/logged_mode = mode.name
 			del(mode)
 			current_state = GAME_STATE_PREGAME
 			world << "<B>Error setting up [master_mode].</B> Reverting to pre-game lobby."
+			message_admins("\blue Error setting up [logged_mode].", 1)
+			log_game("\blue Error setting up [logged_mode].")
 			job_master.ResetOccupations()
 			return 0
 	else
