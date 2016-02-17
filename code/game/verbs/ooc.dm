@@ -47,20 +47,23 @@
 	var/keyname = key
 	if(prefs.unlock_content)
 		if(prefs.toggles & MEMBER_PUBLIC)
-			keyname = "<font color='[prefs.ooccolor]'><img style='width:9px;height:9px;' class=icon src=\ref['icons/member_content.dmi'] iconstate=blag>[keyname]</font>"
+			if(ckey in badges_by_ckey)
+				keyname = "<font color='[prefs.ooccolor]'>\icon[getBadge(ckey)][keyname]</font>"
+			else
+				keyname = "<font color='[prefs.ooccolor]'><img style='width:9px;height:9px;' class=icon src=\ref['icons/member_content.dmi'] iconstate=blag>[keyname]</font>"
 
 	for(var/client/C in clients)
 		var/to_tab = ""
 		if(holder)
 			if(!holder.fakekey || C.holder)
 				if(check_rights_for(src, R_TRIALADMIN))
-					to_tab = "<font color=[config.allow_admin_ooccolor ? prefs.ooccolor :"#b82e00" ]><b>\icon[getBadge(C.ckey)]<span class='prefix'>OOC:</span> <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message'>[msg]</span></b></font>"
+					to_tab = "<font color=[config.allow_admin_ooccolor ? prefs.ooccolor :"#b82e00" ]><b><span class='prefix'>OOC:</span> <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message'>[msg]</span></b></font>"
 				else
-					to_tab = "<span class='adminobserverooc'>\icon[getBadge(C.ckey)]<span class='prefix'>OOC:</span> <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message'>[msg]</span></span>"
+					to_tab = "<span class='adminobserverooc'><span class='prefix'>OOC:</span> <EM>[keyname][holder.fakekey ? "/([holder.fakekey])" : ""]:</EM> <span class='message'>[msg]</span></span>"
 			else
-				to_tab = "<font color='[normal_ooc_colour]'><span class='ooc'>\icon[getBadge(C.ckey)]<span class='prefix'>OOC:</span> <EM>[holder.fakekey ? holder.fakekey : key]:</EM> <span class='message'>[msg]</span></span></font>"
+				to_tab = "<font color='[normal_ooc_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[holder.fakekey ? holder.fakekey : key]:</EM> <span class='message'>[msg]</span></span></font>"
 		else
-			to_tab = "<font color='[normal_ooc_colour]'><span class='ooc'>\icon[getBadge(C.ckey)]<span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message'>[msg]</span></span></font>"
+			to_tab = "<font color='[normal_ooc_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message'>[msg]</span></span></font>"
 
 		if(C.prefs.toggles & CHAT_OOC)
 			C << to_tab

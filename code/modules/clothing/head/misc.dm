@@ -226,3 +226,8 @@
 	desc = "This cone is trying to warn you of something!"
 	name = "warning cone"
 	icon_state = "cone"
+
+/obj/item/clothing/head/fez
+	desc = "Fezzes are cool"
+	name = "fez"
+	icon_state = "fez"

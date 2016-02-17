@@ -363,7 +363,7 @@
 			A.icon_state = "template"
 
 			A.overlays = list()
-			var/image/img = image(I.icon, A, I.icon_state)
+			var/image/img = image(I)
 			img.pixel_x = 0
 			img.pixel_y = 0
 			A.overlays += img

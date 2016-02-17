@@ -12,7 +12,11 @@
 
 /datum/round_event/valentines/start()
 	//pick the valentine
-	special_someone = safepick(player_list)
+	var/list/cmembers = list()
+	for(var/mob/living/carbon/human/H in living_mob_list)
+		if(H.mind && H.mind.is_crewmember())
+			cmembers.Add(H)
+	special_someone = safepick(cmembers)
 	if(special_someone)
 		var/obj/item/weapon/storage/box/C = new /obj/item/weapon/storage/box
 		if(!special_someone.equip_to_slot_if_possible(C, slot_l_hand, 0, 1, 1)) //slot in left hand if possible

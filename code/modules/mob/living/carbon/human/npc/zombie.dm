@@ -331,7 +331,7 @@
 	O.update_icons()
 	src.ghostize()
 	O.loc = src.loc
-	del(src)
+	qdel(src)
 	return
 
 /obj/item/weapon/reagent_containers/glass/bottle/t_virus

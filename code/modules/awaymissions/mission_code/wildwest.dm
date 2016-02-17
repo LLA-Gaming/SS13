@@ -169,18 +169,25 @@
 
 /////For the Wishgranter///////////
 
+/mob/living/carbon/var/is_resurrecting = 0
+
 /mob/living/carbon/proc/immortality()
 	set category = "Immortality"
 	set name = "Resurrection"
+
+	if(is_resurrecting)
+		usr << "<span class='warning'>You can't do that yet.</span>"
+		return 0
 
 	var/mob/living/carbon/C = usr
 	if(!C.stat)
 		C << "<span class='notice'>You're not dead yet!</span>"
 		return
 	C << "<span class='notice'>Death is not your end!</span>"
-
+	is_resurrecting = 1
 	spawn(rand(800,1200))
 		C.revive()
 		C << "<span class='notice'>You have regenerated.</span>"
 		C.visible_message("<span class='warning'>[usr] appears to wake from the dead, having healed all wounds.</span>")
+		is_resurrecting = 0
 	return 1

@@ -1361,6 +1361,10 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 
 	target.job = from.job
 
+	target.undershirt = from.undershirt
+	target.underwear = from.underwear
+	target.socks = from.socks
+
 	if(copyitems)
 		if(from.w_uniform)
 			target.equip_to_slot_or_del(new from.w_uniform.type(target), slot_w_uniform)

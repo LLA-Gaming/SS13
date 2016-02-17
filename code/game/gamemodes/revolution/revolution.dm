@@ -58,9 +58,11 @@
 	if(minimum_mode)
 		if(!has_captain)
 			return 0
+		return 1
 	else
 		if(!has_heads)
 			return 0
+		return 1
 
 /datum/game_mode/revolution/pre_setup()
 
@@ -79,7 +81,7 @@
 	for (var/i=1 to max_headrevs)
 		if (antag_candidates.len==0)
 			break
-		if (head_revolutionaries >= head_check)
+		if (head_revolutionaries.len >= head_check)
 			break
 		var/datum/mind/lenin = pick(antag_candidates)
 		antag_candidates -= lenin
