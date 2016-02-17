@@ -281,18 +281,16 @@
 				if(t && t != "Cancel")
 					displayed_post.photo = D[t]
 			if("upload")
-				if(!auth.post_cooldown)
-					var/list/D = list()
-					D["Cancel"] = "Cancel"
-					for(var/datum/tablet_data/document/data in tablet.core.files)
-						D["Document: [data.name]"] = data
-					var/t = input(usr, "Upload Document") as null|anything in D
-					if(t && t != "Cancel")
+				var/list/D = list()
+				D["Cancel"] = "Cancel"
+				for(var/datum/tablet_data/document/data in tablet.core.files)
+					if(data in server.pages) continue
+					D["Document: [data.name]"] = data
+				var/t = input(usr, "Upload Document") as null|anything in D
+				if(t && t != "Cancel")
+					if(!(D[t] in server.pages))
 						displayed_doc = D[t]
 						server.pages.Insert(1,displayed_doc)
-						auth.post_cooldown = 1
-						spawn(300)
-							auth.post_cooldown = 0
 				else
 					usr << "Please wait 30 seconds before making another post"
 			if("add_status")

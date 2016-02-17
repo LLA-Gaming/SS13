@@ -376,6 +376,31 @@ var/global/floorIsLava = 0
 	usr << browse(dat, "window=admincaster_main;size=400x600")
 	onclose(usr, "admincaster_main")
 
+/datum/admins/proc/nanonet_adminpanel()
+	set category = "Fun"
+	set name = "NanoNet Panel"
+	set desc = "Allows you to view and delete nanonet content"
+
+	if (!istype(src,/datum/admins))
+		src = usr.client.holder
+	if (!istype(src,/datum/admins))
+		usr << "Error: you are not an admin!"
+		return
+	var/dat
+	dat = text("<HEAD><TITLE>NanoNet Panel</TITLE></HEAD><H3>NanoNet Panel</H3>")
+	var/obj/machinery/nanonet_server/server = locate(/obj/machinery/nanonet_server) in nanonet_servers
+	if(server)
+		for(var/datum/tablet_data/document/D in server.pages)
+			dat += "[D.name] <A href='?src=\ref[src];nanonet_removepage=\ref[D]'>\[X\]</A><br>"
+			dat += "[TAB][D.doc]<br>"
+		dat += "<hr>"
+		for(var/datum/nanonet_message/M in server.statuses)
+			dat += "@[M.author]: [M.message] <A href='?src=\ref[src];nanonet_removecomment=\ref[M]'>\[X\]</A><br>"
+			for(var/X in M.comments)
+				dat += "[X] <A href='?src=\ref[src];nanonet_removecomment=\ref[M];comment=[X]'>\[X\]</A>"
+
+	usr << browse(dat, "window=nanonet_adminpanel;size=640x480")
+	onclose(usr, "nanonet_adminpanel")
 
 
 /datum/admins/proc/Jobbans()
