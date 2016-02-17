@@ -32,7 +32,7 @@
 		temp = "Can you Outbomb Cuban Pete?"
 
 /datum/program/spacebattle/use_app()
-	dat += "<center><h4>[src.enemy_name]</h4></center>"
+	dat = "<center><h4>[src.enemy_name]</h4></center>"
 
 	dat += "<br><center><h3>[src.temp]</h3></center>"
 	dat += "<br><center>Health: [src.player_hp] | Magic: [src.player_mp] | Enemy Health: [src.enemy_hp]</center>"

@@ -106,7 +106,7 @@ var/global/datum/dictionary/gas/gas_dictionary = new
 
 /datum/gas_type/normal/plasma
 	name = "Plasma"
-	specific_heat = 400
+	specific_heat = 200
 
 //Template gasses are those generated as needed during runtime
 

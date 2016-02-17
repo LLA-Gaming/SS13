@@ -206,9 +206,19 @@
 				update |= temp.take_damage(b_loss * 0.05, f_loss * 0.05)
 	if(update)	update_damage_overlays(0)
 
-	for(var/obj/item/organ/limb/L in organs)
-		L.slice(30,3,0)
-
+	if(!prob(getarmor(null, "bomb")))
+		if(severity == 1 || severity == 2)
+			var/wounds = rand(1,3)
+			for(var/obj/item/organ/limb/L in shuffle(organs))
+				if(wounds <= 0) break
+				wounds--
+				L.slice(30,2,0)
+		if(severity == 3) //minor bleeding
+			for(var/obj/item/organ/limb/affect in shuffle(organs))
+				//cause medium bleeding to a (1) random limb (sometimes)
+				if(prob(30))
+					affect.slice(100,2,0)
+					break
 
 /mob/living/carbon/human/blob_act()
 	if(stat == 2)	return

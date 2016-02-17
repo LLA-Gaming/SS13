@@ -33,8 +33,11 @@ var/list/pod_logs = list()
 	proc/LogOccupancy(var/mob/living/occupant, var/as_pilot = 1, var/mob/living/dragged_by = 0)
 		var/entered = (occupant in holder.GetOccupants())
 		var/log = "[key_name(occupant)] [entered ? "<font color='green'>entered</font>" : "<font color='red'>left</font>"] \the [holder] ([holder.type]) as [as_pilot ? "pilot" : "passenger"]"
-		if(dragged_by)
+		if(dragged_by && !entered)
 			log += ", (dragged out by [key_name(dragged_by)]"
+		else if(dragged_by && entered)
+			log += ", (dragged into by [key_name(dragged_by)])"
+			add_logs(dragged_by, occupant, "dragged into a pod", src)
 		log += "."
 		occupancy_log.Add(Stamp() + "<font color='[as_pilot ? "blue" : "orange"]'>[log]</font>")
 

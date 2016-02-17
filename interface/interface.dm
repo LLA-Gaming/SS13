@@ -69,8 +69,9 @@ Hotkey-Mode: (hotkey-mode must be on)
 \te = equip
 \tr = throw
 \tt = say
+\ty = me
 \tx = swap-hand
-\tz = activate held object (or y)
+\tz = activate held object
 \tf = cycle-intents-left
 \tg = cycle-intents-right
 \t1 = help-intent
@@ -89,7 +90,7 @@ Any-Mode: (hotkey doesn't need to be on)
 \tCtrl+e = equip
 \tCtrl+r = throw
 \tCtrl+x = swap-hand
-\tCtrl+z = activate held object (or Ctrl+y)
+\tCtrl+z = activate held object
 \tCtrl+f = cycle-intents-left
 \tCtrl+g = cycle-intents-right
 \tCtrl+1 = help-intent

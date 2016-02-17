@@ -21,6 +21,7 @@ alien_damage_lower 10
 alien_damage_upper 20
 paw_damage_lower 2
 paw_damage_upper 8
+handcuffed_exit_delay 1200
 
 
 drivable /turf/space

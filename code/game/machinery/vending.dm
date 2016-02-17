@@ -777,7 +777,7 @@
 					/obj/item/clothing/suit/owlwings = 1,/obj/item/clothing/under/owl = 1,/obj/item/clothing/mask/gas/owl_mask = 1,/obj/item/clothing/suit/apron = 1,/obj/item/clothing/under/waiter = 1,
 					/obj/item/clothing/suit/owlwings/griffinwings = 1, /obj/item/clothing/under/griffin = 1, /obj/item/clothing/shoes/griffin = 1, /obj/item/clothing/head/griffin = 1,/obj/item/clothing/suit/corgisuit = 1,/obj/item/clothing/head/corgi = 1,
 					/obj/item/clothing/under/pirate = 1,/obj/item/clothing/suit/pirate = 1,/obj/item/clothing/head/pirate = 1,/obj/item/clothing/head/bandana = 1,
-					/obj/item/clothing/head/bandana = 1,/obj/item/clothing/under/soviet = 1,/obj/item/clothing/head/ushanka = 1,/obj/item/clothing/suit/imperium_monk = 1,
+					/obj/item/clothing/head/bandana = 1,/obj/item/clothing/tie/bowtie=1,/obj/item/clothing/head/fez=1,/obj/item/clothing/under/soviet = 1,/obj/item/clothing/head/ushanka = 1,/obj/item/clothing/suit/imperium_monk = 1,
 					/obj/item/clothing/mask/gas/cyborg = 1,/obj/item/clothing/suit/holidaypriest = 1,/obj/item/clothing/head/wizard/marisa/fake = 1,
 					/obj/item/clothing/suit/wizrobe/marisa/fake = 1,/obj/item/clothing/under/sundress = 1,/obj/item/clothing/head/witchwig = 1,/obj/item/weapon/staff/broom = 1,
 					/obj/item/clothing/suit/wizrobe/fake = 1,/obj/item/clothing/head/wizard/fake = 1,/obj/item/weapon/staff = 3,/obj/item/clothing/mask/gas/sexyclown = 1,
@@ -810,8 +810,8 @@
 					/obj/item/clothing/under/suit_jacket/really_black = 3,/obj/item/clothing/under/formalredskirt = 3,/obj/item/clothing/under/formalblueskirt = 3,/obj/item/clothing/under/jeans = 3,/obj/item/clothing/under/khaki = 3,/obj/item/clothing/under/trackpants = 3,/obj/item/clothing/under/camo = 2,
 					/obj/item/clothing/tie/waistcoat = 3,/obj/item/clothing/tie/scarf=5,/obj/item/clothing/under/sundress = 4,/obj/item/clothing/under/blacktango = 2,
 					/obj/item/clothing/head/maidbow = 1,/obj/item/clothing/under/maid = 1,/obj/item/clothing/under/janimaid = 1,/obj/item/clothing/suit/labcoat/jacket/varsity = 3,/obj/item/clothing/suit/labcoat/jacket = 5,
-					/obj/item/clothing/glasses/regular = 3,/obj/item/clothing/head/sombrero = 2,/obj/item/clothing/suit/poncho = 2,/obj/item/clothing/head/paddyhat = 1,
-					/obj/item/clothing/shoes/laceup = 3,/obj/item/clothing/shoes/sneakers/black = 6, /obj/item/clothing/shoes/sandal = 2,
+					/obj/item/clothing/glasses/regular = 3,/obj/item/clothing/head/sombrero = 2,/obj/item/clothing/suit/poncho = 2,/obj/item/clothing/glasses/regular/reading=2,/obj/item/clothing/suit/labcoat/jacket/aviator=2,/obj/item/clothing/suit/wintercoat/hoodie/random=3,/obj/item/clothing/suit/labcoat/jacket/biker=2,/obj/item/clothing/under/explorer=1,/obj/item/clothing/under/fembuisness=2,/obj/item/clothing/suit/labcoat/jacket/dandy_varsity=1,/obj/item/clothing/head/paddyhat = 1,
+					/obj/item/clothing/shoes/laceup = 3,/obj/item/clothing/shoes/femoffice = 3,/obj/item/clothing/shoes/sneakers/black = 6, /obj/item/clothing/shoes/sandal = 2,
 					/obj/item/weapon/storage/belt/fannypack=1, /obj/item/weapon/storage/belt/fannypack/blue=1, /obj/item/weapon/storage/belt/fannypack/red=1)
 	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,/obj/item/clothing/mask/fawkes = 1,/obj/item/clothing/mask/balaclava = 1,/obj/item/clothing/head/ushanka = 1,/obj/item/clothing/under/soviet = 1,/obj/item/clothing/suit/cardborg = 1, /obj/item/clothing/head/cardborg = 1,/obj/item/clothing/glasses/hypno = 1)
 	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,/obj/item/clothing/head/mailman = 1,/obj/item/clothing/under/rank/mailman = 1,/obj/item/clothing/suit/labcoat/jacket/leather = 1,/obj/item/clothing/suit/ianshirt = 1,/obj/item/clothing/glasses/sunglasses = 3, /obj/item/clothing/glasses/threed = 2, /obj/item/clothing/head/collectable/paper = 1, /obj/item/clothing/head/fedora = 2)

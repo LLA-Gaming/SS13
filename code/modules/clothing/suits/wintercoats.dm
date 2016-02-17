@@ -10,6 +10,7 @@
 	allowed = list(/obj/item/weapon/tank/emergency_oxygen,/obj/item/device/analyzer,/obj/item/stack/medical,/obj/item/weapon/dnainjector,/obj/item/weapon/reagent_containers/dropper,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/hypospray,/obj/item/device/healthanalyzer,/obj/item/device/flashlight/pen,/obj/item/weapon/reagent_containers/glass/bottle,/obj/item/weapon/reagent_containers/glass/beaker,/obj/item/weapon/reagent_containers/pill,/obj/item/weapon/storage/pill_bottle,/obj/item/weapon/paper,/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/device/flashlight/seclite,/obj/item/weapon/lighter,/obj/item/weapon/lighter/zippo,/obj/item/weapon/storage/fancy/cigarettes,/obj/item/clothing/mask/cigarette,/obj/item/weapon/reagent_containers/food/drinks/flask)
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 	var/obj/item/clothing/head/winterhood/hood = null // the hood
+	var/hood_type = /obj/item/clothing/head/winterhood
 	var/hooded = 0 // if its on or not
 	action_button_name = "Toggle Hood"
 
@@ -22,8 +23,9 @@
 		RemoveHood()
 
 	proc/MakeHood()
-		hood = new /obj/item/clothing/head/winterhood/(src)
+		hood = new hood_type(src)
 		hood.icon_state = initial(icon_state)
+		hood.color = color
 
 	ui_action_click()
 		..()
@@ -103,7 +105,12 @@
 		if(coat)
 			qdel(src.coat) // If there is a wintercoat attached when one gets deleted, delete the other
 
-
+/obj/item/clothing/head/winterhood/hoodie
+	name = "hood"
+	desc = "A hood attached to a hoodie."
+	icon_state = "spesshoodie"
+	cold_protection = 0
+	min_cold_protection_temperature = null
 //
 // Winter Coats
 //
@@ -157,3 +164,29 @@
 	name = "security winter coat"
 	desc = "A coat that protects against the bitter cold."
 	icon_state = "coatsecurity"
+
+//Hoodies
+
+/obj/item/clothing/suit/wintercoat/hoodie
+	name = "hoodie"
+	desc = "A space hoodie."
+	icon_state = "spesshoodie"
+	cold_protection = 0
+	min_cold_protection_temperature = null
+	hood_type = /obj/item/clothing/head/winterhood/hoodie
+
+/obj/item/clothing/suit/wintercoat/hoodie/random/New()
+	color = pick("#e32636","#3d53f6","#009999","#009933","#ff6699","#262626","#E59400","#999966","#CCCCFF","#009999")
+	..()
+
+
+/obj/item/clothing/suit/wintercoat/hoodie/red/color = "#e32636"
+/obj/item/clothing/suit/wintercoat/hoodie/blue/color = "#3d53f6"
+/obj/item/clothing/suit/wintercoat/hoodie/teal/color = "#009999"
+/obj/item/clothing/suit/wintercoat/hoodie/green/color = "#009933"
+/obj/item/clothing/suit/wintercoat/hoodie/pink/color = "#ff6699"
+/obj/item/clothing/suit/wintercoat/hoodie/black/color = "#262626"
+/obj/item/clothing/suit/wintercoat/hoodie/orange/color = "#E59400"
+/obj/item/clothing/suit/wintercoat/hoodie/tan/color = "#999966"
+/obj/item/clothing/suit/wintercoat/hoodie/periwinkle/color = "#CCCCFF"
+/obj/item/clothing/suit/wintercoat/hoodie/teal/color = "#009999"

@@ -263,8 +263,11 @@
 			location.add_blood_floor(L)
 		if(ishuman(L))
 			var/mob/living/carbon/human/H = L
-			for(var/obj/item/organ/limb/affect in H.organs)
-				affect.slice(30,3,0)
+			if(!prob(H.getarmor(null, "melee")))
+				for(var/obj/item/organ/limb/affect in shuffle(H.organs))
+					//cause bleeding to a random limb
+					affect.slice(30,3,0)
+					break
 
 /obj/machinery/door/proc/requiresID()
 	return 1

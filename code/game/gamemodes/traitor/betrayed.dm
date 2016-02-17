@@ -79,13 +79,14 @@
 
 /datum/game_mode/traitor/betrayed/proc/give_tc()
 	for(var/datum/mind/M in traitors)
-		if(M.special_role != "betrayed agent") continue
-		if(M.current && istype(M.current,/mob/living/carbon/human/) && M.current.stat != DEAD)
-			var/obj/item/device/uplink/hidden/H = M.find_syndicate_uplink()
-			if(H.uses < max_uplink_uses)
-				H.uses = Clamp(H.uses+2,0,max_uplink_uses)
-				max_uplink_uses -= 2
-				M.current << "<B>Your hidden uplink has been supplied additional points</B>"
+		if(M.special_role == "betrayed agent")
+			if(M.current && istype(M.current,/mob/living/carbon/human/) && M.current.stat != DEAD)
+				var/obj/item/device/uplink/hidden/H = M.find_syndicate_uplink()
+				if(H)
+					if(H.uses < max_uplink_uses)
+						H.uses = Clamp(H.uses+2,0,max_uplink_uses)
+						max_uplink_uses -= 2
+						M.current << "<B>Your hidden uplink has been supplied additional points</B>"
 
 
 

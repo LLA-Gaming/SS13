@@ -187,3 +187,43 @@
 	name = "\improper Portrait of Burt Lancaster"
 	desc = "This is a portrait of Burt Lancaster.  He's never actually been here.  It looks very nice."
 	icon_state = "burt"
+
+//direction signs
+/obj/structure/sign/directional
+	name = "\improper direction sign"
+	desc = "This sign tells you where to go"
+
+/obj/structure/sign/directional/bridge
+	name = "\improper bridge"
+	desc = "The bridge is located here"
+	icon_state = "direction_bridge"
+
+/obj/structure/sign/directional/eng
+	name = "\improper engineering"
+	desc = "Engineering is located here"
+	icon_state = "direction_eng"
+
+/obj/structure/sign/directional/supply
+	name = "\improper supply"
+	desc = "Supply is located here"
+	icon_state = "direction_supply"
+
+/obj/structure/sign/directional/sci
+	name = "\improper science"
+	desc = "Science is located here"
+	icon_state = "direction_sci"
+
+/obj/structure/sign/directional/sec
+	name = "\improper security"
+	desc = "Security is located here"
+	icon_state = "direction_sec"
+
+/obj/structure/sign/directional/med
+	name = "\improper medical"
+	desc = "The medbay is located here"
+	icon_state = "direction_med"
+
+/obj/structure/sign/directional/evac
+	name = "\improper evacuation"
+	desc = "The escape hallway is located here"
+	icon_state = "direction_evac"
