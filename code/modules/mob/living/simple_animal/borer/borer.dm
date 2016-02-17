@@ -48,7 +48,7 @@
 	..()
 	init_subtypes(/datum/borer_upgrade, upgrades)
 	real_name = "[pick("Pai","Bai","Zai","Dai")]'[pick("Luxar","Vorir","Kotar","Ranir")] [rand(1000,9999)]"
-	if(prob(100))
+	if(prob(5))
 		evil = 1
 	initialize_lists()
 	egg_timer = world.time + 3000
