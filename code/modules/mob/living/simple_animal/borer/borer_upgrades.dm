@@ -66,8 +66,8 @@
 
 /datum/borer_upgrade/armor
 	name = "Chitin Plates"
-	desc = "Evolve some chitin plates to make ourselves more resilent."
-	helptext = "Triples you health."
+	desc = "We evolve some chitin plates to make ourselves more resilent."
+	helptext = "Triples your health."
 	chem_cost = 100
 
 /datum/borer_upgrade/armor/on_purchase(var/mob/user)
@@ -79,7 +79,7 @@
 
 /datum/borer_upgrade/hard_armor
 	name = "Hardened Chitin Plates"
-	desc = "Evolve some hardened chitin plates to make ourselves more resilent."
+	desc = "We evolve some hardened chitin plates to make ourselves more resilent."
 	helptext = "Makes you immune to stomps and raises your health a bit."
 	chem_cost = 150
 	requirements = list("Chitin Plates")
@@ -97,7 +97,7 @@
 
 /datum/borer_upgrade/r_armor
 	name = "Reinforced Chitin Plates"
-	desc = "Evolve some reinforced chitin plates to make ourselves more resilent."
+	desc = "We evolve some reinforced chitin plates to make ourselves more resilent."
 	helptext = "Raises your health a bit."
 	chem_cost = 200
 	requirements = list("Hardened Chitin Plates")
@@ -207,7 +207,7 @@
 
 /datum/borer_upgrade/chem_storage
 	name = "Upgraded Chemical Storage"
-	desc = "Evolve a larger chemical gland."
+	desc = "We evolve a larger chemical gland."
 	helptext = "Allows you to store 300 chemicals instead of 200."
 	chem_cost = 150
 
