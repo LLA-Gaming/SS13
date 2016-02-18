@@ -128,7 +128,7 @@
 				if(1) //users list
 					dat += "<h3>NanoNet Profiles</h3>"
 					for(var/datum/nanonet_profile/P in server.profiles)
-						dat += "<br>@[P.username]"
+						dat += "<br> @[P.username] "
 				if(2) //"websites"
 					convertmentions = 0
 					dat += "<h3>NanoNet Document Database</h3>"
@@ -158,6 +158,13 @@
 							break
 					if(!auth)
 						var/t = copytext(sanitize(input("Create Profile", "Create Profile", null, null)  as text),1,18)
+						//quick sanity check
+						if(tablet.id && tablet.id.registered_name && tablet.id.assignment)
+							for(var/datum/nanonet_profile/P in server.profiles)
+								if(P.authentication == tablet.id)
+									auth = P
+									return
+						//quick sanity check end
 						if(t && tablet.id)
 							t = replacetext(t, "@", "")
 							for(var/datum/nanonet_profile/P in server.profiles)
