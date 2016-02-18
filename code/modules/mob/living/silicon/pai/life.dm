@@ -27,8 +27,17 @@
 		return
 	health = maxHealth - getBruteLoss() - getFireLoss()
 
-/mob/living/silicon/pai/proc/follow_pai()
-	while(card)
-		loc = get_turf(card)
-		sleep(5)
-	qdel(src) //if there's no pAI we shouldn't exist
+/mob/living/silicon/pai/proc/follow_pai(var/obj/item/device/paicard/paicard)
+	var/target = paicard
+	var/turf/pos = get_turf(src)
+	while(client)
+		while(loc == pos && target)
+			var/turf/T = get_turf(target)
+			if(loc != T)
+				loc = T
+			pos = loc
+			alpha = 0
+			mouse_opacity = 0
+			sleep(0.6)
+		sleep(4)
+
