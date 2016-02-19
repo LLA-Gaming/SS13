@@ -143,7 +143,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 					dat += {"<a href='byond://?src=\ref[src];choice=Network'>[core.neton ? "Network \[On\]" : "Network \[Off\]"]</a><br>"}
 					dat += {"<a href='byond://?src=\ref[src];choice=Light'>[fon ? "Flashlight \[On\]" : "Flashlight \[Off\]"]</a><br>"}
 					if(pai)
-						dat += {"<a href='byond://?src=\ref[src];choice=eject_pai'>Eject pAI[pai.pai ? ": [pai.pai]" : ""]</a><br>"}
+						dat += {"<a href='byond://?src=\ref[src];choice=eject_pai'>Eject pAI[pai.pai ? ": [pai.pai]" : ""]</a> <a href='byond://?src=\ref[src];choice=interact_pai'>pAI Menu</a><br>"}
 		var/device = "tablet"
 		if(laptop)
 			device = "laptop"
@@ -200,6 +200,9 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 				if(pai)
 					pai.loc = get_turf(src.loc)
 					pai = null
+			if("interact_pai")//Rather than shoot the pAI onto the floor, lets just interact with it while it is in the tablet...
+				if(pai)
+					pai.attack_self(U)
 
 		if(core && core.loaded)
 			core.loaded.use_app()
