@@ -11,10 +11,12 @@
 	var/mob/living/silicon/pai/pai
 	var/emagged = 0
 	var/datum/browser/popup = null
+	var/cant_search = null //can't search for pAIs again before the world has reached this time.
 
 /obj/item/device/paicard/New()
 	..()
 	overlays += "pai-off"
+	cant_search = world.timeofday
 
 /obj/item/device/paicard/Destroy()
 	//Will stop people throwing friend pAIs into the singularity so they can respawn
@@ -42,7 +44,7 @@
 						DNA: [pai.master_dna]<br>
 						"}
 			dat += {"
-					Installed Personality: [pai.name]<br>
+					Installed Personality: [pai.name] <a href='byond://?src=\ref[src];choice=WIPE'>WIPE</a><br>
 					<a href='byond://?src=\ref[src];choice=Law'>Configure Directives</a><br>
 					</center>
 					</div>
@@ -60,9 +62,6 @@
 				dat += "Receive: <A href='byond://?src=\ref[src];wires=[WIRE_RECEIVE]'>[(radio.wires.IsIndexCut(WIRE_RECEIVE)) ? "Disabled" : "Enabled"]</A><br>"
 			else
 				dat += "<font color=red><i>Radio firmware not loaded. Please install a pAI personality to load firmware.</i></font><br>"
-
-			dat += "<a href='byond://?src=\ref[src];choice=WIPE'>WIPE pAI DEVICE</a><br>"
-
 
 		else
 			dat += "<a href='byond://?src=\ref[src];choice=Search'>Request pAI Personality</a><br>"
@@ -108,8 +107,10 @@
 		U.set_machine(src)
 		switch(href_list["choice"])//Now we switch based on choice.
 			if ("Search")
-				paiController.requestRecruits()
-				src.looking_for_personality = 1
+				if(world.timeofday >= cant_search)
+					cant_search = world.timeofday + 30 * 10
+					paiController.requestRecruits()
+					src.looking_for_personality = 1
 			if ("SetDNA")
 				if(pai)
 					if(pai.master_dna)
