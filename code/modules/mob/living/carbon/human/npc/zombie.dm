@@ -319,7 +319,7 @@
 		B.detach()
 		B.host = Z
 		B.attach()
-		B << "<span class='warning'>You notice that your host's brain activity has almost completely stopped, but an unnatural hunger keeps your host's body moving.</span>"
+		B << "<span class='warning'>You notice that your host's brain activity has almost completely stopped, but an unnatural hunger keeps the body moving.</span>"
 
 	src << "You feel the life slowly slip away from you as you join the army of the undead.."
 
