@@ -274,63 +274,74 @@
 		if(5)
 			affected_mob.toxloss += 10
 			affected_mob.updatehealth()
-			affected_mob << "You feel the life slowly slip away from you as you join the army of the undead.."
 			affected_mob:Zombify()
 
 
 /mob/living/carbon/human/proc/Zombify()
 	src.update_icons()
-	var/mob/living/carbon/human/npc/zombie/O = new/mob/living/carbon/human/npc/zombie( src.loc )
+	var/mob/living/carbon/human/npc/zombie/Z = new/mob/living/carbon/human/npc/zombie(src.loc)
 	//Yay, Zombie!
-	O.name = name
-	O.hair_color = hair_color
-	O.hair_style = hair_style
-	O.facial_hair_color = facial_hair_color
-	O.facial_hair_style = facial_hair_style
-	O.eye_color = eye_color
-	O.skin_tone = skin_tone
-	O.age = age
+	Z.name = name
+	Z.hair_color = hair_color
+	Z.hair_style = hair_style
+	Z.facial_hair_color = facial_hair_color
+	Z.facial_hair_style = facial_hair_style
+	Z.eye_color = eye_color
+	Z.skin_tone = skin_tone
+	Z.dna.mutantrace = dna.mutantrace
+	Z.age = age
 
-	O.real_name = real_name
+	Z.real_name = real_name
 
-	O.wear_mask = wear_mask
-	O.l_hand = l_hand
-	O.r_hand = r_hand
-	O.wear_suit = wear_suit
-	O.w_uniform = w_uniform
-//	O.w_radio = null
-	O.shoes = shoes
-	O.belt = belt
-	O.gloves = gloves
-	O.glasses = glasses
-	O.head = head
-	O.ears = ears
-	O.wear_id = wear_id
-	O.r_store = r_store
-	O.l_store = l_store
-	O.back = back
-	O.contents = contents
+	Z.wear_mask = wear_mask
+	Z.l_hand = l_hand
+	Z.r_hand = r_hand
+	Z.wear_suit = wear_suit
+	Z.w_uniform = w_uniform
+//	Z.w_radio = null
+	Z.shoes = shoes
+	Z.belt = belt
+	Z.gloves = gloves
+	Z.glasses = glasses
+	Z.head = head
+	Z.ears = ears
+	Z.wear_id = wear_id
+	Z.r_store = r_store
+	Z.l_store = l_store
+	Z.back = back
 
-	O.base_icon_state = base_icon_state
-//	O.lying_icon = lying_icon
+	Z.update_icons()
+	Z.update_body()
+	Z.update_hair()
+	Z.loc = src.loc
 
-//	O.last_b_state = last_b_state
+	for(var/mob/living/simple_animal/borer/B in contents)
+		B.detach()
+		B.host = Z
+		B.attach()
+		B << "<span class='warning'>You notice that your host's brain activity has almost completely stopped, but an unnatural hunger keeps your host's body moving.</span>"
 
-//	O.face_standing = face_standing
-//	O.face_lying = face_lying
+	src << "You feel the life slowly slip away from you as you join the army of the undead.."
 
-//	O.hair_icon_state = hair_icon_state
-//	O.face_icon_state = face_icon_state
+	for(var/obj/O in contents)
+		Z.contents += O
+		O.loc = Z
 
-//	O.damageicon_standing = damageicon_standing
-//	O.damageicon_lying = damageicon_lying
-	O.contents = contents
+	Z.base_icon_state = base_icon_state
+//	Z.lying_icon = lying_icon
 
-	for(var/obj/Q in src)
-		Q.loc = O
-	O.update_icons()
+//	Z.last_b_state = last_b_state
+
+//	Z.face_standing = face_standing
+//	Z.face_lying = face_lying
+
+//	Z.hair_icon_state = hair_icon_state
+//	Z.face_icon_state = face_icon_state
+
+//	Z.damageicon_standing = damageicon_standing
+//	Z.damageicon_lying = damageicon_lying
+
 	src.ghostize()
-	O.loc = src.loc
 	qdel(src)
 	return
 
