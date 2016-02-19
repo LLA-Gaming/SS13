@@ -395,8 +395,9 @@ What are the archived variables for?
 	share(datum/gas_mixture/sharer, var/atmos_adjacent_turfs = 4)
 		if(!sharer)	return 0
 		var/tmp/list/delta = list()
+		var/tmp/list/sharedgas_archive = sharer.gasses_archived
 
-		for (var/tmp/G in sharer.gasses_archived)
+		for (var/tmp/G in sharedgas_archive)
 			delta[G] = QUANTIZE((gasses_archived[G] - sharer.gasses_archived[G])/(atmos_adjacent_turfs+1))
 
 		var/tmp/delta_temperature = (temperature_archived - sharer.temperature_archived)
