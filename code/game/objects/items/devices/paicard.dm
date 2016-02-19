@@ -11,12 +11,10 @@
 	var/mob/living/silicon/pai/pai
 	var/emagged = 0
 	var/datum/browser/popup = null
-	var/cant_search = null //can't search for pAIs again before the world has reached this time.
 
 /obj/item/device/paicard/New()
 	..()
 	overlays += "pai-off"
-	cant_search = world.timeofday
 
 /obj/item/device/paicard/Destroy()
 	//Will stop people throwing friend pAIs into the singularity so they can respawn
@@ -64,7 +62,6 @@
 				dat += "<font color=red><i>Radio firmware not loaded. Please install a pAI personality to load firmware.</i></font><br>"
 
 		else
-			dat += "<a href='byond://?src=\ref[src];choice=Search'>Request pAI Personality</a><br>"
 			if(looking_for_personality)
 				dat += "Requesting AI personalities from central database... If there are no entries, or if a suitable entry is not listed, check again later as more personalities may be added."
 				var/list/available = list()
@@ -87,6 +84,8 @@
 					dat += "<tr class=\"d2\"><td><a href='byond://?src=\ref[paiController];download=1;candidate=\ref[c];device=\ref[src]'>\[Download [c.name]\]</a></td><td></td></tr>"
 
 				dat += "</table>"
+			else
+				dat += "<a href='byond://?src=\ref[src];choice=Search'>Request pAI Personality</a><br>"
 
 		popup = new(user, "paicard", "[src]")
 		popup.set_content(dat)
@@ -107,10 +106,8 @@
 		U.set_machine(src)
 		switch(href_list["choice"])//Now we switch based on choice.
 			if ("Search")
-				if(world.timeofday >= cant_search)
-					cant_search = world.timeofday + 30 * 10
-					paiController.requestRecruits()
-					src.looking_for_personality = 1
+				paiController.requestRecruits()
+				src.looking_for_personality = 1
 			if ("SetDNA")
 				if(pai)
 					if(pai.master_dna)
