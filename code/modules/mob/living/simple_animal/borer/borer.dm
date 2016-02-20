@@ -222,3 +222,11 @@
 	for(var/datum/objective/objective in Mind.objectives)
 		src << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++
+
+/mob/living/simple_animal/borer/proc/check_assume_braindead(var/mob/M)
+	if(!host)
+		return 0
+	if(M == host)
+		return 1
+	else
+		return 0
