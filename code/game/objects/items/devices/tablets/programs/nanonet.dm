@@ -18,7 +18,6 @@
 		if(!server)
 			dat += "ERROR: No connection found"
 			return
-		var/convertmentions = 0
 		if(!auth)
 			dat += "<center>"
 			dat += "<h3>NanoNet</h3>"
@@ -40,9 +39,9 @@
 			dat += "</center>"
 			return
 
-		dat += "<a href='byond://?src=\ref[src];choice=logout'>Logout</a> - @[auth.username]<br>"
+		dat += "<a href='byond://?src=\ref[src];choice=logout'>Logout</a> - @[auth.username] <br>"
 		if(displayed_post && !(displayed_post in server.statuses)) //new post
-			dat += "<div class='statusDisplay'>@[auth.username]: [displayed_post.message]<br>"
+			dat += "<div class='statusDisplay'>@[auth.username] - [displayed_post.message]<br>"
 			if(displayed_post.photo)
 				var/datum/tablet_data/photo/P = displayed_post.photo
 				usr << browse_rsc(P.photoinfo, "tmp_photo.png")
@@ -60,9 +59,8 @@
 				dat += D.doc
 			dat += "</div'>"
 		else if(displayed_post)
-			convertmentions = 1
 			dat += "<a href='byond://?src=\ref[src];choice=cancel'>\<--</a><br>"
-			dat += "<div class='statusDisplay'>[displayed_post.timestamp] - @[displayed_post.author]: [displayed_post.message]<br>"
+			dat += "<div class='statusDisplay'>[displayed_post.timestamp] - @[displayed_post.author] - [displayed_post.message]<br>"
 			if(displayed_post.photo)
 				var/datum/tablet_data/photo/P = displayed_post.photo
 				usr << browse_rsc(P.photoinfo, "tmp_photo.png")
@@ -78,7 +76,6 @@
 				dat += "[X]<br>"
 			dat += "</div>"
 		else if(displayed_profile)
-			convertmentions = 1
 			dat += "<a href='byond://?src=\ref[src];choice=cancel'>\<--</a><br>"
 			var/is_followed = (auth in displayed_profile.followers)
 			dat += "@[displayed_profile.username] - <a href='byond://?src=\ref[src];choice=follow;profile=\ref[displayed_profile]'>[is_followed ? "Unfollow" : "Follow"]</a>"
@@ -87,13 +84,12 @@
 			dat += "<br>Posts:<br>"
 			for(var/datum/nanonet_message/M in server.statuses)
 				if(M.author != displayed_profile.username) continue
-				dat += "<div class='statusDisplay'>@[M.author]: [M.message] ([M.liked.len] likes) ([M.comments.len] comments)"
+				dat += "<div class='statusDisplay'>@[M.author] - [M.message] ([M.liked.len] likes) ([M.comments.len] comments)"
 				if(M.photo)
 					dat += "<br>\<File Attached\>"
 				dat += "<br><a href='byond://?src=\ref[src];choice=view_post;post=\ref[M]'>View</a>"
 				dat += "</div>"
 		else if(displayed_hashtag)
-			convertmentions = 1
 			dat += "<a href='byond://?src=\ref[src];choice=cancel'>\<--</a><br>"
 			var/is_followed = (auth in displayed_hashtag.followers)
 			dat += "#[displayed_hashtag.hashtag] - <a href='byond://?src=\ref[src];choice=follow;profile=\ref[displayed_profile]'>[is_followed ? "Unfollow" : "Follow"]</a>"
@@ -104,13 +100,12 @@
 					if(lowertext(X) == lowertext(displayed_hashtag.hashtag))
 						contains_hashtag = 1
 				if(!contains_hashtag) continue
-				dat += "<div class='statusDisplay'>@[M.author]: [M.message] ([M.liked.len] likes) ([M.comments.len] comments)"
+				dat += "<div class='statusDisplay'>@[M.author] - [M.message] ([M.liked.len] likes) ([M.comments.len] comments)"
 				if(M.photo)
 					dat += "<br>\<File Attached\>"
 				dat += "<br><a href='byond://?src=\ref[src];choice=view_post;post=\ref[M]'>View</a>"
 				dat += "</div>"
 		else
-			convertmentions = 1
 			dat += "<br><a href='byond://?src=\ref[src];mode=0'>Feed</a> | "
 			dat += "<a href='byond://?src=\ref[src];mode=1'>Profiles</a> | "
 			dat += "<a href='byond://?src=\ref[src];mode=2'>Documents</a><br>"
@@ -120,7 +115,7 @@
 					dat += "<a href='byond://?src=\ref[src];choice=add_status'>Create New Post</a><br>"
 					dat += "Recent Posts:<br>"
 					for(var/datum/nanonet_message/M in server.statuses)
-						dat += "<div class='statusDisplay'>@[M.author]: [M.message] ([M.liked.len] likes) ([M.comments.len] comments)"
+						dat += "<div class='statusDisplay'>@[M.author] - [M.message] ([M.liked.len] likes) ([M.comments.len] comments)"
 						if(M.photo)
 							dat += "<br>\<File Attached\>"
 						dat += "<br><a href='byond://?src=\ref[src];choice=view_post;post=\ref[M]'>View</a>"
@@ -130,13 +125,10 @@
 					for(var/datum/nanonet_profile/P in server.profiles)
 						dat += "<br> @[P.username] "
 				if(2) //"websites"
-					convertmentions = 0
 					dat += "<h3>NanoNet Document Database</h3>"
 					dat += "<br><a href='byond://?src=\ref[src];choice=upload'>Upload</a><br><br>"
 					for(var/datum/tablet_data/document/D in server.pages)
 						dat += "<br><a href='byond://?src=\ref[src];choice=view_doc;post=\ref[D]'>[D.name]</a>"
-		if(convertmentions)
-			dat = mention2url(dat,server)
 
 	Topic(href, href_list)
 		if (!..()) return
@@ -442,73 +434,6 @@
 
 		use_app()
 		tablet.attack_self(usr)
-
-
-	proc/mention2url(var/data, var/obj/machinery/nanonet_server/server)
-		//gather mentions
-		var/list/mentioned = list()
-		var/msg = html_decode(lowertext(data))
-		var/leng = lentext(msg)
-		var/counter =1
-		var/current
-		var/list/skip_me_txt = list()
-		while(counter<=leng)
-			current = copytext(msg, counter , counter+1)
-			if(current == "@")
-				var/tend = findtext(msg," ",counter,leng+1)
-				var/mentioned_text = copytext(msg,counter+1,tend)
-				for(var/i=0, i<=255, i++)
-					switch(i)
-						// A  .. Z
-						if(65 to 90) continue //Uppercase Letters
-						// a  .. z
-						if(97 to 122) continue //Lowercase Letters
-						// 0  .. 9
-						if(48 to 57) continue //Numbers
-						// _
-						if(95) continue // underscore
-					mentioned_text = replacetext(mentioned_text,ascii2text(i)," ")
-				//after strip
-				var/tend_2 = findtext(mentioned_text," ",1,length(mentioned_text))
-				mentioned_text = copytext(mentioned_text,1,tend_2)
-				if(mentioned_text in skip_me_txt)
-					counter++
-					continue
-				skip_me_txt.Add(mentioned_text)
-				var/datum/nanonet_profile/target
-				for(var/datum/nanonet_profile/N in server.profiles)
-					if(N)
-						if(lowertext(N.username) == lowertext(mentioned_text))
-							mentioned.Add(lowertext(N.username))
-							target = N
-							break
-				if(target)
-					data = replacetext(data, "@[target.username]", "<a href='byond://?src=\ref[src];choice=view_profile;post=\ref[target]'>@[target.username]</a>")
-			if(current == "#")
-				var/tend = findtext(msg," ",counter,leng+1)
-				var/mentioned_text = copytext(msg,counter+1,tend)
-				for(var/i=0, i<=255, i++)
-					switch(i)
-						// A  .. Z
-						if(65 to 90) continue //Uppercase Letters
-						// a  .. z
-						if(97 to 122) continue //Lowercase Letters
-						// 0  .. 9
-						if(48 to 57) continue //Numbers
-						// _
-						if(95) continue // underscore
-					mentioned_text = replacetext(mentioned_text,ascii2text(i)," ")
-				//after strip
-				var/tend_2 = findtext(mentioned_text," ",1,length(mentioned_text))
-				mentioned_text = copytext(mentioned_text,1,tend_2)
-				if(lowertext(mentioned_text) in skip_me_txt)
-					counter++
-					continue
-				skip_me_txt.Add(lowertext(mentioned_text))
-				data = replacetext(data, "#[mentioned_text]", "<a href='byond://?src=\ref[src];choice=view_hashtag;post=[mentioned_text]'>#[mentioned_text]</a>")
-			counter++
-        //end mentions
-		return data
 
 //nanonet datums
 /datum/nanonet_profile/
