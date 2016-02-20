@@ -11,6 +11,10 @@
 			if(M.ckey == "@[ckey]") continue // Skip over aghosted bodies
 			if(M == src)	continue
 			if( M.key && (M.key != key) )
+				if(isborer(M) && !M.client) continue
+				if(isborer(src) && !M.client) continue
+				if(isborer(M) && !src.client) continue
+				if(isborer(src) && !src.client) continue
 				var/matches
 				if( (M.lastKnownIP == lastKnownIP) )
 					matches += "IP ([lastKnownIP])"
