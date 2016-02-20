@@ -467,7 +467,10 @@
 						if(48 to 57) continue //Numbers
 						// _
 						if(95) continue // underscore
-					mentioned_text = replacetext(mentioned_text,ascii2text(i),"")
+					mentioned_text = replacetext(mentioned_text,ascii2text(i)," ")
+				//after strip
+				var/tend_2 = findtext(mentioned_text," ",1,length(mentioned_text))
+				mentioned_text = copytext(mentioned_text,1,tend_2)
 				if(mentioned_text in skip_me_txt)
 					counter++
 					continue
@@ -483,7 +486,7 @@
 					data = replacetext(data, "@[target.username]", "<a href='byond://?src=\ref[src];choice=view_profile;post=\ref[target]'>@[target.username]</a>")
 			if(current == "#")
 				var/tend = findtext(msg," ",counter,leng+1)
-				var/mentioned_text = copytext(msg,counter,tend)
+				var/mentioned_text = copytext(msg,counter+1,tend)
 				for(var/i=0, i<=255, i++)
 					switch(i)
 						// A  .. Z
@@ -494,11 +497,14 @@
 						if(48 to 57) continue //Numbers
 						// _
 						if(95) continue // underscore
-					mentioned_text = replacetext(mentioned_text,ascii2text(i),"")
-				if(mentioned_text in skip_me_txt)
+					mentioned_text = replacetext(mentioned_text,ascii2text(i)," ")
+				//after strip
+				var/tend_2 = findtext(mentioned_text," ",1,length(mentioned_text))
+				mentioned_text = copytext(mentioned_text,1,tend_2)
+				if(lowertext(mentioned_text) in skip_me_txt)
 					counter++
 					continue
-				skip_me_txt.Add(mentioned_text)
+				skip_me_txt.Add(lowertext(mentioned_text))
 				data = replacetext(data, "#[mentioned_text]", "<a href='byond://?src=\ref[src];choice=view_hashtag;post=[mentioned_text]'>#[mentioned_text]</a>")
 			counter++
         //end mentions
