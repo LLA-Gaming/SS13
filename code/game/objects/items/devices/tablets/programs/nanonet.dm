@@ -284,6 +284,7 @@
 										if(!(T in skip_me))
 											T.alert_self("NanoNet:","@[auth.username] mentioned you in a status: [displayed_post.message]","nanonet")
 										skip_me.Add(T)
+						log_pda("[usr.key] (tablet: [tablet.owner]) posted to nanonet [displayed_post.message]")
 						displayed_post = null
 						spawn(300)
 							auth.post_cooldown = 0
@@ -407,6 +408,7 @@
 						var/list/skip_me = list()
 						displayed_post.comments.Insert(1,"[worldtime2text()] - @[auth.username]</a>: [draft_plain]")
 						displayed_post.comments_links.Insert(1,"[worldtime2text()] - @[auth.username]</a>: [draft_links]")
+						log_pda("[usr.key] (tablet: [tablet.owner]) commented to nanonet [draft_plain]")
 						for(var/obj/item/device/tablet/T in tablets_list)
 							var/datum/program/nanonet/N = locate(/datum/program/nanonet) in T.core.programs
 							if(N)
