@@ -4,6 +4,10 @@
 	var/icon/photo = null
 	var/data_type = "Data"
 
+	New()
+		..()
+		name = "[initial(name)] #[rand(0,65536)]"
+
 /datum/tablet_data/document
 	name = "Untitled Document"
 	data_type = "Document"
@@ -15,6 +19,7 @@
 	var/deffont = "Verdana"
 	var/signfont = "Times New Roman"
 	var/crayonfont = "Comic Sans MS"
+	var/uploaded_by = null //nanonet
 
 /datum/tablet_data/program
 	name = "Untitled Program"

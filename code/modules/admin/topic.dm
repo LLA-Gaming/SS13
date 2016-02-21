@@ -2284,3 +2284,21 @@
 		var/obj/pod/pod = locate(href_list["view_pod_debug"])
 		if(pod && istype(pod))
 			pod.OpenDebugMenu(owner.mob)
+
+	else if(href_list["nanonet_removepage"])
+		var/obj/machinery/nanonet_server/server = locate(/obj/machinery/nanonet_server) in nanonet_servers
+		var/datum/tablet_data/document/D = locate(href_list["nanonet_removepage"]) in server.pages
+		if(server && D)
+			server.pages.Remove(D)
+		nanonet_adminpanel()
+
+	else if(href_list["nanonet_removecomment"])
+		var/obj/machinery/nanonet_server/server = locate(/obj/machinery/nanonet_server) in nanonet_servers
+		var/comment = text2num(href_list["comment"])
+		var/datum/nanonet_message/M = locate(href_list["nanonet_removecomment"]) in server.statuses
+		if(comment)
+			var/remove = M.comments[comment]
+			M.comments.Remove(remove)
+		else
+			qdel(M)
+		nanonet_adminpanel()
