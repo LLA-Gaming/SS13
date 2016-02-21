@@ -42,6 +42,7 @@
 		else if(host)
 			src << "<i><span class='name'>You speak to your host:</span> <span class='message'>[message]</span></i>"
 			host << "<i><span class='name'>An unknown voice in your head says,</span> <span class='message'>[message]</span></i>"
+			if(key) log_say("[real_name] as [name]/[key] : [message]")
 		else
 			return
 
