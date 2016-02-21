@@ -39,7 +39,10 @@
 
 		var/list/tocheck = list(found.r_hand, found.l_hand)
 		if(istype(found, /mob/living/carbon/human))
-			tocheck += list(found:l_store, found:r_store)
+			tocheck += list(found:l_store, found:r_store, found:s_store , found:belt)
+
+			for(var/obj/item/I in found:internal_organs)
+				tocheck += I
 
 		if(!(last in tocheck))
 			return 0
