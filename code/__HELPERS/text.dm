@@ -351,6 +351,12 @@ var/list/binary = list("0","1")
 	else
 		. += copytext(into, start, end)
 
+/proc/get_chem_id(var/chem_name)
+	for(var/datum/reagent/R in reagent_defines)
+		if(R.name == chem_name)
+			return R.id
+	return
+
 //finds the first occurrence of one of the characters from needles argument inside haystack
 //it may appear this can be optimised, but it really can't. findtext() is so much faster than anything you can do in byondcode.
 //stupid byond :(

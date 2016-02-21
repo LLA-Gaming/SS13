@@ -363,7 +363,7 @@ var/list/department_radio_keys = list(
 		if(hascall(M,"say_understands"))
 			if(istype(M,/mob/living/simple_animal/borer))
 				var/mob/living/simple_animal/borer/B = M
-				if(!B.host)
+				if(!B.host && !B.hear_augment)
 					continue
 
 			if(M:say_understands(src))

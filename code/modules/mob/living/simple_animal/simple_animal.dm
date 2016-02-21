@@ -160,7 +160,8 @@
 	var/atom/A = src.loc
 	if(isturf(A))
 		var/turf/T = A
-		var/areatemp = T.temperature
+		var/datum/gas_mixture/environment = T.return_air()
+		var/areatemp = environment.temperature
 		if( abs(areatemp - bodytemperature) > 40 )
 			var/diff = areatemp - bodytemperature
 			diff = diff / 5
