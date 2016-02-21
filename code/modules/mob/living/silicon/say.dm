@@ -45,7 +45,7 @@
 //For holopads only. Usable by AI.
 /mob/living/silicon/ai/proc/holopad_talk(var/message)
 
-	log_say("[key_name(src)] : [message]")
+	if(key) log_say("[key_name(src)] : [message]")
 
 	message = trim(message)
 
@@ -86,7 +86,7 @@
 
 /mob/living/proc/robot_talk(var/message)
 
-	log_say("[key_name(src)] : [message]")
+	if(key) log_say("[key_name(src)] : [message]")
 
 	message = trim(message)
 

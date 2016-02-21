@@ -53,7 +53,7 @@
 
 /mob/living/simple_animal/borer/proc/borer_talk(var/message)
 
-	log_say("[real_name] as [name]/[key] : [message]")
+	if(key) log_say("[real_name] as [name]/[key] : [message]")
 	message = trim(message)
 	message = say_quote(message)
 

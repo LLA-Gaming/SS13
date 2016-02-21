@@ -52,7 +52,7 @@ Doesn't work on other aliens/AI.*/
 		adjustToxLoss(-10)
 		var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
 		if(msg)
-			log_say("AlienWhisper: [key_name(src)]->[M.key] : [msg]")
+			if(key) log_say("AlienWhisper: [key_name(src)]->[M.key] : [msg]")
 			M << "\green You hear a strange, alien voice in your head... \italic [msg]"
 			src << {"\green You said: "[msg]" to [M]"}
 	return

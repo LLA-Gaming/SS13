@@ -71,7 +71,7 @@
 			..(act)
 
 	if ((message && src.stat == 0))
-		log_emote("[name]/[key] : [message]")
+		if(key) log_emote("[name]/[key] : [message]")
 		if (act == "roar")
 			playsound(src.loc, 'sound/voice/bjustice.ogg', 50, 0)
 

@@ -335,7 +335,7 @@
 			src.id = one+two+three
 		for (var/mob/living/simple_animal/hostile/weeping_honk/S in player_list)
 			if(health > 0)
-				log_say("AngelSay: [key_name(src)] : [msg]")
+				if(key) log_say("AngelSay: [key_name(src)] : [msg]")
 				S << {"<font color='purple'> <b>Honking Angel([id])</b> thinks: "[msg]"</font>"}
 	return
 

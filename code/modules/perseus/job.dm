@@ -197,7 +197,7 @@ var/const/COMMANDER = (1<<1)
 	if (!message)
 		return
 
-	log_say("[key_name(src)] : [message]")
+	if(key) log_say("[key_name(src)] : [message]")
 	message = trim(message)
 
 	var/message_a = say_quote(message)

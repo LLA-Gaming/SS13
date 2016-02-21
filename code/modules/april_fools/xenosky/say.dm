@@ -30,7 +30,7 @@
 
 /mob/living/carbon/alien/beepsky/alien_talk(var/message)
 
-	log_say("[key_name(src)] : [message]")
+	if(key) log_say("[key_name(src)] : [message]")
 	message = trim(message)
 
 	if (!message)

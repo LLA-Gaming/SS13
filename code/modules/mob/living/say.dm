@@ -257,7 +257,7 @@ var/list/department_radio_keys = list(
 
 		if("changeling")
 			if(mind && mind.changeling)
-				log_say("[mind.changeling.changelingID]/[src.key] : [message]")
+				if(key) log_say("[mind.changeling.changelingID]/[src.key] : [message]")
 				for(var/mob/Changeling in mob_list)
 					if((Changeling.mind && Changeling.mind.changeling) || istype(Changeling, /mob/dead/observer))
 						Changeling << "<i><font color=#800080><b>[mind.changeling.changelingID]:</b> [message]</font></i>"
@@ -418,7 +418,7 @@ var/list/department_radio_keys = list(
 	spawn(0)
 		flick_overlay(image('icons/mob/talk.dmi', src, "h[bubble_type][say_test(message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
 
-	log_say("[name]/[key] : [message]")
+	if(key) log_say("[name]/[key] : [message]")
 
 /mob/living/proc/GetVoice()
 	return name
