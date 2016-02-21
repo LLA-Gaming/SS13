@@ -19,6 +19,7 @@
 	var/deffont = "Verdana"
 	var/signfont = "Times New Roman"
 	var/crayonfont = "Comic Sans MS"
+	var/uploaded_by = null //nanonet
 
 /datum/tablet_data/program
 	name = "Untitled Program"
