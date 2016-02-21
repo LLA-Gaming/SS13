@@ -92,7 +92,7 @@
 					return
 		if (disabilities & TOURETTES)
 			if ((prob(10) && paralysis <= 1))
-				Stun(10)
+				Stun(2)
 				spawn( 0 )
 					emote("twitch")
 					return

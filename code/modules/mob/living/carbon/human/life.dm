@@ -141,7 +141,7 @@
 				emote("cough")
 		if (disabilities & TOURETTES)
 			if ((prob(10) && paralysis <= 1))
-				Stun(10)
+				Stun(2)
 				switch(rand(1, 3))
 					if(1)
 						emote("twitch")
