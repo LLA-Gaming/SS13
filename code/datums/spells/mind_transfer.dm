@@ -68,8 +68,15 @@ Also, you never added distance checking after target is selected. I've went ahea
 		for(var/V in victim.mind.special_verbs)
 			victim.verbs -= V
 
+	var/casterCKEY = caster.ckey
+	var/victimCKEY = victim.ckey
+	var/casterKEY = caster.key
+	var/victimKEY = victim.key
+
 	var/mob/dead/observer/victim_ghost = victim.ghostize(1)
 	var/mob/dead/observer/caster_ghost = caster.ghostize(1)
+
+	prepare_mind_swap(caster, victim)
 
 	victim_ghost.mind.transfer_to(caster)
 	caster_ghost.mind.transfer_to(victim)
@@ -84,4 +91,28 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 	caster.key = victim_ghost.key
 	victim.key = caster_ghost.key
+
+	if(!caster.client && !caster.ckey)
+		caster.ckey = victimCKEY
+		caster.key = victimKEY
+	if(!victim.client && !victim.ckey)
+		victim.ckey = casterCKEY
+		victim.key = casterKEY
 	//MIND TRANSFER END
+
+/proc/prepare_mind_swap(var/mob/caster, var/mob/victim)
+	if(!caster.client || !victim.client)
+		var/casterIP = caster.lastKnownIP
+		var/casterCID = caster.computer_id
+		var/victimIP = victim.lastKnownIP
+		var/victimCID = victim.computer_id
+
+		caster.lastKnownIP = null
+		caster.computer_id = null
+		victim.lastKnownIP = null
+		victim.computer_id = null
+
+		caster.lastKnownIP = victimIP
+		caster.computer_id = victimCID
+		victim.lastKnownIP = casterIP
+		victim.computer_id = casterCID
