@@ -1,25 +1,25 @@
 /mob/living/simple_animal/borer/proc/initialize_lists()
 
 	if(evil)
-		detached += list(/mob/living/simple_animal/borer/proc/instill_fear)
+		detached |= list(/mob/living/simple_animal/borer/proc/instill_fear)
 
-		attached += list(/mob/living/simple_animal/borer/proc/assume_control)
+		attached |= list(/mob/living/simple_animal/borer/proc/assume_control)
 
-		chems += list("Impedrezene","Lexorin","Mindbreaker","Toxin")
+		chems |= list("Impedrezene","Lexorin","Mindbreaker","Toxin")
 
 
-	detached += list(/mob/living/simple_animal/borer/proc/infest,
+	detached |= list(/mob/living/simple_animal/borer/proc/infest,
 					 /mob/living/simple_animal/borer/proc/hide,
 					 /mob/living/simple_animal/borer/proc/reproduce,
 					 /mob/living/simple_animal/borer/proc/build_nest)
 
-	attached += list(/mob/living/simple_animal/borer/proc/abandon_host,
+	attached |= list(/mob/living/simple_animal/borer/proc/abandon_host,
 					 /mob/living/simple_animal/borer/proc/secrete_chems,
 					 /mob/living/simple_animal/borer/proc/adrenalin,
 					 /mob/living/simple_animal/borer/proc/paralyze,
 					 /mob/living/simple_animal/borer/proc/suck)
 
-	chems += list("Kelotane","Bicaridine","Hyronalin","Imidazoline","Ethylredoxrazine","Anti-Toxin (Dylovene)","Cancel") // This uses the 'exact' chem name.
+	chems |= list("Kelotane","Bicaridine","Hyronalin","Imidazoline","Ethylredoxrazine","Anti-Toxin (Dylovene)","Cancel") // This uses the 'exact' chem name.
 
 // Available verbs when detached //
 
