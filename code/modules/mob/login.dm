@@ -11,14 +11,6 @@
 			if(M.ckey == "@[ckey]") continue // Skip over aghosted bodies
 			if(M == src)	continue
 			if(M.key && (M.key != key))
-				if(isborer(src))
-					var/mob/living/simple_animal/borer/B = src
-					var/check = B.check_assume_braindead(M)
-					if(check) continue
-				if(isborer(M))
-					var/mob/living/simple_animal/borer/B = M
-					var/check = B.check_assume_braindead(src)
-					if(check) continue
 				var/matches
 				if( (M.lastKnownIP == lastKnownIP) )
 					matches += "IP ([lastKnownIP])"
