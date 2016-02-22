@@ -150,6 +150,10 @@
 /mob/living/silicon/robot/RangedAttack(atom/A)
 	A.attack_robot(src)
 
+/turf/attack_robot(mob/user as mob)
+	if(istype(src) && get_dist(user,src) <= 1)
+		user.Move_Pulled(src)
+
 /atom/proc/attack_robot(mob/user as mob)
 	attack_ai(user)
 	return

@@ -26,7 +26,7 @@
 	return 0
 
 /mob/living/carbon/human/RangedAttack(var/atom/A)
-	if(!gloves && !mutations.len) return
+	if(!gloves && !mutations.len && !istype(A,/turf)) return
 	var/obj/item/clothing/gloves/G = gloves
 	if((LASER in mutations) && a_intent == "harm")
 		LaserEyes(A) // moved into a proc below
@@ -36,6 +36,10 @@
 
 	else if(TK in mutations)
 		A.attack_tk(src)
+
+	var/turf/T = A
+	if(istype(T) && get_dist(src,T) <= 1)
+		src.Move_Pulled(T)
 
 /*
 	Animals & All Unspecified
