@@ -7,6 +7,9 @@
 	if (!message)
 		return
 
+	if (scrying)
+		return
+
 	if(key) log_say("Ghost/[src.key] : [message]")
 
 	if (src.client)

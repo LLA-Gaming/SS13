@@ -74,7 +74,7 @@ Transfer_mind is there to check if mob is being deleted/not going to have a body
 Works together with spawning an observer, noted above.
 */
 
-/mob/proc/ghostize(var/can_reenter_corpse = 1)
+/mob/proc/ghostize(var/can_reenter_corpse = 1, var/scrying = 0)
 	if(key)
 		if(!cmptext(copytext(key,1,2),"@")) //aghost
 			//Firedome check
@@ -88,6 +88,7 @@ Works together with spawning an observer, noted above.
 			var/mob/dead/observer/ghost = new(src)	//Transfer safety to observer spawning proc.
 			ghost.can_reenter_corpse = can_reenter_corpse
 			ghost.key = key
+			ghost.scrying = scrying
 			return ghost
 
 /*

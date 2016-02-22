@@ -93,5 +93,5 @@
 /obj/item/weapon/scrying/attack_self(mob/user as mob)
 	user << "\blue You can see...everything!"
 	visible_message("\red <B>[usr] stares into [src], their eyes glazing over.</B>")
-	user.ghostize(1)
+	user.ghostize(1,1)
 	return

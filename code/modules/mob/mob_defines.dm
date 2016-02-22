@@ -126,6 +126,8 @@
 	var/voice_message = null // When you are not understood by others (replaced with just screeches, hisses, chimpers etc.)
 	var/say_message = null // When you are understood by others. Currently only used by aliens and monkeys in their say_quote procs
 
+	var/scrying = 0
+
 	var/faction = "neutral" //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 	var/move_on_shuttle = 1 // Can move on the shuttle.
 
