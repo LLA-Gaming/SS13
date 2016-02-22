@@ -135,3 +135,6 @@
 
 	proc/PodAttackbyAction(var/obj/item/I, var/mob/living/user)
 		return 0
+
+	proc/PodHandleDropAction(var/atom/movable/dropping, var/mob/living/user)
+		return 0

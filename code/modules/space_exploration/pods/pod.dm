@@ -197,12 +197,17 @@ var/list/pod_list = list()
 
 		pod_log.LogOccupancy(H, !as_passenger, dragged_by)
 
-	MouseDrop_T(var/atom/dropping, var/mob/user)
+	MouseDrop_T(var/atom/movable/dropping, var/mob/living/user)
 		if(istype(dropping, /mob/living/carbon/human))
 			if(dropping == user)
 				HandleEnter(dropping)
 			else
 				HandleEnter(dropping, user)
+
+		// Give attachments a chance to handle mouse drops.
+		for(var/obj/item/weapon/pod_attachment/attachment in GetAttachments())
+			if(attachment.PodHandleDropAction(dropping, user))
+				return 0
 
 	relaymove(var/mob/user, var/_dir)
 		if(user == pilot)

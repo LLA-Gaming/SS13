@@ -281,3 +281,54 @@
 			attached_to.update_icon()
 
 			qdel(src)
+
+	mech_storage/
+		name = "mech storage"
+		active = P_ATTACHMENT_PASSIVE
+		power_usage = 0
+		power_usage_condition = P_ATTACHMENT_USAGE_ONUSE
+		construction_cost = list("metal" = 6000)
+		origin_tech = "engineering=1;materials=1"
+
+		var/obj/mecha/stored_mech = 0
+
+		GetAvailableKeybinds()
+			return list()
+
+		PodHandleDropAction(var/atom/movable/dropping, var/mob/living/user)
+			if(!stored_mech && istype(dropping, /obj/mecha))
+				var/obj/mecha/mech = dropping
+				if(mech.occupant)
+					user << "<span class='warning'>The mech has to be unoccupied.</span>"
+					return 0
+
+				user << "<span class='info'>You start loading the mech into the pod, this may take a while.</span>"
+				var/turf/mech_turf = get_turf(mech)
+				if(do_after(user, 100))
+					if(!mech)
+						return 0
+					if(get_turf(mech) != mech_turf)
+						return 0
+					if(mech.occupant)
+						return 0
+
+					user << "<span class='info'>You load the mech into the pod.</span>"
+
+					mech.loc = src
+					stored_mech = mech
+
+					return 1
+
+		GetAdditionalMenuData()
+			var/dat = "Stored Mech: [stored_mech ? "<a href='?src=\ref[src];action=release_mech'>Release</a>" : "None."]"
+			return dat
+
+		Topic(href, href_list)
+			..()
+
+			if(href_list["action"] == "release_mech")
+				if(!stored_mech)
+					return 0
+
+				usr << "<span class='info'>You release the mech.</span>"
+				stored_mech.loc = get_turf(attached_to)

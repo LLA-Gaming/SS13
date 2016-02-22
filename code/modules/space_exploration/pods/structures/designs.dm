@@ -468,6 +468,14 @@
 		build_path = /obj/item/weapon/pod_attachment/secondary/ejection_seats
 		req_tech = list("engineering" = 2, "materials" = 2)
 
+	p_mech_storage/
+		name = "mech storage"
+		id = "pmechstorage"
+		category = "Secondary"
+		build_type = PODFAB
+		build_path = /obj/item/weapon/pod_attachment/secondary/mech_storage
+		req_tech = list("engineering" = 1, "materials" = 1)
+
 	/*
 	* Sensors
 	*/
