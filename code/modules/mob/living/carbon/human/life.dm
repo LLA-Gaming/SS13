@@ -160,7 +160,7 @@
 					if(1)
 						say(pick("It's a series of tubes!","Persus halp!!","HELP H-HELP! I'M B-BEING REPRESSED!","put uh donk on et","SOOn TM","I WANNA PET TEH monkeyS","can u give me [pick("telikesis","halk","eppilapse")]?","i want [pick("all aces","capton id","pew pew")]?","luv can bloooom","without oxigen blob don't evoluate?","Nanotransen!","SWAY N CIRCUMGYRATE"))
 					if(2)
-						say(pick("nOOT nOOT","golf","captain is comdom","SOTP IT!!","roll it easy!","waaaaaagh","lifelike texture","PACKETS!!!","can yu deepfry this?","wots a weemen?","this is just like one of my japanese animes!!","wANNA pLAY A gAME??","HEY I'M GRUMP!!"))
+						say(pick("WE LOOSE!!","BI, tHE bEST OF bOTH WORLDS!!","captain is comdom","SOTP IT!!","roll it easy!","waaaaaagh","sELFIE!!","PACKETS!!!","can yu deepfry this?","wots a weemen?","this is just like one of my japanese animes!!","wANNA pLAY A gAME??","LOCATION!?!"))
 					if(3)
 						emote("drool")
 
