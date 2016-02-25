@@ -3,10 +3,13 @@
 	schedule_interval = 20
 
 /datum/controller/process/mobs/doWork()
-	for(var/mob/M in mob_list)
-		if(istype(M) && !M.gc_destroyed)
+	var/i = 1
+	while(i<=mob_list.len)
+		var/mob/M = mob_list[i]
+		if(M && !M.gc_destroyed)
 			setLastTask("Life()", "[M.type]")
 			M.Life()
 			scheck()
-		else
-			mob_list -= M
+			i++
+			continue
+		mob_list.Cut(i,i+1)
