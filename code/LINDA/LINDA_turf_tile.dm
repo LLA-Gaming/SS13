@@ -298,13 +298,15 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 /datum/excited_group/proc/merge_groups(var/datum/excited_group/E)
 	if(turf_list.len > E.turf_list.len)
 		air_master.excited_groups -= E
-		for(var/turf/simulated/T in E.turf_list)
+		for(var/X in E.turf_list)
+			var/turf/simulated/T = X
 			T.excited_group = src
 			turf_list += T
 			reset_cooldowns()
 	else
 		air_master.excited_groups -= src
-		for(var/turf/simulated/T in turf_list)
+		for(var/X in turf_list)
+			var/turf/simulated/T = X
 			T.excited_group = E
 			E.turf_list += T
 			E.reset_cooldowns()
@@ -314,11 +316,13 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 
 /datum/excited_group/proc/self_breakdown()
 	var/datum/gas_mixture/A = new
-	for(var/turf/simulated/T in turf_list)
+	for(var/X in turf_list)
+		var/turf/simulated/T = X
 		for (var/G in T.air.gasses)
 			A.add_gas(G, T.air.gasses[G])
 
-	for(var/turf/simulated/T in turf_list)
+	for(var/X in turf_list)
+		var/turf/simulated/T = X
 		for(var/G in A.gasses)
 			T.air.gasses[G] = A.gasses[G]/turf_list.len
 
@@ -327,7 +331,8 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 
 
 /datum/excited_group/proc/dismantle()
-	for(var/turf/simulated/T in turf_list)
+	for(var/X in turf_list)
+		var/turf/simulated/T = X
 		T.excited = 0
 		T.recently_active = 0
 		T.excited_group = null
@@ -335,7 +340,8 @@ atom/movable/proc/experience_pressure_difference(pressure_difference, direction)
 	garbage_collect()
 
 /datum/excited_group/proc/garbage_collect()
-	for(var/turf/simulated/T in turf_list)
+	for(var/X in turf_list)
+		var/turf/simulated/T = X
 		T.excited_group = null
 	turf_list.Cut()
 	air_master.excited_groups -= src
