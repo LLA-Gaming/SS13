@@ -70,22 +70,46 @@ datum/controller/air_system
 	air_superconductivity = (world.timeofday - timer) / 10
 
 /datum/controller/air_system/proc/process_hotspots()
-	for(var/obj/effect/hotspot/H in hotspots)
-		H.process()
+	var/i=1
+	while(i<=hotspots.len)
+		var/obj/effect/hotspot/H = hotspots[i]
+		if(H)
+			H.process()
+			i++
+			continue
+		hotspots.Cut(i,i+1)
 
 /datum/controller/air_system/proc/process_super_conductivity()
-	for(var/turf/simulated/T in active_super_conductivity)
-		T.super_conduct()
+	var/i = 1
+	while(i<=active_super_conductivity.len)
+		var/turf/simulated/T = active_super_conductivity[i]
+		if(T)
+			T.super_conduct()
+			i++
+			continue
+		active_super_conductivity.Cut(i,i+1)
 
 /datum/controller/air_system/proc/process_high_pressure_delta()
-	for(var/turf/T in high_pressure_delta)
-		T.high_pressure_movements()
-		T.pressure_difference = 0
+	var/i = 1
+	while(i<=high_pressure_delta.len)
+		var/turf/T = high_pressure_delta[i]
+		if(T)
+			T.high_pressure_movements()
+			T.pressure_difference = 0
+			i++
+			continue
+		high_pressure_delta.Cut(i,i+1)
 	high_pressure_delta.len = 0
 
 /datum/controller/air_system/proc/process_active_turfs()
-	for(var/turf/simulated/T in active_turfs)
-		T.process_cell()
+	var/i = 1
+	while(i<=active_turfs.len)
+		var/turf/simulated/T = active_turfs[i]
+		if(T)
+			T.process_cell()
+			i++
+			continue
+		active_turfs.Cut(i,i+1)
 
 /datum/controller/air_system/proc/remove_from_active(var/turf/simulated/T)
 	if(istype(T))
@@ -130,13 +154,19 @@ datum/controller/air_system
 						active_turfs |= T
 
 /datum/controller/air_system/proc/process_excited_groups()
-	for(var/datum/excited_group/EG in excited_groups)
-		EG.breakdown_cooldown ++
-		if(EG.breakdown_cooldown == 10)
-			EG.self_breakdown()
-			return
-		if(EG.breakdown_cooldown > 20)
-			EG.dismantle()
+	var/i = 1
+	while(i<=excited_groups.len)
+		var/datum/excited_group/EG = excited_groups[i]
+		if(EG)
+			EG.breakdown_cooldown ++
+			if(EG.breakdown_cooldown == 10)
+				EG.self_breakdown()
+				return
+			if(EG.breakdown_cooldown > 20)
+				EG.dismantle()
+			i++
+			continue
+		excited_groups.Cut(i,i+1)
 
 /turf/proc/CanAtmosPass(var/turf/T)
 	if(!istype(T))	return 0
