@@ -6,9 +6,12 @@ var/global/pipe_processing_killed = 0
 
 /datum/controller/process/pipenet/doWork()
 	if(pipe_processing_killed) return
-	for(var/datum/pipe_network/P in pipe_networks)
-		if(istype(P) && !P.gc_destroyed)
+	var/i = 1
+	while(i<=pipe_networks.len)
+		var/datum/pipe_network/P = pipe_networks[i]
+		if(P && !P.gc_destroyed)
 			P.process()
 			scheck()
-		else
-			pipe_networks -= P
+			i++
+			continue
+		pipe_networks.Cut(i,i+1)
