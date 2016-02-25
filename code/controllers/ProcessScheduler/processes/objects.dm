@@ -3,10 +3,13 @@
 	schedule_interval = 20
 
 /datum/controller/process/objs/doWork()
-	for(var/obj/O in processing_objects)
-		if(istype(O) && !O.gc_destroyed)
+	var/i = 1
+	while(i<=processing_objects.len)
+		var/obj/O = processing_objects[i]
+		if(O && !O.gc_destroyed)
 			setLastTask("process()", "[O.type]")
 			O.process()
 			scheck()
-		else
-			processing_objects -= O
+			i++
+			continue
+		processing_objects.Cut(i,i+1)

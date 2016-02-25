@@ -3,10 +3,13 @@
 	schedule_interval = 20
 
 /datum/controller/process/diseases/doWork()
-	for(var/datum/disease/D in active_diseases)
-		if(istype(D) && !D.gc_destroyed)
+	var/i = 1
+	while(i<=active_diseases.len)
+		var/datum/disease/D = active_diseases[i]
+		if(D && !D.gc_destroyed)
 			setLastTask("process()", "[D.type]")
 			D.process()
 			scheck()
-		else
-			active_diseases -= D
+			i++
+			continue
+		active_diseases.Cut(i,i+1)

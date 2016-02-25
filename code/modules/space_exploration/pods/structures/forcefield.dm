@@ -72,8 +72,9 @@
 		active_power_usage =  (500 * (length(shields))) / 2
 
 	Destroy()
-		DestroyShields()
-		qdel(linked)
+		if(generate_shields)
+			DestroyShields()
+			qdel(linked)
 		..()
 
 	process()
