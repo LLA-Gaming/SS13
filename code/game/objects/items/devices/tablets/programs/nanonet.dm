@@ -1,7 +1,7 @@
 /datum/program/nanonet
 	name = "NanoNet"
 	app_id = "nanonet"
-	price = 10
+	//price = 10
 	usesalerts = 1
 	var/datum/nanonet_profile/auth
 	var/display_mode = 0

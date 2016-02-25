@@ -1917,6 +1917,28 @@
 
 		var/ok = 0
 		switch(href_list["secretsadmin"])
+
+			if("testnanonet")
+				var/choice = input("This feature is currently being trialed for full addition. Are you certain?") in list("Yes","Cancel")
+				if(choice == "Yes")
+					var/count = 0
+					for(var/obj/item/device/tablet/T in world)
+						if(locate(/datum/program/nanonet) in T.core.programs) break
+						T.core.programs.Add(new /datum/program/nanonet)
+						count++
+					log_admin("[key_name(usr)] has activated Nanonet Testing. [count] devices were given nanonet.")
+					message_admins("[key_name_admin(usr)] has activated Nanonet Testing. [count] devices were given nanonet.")
+			if("removenanonet")
+				var/devcount = 0
+				var/appcount = 0
+				for(var/obj/item/device/tablet/T in world)
+					devcount++
+					for(var/datum/program/nanonet/N in T.core.programs)
+						T.core.programs.Remove(N)
+						qdel(N)
+						appcount++
+				log_admin("[key_name(usr)] has ended Nanonet Testing. [devcount] devices were scanned and [appcount] instances of nanonet removed.")
+				message_admins("[key_name_admin(usr)] has ended Nanonet Testing. [devcount] devices were scanned and [appcount] instances of nanonet removed.")
 			if("clear_virus")
 				var/choice = input("Are you sure you want to cure all disease?") in list("Yes", "Cancel")
 				if(choice == "Yes")

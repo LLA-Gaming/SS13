@@ -480,7 +480,11 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsadmin=showgm'>Show Game Mode</A><BR>
 			<A href='?src=\ref[src];secretsadmin=manifest'>Show Crew Manifest</A><BR>
 			<A href='?src=\ref[src];secretsadmin=DNA'>List DNA (Blood)</A><BR>
-			<A href='?src=\ref[src];secretsadmin=fingerprints'>List Fingerprints</A><BR><BR>
+			<A href='?src=\ref[src];secretsadmin=fingerprints'>List Fingerprints</A><BR>
+			<BR>
+			<B>Feature Tests</B><BR>
+			<A href='?src=\ref[src];secretsadmin=testnanonet'>Deploy Nanonet App</A><BR>
+			<A href='?src=\ref[src];secretsadmin=removenanonet'>Terminate Nanonet App</A><BR>
 			<BR>
 			<B>Shuttles</B><BR>
 			<BR>
