@@ -16,7 +16,7 @@
 			scheck()
 			i++
 			continue
-		lighting_controller.lights.changed_turfs.Cut(i,i+1)
+		lighting_controller.lights.Cut(i,i+1)
 
 	lighting_controller.changed_turfs_workload_max = \
 		max(lighting_controller.changed_turfs_workload_max, lighting_controller.changed_turfs.len)
