@@ -71,7 +71,7 @@
 		if(node[1])
 			var/obj/machinery/atmospherics/A = node[1]
 			A.disconnect(src)
-			del(network)
+			qdel(network)
 
 		node = null
 
@@ -123,7 +123,7 @@
 
 	disconnect(obj/machinery/atmospherics/reference)
 		if(reference==node[1])
-			del(network)
+			qdel(network)
 			node[1] = null
 
 		return null
