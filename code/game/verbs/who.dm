@@ -18,7 +18,9 @@
 					if(UNCONSCIOUS)
 						entry += " - <font color='darkgray'><b>Unconscious</b></font>"
 					if(DEAD)
-						if(isobserver(C.mob))
+						if(istype(C.mob, /mob/new_player))
+							entry += " - <font color='gray'>In Lobby</font>"
+						else if(isobserver(C.mob))
 							var/mob/dead/observer/O = C.mob
 							if(O.started_as_observer)
 								entry += " - <font color='gray'>Observing</font>"
