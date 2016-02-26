@@ -119,7 +119,16 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 							<div class='statusDisplay'>
 							<center>
 							Owner: [core.owner], [core.ownjob]<br>
-							ID: <A href='?src=\ref[src];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]</A><A href='?src=\ref[src];choice=UpdateInfo'>[id ? "Update Tablet Info" : ""]</A><br>
+							"}
+					if(istype(user, /mob/living/silicon/pai))
+						dat += {"
+								Master: [user:master ? "[user:master] DNA: [user:master_dna]" : "None!"]<br>
+								"}
+					else
+						dat += {"
+								ID: <A href='?src=\ref[src];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]</A><A href='?src=\ref[src];choice=UpdateInfo'>[id ? "Update Tablet Info" : ""]</A><br>
+								"}
+					dat += {"
 							[station_name]<br>[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
 							"}
 					for(var/datum/program/P in apps_builtin)
@@ -147,6 +156,9 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 		var/device = "tablet"
 		if(laptop)
 			device = "laptop"
+		if(istype(user, /mob/living/silicon/pai))
+			user:updateTablet(dat)
+			return
 		popup = new(user, device, "[src]")
 		popup.set_content(dat)
 		popup.title = {"<div align="left">ThinkTronic OS 3.1</div><div align="right"><a href='byond://?src=\ref[src];choice=Refresh'>Refresh</a><a href='byond://?src=\ref[src];choice=Close'>Close</a></div>"}
