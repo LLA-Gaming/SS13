@@ -676,13 +676,20 @@ var/list/slotTakeOffTime = list(slot_back = 80, slot_wear_mask = 40, slot_handcu
 	if(what.flags & NODROP)
 		src << "<span class='notice'>You can't remove \the [what.name], it appears to be stuck!</span>"
 		return
-	visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
-					"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
+	if(where == slot_l_hand || where == slot_r_hand)
+		visible_message("<span class='danger'>[src] tries to take [what.name] from [who].</span>", \
+						"<span class='userdanger'>[src] tries to take [what.name] from [who].</span>")
+	else
+		visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
+						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
 	what.add_fingerprint(src)
 	if(do_mob(src, who, slotTakeOffTime[where]))
 		if(what && Adjacent(who))
 			what.item_stripped()
 			who.unEquip(what)
+			if(where == slot_l_hand || where == slot_r_hand)
+				src.put_in_active_hand(what)
+
 
 // The src mob is trying to place an item on someone
 // Override if a certain mob should be behave differently when placing items (can't, for example)
@@ -692,11 +699,39 @@ var/list/slotTakeOffTime = list(slot_back = 80, slot_wear_mask = 40, slot_handcu
 		src << "<span class='notice'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>"
 		return
 	if(what && what.mob_can_equip(who, where, 1))
-		visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
+		if(where == slot_l_hand || where == slot_r_hand)
+			visible_message("<span class='notice'>[src] tries to give [who] [what]</span>")
+		else
+			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, slotTakeOffTime[where] * 0.5))
 			if(what && Adjacent(who))
 				src.unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
+
+/mob/living/verb/give_item()
+	set name = "Give"
+	set category = "IC"
+	set src in oview(1)
+	var/mob/living/user = usr
+	if(!user.canUseTopic(src))
+		return
+	if(user)
+		//determine item
+		var/obj/item/what = user.get_active_hand()
+		if(!what) return
+		//determine destination
+		var/list/hands = list(slot_l_hand,slot_r_hand)
+		var/where = null
+		for(var/X in shuffle(hands))
+			if(can_equip(what, X, 1))
+				where = X
+				break
+		//give the item
+		if(where)
+			user.stripPanelEquip(src, what, where)
+		else
+			user.show_message("<span class='notice'>[src]'s hands are currently full</span>", 1)
+	return
 
 //////////Animations removed, the community does not want them////////////
 /*
