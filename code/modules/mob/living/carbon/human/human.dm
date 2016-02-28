@@ -120,7 +120,7 @@
 			if (timeleft)
 				stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
-	if (client.statpanel == "Status")
+	if (client && client.statpanel == "Status")
 		if (internal)
 			if (!internal.air_contents)
 				qdel(internal)

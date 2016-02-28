@@ -291,7 +291,7 @@
 /mob/living/silicon/robot/Stat()
 	..()
 	statpanel("Status")
-	if (client.statpanel == "Status")
+	if (client && client.statpanel == "Status")
 		if(emergency_shuttle.online && emergency_shuttle.location < 2)
 			var/timeleft = emergency_shuttle.timeleft()
 			if (timeleft)

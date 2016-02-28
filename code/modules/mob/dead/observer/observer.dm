@@ -146,7 +146,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/Stat()
 	..()
 	statpanel("Status")
-	if (client.statpanel == "Status")
+	if (client && client.statpanel == "Status")
 		stat(null, "Station Time: [worldtime2text()]")
 		if(ticker)
 			if(ticker.mode)

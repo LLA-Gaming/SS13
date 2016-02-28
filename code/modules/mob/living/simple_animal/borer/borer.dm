@@ -114,7 +114,7 @@
 	stat(null) // this is to have empty lines in the panel for cleaner formatting.
 	..()
 
-	if (client.statpanel == "Status")
+	if (client && client.statpanel == "Status")
 		stat("Chemicals", chemicals)
 
 		if(host)
