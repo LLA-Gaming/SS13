@@ -719,6 +719,8 @@ var/list/slotTakeOffTime = list(slot_back = 80, slot_wear_mask = 40, slot_handcu
 		//determine item
 		var/obj/item/what = user.get_active_hand()
 		if(!what) return
+		if(what.flags & ABSTRACT) return
+		if(what.flags & NODROP) return
 		//determine destination
 		var/list/hands = list(slot_l_hand,slot_r_hand)
 		var/where = null
