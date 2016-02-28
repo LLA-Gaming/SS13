@@ -9,6 +9,11 @@
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
 
+	if(href_list["proxycheck"])
+		var/client/C = locate(href_list["proxycheck"])
+		var/n = C.proxycheck()
+		usr << "GetIpIntel reported that [C.key]'s IP ([C.address]) has a [n*100]% chance to be a proxy."
+
 	if(href_list["makeAntag"])
 		switch(href_list["makeAntag"])
 			if("1")

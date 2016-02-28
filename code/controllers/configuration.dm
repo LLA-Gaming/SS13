@@ -144,6 +144,11 @@
 	var/events_queue_ghost_events	= 1
 	var/events_timelocks				= 1
 
+	//getipintel configs
+	var/getipintel = 0
+	var/getipintel_email = ""
+	var/getipintel_limit = 1
+
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
 	for(var/T in L)
@@ -299,6 +304,12 @@
 						global.comms_allowed = 1
 				if("faction_change_delay")
 					faction_change_delay = text2num(value)
+				if("getipintel")
+					getipintel_limit = 1
+				if("getipintelemail")
+					getipintel_limit = value
+				if("getipintellimit")
+					getipintel_limit = text2num(value)
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 

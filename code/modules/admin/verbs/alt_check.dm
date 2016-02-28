@@ -8,7 +8,7 @@
 
 	if(dbcon.IsConnected())
 		for(var/client/C in clients)
-			dat += "<p>[C.ckey] (Player Age: <font color = 'red'>[C.player_age]</font>) - <b>[C.computer_id]</b> / <b>[C.address]</b><br>"
+			dat += "<p>[C.ckey] (Player Age: <font color = 'red'>[C.player_age]</font>) - <b>[C.computer_id]</b> / <b>[C.address]</b> - <a href='?_src_=holder;proxycheck=\ref[C]'>Proxy Check</a><br>"
 			if(C.related_accounts_cid.len)
 				dat += "--Accounts associated with CID: "
 				dat += "<b>[list2text(C.related_accounts_cid, " - ")]</b><br>"
