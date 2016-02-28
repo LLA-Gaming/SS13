@@ -168,7 +168,7 @@
 
 	..()
 
-	if (client.statpanel == "Status")
+	if (client && client.statpanel == "Status")
 		stat(null, "Plasma Stored: [getPlasma()]/[max_plasma]")
 
 	if(emergency_shuttle)

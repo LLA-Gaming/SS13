@@ -74,7 +74,7 @@
 /mob/living/silicon/pai/Stat()
 	..()
 	statpanel("Status")
-	if (src.client.statpanel == "Status")
+	if (src.client && src.client.statpanel == "Status")
 		if(emergency_shuttle.online && emergency_shuttle.location < 2)
 			var/timeleft = emergency_shuttle.timeleft()
 			if (timeleft)
