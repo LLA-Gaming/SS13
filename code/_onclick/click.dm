@@ -238,7 +238,7 @@
 			user.listed_turf = null
 		else
 			user.listed_turf = T
-			user.client.statpanel = T.name
+			if(user.client) user.client.statpanel = T.name
 	return
 
 /mob/proc/TurfAdjacent(var/turf/T)

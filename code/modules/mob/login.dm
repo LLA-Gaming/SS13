@@ -10,7 +10,7 @@
 			if(!M.key) continue // Skip over mobs that do not have keys
 			if(M.ckey == "@[ckey]") continue // Skip over aghosted bodies
 			if(M == src)	continue
-			if( M.key && (M.key != key) )
+			if(M.key && (M.key != key))
 				var/matches
 				if( (M.lastKnownIP == lastKnownIP) )
 					matches += "IP ([lastKnownIP])"

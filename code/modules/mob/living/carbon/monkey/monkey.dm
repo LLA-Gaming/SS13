@@ -335,7 +335,7 @@
 	stat(null, text("Intent: []", a_intent))
 	stat(null, text("Move Mode: []", m_intent))
 	if(client && mind)
-		if (client.statpanel == "Status")
+		if (client && client.statpanel == "Status")
 			if(mind.changeling)
 				stat("Chemical Storage", "[mind.changeling.chem_charges]/[mind.changeling.chem_storage]")
 				stat("Absorbed DNA", mind.changeling.absorbedcount)

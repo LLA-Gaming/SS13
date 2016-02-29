@@ -116,6 +116,17 @@
 	desc = "Pompadour not included."
 	icon_state = "leatherjacket"
 
+/obj/item/clothing/suit/labcoat/jacket/biker
+	name = "biker jacket"
+	desc = "Pompadour not included."
+	icon_state = "biker"
+
+/obj/item/clothing/suit/labcoat/jacket/aviator
+	name = "aviator jacket"
+	desc = "aviators not included."
+	icon_state = "bomberjacket_alt"
+	can_toggle = 1
+
 /obj/item/clothing/suit/labcoat/jacket/varsity
 	name = "varsity jacket"
 	desc = "Smells like high school."
@@ -123,3 +134,8 @@
 
 /obj/item/clothing/suit/labcoat/jacket/varsity/blue
 	icon_state = "varsity_blue"
+
+/obj/item/clothing/suit/labcoat/jacket/dandy_varsity
+	name = "dandy varsity jacket"
+	desc = "Smells like SPESS high school."
+	icon_state = "varsity"

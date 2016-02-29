@@ -237,3 +237,98 @@
 			name = "bluespace seating module"
 			seat_amount = 6
 
+	ejection_seats/
+		name = "ejection seats"
+		active = P_ATTACHMENT_PASSIVE
+		power_usage = 0
+		power_usage_condition = P_ATTACHMENT_USAGE_ONUSE
+		construction_cost = list("metal" = 5000, "plasma" = 2000)
+		origin_tech = "engineering=2;materials=2"
+		var/exclude_pilot = 0
+
+		GetAdditionalMenuData()
+			var/dat = "Exclude Pilot: <a href='?src=\ref[src];action=toggle_exclude_pilot'>[exclude_pilot ? "Yes" : "No"]</a>"
+			return dat
+
+		Topic(href, href_list)
+			..()
+
+			if(href_list["action"] == "toggle_exclude_pilot")
+				exclude_pilot = !exclude_pilot
+				usr << "<span class='info'>The pilot is now [exclude_pilot ? "excluded" : "included"].</span>"
+
+		Use(var/atom/target, var/mob/user, var/flags = P_ATTACHMENT_PLAYSOUND | P_ATTACHMENT_IGNORE_POWER | P_ATTACHMENT_IGNORE_COOLDOWN)
+			if(!(..(target, user, flags)))
+				return 0
+
+			var/datum/effect/effect/system/harmless_smoke_spread/system = new()
+			system.set_up(5, 0, get_turf(attached_to))
+			system.start()
+
+			for(var/mob/living/L in attached_to.GetOccupants())
+				if(L == attached_to.pilot)
+					if(exclude_pilot)
+						continue
+					attached_to.pilot = 0
+				L.loc = pick(attached_to.GetDirectionalTurfs(attached_to.dir))
+				spawn()
+					for(var/i in 1 to 5)
+						step(L, attached_to.dir)
+						sleep(1)
+				sleep(3)
+
+			attached_to.attachments -= src
+			attached_to.update_icon()
+
+			qdel(src)
+
+	mech_storage/
+		name = "mech storage"
+		active = P_ATTACHMENT_PASSIVE
+		power_usage = 0
+		power_usage_condition = P_ATTACHMENT_USAGE_ONUSE
+		construction_cost = list("metal" = 6000)
+		origin_tech = "engineering=1;materials=1"
+
+		var/obj/mecha/stored_mech = 0
+
+		GetAvailableKeybinds()
+			return list()
+
+		PodHandleDropAction(var/atom/movable/dropping, var/mob/living/user)
+			if(!stored_mech && istype(dropping, /obj/mecha))
+				var/obj/mecha/mech = dropping
+				if(mech.occupant)
+					user << "<span class='warning'>The mech has to be unoccupied.</span>"
+					return 0
+
+				user << "<span class='info'>You start loading the mech into the pod, this may take a while.</span>"
+				var/turf/mech_turf = get_turf(mech)
+				if(do_after(user, 100))
+					if(!mech)
+						return 0
+					if(get_turf(mech) != mech_turf)
+						return 0
+					if(mech.occupant)
+						return 0
+
+					user << "<span class='info'>You load the mech into the pod.</span>"
+
+					mech.loc = src
+					stored_mech = mech
+
+					return 1
+
+		GetAdditionalMenuData()
+			var/dat = "Stored Mech: [stored_mech ? "<a href='?src=\ref[src];action=release_mech'>Release</a>" : "None."]"
+			return dat
+
+		Topic(href, href_list)
+			..()
+
+			if(href_list["action"] == "release_mech")
+				if(!stored_mech)
+					return 0
+
+				usr << "<span class='info'>You release the mech.</span>"
+				stored_mech.loc = get_turf(attached_to)

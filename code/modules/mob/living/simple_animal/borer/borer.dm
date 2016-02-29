@@ -8,6 +8,7 @@
 	icon_dead = "brainslug_dead"
 	maxHealth = 5
 	health = 5
+	universal_speak = 0
 	response_help  = "pokes"
 	response_disarm = "prods"
 	response_harm   = "stomps on"
@@ -19,25 +20,39 @@
 	pass_flags = PASSTABLE
 	status_flags = CANWEAKEN
 
+	var/attach_speed = 50
+	var/detach_speed = 150
 	var/evil = 0
 	var/chemicals = 50
+	var/maxChems = 200
 	var/mob/living/carbon/human/host
 	var/docile = 0
 	var/controlling = 0
+	var/adv_control = 0
+	var/adv_control_active = 0
 	var/suction_cooldown = 0
 	var/can_lay = 0
 	var/egg_timer
+	var/armored = 0
+	var/retaliate = 0
+	var/hear_augment = 0
+	var/blood_clotting = 0
+	var/list/upgrades = list()
+	var/list/purchasedupgrades = list()
 	var/list/detached = list()
 	var/list/attached = list()
 	var/list/chems = list()
+	var/list/upgrade_verbs = list(/mob/living/simple_animal/borer/proc/upgrade_menu)
 
 /mob/living/simple_animal/borer/New()
 	..()
+	init_subtypes(/datum/borer_upgrade, upgrades)
 	real_name = "[pick("Pai","Bai","Zai","Dai")]'[pick("Luxar","Vorir","Kotar","Ranir")] [rand(1000,9999)]"
 	if(prob(5))
 		evil = 1
 	initialize_lists()
 	egg_timer = world.time + 3000
+	verbs += upgrade_verbs
 	verbs += detached
 
 /mob/living/simple_animal/borer/Life()
@@ -66,14 +81,28 @@
 					docile = 0
 //			if(!ismonkey(host))
 			host.nutrition -= HUNGER_FACTOR
-			if(chemicals < 200 && !controlling)
+			if(chemicals < maxChems && !controlling)
 				chemicals++
+			if(ishuman(host) && blood_clotting)
+				if(chemicals < 10)
+					blood_clotting = 0
+				chemicals -= 5
+				var/list/bleeding = host.get_damaged_organs(0,0,1)
+				var/obj/item/organ/limb/L = pick(bleeding)
+				L.bleedstate--
+				if(!L.bleedstate)
+					L.bleeding = 0
+					bleeding -= L
+				if(!bleeding.len)
+					blood_clotting = 0
 
 		if(controlling)
-			chemicals--
 			if(docile || chemicals <= 0)
 				host << "<span class='notice'>Your control over your host's body fades away.</span>"
 				return_control()
+			if(!adv_control_active)
+				chemicals--
+
 	if(client)
 		handle_regular_hud_updates()
 
@@ -85,7 +114,7 @@
 	stat(null) // this is to have empty lines in the panel for cleaner formatting.
 	..()
 
-	if (client.statpanel == "Status")
+	if (client && client.statpanel == "Status")
 		stat("Chemicals", chemicals)
 
 		if(host)
@@ -136,6 +165,38 @@
 /mob/living/simple_animal/borer/UnarmedAttack(var/atom/A)
 	if(host) return
 	else return ..()
+
+/mob/living/simple_animal/borer/attack_hand(mob/living/carbon/human/M as mob)
+	if(retaliate)
+		switch(M.a_intent)
+			if("harm", "disarm")
+				var/datum/effect/effect/system/chem_smoke_spread/S = new
+				var/datum/reagents/R = new/datum/reagents(25)
+				var/location = get_turf(src)
+				var/cloud
+				if(retaliate == 1)
+					cloud = "spore"
+				else if(retaliate == 2)
+					cloud = "sacid"
+				R.my_atom = src
+				R.add_reagent(cloud, 25)
+				S.attach(location)
+				S.set_up(R, 1, 1, location, 15, 1)
+				S.start()
+				R.delete()
+
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message("\red [src] releases a cloud!")
+
+	if(armored)
+		switch(M.a_intent)
+			if("harm", "disarm")
+				for(var/mob/O in viewers(src, null))
+					if ((O.client && !( O.blinded )))
+						O.show_message("\red [M] [response_harm] [src] in vain!")
+				return
+	..()
 
 /mob/living/simple_animal/borer/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/reagent_containers/food/condiment/saltshaker))

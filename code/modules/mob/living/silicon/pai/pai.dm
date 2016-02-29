@@ -9,11 +9,11 @@
 	var/network = "SS13"
 	var/obj/machinery/camera/current = null
 
-	var/ram = 100	// Used as currency to purchase different abilities
+	var/bsCrd= 100	// Bluespace credits, spend these to beam software from centcomm
 	var/list/software = list()
 	var/userDNA		// The DNA string of our assigned user
 	var/obj/item/device/paicard/card	// The card we inhabit
-	var/obj/item/device/radio/radio		// Our primary radio
+	var/obj/item/device/radio/borg/radio		// Our primary radio
 
 	var/speakStatement = "states"
 	var/speakExclamation = "declares"
@@ -28,19 +28,9 @@
 
 // Various software-specific vars
 
-	var/temp				// General error reporting text contained here will typically be shown once and cleared
-	var/screen				// Which screen our main window displays
-	var/subscreen			// Which specific function of the main screen is being displayed
-
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
 	var/thermals = 0		// Toggles whether the thermal vision is active or not
-
-	var/datum/data/record/medicalActive1		// Datacore record declarations for record software
-	var/datum/data/record/medicalActive2
-
-	var/datum/data/record/securityActive1		// Could probably just combine all these into one
-	var/datum/data/record/securityActive2
 
 	var/obj/machinery/door/hackdoor		// The airlock being hacked
 	var/hackprogress = 0				// Possible values: 0 - 100, >= 100 means the hack is complete and will be reset upon next check
@@ -58,7 +48,7 @@
 	sradio = new(src)
 	if(card)
 		if(!card.radio)
-			card.radio = new /obj/item/device/radio(src.card)
+			card.radio = new /obj/item/device/radio/borg(src.card)
 		radio = card.radio
 
 //	//PDA
@@ -84,7 +74,7 @@
 /mob/living/silicon/pai/Stat()
 	..()
 	statpanel("Status")
-	if (src.client.statpanel == "Status")
+	if (src.client && src.client.statpanel == "Status")
 		if(emergency_shuttle.online && emergency_shuttle.location < 2)
 			var/timeleft = emergency_shuttle.timeleft()
 			if (timeleft)

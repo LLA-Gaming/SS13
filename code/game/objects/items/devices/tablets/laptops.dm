@@ -9,6 +9,10 @@
 	size_h = 480
 	laptop = 1
 
+	New()
+		..()
+		//core.programs.Add(new /datum/program/nanonet)
+
 	update_label()
 		name = "Laptop-[core.owner] ([core.ownjob])" //Name generalisation
 		owner = core.owner

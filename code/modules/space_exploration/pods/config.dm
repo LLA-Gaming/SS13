@@ -25,3 +25,4 @@ var/datum/space_exploration_config/pod/pod_config
 	var/alien_damage_upper
 	var/paw_damage_lower
 	var/paw_damage_upper
+	var/handcuffed_exit_delay

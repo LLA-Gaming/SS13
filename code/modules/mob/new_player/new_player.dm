@@ -64,7 +64,7 @@
 		..()
 
 		statpanel("Lobby")
-		if(client.statpanel == "Lobby" && ticker)
+		if(client && client.statpanel == "Lobby" && ticker)
 			if(ticker.hide_mode)
 				stat("Game Mode:", "Secret")
 			else

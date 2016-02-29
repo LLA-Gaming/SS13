@@ -120,6 +120,7 @@ datum/mind
 			"nuclear",
 			"traitor", // "traitorchan",
 			"monkey",
+			"borer",
 			"malfunction",
 		)
 		var/text = ""
@@ -237,7 +238,8 @@ datum/mind
 				text += "<br>Objectives are empty! <a href='?src=\ref[src];traitor=autoobjectives'>Randomize</a>!"
 		else
 			text += "<a href='?src=\ref[src];traitor=traitor'>traitor</a>|<b>LOYAL</b>"
-		sections["traitor"] = text
+		if(!istype(current, /mob/living/simple_animal/borer))
+			sections["traitor"] = text
 
 		/** MONKEY ***/
 		if (istype(current, /mob/living/carbon))
@@ -260,6 +262,21 @@ datum/mind
 			else
 				text += "healthy|infected|human|<b>OTHER</b>"
 			sections["monkey"] = text
+
+		/** BORER ***/
+
+		if(istype(current, /mob/living/simple_animal/borer))
+			text = "borer"
+//			if (ticker.mode.config_tag=="traitor" || ticker.mode.config_tag=="traitorchan")
+//				text = uppertext(text)
+			text = "<i><b>[text]</b></i>: "
+			if (src in ticker.mode.traitors)
+				text += "<b>EVIL</b>|<a href='?src=\ref[src];borer=clear'>good</a>"
+				if (objectives.len==0)
+					text += "<br>Objectives are empty! <a href='?src=\ref[src];borer=autoobjectives'>Randomize</a>!"
+			else
+				text += "<a href='?src=\ref[src];borer=evil'>evil</a>|<b>GOOD</b>"
+			sections["borer"] = text
 
 
 		/** SILICON ***/
@@ -817,6 +834,51 @@ datum/mind
 							H = M.humanize(TR_KEEPITEMS | TR_KEEPIMPLANTS | TR_KEEPDAMAGE | TR_KEEPVIRUS | TR_DEFAULTMSG | TR_KEEPBORER)
 							if(H)
 								src = H.mind
+
+		else if (href_list["borer"])
+			switch(href_list["borer"])
+				if("clear")
+					if(src in ticker.mode.traitors)
+						ticker.mode.traitors -= src
+						special_role = null
+						var/mob/living/simple_animal/borer/B = current
+						if(B.host)
+							B.verbs -= B.attached
+						else
+							B.verbs -= B.detached
+						B.evil = 0
+						B.attached -= B.attached
+						B.detached -= B.detached
+						B.chems -= B.chems
+						B.initialize_lists()
+						if(B.host)
+							B.verbs |= B.attached
+						else
+							B.verbs |= B.detached
+						current << "\red <FONT size = 3><B>You have been brainwashed! You are no longer an evil borer!</B></FONT>"
+						message_admins("[key_name_admin(usr)] has made [current.real_name]/(Borer) good.")
+						log_admin("[key_name(usr)] has made [current.real_name]/(Borer) good.")
+
+				if("evil")
+					if(!(src in ticker.mode.traitors))
+						ticker.mode.traitors += src
+						special_role = "Special Borer"
+						var/mob/living/simple_animal/borer/B = current
+						B.evil = 1
+						B.initialize_lists()
+						if(B.host)
+							B.verbs |= B.attached
+						else
+							B.verbs |= B.detached
+						current << "<B>\red You are an evil borer!</B>"
+						message_admins("[key_name_admin(usr)] has made [current.real_name]/(Borer) evil.")
+						log_admin("[key_name(usr)] has made [current.real_name]/(Borer) evil.")
+
+				if("autoobjectives")
+					var/mob/living/simple_animal/borer/B = current
+					B.make_special()
+					usr << "\blue The objectives for evil borer [key] have been generated and announced."
+
 
 		else if (href_list["silicon"])
 			switch(href_list["silicon"])

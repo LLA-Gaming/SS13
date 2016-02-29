@@ -41,6 +41,7 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 	var/can_detonate = 1
 	var/bolted = 0
 	var/mounted = 0
+	var/photo_cooldown = 0
 
 	var/banned = 0
 
@@ -57,6 +58,9 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 	core = new /obj/item/device/tablet_core/(src)
 	core.programs.Add(new /datum/program/atmosscan)
 	core.programs.Add(new /datum/program/assignments)
+	if(can_eject && !istype(src,/obj/item/device/tablet/laptop))
+		//install a camera on all devices that are not laptops or silicons
+		core.programs.Add(new /datum/program/camera)
 	//Install built-in apps
 	for(var/x in typesof(/datum/program/builtin))
 		var/datum/program/builtin/A = new x(src)
@@ -115,7 +119,16 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 							<div class='statusDisplay'>
 							<center>
 							Owner: [core.owner], [core.ownjob]<br>
-							ID: <A href='?src=\ref[src];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]</A><A href='?src=\ref[src];choice=UpdateInfo'>[id ? "Update Tablet Info" : ""]</A><br>
+							"}
+					if(istype(user, /mob/living/silicon/pai))
+						dat += {"
+								Master: [user:master ? "[user:master] DNA: [user:master_dna]" : "None!"]<br>
+								"}
+					else
+						dat += {"
+								ID: <A href='?src=\ref[src];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]</A><A href='?src=\ref[src];choice=UpdateInfo'>[id ? "Update Tablet Info" : ""]</A><br>
+								"}
+					dat += {"
 							[station_name]<br>[time2text(world.realtime, "MMM DD")] [year_integer+540]<br>[worldtime2text()]<br>
 							"}
 					for(var/datum/program/P in apps_builtin)
@@ -143,6 +156,9 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 		var/device = "tablet"
 		if(laptop)
 			device = "laptop"
+		if(istype(user, /mob/living/silicon/pai))
+			user:updateTablet(dat)
+			return
 		popup = new(user, device, "[src]")
 		popup.set_content(dat)
 		popup.title = {"<div align="left">ThinkTronic OS 3.1</div><div align="right"><a href='byond://?src=\ref[src];choice=Refresh'>Refresh</a><a href='byond://?src=\ref[src];choice=Close'>Close</a></div>"}
@@ -421,6 +437,16 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 					user.show_message("\blue No radiation detected.")
 
 /obj/item/device/tablet/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
+	if(scanmode == "Camera" && !photo_cooldown)
+		captureimage(A, user, proximity)
+
+		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
+
+		photo_cooldown = 1
+		spawn(64)
+			photo_cooldown = 0
+		return
+
 	if(!proximity) return
 
 	switch(scanmode)
@@ -483,6 +509,82 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 			pic.photoinfo = P.img
 			user << "\blue Photo scanned."
 			core.files.Add(pic)
+
+//camera stuff
+
+/obj/item/device/tablet/proc/captureimage(atom/target, mob/user, flag)
+	var/list/seen
+	seen = hear(world.view, target)
+
+	var/list/turfs = list()
+	for(var/turf/T in range(1, target))
+		if(T in seen)
+			turfs += T
+
+	var/icon/temp = icon('icons/effects/96x96.dmi',"")
+	temp.Blend("#000", ICON_OVERLAY)
+	temp.Blend(camera_get_icon(turfs, target), ICON_OVERLAY)
+
+	var/obj/item/weapon/photo/P = new/obj/item/weapon/photo()
+	user.put_in_hands(P)
+	var/icon/small_img = icon(temp)
+	var/icon/ic = icon('icons/obj/items.dmi',"photo")
+	small_img.Scale(8, 8)
+	ic.Blend(small_img,ICON_OVERLAY, 10, 13)
+	P.icon = ic
+	P.img = temp
+	P.pixel_x = rand(-10, 10)
+	P.pixel_y = rand(-10, 10)
+
+	var/datum/tablet_data/photo/pic = new /datum/tablet_data/photo/
+	pic.photoinfo = P.img
+	if(target == user)
+		user.visible_message("<span class = 'notice'>[user] takes a selfie with \his tablet</span>")
+	else
+		user.visible_message("<span class = 'notice'>[user] takes a photo with \his tablet</span>")
+	core.files.Add(pic)
+
+	qdel(P)
+
+/obj/item/device/tablet/proc/camera_get_icon(list/turfs, turf/center)
+	var/atoms[] = list()
+	for(var/turf/T in turfs)
+		atoms.Add(T)
+		for(var/atom/movable/A in T)
+			if(A.invisibility) continue
+			atoms.Add(A)
+
+	var/list/sorted = list()
+	var/j
+	for(var/i = 1 to atoms.len)
+		var/atom/c = atoms[i]
+		for(j = sorted.len, j > 0, --j)
+			var/atom/c2 = sorted[j]
+			if(c2.layer <= c.layer)
+				break
+		sorted.Insert(j+1, c)
+
+	var/icon/res = icon('icons/effects/96x96.dmi', "")
+
+	for(var/atom/A in sorted)
+		var/icon/img = getFlatIcon(A)
+		if(istype(A, /mob/living) && A:lying)
+			img.Turn(A:lying)
+
+		var/offX = 32 * (A.x - center.x) + A.pixel_x + 33
+		var/offY = 32 * (A.y - center.y) + A.pixel_y + 33
+		if(istype(A, /atom/movable))
+			offX += A:step_x
+			offY += A:step_y
+
+		res.Blend(img, blendMode2iconMode(A.blend_mode), offX, offY)
+
+	for(var/turf/T in turfs)
+		res.Blend(getFlatIcon(T.loc), blendMode2iconMode(T.blend_mode), 32 * (T.x - center.x) + 33, 32 * (T.y - center.y) + 33)
+
+	return res
+
+//end camera stuff
 
 /obj/item/device/tablet/proc/id_check(mob/user as mob, choice as num)//To check for IDs; 1 for in-pda use, 2 for out of pda use.
 	if(choice == 1)

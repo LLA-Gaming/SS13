@@ -1,24 +1,25 @@
 /mob/living/simple_animal/borer/proc/initialize_lists()
 
 	if(evil)
-		detached += list(/mob/living/simple_animal/borer/proc/instill_fear)
+		detached |= list(/mob/living/simple_animal/borer/proc/instill_fear)
 
-		attached += list(/mob/living/simple_animal/borer/proc/assume_control)
+		attached |= list(/mob/living/simple_animal/borer/proc/assume_control)
 
-		chems += list("Impedrezene","Lexorin","Mindbreaker","Toxin")
+		chems |= list("Impedrezene","Lexorin","Mindbreaker","Toxin")
 
 
-	detached += list(/mob/living/simple_animal/borer/proc/infest,
+	detached |= list(/mob/living/simple_animal/borer/proc/infest,
 					 /mob/living/simple_animal/borer/proc/hide,
-					 /mob/living/simple_animal/borer/proc/reproduce)
+					 /mob/living/simple_animal/borer/proc/reproduce,
+					 /mob/living/simple_animal/borer/proc/build_nest)
 
-	attached += list(/mob/living/simple_animal/borer/proc/abandon_host,
+	attached |= list(/mob/living/simple_animal/borer/proc/abandon_host,
 					 /mob/living/simple_animal/borer/proc/secrete_chems,
 					 /mob/living/simple_animal/borer/proc/adrenalin,
 					 /mob/living/simple_animal/borer/proc/paralyze,
 					 /mob/living/simple_animal/borer/proc/suck)
 
-	chems += list("Kelotane","Bicaridine","Hyronalin","Imidazoline","Ethylredoxrazine","Anti-Toxin","Cancel") // These just get converted into lowercase and stuff. Be careful when adding chems that have a different ID than their name. I.e. "Sleep Toxin"'s ID is "stoxin"
+	chems |= list("Kelotane","Bicaridine","Hyronalin","Imidazoline","Ethylredoxrazine","Anti-Toxin (Dylovene)","Cancel") // This uses the 'exact' chem name.
 
 // Available verbs when detached //
 
@@ -71,7 +72,7 @@
 	src << "<span class='notice'>You slither up [M] and begin probing at their ear canal...</span>"
 	M << "<span class='notice'>You feel something slithering up your leg...</span>"
 
-	if(!do_after(M,50) && !do_after(src,50))
+	if(!do_after(M,attach_speed) && !do_after(src,attach_speed))
 		ventcrawler = 2
 		return
 
@@ -166,6 +167,35 @@
 		new /obj/structure/borer_egg(loc)
 	return
 
+/mob/living/simple_animal/borer/proc/build_nest()
+	set category = "Borer"
+	set name = "Build Nest (200)"
+	set desc = "Build a nest that helps your eggs grow without plasma."
+
+	if(stat)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
+	if(locate(/turf/space) in get_turf(src))
+		src << "You can't build a nest here."
+		return
+
+	if(locate(/obj/structure/borer_nest) in get_turf(src))
+		src << "There's already a nest here."
+		return
+
+	if(chemicals < 200)
+		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
+		return
+
+	if(chemicals >= 200)
+		chemicals -= 200
+		for(var/mob/O in viewers(src, null))
+			O.show_message(text("\green <B>The [src] has built a nest!</B>"), 1)
+		new /obj/structure/borer_nest(loc)
+	return
+
+
 /mob/living/simple_animal/borer/proc/instill_fear()
 	set category = "Borer"
 	set name = "Instill Fear (50)"
@@ -217,7 +247,7 @@
 
 	src << "<span class='info'>You begin disconnecting from [host]'s synapses and prodding at their internal ear canal.</span>"
 
-	spawn(200)
+	spawn(detach_speed)
 
 		if((!host) || !src) return
 
@@ -274,8 +304,7 @@
 			if(chemicals < 75)
 				src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
 				return
-			chem = replacetext(lowertext(chem), "-", "_")
-			chem = replacetext(chem, " ", "")
+			chem = get_chem_id(chem)
 			src << "<span class='info'>You secrete some of the chemical into [host]'s body.</span>"
 			host.reagents.add_reagent(chem, 5)
 			chemicals -= 75
@@ -353,10 +382,10 @@
 	for(var/i=0, i<5, i++)
 		if(host)
 			host.nutrition -= 15
-			if(src.chemicals < 191)
-				src.chemicals += 10
-			else if(src.chemicals >= 191)
-				src.chemicals = 200
+			if(chemicals < maxChems-9)
+				chemicals += 10
+			else if(chemicals >= maxChems-9)
+				chemicals = maxChems
 				break
 		sleep(20)
 	sleep(1200)
@@ -386,6 +415,8 @@
 		src.verbs -= attached
 		host.verbs |= /mob/living/simple_animal/borer/proc/release_control
 		borer.mind.transfer_to(host)
+		if(adv_control)
+			adv_control_active = 1
 		controlling = 1
 		return
 
@@ -396,11 +427,41 @@
 	host << "<span class='warning'>Your mind fades away.</span>"
 	src << "<span class='notice'>You take control over your host's body.</span>"
 	host.verbs |= /mob/living/simple_animal/borer/proc/release_control
+	src.verbs -= upgrade_verbs
 	src.verbs -= attached
 
 	mind_trade(host,src)
 
 	controlling = 1
+
+/mob/living/simple_animal/borer/proc/lesser_assume()
+	set category = "Borer"
+	set name = "Lesser Assume Control"
+	set desc = "Assume control of a lesser mind for a period of time."
+
+	if(!host)
+		return
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
+	if(host.stat == 2)
+		src << "<span class='notice'>You can't control a dead body.</span>"
+		return
+
+	if(!ismonkey(host) || host.mind)
+		src << "<span class='warning'>This mind is too advanced for you to control.</span>"
+		return
+
+	var/mob/borer = src
+
+	src << "<span class='notice'>You take control over your host's body.</span>"
+	src.verbs -= attached
+	host.verbs |= /mob/living/simple_animal/borer/proc/release_control
+	borer.mind.transfer_to(host)
+	controlling = 1
+	return
 
 /mob/living/simple_animal/borer/proc/return_control()
 	var/mob/borer = src
@@ -410,6 +471,7 @@
 		return
 
 	if(!borer.key || !borer.mind)
+		src.verbs |= upgrade_verbs
 		src.verbs |= attached
 		host.verbs -= /mob/living/simple_animal/borer/proc/release_control
 		host.mind.transfer_to(borer)
@@ -432,3 +494,90 @@
 	for(var/mob/living/simple_animal/borer/B in src.contents)
 		B.host << "<span class='info'>You release control over your host's body.</span>"
 		B.return_control()
+
+// Upgrade Verbs //
+
+/mob/living/simple_animal/borer/proc/heal()
+	set category = "Borer"
+	set name = "Regenerate"
+	set desc = "Regenerate your body."
+	var/cost = round((maxHealth-health)*5)
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
+	if(health == maxHealth)
+		src << "<span class='info'>Your body is already in perfect condition.</span>"
+		return
+
+	if(chemicals < cost)
+		src << "<span class='warning'>You need [cost] chemicals to do this.</span>"
+		return
+
+	if(chemicals >= cost)
+		src << "<span class='info'>You use [cost] chemicals to heal your body.</span>"
+		health = maxHealth
+		chemicals -= cost
+
+/mob/living/simple_animal/borer/proc/telepathic()
+	set category = "Borer"
+	set name = "Telepathic Projection (25)"
+	set desc = "Transmit some information to an individual."
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
+	if(chemicals < 25)
+		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
+		return
+
+	var/list/choices = list()
+	for(var/mob/living/L in view(7,src))
+		if(!L.mind) continue
+		if(isborer(L)) continue
+		if(host && host == L) continue
+		if(universal_speak)
+			if(L.stat != 2)
+				choices += L
+		else
+			if(L.stat != 2 && ishuman(L) || ismonkey(L))
+				choices += L
+
+	var/mob/living/L = input(src,"Who do you wish to talk to?") in null|choices
+
+	if(!L) return
+
+	var/tele_message = copytext(sanitize(input(src, "What do you want to say?", "Enter here", null) as text|null),1,MAX_MESSAGE_LEN)
+
+	if(!tele_message) return
+
+	if(chemicals < 25)
+		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
+		return
+
+	if(L in view(7,src))
+		src << "<i><span class='name'>You speak to [L]:</span> <span class='message'>[tele_message]</span></i>"
+		L << "<i><span class='name'>An unknown voice in your head says,</span> <span class='message'>[tele_message]</span></i>"
+		chemicals -= 25
+
+/mob/living/simple_animal/borer/proc/blood_clot()
+	set category = "Borer"
+	set name = "Coagulation Agent"
+	set desc = "Secrete a blood clotting agent into your host's bloodstream."
+
+	if(!host) return
+
+	if(stat || docile)
+		src << "<span class='warning'>You can't do that in your current state.</span>"
+		return
+
+	var/list/bleeding = host.get_damaged_organs(0,0,1)
+
+	if(!bleeding.len)
+		src << "Your host isn't bleeding."
+		return
+
+	blood_clotting = 1
+	src << "You secrete a blood clotting agent into [host]'s bloodstream."

@@ -60,7 +60,7 @@
 	blob_talk(message)
 
 /mob/camera/blob/proc/blob_talk(message)
-	log_say("[key_name(src)] : [message]")
+	if(key) log_say("[key_name(src)] : [message]")
 
 	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 
@@ -84,7 +84,7 @@
 
 	statpanel("Status")
 	..()
-	if (client.statpanel == "Status")
+	if (client && client.statpanel == "Status")
 		if(blob_core)
 			stat(null, "Core Health: [blob_core.health]")
 		stat(null, "Power Stored: [blob_points]/[max_blob_points]")

@@ -75,10 +75,39 @@ var/datum/virtual_reality_controller/vr_controller
 		else if(glasses_type == 1)
 			destination = perseus_destination
 
+		var/has_headset = 0
+		var/keyslot1
+		var/keyslot2
+		var/syndie = 0
+
+		if(istype(H.ears, /obj/item/device/radio/headset))
+			has_headset = 1
+			var/obj/item/device/radio/headset/headset = H.ears
+			if(headset.keyslot1) keyslot1 = headset.keyslot1.type
+			if(headset.keyslot2) keyslot2 = headset.keyslot2.type
+			syndie = headset.syndie
+			//determining if comms is in range
+			if(H.z != 1)
+				has_headset = 0
+				for(var/obj/machinery/telecomms/relay/T in machines)
+					if(T.z != H.z) continue
+					if(!T.toggled) continue
+					if(T.stat & BROKEN) continue
+					if(T.stat & NOPOWER) continue
+					has_headset = 1
+
 		var/mob/living/carbon/human/new_mob = new(pick(get_area_turfs(destination)))
 		copy_human(H, new_mob, 1)
 
 		copies += new_mob
+
+		if(has_headset)
+			var/obj/item/device/radio/headset/virtual/virtual_headset = new()
+			if(keyslot2) virtual_headset.keyslot2 = new keyslot2(virtual_headset)
+			if(keyslot1) virtual_headset.keyslot1 = new keyslot1(virtual_headset)
+			virtual_headset.syndie = syndie
+			virtual_headset.recalculateChannels()
+			new_mob.equip_to_slot_or_del(virtual_headset, slot_ears)
 
 		return new_mob
 

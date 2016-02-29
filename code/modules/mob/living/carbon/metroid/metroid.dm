@@ -163,7 +163,7 @@
 	else
 		stat(null, "Health: [round((health / 150) * 100)]%")
 
-	if (client.statpanel == "Status")
+	if (client && client.statpanel == "Status")
 		stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
 		if(amount_grown >= 10)
 			if(is_adult)

@@ -6,7 +6,7 @@
 	w_class = 2.0
 	slot_flags = SLOT_BELT
 	origin_tech = "programming=2"
-	var/obj/item/device/radio/radio
+	var/obj/item/device/radio/borg/radio
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
 	var/emagged = 0
@@ -119,6 +119,9 @@
 						pai.master = M.real_name
 						pai.master_dna = M.dna.unique_enzymes
 						pai << "<span class='notice'>You have been bound to a new master.</span>"
+					if(pai.tablet)
+						pai.tablet.update_label()
+						pai.tablet.attack_self(pai)
 			if ("WIPE")
 				var/confirm = input("Are you CERTAIN you wish to delete the current personality? This action cannot be undone.", "Personality Wipe") in list("Yes", "No")
 				if(confirm == "Yes")

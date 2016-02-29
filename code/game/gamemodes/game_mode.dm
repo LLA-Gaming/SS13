@@ -290,7 +290,7 @@
 	for(var/mob/new_player/player in players)
 		if(player.client && player.ready)
 			if(player.client.prefs.be_special_gamemode & role)
-				if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
+				if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext) && (!(player.ckey in assignPerseus))) //Nodrak/Carn: Antag Job-bans // also prevent ready percs
 					candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
 	if(reserved_minds.len) 									// Remove players who are reserved for required jobs for the gamemode (minimum only)
