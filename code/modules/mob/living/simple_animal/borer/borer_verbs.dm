@@ -533,8 +533,13 @@
 		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
 		return
 
+	var/who
+	if(host)
+		who = host
+	else
+		who = src
 	var/list/choices = list()
-	for(var/mob/living/L in view(7,src))
+	for(var/mob/living/L in view(7,who))
 		if(!L.mind) continue
 		if(isborer(L)) continue
 		if(host && host == L) continue
@@ -557,7 +562,7 @@
 		src << "<span class='warning'>You do not have enough chemicals to do this.</span>"
 		return
 
-	if(L in view(7,src))
+	if(L in view(7,who))
 		src << "<i><span class='name'>You speak to [L]:</span> <span class='message'>[tele_message]</span></i>"
 		L << "<i><span class='name'>An unknown voice in your head says,</span> <span class='message'>[tele_message]</span></i>"
 		chemicals -= 25

@@ -33,7 +33,7 @@
 		if(!host)
 			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 			borer_talk(message)
-		else if((copytext(message, 1, 2) == ";") || (copytext(message, 1, 2) == ":") || (copytext(message, 1, 2) == "#") || (copytext(message, 1, 2) == "."))
+		else if((copytext(message, 1, 2) == ";") || (copytext(message, 1, 2) == ":") || (copytext(message, 1, 2) == "#"))
 			message = copytext(message, 2)
 			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 			borer_talk(message)
