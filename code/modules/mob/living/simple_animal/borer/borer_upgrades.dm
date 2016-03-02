@@ -152,7 +152,7 @@
 
 /datum/borer_upgrade/blood_clot
 	name = "Coagulation Agent"
-	desc = "We evolve the ability to secrete a blood clotting agent into our host's bloodstream."
+	desc = "We evolve the ability to secrete a blood clotting agent into our hosts bloodstream."
 	helptext = "Closes bleeding wounds of your host."
 	chem_cost = 80
 
@@ -168,7 +168,7 @@
 /datum/borer_upgrade/hear
 	name = "Resonance Augment"
 	desc = "We develop the ability to convert vibrations on the air into information about our surroundings."
-	helptext = "Ýou gain the ability to hear while outside of a host."
+	helptext = "You gain the ability to hear while outside of a host."
 	chem_cost = 75
 
 /datum/borer_upgrade/hear/on_purchase(var/mob/user)
