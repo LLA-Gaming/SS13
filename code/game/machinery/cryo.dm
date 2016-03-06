@@ -255,17 +255,32 @@
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()
 	if(panel_open)
 		icon_state = "cell-o"
+		overlays.Cut()
 		return
 	if(state_open)
 		icon_state = "cell-open"
+		overlays.Cut()
 		return
 	if(on)
 		if(occupant)
-			icon_state = "cell-occupied"
+			icon_state = "cell-on"
+			overlays.Cut()
+			var/image/O = image(occupant)
+			O.pixel_y = 24
+			O.layer = 4.05
+			overlays += O
+			var/image/I = new
+			I.icon = icon
+			I.icon_state = "cell-on"
+			I.layer = 4.1
+			I.alpha = 190
+			overlays += I
 		else
 			icon_state = "cell-on"
+			overlays.Cut()
 	else
 		icon_state = "cell-off"
+		overlays.Cut()
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
