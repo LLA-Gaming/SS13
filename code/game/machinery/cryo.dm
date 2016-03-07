@@ -267,12 +267,12 @@
 			overlays.Cut()
 			var/image/O = image(occupant)
 			O.pixel_y = 24
-			O.layer = 4.05
+			O.layer = layer + 0.01
 			overlays += O
 			var/image/I = new
 			I.icon = icon
 			I.icon_state = "cell-on"
-			I.layer = 4.1
+			I.layer = layer + 0.02
 			I.alpha = 190
 			overlays += I
 		else
