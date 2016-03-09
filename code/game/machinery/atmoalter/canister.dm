@@ -49,7 +49,7 @@
 	canister_color = "grey"
 	can_label = 0
 //debugery
-/obj/machinery/portable/atmospherics/canister/burnmix
+/obj/machinery/portable_atmospherics/canister/burnmix
 	name = "canister \[Fuel\]"
 	icon_state = "orange"
 	canister_color = "orange"
