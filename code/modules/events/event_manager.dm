@@ -456,7 +456,7 @@ I.e, the following is valid:
 		//addition by flavo
 		if(!difference) continue
 		difference = event_list.Find(difference)
-		//world.log << "[difference]: [list2text(event_list[difference],", ")]"
+		//world.log << "[difference]: [jointext(event_list[difference],", ")]"
 		//addition end
 		var/distance_from_chosen_difference = abs(chosen_difference - difference)
 		if(distance_from_chosen_difference < selected_distance_from_difference)
@@ -468,7 +468,7 @@ I.e, the following is valid:
 	if(!selected_events)
 		return
 	if(test)
-		return "[list2text(selected_events,", ")]<br>chosen diff: [chosen_difference]" //only a test, return the event
+		return "[jointext(selected_events,", ")]<br>chosen diff: [chosen_difference]" //only a test, return the event
 	else
 		for(var/i=0, i<10, i++) // try at least 10 times before deciding "fuck it"
 			var/datum/round_event_control/E = safepick(selected_events)

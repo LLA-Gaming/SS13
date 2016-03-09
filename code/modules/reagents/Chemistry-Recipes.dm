@@ -384,7 +384,7 @@ silicate
 					if(istype(M:glasses, /obj/item/clothing/glasses/sunglasses))
 						continue
 
-				flick("e_flash", M.flash)
+				M.flash_eyes()
 				M.Weaken(5)
 
 			if(4 to 5)
@@ -392,7 +392,7 @@ silicate
 					if(istype(M:glasses, /obj/item/clothing/glasses/sunglasses))
 						continue
 
-				flick("e_flash", M.flash)
+				M.flash_eyes()
 				M.Stun(5)
 
 /datum/chemical_reaction/napalm
@@ -1169,7 +1169,7 @@ datum/chemical_reaction/pestkiller
 
 			for(var/mob/living/carbon/human/H in viewers(get_turf(holder.my_atom), null))
 				if(H:eyecheck() <= 0)
-					flick("e_flash", H.flash)
+					H.flash_eyes()
 
 			for(var/i = 1, i <= 5, i++)
 				var/chosen = pick(critters)
@@ -1216,7 +1216,7 @@ datum/chemical_reaction/pestkiller
 
 			for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
 				if(M:eyecheck() <= 0)
-					flick("e_flash", M.flash)
+					M.flash_eyes()
 
 			var/chosen = pick(critters)
 			var/mob/living/simple_animal/hostile/C = new chosen
@@ -1244,7 +1244,7 @@ datum/chemical_reaction/pestkiller
 
 	for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
 		if(M:eyecheck() <= 0)
-			flick("e_flash", M.flash)
+			M.flash_eyes()
 
 	for(var/i = 1, i <= 4 + rand(1,2), i++)
 		var/chosen = pick(borks)
@@ -1276,7 +1276,7 @@ datum/chemical_reaction/pestkiller
 
 	for(var/mob/living/carbon/human/M in viewers(get_turf(holder.my_atom), null))
 		if(M:eyecheck() <= 0)
-			flick("e_flash", M.flash)
+			M.flash_eyes()
 
 	for(var/i = 1, i <= 4 + rand(1,2), i++)
 		var/chosen = pick(borks)

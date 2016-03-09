@@ -31,7 +31,7 @@
 				i++
 				dat += "[i]) [X]<br>"
 			if(new_task.assigned_to.len)
-				dat += "<br>Assigned Users:</u> [list2text(new_task.assigned_to,"<br>")]"
+				dat += "<br>Assigned Users:</u> [jointext(new_task.assigned_to,"<br>")]"
 			dat += "</div>"
 			dat += "Commands:<br>"
 			dat += "[command_button("<a href='byond://?src=\ref[new_task];choice=name;app=\ref[src]'>Rename</a>")]<br>"
@@ -92,7 +92,7 @@
 						i++
 						temp += "[i]) [X]<br>"
 					if(A.assigned_to.len)
-						temp += "<br>Assigned Users:</u> [list2text(A.assigned_to,"<br>")]"
+						temp += "<br>Assigned Users:</u> [jointext(A.assigned_to,"<br>")]"
 					if(!A.complete && A.assigned_by == "[tablet.owner] ([tablet.ownjob])")
 						temp += "[command_button("<br><a href='byond://?src=\ref[A];choice=report_complete;app=\ref[src]'>Report Complete</a>")]"
 						if(!A.complete)

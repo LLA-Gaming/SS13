@@ -6,7 +6,7 @@ var/list/badges_by_ckey = list()
 	if (!text)
 		diary << "Failed to load [BADGEFILE]\n"
 	else
-		var/list/lines = text2list(text, "\n")
+		var/list/lines = splittext(text, "\n")
 		for(var/line in lines)
 			if (!line)
 				continue

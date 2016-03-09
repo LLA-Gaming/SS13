@@ -42,7 +42,7 @@
 						message += "E"*/
 		if(viruses.len)
 			for(var/datum/disease/pierrot_throat/D in viruses)
-				var/list/temp_message = text2list(message, " ") //List each word in the message
+				var/list/temp_message = splittext(message, " ") //List each word in the message
 				var/list/pick_list = list()
 				for(var/i = 1, i <= temp_message.len, i++) //Create a second list for excluding words down the line
 					pick_list += i
@@ -52,7 +52,7 @@
 						if(findtext(temp_message[H], "*") || findtext(temp_message[H], ";") || findtext(temp_message[H], ":")) continue
 						temp_message[H] = "HONK"
 						pick_list -= H //Make sure that you dont HONK the same word twice
-					message = list2text(temp_message, " ")
+					message = jointext(temp_message, " ")
 
 		if(wear_mask)
 			message = wear_mask.speechModification(message)
