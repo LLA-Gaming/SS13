@@ -149,14 +149,14 @@ var/datum/controller/firedome/firedome = new()
 					var/mob/living/carbon/human/H = C.mob
 					winners.Add(H.mind.name)
 				firedome.reset()
-				firedome.message_ghosts("\"[name]\" ended with Team 1 Victory ([list2text(winners,", ")])")
+				firedome.message_ghosts("\"[name]\" ended with Team 1 Victory ([jointext(winners,", ")])")
 			if(!team1_count)
 				var/list/winners = list()
 				for(var/client/C in team2)
 					var/mob/living/carbon/human/H = C.mob
 					winners.Add(H.mind.name)
 				firedome.reset()
-				firedome.message_ghosts("\"[name]\" ended with Team 2 Victory ([list2text(winners,", ")])")
+				firedome.message_ghosts("\"[name]\" ended with Team 2 Victory ([jointext(winners,", ")])")
 			return
 		if(!team)
 			var/player_count = 0

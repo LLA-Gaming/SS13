@@ -71,7 +71,7 @@
 			dat += "<br>Comments<br><div class='statusDisplay'>"
 			if(displayed_post.liked.len)
 				dat += "Likes:"
-				dat += "[list2text(displayed_post.liked,",")]<br>"
+				dat += "[jointext(displayed_post.liked,",")]<br>"
 			for(var/X in displayed_post.comments_links)
 				dat += "[X]<br>"
 			dat += "</div>"
