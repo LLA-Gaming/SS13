@@ -89,6 +89,7 @@ var/global/air_processing_killed = 0
 			EG.breakdown_cooldown ++
 			if(EG.breakdown_cooldown == 10)
 				EG.self_breakdown()
+				scheck()
 				return
 			if(EG.breakdown_cooldown > 20)
 				EG.dismantle()
