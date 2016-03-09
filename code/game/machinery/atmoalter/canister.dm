@@ -48,6 +48,22 @@
 	icon_state = "grey"
 	canister_color = "grey"
 	can_label = 0
+//debugery
+/obj/machinery/portable/atmospherics/canister/burnmix
+	name = "canister \[Fuel\]"
+	icon_state = "orange"
+	canister_color = "orange"
+	can_label = 0
+	volume = 100000
+
+/obj/machinery/portable/atmospherics/canister/burnmix/New()
+	..()
+	src.air_contents.gasses[OXYGEN] = (src.maximum_pressure*(1/3)*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	src.air_contents.gasses[PLASMA] = (src.maximum_pressure*(2/3)*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+
+	src.update_icon()
+	return 1
+//end debugery
 
 /obj/machinery/portable_atmospherics/canister/proc/check_change()
 	var/old_flag = update_flag
