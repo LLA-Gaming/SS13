@@ -59,14 +59,14 @@
 	empulse(location, round(created_volume / 24), round(created_volume / 14), 1)
 	holder.clear_reagents()
 	return
-/*
-silicate
+
+/datum/chemical_reaction/silicate
 	name = "Silicate"
 	id = "silicate"
 	result = "silicate"
 	required_reagents = list("aluminium" = 1, "silicon" = 1, "oxygen" = 1)
 	result_amount = 3
-*/
+
 /datum/chemical_reaction/stoxin
 	name = "Sleep Toxin"
 	id = "stoxin"
