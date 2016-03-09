@@ -24,7 +24,6 @@
 		for(var/mob/O in viewers(src, null))
 			O.show_message("<B>[src]</B> lets out a terrible screech, as if a thousand griefers cried out in joy, and then falls silent.", 1)
 		update_canmove()
-		if(client)	blind.layer = 0
 		update_icons()
 		gibbed = 1 //no beepsky brain 4 u
 

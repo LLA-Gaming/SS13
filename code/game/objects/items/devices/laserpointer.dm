@@ -128,21 +128,21 @@
 						C << "<span class='notice'>Something bright flashes in the corner of your vision!</span>"
 					if(2)
 						//basic eye protection (sunglasses)
-						flick("flash", C.flash)
+						C.flash_eyes()
 						C.eye_stat += rand(1, 6)
 						C << "<span class='danger'>Your eyes were blinded!</span>"
 					if(3)
 						//no eye protection
 						if(prob(2))
 							C.Weaken(1)
-						flick("e_flash", C.flash)
+						C.flash_eyes()
 						C.eye_stat += rand(3, 7)
 						C << "<span class='danger'>Your eyes were blinded!</span>"
 					if(4)
 						//the effect has been worsened by something
 						if(prob(5))
 							C.Weaken(1)
-						flick("e_flash", C.flash)
+						C.flash_eyes()
 						C.eye_stat += rand(5, 10)
 						C << "<span class='danger'>Your eyes were blinded!</span>"
 			else

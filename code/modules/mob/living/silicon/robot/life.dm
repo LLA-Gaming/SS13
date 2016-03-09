@@ -244,21 +244,19 @@
 //	if (src.gasses[OXYGEN]) src.oxygen.icon_state = "oxy[src.gasses[OXYGEN]_alert ? 1 : 0]"
 //	if (src.fire) src.fire.icon_state = "fire[src.fire_alert ? 1 : 0]"
 
-	client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
+	clear_fullscreen("blurry")
+	clear_fullscreen("high")
+	clear_fullscreen("blind")
 
-	if ((src.blind && src.stat != 2))
-		if(src.blinded)
-			src.blind.layer = 18
-		else
-			src.blind.layer = 0
-			if (src.disabilities & NEARSIGHTED)
-				src.client.screen += global_hud.vimpaired
+	if ((src.stat != 2))
+		if (src.disabilities & NEARSIGHTED)
+			overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
 
-			if (src.eye_blurry)
-				src.client.screen += global_hud.blurry
+		if (src.eye_blurry)
+			overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
 
-			if (src.druggy)
-				src.client.screen += global_hud.druggy
+		if (src.druggy)
+			overlay_fullscreen("high", /obj/screen/fullscreen/high)
 
 	if (src.stat != 2)
 		if (src.machine)

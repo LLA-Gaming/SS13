@@ -64,7 +64,7 @@
 
 /mob/living/ex_act(severity)
 	if(client && !blinded)
-		flick("flash", src.flash)
+		flash_eyes()
 
 /mob/living/proc/updatehealth()
 	if(status_flags & GODMODE)
@@ -73,6 +73,16 @@
 		return
 	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
 
+//called when the mob receives a bright flash
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+	if(check_eye_prot() < intensity && (override_blindness_check || !(disabilities & BLIND)))
+		overlay_fullscreen("flash", type)
+		spawn(25)
+			clear_fullscreen("flash")
+		return 1
+
+/mob/living/proc/check_eye_prot()
+	return 0
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
