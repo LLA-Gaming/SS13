@@ -56,7 +56,7 @@
 	can_label = 0
 	volume = 100000
 
-/obj/machinery/portable/atmospherics/canister/burnmix/New()
+/obj/machinery/portable_atmospherics/canister/burnmix/New()
 	..()
 	src.air_contents.gasses[OXYGEN] = (src.maximum_pressure*(1/3)*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 	src.air_contents.gasses[PLASMA] = (src.maximum_pressure*(2/3)*filled)*air_contents.volume/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
