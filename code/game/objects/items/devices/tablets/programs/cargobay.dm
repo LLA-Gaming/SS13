@@ -17,3 +17,11 @@
 		for(var/S in supply_shuttle.requestlist)
 			var/datum/supply_order/SO = S
 			dat += "<li>#[SO.ordernum] - [SO.object.name] requested by [SO.orderedby]</li>"
+
+		if(supply_shuttle.tasks.len)
+			dat += "<hr>"
+			for(var/datum/round_event/task/T in supply_shuttle.tasks)
+				dat += "<div class='statusDisplay'>"
+				dat += "<b><u>[T.task_name]</b></u><br>"
+				dat += "[TAB][T.task_desc]"
+				dat += "</div>"

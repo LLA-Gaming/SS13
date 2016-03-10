@@ -1,0 +1,164 @@
+///variations of the cycler event.
+
+/datum/event_cycler/rotation
+	in_rotation = 1
+/datum/event_cycler/endless
+	endless = 1
+/datum/event_cycler/admin_playlist
+	endless = 1
+	events_allowed = null
+/datum/event_cycler/roundstart
+	lifetime = 1
+	events_allowed = EVENT_ROUNDSTART
+
+/datum/event_cycler/task_cycler
+	frequency_lower = 3000	//2 minutes lower bound.
+	frequency_upper = 1800	//3 minutes upper bound.
+	events_allowed = EVENT_TASK
+	max_children = 2		//only 2 events are allowed to be active at the same time.
+	endless = 1
+	var/task_level = 1
+
+	New()
+		..(rand(frequency_lower,frequency_upper),"CentComm Official","#[rand(100,999)]")
+		return
+
+	cycler_modifier(var/list/L)
+		for(var/datum/round_event_control/task/T in L)
+			if(T.task_level > task_level)
+				L.Remove(E)
+		return L
+
+///The cycler code itself.
+/datum/event_cycler/
+	var/events_allowed = EVENT_MINOR
+	var/stress_level = 1
+	var/schedule = 0
+	var/npc_name = "Centcomm Officer Tom"
+	var/frequency_lower = 3000	//5 minutes lower bound.
+	var/frequency_upper = 9000	//15 minutes upper bound.
+	var/in_rotation = 0			//this cycler makes another cycler when it's lifetime is 0 or less
+	var/endless = 0				//doesn't check lifetime
+	var/lifetime = 1			//how many events this cycler can fire until it retires (in_rotation must be 1)
+	var/list/playlist = list()  //For custom, admin created cyclers. if any events are in this playlist the events allowed, stress level, and in_rotation are ignored
+	var/paused = 0				//When a cycler is paused.
+	var/delete_warning = 0		//If the event scheduler cant fire a event in 2 tries it ends itself.
+	var/list/children = list()	//how many active events are currently active (used with task events)
+	var/max_children = -1		//0 and above are how many active events are allowed at the same time (used with task events)
+
+	New(var/schedule_arg, var/prefix, var/suffix, var/stress_arg) //argument: schedule_arg: how long in deciseconds for the initial fire of this cycler
+		..()										//prefix and suffix determine the npc_name of the cycler. stress_arg is for rotation events to decide the stress
+		stress_level = stress_arg
+		if(in_rotation)
+			switch(stress_level)
+				if(1)
+					events_allowed = EVENT_MINOR
+					lifetime = rand(2,3)
+					prefix = "CentComm Officer"
+				if(2)
+					events_allowed = EVENT_MAJOR
+					lifetime = rand(1,3)
+					prefix = "CentComm Lieutenant"
+				if(3)
+					events_allowed = EVENT_ENDGAME
+					lifetime = rand(1,2)
+					prefix = "CentComm Commander"
+		//setup the fluff name of the event cycler
+		if(!suffix)
+			suffix = pick(last_names)
+		if(prefix)
+			npc_name = "[prefix] [suffix]"
+		else
+			npc_name = suffix
+		schedule = world.time + schedule_arg
+		if(events)
+			events.event_cyclers.Add(src)
+		else
+			qdel(src)
+
+	proc/process()
+		if(!events_allowed && !playlist.len && !in_rotation)
+			qdel(src)
+			return
+		if(paused) return
+		if(!endless)
+			if(lifetime <= 0) //It's time to move on and replace itself
+				if(in_rotation)
+					var/stress = 1
+					switch(stress_level)
+						if(1)
+							stress = 2
+						if(2)
+							stress = 3
+						else
+							stress = 1
+					new /datum/event_cycler/rotation(rand(frequency_lower,frequency_upper),null,null,stress)
+				qdel(src)
+				return
+		if(schedule <= world.time)
+			var/playerC = 0
+			for(var/mob/living/L in player_list)
+				if(L.stat == 2) continue
+				playerC++
+			if(max_children < 0 || children.len < max_children)
+				if(playerC || !in_rotation)
+					pickevent()
+				schedule = world.time + rand(frequency_lower,frequency_upper)
+			else //too many children, reschedule quicker
+				schedule = world.time + rand(600,1800) //1 to 3 minutes
+
+
+	proc/pickevent()
+		var/list/possible = list()
+		if(!playlist.len)
+			for(var/datum/round_event_control/E in events.all_events)
+				if(E.event_flags & events_allowed)
+					if(E.occurrences >= E.max_occurrences && E.max_occurrences >= 0) continue
+					if(E.earliest_start >= world.time) continue
+					if(E.typepath in events.last_event) continue
+					if(E.weight <= 0) continue
+					var/already_active = 0
+					for(var/datum/round_event/R in events.active_events)
+						if(R.type == E.typepath)
+							already_active = 1
+					if(!already_active)
+						possible.Add(E)
+		else
+			possible = playlist
+
+		if(possible.len)
+			for(var/datum/round_event_control/E in possible)
+				if(!E.candidate_flag) continue
+				var/list/candidcount = get_candidates_event(E.candidate_flag, E.candidate_afk_bracket)
+				if(candidcount.len < E.candidates_needed)
+					possible.Remove(E)
+
+		possible = cycler_modifier(possible) //remove/add events based on the cycler's cycler_modifier() proc
+
+		var/sum_of_weights = 0
+		for(var/datum/round_event_control/E in possible)
+			sum_of_weights += E.weight
+
+		sum_of_weights = rand(0,sum_of_weights)	//reusing this variable. It now represents the 'weight' we want to select
+
+		for(var/datum/round_event_control/E in possible)
+			sum_of_weights -= E.weight
+
+			if(sum_of_weights <= 0)				//we've hit our goal
+				if(E.RunEvent(src) == PROCESS_KILL)//we couldn't run this event for some reason, set its max_occurrences to 0
+					E.max_occurrences = 0
+					continue
+				else if(E in playlist)
+					playlist.Remove(E)
+				return E
+
+		//no events were picked, reschedule quicker
+		if(!delete_warning)
+			schedule = world.time + rand(600,1800) //1 to 3 minutes
+			delete_warning = 1
+		else
+			lifetime = 0
+
+	proc/cycler_modifier(var/list/L)
+		//default do nothing
+		return L

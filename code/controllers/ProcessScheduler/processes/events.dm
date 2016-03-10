@@ -6,20 +6,34 @@
 		events = new
 
 /datum/controller/process/events/doWork()
-	events.checkEvent()
+	//initial setup
+	if(!events.setup_events)
+		new /datum/event_cycler/rotation(world.time + 6600,null,null,1) //Make the first cycler fire in 11 minutes.
+		new /datum/event_cycler/roundstart(0,"Central","Command") //Make the round-start cycler fire a round start event
+		events.setup_events = 1
+		return
+	//Process everything
+	process_cyclers()
+	process_events()
+
+/datum/controller/process/events/proc/process_cyclers()
 	var/i = 1
-	while(i<=events.running.len)
-		var/datum/round_event/Event = events.running[i]
+	while(i<=events.event_cyclers.len)
+		var/datum/event_cycler/E = events.event_cyclers[i]
+		if(E)
+			E.process()
+			scheck()
+			i++
+			continue
+		events.event_cyclers.Cut(i,i+1)
+
+/datum/controller/process/events/proc/process_events()
+	var/i = 1
+	while(i<=events.active_events.len)
+		var/datum/round_event/Event = events.active_events[i]
 		if(Event)
 			Event.process()
 			scheck()
 			i++
 			continue
-		events.running.Cut(i,i+1)
-	//pick one lovely event from the queue to possibly unqueue
-	if(events.queue_scheduled <= world.time)
-		for(var/datum/round_event/Event in shuffle(events.queue))
-			Event.tick_queue()
-			scheck()
-			break
-		events.queue_scheduled = world.time + rand(events.frequency_lower, max(events.frequency_lower,events.frequency_upper))
+		events.active_events.Cut(i,i+1)

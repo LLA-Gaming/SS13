@@ -1613,23 +1613,6 @@
 					break
 		return
 
-	else if(href_list["event_panel"])
-		if(!check_rights(R_FUN))	return
-		switch(href_list["event_panel"])
-			if("spawnevent")
-				feedback_inc("admin_secrets_fun_used",1)
-				feedback_add_details("admin_secrets_fun_used","EVE")
-				var/datum/round_event_control/E = locate(href_list["event"])
-				log_admin("[key_name(usr)] started event: [E.name]")
-				message_admins("[key_name(usr)] started event: [E.name]")
-				E.runEvent()
-				add2timeline("[E.name]",1)
-			if("next")
-				events.scheduled = 0
-				log_admin("[key_name(usr)] forced a random event")
-				message_admins("[key_name(usr)] forced a random event")
-		event_panel()
-
 	else if(href_list["template_panel"])
 		if(!check_rights(R_PRIMARYADMIN))
 			return 0
@@ -2063,13 +2046,6 @@
 				for(var/law in crimelogs)
 					dat += "[law]<BR>"
 				usr << browse(dat, "window=crimelogs;size=800x500")
-
-			if("timeline_logs")
-				var/dat = "<B>Round Timeline</B><HR>"
-				if(ticker)
-					for(var/X in ticker.timeline)
-						dat += "[X]<BR>"
-				usr << browse(dat, "window=eventslogs;size=800x500")
 
 	else if(href_list["secretscoder"])
 		if(!check_rights(R_DEBUG))	return

@@ -289,9 +289,6 @@
 
 	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
 		if (ticker.current_state == GAME_STATE_PLAYING)
-			if(character.mind)
-				if(character.mind.is_crewmember())
-					add2timeline("[character.real_name] ([character.mind.assigned_role]) arrived at [station_name]")
 			var/ailist[] = list()
 			for (var/mob/living/silicon/ai/A in living_mob_list)
 				ailist += A

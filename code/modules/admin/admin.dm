@@ -463,7 +463,6 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsgeneral=spawn_objects'>Admin Log</A><BR>
 			<A href='?src=\ref[src];secretsgeneral=show_admins'>Show Admin List</A><BR>
 			<A href='?src=\ref[src];secretsgeneral=crime_logs'>Show Crime Logs</A><BR>
-			<A href='?src=\ref[src];secretsgeneral=timeline_logs'>Show Round Timeline</A><BR>
 			<BR>
 			"}
 

@@ -177,6 +177,7 @@
 			if(AI_mind.current)
 				AI_mind.current.verbs -= /datum/game_mode/malfunction/proc/ai_win
 		to_nuke_or_not_to_nuke = 0
+		EventStory("The malfunctioning AI took total control over [station_name()]'s systems. There was no hope for Nanotrasen to reclaim it.",1)
 	return
 
 
@@ -245,6 +246,7 @@
 	for(var/mob/M in player_list)
 		M << 'sound/machines/Alarm.ogg'
 	world << "Self-destructing in 10"
+	EventStory("The malfunctioning AI hastily activated [station_name()]'s self destruct mechanisms. a true victory for S.E.L.F.",1)
 	for (var/i=9 to 1 step -1)
 		sleep(10)
 		world << i

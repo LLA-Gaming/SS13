@@ -310,11 +310,11 @@ client/proc/one_click_antag()
 
 
 /datum/admins/proc/makeAliens()
-	new /datum/round_event/alien_infestation{spawncount=3}()
+	//new /datum/round_event/alien_infestation{spawncount=3}() //PLEASE RETURN TO THIS AFTER EVENT REWRITE
 	return 1
 
 /datum/admins/proc/makeSpaceNinja()
-	new /datum/round_event/ninja()
+	//new /datum/round_event/ninja() //PLEASE RETURN TO THIS AFTER EVENT REWRITE
 	return 1
 
 /* DEATH SQUADS

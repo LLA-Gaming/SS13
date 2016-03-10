@@ -1591,6 +1591,50 @@ var/list/centcom_areas = list (
 
 //SPACE STATION 13
 var/list/the_station_areas = list (
+	/area/ai_monitored,
+	/area/assembly,
+	/area/atmos,
+	/area/bridge,
+	/area/chapel,
+	/area/clown,
+	/area/construction,
+	/area/crew_quarters,
+	/area/engine,
+	/area/hallway,
+	/area/hydroponics,
+	/area/janitor,
+	/area/clown,
+	/area/mime,
+	/area/lawoffice,
+	/area/library,
+	/area/maintenance,
+	/area/medical,
+	/area/pod_hangar/crew,
+	/area/pod_hangar/security,
+	/area/quartermaster,
+	/area/security,
+	/area/shuttle/arrival/station,
+	/area/shuttle/escape_pod1/station,
+	/area/shuttle/escape_pod2/station,
+	/area/shuttle/escape_pod3/station,
+	/area/shuttle/escape_pod4/station,
+	/area/shuttle/laborcamp/station,
+	/area/shuttle/mining/station,
+	/area/shuttle/prison/station,
+	/area/storage,
+	/area/tcommsat,
+	/area/teleporter,
+	/area/toxins,
+	/area/turret_protected/ai,
+	/area/turret_protected/ai_upload,
+	/area/turret_protected/aisat_interior
+)
+var/list/the_station_areas_safe = list(
+	/area/turret_protected/ai,
+	/area/turret_protected/ai_upload,
+	/area/engine,
+	/area/solar,
+	/area/holodeck,
 	/area/shuttle/arrival,
 	/area/shuttle/escape/station,
 	/area/shuttle/escape_pod1/station,
@@ -1599,34 +1643,12 @@ var/list/the_station_areas = list (
 	/area/shuttle/escape_pod4/station,
 	/area/shuttle/mining/station,
 	/area/shuttle/transport1/station,
-//	/area/shuttle/transport2/station,	//not present on map
 	/area/shuttle/specops/station,
-	/area/atmos,
-	/area/maintenance,
-	/area/hallway,
-	/area/bridge,
-	/area/crew_quarters,
-	/area/holodeck,
-//	/area/mint,		//not present on map
-	/area/library,
-	/area/chapel,
-	/area/lawoffice,
-	/area/engine,
-	/area/solar,
-	/area/assembly,
-	/area/teleporter,
-	/area/medical,
-	/area/security,
-	/area/quartermaster,
-	/area/janitor,
-	/area/hydroponics,
-	/area/toxins,
-	/area/storage,
-	/area/construction,
-	/area/ai_monitored/storage/eva, //do not try to simplify to "/area/ai_monitored" --rastaf0
-//	/area/ai_monitored/storage/secure,	//not present on map
-//	/area/ai_monitored/storage/emergency,	//not present on map
-	/area/turret_protected/ai_upload, //do not try to simplify to "/area/turret_protected" --rastaf0
-//	/area/turret_protected/ai_upload_foyer, //not present on the map
-	/area/turret_protected/ai,
-)
+	/area/security/perseus/,
+	/area/security/perseus/mycenae_centcom,
+	/area/security/perseus/mycenaeiii)
+
+	//These are needed because /area/engine has to be removed from the list, but we still want these areas to be eligible
+var/list/the_station_areas_danger = list(
+	/area/engine/break_room,
+	/area/engine/chiefs_office)
