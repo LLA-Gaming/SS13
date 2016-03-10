@@ -2452,7 +2452,7 @@
 "aVh" = (/obj/structure/stool/bed/chair{dir = 1; name = "Engineering Station"},/turf/simulated/floor,/area/bridge)
 "aVi" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor{dir = 4; icon_state = "yellowcorner"},/area/bridge)
 "aVj" = (/obj/structure/table/reinforced,/obj/structure/window/reinforced{dir = 8},/obj/machinery/recharger,/turf/simulated/floor{icon_state = "blue"; dir = 8},/area/bridge)
-"aVk" = (/obj/structure/stool/bed/chair{dir = 1; name = "Command Station"},/obj/machinery/door_control{id = "bridge blast"; name = "Bridge Blast Door Control"; pixel_x = 28; pixel_y = 30; req_access_txt = "19"},/obj/machinery/keycard_auth{pixel_x = 29; pixel_y = 39},/turf/simulated/floor,/area/bridge)
+"aVk" = (/obj/structure/stool/bed/chair{dir = 1; name = "Command Station"},/obj/machinery/door_control{id = "bridge blast"; name = "Bridge Blast Door Control"; pixel_x = 27; pixel_y = 5; req_access_txt = "19"},/obj/machinery/keycard_auth{pixel_x = 28; pixel_y = 31},/turf/simulated/floor,/area/bridge)
 "aVl" = (/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/obj/structure/table/reinforced,/obj/structure/window/reinforced{dir = 4},/turf/simulated/floor{icon_state = "blue"; dir = 4},/area/bridge)
 "aVm" = (/turf/simulated/floor{dir = 1; icon_state = "greencorner"},/area/bridge)
 "aVn" = (/obj/structure/stool/bed/chair{dir = 1; name = "Crew Station"},/turf/simulated/floor,/area/bridge)

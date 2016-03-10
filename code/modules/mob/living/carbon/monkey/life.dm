@@ -540,20 +540,19 @@
 				else
 					bodytemp.icon_state = "temp-4"
 
-		clear_fullscreen("blurry")
-		clear_fullscreen("high")
-		clear_fullscreen("blind")
-
 		if(stat != DEAD)
 			if(disabilities & NEARSIGHTED)
-				overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-
+				overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+			else
+				clear_fullscreen("nearsighted")
 			if(eye_blurry)
 				overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
-
+			else
+				clear_fullscreen("blurry")
 			if(druggy)
 				overlay_fullscreen("high", /obj/screen/fullscreen/high)
-
+			else
+				clear_fullscreen("high")
 		if (stat != 2)
 			if (machine)
 				if (!( machine.check_eye(src) ))
