@@ -39,7 +39,7 @@ var/global/air_processing_killed = 0
 	var/i=1
 	while(i<=controller.hotspots.len)
 		var/obj/effect/hotspot/H = controller.hotspots[i]
-		if(H)
+		if(H && hascall(H,"process"))
 			H.process()
 			scheck()
 			i++
@@ -50,7 +50,7 @@ var/global/air_processing_killed = 0
 	var/i = 1
 	while(i<=controller.active_super_conductivity.len)
 		var/turf/simulated/T = controller.active_super_conductivity[i]
-		if(T)
+		if(T && hascall(T,"super_conduct"))
 			T.super_conduct()
 			scheck()
 			i++
@@ -61,7 +61,7 @@ var/global/air_processing_killed = 0
 	var/i = 1
 	while(i<=controller.high_pressure_delta.len)
 		var/turf/T = controller.high_pressure_delta[i]
-		if(T)
+		if(T && hascall(T,"high_pressure_movements"))
 			T.high_pressure_movements()
 			scheck()
 			T.pressure_difference = 0
@@ -74,7 +74,7 @@ var/global/air_processing_killed = 0
 	var/i = 1
 	while(i<=controller.active_turfs.len)
 		var/turf/simulated/T = controller.active_turfs[i]
-		if(T)
+		if(T && hascall(T,"process_cell"))
 			T.process_cell()
 			scheck()
 			i++
