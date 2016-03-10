@@ -990,12 +990,6 @@
 			if(copytext(hud.icon_state,1,4) == "hud") //ugly, but icon comparison is worse, I believe
 				client.images.Remove(hud)
 
-		clear_fullscreen("blurry")
-		clear_fullscreen("high")
-		clear_fullscreen("nearsighted")
-		clear_fullscreen("blind")
-		clear_fullscreen("tint")
-
 		update_action_buttons()
 
 		if(stat == UNCONSCIOUS)
@@ -1249,22 +1243,33 @@
 					else					bodytemp.icon_state = "temp-4"
 
 //	This checks how much the mob's eyewear impairs their vision
+			if(blinded)
+				overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+			else
+				clear_fullscreen("blind")
 			if(tinttotal >= TINT_IMPAIR)
 				if(tinted_weldhelh)
 					if(tinttotal >= TINT_BLIND)
 						blinded = 1								// You get the sudden urge to learn to play keyboard
 					else
 						overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
+			else
+				clear_fullscreen("tint")
+
+			if(eye_stat > 30) overlay_fullscreen("impaired", /obj/screen/fullscreen/impaired, 2)
+			else if(eye_stat > 20) overlay_fullscreen("impaired", /obj/screen/fullscreen/impaired, 1)
+			else clear_fullscreen("impaired")
 
 			if( disabilities & NEARSIGHTED && !istype(glasses, /obj/item/clothing/glasses/regular) )
 				overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
+			else
+				clear_fullscreen("nearsighted")
+
+
 			if(eye_blurry)			overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
+			else					clear_fullscreen("blurry")
 			if(druggy)				overlay_fullscreen("high", /obj/screen/fullscreen/high)
-
-
-			if(eye_stat > 20)
-				if(eye_stat > 30)	overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
-				else				overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+			else					clear_fullscreen("high")
 
 			if(machine)
 				if(!machine.check_eye(src))		reset_view(null)
