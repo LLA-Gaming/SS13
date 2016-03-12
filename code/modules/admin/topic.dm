@@ -1918,27 +1918,6 @@
 		var/ok = 0
 		switch(href_list["secretsadmin"])
 
-			if("testnanonet")
-				var/choice = input("This feature is currently being trialed for full addition. Are you certain?") in list("Yes","Cancel")
-				if(choice == "Yes")
-					var/count = 0
-					for(var/obj/item/device/tablet/T in world)
-						if(locate(/datum/program/nanonet) in T.core.programs) break
-						T.core.programs.Add(new /datum/program/nanonet)
-						count++
-					log_admin("[key_name(usr)] has activated Nanonet Testing. [count] devices were given nanonet.")
-					message_admins("[key_name_admin(usr)] has activated Nanonet Testing. [count] devices were given nanonet.")
-			if("removenanonet")
-				var/devcount = 0
-				var/appcount = 0
-				for(var/obj/item/device/tablet/T in world)
-					devcount++
-					for(var/datum/program/nanonet/N in T.core.programs)
-						T.core.programs.Remove(N)
-						qdel(N)
-						appcount++
-				log_admin("[key_name(usr)] has ended Nanonet Testing. [devcount] devices were scanned and [appcount] instances of nanonet removed.")
-				message_admins("[key_name_admin(usr)] has ended Nanonet Testing. [devcount] devices were scanned and [appcount] instances of nanonet removed.")
 			if("clear_virus")
 				var/choice = input("Are you sure you want to cure all disease?") in list("Yes", "Cancel")
 				if(choice == "Yes")
@@ -2306,21 +2285,3 @@
 		var/obj/pod/pod = locate(href_list["view_pod_debug"])
 		if(pod && istype(pod))
 			pod.OpenDebugMenu(owner.mob)
-
-	else if(href_list["nanonet_removepage"])
-		var/obj/machinery/nanonet_server/server = locate(/obj/machinery/nanonet_server) in nanonet_servers
-		var/datum/tablet_data/document/D = locate(href_list["nanonet_removepage"]) in server.pages
-		if(server && D)
-			server.pages.Remove(D)
-		nanonet_adminpanel()
-
-	else if(href_list["nanonet_removecomment"])
-		var/obj/machinery/nanonet_server/server = locate(/obj/machinery/nanonet_server) in nanonet_servers
-		var/comment = text2num(href_list["comment"])
-		var/datum/nanonet_message/M = locate(href_list["nanonet_removecomment"]) in server.statuses
-		if(comment)
-			var/remove = M.comments[comment]
-			M.comments.Remove(remove)
-		else
-			qdel(M)
-		nanonet_adminpanel()
