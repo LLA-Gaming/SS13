@@ -15,12 +15,6 @@ var/global/list/obj/machinery/nanonet_router/nanonet_routers = list()
 	var/list/programs = list()
 	var/list/assignments = list()
 
-	//nanonet internet thing
-	var/list/profiles = list()
-	var/list/statuses = list()
-	var/list/pages = list()
-	var/list/hashtags = list()
-
 /obj/machinery/nanonet_server/New()
 	nanonet_servers += src
 	for(var/x in typesof(/datum/program/))
