@@ -845,7 +845,7 @@
 			if((alert("Do you want to unoocban [t]?","Unoocban confirmation", "Yes", "No") == "Yes") && t) //No more misclicks! Unless you do it twice.
 				log_admin("[key_name(usr)] removed [t]'s OOC ban")
 				message_admins("\blue [key_name_admin(usr)] removed [t]'s OOC ban", 1)
-				ooc_remove("t")
+				ooc_remove(t)
 				ooc_savebanfile()
 
 	else if(href_list["newban"])
