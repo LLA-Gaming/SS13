@@ -1,6 +1,10 @@
 //Blocks an attempt to connect before even creating our client datum thing.
 
 world/IsBanned(key,address,computer_id)
+	if (text2num(computer_id) == 2147483647) //this cid causes stickybans to go haywire
+		log_access("Failed Login (invalid cid): [key] [address]-[computer_id]")
+		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, Please try again. Error message: Your computer provided an invalid Computer ID.)")
+
 	if(ckey(key) in admin_datums)
 		//It has proven to be a bad idea to make admins completely immune to bans, making them have to wait for someone with daemon access
 		//to add a daemon ban to finally stop them. Admin tempbans and admin permabans are special, high-level ban types, which are there to help
