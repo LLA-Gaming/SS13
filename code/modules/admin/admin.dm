@@ -423,10 +423,8 @@ var/global/floorIsLava = 0
 
 	var/dat = "<B>OOC Bans!</B><HR><table>"
 	for(var/t in ooc_keylist)
-		var/r = t
-		if( findtext(r,"##") )
-			r = copytext( r, 1, findtext(r,"##") )//removes the description
-		dat += text("<tr><td>[t] (<A href='?src=\ref[src];removeoocban=[r]'>unban</A>)</td></tr>")
+		var/r = ooc_keylist[t]
+		dat += text("<tr><td>[t] [r ? "- [r]" : ""] (<A href='?src=\ref[src];removeoocban=[t]'>unban</A>)</td></tr>")
 	dat += "</table>"
 	usr << browse(dat, "window=ban;size=400x400")
 

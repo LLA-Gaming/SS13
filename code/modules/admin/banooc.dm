@@ -5,25 +5,22 @@ var/ooc_keylist[0]	//to store the keys
 
 /proc/ooc_fullban(mob/M, reason)
 	if (!M || !M.key) return
-	ooc_keylist.Add(text("[M.ckey] ## [reason]"))
+	ooc_keylist[M.ckey] = reason
 	ooc_savebanfile()
 
 /proc/ooc_client_fullban(ckey)
 	if (!ckey) return
-	ooc_keylist.Add(text("[ckey]"))
+	ooc_keylist.Add("[ckey]")
 	ooc_savebanfile()
 
 //returns a reason if M is banned, returns 0 otherwise
 /proc/ooc_isbanned(client/M)
 	if(M)
 		for(var/s in ooc_keylist)
-			if(findtext(s, "[M.ckey]") == 1)
-				var/startpos = findtext(s, "## ") + 3
-				if(startpos && startpos < length(s))
-					var/text = copytext(s, startpos, 0)
-					if(text)
-						return text
-				return "Reason Unspecified"
+			if(M.ckey != s) continue
+			if(ooc_keylist[s])
+				return ooc_keylist[s]
+			return "Reason Unspecified"
 	return 0
 
 /*
