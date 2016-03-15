@@ -86,11 +86,9 @@ DEBUG
 
 
 /proc/ooc_remove(X)
-	for (var/i = 1; i <= length(ooc_keylist); i++)
-		if( findtext(ooc_keylist[i], "[X]") )
-			ooc_keylist.Remove(ooc_keylist[i])
-			ooc_savebanfile()
-			return 1
+	if(ooc_keylist.Remove(X))
+		ooc_savebanfile()
+		return 1
 	return 0
 
 /*

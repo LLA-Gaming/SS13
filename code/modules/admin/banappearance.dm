@@ -84,13 +84,10 @@ DEBUG
 			if(!T)	continue
 		appearanceban_runonce++	//don't run this update again
 
-
 /proc/appearance_remove(X)
-	for (var/i = 1; i <= length(appearance_keylist); i++)
-		if( findtext(appearance_keylist[i], "[X]") )
-			appearance_keylist.Remove(appearance_keylist[i])
-			appearance_savebanfile()
-			return 1
+	if(appearance_keylist.Remove(X))
+		appearance_savebanfile()
+		return 1
 	return 0
 
 /*
