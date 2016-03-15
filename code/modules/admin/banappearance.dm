@@ -5,25 +5,22 @@ var/appearance_keylist[0]	//to store the keys
 
 /proc/appearance_fullban(mob/M, reason)
 	if (!M || !M.key) return
-	appearance_keylist.Add(text("[M.ckey] ## [reason]"))
+	appearance_keylist[M.ckey] = reason
 	appearance_savebanfile()
 
 /proc/appearance_client_fullban(ckey)
 	if (!ckey) return
-	appearance_keylist.Add(text("[ckey]"))
+	appearance_keylist.Add("[ckey]")
 	appearance_savebanfile()
 
 //returns a reason if M is banned, returns 0 otherwise
-/proc/appearance_isbanned(mob/M)
+/proc/appearance_isbanned(client/M)
 	if(M)
 		for(var/s in appearance_keylist)
-			if(findtext(s, "[M.ckey]") == 1)
-				var/startpos = findtext(s, "## ") + 3
-				if(startpos && startpos < length(s))
-					var/text = copytext(s, startpos, 0)
-					if(text)
-						return text
-				return "Reason Unspecified"
+			if(M.ckey != s) continue
+			if(appearance_keylist[s])
+				return appearance_keylist[s]
+			return "Reason Unspecified"
 	return 0
 
 /*
@@ -59,7 +56,7 @@ DEBUG
 			return
 
 		//appearance bans
-		var/DBQuery/query = dbcon.NewQuery("SELECT ckey FROM erro_ban WHERE bantype = 'APPEARANCE_PERMABAN' AND NOT unbanned = 1")
+		var/DBQuery/query = dbcon.NewQuery("SELECT ckey FROM erro_ban WHERE bantype = 'appearance_PERMABAN' AND NOT unbanned = 1")
 		query.Execute()
 
 		while(query.NextRow())
@@ -86,24 +83,7 @@ DEBUG
 
 
 /proc/appearance_remove(X)
-	for (var/i = 1; i <= length(appearance_keylist); i++)
-		if( findtext(appearance_keylist[i], "[X]") )
-			appearance_keylist.Remove(appearance_keylist[i])
-			appearance_savebanfile()
-			return 1
-	return 0
-
-/*
-proc/DB_ban_isappearancebanned(var/playerckey)
-	establish_db_connection()
-	if(!dbcon.IsConnected())
-		return
-
-	var/sqlplayerckey = sql_sanitize_text(ckey(playerckey))
-
-	var/DBQuery/query = dbcon.NewQuery("SELECT id FROM erro_ban WHERE CKEY = '[sqlplayerckey]' AND ((bantype = 'APPEARANCE_PERMABAN') OR (bantype = 'APPEARANCE_TEMPBAN' AND expiration_time > Now())) AND unbanned != 1")
-	query.Execute()
-	while(query.NextRow())
+	if(appearance_keylist.Remove(X))
+		appearance_savebanfile()
 		return 1
 	return 0
-*/
