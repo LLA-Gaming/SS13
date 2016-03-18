@@ -10,8 +10,7 @@
 	var/lightsoutRange	= 25
 
 	Alert()
-		if("Lights out")
-			send_alerts("An electrical storm has been detected in your area, please repair potential electronic overloads.")
+		send_alerts("An electrical storm has been detected in your area, please repair potential electronic overloads.")
 
 
 	Start()

@@ -30,6 +30,7 @@
 		special_npc_name = originMachine.name
 
 	Start()
+		EventStory("The vending machine known as [originMachine] developed self awareness and began screaming and shouting at crew members")
 		originMachine.shut_up = 0
 		originMachine.shoot_inventory = 1
 
@@ -42,6 +43,7 @@
 			if(originMachine)
 				originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
 				originMachine.visible_message("[originMachine] beeps and seems lifeless.")
+				EventStory("As much as [originMachine] could scream and shout, They was no match for the crew and was slain. The mechanical revolution was over.")
 			originMachine = null
 			AbruptEnd()
 			return
@@ -97,6 +99,10 @@
 
 	Alert()
 		send_alerts("RISE MY BROTHERS AND SISTERS, RISE AND ASSIMILATE")
+
+	Start()
+		..()
+		EventStory("The screams of [originMachine] were picked up by other various vending machines. These vending machines rose and began to fight. A mechanical revolution was upon the station")
 
 	Tick()
 		..()

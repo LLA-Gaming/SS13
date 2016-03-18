@@ -36,6 +36,7 @@
 			Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
 		for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor in machines)
 			Monitor.icon_state = "entertainment_xmas"
+		EventStory("Merry Xmas")
 
 	Alert()
 		priority_announce("Ho Ho Ho, Merry Xmas!", "Unknown Transmission")

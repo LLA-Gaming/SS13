@@ -16,7 +16,7 @@
 			return new /obj/item/weapon/pod_attachment/engine/plasma(src)
 
 		GetAdditionalAttachments()
-			return list(new /obj/item/weapon/pod_attachment/shield/plasma(src), new /obj/item/weapon/pod_attachment/cargo/small(src))
+			return list(new /obj/item/weapon/pod_attachment/shield/plasma(src), new /obj/item/weapon/pod_attachment/cargo/small(src), new /obj/item/weapon/pod_attachment/sensor/gps(src))
 
 		GetSeats()
 			return 1

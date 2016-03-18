@@ -46,6 +46,7 @@
 			OnFail()
 
 	OnFail()
+		EventStory("The Time Agent managed to complete their assasination mission. The timeline as we know it was altered.")
 		var/datum/event_cycler/E = new /datum/event_cycler/(300, "The Future")
 		E.events_allowed = EVENT_CONSEQUENCE
 		E.lifetime = 1
@@ -118,6 +119,7 @@
 
 
 		successSpawn = 1
+		EventStory("In a flash of light, Time Agent [villian_mob.real_name] appeared with an assassination mission. To prevent the very birth of their long time enemy, [hero_mob.real_name]")
 
 /datum/round_event/time_travellers/proc/suit_up(var/mob/living/carbon/human/H,var/antag=0)
 	var/datum/preferences/A = H.client.prefs

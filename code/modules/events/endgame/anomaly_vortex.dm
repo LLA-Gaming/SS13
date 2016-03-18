@@ -12,6 +12,10 @@
 	spawn_zone = ANOMALY_SPAWN_AWAY //*bzzt* I left the mechbay for 2 minutes and now there is a black hole in it.. great.
 	anomaly_type = /obj/effect/anomaly/bhole
 
+	Start()
+		..()
+		EventStory("[impact_area.name] was consumed by a black hole vortex")
+
 	Alert()
 		send_alerts("Localized high-intensity vortex anomaly detected on long range scanners. Expected location: [impact_area.name].")
 
