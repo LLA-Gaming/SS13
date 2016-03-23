@@ -1,10 +1,7 @@
-//HOW IS THIS A REWARD??!! shh....
-//It is the most harmless of the anomalies and can be considered !!FUN!!. not all rewards need to be rewarding.
-
 /datum/round_event_control/anomaly/anomaly_grav
 	name = "Gravitational Anomaly"
 	typepath = /datum/round_event/anomaly/anomaly_grav
-	event_flags = EVENT_REWARD
+	event_flags = EVENT_CONSEQUENCE
 	weight = 10
 	accuracy = 85
 

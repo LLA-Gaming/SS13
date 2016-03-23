@@ -7,7 +7,7 @@
 
 /datum/round_event/hivebots
 	alert_when	= 600
-	end_when = 6000
+	end_when = 3000
 	var/area/impact_area
 	var/turf/impact_turf
 	var/passed = 0

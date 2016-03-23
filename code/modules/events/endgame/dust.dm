@@ -2,7 +2,7 @@
 	name = "Minor Space Dust"
 	typepath = /datum/round_event/meteor_wave/dust
 	event_flags = EVENT_ENDGAME
-	weight = 300
+	weight = 0
 	max_occurrences = 2
 	deferred_creation = 1
 
