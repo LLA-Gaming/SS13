@@ -162,10 +162,10 @@ proc/cmd_admin_mute(whom, mute_type, automute = 0)
 	log_admin("[key_name(src)] has added a random AI law.")
 	message_admins("[key_name_admin(src)] has added a random AI law.", 1)
 
-	//var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No") //PLEASE RETURN TO THIS AFTER EVENT REWRITE
-	//var/announce_ion_laws = (show_log == "Yes" ? 1 : -1) //PLEASE RETURN TO THIS AFTER EVENT REWRITE
+	var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No")
+	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
 
-	//new /datum/round_event/ion_storm(0, announce_ion_laws) //PLEASE RETURN TO THIS AFTER EVENT REWRITE
+	new /datum/round_event/ion_storm(0, announce_ion_laws)
 	feedback_add_details("admin_verb","ION") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
@@ -387,10 +387,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("Admin [key_name(usr)] has added a new AI law - [input]")
 	message_admins("Admin [key_name_admin(usr)] has added a new AI law - [input]", 1)
 
-	//var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No") /PLEASE RETURN TO THIS AFTER EVENT REWRITE
-	//var/announce_ion_laws = (show_log == "Yes" ? 1 : -1) //PLEASE RETURN TO THIS AFTER EVENT REWRITE
+	var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No")
+	var/announce_ion_laws = (show_log == "Yes" ? 1 : -1)
 
-	//new /datum/round_event/ion_storm(0, announce_ion_laws, input) //PLEASE RETURN TO THIS AFTER EVENT REWRITE
+	new /datum/round_event/ion_storm(0, announce_ion_laws, input)
 
 	feedback_add_details("admin_verb","IONC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

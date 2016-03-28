@@ -1633,6 +1633,7 @@ var/list/the_station_areas_safe = list(
 	/area/turret_protected/ai,
 	/area/turret_protected/ai_upload,
 	/area/engine,
+	/area/atmos, //so events dont happen in the air supply
 	/area/solar,
 	/area/holodeck,
 	/area/shuttle/arrival,

@@ -1,6 +1,6 @@
-/datum/round_event_control/meteor_wave/dust
-	name = "Minor Space Dust"
-	typepath = /datum/round_event/meteor_wave/dust
+/datum/round_event_control/consequence
+	name = "Consequence"
+	typepath = /datum/round_event/consequence
 	event_flags = EVENT_ENDGAME
 	weight = 0
 	max_occurrences = 2
@@ -15,16 +15,10 @@
 				weights += E.weight
 		weight = weights / 2
 
-/datum/round_event/meteor_wave/dust
+/datum/round_event/consequence
 	start_when = 0
 	alert_when = 0
 	end_when = 0
 
-	Alert()
-		return
-
 	Start()
-		spawn_meteors(1, meteorsC)
-
-	Tick()
-		return
+		new /datum/event_cycler/(0, special_npc_name)

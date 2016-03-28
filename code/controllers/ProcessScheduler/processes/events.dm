@@ -9,7 +9,7 @@
 	//initial setup
 	if(!events.setup_events)
 		new /datum/event_cycler/rotation(world.time + 6600,null,null,1) //Make the first cycler fire in 11 minutes.
-		new /datum/event_cycler/roundstart(0,"Central","Command") //Make the round-start cycler fire a round start event
+		new /datum/event_cycler/roundstart(10,"Central","Command") //Make the round-start cycler fire a round start event
 		events.spawn_orphan_event(/datum/round_event/engine_setup)	//spawn the engine setup "event"
 		events.setup_events = 1
 		return

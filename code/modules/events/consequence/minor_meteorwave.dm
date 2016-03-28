@@ -16,5 +16,6 @@
 			spawn_meteors(5, meteorsA)
 			meteors -= 1
 		if(meteors <= 0)
-			send_alerts("The station was hit with a couple meteors. Recommend station engineers repair any breaches")
+			spawn(100)
+				send_alerts("The station was hit with a couple meteors. Recommend station engineers repair any breaches")
 			AbruptEnd()
