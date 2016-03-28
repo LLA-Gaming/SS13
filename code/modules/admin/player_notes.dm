@@ -78,7 +78,7 @@ datum/admins/proc/notes_gethtml(var/ckey)
 	if(!notesfile)	return
 	notesfile.cd = "/[ckey]"
 	notesfile.eof = 1		//move to the end of the buffer
-	notesfile << "[time2text(world.realtime,"DD-MMM-YYYY")] | [note][(usr && usr.ckey)?" ~[usr.ckey]":""]"
+	notesfile << "[time2text(world.realtime,"DD-MMM-YYYY")] @ [time_stamp("hh:mm")] | [note][(usr && usr.ckey)?" ~[usr.ckey]":""]"
 
 	if(lognote)//don't need an admin log for the notes applied automatically during bans.
 		message_admins("[key_name(usr)] added note '[note]' to [ckey]")
