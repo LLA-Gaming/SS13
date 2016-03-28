@@ -74,8 +74,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/fill_breach,
 	/client/proc/reenable_gravity_gen,
 	/client/proc/spawncostume,
-	/client/proc/stickybanpanel,
-	/datum/admins/proc/nanonet_adminpanel
+	/client/proc/stickybanpanel
 	//+Sound
 	)
 
@@ -243,8 +242,7 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/togglebuildmodeself,
 	/client/proc/reenable_gravity_gen,
 	/client/proc/view_pod_logs,
-	/client/proc/respawn_character,
-	/datum/admins/proc/nanonet_adminpanel
+	/client/proc/respawn_character
 	)
 
 /client/proc/add_admin_verbs()
