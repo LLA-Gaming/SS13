@@ -2,7 +2,9 @@
 	name = "Cooldown"
 	typepath = /datum/round_event/cooldown
 	event_flags = EVENT_CONSEQUENCE
-	weight = 10
+	max_occurrences = -1
+	weight = 20
+	accuracy = 100
 
 /datum/round_event/cooldown
 	var/area/impact_area

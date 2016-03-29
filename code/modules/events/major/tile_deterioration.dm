@@ -30,4 +30,5 @@
 			if(!impact_turfs.len)
 				break
 			var/turf/simulated/floor/landing = pick_n_take(impact_turfs)
-			landing.break_tile_to_plating()
+			if(istype(landing))
+				landing.break_tile_to_plating()

@@ -3,7 +3,8 @@
 	typepath = /datum/round_event/spacevine
 	event_flags = EVENT_CONSEQUENCE
 	max_occurrences = 1
-	weight = 10
+	weight = 5
+	accuracy = 100
 
 /datum/round_event/spacevine
 	Start()

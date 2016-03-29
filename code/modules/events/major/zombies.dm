@@ -2,8 +2,9 @@
 	name = "Zombie Outbreak"
 	typepath = /datum/round_event/zombies
 	event_flags = EVENT_MAJOR
-	max_occurrences = 1
+	max_occurrences = 2
 	weight = 5
+	accuracy = 100
 
 /datum/round_event/zombies
 	var/SpawnNum = 15
@@ -16,7 +17,7 @@
 	Start()
 		var/list/spawns = list()
 		SpawnNum = rand(1,5)
-		EventStory("Zombies started appearing around the station.")
+		if (!prevent_stories) EventStory("Zombies started appearing around the station.")
 		for(var/obj/effect/landmark/holiday/O in world)
 			spawns += O
 		if(!spawns.len)
@@ -26,10 +27,11 @@
 		for(var/i=0,i<SpawnNum,i++) // Loops to determine zombie numver
 
 			var/mob/living/carbon/human/npc/zombie/Z
-			var/obj/effect/landmark/s
-			s = pick(spawns)
+			var/area/impact_area = FindEventAreaAwayFromPeople()
+			var/list/impact_turfs = FindImpactTurfs(impact_area)
+			var/turf/landing = pick(impact_turfs)
 
-			Z = new/mob/living/carbon/human/npc/zombie(s.loc)
+			Z = new/mob/living/carbon/human/npc/zombie(landing)
 			var/datum/preferences/A = new()//Randomize appearance for the zombie.
 			A.copy_to(Z)
 			ready_dna(Z)
@@ -56,12 +58,14 @@
 			OnPass() //everyone survived
 
 	OnFail()
-		EventStory("Some crew members were zombified!")
-		var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "???")
-		E.events_allowed = EVENT_CONSEQUENCE
-		E.lifetime = 1
+		if (!prevent_stories) EventStory("Some crew members were zombified!")
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "???")
+			E.events_allowed = EVENT_CONSEQUENCE
+			E.lifetime = 1
 
 	OnPass()
-		var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "???")
-		E.events_allowed = EVENT_REWARD
-		E.lifetime = 1
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "???")
+			E.events_allowed = EVENT_REWARD
+			E.lifetime = 1

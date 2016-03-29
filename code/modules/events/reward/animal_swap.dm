@@ -2,7 +2,9 @@
 	name = "Animal Swap"
 	typepath = /datum/round_event/animal_swap
 	event_flags = EVENT_REWARD
-	weight = 10
+	max_occurrences = -1
+	weight = 5
+	accuracy = 100
 
 /datum/round_event/animal_swap
 	var/list/animals = list()

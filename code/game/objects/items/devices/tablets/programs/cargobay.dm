@@ -19,9 +19,11 @@
 			dat += "<li>#[SO.ordernum] - [SO.object.name] requested by [SO.orderedby]</li>"
 
 		if(supply_shuttle.tasks.len)
-			dat += "<hr>"
+			dat += "<hr>[TAB]"
 			for(var/datum/round_event/task/T in supply_shuttle.tasks)
 				dat += "<div class='statusDisplay'>"
 				dat += "<b><u>[T.task_name]</b></u><br>"
-				dat += "[TAB][T.task_desc]"
+				dat += "[T.task_desc]<br>"
+				if(T.complete_time >= 0)
+					dat += "Time left: [round((T.complete_time - world.time) / 10 / 60)] minute(s)<br>"
 				dat += "</div>"

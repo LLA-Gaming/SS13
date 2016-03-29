@@ -2,7 +2,9 @@
 	name = "Spontaneous Mystery Gift"
 	typepath = /datum/round_event/mystery_gift
 	event_flags = EVENT_REWARD
-	weight = 10
+	max_occurrences = -1
+	weight = 5
+	accuracy = 100
 
 /datum/round_event/mystery_gift
 	var/area/impact_area = null
@@ -27,7 +29,7 @@
 					considering.Add(P)
 			var/datum/supply_packs/picked = safepick(considering)
 			if(picked)
-				var/obj/structure/closet/crate/C = new picked.containertype(landing)
+				var/obj/structure/closet/crate/C = new /obj/structure/closet/crate(landing)
 				C.name = picked.containername
 				for(var/typepath in picked.contains)
 					if(!typepath)	continue

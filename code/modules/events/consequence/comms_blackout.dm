@@ -2,8 +2,9 @@
 	name = "Communications Blackout"
 	typepath = /datum/round_event/communications_blackout
 	event_flags = EVENT_CONSEQUENCE
-	max_occurrences = 1
-	weight = 10
+	max_occurrences = 2
+	weight = 5
+	accuracy = 100
 
 /datum/round_event/communications_blackout
 	Alert()

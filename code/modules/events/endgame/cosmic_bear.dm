@@ -4,7 +4,7 @@
 	max_occurrences = 1
 	weight = 5
 	event_flags = EVENT_ENDGAME
-	accuracy = 90
+	accuracy = 80
 	candidate_flag = BE_CBEAR
 	candidates_needed = 1
 
@@ -34,7 +34,7 @@
 		send_alerts("Highly dangerous lifeform detected in [impact_area.name]. All crew are expected to avoid [impact_area.name]")
 
 	Start()
-		EventStory("In a quick flash, Cosmicam Ursus Mortis appeared in [impact_area.name] destroying anything in its way.")
+		if (!prevent_stories) EventStory("In a quick flash, Cosmicam Ursus Mortis appeared in [impact_area.name] destroying anything in its way.")
 		for(var/mob/living/L in player_list)
 			if(L.stat == 2) continue
 			crew_alive++
@@ -78,10 +78,11 @@
 	OnFail()
 		set_security_level(SEC_LEVEL_RED)
 		events.call_shuttle("Cosmic Space Bear of Death",1)
-		EventStory("Cosmicam Ursus Mortis devoured what was left of [station_name()].",1)
+		if (!prevent_stories) EventStory("Cosmicam Ursus Mortis devoured what was left of [station_name()].",1)
 
 	OnPass()
-		EventStory("The crew managed to slay Cosmicam Ursus Mortis. The beast let out one final roar before exploding into a pile of bear meat.")
-		var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Space Park Ranger")
-		E.events_allowed = EVENT_REWARD
-		E.lifetime = 1
+		if (!prevent_stories) EventStory("The crew managed to slay Cosmicam Ursus Mortis. The beast let out one final roar before exploding into a pile of bear meat.")
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Space Park Ranger")
+			E.events_allowed = EVENT_REWARD
+			E.lifetime = 1

@@ -2,8 +2,9 @@
 	name = "Power Surge"
 	typepath = /datum/round_event/power_surge
 	event_flags = EVENT_MINOR
+	max_occurrences = -1
 	weight = 10
-	accuracy = 85
+	accuracy = 80
 
 /datum/round_event/power_surge
 	start_when = 0
@@ -72,11 +73,13 @@
 			OnPass()
 
 	OnFail()
-		var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Electrical Advisor")
-		E.events_allowed = EVENT_CONSEQUENCE
-		E.lifetime = 1
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Electrical Advisor")
+			E.events_allowed = EVENT_CONSEQUENCE
+			E.lifetime = 1
 
 	OnPass()
-		var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Electrical Advisor")
-		E.events_allowed = EVENT_REWARD
-		E.lifetime = 1
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Electrical Advisor")
+			E.events_allowed = EVENT_REWARD
+			E.lifetime = 1

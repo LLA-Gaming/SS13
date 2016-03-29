@@ -2,9 +2,9 @@
 	name = "Machine Uprising"
 	typepath = /datum/round_event/machine_uprising
 	event_flags = EVENT_MAJOR
-	weight = 10
-	accuracy = 90
 	max_occurrences = 1
+	weight = 8
+	accuracy = 65
 
 /datum/round_event/machine_uprising
 	alert_when = 21
@@ -30,7 +30,7 @@
 		special_npc_name = originMachine.name
 
 	Start()
-		EventStory("The vending machine known as [originMachine] developed self awareness and began screaming and shouting at crew members")
+		if (!prevent_stories) EventStory("The vending machine known as [originMachine] developed self awareness and began screaming and shouting at crew members")
 		originMachine.shut_up = 0
 		originMachine.shoot_inventory = 1
 
@@ -43,7 +43,7 @@
 			if(originMachine)
 				originMachine.speak("I am... vanquished. My people will remem...ber...meeee.")
 				originMachine.visible_message("[originMachine] beeps and seems lifeless.")
-				EventStory("As much as [originMachine] could scream and shout, They was no match for the crew and was slain. The mechanical revolution was over.")
+				if (!prevent_stories) EventStory("As much as [originMachine] could scream and shout, They was no match for the crew and was slain. The mechanical revolution was over.")
 			originMachine = null
 			AbruptEnd()
 			return
@@ -63,9 +63,10 @@
 			events.spawn_orphan_event(M)
 
 	OnPass()
-		var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "GetMore Chocolate Co.")
-		E.events_allowed = EVENT_REWARD
-		E.lifetime = 1
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "GetMore Chocolate Co.")
+			E.events_allowed = EVENT_REWARD
+			E.lifetime = 1
 
 /datum/round_event/machine_uprising/machine_revolution //happens after the uprising
 	var/list/vendingMachines = list()
@@ -102,7 +103,7 @@
 
 	Start()
 		..()
-		EventStory("The screams of [originMachine] were picked up by other various vending machines. These vending machines rose and began to fight. A mechanical revolution was upon the station")
+		if (!prevent_stories) EventStory("The screams of [originMachine] were picked up by other various vending machines. These vending machines rose and began to fight. A mechanical revolution was upon the station")
 
 	Tick()
 		..()

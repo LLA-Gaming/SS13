@@ -2,8 +2,9 @@
 	name = "Electrical Storm"
 	typepath = /datum/round_event/electrical_storm
 	event_flags = EVENT_CONSEQUENCE
-	max_occurrences = 3
-	weight = 10
+	max_occurrences = 1
+	weight = 15
+	accuracy = 80
 
 /datum/round_event/electrical_storm
 	var/lightsoutAmount	= 1

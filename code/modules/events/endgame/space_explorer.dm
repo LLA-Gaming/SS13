@@ -3,11 +3,10 @@
 	typepath = /datum/round_event/space_explorer
 	event_flags = EVENT_ENDGAME
 	max_occurrences = 1
-	weight = 10
-	accuracy = 90
+	weight = 20
+	accuracy = 80
 	candidate_flag = BE_EXPLORER
 	candidates_needed = 1
-	max_occurrences = 1
 
 /datum/round_event/space_explorer
 	var/spawncount = 1

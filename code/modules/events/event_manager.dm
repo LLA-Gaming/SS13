@@ -10,7 +10,7 @@ var/datum/controller/event/events
 	var/last_event		//last event to run, 2 events wont be the same in a row
 
 	var/list/story = list() //a story that molds itself together at the end of the round
-	var/story_end = 0		//when non-zero, the eventy story list prevents any new additions
+	var/story_end = 0		//when non-zero, the event story list prevents any new additions
 
 //Initial controller setup.
 /datum/controller/event/New()

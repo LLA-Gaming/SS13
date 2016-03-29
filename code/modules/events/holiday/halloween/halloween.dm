@@ -43,7 +43,7 @@
 	Start()
 		PickWerewolves()
 		// Play some sp00ky songs.
-		EventStory("Happy Halloween")
+		if (!prevent_stories) EventStory("Happy Halloween")
 		var/song = pick(list('sound/ambience/scaryskeletons.ogg', 'sound/ambience/thisishalloween.ogg'))
 		for(var/client/C in clients)
 			if(C.prefs.toggles & SOUND_MIDI)

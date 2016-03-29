@@ -2,7 +2,9 @@
 	name = "Dead Stowaway"
 	typepath = /datum/round_event/dead_stowaway
 	event_flags = EVENT_REWARD
-	weight = 10
+	max_occurrences = -1
+	weight = 5
+	accuracy = 100
 
 /datum/round_event/dead_stowaway
 	alert_when = 1200

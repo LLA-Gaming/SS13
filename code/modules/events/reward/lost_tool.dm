@@ -2,7 +2,7 @@
 	name = "Lost Tools"
 	typepath = /datum/round_event/lost_tool
 	event_flags = EVENT_REWARD
-	weight = 300
+	weight = 0
 	max_occurrences = 2
 	deferred_creation = 1
 

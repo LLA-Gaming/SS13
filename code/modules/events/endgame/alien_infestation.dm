@@ -2,12 +2,12 @@
 	name = "Alien Infestation"
 	typepath = /datum/round_event/alien_infestation
 	event_flags = EVENT_ENDGAME
-	weight = 10
-	accuracy = 90
+	max_occurrences = 1
+	weight = 20
+	accuracy = 100
 	candidate_flag = BE_ALIEN
 	candidate_afk_bracket = ALIEN_AFK_BRACKET
 	candidates_needed = 1
-	max_occurrences = 1
 
 /datum/round_event/alien_infestation
 	alert_when	= 1200
@@ -39,7 +39,7 @@
 			if(L.stat == 2) continue
 			crew_alive++
 		target_kills = crew_alive / 2
-		EventStory("The rumors were true. [station_name()] was dealing with a real alien infestation.")
+		if (!prevent_stories) EventStory("The rumors were true. [station_name()] was dealing with a real alien infestation.")
 		var/list/vents = list()
 		for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in world)
 			if(temp_vent.loc.z == 1 && !temp_vent.welded && temp_vent.network)
@@ -80,10 +80,11 @@
 	OnFail()
 		set_security_level(SEC_LEVEL_RED)
 		events.call_shuttle("Alien Infestation",1)
-		EventStory("[station_name()] was eventually covered in alien weeds as the queen claimed her thrown aboard the new Xeno Station.",1)
+		if (!prevent_stories) EventStory("[station_name()] was eventually covered in alien weeds as the queen claimed her thrown aboard the new Xeno Station.",1)
 
 	OnPass()
-		EventStory("[station_name()] was wiped of all xeno lifeforms by the brave crew.")
-		var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Xeno Expert")
-		E.events_allowed = EVENT_REWARD
-		E.lifetime = 1
+		if (!prevent_stories) EventStory("[station_name()] was wiped of all xeno lifeforms by the brave crew.")
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Xeno Expert")
+			E.events_allowed = EVENT_REWARD
+			E.lifetime = 1

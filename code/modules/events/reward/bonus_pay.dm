@@ -2,8 +2,9 @@
 	name = "Bonus Pay"
 	typepath = /datum/round_event/bonus_pay
 	event_flags = EVENT_REWARD
-	weight = 10
-
+	max_occurrences = -1
+	weight = 20
+	accuracy = 100
 /datum/round_event/bonus_pay
 	Start()
 		for(var/obj/item/device/tablet/T in tablets_list)

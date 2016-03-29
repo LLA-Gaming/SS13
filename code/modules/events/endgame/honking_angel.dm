@@ -1,12 +1,12 @@
 /datum/round_event_control/honking_angel
-	name = "Alien Infestation"
+	name = "Honking Angel"
 	typepath = /datum/round_event/honking_angel
 	event_flags = EVENT_ENDGAME
-	weight = 10
-	accuracy = 90
+	max_occurrences = 1
+	weight = 20
+	accuracy = 80
 	candidate_flag = BE_ANGEL
 	candidates_needed = 1
-	max_occurrences = 1
 
 /datum/round_event/honking_angel
 
@@ -28,7 +28,7 @@
 			if(L.stat == 2) continue
 			crew_alive++
 		target_kills = crew_alive / 2
-		EventStory("Strange clown statues started appearing inside [station_name()]. Otherwise known as the Honking Angels.")
+		if (!prevent_stories) EventStory("Strange clown statues started appearing inside [station_name()]. Otherwise known as the Honking Angels.")
 		var/list/possible_floors = list()
 		spawncount = pick(1,1,1,2,2,3)
 		for(var/turf/simulated/floor/temp_floor in world)

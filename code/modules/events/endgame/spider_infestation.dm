@@ -4,6 +4,7 @@
 	event_flags = EVENT_CONSEQUENCE
 	max_occurrences = 1
 	weight = 10
+	accuracy = 80
 
 /datum/round_event/spider_infestation
 	alert_when	= 400

@@ -2,8 +2,9 @@
 	name = "Pyroclastic Anomaly"
 	typepath = /datum/round_event/anomaly/anomaly_pyro
 	event_flags = EVENT_MAJOR
+	max_occurrences = 4
 	weight = 10
-	accuracy = 85
+	accuracy = 95
 
 /datum/round_event/anomaly/anomaly_pyro
 	start_when = 10

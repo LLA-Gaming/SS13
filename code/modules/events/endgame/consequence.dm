@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/consequence
 	event_flags = EVENT_ENDGAME
 	weight = 0
-	max_occurrences = 2
+	max_occurrences = -1
 	deferred_creation = 1
 
 	New()
@@ -21,4 +21,9 @@
 	end_when = 0
 
 	Start()
-		new /datum/event_cycler/(0, special_npc_name)
+		var/datum/event_cycler/E = new /datum/event_cycler/(0, special_npc_name, null)
+		E.events_allowed = EVENT_CONSEQUENCE
+		E.lifetime = 1
+		E.prevent_stories = prevent_stories
+		E.alerts = sends_alerts
+		E.branching = branching_allowed

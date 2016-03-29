@@ -5,6 +5,12 @@
 /datum/event_cycler/endless
 	endless = 1
 /datum/event_cycler/admin_playlist
+	paused = 1
+	prevent_stories = 1
+	alerts = 0
+	remove_after_fire = 1
+	branching = 0
+	shuffle = 0
 	endless = 1
 	events_allowed = null
 /datum/event_cycler/roundstart
@@ -26,7 +32,7 @@
 	cycler_modifier(var/list/L)
 		for(var/datum/round_event_control/task/T in L)
 			if(T.task_level > task_level)
-				L.Remove(E)
+				L.Remove(T)
 		return L
 
 ///The cycler code itself.
@@ -41,9 +47,13 @@
 	var/endless = 0				//doesn't check lifetime
 	var/lifetime = 1			//how many events this cycler can fire until it retires (in_rotation must be 1)
 	var/list/playlist = list()  //For custom, admin created cyclers. if any events are in this playlist the events allowed, stress level, and in_rotation are ignored
+	var/remove_after_fire = 1	//For custom, admin created cyclers. if the event is removed after being fired
+	var/prevent_stories = 0	    //For when an admin wants to make 600 gravitational anomalies without spamming the round story
+	var/alerts = 1				//For when an admin doesn't want the events to send alerts
+	var/branching = 1			//prevent an event from branching
+	var/shuffle = 1				//if a cycler with a playlist fires in order or shuffles
 	var/paused = 0				//When a cycler is paused.
 	var/delete_warning = 0		//If the event scheduler cant fire a event in 2 tries it ends itself.
-	var/list/children = list()	//how many active events are currently active (used with task events)
 	var/max_children = -1		//0 and above are how many active events are allowed at the same time (used with task events)
 
 	New(var/schedule_arg, var/prefix, var/suffix, var/stress_arg) //argument: schedule_arg: how long in deciseconds for the initial fire of this cycler
@@ -53,7 +63,7 @@
 			switch(stress_level)
 				if(1)
 					events_allowed = EVENT_MINOR
-					lifetime = rand(2,3)
+					lifetime = rand(1,2)
 					prefix = "CentComm Officer"
 				if(2)
 					events_allowed = EVENT_MAJOR
@@ -63,13 +73,17 @@
 					events_allowed = EVENT_ENDGAME
 					lifetime = rand(1,2)
 					prefix = "CentComm Commander"
-		//setup the fluff name of the event cycler
-		if(!suffix)
-			suffix = pick(last_names)
-		if(prefix)
+			//setup the fluff name of the event cycler
+			if(!suffix)
+				suffix = pick(last_names)
+		if(prefix && suffix)
 			npc_name = "[prefix] [suffix]"
-		else
+		else if (prefix && !suffix)
+			npc_name = prefix
+		else if (!prefix && suffix)
 			npc_name = suffix
+		else
+			npc_name = prefix
 		schedule = world.time + schedule_arg
 		if(events)
 			events.event_cyclers.Add(src)
@@ -77,7 +91,7 @@
 			qdel(src)
 
 	proc/process()
-		if(!events_allowed && !playlist.len && !in_rotation)
+		if(!events_allowed && !playlist.len && !in_rotation && !paused && !istype(src,/datum/event_cycler/admin_playlist))
 			qdel(src)
 			return
 		if(paused) return
@@ -100,12 +114,23 @@
 			for(var/mob/living/L in player_list)
 				if(L.stat == 2) continue
 				playerC++
-			if(max_children < 0 || children.len < max_children)
+			var/children_count = 0
+			for(var/datum/round_event/event in events.active_events)
+				if(event.cycler == src)
+					children_count++
+			if(max_children < 0 || children_count < max_children)
 				if(playerC || !in_rotation)
 					pickevent()
 				schedule = world.time + rand(frequency_lower,frequency_upper)
 			else //too many children, reschedule quicker
 				schedule = world.time + rand(600,1800) //1 to 3 minutes
+
+	proc/force_fire()
+		if(playlist.len)
+			pickevent()
+			schedule = world.time + rand(frequency_lower,frequency_upper)
+		else
+			schedule = 0
 
 
 	proc/pickevent()
@@ -124,7 +149,19 @@
 					if(!already_active)
 						possible.Add(E)
 		else
-			possible = playlist
+			var/datum/round_event_control/E
+			if(!shuffle)
+				E = playlist[1]
+			else
+				E = pick(playlist)
+			if(E)
+				if(E.RunEvent(src) == PROCESS_KILL)//we couldn't run this event for some reason, set its max_occurrences to 0
+					E.max_occurrences = 0
+					return
+				else if(E in playlist)
+					if(remove_after_fire)
+						playlist.Remove(E)
+				return E
 
 		if(possible.len)
 			for(var/datum/round_event_control/E in possible)
@@ -149,7 +186,8 @@
 					E.max_occurrences = 0
 					continue
 				else if(E in playlist)
-					playlist.Remove(E)
+					if(remove_after_fire)
+						playlist.Remove(E)
 				return E
 
 		//no events were picked, reschedule quicker

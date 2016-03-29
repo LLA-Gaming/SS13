@@ -5,7 +5,9 @@
 	name = "Ion Storm"
 	typepath = /datum/round_event/ion_storm
 	event_flags = EVENT_MAJOR
-	weight = 10
+	max_occurrences = 2
+	weight = 15
+	accuracy = 50
 
 /datum/round_event/ion_storm
 	var/botEmagChance = 10

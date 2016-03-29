@@ -2,8 +2,9 @@
 	name = "Hivebot Invasion"
 	typepath = /datum/round_event/hivebots
 	event_flags = EVENT_MAJOR
+	max_occurrences = 3
 	weight = 10
-	max_occurrences = 1
+	accuracy = 100
 
 /datum/round_event/hivebots
 	alert_when	= 600
@@ -27,7 +28,7 @@
 
 	Start()
 		new /obj/structure/hivebot_tele(impact_turf)
-		EventStory("Hivebots warped in [impact_area.name] in a sudden flash!")
+		if (!prevent_stories) EventStory("Hivebots warped in [impact_area.name] in a sudden flash!")
 
 	Tick()
 		var/obj/structure/hivebot_tele/tele = locate(/obj/structure/hivebot_tele) in world
@@ -37,8 +38,8 @@
 		for(var/mob/living/simple_animal/hostile/hivebot/bot in living_mob_list)
 			hivebot_count++
 		if(!hivebot_count)
-			AbruptEnd()
 			passed = 1
+			AbruptEnd()
 
 	End()
 		if(passed)
@@ -47,12 +48,14 @@
 			OnFail()
 
 	OnFail()
-		var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "???")
-		E.events_allowed = EVENT_CONSEQUENCE
-		E.lifetime = 1
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "???")
+			E.events_allowed = EVENT_CONSEQUENCE
+			E.lifetime = 1
 
 	OnPass()
-		EventStory("The hivebots that landed in [impact_area.name] were wiped out by the crew.")
-		var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "???")
-		E.events_allowed = EVENT_REWARD
-		E.lifetime = 1
+		if (!prevent_stories) EventStory("The hivebots that landed in [impact_area.name] were wiped out by the crew.")
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "???")
+			E.events_allowed = EVENT_REWARD
+			E.lifetime = 1

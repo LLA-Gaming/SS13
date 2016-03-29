@@ -3,8 +3,6 @@
 	//typepath = /datum/round_event/anomaly
 	//see anomaly_flux.dm for this event. /this/ event is just a base for anomaly events.
 	event_flags = EVENT_CONSEQUENCE
-	weight = 10
-	max_occurrences = 1
 
 /datum/round_event/anomaly
 	var/area/impact_area
@@ -58,11 +56,13 @@
 			OnFail()
 
 	OnFail()
-		var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Anomaly Advisor")
-		E.events_allowed = EVENT_CONSEQUENCE
-		E.lifetime = 1
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Anomaly Advisor")
+			E.events_allowed = EVENT_CONSEQUENCE
+			E.lifetime = 1
 
 	OnPass()
-		var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Anomaly Advisor")
-		E.events_allowed = EVENT_REWARD
-		E.lifetime = 1
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Anomaly Advisor")
+			E.events_allowed = EVENT_REWARD
+			E.lifetime = 1

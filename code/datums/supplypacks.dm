@@ -49,6 +49,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	var/hidden = 0
 	var/contraband = 0
 	var/group = supply_misc
+	var/notavailable
 
 
 /datum/supply_packs/New()

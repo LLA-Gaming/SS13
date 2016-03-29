@@ -2,7 +2,7 @@
 	name = "Time Travellers"
 	typepath = /datum/round_event/time_travellers
 	max_occurrences = 1
-	weight = 10
+	weight = 20
 	candidate_flag = BE_TIMEAGENT
 	candidates_needed = 2
 
@@ -46,17 +46,18 @@
 			OnFail()
 
 	OnFail()
-		EventStory("The Time Agent managed to complete their assasination mission. The timeline as we know it was altered.")
-		var/datum/event_cycler/E = new /datum/event_cycler/(300, "The Future")
-		E.events_allowed = EVENT_CONSEQUENCE
-		E.lifetime = 1
+		if (!prevent_stories) EventStory("The Time Agent managed to complete their assasination mission. The timeline as we know it was altered.")
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(300, "The Future")
+			E.events_allowed = EVENT_CONSEQUENCE
+			E.lifetime = 1
 
 	Alert()
 		priority_announce("An electrical storm has been detected in your area, please repair potential electronic overloads.", "Electrical Storm Alert")
 
 	Setup()
 		arrival_point_A = FindEventAreaNearPeople()
-		arrival_point_B = FindEventAreaNearPeople()
+		arrival_point_B = FindEventAreaAwayFromPeople()
 
 		var/list/possible_targets = list()
 		for(var/datum/mind/possible_target in ticker.minds)
@@ -119,7 +120,7 @@
 
 
 		successSpawn = 1
-		EventStory("In a flash of light, Time Agent [villian_mob.real_name] appeared with an assassination mission. To prevent the very birth of their long time enemy, [hero_mob.real_name]")
+		if (!prevent_stories) EventStory("In a flash of light, Time Agent [villian_mob.real_name] appeared with an assassination mission. To prevent the very birth of their long time enemy, [hero_mob.real_name]")
 
 /datum/round_event/time_travellers/proc/suit_up(var/mob/living/carbon/human/H,var/antag=0)
 	var/datum/preferences/A = H.client.prefs

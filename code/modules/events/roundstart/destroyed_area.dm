@@ -1,7 +1,7 @@
 /datum/round_event_control/destroyed_area
 	name = "Destroyed Area"
 	typepath = /datum/round_event/destroyed_area
-	event_flags = EVENT_ROUNDSTART
+	event_flags = EVENT_ROUNDSTART | EVENT_HIDDEN
 	weight = 10
 
 /datum/round_event/destroyed_area

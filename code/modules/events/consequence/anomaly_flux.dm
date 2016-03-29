@@ -2,7 +2,9 @@
 	name = "Energetic Flux"
 	typepath = /datum/round_event/anomaly/anomaly_flux
 	event_flags = EVENT_CONSEQUENCE
-	weight = 10
+	max_occurrences = 5
+	weight = 5
+	accuracy = 80
 
 /datum/round_event/anomaly/anomaly_flux
 	start_when = 30

@@ -2,7 +2,9 @@
 	name = "Prison Break"
 	typepath = /datum/round_event/prison_break
 	event_flags = EVENT_CONSEQUENCE
+	max_occurrences = 1
 	weight = 10
+	accuracy = 80
 
 /datum/round_event/prison_break
 	alert_when = 400
@@ -32,10 +34,12 @@
 				else if(istype(O,/obj/machinery/door/airlock/security))
 					var/obj/machinery/door/airlock/security/temp = O
 					temp.emergency = 1
+					temp.locked = 0
 					temp.update_icon(0)
 				else if(istype(O,/obj/machinery/door/airlock/glass_security))
 					var/obj/machinery/door/airlock/glass_security/temp = O
 					temp.emergency = 1
+					temp.locked = 0
 					temp.update_icon(0)
 				else if(istype(O,/obj/machinery/brig_timer))
 					var/obj/machinery/brig_timer/temp = O

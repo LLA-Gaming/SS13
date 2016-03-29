@@ -4,6 +4,7 @@
 	event_flags = EVENT_CONSEQUENCE
 	max_occurrences = 3
 	weight = 10
+	accuracy = 100
 
 
 /datum/round_event/carp_migration

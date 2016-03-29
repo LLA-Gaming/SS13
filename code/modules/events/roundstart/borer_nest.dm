@@ -1,7 +1,7 @@
 /datum/round_event_control/borer_nest
 	name = "Borer Nest"
 	typepath = /datum/round_event/borer_nest
-	event_flags = EVENT_ROUNDSTART
+	event_flags = EVENT_ROUNDSTART | EVENT_HIDDEN
 	weight = 10
 
 /datum/round_event/borer_nest

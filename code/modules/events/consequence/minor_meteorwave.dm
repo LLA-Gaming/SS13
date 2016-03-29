@@ -2,7 +2,9 @@
 	name = "Minor Meteor Wave"
 	typepath = /datum/round_event/minor_meteorwave/
 	event_flags = EVENT_CONSEQUENCE
-	weight = 10
+	max_occurrences = -1
+	weight = 20
+	accuracy = 100
 
 /datum/round_event/minor_meteorwave/
 	end_when = -1 //ends on its own schedule

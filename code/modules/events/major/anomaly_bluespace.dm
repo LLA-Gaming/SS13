@@ -2,8 +2,9 @@
 	name = "Bluespace Anomaly"
 	typepath = /datum/round_event/anomaly/anomaly_bluespace
 	event_flags = EVENT_MAJOR
-	accuracy = 85
-	weight = 10
+	max_occurrences = 1
+	weight = 5
+	accuracy = 80
 
 /datum/round_event/anomaly/anomaly_bluespace
 	start_when = 30

@@ -2,8 +2,9 @@
 	name = "Leaky Plumbing"
 	typepath = /datum/round_event/leakyplumbing/
 	event_flags = EVENT_MINOR
+	max_occurrences = -1
 	weight = 10
-	accuracy = 85
+	accuracy = 80
 
 /datum/round_event/leakyplumbing/
 	start_when = 0

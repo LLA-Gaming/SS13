@@ -4,7 +4,7 @@
 	event_flags = EVENT_ENDGAME
 	max_occurrences = 1
 	weight = 5
-	accuracy = 90
+	accuracy = 100
 
 /datum/round_event/blob
 	alert_when	= 120
@@ -17,7 +17,7 @@
 		priority_announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')
 
 	Start()
-		EventStory("A Confirmed outbreak of level 5 biohazard was reported aboard [station_name()].")
+		if (!prevent_stories) EventStory("A Confirmed outbreak of level 5 biohazard was reported aboard [station_name()].")
 		var/turf/T = pick(blobstart)
 		if(!T)
 			return CancelSelf()
@@ -45,10 +45,11 @@
 	OnFail()
 		set_security_level(SEC_LEVEL_RED)
 		events.call_shuttle("Blob",1)
-		EventStory("The level 5 biohazard consumed what was left of [station_name()].",1)
+		if (!prevent_stories) EventStory("The level 5 biohazard consumed what was left of [station_name()].",1)
 
 	OnPass()
-		EventStory("The crew managed to destroy the level 5 biohazard.")
-		var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Anomaly Expert")
-		E.events_allowed = EVENT_REWARD
-		E.lifetime = 1
+		if (!prevent_stories) EventStory("The crew managed to destroy the level 5 biohazard.")
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Anomaly Expert")
+			E.events_allowed = EVENT_REWARD
+			E.lifetime = 1

@@ -2,8 +2,9 @@
 	name = "Radiation Storm"
 	typepath = /datum/round_event/radiation_storm
 	event_flags = EVENT_MAJOR
-	max_occurrences = 1
-	weight = 10
+	max_occurrences = -1
+	weight = 20
+	accuracy = 50
 
 /datum/round_event/radiation_storm
 	var/list/protected_areas = list(/area/maintenance, /area/turret_protected/ai_upload, /area/turret_protected/ai_upload_foyer, /area/turret_protected/ai)

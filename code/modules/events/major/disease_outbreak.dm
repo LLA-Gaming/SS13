@@ -2,9 +2,9 @@
 	name = "Disease Outbreak"
 	typepath = /datum/round_event/disease_outbreak
 	event_flags = EVENT_MAJOR
-	max_occurrences = 1
-	weight = 5
-	accuracy = 90
+	max_occurrences = 5
+	weight = 10
+	accuracy = 75
 
 /datum/round_event/disease_outbreak
 	alert_when	= 150
@@ -59,7 +59,7 @@
 			zero = H.real_name
 			case = D
 			target = D
-			EventStory("During [zero]'s travels they managed to contract a serious case of [case].")
+			if (!prevent_stories) EventStory("During [zero]'s travels they managed to contract a serious case of [case].")
 			break
 
 	Tick()
@@ -71,10 +71,11 @@
 			OnPass()
 
 	OnFail()
-		EventStory("[zero] was never cured from the case of [case].")
+		if (!prevent_stories) EventStory("[zero] was never cured from the case of [case].")
 
 	OnPass()
-		EventStory("[zero] was cured of their [case].")
-		var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Virus Expert")
-		E.events_allowed = EVENT_REWARD
-		E.lifetime = 1
+		if (!prevent_stories) EventStory("[zero] was cured of their [case].")
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Virus Expert")
+			E.events_allowed = EVENT_REWARD
+			E.lifetime = 1

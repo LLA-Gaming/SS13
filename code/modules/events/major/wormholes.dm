@@ -2,8 +2,9 @@
 	name = "Wormholes"
 	typepath = /datum/round_event/wormholes
 	event_flags = EVENT_MAJOR
-	max_occurrences = 3
-	weight = 10
+	max_occurrences = 1
+	weight = 8
+	accuracy = 100
 
 
 /datum/round_event/wormholes

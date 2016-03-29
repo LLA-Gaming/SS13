@@ -1,7 +1,7 @@
 /datum/round_event_control/drone_shell
 	name = "Drone Shell"
 	typepath = /datum/round_event/drone_shell
-	event_flags = EVENT_ROUNDSTART
+	event_flags = EVENT_ROUNDSTART | EVENT_HIDDEN
 	weight = 10
 
 /datum/round_event/drone_shell

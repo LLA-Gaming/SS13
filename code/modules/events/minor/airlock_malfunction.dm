@@ -2,8 +2,9 @@
 	name = "Malfunctioning Airlocks"
 	typepath = /datum/round_event/airlock_malfunction
 	event_flags = EVENT_MINOR
+	max_occurrences = -1
 	weight = 10
-	accuracy = 85
+	accuracy = 80
 
 /datum/round_event/airlock_malfunction/
 	start_when = 0
@@ -22,7 +23,7 @@
 			CancelSelf() //no candidates, end self.
 	Start()
 		..()
-		EventStory("The APC in [impact_area] encountered a stack overflow and messed with the various airlocks's controls.")
+		if (!prevent_stories) EventStory("The APC in [impact_area] encountered a stack overflow and messed with the various airlocks's controls.")
 
 	Alert()
 		send_alerts("Abnormal airlock activity detected in [impact_area]. Recommend station engineer involvement. ")
@@ -50,13 +51,15 @@
 			OnPass() //Hooray
 
 	OnFail()
-		EventStory("The airlocks that have been malfunctioning in [impact_area.name] stopped immediately at the same time.")
-		var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Technical Advisor")
-		E.events_allowed = EVENT_CONSEQUENCE
-		E.lifetime = 1
+		if (!prevent_stories) EventStory("The airlocks that have been malfunctioning in [impact_area.name] stopped immediately at the same time.")
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Technical Advisor")
+			E.events_allowed = EVENT_CONSEQUENCE
+			E.lifetime = 1
 
 	OnPass()
-		EventStory("The crew managed to fix the malfunctioning airlocks in [impact_area.name]")
-		var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Technical Advisor")
-		E.events_allowed = EVENT_REWARD
-		E.lifetime = 1
+		if (!prevent_stories) EventStory("The crew managed to fix the malfunctioning airlocks in [impact_area.name]")
+		if (branching_allowed)
+			var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Technical Advisor")
+			E.events_allowed = EVENT_REWARD
+			E.lifetime = 1

@@ -10,7 +10,8 @@
 	candidate_flag = BE_NINJA
 	candidates_needed = 1
 	max_occurrences = 1
-	weight = 10
+	weight = 5
+	accuracy = 100
 
 /datum/round_event/ninja
 	var/success_spawn = 0

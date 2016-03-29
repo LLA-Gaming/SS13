@@ -2,7 +2,9 @@
 	name = "Template Coords"
 	typepath = /datum/round_event/template_coords
 	event_flags = EVENT_REWARD
-	weight = 10
+	max_occurrences = -1
+	weight = 5
+	accuracy = 100
 	var/list/templates = list()
 
 /datum/round_event/template_coords

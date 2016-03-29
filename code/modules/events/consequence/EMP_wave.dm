@@ -2,7 +2,9 @@
 	name = "EMP Wave"
 	typepath = /datum/round_event/EMP_wave
 	event_flags = EVENT_CONSEQUENCE
-	weight = 10
+	max_occurrences = -1
+	weight = 20
+	accuracy = 85
 
 /datum/round_event/EMP_wave
 	var/area/impact_area

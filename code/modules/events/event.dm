@@ -21,11 +21,14 @@
 		var/datum/round_event/E = new typepath
 		events.last_event = typepath
 		if(came_from)
-			came_from.children.Add(E)
 			came_from.lifetime--
 			E.cycler = came_from
+			E.prevent_stories = came_from.prevent_stories
+			E.sends_alerts = came_from.alerts
+			E.branching_allowed = came_from.branching
 			occurrences++
 		E.control = src
+		log_game("EVENTS: [src] was fired")
 		E.PreSetup(src,came_from)
 
 /datum/round_event
@@ -43,6 +46,9 @@
 
 	var/active_for = 0 //how many ticks the event has been active for. you don't need to touch this variable
 	var/endless = 0 //if the event never ends unless told to. you don't need to touch this variable
+	var/prevent_stories
+	var/sends_alerts
+	var/branching_allowed
 
 	New()
 		..()
@@ -110,7 +116,8 @@
 		start_when = -1
 
 	if(world.time >= alert_when && alert_when >= 0)
-		Alert()
+		if(sends_alerts)
+			Alert()
 		alert_when = -1
 		if(false_alarm)
 			CancelSelf()
@@ -129,12 +136,15 @@
 	active_for++
 
 /datum/round_event/proc/send_alerts(var/msg)
+	if (!sends_alerts) return
 	send_tablet_alerts(msg)
 	send_newscaster_alerts(msg)
 
 /datum/round_event/proc/send_tablet_alerts(var/msg)
+	if (!sends_alerts) return
 	for(var/obj/item/device/tablet/T in tablets_list)
 		T.alert_self("Alert from \<[special_npc_name]\>", msg)
 
 /datum/round_event/proc/send_newscaster_alerts(var/msg)
+	if (!sends_alerts) return
 	news_network.SubmitArticle(msg, "[special_npc_name]", "Station Alerts", null)

@@ -141,14 +141,19 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 	var/eta_timeofday
 	var/eta
 	//event tasks
+	var/datum/event_cycler/task_cycler/task_cycler
 	var/list/tasks = list()
+	var/datum/round_event/task/shuttle_loan/shuttle_loan
 	//list of ATOMS to never delete when the shuttle moves, build at round start
 	var/list/protected_atoms = list()
 
 	New()
 		ordernum = rand(1,9000)
-		for(var/typepath in (typesof(/datum/supply_packs) - /datum/supply_packs))
+		for(var/typepath in typesof(/datum/supply_packs) - /datum/supply_packs)
 			var/datum/supply_packs/P = new typepath()
+			if(P.notavailable)
+				qdel(P)
+				continue
 			if(P.name == "HEADER") continue		// To filter out group headers
 			supply_packs[P.name] = P
 
@@ -322,7 +327,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 
 					// Task Events
 					for(var/datum/round_event/task/TASK in tasks)
-						TASK.check_complete(MA)
+						TASK.check_complete(A)
 			qdel(MA)
 
 		if(plasma_count)
@@ -573,7 +578,8 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		<HR>\nSupply Points: [supply_shuttle.points]<BR>\n<BR>
 		[supply_shuttle.moving ? "\n*Must be away to order items*<BR>\n<BR>":supply_shuttle.at_station ? "\n*Must be away to order items*<BR>\n<BR>":"\n<A href='?src=\ref[src];order=categories'>Order items</A><BR>\n<BR>"]
 		[supply_shuttle.moving ? "\n*Shuttle already called*<BR>\n<BR>":supply_shuttle.at_station ? "\n<A href='?src=\ref[src];send=1'>Send away</A><BR>\n<BR>":"\n<A href='?src=\ref[src];send=1'>Send to station</A><BR>\n<BR>"]
-		\n<BR>"]
+		[supply_shuttle.shuttle_loan ? (supply_shuttle.shuttle_loan.dispatched ? "\n*Shuttle loaned to Centcom*<BR>\n<BR>" : "\n<A href='?src=\ref[src];send=1;loan=1'>Loan shuttle to Centcom (5 mins duration)</A><BR>\n<BR>") : "\n*No pending external shuttle requests*<BR>\n<BR>"]
+		[supply_shuttle.task_cycler ? "\n<A href='?src=\ref[src];viewtasks=1'>View Supply Tasks</A><BR>\n<BR>" : "\n<A href='?src=\ref[src];starttasks=1'>Contact CentComm for additional supply work</A><BR>\n<BR>"]
 		\n<A href='?src=\ref[src];viewrequests=1'>View requests</A><BR>\n<BR>
 		\n<A href='?src=\ref[src];vieworders=1'>View orders</A><BR>\n<BR>
 		\n<A href='?src=\ref[user];mach_close=computer'>Close</A><BR>
@@ -612,20 +618,40 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 	//Calling the shuttle
 	if(href_list["send"])
 		if(!supply_shuttle.can_move())
-			temp = "For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+			if(supply_shuttle.shuttle_loan)
+				temp = "The supply shuttle must be docked to send new commands.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+			else
+				temp = "For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
 
 		else if(supply_shuttle.at_station)
-			temp = "The supply shuttle has departed.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
-			supply_shuttle.moving = -1
-			supply_shuttle.sell()
-			supply_shuttle.send()
-
+			if(href_list["loan"] && supply_shuttle.shuttle_loan)
+				if(!supply_shuttle.shuttle_loan.dispatched)
+					supply_shuttle.sell()
+					supply_shuttle.send()
+					supply_shuttle.shuttle_loan.loan_shuttle()
+					temp = "The supply shuttle has been loaned to Centcom.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+					post_signal("supply")
+				else
+					temp = "You can not loan the supply shuttle at this time.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+			else
+				temp = "The supply shuttle has departed.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+				supply_shuttle.moving = -1
+				supply_shuttle.sell()
+				supply_shuttle.send()
 		else
-			supply_shuttle.buy()
-			temp = "The supply shuttle has been called and will arrive in [round(supply_shuttle.movetime/600,1)] minutes.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
-			supply_shuttle.moving = 1
-			supply_shuttle.eta_timeofday = (world.timeofday + supply_shuttle.movetime) % 864000
-			post_signal("supply")
+			if(href_list["loan"] && supply_shuttle.shuttle_loan)
+				if(!supply_shuttle.shuttle_loan.dispatched)
+					supply_shuttle.shuttle_loan.loan_shuttle()
+					temp = "The supply shuttle has been loaned to Centcom.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+					post_signal("supply")
+				else
+					temp = "You can not loan the supply shuttle at this time.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+			else
+				supply_shuttle.buy()
+				temp = "The supply shuttle has been called and will arrive in [round(supply_shuttle.movetime/600,1)] minutes.<BR><BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+				supply_shuttle.moving = 1
+				supply_shuttle.eta_timeofday = (world.timeofday + supply_shuttle.movetime) % 864000
+				post_signal("supply")
 
 	else if (href_list["order"])
 		if(supply_shuttle.moving) return
@@ -758,6 +784,34 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 
 		temp += "<BR><A href='?src=\ref[src];clearreq=1'>Clear list</A>"
 		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+
+	else if (href_list["starttasks"])
+		supply_shuttle.task_cycler = new /datum/event_cycler/task_cycler
+		temp = "Thank you for signing up, We will contact you with upcoming tasks<br>"
+		temp += "<A href='?src=\ref[src];mainmenu=1'>OK</A>"
+		priority_announce("The supply team has signed up for exporting goods. Crew, work together on assisting the supply team in completing export tasks.","Centcomm Supply Exports")
+	else if (href_list["viewtasks"])
+		temp = "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A><BR><BR>Current tasks: <BR><BR>"
+		var/export_grade = "D"
+		switch(supply_shuttle.task_cycler.task_level)
+			if(1)
+				export_grade = "D"
+			if(2)
+				export_grade = "C"
+			if(3)
+				export_grade = "B"
+			else
+				export_grade = "A"
+		temp += "Export Grade: [export_grade]<br>"
+		for(var/datum/round_event/task/T  in supply_shuttle.tasks)
+			temp += "<div class='statusDisplay'>"
+			temp += "Name: [T.task_name]<br>"
+			temp += "Description: [T.task_desc]<br>"
+			if(T.complete_time >= 0)
+				temp += "Time left: [round((T.complete_time - world.time) / 10 / 60)] minute(s)<br>"
+			if(T.requires_delivery)
+				temp += "<br><br>NOTE: To ensure proper delivery, please ensure all exports are packaged properly in a crate"
+			temp += "</div>"
 
 	else if (href_list["rreq"])
 		var/ordernum = text2num(href_list["rreq"])

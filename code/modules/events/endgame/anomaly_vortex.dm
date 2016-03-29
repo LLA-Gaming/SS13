@@ -2,8 +2,9 @@
 	name = "Vortex Anomaly"
 	typepath = /datum/round_event/anomaly/anomaly_vortex
 	event_flags = EVENT_ENDGAME
+	max_occurrences = 1
 	weight = 10
-	accuracy = 85
+	accuracy = 80
 
 /datum/round_event/anomaly/anomaly_vortex
 	start_when = 10
@@ -14,7 +15,7 @@
 
 	Start()
 		..()
-		EventStory("[impact_area.name] was consumed by a black hole vortex")
+		if (!prevent_stories) EventStory("[impact_area.name] was consumed by a black hole vortex")
 
 	Alert()
 		send_alerts("Localized high-intensity vortex anomaly detected on long range scanners. Expected location: [impact_area.name].")
