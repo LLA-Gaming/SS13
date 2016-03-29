@@ -807,8 +807,6 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 			temp += "<div class='statusDisplay'>"
 			temp += "Name: [T.task_name]<br>"
 			temp += "Description: [T.task_desc]<br>"
-			if(T.complete_time >= 0)
-				temp += "Time left: [round((T.complete_time - world.time) / 10 / 60)] minute(s)<br>"
 			if(T.requires_delivery)
 				temp += "<br><br>NOTE: To ensure proper delivery, please ensure all exports are packaged properly in a crate"
 			temp += "</div>"

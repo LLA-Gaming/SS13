@@ -23,7 +23,7 @@
 			for(var/datum/round_event/task/T in supply_shuttle.tasks)
 				dat += "<div class='statusDisplay'>"
 				dat += "<b><u>[T.task_name]</b></u><br>"
-				dat += "[T.task_desc]<br>"
-				if(T.complete_time >= 0)
-					dat += "Time left: [round((T.complete_time - world.time) / 10 / 60)] minute(s)<br>"
+				dat += "[T.task_desc]"
+				if(T.requires_delivery)
+					dat += "<br><br>NOTE: To ensure proper delivery, please ensure all exports are packaged properly in a crate"
 				dat += "</div>"

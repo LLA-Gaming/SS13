@@ -3,7 +3,6 @@
 	//typepath = /datum/round_event/task/missing_data //RETURN TO THIS AFTER THE BETA TEST
 	event_flags = EVENT_TASK | EVENT_HIDDEN
 	weight = 10
-	complete_time = -1
 	task_level = 3
 
 /datum/round_event/task/missing_data

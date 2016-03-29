@@ -1,5 +1,4 @@
 /datum/round_event/task/xeno_artifact_research
-	complete_time = -1
 	task_name = "Xeno Artifact Research"
 	task_desc = "todo: desc"
 

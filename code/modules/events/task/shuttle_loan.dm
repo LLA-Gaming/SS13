@@ -9,6 +9,7 @@
 	typepath = /datum/round_event/task/shuttle_loan
 	event_flags = EVENT_TASK
 	weight = 10
+	max_occurrences = 1
 	task_level = 3
 
 /datum/round_event/task/shuttle_loan

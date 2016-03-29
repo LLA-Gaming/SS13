@@ -66,6 +66,7 @@
 		if(control && !(prob(C.accuracy)))
 			message_admins("False Alarm: [C.name]")
 			false_alarm = 1
+			came_from.schedule = came_from.frequency_lower
 		//candidates
 		if(control && control.candidate_flag)
 			candidates = get_candidates_event(control.candidate_flag, control.candidate_afk_bracket)
@@ -86,7 +87,7 @@
 			control.occurrences-- //refund
 		if(cycler) //it was a false alarm or not able to setup, make the next event soon. also refund a lifetime
 			cycler.lifetime++
-			cycler.schedule = world.time + rand(600,3000) //1 to 5 minutes
+			cycler.schedule = world.time + cycler.frequency_lower //1 to 5 minutes
 		qdel(src)
 		return
 

@@ -18,8 +18,8 @@
 	events_allowed = EVENT_ROUNDSTART
 
 /datum/event_cycler/task_cycler
-	frequency_lower = 600	//1 minutes lower bound.
-	frequency_upper = 1800	//2 minutes upper bound.
+	frequency_lower = 2000	//3.33 minutes lower bound
+	frequency_upper = 4000	//6.66 minutes upper bound.
 	events_allowed = EVENT_TASK
 	max_children = 2		//only 2 events are allowed to be active at the same time.
 	endless = 1
@@ -42,7 +42,7 @@
 	var/schedule = 0
 	var/npc_name = "Centcomm Officer Tom"
 	var/frequency_lower = 3000	//5 minutes lower bound.
-	var/frequency_upper = 9000	//15 minutes upper bound.
+	var/frequency_upper = 6600	//11 minutes upper bound.
 	var/in_rotation = 0			//this cycler makes another cycler when it's lifetime is 0 or less
 	var/endless = 0				//doesn't check lifetime
 	var/lifetime = 1			//how many events this cycler can fire until it retires (in_rotation must be 1)
@@ -127,8 +127,10 @@
 
 	proc/force_fire()
 		if(playlist.len)
-			pickevent()
-			schedule = world.time + rand(frequency_lower,frequency_upper)
+			if(pickevent())
+				schedule = world.time + rand(frequency_lower,frequency_upper)
+			else
+				schedule = world.time + 10 // try again in a second
 		else
 			schedule = 0
 

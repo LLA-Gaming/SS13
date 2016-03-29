@@ -24,7 +24,7 @@
 	Setup()
 		var/goal = pick(possible_goals)
 		var/atom/AM = new goal()
-		task_name = "Research: [AM]"
+		task_name = "Research: [AM.name]"
 		task_desc = pick("Please research and develop the following item: [AM.name]")
 		goals.Add(goal)
 		qdel(AM)
