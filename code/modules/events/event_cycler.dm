@@ -18,8 +18,8 @@
 	events_allowed = EVENT_ROUNDSTART
 
 /datum/event_cycler/task_cycler
-	frequency_lower = 3000	//2 minutes lower bound.
-	frequency_upper = 1800	//3 minutes upper bound.
+	frequency_lower = 600	//1 minutes lower bound.
+	frequency_upper = 1800	//2 minutes upper bound.
 	events_allowed = EVENT_TASK
 	max_children = 2		//only 2 events are allowed to be active at the same time.
 	endless = 1
