@@ -66,6 +66,10 @@
 			R.spawn_monsters(monsters)
 			R.spawn_monsters(monsters)
 
+		var/datum/round_event_control/rift_bus/rift_bus = locate(/datum/round_event_control/rift_bus) in events.all_events
+		if(rift_bus)
+			rift_bus.rift_events_exist = 1
+
 	Tick()
 		if(emergency_shuttle.location == -1) //shuttle docked at station, gameover
 			failed = 1

@@ -172,7 +172,9 @@
 				//part 1
 				var/datum/round_event/xeno_artifact_research/event = locate(/datum/round_event/xeno_artifact_research) in events.active_events
 				if(!event) //bussing a rift
-					event = events.spawn_orphan_event(/datum/round_event/xeno_artifact_research)
+					var/datum/round_event_control/rift_bus/rift_bus = locate(/datum/round_event_control/rift_bus) in events.all_events
+					if(rift_bus && !rift_bus.rift_events_exist)
+						event = events.spawn_orphan_event(/datum/round_event/xeno_artifact_research)
 				switch(clicks)
 					if(0) //first pulse, start
 						next_clicktime = world.time + 100

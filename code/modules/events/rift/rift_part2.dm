@@ -12,6 +12,10 @@
 		if (!prevent_stories) EventStory("The crew was then tasked with firing emitters at the artifact to unlock its true potential.")
 		priority_announce("Signal from the artifact recieved. Activate the artifact with an array of emitter fire.","NanoTrasen Archeology Department")
 
+		var/datum/round_event_control/rift_bus/rift_bus = locate(/datum/round_event_control/rift_bus) in events.all_events
+		if(rift_bus)
+			rift_bus.rift_events_exist = 1
+
 	End()
 		if(passed)
 			OnPass()

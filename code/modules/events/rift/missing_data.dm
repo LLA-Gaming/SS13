@@ -11,6 +11,9 @@
 
 	Start()
 		if (!prevent_stories) EventStory("After some successful export work, the supply team was tasked with finding a lost data disk.")
+		var/datum/round_event_control/rift_bus/rift_bus = locate(/datum/round_event_control/rift_bus) in events.all_events
+		if(rift_bus)
+			rift_bus.rift_events_exist = 1
 
 	Setup()
 		var/area/A

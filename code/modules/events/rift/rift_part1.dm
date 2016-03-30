@@ -20,6 +20,10 @@
 		supply_shuttle.shoppinglist += O
 		priority_announce("Our scientists have analyzed that data you shipped to us. [station_name()] is now authorized for experimental research. Instructions, along with the excavated artifact, have been added to the supply order list. Send the supply shuttle to the station to begin.","NanoTrasen Archeology Department")
 
+		var/datum/round_event_control/rift_bus/rift_bus = locate(/datum/round_event_control/rift_bus) in events.all_events
+		if(rift_bus)
+			rift_bus.rift_events_exist = 1
+
 	End()
 		if(passed)
 			OnPass()
