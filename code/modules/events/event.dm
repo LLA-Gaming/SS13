@@ -49,9 +49,9 @@
 
 	var/active_for = 0 //how many ticks the event has been active for. you don't need to touch this variable
 	var/endless = 0 //if the event never ends unless told to. you don't need to touch this variable
-	var/prevent_stories
-	var/sends_alerts
-	var/branching_allowed
+	var/prevent_stories = 0
+	var/sends_alerts = 1
+	var/branching_allowed = 1
 
 	New()
 		..()

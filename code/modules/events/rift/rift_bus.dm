@@ -12,9 +12,11 @@
 		if(control:rift_events_exist)
 			return
 		else
-			var/datum/event_cycler/task_cycler/T = locate(/datum/event_cycler/task_cycler) in events.event_cyclers
+			var/datum/event_cycler/task_cycler/T
+			for(var/datum/event_cycler/task_cycler/cycler in events.event_cyclers)
+				T = cycler
 			if(!T)
-				new /datum/event_cycler/task_cycler //spawn a task cycler if one doesn't exist already.
+				supply_shuttle.task_cycler = new /datum/event_cycler/task_cycler //spawn a task cycler if one doesn't exist already.
 			var/datum/round_event_control/task/missing_data/M = locate(/datum/round_event_control/task/missing_data) in events.all_events
 			M.occurrences = M.max_occurrences
 			events.spawn_orphan_event(/datum/round_event/task/missing_data)
