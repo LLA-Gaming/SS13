@@ -2270,7 +2270,7 @@
 			log_admin("[key_name(usr)] created a event cycler")
 		if(href_list["remove_cycler"])
 			var/datum/event_cycler/C = locate(href_list["remove_cycler"])
-			if(C)
+			if(istype(C))
 				message_admins("[key_name_admin(usr)] removed cycler [C.npc_name]")
 				log_admin("[key_name(usr)] removed cycler [C.npc_name]")
 				qdel(C)
@@ -2293,39 +2293,39 @@
 				C.frequency_lower = t
 		if(href_list["force"])
 			var/datum/event_cycler/C = locate(href_list["force"])
-			if(C && !C.paused || C && C.playlist.len)
+			if(istype(C) && !C.paused || istype(C) && C.playlist.len)
 				C.force_fire()
 
 		if(href_list["status"])
 			var/datum/event_cycler/C = locate(href_list["status"])
-			if(C)
+			if(istype(C))
 				C.paused = !C.paused
 				if(C.paused)
 					C.schedule = rand(C.frequency_lower,C.frequency_upper)
 		if(href_list["shuffle"])
 			var/datum/event_cycler/C = locate(href_list["shuffle"])
-			if(C)
+			if(istype(C))
 				C.shuffle = !C.shuffle
 		if(href_list["alerts"])
 			var/datum/event_cycler/C = locate(href_list["alerts"])
-			if(C)
+			if(istype(C))
 				C.alerts = !C.alerts
 		if(href_list["branching"])
 			var/datum/event_cycler/C = locate(href_list["branching"])
-			if(C)
+			if(istype(C))
 				C.branching = !C.branching
 		if(href_list["remove_after_fire"])
 			var/datum/event_cycler/C = locate(href_list["remove_after_fire"])
-			if(C)
+			if(istype(C))
 				C.remove_after_fire = !C.remove_after_fire
 		if(href_list["prevent_story_generation"])
 			var/datum/event_cycler/C = locate(href_list["prevent_story_generation"])
-			if(C)
+			if(istype(C))
 				C.prevent_stories = !C.prevent_stories
 
 		if(href_list["add_event"])
 			var/datum/event_cycler/C = locate(href_list["add_event"])
-			if(C)
+			if(istype(C))
 				var/list/D = list()
 				D["Cancel"] = "Cancel"
 				for(var/datum/round_event_control/E in sortAtom(events.all_events))
@@ -2337,7 +2337,7 @@
 					C.playlist.Add(D[t])
 		if(href_list["remove_event"])
 			var/datum/event_cycler/C = locate(href_list["cycler"])
-			if(C)
+			if(istype(C))
 				var/datum/round_event_control/E = locate(href_list["remove_event"])
 				C.playlist.Remove(E)
 		event_panel()
