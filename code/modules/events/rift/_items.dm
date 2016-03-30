@@ -26,7 +26,6 @@
 					/obj/item/stack/sheet/metal{amount=50},
 					/obj/item/stack/sheet/glass{amount=50},
 					/obj/item/stack/sheet/mineral/plasma{amount=50},
-					/obj/item/stack/sheet/mineral/silver{amount=50},
 					/obj/item/stack/sheet/mineral/clown{amount=50}
 					)
 	containertype = /obj/structure/closet/crate/
