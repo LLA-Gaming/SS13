@@ -59,7 +59,7 @@ var/datum/controller/event/events
 		message_admins("The crew failed the [called_from] event failed. shuttle auto-called", 1)
 
 /proc/EventStory(var/X,var/conclude)
-	if(!events.story_end)
+	if(!events.story_end || conclude==2)
 		events.story.Add(X)
 	if(conclude)
 		events.story_end = 1

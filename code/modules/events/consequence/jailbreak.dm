@@ -20,6 +20,7 @@
 		priority_announce("Gr3y.T1d3 virus detected in [station_name()] imprisonment subroutines. Recommend station AI involvement.", "Security Alert")
 
 	Start()
+		if (!prevent_stories) EventStory("The brig was infected by the Gr3y.T1d3 virus.")
 		for(var/area/A in prisonAreas)
 			for(var/obj/machinery/light/L in area_contents(A))
 				L.flicker(10)

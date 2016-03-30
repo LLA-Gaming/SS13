@@ -3,6 +3,7 @@
 	set category = "Fun"
 	var/dat = ""
 	var/datum/browser/popup = new(usr, "event_panel", "Event Panel", 760, 600)
+
 	if(!check_rights(0))	return
 	if(!events.setup_events)
 		dat = "Events manager is not active yet."
@@ -27,7 +28,7 @@
 		cyclers.Insert(1,C)
 	cyclers.Insert(1,rotated)
 	for(var/datum/event_cycler/C in cyclers)
-		if(istype(C,/datum/event_cycler/roundstart)) continue
+		if(C.hideme) continue
 		if(C.in_rotation)
 			dat += "<tr><td valign='top' rowspan='[cyclers.len]'>"
 		else
@@ -37,15 +38,16 @@
 		if(!C.endless)
 			dat += "Lifetime: [C.lifetime]<br>"
 		dat += "Timer: <a href='?_src_=holder;event_panel=1;status=\ref[C]'>[C.paused ? "Off" : "On"]</a><br>"
-		dat += "Next Fire in: [C.paused ? "PAUSED" : "[(C.schedule - world.time) / 10 / 60] minute(s)"]<br>"
+		var/next_fire = round((C.schedule - world.time) / 10 / 60)
+		dat += "Next Fire in: [C.paused ? "PAUSED" : "[next_fire>=0 ? "[next_fire] minute(s)" : "NOW"]"]<br>"
 		if(istype(C,/datum/event_cycler/admin_playlist))
 			dat += "Shuffle: <a href='?_src_=holder;event_panel=1;shuffle=\ref[C]'>[C.shuffle ? "On" : "Off"]</a><br>"
 			dat += "Story Generation: <a href='?_src_=holder;event_panel=1;prevent_story_generation=\ref[C]'>[C.prevent_stories ? "Off" : "On"]</a><br>"
 			dat += "Branching Allowed: <a href='?_src_=holder;event_panel=1;branching=\ref[C]'>[C.branching ? "On" : "Off"]</a><br>"
 			dat += "Alerts: <a href='?_src_=holder;event_panel=1;alerts=\ref[C]'>[C.alerts ? "On" : "Off"]</a><br>"
 			dat += "Remove after fire: <a href='?_src_=holder;event_panel=1;remove_after_fire=\ref[C]'>[C.remove_after_fire ? "On" : "Off"]</a><br>"
-		dat += "Next Fire Frequency (low): [C.frequency_lower / 10 / 60] minute(s) <a href='?_src_=holder;event_panel=1;low_freq=\ref[C]'>Change</a><br>"
-		dat += "Next Fire Frequency (high): [C.frequency_upper / 10 / 60] minute(s) <a href='?_src_=holder;event_panel=1;high_freq=\ref[C]'>Change</a><br>"
+		dat += "Next Fire Frequency (low): [round(C.frequency_lower / 10 / 60)] minute(s) <a href='?_src_=holder;event_panel=1;low_freq=\ref[C]'>Change</a><br>"
+		dat += "Next Fire Frequency (high): [round(C.frequency_upper / 10 / 60)] minute(s) <a href='?_src_=holder;event_panel=1;high_freq=\ref[C]'>Change</a><br>"
 		dat += "<a href='?_src_=holder;event_panel=1;force=\ref[C]'>Force Next Fire</a><br>"
 		dat += "[C.playlist.len ? "Playlist:[C.shuffle ? "(Shuffle)":"(Order)"]" : "Possible:"] <br>"
 		if(C.playlist.len)

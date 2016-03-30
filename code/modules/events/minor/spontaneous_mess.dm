@@ -23,6 +23,7 @@
 		send_alerts("An unintentional error in our Bluespace Research Division has teleported some... human components into [impact_area.name]. Remove them as soon as possible to prevent contagion.")
 
 	Start()
+		if (!prevent_stories) EventStory("Central Command warned the crew about spontaneous gib mess in [impact_area] and possible contagions.")
 		for(var/turf/T in FindImpactTurfs(impact_area))
 			gibs.Add(new /obj/effect/decal/cleanable/blood/gibs(T))
 
@@ -38,12 +39,14 @@
 			OnFail()
 
 	OnFail()
+		if (!prevent_stories) EventStory("Despite the contagion warnings.. the crew was unphased and did not attempt to clean it.")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Bluespace Research Division", null)
 			E.events_allowed = EVENT_CONSEQUENCE
 			E.lifetime = 1
 
 	OnPass()
+		if (!prevent_stories) EventStory("All of the gibs in [impact_area] were clean.")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Bluespace Research Division", null)
 			E.events_allowed = EVENT_REWARD

@@ -57,6 +57,7 @@
 		if(supply_shuttle.task_cycler)
 			if(task_level >= supply_shuttle.task_cycler.task_level)
 				supply_shuttle.task_cycler.task_level++
+		supply_shuttle.tasks.Remove(src)
 		for(var/obj/item/device/tablet/T in tablets_list)
 			if(locate(/datum/program/cargobay) in T.core.programs)
 				T.alert_self("Cargo Bay Monitor", "Task Complete: [task_name]!", "cargocontrol")

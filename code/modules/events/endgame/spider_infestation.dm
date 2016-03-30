@@ -21,6 +21,7 @@
 		priority_announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", 'sound/AI/aliens.ogg')
 
 	Start()
+		if (!prevent_stories) EventStory("Spiders started breeding aboard [station_name()].")
 		var/list/vents = list()
 		for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in world)
 			if(temp_vent.loc.z == 1 && !temp_vent.welded && temp_vent.network)

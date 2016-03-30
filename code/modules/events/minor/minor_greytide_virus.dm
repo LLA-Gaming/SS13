@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/minor_greytide_virus
 	event_flags = EVENT_MINOR
 	max_occurrences = -1
-	weight = 5
+	weight = 10
 	accuracy = 80
 
 /datum/round_event/minor_greytide_virus
@@ -20,6 +20,7 @@
 		send_alerts("[impact_area] is now open for all. Thank you for choosing Gr3y.T1d3 for all your hacking needs.")
 
 	Start()
+		if (!prevent_stories) EventStory("In a sudden flash all the access in [impact_area] was removed from the airlocks by the dreaded Gr3y.T1d3 virus.")
 		for(var/obj/machinery/door/airlock/O in area_contents(impact_area))
 			O.emergency = 1
 			O.locked = 0

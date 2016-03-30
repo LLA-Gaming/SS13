@@ -20,6 +20,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		priority_announce("What the fuck was that?!", "General Alert")
 
 	Start()
+		if (!prevent_stories) EventStory("The station was struck by a immovable rod.")
 		var/startx = 0
 		var/starty = 0
 		var/endy = 0

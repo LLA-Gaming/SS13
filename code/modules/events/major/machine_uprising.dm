@@ -30,7 +30,7 @@
 		special_npc_name = originMachine.name
 
 	Start()
-		if (!prevent_stories) EventStory("The vending machine known as [originMachine] developed self awareness and began screaming and shouting at crew members")
+		if (!prevent_stories) EventStory("The vending machine known as [originMachine] developed self awareness and began screaming and shouting at crew members.")
 		originMachine.shut_up = 0
 		originMachine.shoot_inventory = 1
 
@@ -103,7 +103,7 @@
 
 	Start()
 		..()
-		if (!prevent_stories) EventStory("The screams of [originMachine] were picked up by other various vending machines. These vending machines rose and began to fight. A mechanical revolution was upon the station")
+		if (!prevent_stories) EventStory("The screams of [originMachine] were picked up by other various vending machines. These vending machines rose and began to fight. A mechanical revolution was upon the station.")
 
 	Tick()
 		..()

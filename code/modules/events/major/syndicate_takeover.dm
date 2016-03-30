@@ -24,6 +24,9 @@
 		party_starts = world.time + 300 //30 seconds
 		sec_notified = world.time + 600 //60 seconds
 
+	Start()
+		if (!prevent_stories) EventStory("Syndicates warped into [impact_area] in a flash.. The Crew was caught off guard.")
+
 	Tick()
 		if(world.time >= party_starts && party_starts >= 0)
 			var/obj/machinery/disposal/bin = locate(/obj/machinery/disposal) in area_contents(impact_area)
@@ -70,12 +73,14 @@
 			OnFail()
 
 	OnFail()
+		if (!prevent_stories) EventStory("The Syndicates managed to setup a base of operations in [impact_area], gather all the Intelligence they needed, and send it back to their base.. all while the crew as being lazy.")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Space Bear Federation")
 			E.events_allowed = EVENT_CONSEQUENCE
 			E.lifetime = 1
 
 	OnPass()
+		if (!prevent_stories) EventStory("Despite the surprise Syndicate attack, the crew was able to neutralize the targets.")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Hudson")
 			E.events_allowed = EVENT_REWARD

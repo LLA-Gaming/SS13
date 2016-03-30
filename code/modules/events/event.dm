@@ -28,7 +28,8 @@
 			E.branching_allowed = came_from.branching
 			occurrences++
 		E.control = src
-		log_game("EVENTS: [src] was fired")
+		if(came_from && came_from.in_rotation)
+			log_game("EVENTS: [src] was fired")
 		E.PreSetup(src,came_from)
 
 /datum/round_event
@@ -87,7 +88,9 @@
 			control.occurrences-- //refund
 		if(cycler) //it was a false alarm or not able to setup, make the next event soon. also refund a lifetime
 			cycler.lifetime++
-			cycler.schedule = world.time + cycler.frequency_lower //1 to 5 minutes
+			cycler.schedule = world.time + cycler.frequency_lower
+		message_admins("Couldn't run event: [src]")
+		log_game("EVENTS: Couldn't run event: [src]")
 		qdel(src)
 		return
 

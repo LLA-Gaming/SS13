@@ -2,7 +2,7 @@
 	name = "Materials Needed"
 	typepath = /datum/round_event/task/fresh_materials
 	event_flags = EVENT_TASK | EVENT_HIDDEN
-	weight = 10
+	weight = 5
 
 	task_level = 1
 

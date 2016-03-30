@@ -19,6 +19,7 @@
 		send_alerts("Electromagnetic overload detected in the powernet. Area effected: [impact_area.name].")
 
 	Start()
+		if (!prevent_stories) EventStory("The powernet overloaded causing a electromagnetic pulse in [impact_area].")
 		var/sound_played = 0
 		for(var/obj/machinery/M in area_contents(impact_area))
 			M.emp_act(rand(1,3))

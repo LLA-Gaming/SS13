@@ -9,6 +9,9 @@
 /datum/round_event/meteor_wave
 	end_when = 60
 
+	Start()
+		if (!prevent_stories) EventStory("[station_name()] was struck by meteors.")
+
 	Alert()
 		priority_announce("Meteors have been detected on collision course with the station.", "Meteor Alert", 'sound/AI/meteors.ogg')
 

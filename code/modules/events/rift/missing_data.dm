@@ -1,12 +1,17 @@
 /datum/round_event_control/task/missing_data
 	name = "Locate Missing Data"
-	//typepath = /datum/round_event/task/missing_data //RETURN TO THIS AFTER THE BETA TEST
+	typepath = /datum/round_event/task/missing_data
 	event_flags = EVENT_TASK | EVENT_HIDDEN
-	weight = 10
+	weight = 20
+	max_occurrences = 1
 	task_level = 3
 
 /datum/round_event/task/missing_data
 	var/turf/landing
+
+	Start()
+		if (!prevent_stories) EventStory("After some successful export work, the supply team was tasked with finding a lost data disk.")
+
 	Setup()
 		var/area/A
 		for(var/i=0, i<=50, i++)
@@ -33,4 +38,5 @@
 
 	OnPass()
 		..()
-		events.spawn_orphan_event(/datum/round_event/task/xeno_artifact_research)
+		if (!prevent_stories) EventStory("The lost data was recovered and centcomm analyzed the data.")
+		events.spawn_orphan_event(/datum/round_event/xeno_artifact_research)

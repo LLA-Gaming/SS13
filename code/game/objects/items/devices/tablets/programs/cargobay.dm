@@ -19,7 +19,17 @@
 			dat += "<li>#[SO.ordernum] - [SO.object.name] requested by [SO.orderedby]</li>"
 
 		if(supply_shuttle.tasks.len)
-			dat += "<hr>[TAB]"
+			var/export_grade = "D"
+			switch(supply_shuttle.task_cycler.task_level)
+				if(1)
+					export_grade = "D"
+				if(2)
+					export_grade = "C"
+				if(3)
+					export_grade = "B"
+				else
+					export_grade = "A"
+			dat += "<hr>Export Grade: [export_grade]<br>"
 			for(var/datum/round_event/task/T in supply_shuttle.tasks)
 				dat += "<div class='statusDisplay'>"
 				dat += "<b><u>[T.task_name]</b></u><br>"

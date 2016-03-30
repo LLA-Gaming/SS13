@@ -11,5 +11,9 @@
 			if(T.network() && T.core && T.can_eject)
 				var/payment = rand(0,5000)
 				var/first_name = copytext(T.owner, 1, findtext(T.owner, " ", 1, 0)) //gets the first name
+				if(T.ownjob == "Clown")
+					first_name = "Clown"
+				if(T.ownjob == "Mime")
+					first_name = "Mime"
 				T.alert_self("Payment Received from \<CentComm\>", "Wow [first_name]! great moves, keep it up, proud of you <font color = 'green'><b>\[+$[payment]\]</b></font>", "wallet")
 				T.core.cash += payment

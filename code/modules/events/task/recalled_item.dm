@@ -2,7 +2,7 @@
 	name = "Item Recalled"
 	typepath = /datum/round_event/task/recalled_item
 	event_flags = EVENT_TASK | EVENT_HIDDEN
-	weight = 10
+	weight = 5
 
 	task_level = 1
 
@@ -10,12 +10,16 @@
 	Setup()
 		var/list/possible_goals = list(/obj/item/clothing/gloves/fyellow,
 										/obj/item/weapon/clipboard,
-										/obj/item/weapon/bikehorn,
+										/obj/item/weapon/reagent_containers/food/drinks/soda_cans/space_mountain_wind,
 										/obj/item/weapon/soap,
 										/obj/item/weapon/paper,
 										/obj/item/weapon/bedsheet,
 										/obj/item/weapon/caution,
 										/obj/item/weapon/extinguisher,
+										/obj/item/weapon/wirerod,
+										/obj/item/weapon/reagent_containers/spacebong,
+										/obj/item/weapon/dice,
+										/obj/item/clothing/head/cone
 										)
 		var/goal = pick(possible_goals)
 		var/atom/AM = new goal()

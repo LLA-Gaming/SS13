@@ -18,6 +18,7 @@
 		//sound not longer matches the text, but an audible warning is probably good
 
 	Start()
+		if (!prevent_stories) EventStory("Radiation waves filled the air at [station_name()].")
 		for(var/mob/living/carbon/C in living_mob_list)
 			var/turf/T = get_turf(C)
 			if(!T)			continue

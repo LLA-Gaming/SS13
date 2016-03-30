@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/power_surge
 	event_flags = EVENT_MINOR
 	max_occurrences = -1
-	weight = 10
+	weight = 20
 	accuracy = 80
 
 /datum/round_event/power_surge
@@ -19,6 +19,9 @@
 			APC = impact_area.get_apc()
 		if(!APC)
 			CancelSelf()
+
+	Start()
+		if (!prevent_stories) EventStory("[impact_area]'s power systems went haywire, causing power to flicker and spark electricity onto nearby crew members.")
 
 	Alert()
 		var/heard = 0
@@ -73,12 +76,14 @@
 			OnPass()
 
 	OnFail()
+		if (!prevent_stories) EventStory("Crew members were far too lazy to deal with [impact_area]'s power.")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Electrical Advisor")
 			E.events_allowed = EVENT_CONSEQUENCE
 			E.lifetime = 1
 
 	OnPass()
+		if (!prevent_stories) EventStory("The crew members were able to repair the APC in [impact_area].")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Electrical Advisor")
 			E.events_allowed = EVENT_REWARD

@@ -113,6 +113,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 	var/datum/supply_packs/object = null
 	var/orderedby = null
 	var/comment = null
+	var/perfect = 0
 
 /datum/controller/supply_shuttle
 	var/processing = 1
@@ -376,12 +377,12 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 			var/obj/item/weapon/paper/manifest/slip = new /obj/item/weapon/paper/manifest(A)
 
 			var printed_station_name = station_name // World name is available in the title bar, station_name can be different based on config.
-			if(prob(5))
+			if(prob(5) && !SO.perfect)
 				printed_station_name = new_station_name()
 				slip.erroneous |= MANIFEST_ERROR_NAME // They got our station name wrong.  BASTARDS!
 				// IDEA: Have Centcom accidentally send random low-value crates in large orders, give large bonus for returning them intact.
 			var printed_packages_amount = supply_shuttle.shoppinglist.len
-			if(prob(5))
+			if(prob(5) && !SO.perfect)
 				printed_packages_amount += rand(1,2) // I considered rand(-2,2), but that could be zero.  Heh.
 				slip.erroneous |= MANIFEST_ERROR_COUNT // They typoed the number of crates in this shipment.  It won't match the other manifests.
 
@@ -414,7 +415,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 				if(SP.amount && B2:amount) B2:amount = SP.amount
 				slip.info += "<li>[B2.name]</li>" //add the item to the manifest (even if it was misplaced)
 				// If it has multiple items, there's a 1% of each going missing... Not for secure crates or those large wooden ones, though.
-				if(contains.len > 1 && prob(1) && !findtext(SP.containertype,"/secure/") && !findtext(SP.containertype,"/largecrate/"))
+				if(!SO.perfect && contains.len > 1 && prob(1) && !findtext(SP.containertype,"/secure/") && !findtext(SP.containertype,"/largecrate/"))
 					slip.erroneous |= MANIFEST_ERROR_ITEM // This item was not included in the shipment!
 					qdel(B2) // Lost in space... or the loading dock.
 
@@ -791,7 +792,6 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		temp += "<A href='?src=\ref[src];mainmenu=1'>OK</A>"
 		priority_announce("The supply team has signed up for exporting goods. Crew, work together on assisting the supply team in completing export tasks.","Centcomm Supply Exports")
 	else if (href_list["viewtasks"])
-		temp = "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A><BR><BR>Current tasks: <BR><BR>"
 		var/export_grade = "D"
 		switch(supply_shuttle.task_cycler.task_level)
 			if(1)
@@ -802,7 +802,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 				export_grade = "B"
 			else
 				export_grade = "A"
-		temp += "Export Grade: [export_grade]<br>"
+		temp = "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A><BR>Export Grade: [export_grade]<BR>Current tasks: <BR><BR>"
 		for(var/datum/round_event/task/T  in supply_shuttle.tasks)
 			temp += "<div class='statusDisplay'>"
 			temp += "Name: [T.task_name]<br>"

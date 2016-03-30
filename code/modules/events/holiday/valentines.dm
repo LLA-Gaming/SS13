@@ -11,6 +11,7 @@
 	var/mob/living/carbon/human/special_someone
 
 	Start()
+		if (!prevent_stories) EventStory("Happy Valentine's Day!")
 		//pick the valentine
 		var/list/cmembers = list()
 		for(var/mob/living/carbon/human/H in living_mob_list)

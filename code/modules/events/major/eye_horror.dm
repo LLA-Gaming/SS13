@@ -20,7 +20,7 @@
 			return
 
 	Alert()
-		send_alerts("Dark magic detected in [impact_area.name]")
+		send_alerts("Paranormal frequencies and eldritch lifesigns detected in [impact_area.name]. Evacuate [impact_area.name]")
 
 	Start()
 		var/turf/landing = pick(FindImpactTurfs(impact_area))
@@ -43,12 +43,12 @@
 
 	OnFail()
 		if (branching_allowed)
-			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "The Eyes that see")
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "The Eyes That See")
 			E.events_allowed = EVENT_CONSEQUENCE
 			E.lifetime = 1
 
 	OnPass()
 		if (branching_allowed)
-			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "The Eyes that see")
+			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "The Eyes That See")
 			E.events_allowed = EVENT_REWARD
 			E.lifetime = 1

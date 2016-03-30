@@ -23,6 +23,7 @@
 		end_when = rand(400, 800)
 
 	Start()
+		if (!prevent_stories) EventStory("Wormholes started appearing suddenly around the station.")
 		for(var/turf/simulated/floor/T in world)
 			if(T.z == 1)
 				pick_turfs += T

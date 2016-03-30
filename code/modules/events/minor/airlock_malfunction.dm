@@ -58,7 +58,7 @@
 			E.lifetime = 1
 
 	OnPass()
-		if (!prevent_stories) EventStory("The crew managed to fix the malfunctioning airlocks in [impact_area.name]")
+		if (!prevent_stories) EventStory("The crew managed to fix the malfunctioning airlocks in [impact_area.name].")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(300, "CentComm Technical Advisor")
 			E.events_allowed = EVENT_REWARD

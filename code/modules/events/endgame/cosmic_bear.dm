@@ -2,7 +2,7 @@
 	name = "Cosmic Bear of Death"
 	typepath = /datum/round_event/cosmic_bear
 	max_occurrences = 1
-	weight = 5
+	weight = 2
 	event_flags = EVENT_ENDGAME
 	accuracy = 80
 	candidate_flag = BE_CBEAR

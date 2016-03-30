@@ -14,8 +14,28 @@
 	endless = 1
 	events_allowed = null
 /datum/event_cycler/roundstart
+	hideme = 1
 	lifetime = 1
 	events_allowed = EVENT_ROUNDSTART
+
+/datum/event_cycler/holiday
+	hideme = 1
+	endless = 1
+	remove_after_fire = 1
+	frequency_lower = 3000
+	frequency_upper = 3000
+	events_allowed = EVENT_SPECIAL
+
+	pickevent()
+		if(!..())
+			qdel(src)
+
+	cycler_modifier(var/list/L)
+		for(var/datum/round_event_control/E in L)
+			if(!E.holidayID)
+				L.Remove(E)
+		return L
+
 
 /datum/event_cycler/task_cycler
 	frequency_lower = 2000	//3.33 minutes lower bound
@@ -26,7 +46,7 @@
 	var/task_level = 1
 
 	New()
-		..(rand(frequency_lower,frequency_upper),"CentComm Official","#[rand(100,999)]")
+		..(rand(frequency_lower,frequency_upper),"CentComm Supply","Exports")
 		return
 
 	cycler_modifier(var/list/L)
@@ -55,6 +75,7 @@
 	var/paused = 0				//When a cycler is paused.
 	var/delete_warning = 0		//If the event scheduler cant fire a event in 2 tries it ends itself.
 	var/max_children = -1		//0 and above are how many active events are allowed at the same time (used with task events)
+	var/hideme
 
 	New(var/schedule_arg, var/prefix, var/suffix, var/stress_arg) //argument: schedule_arg: how long in deciseconds for the initial fire of this cycler
 		..()										//prefix and suffix determine the npc_name of the cycler. stress_arg is for rotation events to decide the stress
@@ -143,6 +164,7 @@
 					if(E.occurrences >= E.max_occurrences && E.max_occurrences >= 0) continue
 					if(E.earliest_start >= world.time) continue
 					if(E.typepath in events.last_event) continue
+					if(E.holidayID != holiday) continue
 					if(E.weight <= 0) continue
 					var/already_active = 0
 					for(var/datum/round_event/R in events.active_events)

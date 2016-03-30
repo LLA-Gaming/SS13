@@ -70,11 +70,11 @@
 		if(num_survivors)
 			var/marooned = num_survivors - num_escapees
 			if(marooned == 1)
-				survivors_text = "1 survivor remain marooned on the abandoned station"
+				marooned_text = "1 survivor remain marooned on the abandoned station"
 			else
-				survivors_text = "[num_escapees] survivors remain marooned on the abandoned station"
+				marooned_text = "[marooned] survivors remain marooned on the abandoned station"
 
-	EventStory("And so, the shift aboard [station_name()] came to a end. [survivors_text] [marooned_text]",1)
+	EventStory("And so, the shift aboard [station_name()] came to a end. [survivors_text] [marooned_text]",2)
 
 	if(events)
 		world << "<b>The Story of [station_name()]</b>"

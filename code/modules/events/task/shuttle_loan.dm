@@ -15,7 +15,7 @@
 /datum/round_event/task/shuttle_loan
 	task_name = "Shuttle Loan"
 	task_desc = "Loan the shuttle for a various reason"
-	end_when = 3000
+	end_when = -1
 	requires_delivery = 0
 	var/dispatch_type = 4
 	var/bonus_points = 100
@@ -61,13 +61,6 @@
 				task_desc = "Seems we've ordered doubles of our department resupply packages this month. Can we send them to you?"
 				thanks_msg = "The shuttle will be returned in 5 minutes."
 				bonus_points = 0
-
-	Tick()
-		if(dispatched)
-			if(supply_shuttle.moving)
-				end_when = world.time
-			else
-				end_when = world.time + 10
 
 	End()
 		//reward

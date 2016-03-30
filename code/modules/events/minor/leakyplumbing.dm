@@ -33,6 +33,7 @@
 		mouse = new(chosen_toilet)
 		mouse.desc = "How did this get in here??"
 		mouse.name = "dead toilet rat"
+		if (!prevent_stories) EventStory("A rat crawled into one of the toilets causing a interference in the scrubbing system... somehow.")
 
 	Tick()
 		if(!chosen_toilet) AbruptEnd()

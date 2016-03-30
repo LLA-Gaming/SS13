@@ -4,7 +4,7 @@
 	typepath = /datum/round_event/treevenge
 	event_flags = EVENT_SPECIAL
 	max_occurrences = 1
-	weight = 0
+	weight = 10
 
 /datum/round_event/treevenge
 	Start()
@@ -36,7 +36,7 @@
 			Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
 		for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor in machines)
 			Monitor.icon_state = "entertainment_xmas"
-		if (!prevent_stories) EventStory("Merry Xmas")
+		if (!prevent_stories) EventStory("Merry Xmas!")
 
 	Alert()
 		priority_announce("Ho Ho Ho, Merry Xmas!", "Unknown Transmission")

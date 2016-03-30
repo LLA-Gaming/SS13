@@ -7,7 +7,7 @@
 	accuracy = 80
 
 /datum/round_event/disposals_malfunction
-	end_when = 6000
+	end_when = 1200
 	var/area/impact_area
 	var/passed = 0
 	var/obj/machinery/disposal/infected
@@ -22,19 +22,19 @@
 			if(infected)
 				break
 
+	Start()
+		if (!prevent_stories) EventStory("The disposal bin in [impact_area] started spewing into the room.")
 
 	Alert()
-		send_alerts("A disposals chute has malfunctioned.. We are not sure where. Please locate and manually reboot its pump mechanism")
+		send_alerts("A disposals bin has malfunctioned in [impact_area]. Please locate and manually reboot its pump mechanism quickly!")
 
 	Tick()
 		if(!infected.mode)
 			infected = null
 		else
-			if(IsMultiple(active_for,2))
+			if(IsMultiple(active_for,10))
 				var/obj/structure/disposalholder/H = new(infected)
-				var/list/trash_list = list()
-				for(var/T in typesof(/obj/item/trash))
-					trash_list.Add(T)
+				var/list/trash_list = list(/obj/item/trash/can,/obj/item/trash/candle,/obj/item/trash/popcorn,/obj/item/trash/syndi_cakes,/obj/item/trash/semki,/obj/item/trash/deadmouse,/obj/item/trash/cheesie,/obj/item/trash/pistachios)
 				var/picked = pick(trash_list)
 				new picked(H)
 				infected.expel(H)
@@ -49,12 +49,14 @@
 			OnFail()
 
 	OnFail()
+		if (!prevent_stories) EventStory("The crew failed to press one button to stop the malfunctioning disposal bin.")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Garbage Expert", null)
 			E.events_allowed = EVENT_CONSEQUENCE
 			E.lifetime = 1
 
 	OnPass()
+		if (!prevent_stories) EventStory("The crew rebooted the malfunctioning disposal bin.")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Garbage Expert", null)
 			E.events_allowed = EVENT_REWARD

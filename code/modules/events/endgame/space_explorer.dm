@@ -69,6 +69,7 @@
 
 			spawncount--
 			successSpawn = 1
+			if (!prevent_stories) EventStory("The station recieved a strange visitor... a space explorer.")
 
 /datum/round_event/space_explorer/proc/suit_up(var/mob/living/carbon/human/H)
 	var/datum/preferences/A = H.client.prefs

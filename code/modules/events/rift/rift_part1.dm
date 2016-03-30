@@ -1,17 +1,36 @@
-/datum/round_event/task/xeno_artifact_research
-	task_name = "Xeno Artifact Research"
-	task_desc = "todo: desc"
+/datum/round_event/xeno_artifact_research
+	var/passed = 0
+	end_when = -1
 
 	Setup()
+		if(!supply_shuttle)
+			CancelSelf()
 		special_npc_name = "CentComm Commander [pick(last_names)]"
-		start_when		= rand(1800,9000)
-		alert_when		= start_when
-		goals.Add(/obj/item/weapon/disk/research_data)
-		..()
+		start_when		= world.time + rand(600,1200)
 
 	Start()
+		if (!prevent_stories) EventStory("The station was shipped an experimental xeno artifact for researching.")
+		supply_shuttle.tasks.Add(src)
 		var/datum/supply_order/O = new /datum/supply_order()
 		O.ordernum = supply_shuttle.ordernum
 		O.object = new /datum/supply_packs/xeno_artifact
+		O.object.name = "xeno artifact crate"
 		O.orderedby = "Centcomm"
-		supply_shuttle.requestlist += O
+		O.perfect = 1
+		supply_shuttle.shoppinglist += O
+		priority_announce("Our scientists have analyzed that data you shipped to us. [station_name()] is now authorized for experimental research. Instructions, along with the excavated artifact, have been added to the supply order list. Send the supply shuttle to the station to begin.","NanoTrasen Archeology Department")
+
+	End()
+		if(passed)
+			OnPass()
+		else
+			OnFail()
+
+	OnPass()
+		if (!prevent_stories) EventStory("The crew managed to research the workings of the xeno artifact. Data was picked up by signal at central command.")
+		priority_announce("Excellent work. Keep the artifact secure while we analyze the data and prepare the next step.","NanoTrasen Archeology Department")
+		events.spawn_orphan_event(/datum/round_event/xeno_artifact_testing)
+
+	OnFail()
+		priority_announce("Looks like the artifact exploded, Crew has failed to follow basic instructions. We are not responsible for the damages, over and out.","Woops")
+		if (!prevent_stories) EventStory("The crew's incompetence caused the artifact to explode")

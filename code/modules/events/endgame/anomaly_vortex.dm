@@ -15,7 +15,7 @@
 
 	Start()
 		..()
-		if (!prevent_stories) EventStory("[impact_area.name] was consumed by a black hole vortex")
+		if (!prevent_stories) EventStory("[impact_area.name] was consumed by a black hole vortex.")
 
 	Alert()
 		send_alerts("Localized high-intensity vortex anomaly detected on long range scanners. Expected location: [impact_area.name].")

@@ -120,7 +120,7 @@
 
 
 		successSpawn = 1
-		if (!prevent_stories) EventStory("In a flash of light, Time Agent [villian_mob.real_name] appeared with an assassination mission. To prevent the very birth of their long time enemy, [hero_mob.real_name]")
+		if (!prevent_stories) EventStory("In a flash of light, Time Agent [villian_mob.real_name] appeared with an assassination mission. To prevent the very birth of their long time enemy, [hero_mob.real_name].")
 
 /datum/round_event/time_travellers/proc/suit_up(var/mob/living/carbon/human/H,var/antag=0)
 	var/datum/preferences/A = H.client.prefs

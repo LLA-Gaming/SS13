@@ -27,6 +27,7 @@
 		send_alerts("A picnic basket was reported missing in [impact_area.name]")
 
 	Start()
+		if (!prevent_stories) EventStory("A stray bear managed to board [station_name()] in search of picnic baskets.")
 		for(var/i=1,i<=bear_count,i++)
 			var/turf/landing = safepick(FindImpactTurfs(impact_area))
 			var/mob/living/simple_animal/hostile/bear/B = new /mob/living/simple_animal/hostile/bear(landing)

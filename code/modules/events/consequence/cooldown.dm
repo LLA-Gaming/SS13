@@ -15,6 +15,7 @@
 			CancelSelf()
 
 	Start()
+		if (!prevent_stories) EventStory("A scrubber broke down leaking cold air into [impact_area].")
 		for(var/turf/simulated/S in area_contents(impact_area))
 			var/datum/gas_mixture/G = S.air
 			if(G)
