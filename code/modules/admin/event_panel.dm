@@ -38,7 +38,7 @@
 		if(!C.endless)
 			dat += "Lifetime: [C.lifetime]<br>"
 		dat += "Timer: <a href='?_src_=holder;event_panel=1;status=\ref[C]'>[C.paused ? "Off" : "On"]</a><br>"
-		var/next_fire = round((C.schedule - world.time) / 10 / 60)
+		var/next_fire = round((C.schedule - world.time) / 10 / 60,0.01)
 		dat += "Next Fire in: [C.paused ? "PAUSED" : "[next_fire>=0 ? "[next_fire] minute(s)" : "NOW"]"]<br>"
 		if(istype(C,/datum/event_cycler/admin_playlist))
 			dat += "Shuffle: <a href='?_src_=holder;event_panel=1;shuffle=\ref[C]'>[C.shuffle ? "On" : "Off"]</a><br>"
@@ -46,8 +46,8 @@
 			dat += "Branching Allowed: <a href='?_src_=holder;event_panel=1;branching=\ref[C]'>[C.branching ? "On" : "Off"]</a><br>"
 			dat += "Alerts: <a href='?_src_=holder;event_panel=1;alerts=\ref[C]'>[C.alerts ? "On" : "Off"]</a><br>"
 			dat += "Remove after fire: <a href='?_src_=holder;event_panel=1;remove_after_fire=\ref[C]'>[C.remove_after_fire ? "On" : "Off"]</a><br>"
-		dat += "Next Fire Frequency (low): [round(C.frequency_lower / 10 / 60)] minute(s) <a href='?_src_=holder;event_panel=1;low_freq=\ref[C]'>Change</a><br>"
-		dat += "Next Fire Frequency (high): [round(C.frequency_upper / 10 / 60)] minute(s) <a href='?_src_=holder;event_panel=1;high_freq=\ref[C]'>Change</a><br>"
+		dat += "Next Fire Frequency (low): [round(C.frequency_lower / 10 / 60,0.01)] minute(s) <a href='?_src_=holder;event_panel=1;low_freq=\ref[C]'>Change</a><br>"
+		dat += "Next Fire Frequency (high): [round(C.frequency_upper / 10 / 60,0.01)] minute(s) <a href='?_src_=holder;event_panel=1;high_freq=\ref[C]'>Change</a><br>"
 		dat += "<a href='?_src_=holder;event_panel=1;force=\ref[C]'>Force Next Fire</a><br>"
 		dat += "[C.playlist.len ? "Playlist:[C.shuffle ? "(Shuffle)":"(Order)"]" : "Possible:"] <br>"
 		if(C.playlist.len)

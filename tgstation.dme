@@ -1011,6 +1011,7 @@
 #include "code\modules\events\reward\template_coords.dm"
 #include "code\modules\events\rift\_items.dm"
 #include "code\modules\events\rift\missing_data.dm"
+#include "code\modules\events\rift\rift_bus.dm"
 #include "code\modules\events\rift\rift_part1.dm"
 #include "code\modules\events\rift\rift_part2.dm"
 #include "code\modules\events\rift\rift_part3.dm"

@@ -171,6 +171,8 @@
 			if(istype(I, /obj/item/device/multitool))
 				//part 1
 				var/datum/round_event/xeno_artifact_research/event = locate(/datum/round_event/xeno_artifact_research) in events.active_events
+				if(!event) //bussing a rift
+					event = events.spawn_orphan_event(/datum/round_event/xeno_artifact_research)
 				switch(clicks)
 					if(0) //first pulse, start
 						next_clicktime = world.time + 100

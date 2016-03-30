@@ -29,7 +29,7 @@
 			occurrences++
 		E.control = src
 		if(came_from)
-			if(!istype(came_from,/datum/round_event_control/task))
+			if(!istype(came_from,/datum/round_event_control/task) && !came_from.alerts) //prevents logs from being spammed, use href logs if you suspect bus.
 				log_game("EVENTS: [src] was fired")
 				events.events_log.Add("[worldtime2text()] - [src]")
 		E.PreSetup(src,came_from)
