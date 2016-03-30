@@ -91,8 +91,9 @@
 		if(cycler) //it was a false alarm or not able to setup, make the next event soon. also refund a lifetime
 			cycler.lifetime++
 			cycler.schedule = world.time + cycler.frequency_lower
-		message_admins("Couldn't run event: [src]")
-		log_game("EVENTS: Couldn't run event: [src]")
+		if(!false_alarm)
+			message_admins("Couldn't run event: [src]")
+			log_game("EVENTS: Couldn't run event: [src]")
 		qdel(src)
 		return
 

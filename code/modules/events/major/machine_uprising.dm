@@ -4,7 +4,7 @@
 	event_flags = EVENT_MAJOR
 	max_occurrences = 1
 	weight = 8
-	accuracy = 65
+	accuracy = 70
 
 /datum/round_event/machine_uprising
 	alert_when = 21

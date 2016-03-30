@@ -67,9 +67,16 @@ var/datum/controller/event/events
 	if(conclude)
 		events.story_end = 1
 
-/datum/controller/event/proc/AddAwards(var/id,var/list/keys)
-	for(var/key in keys)
-		awards[id] |= key
+/datum/controller/event/proc/AddAwards(var/id,var/keys)
+	if(!islist(awards[id]))
+		awards[id] = list()
+	if(islist(keys))
+		var/list/L = keys
+		for(var/key in L)
+			awards[id] |= key
+	else
+		if(keys) awards[id] |= keys
+	listclearnulls(awards[id])
 
 
 //allows a client to trigger an event (For Debugging Purposes)
