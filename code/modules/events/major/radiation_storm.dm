@@ -37,6 +37,7 @@
 
 			if(istype(C, /mob/living/carbon/human))
 				var/mob/living/carbon/human/H = C
+				events.AddAwards("eventmedal_radiation",list("[H.key]"))
 				H.apply_effect((rand(15, 75)), IRRADIATE, 0)
 				if(prob(5))
 					H.apply_effect((rand(90, 150)), IRRADIATE, 0)

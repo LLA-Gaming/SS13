@@ -19,6 +19,8 @@
 			CancelSelf()
 
 	Start()
+		for(var/mob/living/carbon/human/L in area_contents(impact_area))
+			events.AddAwards("eventmedal_mysterygift",list("[L.key]"))
 		var/list/impact_turfs = FindImpactTurfs(impact_area)
 		if(impact_turfs.len)
 			var/turf/landing = pick(impact_turfs)

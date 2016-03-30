@@ -88,3 +88,6 @@
 			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Xeno Expert")
 			E.events_allowed = EVENT_REWARD
 			E.lifetime = 1
+		for(var/mob/living/carbon/human/L in player_list)
+			if(L.stat != DEAD)
+				events.AddAwards("eventmedal_alieninfestation",list("[L.key]"))

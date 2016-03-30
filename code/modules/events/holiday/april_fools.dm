@@ -16,6 +16,9 @@
 
 	Start()
 		if (!prevent_stories) EventStory("Happy April Fool's Day!")
+		if(holiday == "April Fool's Day")//prevents bus
+			for(var/mob/living/carbon/human/L in player_list)
+				events.AddAwards("eventmedal_aprilfooled",list("[L.key]"))
 
 	Tick()
 		if(joke_when <= world.time)

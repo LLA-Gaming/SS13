@@ -36,6 +36,9 @@
 		send_alerts("Localized hyper-energetic flux wave detected on long range scanners. Expected location of impact: [impact_area.name].")
 
 	Start()
+		if(spawn_zone == ANOMALY_SPAWN_NEAR)
+			for(var/mob/living/carbon/human/L in area_contents(impact_area))
+				events.AddAwards("eventmedal_anomaly",list("[L.key]"))
 		var/turf/T = impact_spot
 		if(T)
 			newAnomaly = new anomaly_type(T.loc)

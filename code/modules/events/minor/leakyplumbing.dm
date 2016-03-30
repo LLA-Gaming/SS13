@@ -51,5 +51,10 @@
 				playsound(vent.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 				smoke.start()
 				R.delete()	//GC the reagents
+
+	End()
+		for(var/mob/living/carbon/human/L in player_list)
+			events.AddAwards("eventmedal_leakyplumbing",list("[L.key]"))
+
 	Alert()
 		send_alerts("Fluid buildup inside scrubber network detected. Please inspect all plumbing systems.")

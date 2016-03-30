@@ -130,3 +130,6 @@
 		if (!prevent_stories)
 			EventStory("[station_name()] went through one of the biggest disasters of [year_integer+540]")
 			EventStory("The crew managed to work together and survive to tell the tale of... <b>The Bluespace Rift</b>",1)
+		for(var/mob/living/carbon/human/L in player_list)
+			if(L.stat != DEAD)
+				events.AddAwards("eventmedal_rift",list("[L.key]"))

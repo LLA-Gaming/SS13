@@ -16,4 +16,8 @@
 		weight = weights / 2
 
 /datum/round_event/nothing
+
+	Start()
+		for(var/mob/living/L in player_list)
+			events.AddAwards("eventmedal_nothing",list("[L.key]"))
 	//nothing

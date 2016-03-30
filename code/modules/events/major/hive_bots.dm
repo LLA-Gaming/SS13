@@ -29,6 +29,8 @@
 	Start()
 		new /obj/structure/hivebot_tele(impact_turf)
 		if (!prevent_stories) EventStory("Hivebots warped in [impact_area.name] in a sudden flash!")
+		for(var/mob/living/carbon/human/L in area_contents(impact_area))
+			events.AddAwards("eventmedal_hivebots",list("[L.key]"))
 
 	Tick()
 		var/obj/structure/hivebot_tele/tele = locate(/obj/structure/hivebot_tele) in world

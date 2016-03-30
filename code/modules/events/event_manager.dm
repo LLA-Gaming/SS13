@@ -7,6 +7,8 @@ var/datum/controller/event/events
 
 	var/setup_events = 0 //the game sets this to 1 on the first process()
 
+	var/list/awards = list() //DB medals
+
 	var/last_event		//last event to run, 2 events wont be the same in a row
 	var/list/events_log = list()
 
@@ -64,6 +66,10 @@ var/datum/controller/event/events
 		events.story.Add(X)
 	if(conclude)
 		events.story_end = 1
+
+/datum/controller/event/proc/AddAwards(var/id,var/list/keys)
+	for(var/key in keys)
+		awards[id] |= key
 
 
 //allows a client to trigger an event (For Debugging Purposes)

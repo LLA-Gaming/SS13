@@ -55,5 +55,10 @@
 			s2.set_up(4, 2, get_turf(animal_B))
 			s2.start()
 
+			for(var/mob/living/carbon/human/L in oviewers(7,animal_A))
+				events.AddAwards("eventmedal_animalswap",list("[L.key]"))
+			for(var/mob/living/carbon/human/L in oviewers(7,animal_B))
+				events.AddAwards("eventmedal_animalswap",list("[L.key]"))
+
 	Alert()
 		priority_announce("Space-time anomalies detected on the station. There is no additional data.", "Woof Woof Woof", 'sound/AI/spanomalies.ogg')

@@ -20,6 +20,8 @@
 
 	Start()
 		if (!prevent_stories) EventStory("The powernet overloaded causing a electromagnetic pulse in [impact_area].")
+		for(var/mob/living/L in area_contents(impact_area))
+			events.AddAwards("eventmedal_empwave",list("[L.key]"))
 		var/sound_played = 0
 		for(var/obj/machinery/M in area_contents(impact_area))
 			M.emp_act(rand(1,3))

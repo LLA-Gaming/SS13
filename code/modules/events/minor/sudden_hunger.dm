@@ -10,3 +10,4 @@
 	Start()
 		for(var/mob/living/carbon/human/H in living_mob_list)
 			H.nutrition -= 150
+			events.AddAwards("eventmedal_hunger",list("[H.key]"))

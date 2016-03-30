@@ -80,3 +80,17 @@
 		world << "<b>The Story of [station_name()]</b>"
 		for(var/X in events.story)
 			world << "[TAB][X]"
+
+	//Medals
+	var/list/alert_clients = list()
+	var/list/awards = events.awards
+	for(var/id in awards)
+		var/list/keys = awards[id]
+		for(var/mob/M in player_list)
+			if(M.client && M.key in keys)
+				M.client.AwardMedal(id)
+				alert_clients |= M.client
+
+	for(var/client/C in alert_clients)
+		C << "<br><br><font color='blue'><b>Your Medal List has been updated!</b></FONT>"
+

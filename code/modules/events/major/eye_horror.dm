@@ -27,6 +27,7 @@
 		eye = new /mob/living/simple_animal/hostile/eyehorror(landing)
 		for(var/mob/living/L in area_contents(impact_area))
 			L.flash_eyes()
+			events.AddAwards("eventmedal_eyehorror",list("[L.key]"))
 
 	Tick()
 		if(eye.stat == DEAD)

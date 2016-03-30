@@ -51,3 +51,9 @@
 							/obj/item/weapon/slimepotion2,
 							/obj/item/weapon/slimesteroid,
 							/obj/item/weapon/slimesteroid2)
+
+	cash_out()
+		..()
+		for(var/mob/living/carbon/human/L in player_list)
+			if(L.stat != DEAD)
+				events.AddAwards("eventmedal_taskmaster",list("[L.key]"))

@@ -50,6 +50,8 @@
 				bin.expel(H)
 			playsound(get_turf(syndies[1]), 'sound/effects/EMPulse.ogg', 25, 1)
 			party_starts = -1
+			for(var/mob/living/carbon/human/L in area_contents(impact_area))
+				if(bin) events.AddAwards("eventmedal_byndicates",list("[L.key]"))
 			return
 		else if(world.time >= sec_notified && sec_notified >= 0)
 			priority_announce("Hostile forces detected in [impact_area.name]. This is not a drill.", "Security Alert")
