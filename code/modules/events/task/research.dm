@@ -46,4 +46,8 @@
 							/obj/item/weapon/reagent_containers/glass/beaker/cryoxadone,
 							/obj/item/weapon/gun/energy/gun/nuclear,
 							/obj/item/mecha_parts/mecha_equipment/weapon/honker,
-							/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack)
+							/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack,
+							/obj/item/weapon/slimepotion,
+							/obj/item/weapon/slimepotion2,
+							/obj/item/weapon/slimesteroid,
+							/obj/item/weapon/slimesteroid2)

@@ -8,18 +8,42 @@
 
 /datum/round_event/task/recalled_item
 	Setup()
-		var/list/possible_goals = list(/obj/item/clothing/gloves/fyellow,
-										/obj/item/weapon/clipboard,
-										/obj/item/weapon/reagent_containers/food/drinks/soda_cans/space_mountain_wind,
-										/obj/item/weapon/soap,
-										/obj/item/weapon/paper,
-										/obj/item/weapon/bedsheet,
-										/obj/item/weapon/caution,
-										/obj/item/weapon/extinguisher,
+		var/list/possible_goals = list(/obj/item/clothing/gloves/yellow,
+										//medical
+										/obj/item/clothing/glasses/hud/health,
+										/obj/item/weapon/scalpel,
+										/obj/item/device/assembly/heartmonitor,
+										/obj/item/weapon/gun/syringe,
+										/obj/item/stack/medical/ointment,
+										//science
+										/obj/item/robot_parts,
+										/obj/item/clothing/glasses/science,
+										/obj/item/weapon/tank/plasma,
+										/obj/item/slime_extract,
+										/obj/item/weapon/firstaid_arm_assembly,
+										//security
+										/obj/item/clothing/glasses/hud/security,
+										/obj/item/weapon/handcuffs,
+										/obj/item/weapon/contraband/poster,
+										/obj/item/device/flash,
+										/obj/item/weapon/grenade/flashbang,
+										//engineering
+										/obj/item/clothing/head/cone,
 										/obj/item/weapon/wirerod,
-										/obj/item/weapon/reagent_containers/spacebong,
+										/obj/item/weapon/tank/emergency_oxygen/engi,
+										/obj/item/weapon/stock_parts/cell/high,
+										/obj/item/weapon/storage/belt/utility,
+										//service
+										/obj/item/weapon/minihoe,
+										/obj/item/weapon/mop,
+										/obj/item/weapon/newspaper,
+										/obj/item/weapon/spacecash,
 										/obj/item/weapon/dice,
-										/obj/item/clothing/head/cone
+										//other
+										/obj/item/clothing/suit/labcoat/jacket,
+										/obj/item/clothing/under/jeans,
+										/obj/item/latexballon,
+										/obj/item/weapon/shovel
 										)
 		var/goal = pick(possible_goals)
 		var/atom/AM = new goal()
