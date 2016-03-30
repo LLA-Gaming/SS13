@@ -23,6 +23,7 @@
 	while(i<=events.event_cyclers.len)
 		var/datum/event_cycler/E = events.event_cyclers[i]
 		if(E)
+			setLastTask("process()", "[E]")
 			E.process()
 			scheck()
 			i++
@@ -34,6 +35,7 @@
 	while(i<=events.active_events.len)
 		var/datum/round_event/Event = events.active_events[i]
 		if(Event)
+			setLastTask("process()", "[Event]")
 			Event.process()
 			scheck()
 			i++
