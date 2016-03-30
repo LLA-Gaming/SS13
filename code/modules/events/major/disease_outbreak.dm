@@ -21,6 +21,13 @@
 	Alert()
 		priority_announce("Confirmed outbreak of level 7 viral biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak7.ogg')
 
+	Setup()
+		//just a check to see if there is any valid candidates
+		for(var/mob/living/carbon/human/H in living_mob_list)
+			return
+		//and if there isn't...
+		CancelSelf()
+
 	Start()
 		if(!virus_type)
 			virus_type = pick(possible_viruses)

@@ -28,8 +28,10 @@
 			E.branching_allowed = came_from.branching
 			occurrences++
 		E.control = src
-		if(came_from && came_from.in_rotation)
-			log_game("EVENTS: [src] was fired")
+		if(came_from)
+			if(!istype(came_from,/datum/round_event_control/task))
+				log_game("EVENTS: [src] was fired")
+				events.events_log.Add("[worldtime2text()] - [src]")
 		E.PreSetup(src,came_from)
 
 /datum/round_event

@@ -2025,6 +2025,11 @@
 				for(var/law in crimelogs)
 					dat += "[law]<BR>"
 				usr << browse(dat, "window=crimelogs;size=800x500")
+			if("event_logs")
+				var/dat = "<B>Event Logs.</B><HR>"
+				for(var/e in events.events_log)
+					dat += "[e]<BR>"
+				usr << browse(dat, "window=eventlogs;size=800x500")
 
 	else if(href_list["secretscoder"])
 		if(!check_rights(R_DEBUG))	return

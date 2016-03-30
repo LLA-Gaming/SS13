@@ -8,6 +8,7 @@ var/datum/controller/event/events
 	var/setup_events = 0 //the game sets this to 1 on the first process()
 
 	var/last_event		//last event to run, 2 events wont be the same in a row
+	var/list/events_log = list()
 
 	var/list/story = list() //a story that molds itself together at the end of the round
 	var/story_end = 0		//when non-zero, the event story list prevents any new additions
