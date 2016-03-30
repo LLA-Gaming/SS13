@@ -73,7 +73,7 @@
 			OnFail()
 
 	OnFail()
-		if (!prevent_stories) EventStory("The Syndicates managed to setup a base of operations in [impact_area], gather all the Intelligence they needed, and send it back to their base.. all while the crew as being lazy.")
+		if (!prevent_stories) EventStory("The Syndicates managed to setup a base of operations in [impact_area], gathered all the intelligence they needed, and send it back to their base.. all while the crew as being lazy.")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Space Bear Federation")
 			E.events_allowed = EVENT_CONSEQUENCE

@@ -59,7 +59,9 @@
 			zero = H.real_name
 			case = D
 			target = D
-			if (!prevent_stories) EventStory("During [zero]'s travels they managed to contract a serious case of [case].")
+			if (!prevent_stories)
+				if(zero && case)
+					EventStory("During [zero]'s travels they managed to contract a serious case of [case].")
 			break
 
 	Tick()
@@ -71,10 +73,14 @@
 			OnPass()
 
 	OnFail()
-		if (!prevent_stories) EventStory("[zero] was never cured from the case of [case].")
+		if (!prevent_stories)
+			if(zero && case)
+				EventStory("[zero] was never cured from the case of [case].")
 
 	OnPass()
-		if (!prevent_stories) EventStory("[zero] was cured of their [case].")
+		if (!prevent_stories)
+			if(zero && case)
+				EventStory("[zero] was cured of their [case].")
 		if (branching_allowed)
 			var/datum/event_cycler/E = new /datum/event_cycler/(rand(300,1800), "Virus Expert")
 			E.events_allowed = EVENT_REWARD

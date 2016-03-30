@@ -2293,7 +2293,7 @@
 				C.frequency_lower = t
 		if(href_list["force"])
 			var/datum/event_cycler/C = locate(href_list["force"])
-			if(C && !C.paused || C.playlist.len)
+			if(C && !C.paused || C && C.playlist.len)
 				C.force_fire()
 
 		if(href_list["status"])
