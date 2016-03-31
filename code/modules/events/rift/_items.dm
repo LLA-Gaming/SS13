@@ -82,7 +82,7 @@
 
 /obj/item/device/assembly/signaler/rift/receive_signal(datum/signal/signal)
 	if(istype(loc,/obj/structure/xeno_artifact))
-		if(!loc:pulsed || !loc.emitted)
+		if(!loc:pulsed || !loc:emitted)
 			return
 	if(rift)
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
