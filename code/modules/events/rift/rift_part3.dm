@@ -58,11 +58,8 @@
 		landing = safepick(FindImpactTurfs(charlie))
 		new /obj/structure/xeno_rift(landing)
 		//
-		if(emergency_shuttle.direction == -1)
-			emergency_shuttle.setdirection(1)
-		emergency_shuttle.settimeleft(7800)
+		emergency_shuttle.incall(1.3)
 		emergency_shuttle.prevent_recall = 1
-		emergency_shuttle.online = 1
 		var/list/rip_areas = list()
 		for(var/mob/living/L in player_list)
 			L.flash_eyes(1, 1, 1)
