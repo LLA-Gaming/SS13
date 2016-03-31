@@ -37,6 +37,8 @@
 			if(victim)
 				var/obj/item/item
 				for(var/obj/item/I in shuffle(victim.contents))
+					if(istype(I,/obj/item/device/tablet)) continue
+					if(istype(I,/obj/item/weapon/card/id)) continue
 					item= I
 					break
 				var/picked_name = pick(fake_names)
