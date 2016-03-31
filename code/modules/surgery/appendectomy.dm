@@ -26,6 +26,8 @@
 		target.internal_organs -= A
 		for(var/datum/disease/appendicitis/B in target.viruses)
 			B.cure(1)
+			if(user.key != target.key)
+				events.AddAwards("eventmedal_appendicitis",list("[user.key]"))
 	else
 		user.visible_message("<span class='notice'>[user] can't find an appendix in [target]!</span>")
 	return 1

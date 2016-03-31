@@ -44,7 +44,7 @@
 			formatted[text2num(index)] = char
 			complete_code[text2num(index)] = char
 
-		generated.info += list2text(formatted)
+		generated.info += jointext(formatted,"")
 
 		papers += generated
 
@@ -54,7 +54,7 @@
 			if(selected)
 				selected.loc = get_turf(lm)
 
-	return list2text(complete_code)
+	return jointext(complete_code,"")
 
 // Called dynamically
 /datum/template_setups/proc/setup_mission_base_foxtrot()

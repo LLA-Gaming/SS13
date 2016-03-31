@@ -122,9 +122,10 @@
 		return results
 
 	disconnect(obj/machinery/atmospherics/reference)
-		if(reference==node[1])
-			qdel(network)
-			node[1] = null
+		if(node)
+			if(reference==node[1])
+				qdel(network)
+				node[1] = null
 
 		return null
 

@@ -41,7 +41,7 @@ var/list/
 		if(!file)
 			diary << "Unable to load [PERSEUS_WHITELIST_FILE]"
 		else
-			var/list/lines = text2list(file, "\n")
+			var/list/lines = splittext(file, "\n")
 			for(var/line in lines)
 				if(!line)	continue
 				if(copytext(line, 1, 2) == ";")	continue

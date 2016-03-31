@@ -4,32 +4,7 @@
 	mymob.healths.name = "health"
 	mymob.healths.screen_loc = ui_health
 
-	mymob.blind = new /obj/screen()
-	mymob.blind.icon = 'icons/mob/screen_full.dmi'
-	mymob.blind.icon_state = "blackimageoverlay"
-	mymob.blind.name = " "
-	mymob.blind.screen_loc = "CENTER-7,CENTER-7"
-	mymob.blind.mouse_opacity = 0
-	mymob.blind.layer = 0
-
-	mymob.damageoverlay = new /obj/screen()
-	mymob.damageoverlay.icon = 'icons/mob/screen_full.dmi'
-	mymob.damageoverlay.icon_state = "oxydamageoverlay0"
-	mymob.damageoverlay.name = "dmg"
-	mymob.damageoverlay.blend_mode = BLEND_MULTIPLY
-	mymob.damageoverlay.screen_loc = "CENTER-7,CENTER-7"
-	mymob.damageoverlay.mouse_opacity = 0
-	mymob.damageoverlay.layer = 18.1 //The black screen overlay sets layer to 18 to display it, this one has to be just on top.
-
-	mymob.flash = new /obj/screen()
-	mymob.flash.icon_state = "blank"
-	mymob.flash.name = "flash"
-	mymob.flash.blend_mode = BLEND_ADD
-	mymob.flash.screen_loc = "WEST,SOUTH to EAST,NORTH"
-	mymob.flash.layer = 17
-
-	mymob.client.screen += list(mymob.healths, mymob.flash, mymob.damageoverlay, mymob.blind)
-
+	mymob.client.screen += list(mymob.healths)
 
 
 
@@ -389,22 +364,20 @@
 				else
 					bodytemp.icon_state = "temp-4"
 
-		client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
-
-		if(blind && stat != DEAD)
-			if(blinded)
-				blind.layer = 18
+		if(stat != DEAD)
+			if(disabilities & NEARSIGHTED)
+				overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 			else
-				blind.layer = 0
+				clear_fullscreen("nearsighted")
+			if(eye_blurry)
+				overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
+			else
+				clear_fullscreen("blurry")
+			if(druggy)
+				overlay_fullscreen("high", /obj/screen/fullscreen/high)
+			else
+				clear_fullscreen("high")
 
-				if(disabilities & NEARSIGHTED)
-					client.screen += global_hud.vimpaired
-
-				if(eye_blurry)
-					client.screen += global_hud.blurry
-
-				if(druggy)
-					client.screen += global_hud.druggy
 
 		if (stat != 2)
 			if (machine)

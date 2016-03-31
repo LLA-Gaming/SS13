@@ -108,27 +108,13 @@
 	mymob.pullin.name = "pull"
 	mymob.pullin.screen_loc = ui_borg_pull
 
-	mymob.blind = new /obj/screen()
-	mymob.blind.icon = 'icons/mob/screen_full.dmi'
-	mymob.blind.icon_state = "blackimageoverlay"
-	mymob.blind.name = " "
-	mymob.blind.screen_loc = "CENTER-7,CENTER-7"
-	mymob.blind.layer = 0
-
-	mymob.flash = new /obj/screen()
-	mymob.flash.icon = 'icons/mob/screen_cyborg.dmi'
-	mymob.flash.icon_state = "blank"
-	mymob.flash.name = "flash"
-	mymob.flash.screen_loc = "WEST,SOUTH to EAST,NORTH"
-	mymob.flash.layer = 17
-
 	mymob.zone_sel = new /obj/screen/zone_sel()
 	mymob.zone_sel.icon = 'icons/mob/screen_cyborg.dmi'
 	mymob.zone_sel.update_icon()
 
 	mymob.client.screen = null
 
-	mymob.client.screen += list(mymob.zone_sel, mymob.oxygen, mymob.fire, mymob.hands, mymob.healths, mymob:cells, mymob.pullin, mymob.blind, mymob.flash) //, mymob.rest, mymob.sleep, mymob.mach )
+	mymob.client.screen += list(mymob.zone_sel, mymob.oxygen, mymob.fire, mymob.hands, mymob.healths, mymob:cells, mymob.pullin) //, mymob.rest, mymob.sleep, mymob.mach )
 	mymob.client.screen += adding + other
 
 	return

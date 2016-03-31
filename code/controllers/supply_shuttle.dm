@@ -113,6 +113,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 	var/datum/supply_packs/object = null
 	var/orderedby = null
 	var/comment = null
+	var/perfect = 0
 
 /datum/controller/supply_shuttle
 	var/processing = 1
@@ -140,15 +141,20 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 	var/moving = 0
 	var/eta_timeofday
 	var/eta
-	//shuttle loan
-	var/datum/round_event/shuttle_loan/shuttle_loan
+	//event tasks
+	var/datum/event_cycler/task_cycler/task_cycler
+	var/list/tasks = list()
+	var/datum/round_event/task/shuttle_loan/shuttle_loan
 	//list of ATOMS to never delete when the shuttle moves, build at round start
 	var/list/protected_atoms = list()
 
 	New()
 		ordernum = rand(1,9000)
-		for(var/typepath in (typesof(/datum/supply_packs) - /datum/supply_packs))
+		for(var/typepath in typesof(/datum/supply_packs) - /datum/supply_packs)
 			var/datum/supply_packs/P = new typepath()
+			if(P.notavailable)
+				qdel(P)
+				continue
 			if(P.name == "HEADER") continue		// To filter out group headers
 			supply_packs[P.name] = P
 
@@ -319,6 +325,10 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 							discoveredPlants[S.type] = S.potency
 							centcom_message += "<font color=green>+[S.rarity]</font>: New species discovered: \"[capitalize(S.species)]\".  Excellent work.<BR>"
 							points += S.rarity // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+
+					// Task Events
+					for(var/datum/round_event/task/TASK in tasks)
+						TASK.check_complete(A)
 			qdel(MA)
 
 		if(plasma_count)
@@ -367,12 +377,12 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 			var/obj/item/weapon/paper/manifest/slip = new /obj/item/weapon/paper/manifest(A)
 
 			var printed_station_name = station_name // World name is available in the title bar, station_name can be different based on config.
-			if(prob(5))
+			if(prob(5) && !SO.perfect)
 				printed_station_name = new_station_name()
 				slip.erroneous |= MANIFEST_ERROR_NAME // They got our station name wrong.  BASTARDS!
 				// IDEA: Have Centcom accidentally send random low-value crates in large orders, give large bonus for returning them intact.
 			var printed_packages_amount = supply_shuttle.shoppinglist.len
-			if(prob(5))
+			if(prob(5) && !SO.perfect)
 				printed_packages_amount += rand(1,2) // I considered rand(-2,2), but that could be zero.  Heh.
 				slip.erroneous |= MANIFEST_ERROR_COUNT // They typoed the number of crates in this shipment.  It won't match the other manifests.
 
@@ -405,7 +415,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 				if(SP.amount && B2:amount) B2:amount = SP.amount
 				slip.info += "<li>[B2.name]</li>" //add the item to the manifest (even if it was misplaced)
 				// If it has multiple items, there's a 1% of each going missing... Not for secure crates or those large wooden ones, though.
-				if(contains.len > 1 && prob(1) && !findtext(SP.containertype,"/secure/") && !findtext(SP.containertype,"/largecrate/"))
+				if(!SO.perfect && contains.len > 1 && prob(1) && !findtext(SP.containertype,"/secure/") && !findtext(SP.containertype,"/largecrate/"))
 					slip.erroneous |= MANIFEST_ERROR_ITEM // This item was not included in the shipment!
 					qdel(B2) // Lost in space... or the loading dock.
 
@@ -511,7 +521,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 			reqform.info += "RANK: [idrank]<br>"
 			reqform.info += "REASON: [reason]<br>"
 			reqform.info += "SUPPLY CRATE TYPE: [P.name]<br>"
-			reqform.info += "ACCESS RESTRICTION: [replacetext(get_access_desc(P.access))]<br>"
+			reqform.info += "ACCESS RESTRICTION: [get_access_desc(P.access)]<br>"
 			reqform.info += "CONTENTS:<br>"
 			reqform.info += P.manifest
 			reqform.info += "<hr>"
@@ -570,6 +580,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		[supply_shuttle.moving ? "\n*Must be away to order items*<BR>\n<BR>":supply_shuttle.at_station ? "\n*Must be away to order items*<BR>\n<BR>":"\n<A href='?src=\ref[src];order=categories'>Order items</A><BR>\n<BR>"]
 		[supply_shuttle.moving ? "\n*Shuttle already called*<BR>\n<BR>":supply_shuttle.at_station ? "\n<A href='?src=\ref[src];send=1'>Send away</A><BR>\n<BR>":"\n<A href='?src=\ref[src];send=1'>Send to station</A><BR>\n<BR>"]
 		[supply_shuttle.shuttle_loan ? (supply_shuttle.shuttle_loan.dispatched ? "\n*Shuttle loaned to Centcom*<BR>\n<BR>" : "\n<A href='?src=\ref[src];send=1;loan=1'>Loan shuttle to Centcom (5 mins duration)</A><BR>\n<BR>") : "\n*No pending external shuttle requests*<BR>\n<BR>"]
+		[supply_shuttle.task_cycler ? "\n<A href='?src=\ref[src];viewtasks=1'>View Supply Tasks</A><BR>\n<BR>" : "\n<A href='?src=\ref[src];starttasks=1'>Contact CentComm for additional supply work</A><BR>\n<BR>"]
 		\n<A href='?src=\ref[src];viewrequests=1'>View requests</A><BR>\n<BR>
 		\n<A href='?src=\ref[src];vieworders=1'>View orders</A><BR>\n<BR>
 		\n<A href='?src=\ref[user];mach_close=computer'>Close</A><BR>
@@ -628,7 +639,6 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 				supply_shuttle.moving = -1
 				supply_shuttle.sell()
 				supply_shuttle.send()
-
 		else
 			if(href_list["loan"] && supply_shuttle.shuttle_loan)
 				if(!supply_shuttle.shuttle_loan.dispatched)
@@ -708,7 +718,7 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 		reqform.info += "RANK: [idrank]<br>"
 		reqform.info += "REASON: [reason]<br>"
 		reqform.info += "SUPPLY CRATE TYPE: [P.name]<br>"
-		reqform.info += "ACCESS RESTRICTION: [replacetext(get_access_desc(P.access))]<br>"
+		reqform.info += "ACCESS RESTRICTION: [get_access_desc(P.access)]<br>"
 		reqform.info += "CONTENTS:<br>"
 		reqform.info += P.manifest
 		reqform.info += "<hr>"
@@ -775,6 +785,31 @@ var/global/datum/controller/supply_shuttle/supply_shuttle
 
 		temp += "<BR><A href='?src=\ref[src];clearreq=1'>Clear list</A>"
 		temp += "<BR><A href='?src=\ref[src];mainmenu=1'>Main Menu</A>"
+
+	else if (href_list["starttasks"])
+		supply_shuttle.task_cycler = new /datum/event_cycler/task_cycler
+		temp = "Thank you for signing up, We will contact you with upcoming tasks<br>"
+		temp += "<A href='?src=\ref[src];mainmenu=1'>OK</A>"
+		priority_announce("The supply team has signed up for exporting goods. Crew, work together on assisting the supply team in completing export tasks.","Centcomm Supply Exports")
+	else if (href_list["viewtasks"])
+		var/export_grade = "D"
+		switch(supply_shuttle.task_cycler.task_level)
+			if(1)
+				export_grade = "D"
+			if(2)
+				export_grade = "C"
+			if(3)
+				export_grade = "B"
+			else
+				export_grade = "A"
+		temp = "<A href='?src=\ref[src];mainmenu=1'>Main Menu</A><BR>Export Grade: [export_grade]<BR>Current tasks: <BR><BR>"
+		for(var/datum/round_event/task/T  in supply_shuttle.tasks)
+			temp += "<div class='statusDisplay'>"
+			temp += "Name: [T.task_name]<br>"
+			temp += "Description: [T.task_desc]<br>"
+			if(T.requires_delivery)
+				temp += "<br><br>NOTE: To ensure proper delivery, please ensure all exports are packaged properly in a crate"
+			temp += "</div>"
 
 	else if (href_list["rreq"])
 		var/ordernum = text2num(href_list["rreq"])

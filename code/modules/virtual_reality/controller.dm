@@ -87,10 +87,11 @@ var/datum/virtual_reality_controller/vr_controller
 			if(headset.keyslot2) keyslot2 = headset.keyslot2.type
 			syndie = headset.syndie
 			//determining if comms is in range
-			if(H.z != 1)
+			var/turf/H_loc = get_turf(H)
+			if(H_loc && H_loc.z != 1)
 				has_headset = 0
 				for(var/obj/machinery/telecomms/relay/T in machines)
-					if(T.z != H.z) continue
+					if(T.z != H_loc.z) continue
 					if(!T.toggled) continue
 					if(T.stat & BROKEN) continue
 					if(T.stat & NOPOWER) continue

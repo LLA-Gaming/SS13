@@ -102,7 +102,7 @@
 		if(2)
 			src.take_organ_damage(10)
 			Stun(3)
-	flick("noise", src:flash)
+	flash_eyes()
 	src << "\red <B>*BZZZT*</B>"
 	src << "\red Warning: Electromagnetic pulse detected."
 	..()

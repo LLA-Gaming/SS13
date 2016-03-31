@@ -94,7 +94,7 @@ var/global/datum/dictionary/gas/gas_dictionary = new
 
 /datum/gas_type/normal/nitrogen
 	name = "N2"
-	specific_heat = 300
+	specific_heat = 20
 
 /datum/gas_type/normal/nitrous_oxide
 	name = "N20"

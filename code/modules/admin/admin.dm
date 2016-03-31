@@ -162,9 +162,9 @@ var/global/floorIsLava = 0
 		body += "<A href='?_src_=holder;forcespeech=\ref[M]'>Forcesay</A> | "
 		body += "<A href='?_src_=holder;forcelobby=\ref[M]'>Send to Lobby</A> | "
 		if(M.client.related_accounts_cid.len)
-			body += "<br><br><b>Related accounts by CID:</b> [list2text(M.client.related_accounts_cid, " - ")]<br>"
+			body += "<br><br><b>Related accounts by CID:</b> [jointext(M.client.related_accounts_cid, " - ")]<br>"
 		if(M.client.related_accounts_ip.len)
-			body += "<b>Related accounts by IP:</b> [list2text(M.client.related_accounts_ip, " - ")]<br>"
+			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br>"
 
 	body += "<br>"
 	body += "</body></html>"
@@ -376,36 +376,6 @@ var/global/floorIsLava = 0
 	usr << browse(dat, "window=admincaster_main;size=400x600")
 	onclose(usr, "admincaster_main")
 
-/datum/admins/proc/nanonet_adminpanel()
-	set category = "Fun"
-	set name = "NanoNet Panel"
-	set desc = "Allows you to view and delete nanonet content"
-
-	if (!istype(src,/datum/admins))
-		src = usr.client.holder
-	if (!istype(src,/datum/admins))
-		usr << "Error: you are not an admin!"
-		return
-	var/dat
-	dat = text("<HEAD><TITLE>NanoNet Panel</TITLE></HEAD><H3>NanoNet Panel</H3>")
-	var/obj/machinery/nanonet_server/server = locate(/obj/machinery/nanonet_server) in nanonet_servers
-	if(server)
-		for(var/datum/tablet_data/document/D in server.pages)
-			dat += "[TAB][D.uploaded_by]: [D.name] <A href='?src=\ref[src];nanonet_removepage=\ref[D]'>\[X\]</A><br>"
-			dat += "[D.doc]<br>"
-		dat += "<hr>"
-		for(var/datum/nanonet_message/M in server.statuses)
-			dat += "@[M.author]: [M.message] <A href='?src=\ref[src];nanonet_removecomment=\ref[M]'>\[X\]</A><br>"
-			var/ccount = 0
-			for(var/X in M.comments)
-				ccount++
-				dat += "[X] <A href='?src=\ref[src];nanonet_removecomment=\ref[M];comment=[ccount]'>\[X\]</A><br>"
-			dat += "<br>"
-
-	usr << browse(dat, "window=nanonet_adminpanel;size=640x480")
-	onclose(usr, "nanonet_adminpanel")
-
-
 /datum/admins/proc/Jobbans()
 	if(!check_rights(R_BAN))	return
 
@@ -461,7 +431,7 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsgeneral=spawn_objects'>Admin Log</A><BR>
 			<A href='?src=\ref[src];secretsgeneral=show_admins'>Show Admin List</A><BR>
 			<A href='?src=\ref[src];secretsgeneral=crime_logs'>Show Crime Logs</A><BR>
-			<A href='?src=\ref[src];secretsgeneral=timeline_logs'>Show Round Timeline</A><BR>
+			<A href='?src=\ref[src];secretsgeneral=event_logs'>Show Event Logs</A><BR>
 			<BR>
 			"}
 
@@ -479,10 +449,6 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsadmin=manifest'>Show Crew Manifest</A><BR>
 			<A href='?src=\ref[src];secretsadmin=DNA'>List DNA (Blood)</A><BR>
 			<A href='?src=\ref[src];secretsadmin=fingerprints'>List Fingerprints</A><BR>
-			<BR>
-			<B>Feature Tests</B><BR>
-			<A href='?src=\ref[src];secretsadmin=testnanonet'>Deploy Nanonet App</A><BR>
-			<A href='?src=\ref[src];secretsadmin=removenanonet'>Terminate Nanonet App</A><BR>
 			<BR>
 			<B>Shuttles</B><BR>
 			<BR>
