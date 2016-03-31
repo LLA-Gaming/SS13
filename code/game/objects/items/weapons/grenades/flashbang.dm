@@ -45,7 +45,7 @@
 
 //Flash
 	if(eye_safety < 1)
-		flick("e_flash", M.flash)
+		M.flash_eyes()
 		M.eye_stat += rand(1, 3)
 		M.Stun(max(10/distance, 3))
 		M.Weaken(max(10/distance, 3))

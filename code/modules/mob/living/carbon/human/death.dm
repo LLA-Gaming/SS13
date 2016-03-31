@@ -17,9 +17,6 @@
 	if(stat == DEAD)	return
 	if(healths)		healths.icon_state = "health5"
 	stat = DEAD
-	if(mind)
-		if(mind.is_crewmember())
-			add2timeline("[src.mind.name] ([src.mind.assigned_role]) died")
 	attack_log += text("\[[time_stamp()]\] <font color ='red'>[key_name(src)] has died</font>")
 	log_attack("<font color ='red'>[key_name(src)] has died</font>")
 	dizziness = 0
@@ -39,7 +36,6 @@
 		emote("deathgasp") //let the world KNOW WE ARE DEAD
 
 		update_canmove()
-		if(client) blind.layer = 0
 
 	tod = worldtime2text()		//weasellos time of death patch
 	if(mind)	mind.store_memory("Time of death: [tod]", 0)

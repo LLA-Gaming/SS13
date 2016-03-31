@@ -267,7 +267,7 @@ var/list/bad_ips = list() //prevent users already checked by the system from spa
 			related_accounts_cid.Add("[query_cid.item[1]]")
 	//Log all the alts
 	if(related_accounts_cid.len)
-		log_access("Alts: [key_name(src)]:[list2text(related_accounts_cid, " - ")]")
+		log_access("Alts: [key_name(src)]:[jointext(related_accounts_cid, " - ")]")
 
 	//Just the standard check to see if it's actually a number
 	if(sql_id)

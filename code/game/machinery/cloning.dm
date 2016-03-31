@@ -188,9 +188,6 @@
 				ticker.mode.update_all_cult_icons() //So the icon actually appears
 
 	// -- End mode specific stuff
-	// Timeline stuff
-	add2timeline("[H.mind.name] ([H.mind.assigned_role]) was cloned")
-	// End timeline stuff
 	hardset_dna(H, ui, se, null, mrace)
 	if(efficiency > 2)
 		for(var/A in bad_se_blocks)

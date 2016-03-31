@@ -78,7 +78,7 @@
 	last_flash = world.time
 	use_power(1000)
 
-	for (var/mob/O in viewers(src, null))
+	for (var/mob/living/O in viewers(src, null))
 		if (get_dist(src, O) > src.range)
 			continue
 
@@ -92,11 +92,11 @@
 
 		O.Weaken(strength)
 		if ((O.eye_stat > 15 && prob(O.eye_stat + 50)))
-			flick("e_flash", O:flash)
+			O.flash_eyes()
 			O.eye_stat += rand(1, 2)
 		else
 			if(!O.blinded)
-				flick("flash", O:flash)
+				O.flash_eyes()
 				O.eye_stat += rand(0, 2)
 	return 1
 

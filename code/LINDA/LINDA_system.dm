@@ -35,82 +35,6 @@ datum/controller/air_system
 
 	world << "\red \b Geometry processed in [(world.timeofday-start_time)/10] seconds!"
 
-/datum/controller/air_system/proc/process()
-	if(kill_air)
-		return 1
-
-	if(speed > 1)
-		for(var/i=0,i<speed,i++)
-			spawn((10/speed)*i)
-				process_air()
-	else
-		process_air()
-	return 1
-
-/datum/controller/air_system/proc/process_air()
-	current_cycle++
-	var/timer = world.timeofday
-	process_active_turfs()
-	air_turfs = (world.timeofday - timer) / 10
-
-	timer = world.timeofday
-	process_excited_groups()
-	air_groups = (world.timeofday - timer) / 10
-
-	timer = world.timeofday
-	process_high_pressure_delta()
-	air_highpressure = (world.timeofday - timer) / 10
-
-	timer = world.timeofday
-	process_hotspots()
-	air_hotspots = (world.timeofday - timer) / 10
-
-	timer = world.timeofday
-	process_super_conductivity()
-	air_superconductivity = (world.timeofday - timer) / 10
-
-/datum/controller/air_system/proc/process_hotspots()
-	var/i=1
-	while(i<=hotspots.len)
-		var/obj/effect/hotspot/H = hotspots[i]
-		if(H)
-			H.process()
-			i++
-			continue
-		hotspots.Cut(i,i+1)
-
-/datum/controller/air_system/proc/process_super_conductivity()
-	var/i = 1
-	while(i<=active_super_conductivity.len)
-		var/turf/simulated/T = active_super_conductivity[i]
-		if(T)
-			T.super_conduct()
-			i++
-			continue
-		active_super_conductivity.Cut(i,i+1)
-
-/datum/controller/air_system/proc/process_high_pressure_delta()
-	var/i = 1
-	while(i<=high_pressure_delta.len)
-		var/turf/T = high_pressure_delta[i]
-		if(T)
-			T.high_pressure_movements()
-			T.pressure_difference = 0
-			i++
-			continue
-		high_pressure_delta.Cut(i,i+1)
-	high_pressure_delta.len = 0
-
-/datum/controller/air_system/proc/process_active_turfs()
-	var/i = 1
-	while(i<=active_turfs.len)
-		var/turf/simulated/T = active_turfs[i]
-		if(T)
-			T.process_cell()
-			i++
-			continue
-		active_turfs.Cut(i,i+1)
-
 /datum/controller/air_system/proc/remove_from_active(var/turf/simulated/T)
 	if(istype(T))
 		T.excited = 0
@@ -152,21 +76,6 @@ datum/controller/air_system
 					if(!T.air.check_turf(enemy_tile))
 						T.excited = 1
 						active_turfs |= T
-
-/datum/controller/air_system/proc/process_excited_groups()
-	var/i = 1
-	while(i<=excited_groups.len)
-		var/datum/excited_group/EG = excited_groups[i]
-		if(EG)
-			EG.breakdown_cooldown ++
-			if(EG.breakdown_cooldown == 10)
-				EG.self_breakdown()
-				return
-			if(EG.breakdown_cooldown > 20)
-				EG.dismantle()
-			i++
-			continue
-		excited_groups.Cut(i,i+1)
 
 /turf/proc/CanAtmosPass(var/turf/T)
 	if(!istype(T))	return 0

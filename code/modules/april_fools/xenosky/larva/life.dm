@@ -336,22 +336,19 @@
 		//blame the person who coded them. Temporary fix added.
 
 
-		client.screen.Remove(global_hud.blurry,global_hud.druggy,global_hud.vimpaired)
-
-		if ((blind && stat != 2))
-			if ((blinded))
-				blind.layer = 18
+		if(stat != DEAD)
+			if(disabilities & NEARSIGHTED)
+				overlay_fullscreen("nearsighted", /obj/screen/fullscreen/impaired, 1)
 			else
-				blind.layer = 0
-
-				if (disabilities & NEARSIGHTED)
-					client.screen += global_hud.vimpaired
-
-				if (eye_blurry)
-					client.screen += global_hud.blurry
-
-				if (druggy)
-					client.screen += global_hud.druggy
+				clear_fullscreen("nearsighted")
+			if(eye_blurry)
+				overlay_fullscreen("blurry", /obj/screen/fullscreen/blurry)
+			else
+				clear_fullscreen("blurry")
+			if(druggy)
+				overlay_fullscreen("high", /obj/screen/fullscreen/high)
+			else
+				clear_fullscreen("high")
 
 		if (stat != 2)
 			if (machine)
