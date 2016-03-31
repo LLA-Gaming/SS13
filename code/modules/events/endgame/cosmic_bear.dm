@@ -76,9 +76,9 @@
 			OnPass()
 
 	OnFail()
+		set_security_level(SEC_LEVEL_RED)
 		events.call_shuttle("Cosmic Space Bear of Death",1)
 		if (!prevent_stories) EventStory("Cosmicam Ursus Mortis devoured what was left of [station_name()].",1)
-		set_security_level(SEC_LEVEL_RED)
 
 	OnPass()
 		if (!prevent_stories) EventStory("The crew managed to slay Cosmicam Ursus Mortis. The beast let out one final roar before exploding into a pile of bear meat.")

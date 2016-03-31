@@ -78,9 +78,9 @@
 			OnPass()
 
 	OnFail()
+		set_security_level(SEC_LEVEL_RED)
 		events.call_shuttle("Alien Infestation",1)
 		if (!prevent_stories) EventStory("[station_name()] was eventually covered in alien weeds as the queen claimed her thrown aboard the new Xeno Station.",1)
-		set_security_level(SEC_LEVEL_RED)
 
 	OnPass()
 		if (!prevent_stories) EventStory("[station_name()] was wiped of all xeno lifeforms by the brave crew.")

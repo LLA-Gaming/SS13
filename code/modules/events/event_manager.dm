@@ -91,30 +91,36 @@ var/datum/controller/event/events
 		message_admins("[key_name_admin(usr)] has triggered an event. ([E.name])", 1)
 		E.RunEvent()
 
-/proc/FindEventArea() //Here's a nice proc to use to find an area for your event to land in!
+/proc/FindEventArea(var/list/exclude) //Here's a nice proc to use to find an area for your event to land in!
 	for(var/i=0, i<=50, i++)
-		var/area/A = locate(safepick((the_station_areas - the_station_areas_safe) + the_station_areas_danger))
+		var/list/areas = (the_station_areas - the_station_areas_safe) + the_station_areas_danger
+		for(var/X in exclude)
+			areas.Remove(X)
+		var/area/A = locate(safepick(areas))
 		if(A.get_apc()) //generally this place should be a room and not a shuttle. sometimes locate() returns areas that do not exist.. somehow
 			return A
 
-/proc/FindEventAreaNearPeople()
+/proc/FindEventAreaNearPeople(var/list/exclude)
 	var/list/people_areas = list()
 	var/list/good_areas = (the_station_areas - the_station_areas_safe) + the_station_areas_danger
 
 	for(var/mob/living/L in player_list)
 		if(L.stat == 2) continue
 		var/area/A = get_area(L)
-		var/obj/machinery/power/apc/apc = A.get_apc()
-		if(A && apc && apc.z == 1)
-			var/good = 0
-			for(var/X in good_areas)
-				if(istype(A,X))
-					good = 1
-			if(good)
-				people_areas.Add(A.type)
+		if(A)
+			var/obj/machinery/power/apc/apc = A.get_apc()
+			if(apc && apc.z == 1)
+				var/good = 0
+				for(var/X in good_areas)
+					if(istype(A,X))
+						good = 1
+				if(good)
+					people_areas.Add(A.type)
 
 
 	if(people_areas.len)
+		for(var/X in exclude)
+			people_areas.Remove(X)
 		for(var/i=0, i<=50, i++)
 			var/area/A = locate(safepick(people_areas))
 			if(A.get_apc()) //generally this place should be a room and not a shuttle. sometimes locate() returns areas that do not exist.. somehow
@@ -122,25 +128,28 @@ var/datum/controller/event/events
 	else
 		return FindEventArea()
 
-/proc/FindEventAreaAwayFromPeople()
+/proc/FindEventAreaAwayFromPeople(var/list/exclude)
 	var/list/people_areas = list()
 	var/list/good_areas = (the_station_areas - the_station_areas_safe) + the_station_areas_danger
 
 	for(var/mob/living/L in player_list)
 		if(L.stat == 2) continue
 		var/area/A = get_area(L)
-		var/obj/machinery/power/apc/apc = A.get_apc()
-		if(A && apc && apc.z == 1)
-			var/good = 0
-			for(var/X in good_areas)
-				if(istype(A,X))
-					good = 1
-			if(good)
-				people_areas.Add(A.type)
+		if(A)
+			var/obj/machinery/power/apc/apc = A.get_apc()
+			if(apc && apc.z == 1)
+				var/good = 0
+				for(var/X in good_areas)
+					if(istype(A,X))
+						good = 1
+				if(good)
+					people_areas.Add(A.type)
 
 	var/list/vacant_areas = (good_areas - people_areas)
 
 	if(vacant_areas.len)
+		for(var/X in exclude)
+			vacant_areas.Remove(X)
 		for(var/i=0, i<=50, i++)
 			var/area/A = locate(safepick(vacant_areas))
 			if(A.get_apc()) //generally this place should be a room and not a shuttle. sometimes locate() returns areas that do not exist.. somehow

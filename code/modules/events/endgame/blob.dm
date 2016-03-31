@@ -43,9 +43,9 @@
 			OnFail()
 
 	OnFail()
+		set_security_level(SEC_LEVEL_RED)
 		events.call_shuttle("Blob",1)
 		if (!prevent_stories) EventStory("The level 5 biohazard consumed what was left of [station_name()].",1)
-		set_security_level(SEC_LEVEL_RED)
 
 	OnPass()
 		if (!prevent_stories) EventStory("The crew managed to destroy the level 5 biohazard.")

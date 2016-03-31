@@ -60,13 +60,30 @@
 		if(IsMultiple(signal.frequency, 2))//signaller frequencies are always uneven!
 			signal.frequency++
 		signal.rift = src
+		var/area/A = get_area(src)
+		if(A)
+			var/list/impact_turfs = FindImpactTurfs(A)
+			if(impact_turfs.len)
+				var/i= impact_turfs.len / 3
+				for(var/turf/simulated/floor/F in shuffle(impact_turfs))
+					if(i<=0) break
+					F.break_tile_to_plating()
+					i--
+				var/obj/machinery/power/apc/APC = A.get_apc()
+				if(APC)
+					APC.set_broken()
+					APC.update_icon()
+				for(var/obj/structure/table/T in area_contents(A))
+					if(prob(33))
+						new T.parts( T.loc )
+						qdel(T)
 
 	attackby(obj/item/I as obj, mob/user as mob)
 		if(istype(I, /obj/item/device/analyzer))
 			user << "<span class='notice'>Analyzing... encrypted frequency [signal.code]:[format_frequency(signal.frequency)].</span>"
 
 	proc/spawn_monsters(var/list/monsters)
-		var/turf/landing = safepick(FindImpactTurfs(get_area()))
+		var/turf/landing = safepick(FindImpactTurfs(get_area(src)))
 		var/tospawn = pick(monsters)
 		var/mob/living/L = new tospawn(landing)
 		L.faction = "rift"

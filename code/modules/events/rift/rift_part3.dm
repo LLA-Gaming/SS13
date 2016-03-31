@@ -5,6 +5,9 @@
 	alert_when = -1
 	start_when = -1
 	var/nextwave_when = 0
+	var/wave = 0
+
+	var/list/hit_areas = list()
 
 	var/area/safe_zone
 	var/area/alpha
@@ -31,12 +34,15 @@
 					continue
 				if(!alpha)
 					alpha = A
+					hit_areas |= A.type
 					continue
 				if(!bravo)
 					bravo = A
+					hit_areas |= A.type
 					continue
 				if(!charlie)
 					charlie = A
+					hit_areas |= A.type
 					continue
 				break
 		if(!safe_zone || !alpha || !bravo || !charlie)
@@ -52,14 +58,34 @@
 		landing = safepick(FindImpactTurfs(charlie))
 		new /obj/structure/xeno_rift(landing)
 		//
-		emergency_shuttle.settimeleft(7800)
 		if(emergency_shuttle.direction == -1)
 			emergency_shuttle.setdirection(1)
+		emergency_shuttle.settimeleft(7800)
 		emergency_shuttle.prevent_recall = 1
 		emergency_shuttle.online = 1
+		var/list/rip_areas = list()
 		for(var/mob/living/L in player_list)
 			L.flash_eyes(1, 1, 1)
+			rip_areas |= get_area(L)
 			L.playsound_local(get_turf(L), 'sound/effects/alert.ogg', 100, 1, 0.5)
+		for(var/area/A in rip_areas)
+			var/list/impact_turfs = FindImpactTurfs(A)
+			if(impact_turfs.len)
+				var/i= impact_turfs.len / 3
+				for(var/turf/simulated/floor/F in shuffle(impact_turfs))
+					if(i<=0) break
+					F.break_tile_to_plating()
+					i--
+				var/obj/machinery/power/apc/APC = A.get_apc()
+				if(APC)
+					APC.overload_lighting()
+					APC.opened = 1
+					APC.locked = 0
+					APC.update_icon()
+				for(var/obj/structure/table/T in area_contents(A))
+					if(prob(33))
+						new T.parts( T.loc )
+						qdel(T)
 		//
 		priority_announce("Unstable bluespace rifts have opened in [alpha], [bravo], and [charlie]. Attempt to disable them or remain safely in [safe_zone] until the shuttle arrives. ","Priority Emergency Alert", 'sound/AI/shuttlecalled.ogg')
 		for(var/obj/structure/xeno_rift/R in world)
@@ -85,18 +111,30 @@
 			if(!active_rifts.len)
 				failed = 0
 				AbruptEnd()
-			if(world.time <= nextwave_when)
+			if(world.time >= nextwave_when)
 				events.spawn_orphan_event(/datum/round_event/minor_meteorwave/{sends_alerts=0})
 				nextwave_when = world.time + rand(300,1200)
 				var/spawncount = rand(7,14)
 				for(var/i=0, i<=spawncount, i++)
-					var/area/A = FindEventAreaAwayFromPeople()
+					var/area/A
+					if(prob(50))
+						A = FindEventAreaAwayFromPeople(hit_areas)
+						hit_areas |= A.type
+					else if (wave)
+						A = FindEventAreaNearPeople(hit_areas)
+						hit_areas |= A.type
 					if(istype(A,safe_zone.type))
-						continue
-					var/turf/landing = safepick(FindImpactTurfs(A))
-					var/tospawn = pick(monsters)
-					var/mob/living/L = new tospawn(landing)
-					L.faction = "rift"
+						A = FindEventAreaAwayFromPeople(hit_areas)
+						hit_areas |= A.type
+					if(A)
+						var/turf/landing = safepick(FindImpactTurfs(A))
+						var/tospawn = pick(monsters)
+						var/mob/living/L = new tospawn(landing)
+						var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+						s.set_up(4, 2, get_turf(L))
+						s.start()
+						L.faction = "rift"
+				wave += 1
 
 	End()
 		if(failed)
@@ -109,6 +147,7 @@
 
 	OnPass()
 		emergency_shuttle.recall()
+		emergency_shuttle.prevent_recall = 0
 		for(var/datum/event_cycler/rotation/R in events.event_cyclers)
 			R.paused = 1
 			R.hideme = 1
