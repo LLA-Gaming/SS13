@@ -181,12 +181,15 @@
 					anchored = 0
 					playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 					user.show_message("you remove [src]'s bolts to the floor")
+					return user.changeNext_move(8)
 				else
 					anchored = 1
 					playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 					user.show_message("you secure [src] to the floor")
+					return user.changeNext_move(8)
 			else
 				user.show_message("[src] needs to be secured over reinforced flooring")
+				return user.changeNext_move(8)
 			if(!anchored)
 				user.show_message("[src] needs to be anchored down")
 				return user.changeNext_move(8)
