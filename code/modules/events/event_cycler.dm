@@ -43,6 +43,7 @@
 	events_allowed = EVENT_TASK
 	max_children = 2		//only 2 events are allowed to be active at the same time.
 	endless = 1
+	hideme = 1
 	var/task_level = 1
 
 	New()

@@ -28,11 +28,10 @@
 			E.branching_allowed = came_from.branching
 			occurrences++
 		E.control = src
-		if(came_from)
-			if(!istype(came_from,/datum/round_event_control/task) && !came_from.alerts) //prevents logs from being spammed, use href logs if you suspect bus.
-				log_game("EVENTS: [src] was fired")
-				events.events_log.Add("[worldtime2text()] - [src]")
 		E.PreSetup(src,came_from)
+		if(E && E.sends_alerts && !istype(E,/datum/round_event/task))
+			log_game("EVENTS: [src] was fired")
+			events.events_log.Add("[worldtime2text()] - [src]")
 
 /datum/round_event
 	var/datum/round_event_control/control //This is setup elsewhere, the parent controller of this event
