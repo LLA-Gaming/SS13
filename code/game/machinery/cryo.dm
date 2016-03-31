@@ -265,10 +265,15 @@
 		if(occupant)
 			icon_state = "cell-on"
 			overlays.Cut()
-			var/image/O = image(occupant)
-			O.pixel_y = 24
-			O.layer = layer + 0.01
-			overlays += O
+			var/image/Occ = image(occupant)
+			Occ.dir = dir
+			var/icon/O = getFlatIcon(Occ)
+			O.Crop(8,1,25,32)
+			Occ = image(O)
+			Occ.pixel_y = 24
+			Occ.pixel_x = 7
+			Occ.layer = layer + 0.01
+			overlays += Occ
 			var/image/I = new
 			I.icon = icon
 			I.icon_state = "cell-on"
@@ -279,8 +284,28 @@
 			icon_state = "cell-on"
 			overlays.Cut()
 	else
-		icon_state = "cell-off"
-		overlays.Cut()
+		if(occupant)
+			icon_state = "cell-off"
+			overlays.Cut()
+			var/image/Occ = image(occupant)
+			Occ.dir = dir
+			var/icon/O = getFlatIcon(Occ)
+			O.Crop(8,1,25,32)
+			Occ = image(O)
+			Occ.pixel_y = 24
+			Occ.pixel_x = 7
+			Occ.layer = layer + 0.01
+			Occ.color = rgb(120,120,120)
+			overlays += Occ
+			var/image/I = new
+			I.icon = icon
+			I.icon_state = "cell-off"
+			I.layer = layer + 0.02
+			I.alpha = 190
+			overlays += I
+		else
+			icon_state = "cell-off"
+			overlays.Cut()
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
