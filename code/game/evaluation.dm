@@ -1,5 +1,4 @@
 /datum/controller/gameticker/proc/evaluate_station()
-	var/dat = ""
 	//Round statistics report
 	var/station_integrity = 100
 	if(start_state)
@@ -13,24 +12,17 @@
 			disk_rescued = 0
 			break
 
-	//Event timeline
-	dat += "<table>"
-	dat += "<tr><td valign='top' width='100%'>"
-	dat += "<h3>Round Timeline</h3>"
-	if(ticker)
-		for(var/X in ticker.timeline)
-			dat += "[X]<BR>"
-	dat += "</td>"
-	dat += "</table>"
-	for(var/mob/player in player_list)
-		var/datum/browser/popup = new(player, "endroundresults", "<div align='center'>Timeline</div>", 900, 600)
-		popup.set_content(dat)
-		popup.open(0)
+	//Wrap up events
+	if(events && events.active_events)
+		for(var/datum/round_event/E in events.active_events)
+			E.OnFail()
+			qdel(E)
 
 	//Station stats
 	var/station_evacuated
 	if(emergency_shuttle.location > 0)
 		station_evacuated = 1
+	var/num_crew = 0
 	var/num_survivors = 0
 	var/num_escapees = 0
 
@@ -39,34 +31,66 @@
 	//Player status report
 	for(var/mob/Player in mob_list)
 		if(Player.mind)
-			if(Player.stat != DEAD && !isbrain(Player))
-				num_survivors++
-				if(station_evacuated) //If the shuttle has already left the station
-					var/turf/playerTurf = get_turf(Player)
-					if(playerTurf.z != 2)
-						Player << "<font color='blue'><b>You managed to survive, but were marooned on [station_name()]...</b></FONT>"
+			if(Player.mind.is_crewmember())
+				num_crew++
+				if(Player.stat != DEAD && !isbrain(Player))
+					num_survivors++
+					if(station_evacuated) //If the shuttle has already left the station
+						var/turf/playerTurf = get_turf(Player)
+						if(playerTurf.z != 2)
+							Player << "<font color='blue'><b>You managed to survive, but were marooned on [station_name()]...</b></FONT>"
+						else
+							num_escapees++
+							Player << "<font color='green'><b>You managed to survive the events on [station_name()] as [Player.real_name].</b></FONT>"
 					else
-						num_escapees++
 						Player << "<font color='green'><b>You managed to survive the events on [station_name()] as [Player.real_name].</b></FONT>"
 				else
-					Player << "<font color='green'><b>You managed to survive the events on [station_name()] as [Player.real_name].</b></FONT>"
-			else
-				Player << "<font color='red'><b>You did not survive the events on [station_name()]...</b></FONT>"
+					Player << "<font color='red'><b>You did not survive the events on [station_name()]...</b></FONT>"
 
 	world << "<BR>[TAB]Shift Duration: <B>[round(world.time / 36000)]:[add_zero(world.time / 600 % 60, 2)]:[world.time / 100 % 6][world.time / 100 % 10]</B>"
 	if(emergency_shuttle && emergency_shuttle.location == 2)
 		world << "<BR>[TAB]Nuclear Authentication Disk: <B>[disk_rescued ? "<font color='green'>Secured!</font>" : "<font color='red'>Lost!</font>"]</B>"
 	world << "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>"
-	world << "<BR>[TAB]Total Population: <B>[joined_player_list.len]</B>"
-	if(joined_player_list.len)
-		world << "<BR>[TAB]Survival Rate: <B>[num_survivors] ([round((num_survivors/joined_player_list.len)*100, 0.1)]%)</B>"
+	world << "<BR>[TAB]Crew Members: <B>[num_crew]</B>"
+	if(num_crew)
+		world << "<BR>[TAB]Survival Rate: <B>[num_survivors] ([round((num_survivors/num_crew)*100, 0.1)]%)</B>"
 		if(station_evacuated)
-			world << "<BR>[TAB]Evacuation Rate: <B>[num_escapees] ([round((num_escapees/joined_player_list.len)*100, 0.1)]%)</B>"
+			world << "<BR>[TAB]Evacuation Rate: <B>[num_escapees] ([round((num_escapees/num_crew)*100, 0.1)]%)</B>"
 	world << "<BR>"
 
-/proc/add2timeline(var/text,var/major)
-	if(ticker)
-		if(major)
-			ticker.timeline.Add("<b>[time2text(world.time, "hh:mm:ss")] [text]</b>")
-		else
-			ticker.timeline.Add("[time2text(world.time, "hh:mm:ss")] [text]")
+	//One final entry
+	var/survivors_text
+	var/marooned_text
+	if(station_evacuated)
+		if(num_escapees)
+			if(num_escapees == 1)
+				survivors_text = "The Sole Survivor emerged from the emergency shuttle to live another day"
+			else
+				survivors_text = "[num_escapees] survivors emerged from the emergency shuttle to live another day."
+		if(num_survivors)
+			var/marooned = num_survivors - num_escapees
+			if(marooned == 1)
+				marooned_text = "1 survivor remain marooned on the abandoned station"
+			else
+				marooned_text = "[marooned] survivors remain marooned on the abandoned station"
+
+	EventStory("And so, the shift aboard [station_name()] came to a end. [survivors_text] [marooned_text]",2)
+
+	if(events)
+		world << "<b>The Story of [station_name()]</b>"
+		for(var/X in events.story)
+			world << "[TAB][X]"
+
+	//Medals
+	var/list/alert_clients = list()
+	var/list/awards = events.awards
+	for(var/id in awards)
+		var/list/keys = awards[id]
+		for(var/mob/M in player_list)
+			if(M.client && M.key in keys)
+				M.client.AwardMedal(id)
+				alert_clients |= M.client
+
+	for(var/client/C in alert_clients)
+		C << "<br><br><font color='blue'><b>Your Medal List has been updated!</b></FONT>"
+

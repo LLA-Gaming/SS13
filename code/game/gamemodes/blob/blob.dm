@@ -113,9 +113,9 @@ var/list/blob_nodes = list()
 	if(emergency_shuttle)
 		emergency_shuttle.always_fake_recall = 1
 
-	// Disable the blob event for this round.
+	//Disable the blob event for this round.
 	if(events)
-		var/datum/round_event_control/blob/B = locate() in events.control
+		var/datum/round_event_control/blob/B = locate() in events.all_events
 		if(B)
 			B.max_occurrences = 0 // disable the event
 	else

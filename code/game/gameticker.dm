@@ -16,7 +16,6 @@ var/global/last_tick_duration = 0
 
 	var/hide_mode = 0
 	var/datum/game_mode/mode = null
-	var/list/timeline = list() 	//timeline of events
 	var/event_time = null
 	var/event = 0
 
@@ -169,16 +168,6 @@ var/global/last_tick_duration = 0
 				if(!istype(M,/mob/new_player))
 					M << "<b>The station has been supplied with additional power due to the lack of engineers</b>"
 			power_restore_quick(1,1) //no alert and limit to only SMES room SMESs
-		//timeline stuff
-		timeline.Add("<b>[station_name]</b>")
-		timeline.Add("<b>Starting Crew:</b>")
-		var/list/crew = list()
-		for(var/datum/mind/M in minds)
-			if(M.is_crewmember())
-				crew.Add("[M.name] ([M.assigned_role])")
-		crew = sortList(crew)
-		timeline.Add("[english_list(crew)]")
-		add2timeline("Shift begins!",1)
 		log_game("EVENTS: Round begins ---")
 		//end timeline stuff
 
@@ -227,6 +216,7 @@ var/global/last_tick_duration = 0
 		//Now animate the cinematic
 		switch(station_missed)
 			if(1)	//nuke was nearby but (mostly) missed
+				EventStory("A nuclear detonation was heard nearby [station_name()]. However, the blast radius did not reach the station. Crew members viewed the explosion from nearby windows wondering what might of caused it. It remains a mystery to this day",1)
 				if( mode && !override )
 					override = mode.name
 				switch( override )
@@ -244,11 +234,13 @@ var/global/last_tick_duration = 0
 
 
 			if(2)	//nuke was nowhere nearby	//TODO: a really distant explosion animation
+				EventStory("A nuclear detonation was witnessed nearby [station_name()]. However, the blast radius did not reach the station. Crew members viewed the explosion from nearby windows wondering what might have caused it. It remains a mystery to this day",1)
 				sleep(50)
 				world << sound('sound/effects/explosionfar.ogg')
 
 
 			else	//station was destroyed
+				EventStory("The story tragically ended when [station_name()] exploded in a nuclear blast, nothing was left.",1)
 				if( mode && !override )
 					override = mode.name
 				switch( override )
@@ -414,11 +406,6 @@ var/global/last_tick_duration = 0
 	for(var/i in total_antagonists)
 		log_game("[i]s[total_antagonists[i]].")
 
-	//kill any unfinished events
-	if(events)
-		for(var/datum/round_event/E in events.running)
-			events.finished += E //save these for end round stuff
-			E.kill()
 	evaluate_station() // Scorestation stuff
 
 	world << "<b>Perseus Missions at the end:</b>"

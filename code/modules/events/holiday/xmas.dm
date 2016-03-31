@@ -2,38 +2,44 @@
 	name = "Treevenge"
 	holidayID = "Xmas"
 	typepath = /datum/round_event/treevenge
+	event_flags = EVENT_SPECIAL
 	max_occurrences = 1
+	weight = 10
 
-/datum/round_event/treevenge/start()
-	for(var/obj/structure/flora/tree/pine/xmas in world)
-		var/mob/living/simple_animal/hostile/tree/evil_tree = new /mob/living/simple_animal/hostile/tree(xmas.loc)
-		evil_tree.icon_state = xmas.icon_state
-		evil_tree.icon_living = evil_tree.icon_state
-		evil_tree.icon_dead = evil_tree.icon_state
-		evil_tree.icon_gib = evil_tree.icon_state
-		qdel(xmas) //b-but I don't want to delete xmas...
+/datum/round_event/treevenge
+	Start()
+		for(var/obj/structure/flora/tree/pine/xmas in world)
+			var/mob/living/simple_animal/hostile/tree/evil_tree = new /mob/living/simple_animal/hostile/tree(xmas.loc)
+			evil_tree.icon_state = xmas.icon_state
+			evil_tree.icon_living = evil_tree.icon_state
+			evil_tree.icon_dead = evil_tree.icon_state
+			evil_tree.icon_gib = evil_tree.icon_state
+			qdel(xmas) //b-but I don't want to delete xmas...
 
 //this is an example of a possible round-start event
 /datum/round_event_control/presents
 	name = "Presents under Trees"
 	holidayID = "Xmas"
 	typepath = /datum/round_event/presents
+	event_flags = EVENT_SPECIAL
 	max_occurrences = 1
-	weight = -1
+	weight = 10
 
-/datum/round_event/presents/start()
-	for(var/obj/structure/flora/tree/pine/xmas in world)
-		if(xmas.z != 1)	continue
-		for(var/turf/simulated/floor/T in orange(1,xmas))
-			for(var/i=1,i<=rand(1,5),i++)
-				new /obj/item/weapon/a_gift(T)
-	for(var/mob/living/simple_animal/corgi/Ian/Ian in mob_list)
-		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
-	for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor in machines)
-		Monitor.icon_state = "entertainment_xmas"
+/datum/round_event/presents
+	Start()
+		for(var/obj/structure/flora/tree/pine/xmas in world)
+			if(xmas.z != 1)	continue
+			for(var/turf/simulated/floor/T in orange(1,xmas))
+				for(var/i=1,i<=rand(1,5),i++)
+					new /obj/item/weapon/a_gift(T)
+		for(var/mob/living/simple_animal/corgi/Ian/Ian in mob_list)
+			Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
+		for(var/obj/machinery/computer/security/telescreen/entertainment/Monitor in machines)
+			Monitor.icon_state = "entertainment_xmas"
+		if (!prevent_stories) EventStory("Merry Xmas!")
 
-/datum/round_event/presents/announce()
-	priority_announce("Ho Ho Ho, Merry Xmas!", "Unknown Transmission")
+	Alert()
+		priority_announce("Ho Ho Ho, Merry Xmas!", "Unknown Transmission")
 
 
 /obj/item/weapon/toy/xmas_cracker

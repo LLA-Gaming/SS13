@@ -110,6 +110,8 @@
 		equip_revolutionary(rev_mind.current)
 		update_rev_icons_added(rev_mind)
 
+	EventStory("The shift aboard [station_name()] was not like any other shift. various crewmembers felt the heads of staff did not represent them. A <b>Revolution</b> was stirring up.",1)
+
 	for(var/datum/mind/rev_mind in head_revolutionaries)
 		greet_revolutionary(rev_mind)
 	modePlayer += head_revolutionaries
@@ -374,9 +376,11 @@
 	else if(finished == 1)
 		feedback_set_details("round_end_result","win - heads killed")
 		world << "\red <FONT size = 3><B> The heads of staff were killed or abandoned the station! The revolutionaries win!</B></FONT>"
+		EventStory("The revolution concluded with the heads of staff maintaining control over [station_name()]. The revolution was over",1)
 	else if(finished == 2)
 		feedback_set_details("round_end_result","loss - rev heads killed")
 		world << "\red <FONT size = 3><B> The heads of staff managed to stop the revolution!</B></FONT>"
+		EventStory("The revolution concluded with the downfall of the heads of staff. The various leaders of the revolution assumed their new position as the new leaders of [station_name()]",1)
 	..()
 	return 1
 

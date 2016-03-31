@@ -40,6 +40,7 @@ var/global/air_processing_killed = 0
 	while(i<=controller.hotspots.len)
 		var/obj/effect/hotspot/H = controller.hotspots[i]
 		if(H && hascall(H,"process"))
+			setLastTask("process()", "hotspots")
 			H.process()
 			scheck()
 			i++
@@ -51,6 +52,7 @@ var/global/air_processing_killed = 0
 	while(i<=controller.active_super_conductivity.len)
 		var/turf/simulated/T = controller.active_super_conductivity[i]
 		if(T && hascall(T,"super_conduct"))
+			setLastTask("process()", "super_conduct")
 			T.super_conduct()
 			scheck()
 			i++
@@ -62,6 +64,7 @@ var/global/air_processing_killed = 0
 	while(i<=controller.high_pressure_delta.len)
 		var/turf/T = controller.high_pressure_delta[i]
 		if(T && hascall(T,"high_pressure_movements"))
+			setLastTask("process()", "high_pressure_movements")
 			T.high_pressure_movements()
 			scheck()
 			T.pressure_difference = 0
@@ -75,6 +78,7 @@ var/global/air_processing_killed = 0
 	while(i<=controller.active_turfs.len)
 		var/turf/simulated/T = controller.active_turfs[i]
 		if(T && hascall(T,"process_cell"))
+			setLastTask("process()", "active_turfs")
 			T.process_cell()
 			scheck()
 			i++
@@ -88,9 +92,11 @@ var/global/air_processing_killed = 0
 		if(EG)
 			EG.breakdown_cooldown ++
 			if(EG.breakdown_cooldown == 10)
+				setLastTask("process()", "excited_groups")
 				EG.self_breakdown()
 				scheck()
 				return
+			setLastTask("process()", "excited_groups")
 			if(EG.breakdown_cooldown > 20)
 				EG.dismantle()
 			scheck()

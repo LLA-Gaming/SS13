@@ -33,14 +33,14 @@
 // Like view but bypasses luminosity check
 
 /proc/hear(var/range, var/atom/source)
+	if(source)
+		var/lum = source.luminosity
+		source.luminosity = 6
 
-	var/lum = source.luminosity
-	source.luminosity = 6
+		var/list/heard = view(range, source)
+		source.luminosity = lum
 
-	var/list/heard = view(range, source)
-	source.luminosity = lum
-
-	return heard
+		return heard
 
 /proc/alone_in_area(var/area/the_area, var/mob/must_be_alone, var/check_type = /mob/living/carbon)
 	var/area/our_area = get_area_master(the_area)

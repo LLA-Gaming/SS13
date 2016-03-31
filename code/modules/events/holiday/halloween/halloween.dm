@@ -2,8 +2,9 @@
 	name = "2 SPOOKY!"
 	holidayID = "Halloween"
 	typepath = /datum/round_event/spooky
+	event_flags = EVENT_SPECIAL
 	max_occurrences = 1
-	weight = -1
+	weight = 10
 
 /datum/round_event/spooky/
 	var/minWerewolfAmt = 1
@@ -39,9 +40,10 @@
 			H << {"<font size=2 color=red>As a werewolf, you will sporadically transform between your human form and werewolf form. <br><b>Be aware of this at all times!</b></font>"}
 			picked++
 
-	start()
+	Start()
 		PickWerewolves()
 		// Play some sp00ky songs.
+		if (!prevent_stories) EventStory("Happy Halloween!")
 		var/song = pick(list('sound/ambience/scaryskeletons.ogg', 'sound/ambience/thisishalloween.ogg'))
 		for(var/client/C in clients)
 			if(C.prefs.toggles & SOUND_MIDI)
@@ -129,7 +131,7 @@
 			var/obj/structure/candy_cauldron/C = new /obj/structure/candy_cauldron
 			C.loc = L
 
-	announce()
+	Alert()
 		priority_announce(pick("RATTLE ME BONES!","THE RIDE NEVER ENDS!", "A SKELETON POPS OUT!", "SPOOKY SCARY SKELETONS!", "CREWMEMBERS BEWARE, YOU'RE IN FOR A SCARE!") , "THE CALL IS COMING FROM INSIDE THE HOUSE")
 		/* moved this to start() because false alarm
 		*/
