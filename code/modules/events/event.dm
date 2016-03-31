@@ -18,10 +18,12 @@
 	proc/RunEvent(var/datum/event_cycler/came_from)
 		if(!ispath(typepath,/datum/round_event))
 			return PROCESS_KILL
+		var/from_rotation = 0
 		var/datum/round_event/E = new typepath
 		events.last_event = typepath
 		if(came_from)
 			came_from.lifetime--
+			from_rotation = came_from.in_rotation
 			E.cycler = came_from
 			E.prevent_stories = came_from.prevent_stories
 			E.sends_alerts = came_from.alerts
@@ -29,7 +31,7 @@
 			occurrences++
 		E.control = src
 		E.PreSetup(src,came_from)
-		if(E && E.sends_alerts && !istype(E,/datum/round_event/task))
+		if(E && (E.sends_alerts && !istype(E,/datum/round_event/task)) || from_rotation)
 			if(!E.false_alarm)
 				log_game("EVENTS: [src] was fired")
 				events.events_log.Add("[worldtime2text()] - [src]")
