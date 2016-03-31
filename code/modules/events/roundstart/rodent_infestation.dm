@@ -1,9 +1,9 @@
 //The Space Dust of Round Start Events
 
 /datum/round_event_control/rodent_infestation
-	name = "Rodent Infestation"
+	name = "Spawn a Rodent Infestation"
 	typepath = /datum/round_event/rodent_infestation
-	event_flags = EVENT_ROUNDSTART | EVENT_HIDDEN
+	event_flags = EVENT_ROUNDSTART
 	weight = 50
 
 /datum/round_event/rodent_infestation
