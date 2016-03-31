@@ -119,13 +119,18 @@
 					var/area/A
 					if(prob(50))
 						A = FindEventAreaAwayFromPeople(hit_areas)
-						hit_areas |= A.type
+						if(A)
+							hit_areas |= A.type
 					else if (wave)
 						A = FindEventAreaNearPeople(hit_areas)
-						hit_areas |= A.type
+						if(A)
+							hit_areas |= A.type
 					if(istype(A,safe_zone.type))
 						A = FindEventAreaAwayFromPeople(hit_areas)
-						hit_areas |= A.type
+						if(A)
+							hit_areas |= A.type
+					if(!A)
+						A = FindEventArea()
 					if(A)
 						var/turf/landing = safepick(FindImpactTurfs(A))
 						var/tospawn = pick(monsters)

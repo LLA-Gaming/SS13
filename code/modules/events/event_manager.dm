@@ -123,7 +123,7 @@ var/datum/controller/event/events
 			people_areas.Remove(X)
 		for(var/i=0, i<=50, i++)
 			var/area/A = locate(safepick(people_areas))
-			if(A.get_apc()) //generally this place should be a room and not a shuttle. sometimes locate() returns areas that do not exist.. somehow
+			if(A && A.get_apc()) //generally this place should be a room and not a shuttle. sometimes locate() returns areas that do not exist.. somehow
 				return A
 	else
 		return FindEventArea()
@@ -152,7 +152,7 @@ var/datum/controller/event/events
 			vacant_areas.Remove(X)
 		for(var/i=0, i<=50, i++)
 			var/area/A = locate(safepick(vacant_areas))
-			if(A.get_apc()) //generally this place should be a room and not a shuttle. sometimes locate() returns areas that do not exist.. somehow
+			if(A && A.get_apc()) //generally this place should be a room and not a shuttle. sometimes locate() returns areas that do not exist.. somehow
 				return A
 	else
 		return FindEventArea()
