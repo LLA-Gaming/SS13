@@ -36,7 +36,7 @@
 					continue
 			if(victim)
 				var/obj/item/item
-				for(var/obj/item/I in victim.contents)
+				for(var/obj/item/I in shuffle(victim.contents))
 					item= I
 					break
 				var/picked_name = pick(fake_names)
