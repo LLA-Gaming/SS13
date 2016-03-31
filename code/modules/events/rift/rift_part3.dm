@@ -128,7 +128,7 @@
 						if(A)
 							hit_areas |= A.type
 					if(!A)
-						A = FindEventArea()
+						A = FindEventArea(hit_areas)
 					if(A)
 						var/turf/landing = safepick(FindImpactTurfs(A))
 						var/tospawn = pick(monsters)
