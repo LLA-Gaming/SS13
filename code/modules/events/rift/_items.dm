@@ -54,6 +54,7 @@
 
 	New()
 		..()
+		SetLuminosity(4)
 		signal = new(src)
 		signal.code = rand(1,100)
 		signal.frequency = rand(1200, 1599)
@@ -87,6 +88,9 @@
 		var/tospawn = pick(monsters)
 		var/mob/living/L = new tospawn(landing)
 		L.faction = "rift"
+		var/datum/round_event/the_rift/event = locate(/datum/round_event/the_rift) in events.active_events
+		if(event)
+			event.mobs_holder.Add(L)
 
 
 

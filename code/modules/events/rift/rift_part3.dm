@@ -8,6 +8,7 @@
 	var/wave = 0
 
 	var/list/hit_areas = list()
+	var/list/mobs_holder = list()
 
 	var/area/safe_zone
 	var/area/alpha
@@ -135,6 +136,7 @@
 						var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 						s.set_up(4, 2, get_turf(L))
 						s.start()
+						mobs_holder.Add(L)
 						L.faction = "rift"
 				wave += 1
 
@@ -159,6 +161,12 @@
 		new_cycler.frequency_lower = 1800
 		new_cycler.frequency_lower = 4800
 		priority_announce("We're not sure how... But you survived that crew. Enjoy the rest of your shift. We have included a complimentary gift on your next supply order","We're Sorry", 'sound/AI/shuttlerecalled.ogg')
+
+		for(var/mob/living/L in mobs_holder)
+			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			s.set_up(4, 2, get_turf(L))
+			s.start()
+			qdel(L)
 
 		var/datum/supply_order/O = new /datum/supply_order()
 		O.ordernum = supply_shuttle.ordernum
