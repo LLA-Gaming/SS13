@@ -30,8 +30,9 @@
 		E.control = src
 		E.PreSetup(src,came_from)
 		if(E && E.sends_alerts && !istype(E,/datum/round_event/task))
-			log_game("EVENTS: [src] was fired")
-			events.events_log.Add("[worldtime2text()] - [src]")
+			if(!E.false_alarm)
+				log_game("EVENTS: [src] was fired")
+				events.events_log.Add("[worldtime2text()] - [src]")
 
 /datum/round_event
 	var/datum/round_event_control/control //This is setup elsewhere, the parent controller of this event

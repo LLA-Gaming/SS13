@@ -36,7 +36,7 @@
 										//service
 										/obj/item/weapon/minihoe,
 										/obj/item/weapon/mop,
-										/obj/item/weapon/newspaper,
+										/obj/item/weapon/reagent_containers/food/drinks/flour,
 										/obj/item/weapon/spacecash,
 										/obj/item/weapon/dice,
 										//other
