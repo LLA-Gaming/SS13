@@ -81,6 +81,9 @@
 
 
 /obj/item/device/assembly/signaler/rift/receive_signal(datum/signal/signal)
+	if(istype(loc,/obj/structure/xeno_artifact))
+		if(!loc:pulsed || !loc.emitted)
+			return
 	if(rift)
 		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 		s.set_up(4, 2, get_turf(rift))
@@ -147,6 +150,10 @@
 	attackby(obj/item/I as obj, mob/user as mob)
 		if(istype(I, /obj/item/device/analyzer))
 			var/datum/round_event/the_rift/event = locate(/datum/round_event/the_rift) in events.active_events
+			if(!event && pulsed && emitted) //bussing a rift
+				var/datum/round_event_control/rift_bus/rift_bus = locate(/datum/round_event_control/rift_bus) in events.all_events
+				if(rift_bus && !rift_bus.rift_events_exist)
+					event = events.spawn_orphan_event(/datum/round_event/the_rift)
 			if(event && pulsed && emitted)
 				user << "<span class='notice'>Analyzing... encrypted frequency [Signal.code]:[format_frequency(Signal.frequency)].</span>"
 

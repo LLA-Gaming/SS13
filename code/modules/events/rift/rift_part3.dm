@@ -69,6 +69,7 @@
 		var/datum/round_event_control/rift_bus/rift_bus = locate(/datum/round_event_control/rift_bus) in events.all_events
 		if(rift_bus)
 			rift_bus.rift_events_exist = 1
+		set_security_level(SEC_LEVEL_RED)
 
 	Tick()
 		if(emergency_shuttle.location == -1) //shuttle docked at station, gameover
