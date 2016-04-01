@@ -128,7 +128,9 @@
 							stress = 3
 						else
 							stress = 1
-					new /datum/event_cycler/rotation(rand(frequency_lower,frequency_upper),null,null,stress)
+					var/datum/event_cycler/E = new /datum/event_cycler/rotation(rand(frequency_lower,frequency_upper),null,null,stress)
+					E.frequency_lower = frequency_lower
+					E.frequency_upper = frequency_upper
 				qdel(src)
 				return
 		if(schedule <= world.time)
@@ -145,7 +147,7 @@
 					pickevent()
 				schedule = world.time + rand(frequency_lower,frequency_upper)
 			else //too many children, reschedule quicker
-				schedule = world.time + rand(600,1800) //1 to 3 minutes
+				schedule = world.time + rand(frequency_lower/2,frequency_upper/2) //half frequency
 
 	proc/force_fire()
 		if(playlist.len)
