@@ -61,6 +61,7 @@
 			for(var/mob/living/carbon/human/npc/syndicate/S in syndies)
 				if(S.stat == DEAD)
 					syndies.Remove(S)
+			listclearnulls(syndies)
 			if(!syndies.len)
 				passed = 1
 				AbruptEnd()

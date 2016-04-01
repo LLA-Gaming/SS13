@@ -28,6 +28,7 @@
 			gibs.Add(new /obj/effect/decal/cleanable/blood/gibs(T))
 
 	Tick()
+		listclearnulls(gibs)
 		if(!gibs.len)
 			passed = 1
 			AbruptEnd()
