@@ -142,8 +142,7 @@
 					children_count++
 			if(max_children < 0 || children_count < max_children)
 				if(playerC || !in_rotation)
-					if(!pickevent())
-						schedule = world.time + rand(600,1800) //1 to 3 minutes
+					pickevent()
 				schedule = world.time + rand(frequency_lower,frequency_upper)
 			else //too many children, reschedule quicker
 				schedule = world.time + rand(600,1800) //1 to 3 minutes
