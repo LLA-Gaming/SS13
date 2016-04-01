@@ -107,6 +107,8 @@
 
 	Tick()
 		..()
+		listclearnulls(riggedMachines)
+		listclearnulls(infectedMachines)
 		if(!infectedMachines.len && !riggedMachines.len)
 			AbruptEnd()
 		if(IsMultiple(active_for, 4))

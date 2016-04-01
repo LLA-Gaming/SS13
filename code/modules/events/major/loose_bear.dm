@@ -37,6 +37,7 @@
 		for(var/mob/living/simple_animal/hostile/bear/B in bears)
 			if(B.stat == DEAD)
 				bears.Remove(B)
+		listclearnulls(bears)
 		if(!bears.len)
 			passed = 1
 			AbruptEnd()

@@ -25,8 +25,8 @@
 				if(G in completed_goals) continue
 				completed_goals.Add(G)
 		if(completed_goals.len == goals.len)
-			AbruptEnd()
 			cash_out()
+			AbruptEnd()
 
 	proc/cash_out()
 		supply_shuttle.points += 50 * task_level

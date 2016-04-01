@@ -22,6 +22,9 @@
 	var/thanks_msg = "Have some supply points as thanks (the shuttle will be returned in 5 minutes)."
 	var/dispatched = 0
 
+	cash_out()
+		return
+
 	proc/loan_shuttle()
 		priority_announce(thanks_msg, "Cargo shuttle commandeered by Centcom.")
 

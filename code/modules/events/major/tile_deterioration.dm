@@ -10,7 +10,7 @@
 		..()
 		//determining the weight based on other tasks weights
 		var/weights = 0
-		for(var/datum/round_event_control/task/E in events.all_events)
+		for(var/datum/round_event_control/E in events.all_events)
 			if(E.event_flags & EVENT_MAJOR)
 				weights += E.weight
 		weight = weights / 2
