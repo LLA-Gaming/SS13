@@ -59,7 +59,7 @@
 		landing = safepick(FindImpactTurfs(charlie))
 		new /obj/structure/xeno_rift(landing)
 		//
-		emergency_shuttle.incall(1.3)
+		emergency_shuttle.incall(1)
 		emergency_shuttle.prevent_recall = 1
 		var/list/rip_areas = list()
 		for(var/mob/living/L in player_list)
