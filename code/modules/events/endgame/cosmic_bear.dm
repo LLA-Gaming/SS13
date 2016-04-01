@@ -35,7 +35,7 @@
 
 	Start()
 		if (!prevent_stories) EventStory("In a quick flash, Cosmicam Ursus Mortis appeared in [impact_area.name] destroying anything in its way.")
-		for(var/mob/living/L in player_list)
+		for(var/mob/living/carbon/human/L in living_mob_list)
 			if(L.stat == 2) continue
 			crew_alive++
 		target_kills = crew_alive / 2
@@ -62,7 +62,7 @@
 		if(!new_bear)
 			AbruptEnd()
 		var/death_count = 0
-		for(var/mob/living/L in player_list)
+		for(var/mob/living/carbon/human/L in living_mob_list)
 			if(L.stat == 2)
 				death_count++
 		if(death_count >= target_kills)

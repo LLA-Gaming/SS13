@@ -35,7 +35,7 @@
 		priority_announce("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert", 'sound/AI/aliens.ogg')
 
 	Start()
-		for(var/mob/living/L in player_list)
+		for(var/mob/living/carbon/human/L in living_mob_list)
 			if(L.stat == 2) continue
 			crew_alive++
 		target_kills = crew_alive / 2
@@ -59,7 +59,7 @@
 	Tick()
 		var/xeno_count = 0
 		var/death_count = 0
-		for(var/mob/living/L in player_list)
+		for(var/mob/living/carbon/human/L in player_list)
 			if(L.stat == 2)
 				death_count++
 		if(death_count >= target_kills)
