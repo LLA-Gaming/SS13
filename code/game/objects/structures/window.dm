@@ -11,8 +11,9 @@
 	var/ini_dir = null
 	var/state = 0
 	var/reinf = 0
+	var/heatresistant = 0
 	var/disassembled = 0
-//	var/silicate = 0 // number of units of silicate
+	var/silicate = 0 // number of units of silicate
 //	var/icon/silicateIcon = null // the silicated icon
 
 
@@ -368,6 +369,8 @@
 		return
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(heatresistant)
+		return
 	if(exposed_temperature > T0C + 800)
 		hit(round(exposed_volume / 100), 0)
 	..()
@@ -382,10 +385,18 @@
 	icon_state = "rwindow"
 	reinf = 1
 
+/obj/structure/window/reinforced/resistant
+	name = "heat-resistant reinforced window"
+	heatresistant = 1
+
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
 	icon_state = "twindow"
 	opacity = 1
+
+/obj/structure/window/reinforced/tinted/resistant
+	name = "heat-resistant tinted window"
+	heatresistant = 1
 
 /obj/structure/window/reinforced/tinted/frosted
 	name = "frosted window"
