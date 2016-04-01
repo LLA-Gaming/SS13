@@ -1,6 +1,7 @@
 /datum/program/cargobay
 	name = "Cargo Bay Monitor"
 	app_id = "cargocontrol"
+	usesalerts = 1
 
 	use_app()
 		dat = "<h4>Cargo Bay Monitor</h4>"
