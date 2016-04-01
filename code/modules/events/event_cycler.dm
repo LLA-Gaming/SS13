@@ -165,7 +165,8 @@
 					if(E.occurrences >= E.max_occurrences && E.max_occurrences >= 0) continue
 					if(E.earliest_start >= world.time) continue
 					if(E.typepath in events.last_event) continue
-					if(E.holidayID && E.holidayID != holiday) continue
+					if(E.holidayID)
+						if(E.holidayID != holiday) continue
 					if(E.weight <= 0) continue
 					var/already_active = 0
 					for(var/datum/round_event/R in events.active_events)
