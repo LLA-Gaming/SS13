@@ -48,4 +48,4 @@
 				victim << "<b>...Your [old_name] is now a [picked_name]...</b>"
 			if(other_victim)
 				other_victim.slip(8, 5, src, GALOSHES_DONT_HELP)
-				victim << "<b>...Wow, way to <font color = 'red'>SLIP</font> up...</b>"
+				other_victim << "<b>...Wow, way to <font color = 'red'>SLIP</font> up...</b>"
