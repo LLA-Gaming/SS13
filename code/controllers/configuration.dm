@@ -305,7 +305,7 @@
 				if("faction_change_delay")
 					faction_change_delay = text2num(value)
 				if("getipintel")
-					getipintel_limit = 1
+					getipintel = 1
 				if("getipintelemail")
 					getipintel_limit = value
 				if("getipintellimit")

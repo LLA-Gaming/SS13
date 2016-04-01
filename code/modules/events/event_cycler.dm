@@ -142,7 +142,8 @@
 					children_count++
 			if(max_children < 0 || children_count < max_children)
 				if(playerC || !in_rotation)
-					pickevent()
+					if(!pickevent())
+						schedule = world.time + rand(600,1800) //1 to 3 minutes
 				schedule = world.time + rand(frequency_lower,frequency_upper)
 			else //too many children, reschedule quicker
 				schedule = world.time + rand(600,1800) //1 to 3 minutes
@@ -165,7 +166,8 @@
 					if(E.occurrences >= E.max_occurrences && E.max_occurrences >= 0) continue
 					if(E.earliest_start >= world.time) continue
 					if(E.typepath in events.last_event) continue
-					if(E.holidayID && E.holidayID != holiday) continue
+					if(E.holidayID)
+						if(E.holidayID != holiday) continue
 					if(E.weight <= 0) continue
 					var/already_active = 0
 					for(var/datum/round_event/R in events.active_events)
