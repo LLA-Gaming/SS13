@@ -2,7 +2,7 @@
 	name = "Locate Missing Data"
 	typepath = /datum/round_event/task/missing_data
 	event_flags = EVENT_TASK | EVENT_HIDDEN
-	weight = 20
+	weight = 10
 	max_occurrences = 1
 	task_level = 3
 
