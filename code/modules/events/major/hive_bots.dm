@@ -34,7 +34,7 @@
 
 	Tick()
 		var/obj/structure/hivebot_tele/tele = locate(/obj/structure/hivebot_tele) in world
-		if(tele.z == 1)
+		if(tele || tele.z == 1)
 			return //the tele hasnt activated yet
 		var/hivebot_count = 0
 		for(var/mob/living/simple_animal/hostile/hivebot/bot in living_mob_list)

@@ -13,7 +13,7 @@
 		for(var/datum/round_event_control/E in events.all_events)
 			if(E.event_flags & EVENT_CONSEQUENCE)
 				weights += E.weight
-		weight = weights / 2
+		weight = weights / 3
 
 /datum/round_event/nothing
 
