@@ -307,7 +307,7 @@
 				if("getipintel")
 					getipintel = 1
 				if("getipintelemail")
-					getipintel_limit = value
+					getipintel_email = value
 				if("getipintellimit")
 					getipintel_limit = text2num(value)
 				else
