@@ -2,8 +2,8 @@
 	name = "Syndicate Takeover"
 	typepath = /datum/round_event/syndicate_takeover
 	event_flags = EVENT_MAJOR
-	max_occurrences = 5
-	weight = 10
+	max_occurrences = 1
+	weight = 5
 	accuracy = 100
 
 /datum/round_event/syndicate_takeover

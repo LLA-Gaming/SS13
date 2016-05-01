@@ -2,8 +2,8 @@
 	name = "Disease Outbreak"
 	typepath = /datum/round_event/disease_outbreak
 	event_flags = EVENT_MAJOR
-	max_occurrences = 5
-	weight = 10
+	max_occurrences = 1
+	weight = 5
 	accuracy = 75
 
 /datum/round_event/disease_outbreak
