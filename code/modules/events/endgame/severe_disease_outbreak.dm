@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/disease_outbreak/severe
 	event_flags = EVENT_ENDGAME
 	max_occurrences = 1
-	weight = 10
+	weight = 5
 	accuracy = 80
 
 /datum/round_event/disease_outbreak/severe
