@@ -161,10 +161,7 @@
 					"}
 			medalAmt++
 
-	if(!length(dat))
-		dat = "You have no medals."
-
-	dat += "<br><b>You have [medalAmt] medal[medalAmt != 1 ? "'s" : ""].</b>"
+	dat += "<br><b>You have [medalAmt] medal[medalAmt != 1 ? "s" : ""].</b>"
 
 	popup.set_content(dat)
 	popup.open()
