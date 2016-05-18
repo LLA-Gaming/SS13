@@ -122,7 +122,7 @@ proc/process_ghost_teleport_locs()
 /area/space
 	requires_power = 1
 	always_unpowered = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	power_light = 0
 	power_equip = 0
 	power_environ = 0
@@ -134,10 +134,10 @@ proc/process_ghost_teleport_locs()
 //place to another. Look at escape shuttle for example.
 //All shuttles show now be under shuttle since we have smooth-wall code.
 
-/area/shuttle //DO NOT TURN THE lighting_use_dynamic STUFF ON FOR SHUTTLES. IT BREAKS THINGS.
+/area/shuttle //DO NOT TURN THE dynamic_lighting STUFF ON FOR SHUTTLES. IT BREAKS THINGS.
 	requires_power = 0
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	var/push_dir = SOUTH
 	var/destination
 
@@ -298,7 +298,7 @@ proc/process_ghost_teleport_locs()
 	icon_state = "start"
 	requires_power = 0
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	has_gravity = 1
 
 // === end remove
@@ -370,7 +370,7 @@ proc/process_ghost_teleport_locs()
 
 /area/asteroid/artifactroom/New()
 	..()
-	lighting_use_dynamic = 1
+	dynamic_lighting = 1
 
 /area/planet/clown
 	name = "\improper Clown Planet"
@@ -796,7 +796,7 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Holodeck"
 	icon_state = "Holodeck"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/holodeck/alphadeck
 	name = "\improper Holodeck Alpha"
@@ -883,7 +883,7 @@ proc/process_ghost_teleport_locs()
 /area/solar
 	requires_power = 0
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 	auxport
 		name = "\improper Fore Port Solar Array"
@@ -1441,25 +1441,25 @@ proc/process_ghost_teleport_locs()
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/AIsatextFS
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/AIsatextAS
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/AIsatextAP
 	name = "\improper AI Sat Ext"
 	icon_state = "storage"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /area/turret_protected/NewAIMain
 	name = "\improper AI Main New"
@@ -1537,7 +1537,7 @@ proc/process_ghost_teleport_locs()
 	name = "Beach"
 	icon_state = "away"
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	requires_power = 0
 	has_gravity = 1
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg')
@@ -1552,7 +1552,7 @@ proc/process_ghost_teleport_locs()
 /area/template/gravity/powered/lit
 	requires_power = 0
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	has_gravity = 1
 
 //variations
@@ -1560,7 +1560,7 @@ proc/process_ghost_teleport_locs()
 	has_gravity = 1
 /area/template/gravity/lit
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 /area/template/gravity/powered
 	requires_power = 0
 
@@ -1568,7 +1568,7 @@ proc/process_ghost_teleport_locs()
 	requires_power = 0
 /area/template/powered/lit
 	luminosity = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 
 /////////////////////////////////////////////////////////////////////
 /*

@@ -226,9 +226,6 @@
 				var/obj/item/seeds/kudzuseed/KZ = new(loc)
 				KZ.mutations |= mutations
 		mutations = list()
-		var/turf/T = get_turf(src)
-		if(T.lighting_lumcount)
-			T.UpdateAffectingLights()
 		..()
 
 /obj/effect/spacevine/proc/on_chem_effect(datum/reagent/R)
