@@ -116,7 +116,7 @@
 		if(item && item != src) // It's possible that the item is deleted in temperature_expose
 			item.fire_act(null, temperature, volume)
 
-	SetLuminosity(luminosity, 1, heat2color(temperature))
+	set_light(luminosity, 1, heat2color(temperature))
 
 	return 0
 
@@ -179,9 +179,9 @@
 
 /obj/effect/hotspot/proc/Kill()
 	air_master.hotspots -= src
-	SetLuminosity(0)
+	set_light(0)
 	var/turf/T = get_turf(src)
-	T.SetLuminosity(T.luminosity, T.light_range, T.light_color)
+	T.set_light(T.luminosity, T.light_range, T.light_color)
 
 	DestroyTurf()
 	qdel(src)

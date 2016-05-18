@@ -21,6 +21,8 @@ var/global/list/global_map = null
 	//3 - AI satellite
 	//5 - empty space
 
+var/global/list/turfs = list()
+
 var/list/landmarks_list = list()				//list of all landmarks created
 var/list/spawn_landmarks_list = list()				//list of all spawn point landmarks created
 

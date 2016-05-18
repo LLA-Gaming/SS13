@@ -76,16 +76,6 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 		src.id.loc = get_turf(src.loc)
 	..()
 
-/obj/item/device/tablet/pickup(mob/user)
-	if(fon)
-		SetLuminosity(0)
-		user.AddLuminosity(f_lum)
-
-/obj/item/device/tablet/dropped(mob/user)
-	if(fon)
-		user.AddLuminosity(-f_lum)
-		SetLuminosity(f_lum)
-
 /obj/item/device/tablet/attack_self(mob/living/user)
 	user.set_machine(src)
 	var/dat = ""
@@ -202,12 +192,10 @@ var/global/list/obj/item/device/tablet/tablets_list = list()
 			if("Light")
 				if(fon)
 					fon = 0
-					if(src in U.contents)	U.AddLuminosity(-f_lum)
-					else					SetLuminosity(0)
+					set_light(0)
 				else
 					fon = 1
-					if(src in U.contents)	U.AddLuminosity(f_lum)
-					else					SetLuminosity(f_lum)
+					set_light(f_lum)
 			if("eject_pai")
 				if(pai)
 					pai.loc = get_turf(src.loc)

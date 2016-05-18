@@ -54,7 +54,7 @@
 
 	New()
 		..()
-		SetLuminosity(4)
+		set_light(4)
 		signal = new(src)
 		signal.code = rand(1,100)
 		signal.frequency = rand(1200, 1599)

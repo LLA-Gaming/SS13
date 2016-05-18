@@ -945,7 +945,7 @@ atom/proc/GetTypeInAllContents(typepath)
 
 //					if(AR.lighting_use_dynamic)							//TODO: rewrite this code so it's not messed by lighting ~Carn
 //						X.opacity = !X.opacity
-//						X.SetOpacity(!X.opacity)
+//						X.set_opacity(!X.opacity)
 
 					toupdate += X
 
@@ -956,7 +956,7 @@ atom/proc/GetTypeInAllContents(typepath)
 
 //						if(AR2.lighting_use_dynamic)						//TODO: rewrite this code so it's not messed by lighting ~Carn
 //							ttl.opacity = !ttl.opacity
-//							ttl.sd_SetOpacity(!ttl.opacity)
+//							ttl.sd_set_opacity(!ttl.opacity)
 
 						fromupdate += ttl
 
@@ -1111,7 +1111,7 @@ proc/DuplicateObject(obj/original, var/perfectcopy = 0 , var/sameloc = 0)
 
 //					if(AR.lighting_use_dynamic)
 //						X.opacity = !X.opacity
-//						X.sd_SetOpacity(!X.opacity)			//TODO: rewrite this code so it's not messed by lighting ~Carn
+//						X.sd_set_opacity(!X.opacity)			//TODO: rewrite this code so it's not messed by lighting ~Carn
 
 					toupdate += X
 
@@ -1562,3 +1562,22 @@ proc/check_target_facings(mob/living/initator, mob/living/target)
 		S.update_icon()
 		S.power_change()
 
+/var/mob/dview/dview_mob = new
+
+//Version of view() which ignores darkness, because BYOND doesn't have it (I actually suggested it but it was tagged redundant, BUT HEARERS IS A T- /rant).
+/proc/dview(var/range = world.view, var/center, var/invis_flags = 0)
+	if(!center)
+		return
+
+	dview_mob.loc = center
+
+	dview_mob.see_invisible = invis_flags
+
+	. = view(range, dview_mob)
+	dview_mob.loc = null
+
+/mob/dview
+	invisibility = 101
+	density = 0
+	see_in_dark = 1e6
+	anchored = 1

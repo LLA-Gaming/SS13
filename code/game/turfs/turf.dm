@@ -19,7 +19,7 @@
 	var/blocks_air = 0
 	var/icon_old = null
 
-	var/dynamic_lighting = 1
+	var/dynamic_lighting = 0
 
 	flags = 0
 
@@ -31,6 +31,7 @@
 
 /turf/New()
 	..()
+	turfs += src
 	if(nitrogen)
 		gasses[NITROGEN] = nitrogen
 	if(oxygen)
@@ -45,6 +46,10 @@
 			src.Entered(AM)
 			return
 	return
+
+/turf/Destroy()
+	turfs -= src
+	..()
 
 // Adds the adjacent turfs to the current atmos processing
 /turf/Del()

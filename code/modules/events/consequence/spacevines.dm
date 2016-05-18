@@ -123,7 +123,7 @@
 	hue = ""
 
 /datum/spacevine_mutation/transparency/on_grow(obj/effect/spacevine/holder)
-	holder.SetOpacity(0)
+	holder.set_opacity(0)
 	holder.alpha = 125
 
 /datum/spacevine_mutation/oxy_eater
@@ -433,7 +433,7 @@
 	if(!energy)
 		src.icon_state = pick("Med1", "Med2", "Med3")
 		energy = 1
-		SetOpacity(1)
+		set_opacity(1)
 		layer = 5
 	else
 		src.icon_state = pick("Hvy1", "Hvy2", "Hvy3")
