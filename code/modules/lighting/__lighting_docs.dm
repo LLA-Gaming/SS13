@@ -14,9 +14,9 @@ Changes from TG DAL:
 		  - light_range; range in tiles of the light, used for calculating falloff,
 		  - light_power; multiplier for the brightness of lights,
 		  - light_color; hex string representing the RGB colour of the light.
-	  - set_light() is now set_light() and takes the three variables above.
+	  - SetLuminosity() is now set_light() and takes the three variables above.
 		  - Variables can be left as null to not update them.
-	  - set_opacity() is now set_opacity().
+	  - SetOpacity() is now set_opacity().
 	  - Areas have luminosity set to 1 permanently, no hard-lighting.
 	  - Objects inside other objects can have lights and they properly affect the turf. (flashlights)
 	  - area/master and area/list/related have been eviscerated since subareas aren't needed.

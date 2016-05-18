@@ -153,7 +153,7 @@ like humans only automated. expands upon the concept of simple_animal hostiles l
 			for(var/mob/living/M in hearers(src))
 				var/turf/t = get_turf(M) //is it dark?
 				var/area/a = get_area(t)
-				if ((!a.lighting_use_dynamic || t.get_lumcount() * 10 >= 0.50) || (istype(src.glasses, /obj/item/clothing/glasses/night) || istype(src.glasses, /obj/item/clothing/glasses/thermal)))
+				if ((!a.dynamic_lighting || t.get_lumcount() * 10 >= 0.50) || (istype(src.glasses, /obj/item/clothing/glasses/night) || istype(src.glasses, /obj/item/clothing/glasses/thermal)))
 					//despite support for thermal vision on NPCs, i would not reccomend giving them that in the first place unless you want the crew to have some.
 					if (!minimal_vision)
 						can_see.Add(M)

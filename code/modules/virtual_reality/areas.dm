@@ -7,7 +7,7 @@
 	icon_state = "red2"
 
 	requires_power = 1
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	has_gravity = 1
 	power_equip = 1
 
