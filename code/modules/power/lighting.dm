@@ -220,7 +220,7 @@
 	icon_state = "bulb1"
 	base_state = "bulb"
 	fitting = "bulb"
-	brightness_range = 2
+	brightness_range = 3
 	brightness_power = 1
 	desc = "A small lighting fixture."
 	light_type = /obj/item/weapon/light/bulb
@@ -252,7 +252,7 @@
 				if(prob(2))
 					broken(1)
 			if("bulb")
-				brightness_range = 2
+				brightness_range = 3
 				brightness_power = 1
 				if(prob(5))
 					broken(1)
