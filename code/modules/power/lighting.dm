@@ -252,7 +252,7 @@
 				if(prob(2))
 					broken(1)
 			if("bulb")
-				brightness_range = 8
+				brightness_range = 2
 				brightness_power = 1
 				if(prob(5))
 					broken(1)
