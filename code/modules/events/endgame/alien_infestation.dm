@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/alien_infestation
 	event_flags = EVENT_ENDGAME
 	max_occurrences = 1
-	weight = 20
+	weight = 3
 	accuracy = 100
 	candidate_flag = BE_ALIEN
 	candidate_afk_bracket = ALIEN_AFK_BRACKET

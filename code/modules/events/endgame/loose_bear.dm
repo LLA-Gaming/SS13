@@ -1,9 +1,9 @@
 /datum/round_event_control/loose_bear
 	name = "Loose Space Bears"
 	typepath = /datum/round_event/loose_bear
-	event_flags = EVENT_MAJOR
+	event_flags = EVENT_ENDGAME
 	max_occurrences = -1
-	weight = 15
+	weight = 10
 	accuracy = 80
 
 /datum/round_event/loose_bear

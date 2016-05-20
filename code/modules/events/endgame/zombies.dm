@@ -1,9 +1,9 @@
 /datum/round_event_control/zombies
 	name = "Zombie Outbreak"
 	typepath = /datum/round_event/zombies
-	event_flags = EVENT_MAJOR
+	event_flags = EVENT_ENDGAME
 	max_occurrences = 2
-	weight = 5
+	weight = 3
 	accuracy = 100
 
 /datum/round_event/zombies

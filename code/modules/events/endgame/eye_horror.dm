@@ -1,9 +1,9 @@
 /datum/round_event_control/eye_horror
 	name = "Eye Horror"
 	typepath = /datum/round_event/eye_horror
-	event_flags = EVENT_MAJOR
+	event_flags = EVENT_ENDGAME
 	max_occurrences = 1
-	weight = 5
+	weight = 10
 	accuracy = 100
 
 /datum/round_event/eye_horror

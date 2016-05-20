@@ -1,9 +1,9 @@
 /datum/round_event_control/syndicate_takeover
 	name = "Syndicate Takeover"
 	typepath = /datum/round_event/syndicate_takeover
-	event_flags = EVENT_MAJOR
+	event_flags = EVENT_ENDGAME
 	max_occurrences = 1
-	weight = 5
+	weight = 8
 	accuracy = 100
 
 /datum/round_event/syndicate_takeover

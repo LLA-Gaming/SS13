@@ -1,9 +1,9 @@
 /datum/round_event_control/wormholes
 	name = "Wormholes"
 	typepath = /datum/round_event/wormholes
-	event_flags = EVENT_MAJOR
+	event_flags = EVENT_CONSEQUENCE
 	max_occurrences = 1
-	weight = 8
+	weight = 5
 	accuracy = 100
 
 

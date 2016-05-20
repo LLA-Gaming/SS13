@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/spontaneous_mess
 	event_flags = EVENT_MINOR
 	max_occurrences = -1
-	weight = 5
+	weight = 10
 	accuracy = 100
 
 /datum/round_event/spontaneous_mess

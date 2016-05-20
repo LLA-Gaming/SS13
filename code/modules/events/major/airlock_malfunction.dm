@@ -1,9 +1,9 @@
 /datum/round_event_control/airlock_malfunction
 	name = "Malfunctioning Airlocks"
 	typepath = /datum/round_event/airlock_malfunction
-	event_flags = EVENT_MINOR
+	event_flags = EVENT_MAJOR
 	max_occurrences = -1
-	weight = 10
+	weight = 5
 	accuracy = 80
 
 /datum/round_event/airlock_malfunction/

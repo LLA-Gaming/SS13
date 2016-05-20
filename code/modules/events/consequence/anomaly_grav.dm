@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/anomaly/anomaly_grav
 	event_flags = EVENT_CONSEQUENCE
 	max_occurrences = 1
-	weight = 20
+	weight = 5
 	accuracy = 85
 
 /datum/round_event/anomaly/anomaly_grav

@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/stray_cat
 	event_flags = EVENT_MINOR
 	max_occurrences = 1
-	weight = 5
+	weight = 2
 	accuracy = 100
 
 /datum/round_event/stray_cat/

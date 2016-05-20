@@ -2,7 +2,8 @@
 	name = "Time Travellers"
 	typepath = /datum/round_event/time_travellers
 	max_occurrences = 1
-	weight = 20
+	weight = 3
+	event_flags = EVENT_MAJOR
 	candidate_flag = BE_TIMEAGENT
 	candidates_needed = 2
 

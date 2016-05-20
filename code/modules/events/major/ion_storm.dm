@@ -6,7 +6,7 @@
 	typepath = /datum/round_event/ion_storm
 	event_flags = EVENT_MAJOR
 	max_occurrences = 2
-	weight = 15
+	weight = 7
 	accuracy = 50
 
 /datum/round_event/ion_storm
