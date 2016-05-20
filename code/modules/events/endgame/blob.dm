@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/blob
 	event_flags = EVENT_ENDGAME
 	max_occurrences = 1
-	weight = 5
+	weight = 3
 	accuracy = 100
 
 /datum/round_event/blob

@@ -1,9 +1,9 @@
 /datum/round_event_control/EMP_wave
 	name = "EMP Wave"
 	typepath = /datum/round_event/EMP_wave
-	event_flags = EVENT_CONSEQUENCE
+	event_flags = EVENT_MINOR
 	max_occurrences = -1
-	weight = 20
+	weight = 10
 	accuracy = 85
 
 /datum/round_event/EMP_wave

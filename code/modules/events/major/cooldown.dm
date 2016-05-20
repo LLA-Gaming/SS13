@@ -1,9 +1,9 @@
 /datum/round_event_control/cooldown
 	name = "Cooldown"
 	typepath = /datum/round_event/cooldown
-	event_flags = EVENT_CONSEQUENCE
+	event_flags = EVENT_MAJOR
 	max_occurrences = -1
-	weight = 20
+	weight = 10
 	accuracy = 100
 
 /datum/round_event/cooldown

@@ -1,9 +1,9 @@
 /datum/round_event_control/electrical_storm
 	name = "Electrical Storm"
 	typepath = /datum/round_event/electrical_storm
-	event_flags = EVENT_CONSEQUENCE
+	event_flags = EVENT_MAJOR
 	max_occurrences = 1
-	weight = 15
+	weight = 10
 	accuracy = 80
 
 /datum/round_event/electrical_storm

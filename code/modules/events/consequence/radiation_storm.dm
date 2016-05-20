@@ -1,9 +1,9 @@
 /datum/round_event_control/radiation_storm
 	name = "Radiation Storm"
 	typepath = /datum/round_event/radiation_storm
-	event_flags = EVENT_MAJOR
+	event_flags = EVENT_CONSEQUENCE
 	max_occurrences = -1
-	weight = 20
+	weight = 15
 	accuracy = 50
 
 /datum/round_event/radiation_storm

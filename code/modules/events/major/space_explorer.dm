@@ -1,9 +1,9 @@
 /datum/round_event_control/space_explorer
 	name = "Space Explorers"
 	typepath = /datum/round_event/space_explorer
-	event_flags = EVENT_ENDGAME
+	event_flags = EVENT_MAJOR
 	max_occurrences = 1
-	weight = 20
+	weight = 3
 	accuracy = 80
 	candidate_flag = BE_EXPLORER
 	candidates_needed = 1

@@ -1,9 +1,9 @@
 /datum/round_event_control/sudden_hunger
 	name = "Sudden Hunger"
 	typepath = /datum/round_event/sudden_hunger
-	event_flags = EVENT_MINOR
+	event_flags = EVENT_CONSEQUENCE
 	max_occurrences = -1
-	weight = 5
+	weight = 15
 	accuracy = 100
 
 /datum/round_event/sudden_hunger

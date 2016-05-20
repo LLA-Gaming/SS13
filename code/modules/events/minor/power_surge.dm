@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/power_surge
 	event_flags = EVENT_MINOR
 	max_occurrences = -1
-	weight = 20
+	weight = 5
 	accuracy = 80
 
 /datum/round_event/power_surge

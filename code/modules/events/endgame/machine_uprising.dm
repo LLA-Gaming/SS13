@@ -1,9 +1,9 @@
 /datum/round_event_control/machine_uprising
 	name = "Machine Uprising"
 	typepath = /datum/round_event/machine_uprising
-	event_flags = EVENT_MAJOR
+	event_flags = EVENT_ENDGAME
 	max_occurrences = 1
-	weight = 8
+	weight = 5
 	accuracy = 70
 
 /datum/round_event/machine_uprising

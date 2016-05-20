@@ -3,7 +3,7 @@
 	typepath = /datum/round_event/minor_meteorwave/
 	event_flags = EVENT_CONSEQUENCE
 	max_occurrences = -1
-	weight = 20
+	weight = 15
 	accuracy = 100
 
 /datum/round_event/minor_meteorwave/
