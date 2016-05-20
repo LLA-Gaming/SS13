@@ -1,9 +1,9 @@
 /datum/round_event_control/meteor_wave
 	name = "Meteor Wave"
 	typepath = /datum/round_event/meteor_wave
-	event_flags = EVENT_ENDGAME
+	event_flags = EVENT_MAJOR
 	max_occurrences = -1
-	weight = 10
+	weight = 3
 	accuracy = 100
 
 /datum/round_event/meteor_wave

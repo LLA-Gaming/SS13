@@ -10,7 +10,8 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	name = "Immovable Rod"
 	typepath = /datum/round_event/immovable_rod
 	max_occurrences = 3
-	weight = 5
+	event_flags = EVENT_ENDGAME
+	weight = 15
 	accuracy = 85
 
 /datum/round_event/immovable_rod

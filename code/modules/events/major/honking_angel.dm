@@ -1,9 +1,9 @@
 /datum/round_event_control/honking_angel
 	name = "Honking Angel"
 	typepath = /datum/round_event/honking_angel
-	event_flags = EVENT_ENDGAME
+	event_flags = EVENT_MAJOR
 	max_occurrences = 1
-	weight = 20
+	weight = 3
 	accuracy = 80
 	candidate_flag = BE_ANGEL
 	candidates_needed = 1

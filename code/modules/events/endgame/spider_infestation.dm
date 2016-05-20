@@ -1,9 +1,9 @@
 /datum/round_event_control/spider_infestation
 	name = "Spider Infestation"
 	typepath = /datum/round_event/spider_infestation
-	event_flags = EVENT_CONSEQUENCE
+	event_flags = EVENT_ENDGAME
 	max_occurrences = 1
-	weight = 10
+	weight = 5
 	accuracy = 80
 
 /datum/round_event/spider_infestation

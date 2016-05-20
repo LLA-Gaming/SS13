@@ -6,11 +6,11 @@
 /datum/round_event_control/ninja
 	name = "Space Ninja"
 	typepath = /datum/round_event/ninja
-	event_flags = EVENT_ENDGAME
+	event_flags = EVENT_MAJOR
 	candidate_flag = BE_NINJA
 	candidates_needed = 1
 	max_occurrences = 1
-	weight = 5
+	weight = 2
 	accuracy = 100
 
 /datum/round_event/ninja

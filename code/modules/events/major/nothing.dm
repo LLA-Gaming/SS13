@@ -1,7 +1,7 @@
 /datum/round_event_control/nothing
 	name = "Nothing"
 	typepath = /datum/round_event/nothing
-	event_flags = EVENT_CONSEQUENCE | EVENT_HIDDEN
+	event_flags = EVENT_MAJOR | EVENT_HIDDEN
 	weight = 0
 	max_occurrences = 2
 	deferred_creation = 1

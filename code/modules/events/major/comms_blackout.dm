@@ -1,7 +1,7 @@
 /datum/round_event_control/communications_blackout
 	name = "Communications Blackout"
 	typepath = /datum/round_event/communications_blackout
-	event_flags = EVENT_CONSEQUENCE
+	event_flags = EVENT_MAJOR
 	max_occurrences = 2
 	weight = 5
 	accuracy = 100

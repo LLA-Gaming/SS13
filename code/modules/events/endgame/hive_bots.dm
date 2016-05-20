@@ -1,7 +1,7 @@
 /datum/round_event_control/hivebots
 	name = "Hivebot Invasion"
 	typepath = /datum/round_event/hivebots
-	event_flags = EVENT_MAJOR
+	event_flags = EVENT_ENDGAME
 	max_occurrences = 3
 	weight = 10
 	accuracy = 100

@@ -85,15 +85,15 @@
 			switch(stress_level)
 				if(1)
 					events_allowed = EVENT_MINOR
-					lifetime = rand(1,2)
+					lifetime = rand(1,3)
 					prefix = "CentComm Officer"
 				if(2)
 					events_allowed = EVENT_MAJOR
-					lifetime = rand(1,3)
+					lifetime = rand(1,2)
 					prefix = "CentComm Lieutenant"
 				if(3)
 					events_allowed = EVENT_ENDGAME
-					lifetime = rand(1,2)
+					lifetime = 1
 					prefix = "CentComm Commander"
 			//setup the fluff name of the event cycler
 			if(!suffix)

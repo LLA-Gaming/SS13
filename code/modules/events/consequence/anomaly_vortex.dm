@@ -1,9 +1,9 @@
 /datum/round_event_control/anomaly/anomaly_vortex
 	name = "Vortex Anomaly"
 	typepath = /datum/round_event/anomaly/anomaly_vortex
-	event_flags = EVENT_ENDGAME
+	event_flags = EVENT_CONSEQUENCE
 	max_occurrences = 1
-	weight = 10
+	weight = 2
 	accuracy = 80
 
 /datum/round_event/anomaly/anomaly_vortex

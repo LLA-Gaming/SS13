@@ -1,9 +1,9 @@
 /datum/round_event_control/anomaly/anomaly_pyro
 	name = "Pyroclastic Anomaly"
 	typepath = /datum/round_event/anomaly/anomaly_pyro
-	event_flags = EVENT_MAJOR
+	event_flags = EVENT_CONSEQUENCE
 	max_occurrences = 4
-	weight = 10
+	weight = 5
 	accuracy = 95
 
 /datum/round_event/anomaly/anomaly_pyro
