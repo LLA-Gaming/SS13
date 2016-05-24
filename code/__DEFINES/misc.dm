@@ -33,12 +33,8 @@
 //The amount of materials you get from a sheet of mineral like iron/diamond/glass etc
 
 //Event flags
-#define EVENT_MINOR				1<<0	//minor events such as airlock malfunction and lights breaking
-#define EVENT_MAJOR				1<<1	//events that involve people possibly dying
-#define EVENT_SPECIAL			1<<2	//holidays and events not in rotation
-#define EVENT_REWARD			1<<3	//events that are rewarding and nice
-#define EVENT_CONSEQUENCE		1<<4	//events that are mean and cruel (and usually for naughty people)
-#define EVENT_ENDGAME			1<<5	//events that most likely will end the round or at least change the face of it
-#define EVENT_TASK				1<<6	//events that are not in rotation that involve the crew working towards a common goal
-#define EVENT_ROUNDSTART		1<<7	//events that can happen ONLY at round start
-#define EVENT_HIDDEN			1<<8	//secret events :^)
+#define EVENT_STANDARD			1<<0	//standard events
+#define EVENT_SPECIAL			1<<1	//holidays and events not in rotation
+#define EVENT_TASK				1<<2	//events that are not in rotation that involve the crew working towards a common goal
+#define EVENT_ROUNDSTART		1<<3	//events that can happen ONLY at round start
+#define EVENT_HIDDEN			1<<4	//secret events :^)

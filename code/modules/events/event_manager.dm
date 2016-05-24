@@ -38,12 +38,13 @@ var/datum/controller/event/events
 			continue				//don't want this one! leave it for the garbage collector
 		all_events += E				//add it to the list of all events
 
-/datum/controller/event/proc/spawn_orphan_event(var/event_type)
+/datum/controller/event/proc/spawn_orphan_event(var/event_type,var/false_alarm = 0)
 	var/datum/round_event/E
 	if(istype(event_type,/datum/round_event))
 		E = event_type
 	else
 		E = new event_type
+	E.false_alarm = false_alarm
 	E.PreSetup()
 	return E
 

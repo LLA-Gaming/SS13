@@ -1,7 +1,9 @@
 ///variations of the cycler event.
 
-/datum/event_cycler/rotation
-	in_rotation = 1
+/datum/event_cycler/main
+	endless = 1
+	events_allowed = EVENT_STANDARD
+
 /datum/event_cycler/endless
 	endless = 1
 /datum/event_cycler/admin_playlist
@@ -9,7 +11,6 @@
 	prevent_stories = 1
 	alerts = 0
 	remove_after_fire = 1
-	branching = 0
 	shuffle = 0
 	endless = 1
 	events_allowed = null
@@ -58,46 +59,30 @@
 
 ///The cycler code itself.
 /datum/event_cycler/
-	var/events_allowed = EVENT_MINOR
+	var/events_allowed = EVENT_STANDARD
 	var/stress_level = 1
 	var/schedule = 0
 	var/npc_name = "Centcomm Officer Tom"
 	var/frequency_lower = 3000	//5 minutes lower bound.
 	var/frequency_upper = 6600	//11 minutes upper bound.
-	var/in_rotation = 0			//this cycler makes another cycler when it's lifetime is 0 or less
 	var/endless = 0				//doesn't check lifetime
 	var/lifetime = 1			//how many events this cycler can fire until it retires (in_rotation must be 1)
 	var/list/playlist = list()  //For custom, admin created cyclers. if any events are in this playlist the events allowed, stress level, and in_rotation are ignored
 	var/remove_after_fire = 1	//For custom, admin created cyclers. if the event is removed after being fired
 	var/prevent_stories = 0	    //For when an admin wants to make 600 gravitational anomalies without spamming the round story
 	var/alerts = 1				//For when an admin doesn't want the events to send alerts
-	var/branching = 1			//prevent an event from branching
 	var/shuffle = 1				//if a cycler with a playlist fires in order or shuffles
 	var/paused = 0				//When a cycler is paused.
 	var/delete_warning = 0		//If the event scheduler cant fire a event in 2 tries it ends itself.
 	var/max_children = -1		//0 and above are how many active events are allowed at the same time (used with task events)
 	var/hideme
 
-	New(var/schedule_arg, var/prefix, var/suffix, var/stress_arg) //argument: schedule_arg: how long in deciseconds for the initial fire of this cycler
+	New(var/schedule_arg, var/prefix, var/suffix) //argument: schedule_arg: how long in deciseconds for the initial fire of this cycler
 		..()										//prefix and suffix determine the npc_name of the cycler. stress_arg is for rotation events to decide the stress
-		stress_level = stress_arg
-		if(in_rotation)
-			switch(stress_level)
-				if(1)
-					events_allowed = EVENT_MINOR
-					lifetime = rand(1,2)
-					prefix = "CentComm Officer"
-				if(2)
-					events_allowed = EVENT_MAJOR
-					lifetime = rand(1,3)
-					prefix = "CentComm Lieutenant"
-				if(3)
-					events_allowed = EVENT_ENDGAME
-					lifetime = rand(1,2)
-					prefix = "CentComm Commander"
-			//setup the fluff name of the event cycler
-			if(!suffix)
-				suffix = pick(last_names)
+		if(!prefix)
+			prefix = "CentComm Officer"
+		if(!suffix)
+			suffix = pick(last_names)
 		if(prefix && suffix)
 			npc_name = "[prefix] [suffix]"
 		else if (prefix && !suffix)
@@ -113,24 +98,12 @@
 			qdel(src)
 
 	proc/process()
-		if(!events_allowed && !playlist.len && !in_rotation && !paused && !istype(src,/datum/event_cycler/admin_playlist))
+		if(!events_allowed && !playlist.len && !paused && !istype(src,/datum/event_cycler/admin_playlist))
 			qdel(src)
 			return
 		if(paused) return
 		if(!endless)
-			if(lifetime <= 0) //It's time to move on and replace itself
-				if(in_rotation)
-					var/stress = 1
-					switch(stress_level)
-						if(1)
-							stress = 2
-						if(2)
-							stress = 3
-						else
-							stress = 1
-					var/datum/event_cycler/E = new /datum/event_cycler/rotation(rand(frequency_lower,frequency_upper),null,null,stress)
-					E.frequency_lower = frequency_lower
-					E.frequency_upper = frequency_upper
+			if(lifetime <= 0) //It's time to move on
 				qdel(src)
 				return
 		if(schedule <= world.time)
@@ -143,7 +116,7 @@
 				if(event.cycler == src)
 					children_count++
 			if(max_children < 0 || children_count < max_children)
-				if(playerC || !in_rotation)
+				if(playerC)
 					pickevent()
 				schedule = world.time + rand(frequency_lower,frequency_upper)
 			else //too many children, reschedule quicker

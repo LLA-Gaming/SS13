@@ -5,10 +5,9 @@
 	var/holidayID
 	var/event_flags
 	var/max_occurrences = -1		//how many times this event is allowed to fire before before, -1 for infinite
-	var/earliest_start = 0		//when in world.time can this event be considered
+	var/earliest_start = 12000		//when in world.time can this event be considered
 	var/weight = 10				//how much weight this event has to spawn. the higher the more of a chance it has
 	var/occurrences				//how many times this event has already been fired
-	var/accuracy = 100			//the lower this is the more of a chance of the event being a "false alarm"
 	var/needs_ghosts = 0		//if non-zero the event needs ghosts to even be considered.
 	var/candidate_flag = null
 	var/candidate_afk_bracket = 3000
@@ -18,20 +17,17 @@
 	proc/RunEvent(var/datum/event_cycler/came_from)
 		if(!ispath(typepath,/datum/round_event))
 			return PROCESS_KILL
-		var/from_rotation = 0
 		var/datum/round_event/E = new typepath
 		events.last_event = typepath
 		if(came_from)
 			came_from.lifetime--
-			from_rotation = came_from.in_rotation
 			E.cycler = came_from
 			E.prevent_stories = came_from.prevent_stories
 			E.sends_alerts = came_from.alerts
-			E.branching_allowed = came_from.branching
 			occurrences++
 		E.control = src
 		E.PreSetup(src,came_from)
-		if(E && (E.sends_alerts && !istype(E,/datum/round_event/task)) || from_rotation)
+		if(E && (E.sends_alerts && !istype(E,/datum/round_event/task)))
 			if(!E.false_alarm)
 				log_game("EVENTS: [src] was fired")
 				events.events_log.Add("[worldtime2text()] - [src]")
@@ -53,7 +49,6 @@
 	var/endless = 0 //if the event never ends unless told to. you don't need to touch this variable
 	var/prevent_stories = 0
 	var/sends_alerts = 1
-	var/branching_allowed = 1
 
 	New()
 		..()
@@ -68,10 +63,6 @@
 		if(!special_npc_name && came_from)
 			special_npc_name = came_from.npc_name
 		events.active_events.Add(src)
-		if(control && !(prob(C.accuracy)))
-			message_admins("False Alarm: [C.name]")
-			false_alarm = 1
-			came_from.schedule = came_from.frequency_lower
 		//candidates
 		if(control && control.candidate_flag)
 			candidates = get_candidates_event(control.candidate_flag, control.candidate_afk_bracket)

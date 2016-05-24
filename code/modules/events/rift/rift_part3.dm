@@ -110,7 +110,6 @@
 				failed = 0
 				AbruptEnd()
 			if(world.time >= nextwave_when)
-				events.spawn_orphan_event(/datum/round_event/minor_meteorwave/{sends_alerts=0})
 				nextwave_when = world.time + rand(300,1200)
 				var/spawncount = rand(7,14)
 				for(var/i=0, i<=spawncount, i++)
@@ -152,14 +151,9 @@
 	OnPass()
 		emergency_shuttle.recall()
 		emergency_shuttle.prevent_recall = 0
-		for(var/datum/event_cycler/rotation/R in events.event_cyclers)
-			R.paused = 1
-			R.hideme = 1
-		//pauses all rotation event cyclers and sets up the end game cycler
-		var/datum/event_cycler/endless/new_cycler = new /datum/event_cycler/endless/(6600, "Central", "Command")
-		new_cycler.events_allowed = EVENT_MAJOR | EVENT_ENDGAME
-		new_cycler.frequency_lower = 1800
-		new_cycler.frequency_lower = 4800
+		for(var/datum/event_cycler/main/R in events.event_cyclers)
+			R.frequency_lower = 1800
+			R.frequency_lower = 4800
 		priority_announce("We're not sure how... But you survived that crew. Enjoy the rest of your shift. We have included a complimentary gift on your next supply order","We're Sorry", 'sound/AI/shuttlerecalled.ogg')
 
 		for(var/mob/living/L in mobs_holder)
