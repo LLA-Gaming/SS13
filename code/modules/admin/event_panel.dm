@@ -29,7 +29,7 @@
 	cyclers.Insert(1,main)
 	for(var/datum/event_cycler/C in cyclers)
 		if(C.hideme) continue
-		if(C.in_rotation)
+		if(C == main) continue
 		dat += "<tr><td valign='top'>"
 		dat += "<h3>[C.npc_name] <a href='?_src_=holder;event_panel=1;rename_cycler=\ref[C]'>Rename</a> [istype(C,/datum/event_cycler/admin_playlist) ? "<a href='?_src_=holder;event_panel=1;remove_cycler=\ref[C]'>X</a>" : ""]</h3>"
 		dat += "<div class='statusDisplay'>"
