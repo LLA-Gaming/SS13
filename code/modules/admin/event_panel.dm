@@ -17,9 +17,10 @@
 	var/datum/event_cycler/main
 	var/list/custom = list()
 	var/list/cyclers = list()
-	for(var/datum/event_cycler/main/C in events.event_cyclers)
-		main = C
-		if (istype(C,/datum/event_cycler/admin_playlist))
+	for(var/datum/event_cycler/C in events.event_cyclers)
+		if(istype(C,/datum/event_cycler/main))
+			main = C
+		else if (istype(C,/datum/event_cycler/admin_playlist))
 			custom.Add(C)
 		else
 			cyclers.Add(C)
@@ -27,8 +28,8 @@
 		cyclers.Insert(1,C)
 	cyclers.Insert(1,main)
 	for(var/datum/event_cycler/C in cyclers)
-		if(C == main) continue
 		if(C.hideme) continue
+		if(C.in_rotation)
 		dat += "<tr><td valign='top'>"
 		dat += "<h3>[C.npc_name] <a href='?_src_=holder;event_panel=1;rename_cycler=\ref[C]'>Rename</a> [istype(C,/datum/event_cycler/admin_playlist) ? "<a href='?_src_=holder;event_panel=1;remove_cycler=\ref[C]'>X</a>" : ""]</h3>"
 		dat += "<div class='statusDisplay'>"
