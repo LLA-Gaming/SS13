@@ -149,6 +149,9 @@
 	var/getipintel_email = ""
 	var/getipintel_limit = 1
 
+	//lighting
+	var/instant_lighting
+
 /datum/configuration/New()
 	var/list/L = typesof(/datum/game_mode) - /datum/game_mode
 	for(var/T in L)
@@ -310,6 +313,8 @@
 					getipintel_email = value
 				if("getipintellimit")
 					getipintel_limit = text2num(value)
+				if("instant_lighting")
+					instant_lighting = 1
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 

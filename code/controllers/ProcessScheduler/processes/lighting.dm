@@ -11,6 +11,8 @@
 /datum/controller/process/lighting/setup()
 	name = "lighting"
 	schedule_interval = LIGHTING_INTERVAL
+	if(config && config.instant_lighting)
+		schedule_interval = 1 //instant lighting
 
 	create_all_lighting_corners()
 	create_all_lighting_overlays()
