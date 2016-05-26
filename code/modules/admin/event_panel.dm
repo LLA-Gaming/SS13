@@ -63,7 +63,7 @@
 						if(R.type == E.typepath)
 							already_active = 1
 					if(!already_active)
-						dat += "[TAB][E]<br>"
+						dat += "[TAB][E]: [E.weight]<br>"
 		if(istype(C,/datum/event_cycler/admin_playlist))
 			dat += "[TAB]<a href='?_src_=holder;event_panel=1;add_event=\ref[C]'>Add</a><br>"
 		dat += "</div>"
