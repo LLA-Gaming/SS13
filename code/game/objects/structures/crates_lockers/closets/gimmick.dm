@@ -47,22 +47,6 @@
 	new /obj/item/clothing/under/soviet(src)
 	new /obj/item/clothing/under/soviet(src)
 	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/head/beret (src)
-	new /obj/item/clothing/head/beret (src)
-	new /obj/item/clothing/head/beret (src)
-	new /obj/item/clothing/head/beret (src)
-	new /obj/item/clothing/head/beret (src)
-	new /obj/item/clothing/head/beret (src)
-	new /obj/item/clothing/head/bearpelt (src)
-	new /obj/item/clothing/head/bearpelt (src)
-	new /obj/item/clothing/head/bearpelt (src)
-	new /obj/item/clothing/head/bearpelt (src)
-	new /obj/item/clothing/head/bearpelt (src)
-	new /obj/item/clothing/shoes/steeltoe (src)
-	new /obj/item/clothing/shoes/steeltoe (src)
-	new /obj/item/clothing/shoes/steeltoe (src)
-	new /obj/item/clothing/shoes/steeltoe (src)
-	new /obj/item/clothing/shoes/steeltoe (src)
 
 
 /obj/structure/closet/gimmick/tacticool
