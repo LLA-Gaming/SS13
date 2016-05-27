@@ -1148,6 +1148,73 @@ window "ICtab"
 		max-lines = 1000
 		image = ""
 
+window "Mentortab"
+	elem "Mentortab"
+		type = MAIN
+		pos = 281,0
+		size = 638x494
+		anchor1 = none
+		anchor2 = none
+		font-family = ""
+		font-size = 0
+		font-style = ""
+		text-color = #000000
+		background-color = none
+		is-visible = true
+		is-disabled = false
+		is-transparent = false
+		is-default = false
+		border = none
+		drop-zone = false
+		right-click = false
+		saved-params = "pos;size;is-minimized;is-maximized"
+		on-size = ""
+		title = "Mentorhelp"
+		titlebar = false
+		statusbar = false
+		can-close = false
+		can-minimize = false
+		can-resize = false
+		is-pane = true
+		is-minimized = false
+		is-maximized = false
+		can-scroll = none
+		icon = ""
+		image = ""
+		image-mode = stretch
+		keep-aspect = false
+		transparent-color = none
+		alpha = 255
+		macro = ""
+		menu = ""
+		on-close = ""
+	elem "mhelp"
+		type = OUTPUT
+		pos = 0,0
+		size = 638x494
+		anchor1 = 0,0
+		anchor2 = 100,100
+		font-family = ""
+		font-size = 0
+		font-style = ""
+		text-color = #000000
+		background-color = #ffffff
+		is-visible = true
+		is-disabled = false
+		is-transparent = false
+		is-default = false
+		border = none
+		drop-zone = false
+		right-click = false
+		saved-params = "max-lines"
+		on-size = ""
+		link-color = #0000ff
+		visited-color = #ff00ff
+		style = "body\t\t\t\t\t{font-family: Verdana, sans-serif;}\n\nh1, h2, h3, h4, h5, h6\t{color: #0000ff;\tfont-family: Georgia, Verdana, sans-serif;}\n\nem\t\t\t\t\t\t{font-style: normal;\tfont-weight: bold;}\n\n.motd\t\t\t\t\t{color: #638500;\tfont-family: Verdana, sans-serif;}\n.motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6\n\t{color: #638500;\ttext-decoration: underline;}\n.motd a, .motd a:link, .motd a:visited, .motd a:active, .motd a:hover\n\t{color: #638500;}\n\n.prefix\t\t\t\t\t{\t\t\t\t\tfont-weight: bold;}\n\n.ooc\t\t\t\t\t{color: #002eb8;\tfont-weight: bold;}\n.adminobserverooc\t\t{color: #0099cc;\tfont-weight: bold;}\n.adminooc\t\t\t\t{color: #b82e00;\tfont-weight: bold;}\n\n.adminobserver\t\t\t{color: #996600;\tfont-weight: bold;}\n.admin\t\t\t\t\t{color: #386aff;\tfont-weight: bold;}\n\n.name\t\t\t\t\t{\t\t\t\t\tfont-weight: bold;}\n\n.say\t\t\t\t\t{}\n.deadsay\t\t\t\t{color: #5c00e6;}\n.radio\t\t\t\t\t{color: #008000;}\n.deptradio\t\t\t\t{color: #993399;}\n.comradio\t\t\t\t{color: #989428;}\n.syndradio\t\t\t\t{color: #6D3F40;}\n\n.alert\t\t\t\t\t{color: #ff0000;}\nh1.alert, h2.alert\t\t{color: #000000;}\n\n.emote\t\t\t\t\t{\t\t\t\t\tfont-style: italic;}\n.selecteddna\t\t\t{color: #FFFFFF; \tbackground-color: #001B1B}\n\n.attack\t\t\t\t\t{color: #ff0000;}\n.moderate\t\t\t\t{color: #CC0000;}\n.disarm\t\t\t\t\t{color: #990000;}\n.passive\t\t\t\t{color: #660000;}\n\n.danger\t\t\t\t\t{color: #ff0000;\tfont-weight: bold;}\n.warning\t\t\t\t{color: #ff0000;\tfont-style: italic;}\n.rose\t\t\t\t\t{color: #ff5050;}\n.info\t\t\t\t\t{color: #0000CC;}\n.notice\t\t\t\t\t{color: #000099;}\n\n.alien\t\t\t\t\t{color: #543354;}\n.newscaster\t\t\t\t{color: #800000;}"
+		enable-http-images = false
+		max-lines = 1000
+		image = ""
+
 window "OOCtab"
 	elem "OOCtab"
 		type = MAIN
@@ -2074,7 +2141,7 @@ window "outputwindow"
 		right-click = false
 		saved-params = ""
 		on-size = ""
-		tabs = "ALLtab,ICtab,OOCtab,ASAYtab,AHELPtab"
+		tabs = "ALLtab,ICtab,OOCtab,ASAYtab,AHELPtab,Mentortab"
 		current-tab = "ALLtab"
 		multi-line = true
 		on-tab = ""
