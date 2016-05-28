@@ -36,19 +36,6 @@
 		else
 			OnPass()
 
-	OnPass()
-		if (branching_allowed)
-			var/datum/event_cycler/E = new /datum/event_cycler/(rand(9000,18000), "Central Command")
-			E.events_allowed = EVENT_REWARD
-			E.lifetime = 1
-
 	OnFail()
 		priority_announce("The Singularity Engine is not fully set up. As a result, the station may experience a blackout soon if the issue is not resolved. Usage of the P.A.C.M.A.N. Generator is highly recommended at this point of setup.", "Imminent Blackout Warning")
-		if (branching_allowed)
-			var/datum/event_cycler/E = new /datum/event_cycler/(rand(9000,18000), "Central Command")
-			E.events_allowed = EVENT_CONSEQUENCE
-			E.lifetime = 1
-
-
-
 

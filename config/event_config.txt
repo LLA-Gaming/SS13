@@ -1,0 +1,10 @@
+#############################################################################
+# the format is "event - value"						    #
+# event is the typepath MINUS /datum/round_event_control/		    #
+# /datum/round_event_control/alien_infestation becomes alien_infestation    #
+# /datum/round_event_control/meteor_wave/dust become meteor_wave/dust	    #
+#									    #
+# examples:								    #
+# meteor_wave/dust - 300						    #
+# false_alarm - 9							    #
+#############################################################################
