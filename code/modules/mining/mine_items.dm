@@ -76,6 +76,14 @@
 	sharpness = 2
 	bleedprob = 35
 
+	safety
+		name = "safety pickaxe"
+		desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon."
+		attack_verb = list("ineffectively hit")
+		bleedprob = 0
+		force = 1
+		throwforce = 1
+
 	hammer
 		name = "sledgehammer"
 		//icon_state = "sledgehammer" Waiting on sprite
@@ -162,6 +170,13 @@
 	m_amt = 50
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
+
+/obj/item/weapon/shovel/safety
+	name = "safety shovel"
+	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon."
+	attack_verb = list("ineffectively hit")
+	force = 1
+	throwforce = 1
 
 /obj/item/weapon/shovel/spade
 	name = "spade"
