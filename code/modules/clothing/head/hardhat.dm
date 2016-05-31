@@ -18,21 +18,8 @@
 		icon_state = "hardhat[on]_[item_color]"
 		item_state = "hardhat[on]_[item_color]"
 
-		if(on)	user.AddLuminosity(brightness_on)
-		else	user.AddLuminosity(-brightness_on)
-
-	pickup(mob/user)
-		if(on)
-			user.AddLuminosity(brightness_on)
-//			user.UpdateLuminosity()	//TODO: Carn
-			SetLuminosity(0)
-
-	dropped(mob/user)
-		if(on)
-			user.AddLuminosity(-brightness_on)
-//			user.UpdateLuminosity()
-			SetLuminosity(brightness_on)
-
+		if(on)	set_light(brightness_on)
+		else	set_light(-brightness_on)
 
 /obj/item/clothing/head/hardhat/orange
 	icon_state = "hardhat0_orange"

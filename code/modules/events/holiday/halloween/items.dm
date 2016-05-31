@@ -40,34 +40,13 @@
 	update_icon()
 		icon_state = "[initial(icon_state)]_[contents.len > 0]_[lit]"
 		if(lit)
-			if(istype(src.loc, /mob/living))
-				var/mob/living/L = src.loc
-				L.AddLuminosity(brightness)
-			else if(isturf(loc))
-				SetLuminosity(brightness)
+			set_light(brightness)
 		else
-			if(istype(src.loc, /mob/living))
-				var/mob/living/L = src.loc
-				L.AddLuminosity(-brightness)
-			else if(isturf(loc))
-				SetLuminosity(0)
+			set_light(0)
 
 	attack_self()
 		lit = !lit
 		update_icon()
-
-	pickup(mob/user)
-		if(lit)
-			user.AddLuminosity(brightness)
-			SetLuminosity(brightness)
-
-
-	dropped(mob/user)
-		if(lit)
-			user.AddLuminosity(-brightness)
-			SetLuminosity(brightness)
-		else
-			SetLuminosity(0)
 
 /*
 * Stink Bomb Reagent
@@ -152,7 +131,7 @@
 
 	New()
 		..()
-		SetLuminosity(4)
+		set_light(4)
 
 	// List of type paths that are excluded when grabbing into the cauldron.
 	var/list/excluding = list(/obj/item/weapon/reagent_containers/food/snacks/halloween_candy,			\

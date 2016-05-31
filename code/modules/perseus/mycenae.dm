@@ -7,7 +7,7 @@
 /area/security/perseus/mycenaeiii
 	name = "Perseus Ship: The Mycenae"
 	icon_state = "perseus"
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	requires_power = 0
 	has_gravity = 1
 	power_equip = 1
@@ -181,7 +181,7 @@
 /area/security/perseus/mycenae_centcom
 	name = "Mycenae Centcom Position"
 	icon_state = "perseus_centcom"
-	lighting_use_dynamic = 0
+	dynamic_lighting = 0
 	requires_power = 0
 	has_gravity = 1
 

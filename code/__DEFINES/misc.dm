@@ -38,3 +38,10 @@
 #define EVENT_TASK				1<<2	//events that are not in rotation that involve the crew working towards a common goal
 #define EVENT_ROUNDSTART		1<<3	//events that can happen ONLY at round start
 #define EVENT_HIDDEN			1<<4	//secret events :^)
+
+#define FOR_DVIEW(type, range, center, invis_flags) \
+	dview_mob.loc = center; \
+	dview_mob.see_invisible = invis_flags; \
+	for(type in view(range, dview_mob))
+
+

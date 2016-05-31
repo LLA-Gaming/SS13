@@ -122,7 +122,7 @@
 	hue = ""
 
 /datum/spacevine_mutation/transparency/on_grow(obj/effect/spacevine/holder)
-	holder.SetOpacity(0)
+	holder.set_opacity(0)
 	holder.alpha = 125
 
 /datum/spacevine_mutation/oxy_eater
@@ -225,9 +225,6 @@
 				var/obj/item/seeds/kudzuseed/KZ = new(loc)
 				KZ.mutations |= mutations
 		mutations = list()
-		var/turf/T = get_turf(src)
-		if(T.lighting_lumcount)
-			T.UpdateAffectingLights()
 		..()
 
 /obj/effect/spacevine/proc/on_chem_effect(datum/reagent/R)
@@ -432,7 +429,7 @@
 	if(!energy)
 		src.icon_state = pick("Med1", "Med2", "Med3")
 		energy = 1
-		SetOpacity(1)
+		set_opacity(1)
 		layer = 5
 	else
 		src.icon_state = pick("Hvy1", "Hvy2", "Hvy3")

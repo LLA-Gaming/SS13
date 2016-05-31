@@ -211,13 +211,13 @@
 
 	do_animate("opening")
 	icon_state = "door0"
-	src.SetOpacity(0)
+	src.set_opacity(0)
 	sleep(10)
 	src.layer = 2.7
 	src.density = 0
 	explosion_resistance = 0
 	update_icon()
-	SetOpacity(0)
+	set_opacity(0)
 	air_update_turf(1)
 	update_freelook_sight()
 
@@ -238,7 +238,7 @@
 	sleep(10)
 	update_icon()
 	if(visible && !glass)
-		SetOpacity(1)	//caaaaarn!
+		set_opacity(1)	//caaaaarn!
 	operating = 0
 	air_update_turf(1)
 	update_freelook_sight()

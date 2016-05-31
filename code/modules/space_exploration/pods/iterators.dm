@@ -76,8 +76,8 @@
 			pod.inertial_drift_iterator.delay = initial(pod.inertial_drift_iterator.delay)
 
 		if(pod.toggles & P_TOGGLE_LIGHTS)
-			pod.SetLuminosity(pod.lumens)
+			pod.set_light(pod.lumens)
 		else
-			pod.SetLuminosity(0)
+			pod.set_light(0)
 
 // The pod damage iterator is in damage.dm

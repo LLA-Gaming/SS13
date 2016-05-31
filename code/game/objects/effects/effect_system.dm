@@ -928,9 +928,6 @@ steam.start() -- spawns the effect
 
 		density = 0
 		air_update_turf(1)
-		var/turf/T = get_turf(src)
-		if(T.lighting_lumcount)
-			T.UpdateAffectingLights()
 		..()
 
 	Move()

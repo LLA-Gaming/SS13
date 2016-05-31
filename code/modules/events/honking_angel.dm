@@ -32,7 +32,7 @@
 		var/list/possible_floors = list()
 		spawncount = pick(1,1,1,2,2,3)
 		for(var/turf/simulated/floor/temp_floor in world)
-			if(temp_floor.z == 1 && !temp_floor.lighting_lumcount >= 0.50)
+			if(temp_floor.z == 1 && !temp_floor.get_lumcount() * 10 >= 0.50)
 				possible_floors += temp_floor
 
 	//
