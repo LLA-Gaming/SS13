@@ -66,6 +66,8 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 	damage_type = BURN
 	flag = "energy"
 
+	light_color = "#66CCCC"
+
 	on_hit(var/atom/target, var/blocked = 0)
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
@@ -113,6 +115,8 @@ var/const/SKNIFE_LETHAL_USE_CHARGE = 0
 	flag = "energy"
 
 	bump_at_ttile = 1
+
+	light_color = "#66CCCC"
 
 	on_hit(var/atom/target, var/blocked = 0)
 		for(var/turf/T in range(1, target))

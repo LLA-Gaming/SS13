@@ -1,36 +1,48 @@
+/var/list/lighting_update_lights    = list()    // List of lighting sources  queued for update.
+/var/list/lighting_update_corners   = list()    // List of lighting corners  queued for update.
+/var/list/lighting_update_overlays  = list()    // List of lighting overlays queued for update.
+
 /datum/controller/process/lighting/setup()
 	name = "lighting"
-	schedule_interval = 5 // every .5 second
-	lighting_controller.Initialize()
+	schedule_interval = LIGHTING_INTERVAL
+	if(config && config.instant_lighting)
+		schedule_interval = 1 //instant lighting
+
+	create_all_lighting_corners()
+	create_all_lighting_overlays()
 
 /datum/controller/process/lighting/doWork()
-	lighting_controller.lights_workload_max = \
-		max(lighting_controller.lights_workload_max, lighting_controller.lights.len)
-	var/i = 1
-	while(i<=lighting_controller.lights.len)
-		var/datum/light_source/L = lighting_controller.lights[i]
-		if(L)
-			if(L.check())
-				lighting_controller.lights.Remove(L)
 
-			scheck()
-			i++
-			continue
-		lighting_controller.lights.Cut(i,i+1)
+	var/list/lighting_update_lights_old = lighting_update_lights //We use a different list so any additions to the update lists during a delay from scheck() don't cause things to be cut from the list without being updated.
+	lighting_update_lights = list()
+	for(var/datum/light_source/L in lighting_update_lights_old)
+		if(L.check() || L.destroyed || L.force_update)
+			L.remove_lum()
+			if(!L.destroyed)
+				L.apply_lum()
 
-	lighting_controller.changed_turfs_workload_max = \
-		max(lighting_controller.changed_turfs_workload_max, lighting_controller.changed_turfs.len)
-	i = 1
-	while(i<=lighting_controller.changed_turfs.len)
-		var/turf/T = lighting_controller.changed_turfs[i]
-		if(T)
-			if(T.lighting_changed)
-				T.shift_to_subarea()
+		else if(L.vis_update)	//We smartly update only tiles that became (in) visible to use.
+			L.smart_vis_update()
 
-			scheck()
-			i++
-			continue
-		lighting_controller.changed_turfs.Cut(i,i+1)
+		L.vis_update   = FALSE
+		L.force_update = FALSE
+		L.needs_update = FALSE
 
-	if(lighting_controller.changed_turfs && lighting_controller.changed_turfs.len)
-		lighting_controller.changed_turfs.Cut() // reset the changed list
+		scheck()
+
+	var/list/lighting_update_corners_old = lighting_update_corners //Same as above.
+	lighting_update_corners = list()
+	for(var/A in lighting_update_corners_old)
+		var/datum/lighting_corner/C = A
+
+		C.update_overlays()
+
+		C.needs_update = FALSE
+
+	var/list/lighting_update_overlays_old = lighting_update_overlays //Same as above.
+	lighting_update_overlays = list()
+
+	for(var/atom/movable/lighting_overlay/O in lighting_update_overlays_old)
+		O.update_overlay()
+		O.needs_update = 0
+		scheck()

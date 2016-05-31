@@ -9,3 +9,5 @@
 #define T0C						273.15	// 0degC
 #define T20C					293.15	// 20degC
 #define TCMB					2.7		// -270.3degC
+
+#define CLAMP01(x) 		(Clamp(x, 0, 1))

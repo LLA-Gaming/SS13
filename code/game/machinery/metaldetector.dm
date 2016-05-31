@@ -154,11 +154,11 @@
 	if ( powered() )
 		stat &= ~NOPOWER
 		icon_state = "[base_state]1"
-//		src.sd_SetLuminosity(2)
+//		src.sd_set_light(2)
 	else
 		stat |= ~NOPOWER
 		icon_state = "[base_state]1"
-//		src.sd_SetLuminosity(0)
+//		src.sd_set_light(0)
 
 /obj/machinery/detector/attackby(obj/item/W, mob/user)
 	if(..(W, user) == 1)

@@ -2315,10 +2315,6 @@
 			var/datum/event_cycler/C = locate(href_list["alerts"])
 			if(istype(C))
 				C.alerts = !C.alerts
-		if(href_list["branching"])
-			var/datum/event_cycler/C = locate(href_list["branching"])
-			if(istype(C))
-				C.branching = !C.branching
 		if(href_list["remove_after_fire"])
 			var/datum/event_cycler/C = locate(href_list["remove_after_fire"])
 			if(istype(C))

@@ -20,20 +20,8 @@
 //		item_state = "rig[on]-[item_color]"
 		user.update_inv_head()	//so our mob-overlays update
 
-		if(on)	user.AddLuminosity(brightness_on)
-		else	user.AddLuminosity(-brightness_on)
-
-	pickup(mob/user)
-		if(on)
-			user.AddLuminosity(brightness_on)
-//			user.UpdateLuminosity()
-			SetLuminosity(0)
-
-	dropped(mob/user)
-		if(on)
-			user.AddLuminosity(-brightness_on)
-//			user.UpdateLuminosity()
-			SetLuminosity(brightness_on)
+		if(on)	set_light(brightness_on)
+		else	set_light(0)
 
 /obj/item/clothing/suit/space/rig
 	name = "engineering hardsuit"

@@ -8,7 +8,7 @@
 /datum/controller/process/events/doWork()
 	//initial setup
 	if(!events.setup_events)
-		new /datum/event_cycler/rotation(6600,null,null,1) //Make the first cycler fire in 11 minutes.
+		new /datum/event_cycler/main(6600,null,null,1) //Make the first cycler fire in 11 minutes.
 		new /datum/event_cycler/roundstart(10,"Central","Command") //Make the round-start cycler fire a round start event
 		new /datum/event_cycler/holiday(3000,"???") //spawn holidays if they exist
 		events.spawn_orphan_event(/datum/round_event/engine_setup)	//spawn the engine setup "event"

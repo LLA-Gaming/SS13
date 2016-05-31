@@ -941,8 +941,8 @@
 	if(usr != occupant)	return
 
 	lights = !lights
-	if(lights)	AddLuminosity(lights_power)
-	else		AddLuminosity(-lights_power)
+	if(lights)	set_light(lights_power)
+	else		set_light(0)
 	src.occupant_message("Toggled lights [lights?"on":"off"].")
 	log_message("Toggled lights [lights?"on":"off"].")
 	return
