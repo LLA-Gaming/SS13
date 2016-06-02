@@ -10,6 +10,7 @@
 
 	create_all_lighting_corners()
 	create_all_lighting_overlays()
+	update_all_lighting_corners()
 
 /datum/controller/process/lighting/doWork()
 

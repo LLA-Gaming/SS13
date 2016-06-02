@@ -33,4 +33,9 @@
 			if (T.corners[i]) // Already have a corner on this direction.
 				continue
 
-			T.corners[i] = new/datum/lighting_corner(T, LIGHTING_CORNER_DIAGONAL[i])
+			T.corners[i] = new/datum/lighting_corner(T, LIGHTING_CORNER_DIAGONAL[i],0)
+
+
+/proc/update_all_lighting_corners()
+	for(var/C in all_lighting_corners)
+		C:update_active()
