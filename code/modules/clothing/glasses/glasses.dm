@@ -6,15 +6,6 @@
 	origin_tech = "magnets=2;engineering=2"
 	vision_flags = SEE_TURFS
 	invis_view = SEE_INVISIBLE_MINIMUM
-	action_button_name = "Toggle Brightness"
-
-	attack_self(var/mob/living/user)
-		if(invis_view == SEE_INVISIBLE_MINIMUM)
-			invis_view = 25
-		else if(invis_view == 25)
-			invis_view = SEE_INVISIBLE_MINIMUM
-
-		user << "<span class='info'>You will now see everything [invis_view == SEE_INVISIBLE_MINIMUM ? "lit" : "unlit"].</span>"
 
 /*
 /obj/item/clothing/glasses/meson/advanced

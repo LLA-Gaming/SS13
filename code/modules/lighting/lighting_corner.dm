@@ -21,7 +21,7 @@
 
 	var/needs_update = FALSE
 
-/datum/lighting_corner/New(var/turf/new_turf, var/diagonal)
+/datum/lighting_corner/New(var/turf/new_turf, var/diagonal, var/update=1)
 	. = ..()
 
 	all_lighting_corners += src
@@ -62,8 +62,9 @@
 		i            = LIGHTING_CORNER_DIAGONAL.Find(turn(masters[T], 180))
 		T.corners[i] = src
 
-	spawn() // Lighting overlays get initialized AFTER corners, so this spawn() will make sure the activity (which checks for overlays) is updated after the overlays are generated.
-		update_active()
+	if(update)
+		spawn() // Lighting overlays get initialized AFTER corners, so this spawn() will make sure the activity (which checks for overlays) is updated after the overlays are generated.
+			update_active()
 
 /datum/lighting_corner/proc/update_active()
 	active = FALSE
