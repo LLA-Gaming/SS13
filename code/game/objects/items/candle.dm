@@ -66,6 +66,7 @@
 		if(istype(src.loc, /mob))
 			var/mob/M = src.loc
 			M.unEquip(src, 1) //src is being deleted anyway
+		set_light(0)
 		qdel(src)
 	update_icon()
 	if(istype(loc, /turf)) //start a fire if possible
