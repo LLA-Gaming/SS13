@@ -40,7 +40,6 @@
 	var/mob/camera/aiEye/eyeobj = new()
 	var/sprint = 10
 	var/cooldown = 0
-	var/acceleration = 1
 
 
 // Intiliaze the eye by assigning it's "ai" variable to us. Then set it's loc to us.
@@ -68,22 +67,9 @@
 
 /client/proc/AIMove(n, direct, var/mob/living/silicon/ai/user)
 
-	var/initial = initial(user.sprint)
-	var/max_sprint = 50
-
-	if(user.cooldown && user.cooldown < world.timeofday) // 3 seconds
-		user.sprint = initial
-
-	for(var/i = 0; i < max(user.sprint, initial); i += 20)
-		var/turf/step = get_turf(get_step(user.eyeobj, direct))
-		if(step)
-			user.eyeobj.setLoc(step)
-
-	user.cooldown = world.timeofday + 5
-	if(user.acceleration)
-		user.sprint = min(user.sprint + 0.5, max_sprint)
-	else
-		user.sprint = initial
+	var/turf/step = get_turf(get_step(user.eyeobj, direct))
+	if(step)
+		user.eyeobj.setLoc(step)
 
 	user.cameraFollow = null
 
@@ -118,10 +104,3 @@
 		client.eye = src
 	for(var/datum/camerachunk/c in eyeobj.visibleCameraChunks)
 		c.remove(eyeobj)
-
-/mob/living/silicon/ai/verb/toggle_acceleration()
-	set category = "AI Commands"
-	set name = "Toggle Camera Acceleration"
-
-	acceleration = !acceleration
-	usr << "Camera acceleration has been toggled [acceleration ? "on" : "off"]."

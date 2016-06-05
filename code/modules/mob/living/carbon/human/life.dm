@@ -1243,18 +1243,19 @@
 					else					bodytemp.icon_state = "temp-4"
 
 //	This checks how much the mob's eyewear impairs their vision
-			if(blinded)
-				overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
-			else
-				clear_fullscreen("blind")
 			if(tinttotal >= TINT_IMPAIR)
 				if(tinted_weldhelh)
 					if(tinttotal >= TINT_BLIND)
 						blinded = 1								// You get the sudden urge to learn to play keyboard
+						clear_fullscreen("tint")
 					else
 						overlay_fullscreen("tint", /obj/screen/fullscreen/impaired, 2)
 			else
 				clear_fullscreen("tint")
+			if(blinded)
+				overlay_fullscreen("blind", /obj/screen/fullscreen/blind)
+			else
+				clear_fullscreen("blind")
 
 			if(eye_stat > 30) overlay_fullscreen("impaired", /obj/screen/fullscreen/impaired, 2)
 			else if(eye_stat > 20) overlay_fullscreen("impaired", /obj/screen/fullscreen/impaired, 1)
