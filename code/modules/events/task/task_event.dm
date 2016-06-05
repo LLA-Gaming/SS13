@@ -5,6 +5,7 @@
 	//typepath = /datum/round_event/task
 	event_flags = EVENT_TASK | EVENT_HIDDEN
 	weight = 10
+	earliest_start = 0
 	var/requires_delivery = 1 //for the most part this will be 1, requires something to be sent through cargo
 	var/task_level = 1
 

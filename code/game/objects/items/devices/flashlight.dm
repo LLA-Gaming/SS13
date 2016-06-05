@@ -112,7 +112,7 @@
 	m_amt = 0
 	g_amt = 0
 	on = 1
-	light_color = "#FFC58F"
+	//light_color = "#FFC58F"
 
 
 // green-shaded desk lamp

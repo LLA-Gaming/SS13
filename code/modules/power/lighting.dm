@@ -202,7 +202,7 @@
 	power_channel = LIGHT //Lights are calc'd via area so they dont need to be in the machine list
 	var/on = 0					// 1 if on, 0 if off
 	var/on_gs = 0
-	var/brightness_range = 8			// luminosity when on, also used in power calculation
+	var/brightness_range = 9			// luminosity when on, also used in power calculation
 	var/brightness_power = 1
 	var/brightness_color = null
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
@@ -247,12 +247,12 @@
 	spawn(2)
 		switch(fitting)
 			if("tube")
-				brightness_range = 8
+				brightness_range = 9
 				brightness_power = 1
 				if(prob(2))
 					broken(1)
 			if("bulb")
-				brightness_range = 3
+				brightness_range = 4
 				brightness_power = 1
 				if(prob(5))
 					broken(1)

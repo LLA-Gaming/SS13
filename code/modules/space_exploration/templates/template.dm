@@ -50,7 +50,8 @@ var/datum/template_controller/template_controller
 
 				var/breakout = 0
 				for(var/turf/T in turfs)
-					if(!(istype(T, /turf/space)))
+					var/area/turf_area = get_area(T)
+					if(!(istype(T, /turf/space)) || (findtext(turf_area.name, "Space") == 0))
 						breakout = 1
 						break
 
