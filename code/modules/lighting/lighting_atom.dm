@@ -59,6 +59,9 @@
 
 // If we have opacity, make sure to tell (potentially) affected light sources.
 /atom/movable/Destroy()
+	if(light)
+		light.destroy()
+		light = null
 	var/turf/T = loc
 	if(opacity && istype(T))
 		T.reconsider_lights()

@@ -653,12 +653,12 @@ var/list/admin_verbs_hideable = list(
 		//load text from file
 		var/list/Lines = file2list("config/admins.txt")
 		for(var/line in Lines)
-			var/list/splitline = splittext(line, " = ")
-			if(splitline[1] == ckey)
-				if(splitline.len >= 2)
-					rank = ckeyEx(splitline[2])
-				break
-			continue
+			var/next = findtext(line, " = ")
+			var/ckey_text = ckeyEx(copytext(line, 1, next))
+			if(ckey_text != ckey)
+				continue
+			rank = ckeyEx(copytext(line, next, 0))
+			break
 	else
 		if(!dbcon.IsConnected())
 			message_admins("Warning, mysql database is not connected.")
