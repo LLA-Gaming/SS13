@@ -148,7 +148,6 @@ var/next_external_rsc = 0
 
 
 	log_client_to_db()
-
 	send_resources()
 
 	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates.
@@ -203,6 +202,13 @@ var/list/bad_ips = list() //prevent users already checked by the system from spa
 
 	if(player_age == "--")
 		player_age = 0
+		if (isnum(player_age) && player_age == 0) //first connection
+			if (dbcon.IsConnected() && !config.new_players_allowed)
+				log_access("Failed Login: [key] - New account attempting to connect during disable new players")
+				message_admins("<span class='adminnotice'>Failed Login: [key] - New account attempting to connect during disable new players</span>")
+				src << "Sorry but the server is currently not accepting connections from never before seen players."
+				del(src)
+				return 0
 		var/danger
 		if(config.getipintel) // GetIpIntel's enabled
 			if(address in bad_ips) //prevent users already checked by the system from spamming the service (getipintel)

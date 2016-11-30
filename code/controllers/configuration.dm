@@ -148,6 +148,7 @@
 	var/getipintel = 0
 	var/getipintel_email = ""
 	var/getipintel_limit = 1
+	var/new_players_allowed = 1
 
 	//lighting
 	var/instant_lighting
