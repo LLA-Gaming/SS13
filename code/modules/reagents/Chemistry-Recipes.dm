@@ -442,10 +442,22 @@ silicate
 	category = EFFECT
 	result = null
 	required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
-	result_amount = null
+	result_amount = 1
 	secondary = 1
 /datum/chemical_reaction/chemsmoke/on_reaction(var/datum/reagents/holder, var/created_volume)
 	var/location = get_turf(holder.my_atom)
+	var/datum/effect/effect/system/tile_smoke_spread/S = new /datum/effect/effect/system/tile_smoke_spread
+	S.attach(location)
+	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
+	spawn(0)
+		if(S)
+			S.set_up(created_volume,location,holder)
+			S.start()
+		if(holder && holder.my_atom)
+			holder.clear_reagents()
+	return
+
+	/* Old chem_smoke
 	var/datum/effect/effect/system/chem_smoke_spread/S = new /datum/effect/effect/system/chem_smoke_spread
 	S.attach(location)
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
@@ -458,7 +470,7 @@ silicate
 		if(holder && holder.my_atom)
 			holder.clear_reagents()
 	return
-
+*/
 /datum/chemical_reaction/chloralhydrate
 	name = "Chloral Hydrate"
 	id = "chloralhydrate"
