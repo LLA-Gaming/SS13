@@ -109,12 +109,13 @@
 	icon_opened = "radiationopen"
 	icon_closed = "radiation"
 
-/obj/structure/closet/crate/secure/weapon
+/obj/structure/closet/crate/secure/weapon //These are used only for Armory/Virus supplypacks
 	desc = "A secure weapons crate."
 	name = "weapons crate"
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "weaponcrate"
 	density = 1
+	health = 600 //4x e-gun, 3x lasgun, 10x Shotslug
 	icon_opened = "weaponcrateopen"
 	icon_closed = "weaponcrate"
 
@@ -168,7 +169,7 @@
 	var/emag = "securecrateemag"
 	broken = 0
 	locked = 1
-	health = 1000
+	health = 300 //2x E-gun, 1.5x Lasgun, 5x Shotgun Slug
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
