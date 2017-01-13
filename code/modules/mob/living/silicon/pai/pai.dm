@@ -59,7 +59,7 @@
 //		pda.name = pda.owner + " (" + pda.ownjob + ")"
 //		pda.toff = 1
 
-		follow_pai()
+		follow_pai(paicard)
 	..()
 
 /mob/living/silicon/pai/make_laws()
@@ -87,11 +87,13 @@
 		else
 			stat(null, text("Systems nonfunctional"))
 
+/*
 /mob/living/silicon/pai/check_eye(var/mob/user as mob)
 	if (!src.current)
 		return null
 	user.reset_view(src.current)
 	return 1
+*/
 
 /mob/living/silicon/pai/blob_act()
 	return 0
@@ -152,6 +154,7 @@
 
 ///mob/living/silicon/pai/attack_hand(mob/living/carbon/M as mob)
 
+/*
 /mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
 	usr:cameraFollow = null
 	if (!C)
@@ -166,14 +169,14 @@
 	src:current = C
 	src.reset_view(C)
 	return 1
+*/
 
-
+/*
 /mob/living/silicon/pai/cancel_camera()
 	set category = "pAI Commands"
 	set name = "Cancel Camera View"
-	src.reset_view(null)
-	src.unset_machine()
-	src:cameraFollow = null
+	follow_pai(card)
+*/
 
 /mob/living/silicon/pai/UnarmedAttack(var/atom/A)//Stops runtimes due to attack_animal being the default
 	return
